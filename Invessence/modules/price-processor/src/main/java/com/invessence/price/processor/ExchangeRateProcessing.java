@@ -35,7 +35,7 @@ public class ExchangeRateProcessing
    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
    SimpleDateFormat switchFormat = new SimpleDateFormat("yyyyMMdd");
 
-   public boolean process(String company, String mode, StringBuilder mailAlertMsg) throws SQLException
+   public boolean process(String company, String mode, StringBuilder mailFailureAlertMsg, StringBuilder mailWaringAlertMsg) throws SQLException
    {
       boolean bFlag = true;
       String URL = null;
@@ -52,8 +52,9 @@ public class ExchangeRateProcessing
          dbParamMap = dbParametersDao.getDBParametres();
          if (dbParamMap == null && dbParamMap.size() == 0)
          {
-            mailAlertMsg.append("ExchangeRateProcessing.process() DB parameters are not available \n");
-            logger.info("ExchangeRateProcessing.process() DB parameters are not available");
+            mailFailureAlertMsg.append("ExchangeRateProcessing.process() DB parameters are not available \n");
+            logger.error("ExchangeRateProcessing.process() DB parameters are not available");
+            bFlag = false;
          }
          else
          {
@@ -79,28 +80,38 @@ public class ExchangeRateProcessing
                      }
                      catch (Exception e)
                      {
-                        mailAlertMsg.append("ExchangeRateProcessing.process() Historical Error while API call historical " + e.getMessage() + " \n");
-                        logger.error("ExchangeRateProcessing.process() Historical Error while API call historical " + e.getMessage());
+                        mailFailureAlertMsg.append("Historical Error while API call for " + symLst.get(i).getSymbol() + " \n");
+                        logger.error("ExchangeRateProcessing.process() Historical Error while API call historical for " + symLst.get(i).getSymbol() + "-" + e.getMessage());
                         e.printStackTrace();
                      }
-                     try
+                     if (historicalExchangeData == null)
                      {
-                        if (historicalExchangeData != null)
+                        mailFailureAlertMsg.append("ExchangeRateProcessing.process() Historical  No Exchange data found for  " + symLst.get(i).getSymbol() + " \n");
+                        logger.error("ExchangeRateProcessing.process() Historical No Exchange data found for  " + symLst.get(i).getSymbol() + " \n");
+                     }
+                     else
+                     {
+                        try
                         {
                            secExchangeMaster.insertBatch(historicalExchangeData, symLst.get(i).getSymbol());
                         }
-                        else
+                        catch (Exception e)
                         {
-                           mailAlertMsg.append("ExchangeRateProcessing.process() Historical  No Exchange data found for  " + symLst.get(i).getSymbol() + " \n");
-                           logger.error("ExchangeRateProcessing.process() Historical No Exchange data found for  " + symLst.get(i).getSymbol() + " \n");
-                           bFlag = false;
+                           mailFailureAlertMsg.append("Historical Error while db insertion for " + symLst.get(i).getSymbol() + " \n");
+                           logger.error("ExchangeRateProcessing.process() Historical Error while db insertion for " + symLst.get(i).getSymbol() + "-" + e.getMessage());
+                           e.printStackTrace();
                         }
-                     }
-                     catch (Exception e)
-                     {
-                        mailAlertMsg.append("ExchangeRateProcessing.process() Historical Error while db insertion historical " + e.getMessage() + " \n");
-                        logger.error("ExchangeRateProcessing.process() Historical Error while db insertion historical" + e.getMessage());
-                        e.printStackTrace();
+                        try
+                        {
+                           secExchangeMaster.callHolidayProcedure(historicalExchangeData.get(historicalExchangeData.size() - 1).getDate(), exchangeDate, symLst.get(i).getSymbol());
+                          // mailWaringAlertMsg.append("Historical holiday data generated for " + symLst.get(i).getSymbol() + " \n");
+                        }
+                        catch (Exception e)
+                        {
+                           mailFailureAlertMsg.append("Historical Error while holiday data generation for " + symLst.get(i).getSymbol() + " \n");
+                           logger.error("ExchangeRateProcessing.process()  Historical Error while holiday data generation for " + symLst.get(i).getSymbol() + "-" + e.getMessage());
+                           e.printStackTrace();
+                        }
                      }
                   }
                   else
@@ -115,46 +126,79 @@ public class ExchangeRateProcessing
                      }
                      catch (Exception e)
                      {
-                        mailAlertMsg.append("ExchangeRateProcessing.process() Daily Error while API call daily " + e.getMessage() + " \n");
-                        logger.error("ExchangeRateProcessing.process() Daily Error while API call daily " + e.getMessage());
+                        mailFailureAlertMsg.append("Daily Error while API call  for " + symLst.get(i).getSymbol() + " \n");
+                        logger.error("ExchangeRateProcessing.process() Daily Error while API call  for " + symLst.get(i).getSymbol() + "-" + e.getMessage());
                         e.printStackTrace();
                      }
-                     try
+                     if (objDailyData == null)
                      {
-//                        dailyExchangeData = objDailyData;
-                        if (objDailyData != null)
+                        logger.error("ExchangeRateProcessing.process()  Daily  No Exchange data found for  " + symLst.get(i).getSymbol() + " exchangeDate " + exchangeDate + " \n");
+                        try
                         {
                            secExchangeMaster.delete(symLst.get(i).getSymbol(), exchangeDate);
-                           secExchangeMaster.insert(objDailyData, symLst.get(i).getSymbol());
+                           secExchangeMaster.GetDailyMissingData(exchangeDate, symLst.get(i).getSymbol());
+                           mailWaringAlertMsg.append("Daily No Exchange data found for  " + symLst.get(i).getSymbol() + " exchangeDate " + exchangeDate + ",generated holiday exchange data \n");
+                           logger.error("ExchangeRateProcessing.process() Daily No Exchange data found for  " + symLst.get(i).getSymbol() + " exchangeDate " + exchangeDate + ",generated holiday exchange data \n");
                         }
-                        else
+                        catch (Exception e)
                         {
-                           mailAlertMsg.append("ExchangeRateProcessing.process() Daily No Exchange data found for  " + symLst.get(i).getSymbol()+" exchangeDate " +exchangeDate+ " \n");
-                           logger.error("ExchangeRateProcessing.process() Daily No Exchange data found for  " + symLst.get(i).getSymbol()+" exchangeDate " +exchangeDate+  " \n");
-                           bFlag = false;
+                           mailFailureAlertMsg.append("ExchangeRateProcessing.process() Daily Error while holiday exchange data generation for " + symLst.get(i).getSymbol() + "-" + e.getMessage() + " \n");
+                           logger.error("ExchangeRateProcessing.process() Daily Error while holiday exchange data generation for " + symLst.get(i).getSymbol() + "-" + e.getMessage());
+                           e.printStackTrace();
                         }
                      }
-                     catch (Exception e)
+                     else
                      {
-                        mailAlertMsg.append("ExchangeRateProcessing.process() Daily Error while db insertion daily " + e.getMessage() + " \n");
-                        logger.error("ExchangeRateProcessing.process() Daily Error while db insertion daily" + e.getMessage());
-                        e.printStackTrace();
+                        if(objDailyData.getHistoricalExchangeRates().getTimeSeriesPoint().get(0).getDate().equalsIgnoreCase(exchangeDate))
+                        {
+                           try
+                           {
+                              secExchangeMaster.delete(symLst.get(i).getSymbol(), exchangeDate);
+                              secExchangeMaster.insert(objDailyData, symLst.get(i).getSymbol());
+                           }
+                           catch (Exception e)
+                           {
+                              mailFailureAlertMsg.append("ExchangeRateProcessing.process() Daily Error while db insertion for " + symLst.get(i).getSymbol() + "-" + e.getMessage() + " \n");
+                              logger.error("ExchangeRateProcessing.process() Daily Error while db insertion daily for " + symLst.get(i).getSymbol() + "-" + e.getMessage());
+                              e.printStackTrace();
+                           }
+                        }else{
+                           logger.error("ExchangeRateProcessing.process()  Daily  No Exchange data found for  " + symLst.get(i).getSymbol() + " exchangeDate " + exchangeDate + " \n");
+                           try
+                           {
+                              secExchangeMaster.delete(symLst.get(i).getSymbol(), exchangeDate);
+                              secExchangeMaster.GetDailyMissingData(exchangeDate, symLst.get(i).getSymbol());
+                              mailWaringAlertMsg.append("Daily No Exchange data found for  " + symLst.get(i).getSymbol() + " exchangeDate " + exchangeDate + ",generated holiday exchange data \n");
+                              logger.info("ExchangeRateProcessing.process() Daily No Exchange data found for  " + symLst.get(i).getSymbol() + " exchangeDate " + exchangeDate + ",generated holiday exchange data \n");
+                           }
+                           catch (Exception e)
+                           {
+                              mailFailureAlertMsg.append("Daily Error while holiday exchange data generation for " + symLst.get(i).getSymbol() + "-" + e.getMessage() + " \n");
+                              logger.error("ExchangeRateProcessing.process() Daily Error while holiday exchange data generation for " + symLst.get(i).getSymbol() + "-" + e.getMessage());
+                              e.printStackTrace();
+                           }
+                        }
                      }
                   }
                }
-               logger.info(" ExchangeRateProcessing.process() return flag " + bFlag);
             }
             else
             {
-               mailAlertMsg.append("ExchangeRateProcessing.process() exchange symbols are not available \n");
+               mailFailureAlertMsg.append("Exchange symbols are not available \n");
                logger.info("ExchangeRateProcessing.process() exchange symbols are not available");
             }
+            if (mailFailureAlertMsg.length() > 0)
+            {
+               bFlag = false;
+            }
+            logger.info(" ExchangeRateProcessing.process() return flag " + bFlag);
             logger.info(" ExchangeRateProcessing.process() End ");
          }
       }
       catch (Exception e)
       {
          bFlag = false;
+         logger.error(" ExchangeRateProcessing.process() processing erro " + e);
          e.printStackTrace();
       }
       finally
@@ -164,7 +208,6 @@ public class ExchangeRateProcessing
             URL = null;
             exchangeDate = null;
             dbParamMap = null;
-            mailAlertMsg = null;
             dailyExchangeData = null;
             serviceRequest = null;
             historicalExchangeData = null;

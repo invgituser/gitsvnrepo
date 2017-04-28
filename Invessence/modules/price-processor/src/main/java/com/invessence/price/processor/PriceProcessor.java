@@ -195,7 +195,7 @@ public class PriceProcessor
             try
             {
                // List is inserted in tmp_rbsa_daily table
-               priceDataDao.insertBatch(pdList);
+               priceDataDao.insertBatch(pdList,"");
 
 
                if (mailAlertMsg.length() == 0)
@@ -289,7 +289,7 @@ public class PriceProcessor
                try
                {
                   // List is inserted in tmp_rbsa_daily table
-                  priceDataDao.insertBatch(pdList);
+                  priceDataDao.insertBatch(pdList,"");
                   try
                   {
                      // code to call monthly_price_processor procedure(in this we are calculating daily return,monthly return and inserting values in rbsa_daily table)
@@ -417,7 +417,7 @@ public class PriceProcessor
                               try
                               {
                                  // List is inserted in tmp_rbsa_daily table
-                                 priceDataDao.insertBatch(pdList);
+                                 priceDataDao.insertBatch(pdList,"");
                                  try
                                  {
                                     //code to call monthly_price_processor procedure(in this we are calculating daily return,monthly return and inserting values in rbsa_daily table)
@@ -554,7 +554,7 @@ public class PriceProcessor
                               try
                               {
                                  // List is inserted in tmp_rbsa_daily table
-                                 priceDataDao.insertBatch(pdList);
+                                 priceDataDao.insertBatch(pdList,"");
                                  try
                                  {
                                     //code to call monthly_price_processor procedure(in this we are calculating daily return,monthly return and inserting values in rbsa_daily table)

@@ -8,7 +8,8 @@ import com.invessence.price.FIS.bean.*;
 import com.invessence.price.processor.bean.PriceData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.*;
-import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.*;
+import org.springframework.jdbc.core.simple.*;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -86,4 +87,37 @@ public class SecExchangeDAOImpl implements SecExchangeDao
                               });
    }
 
+   @Override
+   public void callHolidayProcedure(String startDate, String endDate,String symbol) throws SQLException
+   {
+      System.out.println("Date Range for Holiday calculation" + startDate + " endDate " + endDate);
+      //rbsaJdbcTemplate = new JdbcTemplate(dataSource);
+      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(rbsaJdbcTemplate)
+         .withProcedureName("get_hodidays_exchange_rate_data");
+      Map<String, Object> inParamMap = new HashMap<String, Object>();
+      inParamMap.put("p_startdt", startDate);
+      inParamMap.put("p_enddt", endDate);
+      inParamMap.put("p_symbol", symbol);
+      SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+      Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+      System.out.println(simpleJdbcCallResult);
+      System.out.println("******************************");
+
+   }
+
+   public void GetDailyMissingData(String startDate, String symbol) throws SQLException
+   {
+      System.out.println("GetDailyMissingData Date "+startDate+" symbol "+symbol);
+      //rbsaJdbcTemplate = new JdbcTemplate(dataSource);
+      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(rbsaJdbcTemplate)
+         .withProcedureName("get_daily_missing_exchange_rate_data");
+      Map<String, Object> inParamMap = new HashMap<String, Object>();
+      inParamMap.put("p_startdt", startDate);
+      inParamMap.put("p_symbol", symbol);
+      SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+      Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+      System.out.println(simpleJdbcCallResult);
+      System.out.println("******************************");
+
+   }
 }

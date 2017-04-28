@@ -26,11 +26,13 @@ public class Processing
 
    public void startProcessing(String[] args)
    {
-      StringBuilder mailAlertMsg = null;
+      StringBuilder mailFailureAlertMsg = null;
+      StringBuilder mailWaringAlertMsg = null;
       try
       {
-         mailAlertMsg = new StringBuilder();
-         if (args.length!= 0)
+         mailFailureAlertMsg = new StringBuilder();
+         mailWaringAlertMsg = new StringBuilder();
+         if (args.length != 0)
          {
             String company = null, mode = null, pricingrqd = null;
             logger.info(" Processing.startProcessing() passing argument length " + args.length);
@@ -51,41 +53,43 @@ public class Processing
             }
 
             logger.info(" Processing.startProcessing() passing argument company " + company + " mode " + mode + " pricingrqd " + pricingrqd);
-            if (company != null && mode != null && pricingrqd != null && company != "" && mode != "" && pricingrqd != "" )
+            if (company != null && mode != null && pricingrqd != null && company != "" && mode != "" && pricingrqd != "")
             {
 
                if (pricingrqd.equalsIgnoreCase("Y") || pricingrqd.equalsIgnoreCase("EXCHANGE_YES"))
                {
                   //ExchangeRateProcessing exchngProcess = context.getBean(ExchangeRateProcessing.class);
-                  boolean bFlag = exchngProcess.process(company, mode, mailAlertMsg);
+                  boolean bFlag = exchngProcess.process(company, mode, mailFailureAlertMsg, mailWaringAlertMsg);
                   logger.info(" Processing.startProcessing() Exchange rate processing bFlag " + bFlag);
                   if (bFlag)
                   {
 //                  PriceProcessing priceProcess = context.getBean(PriceProcessing.class);
-                     priceProcess.process(company, mode, mailAlertMsg);
+                     priceProcess.process(company, mode, mailFailureAlertMsg, mailWaringAlertMsg);
                   }
                   else
                   {
                      logger.info(" Processing.startProcessing() No Attempt for Pricing as exchange rates are not collected ");
-                     mailAlertMsg.append(" Processing.startProcessing() No Attempt for Pricing as exchange rates are not collected \n");
+                     mailWaringAlertMsg.append(" Processing.startProcessing() No Attempt for Pricing as exchange rates are not collected \n");
                   }
 //               context.close();
                }
                else
                {
 //               PriceProcessing priceProcess = context.getBean(PriceProcessing.class);
-                  priceProcess.process(company, mode, mailAlertMsg);
+                  priceProcess.process(company, mode, mailFailureAlertMsg, mailWaringAlertMsg);
 //               context.close();
                }
             }
             else
             {
                logger.info(" Processing.startProcessing() Company/mode/pricingrqd  not specified, since process not started for Exhange Rate &/ Price collection processing");
-               mailAlertMsg.append("Processing.startProcessing() Company/mode/pricingrqd  not specified, since process not started for Exhange Rate &/ Price collection processing. \n");
+               mailFailureAlertMsg.append("Processing.startProcessing() Company/mode/pricingrqd  not specified, since process not started for Exhange Rate &/ Price collection processing. \n");
             }
-         }else{
+         }
+         else
+         {
             logger.info(" Processing.startProcessing() Company/mode/pricingrqd  not specified, since process not started for Exhange Rate &/ Price collection processing");
-            mailAlertMsg.append("Processing.startProcessing() Company/mode/pricingrqd  not specified, since process not started for Exhange Rate &/ Price collection processing. \n");
+            mailFailureAlertMsg.append("Processing.startProcessing() Company/mode/pricingrqd  not specified, since process not started for Exhange Rate &/ Price collection processing. \n");
          }
       }
       catch (Exception e)
@@ -95,14 +99,23 @@ public class Processing
       }
       finally
       {
-         if (mailAlertMsg.length() > 0)
+         if (mailFailureAlertMsg.length() > 0)
          {
-            logger.info("MailAlertMsg IS :" + mailAlertMsg);
-            emailCreator.sendToSupport("ERR", "EXCEPTION:PRICING MODULE", mailAlertMsg.toString());
+            logger.info("mailFailureAlertMsg IS :" + mailFailureAlertMsg);
+            emailCreator.sendToSupport("ERR", "EXCEPTION:PRICING MODULE", mailFailureAlertMsg.toString());
          }
          else
          {
-            logger.info("MailAlertMsg is empty");
+            logger.info("mailFailureAlertMsg is empty");
+         }
+         if (mailWaringAlertMsg.length() > 0)
+         {
+            logger.info("mailWaringAlertMsg IS :" + mailWaringAlertMsg);
+            emailCreator.sendToSupport("WARN", "WARNING:PRICING MODULE", mailWaringAlertMsg.toString());
+         }
+         else
+         {
+            logger.info("mailWaringAlertMsg is empty");
          }
       }
    }

@@ -9,11 +9,11 @@ public interface PriceDataDao {
 
 	public void delete()throws SQLException;
 	public void insert(PriceData priceData) throws SQLException;
-	public void insertBatch(final List<PriceData> priceDataLst)throws SQLException;
+	public void insertBatch(final List<PriceData> priceDataLst,String destCurrency)throws SQLException;
 	public List <PriceData> findByTicker(String ticker);
 	public List<PriceData> findByDate(String date);
 	public PriceData findByTickerNDate(String ticker, String date);
-	public void callProcedure(String process, String businessDate, String ticker)throws SQLException;
+	public String callProcedure(String process, String businessDate, String ticker)throws SQLException;
 	public void callEodProcedure(String process, String businessDate)throws SQLException;
 	public void callHolidayProcedure(String startDate, String endDate) throws SQLException;
 	public void GetDailyMissingData(String startDate, String ticker) throws SQLException;

@@ -32,6 +32,11 @@ public class SecMaster
    private String rbsaFlag;
    private String businessdate;
    private String onDemand;
+   private String sec_ticker;
+   private String ticker_source_name;
+   private String exchange_required;
+   private String base_currency;
+   private String dest_currency;
 
    public String getTickerSource()
    {
@@ -316,6 +321,56 @@ public class SecMaster
       this.onDemand = onDemand;
    }
 
+   public String getSec_ticker()
+   {
+      return sec_ticker;
+   }
+
+   public void setSec_ticker(String sec_ticker)
+   {
+      this.sec_ticker = sec_ticker;
+   }
+
+   public String getTicker_source_name()
+   {
+      return ticker_source_name;
+   }
+
+   public void setTicker_source_name(String ticker_source_name)
+   {
+      this.ticker_source_name = ticker_source_name;
+   }
+
+   public String getExchange_required()
+   {
+      return exchange_required;
+   }
+
+   public void setExchange_required(String exchange_required)
+   {
+      this.exchange_required = exchange_required;
+   }
+
+   public String getDest_currency()
+   {
+      return dest_currency;
+   }
+
+   public void setDest_currency(String dest_currency)
+   {
+      this.dest_currency = dest_currency;
+   }
+
+   public String getBase_currency()
+   {
+      return base_currency;
+   }
+
+   public void setBase_currency(String base_currency)
+   {
+      this.base_currency = base_currency;
+   }
+
    @Override
    public String toString()
    {
@@ -348,6 +403,11 @@ public class SecMaster
          ", rbsaFlag='" + rbsaFlag + '\'' +
          ", businessdate='" + businessdate + '\'' +
          ", onDemand='" + onDemand + '\'' +
+         ", sec_ticker='" + sec_ticker + '\'' +
+         ", ticker_source_name='" + ticker_source_name + '\'' +
+         ", exchange_required='" + exchange_required + '\'' +
+         ", base_currency='" + base_currency + '\'' +
+         ", dest_currency='" + dest_currency + '\'' +
          '}';
    }
 }

@@ -42,7 +42,7 @@ public class PriceProcessing
    SimpleDateFormat switchFormat = new SimpleDateFormat("yyyyMMdd");
 
    // This method fetch Security details along with source information, depends on type it gets daily or historical data
-   public void process(String company, String mode, StringBuilder mailAlertMsg) throws SQLException
+   public void process(String company, String mode, StringBuilder mailFailureAlertMsg, StringBuilder mailWaringAlertMsg) throws SQLException
    {
 
       ServiceRequest serviceRequest = new ServiceRequest(company, mode);
@@ -59,7 +59,7 @@ public class PriceProcessing
          dbParamMap = dbParametersDao.getDBParametres();
          if (dbParamMap == null && dbParamMap.size() == 0)
          {
-            mailAlertMsg.append("DB parameters are not available \n");
+            mailFailureAlertMsg.append("DB parameters are not available \n");
             logger.info("DB parameters are not available");
          }
          else
@@ -79,19 +79,19 @@ public class PriceProcessing
                {
                   logger.info("PriceProcessing.process DAILY_PRICING");
                   apidetails = secMasterDao.getSwitch(companyName, "DAILY_PRICING");
-                  dailyProcess(apidetails, businessDate, secLst, mailAlertMsg, serviceRequest);
+                  dailyProcess(apidetails, businessDate, secLst, mailFailureAlertMsg, serviceRequest, mailWaringAlertMsg);
                }
                // code to check for dailyProcess or monthlyProcess
                else if (CommonUtil.dateCompare(dbParamMap.get("BUSINESS_DATE").getValue().toString(), dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == true)
                {
                   logger.info("PriceProcessing.process MONTHLY_PRICING ");
                   apidetails = secMasterDao.getSwitch(companyName, "MONTHLY_PRICING");
-                  monthlyProcess(apidetails, businessDate, secLst, mailAlertMsg, serviceRequest);
+                  monthlyProcess(apidetails, businessDate, secLst, mailFailureAlertMsg, serviceRequest, mailWaringAlertMsg);
                }
             }
             else
             {
-               mailAlertMsg.append("Ticker list not available for process \n");
+               mailFailureAlertMsg.append("Ticker list not available for process \n");
                logger.info("Ticker list not available for process");
             }
          }
@@ -110,7 +110,6 @@ public class PriceProcessing
          try
          {
             companyName = null;
-            mailAlertMsg = null;
             apidetails = null;
             dbParamMap = null;
             secLst = null;
@@ -128,10 +127,11 @@ public class PriceProcessing
     * In this method we are performing daily process
     */
 
-   public void dailyProcess(List<APIDetails> apidetails, String businessDate, List<SecMaster> secLst, StringBuilder mailAlertMsg, ServiceRequest serviceRequest)
+   public void dailyProcess(List<APIDetails> apidetails, String businessDate, List<SecMaster> secLst, StringBuilder mailFailureAlertMsg, ServiceRequest serviceRequest, StringBuilder mailWaringAlertMsg)
    {
       List<PriceData> pdList = null;
       HashMap<String, Object> objPriceData = null;
+      String dailyReturnAlertFlag = "";
       try
       {
          logger.info("PriceProcessor.dailyProcess() Daily Process execution Start");
@@ -141,48 +141,59 @@ public class PriceProcessing
             {
                //deleting all rows from tmp_rbsa_daily table
 
-               logger.info("PriceProcessor.dailyProcess() OnDemand processing for Ticker:" + secLst.get(i1).getTicker() + " required " + secLst.get(i1).getOnDemand());
+               logger.info("PriceProcessor.dailyProcess() OnDemand processing for Ticker:" + secLst.get(i1).getTicker_source_name() + " required " + secLst.get(i1).getOnDemand());
                if (secLst.get(i1).getOnDemand().equalsIgnoreCase("YES"))
                {
-                  onDemandProcessing(apidetails, businessDate, secLst.get(i1), mailAlertMsg, serviceRequest);
+                  onDemandProcessing(apidetails, businessDate, secLst.get(i1), mailFailureAlertMsg, serviceRequest, mailWaringAlertMsg);
                }
                else
                {
                   priceDataDao.delete();
-                  objPriceData = priceService.getPrice(apidetails, PriceProcessConst.DAILY, businessDate, secLst.get(i1).getTicker(), secLst.get(i1).getTickerSource(), serviceRequest);
+                  objPriceData = priceService.getPrice(apidetails, PriceProcessConst.DAILY, businessDate, secLst.get(i1).getTicker_source_name(), secLst.get(i1).getTickerSource(), serviceRequest);
 
                   if (objPriceData.get("status").toString().equalsIgnoreCase("failure"))
                   {
-                     logger.info("PriceProcessor.dailyProcess() Daily Process Price Value Missing for Ticker:" + secLst.get(i1).getTicker() + ",generated holiday data");
+                     logger.info("PriceProcessor.dailyProcess() Daily Process Price Value Missing for Ticker:" + secLst.get(i1).getTicker_source_name() + ",generated holiday data");
 //            Call holiday data generation Procedure
-                     priceDataDao.GetDailyMissingData(businessDate, secLst.get(i1).getTicker());
-                     mailAlertMsg.append("PriceProcessor.dailyProcess() Daily Process Price Value Missing for Ticker:" + secLst.get(i1).getTicker() + ",generated holiday data\n");
-                     priceDataDao.GetExchangePriceData(secLst.get(i1).getTicker());
-                     priceDataDao.callProcedure(PriceProcessConst.DAILY, businessDate, secLst.get(i1).getTicker());
+                     priceDataDao.GetDailyMissingData(businessDate, secLst.get(i1).getTicker_source_name());
+                     mailWaringAlertMsg.append("Daily Process Price Value Missing for Ticker:" + secLst.get(i1).getTicker_source_name() + ",generated holiday data\n");
+                     if (secLst.get(i1).getExchange_required().equalsIgnoreCase("Y"))
+                     {
+                        priceDataDao.GetExchangePriceData(secLst.get(i1).getTicker_source_name());
+                     }
+                     dailyReturnAlertFlag = priceDataDao.callProcedure(PriceProcessConst.DAILY, businessDate, secLst.get(i1).getTicker_source_name());
                   }
                   else
                   {
-                     logger.info("PriceProcessor.dailyProcess() getting Price Value for Ticker:" + secLst.get(i1).getTicker());
+                     logger.info("PriceProcessor.dailyProcess() getting Price Value for Ticker:" + secLst.get(i1).getTicker_source_name());
                      pdList = (List<PriceData>) objPriceData.get("priceData");
 
                      if (!pdList.get(0).getBusinessDate().equals(businessDate))
                      {
                         if (pdList.get(0).getClosePrice() == null || pdList.get(0).getClosePrice().equals(0.0) || pdList.get(0).getClosePrice().equals(""))
                         {
-                           mailAlertMsg.append("Price value getting 0 for ticker:" + secLst.get(i1).getTicker() + "\n");
+                           mailWaringAlertMsg.append("Price value getting 0 for ticker:" + secLst.get(i1).getTicker_source_name() + "\n");
                         }
                      }
                      try
                      {
-                        priceDataDao.insertBatch(pdList);
-                        priceDataDao.GetExchangePriceData(secLst.get(i1).getTicker());
-                        priceDataDao.callProcedure(PriceProcessConst.DAILY, businessDate, secLst.get(i1).getTicker());
+                        priceDataDao.insertBatch(pdList, secLst.get(i1).getDest_currency());
+                        if (secLst.get(i1).getExchange_required().equalsIgnoreCase("Y"))
+                        {
+                           priceDataDao.GetExchangePriceData(secLst.get(i1).getTicker_source_name());
+                        }
+                        dailyReturnAlertFlag = priceDataDao.callProcedure(PriceProcessConst.DAILY, businessDate, secLst.get(i1).getTicker_source_name());
                      }
                      catch (Exception e)
                      {
-                        mailAlertMsg.append("PriceProcessor.dailyProcess() Daily Process Error while tmp_rbsa_daily to rbsa_daily transfer " + e.getMessage() + " \n");
+                        mailFailureAlertMsg.append("Daily Process Error while tmp_rbsa_daily to rbsa_daily transfer for Ticker:" + secLst.get(i1).getTicker_source_name() + " \n");
                         logger.error("PriceProcessor.dailyProcess() Daily Process Error while tmp_rbsa_daily to rbsa_daily transfer " + e.getMessage());
                         e.printStackTrace();
+                     }
+                     if (dailyReturnAlertFlag != null && dailyReturnAlertFlag != "" && dailyReturnAlertFlag.equalsIgnoreCase("send alert"))
+                     {
+                        mailWaringAlertMsg.append("Daily Process daliy return is higher than setted thresold limit for Ticker:" + secLst.get(i1).getTicker_source_name() + " \n");
+                        logger.error("PriceProcessor.dailyProcess() Daily Process daliy return is higher than setted thresold limit for" + secLst.get(i1).getTicker_source_name());
                      }
                   }
                   objPriceData = null;
@@ -190,12 +201,12 @@ public class PriceProcessing
             }
             else
             {
-               mailAlertMsg.append("Source Details are not available for Ticker " + secLst.get(i1).getTicker() + " \n");
-               logger.info("PriceProcessor.dailyProcess() Source Details are not available for Ticker " + secLst.get(i1).getTicker());
+               mailFailureAlertMsg.append("Source Details are not available for Ticker " + secLst.get(i1).getTicker_source_name() + " \n");
+               logger.info("PriceProcessor.dailyProcess() Source Details are not available for Ticker " + secLst.get(i1).getTicker_source_name());
             }
          }
          // List is inserted in tmp_rbsa_daily table
-         if (mailAlertMsg.length() == 0)
+         if (mailFailureAlertMsg.length() == 0)
          {
             // code to call daily_price_processor procedure(in this we are calculating daily return and inserting values in rbsa_daily table)
             try
@@ -205,29 +216,29 @@ public class PriceProcessing
             }
             catch (Exception e)
             {
-               mailAlertMsg.append("PriceProcessor.dailyProcess() EOD process issue " + e.getMessage() + "\n");
+               mailFailureAlertMsg.append("Daily EOD procedure calling issue \n");
                logger.error("PriceProcessor.dailyProcess() EOD process issue " + e.getMessage());
                e.printStackTrace();
             }
          }
          else
          {
-            mailAlertMsg.append("PriceProcessor.dailyProcess() EOD procedure not called due to occured issues \n");
+            mailFailureAlertMsg.append("EOD procedure not called due to occured issues \n");
             logger.error("PriceProcessor.dailyProcess() EOD procedure not called due to occured issues");
          }
          logger.info("PriceProcessor.dailyProcess() Daily Process execution End");
       }
       catch (Exception e)
       {
-         mailAlertMsg.append("PriceProcessor.dailyProcess() api exception" + e.getMessage() + "\n");
-         logger.error("PriceProcessor.dailyProcess() api exception" + e);
+         mailFailureAlertMsg.append("Daily process exception \n");
+         logger.error("PriceProcessor.dailyProcess() Daily Process exception" + e);
          e.printStackTrace();
       }
    }
 
    //In this method we are performing monthly process
 
-   public void monthlyProcess(List<APIDetails> apidetails, String businessdate, List<SecMaster> tickerList, StringBuilder mailAlertMsg, ServiceRequest serviceRequest)
+   public void monthlyProcess(List<APIDetails> apidetails, String businessdate, List<SecMaster> tickerList, StringBuilder mailFailureAlertMsg, ServiceRequest serviceRequest, StringBuilder mailWaringAlertMsg)
    {
       List<PriceData> pdList = null;
       HashMap<String, Object> objPriceData = null;
@@ -242,16 +253,16 @@ public class PriceProcessing
             secMaster = (SecMaster) sec.next();
             if (secMaster.getTickerSource() != null && !secMaster.getTickerSource().isEmpty())
             {
-               logger.info("PriceProcessor.monthlyProcess() getting Price Value for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource());
-               objPriceData = priceService.getPrice(apidetails, PriceProcessConst.MONTHLY, businessdate, secMaster.getTicker(), secMaster.getTickerSource(), serviceRequest);
+               logger.info("PriceProcessor.monthlyProcess() getting Price Value for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource());
+               objPriceData = priceService.getPrice(apidetails, PriceProcessConst.MONTHLY, businessdate, secMaster.getTicker_source_name(), secMaster.getTickerSource(), serviceRequest);
                if (objPriceData.get("status").toString().equalsIgnoreCase("failure"))
                {
-                  mailAlertMsg.append("PriceProcessor.monthlyProcess() getting History Price Values fails for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource() + " API\n");
-                  logger.info("PriceProcessor.monthlyProcess() getting History Price Values fails for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource() + " API");
+                  mailFailureAlertMsg.append("History Price Values fails for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource() + " API\n");
+                  logger.info("PriceProcessor.monthlyProcess() getting History Price Values fails for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource() + " API");
                }
                else
                {
-                  logger.info("PriceProcessor.monthlyProcess() History Price Values are for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource());
+                  logger.info("PriceProcessor.monthlyProcess() History Price Values are for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource());
                   //deleting all rows from tmp_rbsa_daily table
                   priceDataDao.delete();
 //            Getting History Price Data
@@ -259,8 +270,8 @@ public class PriceProcessing
 
                   if (pdList == null || pdList.size() == 0)
                   {
-                     mailAlertMsg.append("PriceProcessor.monthlyProcess() History Price Values are unavailable for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource() + "\n");
-                     logger.info("PriceProcessor.monthlyProcess() History Price Values are unavailable for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource());
+                     mailFailureAlertMsg.append("History Price Values are unavailable for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource() + "\n");
+                     logger.info("PriceProcessor.monthlyProcess() History Price Values are unavailable for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource());
                   }
                   else
                   {
@@ -278,39 +289,51 @@ public class PriceProcessing
 
                         if (pdList.get(i).getClosePrice() == null || pdList.get(i).getClosePrice().equals(0.0) || pdList.get(i).getClosePrice().equals(""))
                         {
-                           logger.info("PriceProcessor.monthlyProcess() Price value getting 0 for ticker:" + secMaster.getTicker());
-                           mailAlertMsg.append("PriceProcessor.monthlyProcess() Price value getting 0 for ticker:" + secMaster.getTicker() + "\n");
+                           logger.info("PriceProcessor.monthlyProcess() Price value getting 0 for ticker:" + secMaster.getTicker_source_name());
+                           mailWaringAlertMsg.append("Price value getting 0 for ticker:" + secMaster.getTicker_source_name() + "\n");
                         }
                      }
                      if (isPriceAvaiForBusiDate == false)
                      {
-                        mailAlertMsg.append("PriceProcessor.monthlyProcess() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessdate + "\n");
-                        logger.info("PriceProcessor.monthlyProcess() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessdate);
+                        try
+                        {
+                           priceDataDao.GetDailyMissingData(businessdate, secMaster.getTicker_source_name());
+                           mailWaringAlertMsg.append("Price not available for ticker:" + secMaster.getTicker_source_name() + " for businessdate :" + businessdate + "\n");
+                           logger.info("PriceProcessor.monthlyProcess() Price not available for ticker:" + secMaster.getTicker_source_name() + " for businessdate :" + businessdate);
+                        }
+                        catch (Exception e)
+                        {
+                           logger.error("PriceProcessor.monthlyProcess()  Error  " + e.getMessage());
+                           e.printStackTrace();
+                        }
                      }
 
                      try
                      {
-                        priceDataDao.insertBatch(pdList);
+                        priceDataDao.insertBatch(pdList, secMaster.getDest_currency());
                         priceDataDao.callHolidayProcedure(pdList.get((pdList.size() - 1)).getBusinessDate(), businessdate);
-                        priceDataDao.GetExchangePriceData(secMaster.getTicker());
-                        priceDataDao.callProcedure(PriceProcessConst.MONTHLY, businessdate, secMaster.getTicker());
+                        if (secMaster.getExchange_required().equalsIgnoreCase("Y"))
+                        {
+                           priceDataDao.GetExchangePriceData(secMaster.getTicker_source_name());
+                        }
+                        priceDataDao.callProcedure(PriceProcessConst.MONTHLY, businessdate, secMaster.getTicker_source_name());
                      }
                      catch (Exception e)
                      {
-                        mailAlertMsg.append("PriceProcessor.monthlyProcess() Error while db activity " + e.getMessage() + " \n");
-                        logger.error("PriceProcessor.monthlyProcess() Error while db ativity " + e.getMessage());
+                        mailFailureAlertMsg.append("Error while db activity for Ticker:" + secMaster.getTicker_source_name() + "\n");
+                        logger.error("PriceProcessor.monthlyProcess() Error while db ativity for Ticker:" + secMaster.getTicker_source_name() + " Message" + e.getMessage());
                         e.printStackTrace();
                      }
                      if (secMaster.getRbsaFlag() != null && secMaster.getRbsaFlag().equalsIgnoreCase("Y"))
                      {
                         try
                         {
-                           rbsaCall(secMaster.getTicker());
+                           rbsaCall(secMaster.getTicker_source_name());
                         }
                         catch (Exception e)
                         {
-                           mailAlertMsg.append("PriceProcessor.monthlyProcess() RBSA process call issue for ticker " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
-                           logger.error("PriceProcessor.monthlyProcess() Error while db ativity RBSA process call issue for ticker " + secMaster.getTicker() + "\n" + e);
+                           mailFailureAlertMsg.append("Historical RBSA process call issue for ticker " + secMaster.getTicker_source_name() + "\n" + e.getMessage() + "\n");
+                           logger.error("PriceProcessor.monthlyProcess() Error while db ativity RBSA process call issue for ticker " + secMaster.getTicker_source_name() + "\n" + e);
                            e.printStackTrace();
                         }
                      }
@@ -319,30 +342,30 @@ public class PriceProcessing
             }
             else
             {
-               mailAlertMsg.append("Source Details are not available for Ticker " + secMaster.getTicker() + " \n");
-               logger.info("PriceProcessor.dailyProcess() Source Details are not available for Ticker " + secMaster.getTicker());
+               mailFailureAlertMsg.append("Source Details are not available for Ticker " + secMaster.getTicker_source_name() + " \n");
+               logger.info("PriceProcessor.dailyProcess() Source Details are not available for Ticker " + secMaster.getTicker_source_name());
             }
             secMaster = null;
          }
 
-         if (mailAlertMsg.length() == 0)
+         if (mailFailureAlertMsg.length() == 0)
          {
-         // code to call daily_price_processor procedure(in this we are calculating daily return and inserting values in rbsa_daily table)
-         try
-         {
-            //code to call end_of_price_process procedure(in this we are updating sec_daily_info table,invessence_switch table and invdb.inv_date_table)
-            priceDataDao.callEodProcedure(PriceProcessConst.MONTHLY, businessdate);
-         }
-         catch (Exception e)
-         {
-            mailAlertMsg.append("PriceProcessor.monthlyProcess() EOD process issue " + e.getMessage() + "\n");
-            logger.error("PriceProcessor.monthlyProcess() EOD process issue " + e.getMessage());
-            e.printStackTrace();
-         }
+            // code to call daily_price_processor procedure(in this we are calculating daily return and inserting values in rbsa_daily table)
+            try
+            {
+               //code to call end_of_price_process procedure(in this we are updating sec_daily_info table,invessence_switch table and invdb.inv_date_table)
+               priceDataDao.callEodProcedure(PriceProcessConst.MONTHLY, businessdate);
+            }
+            catch (Exception e)
+            {
+               mailFailureAlertMsg.append("Historcial EOD process issue " + e.getMessage() + "\n");
+               logger.error("PriceProcessor.monthlyProcess() Historcial EOD process issue " + e.getMessage());
+               e.printStackTrace();
+            }
          }
          else
          {
-            mailAlertMsg.append("PriceProcessor.monthlyProcess() EOD procedure not called due to occured issues \n");
+            mailFailureAlertMsg.append("Historcial EOD procedure not called due to occured issues \n");
             logger.error("PriceProcessor.monthlyProcess() EOD procedure not called due to occured issues");
          }
 
@@ -351,13 +374,13 @@ public class PriceProcessing
       }
       catch (Exception e)
       {
-         mailAlertMsg.append("PriceProcessor.monthlyProcess() api exception" + e.getMessage() + "\n");
+         mailFailureAlertMsg.append("Historcal process exception" + e.getMessage() + "\n");
          logger.error("PriceProcessor.monthlyProcess() api exception" + e);
          e.printStackTrace();
       }
    }
 
-   public void onDemandProcessing(List<APIDetails> apidetails, String businessDate, SecMaster secMaster, StringBuilder mailAlertMsg, ServiceRequest serviceRequest)
+   public void onDemandProcessing(List<APIDetails> apidetails, String businessDate, SecMaster secMaster, StringBuilder mailFailureAlertMsg, ServiceRequest serviceRequest, StringBuilder mailWaringAlertMsg)
    {
       List<PriceData> pdList = null;
       HashMap<String, Object> objPriceData = null;
@@ -365,20 +388,20 @@ public class PriceProcessing
       String endDate = null, startDate = null;
       try
       {
-         logger.info("PriceProcessor.onDemandProcessing() OnDemand Process execution Start for " + secMaster.getTicker());
+         logger.info("PriceProcessor.onDemandProcessing() OnDemand Process execution Start for " + secMaster.getTicker_source_name());
 
          if (secMaster.getTickerSource() != null && !secMaster.getTickerSource().isEmpty())
          {
-            logger.info("PriceProcessor.onDemandProcessing() getting Price Values for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource());
-            objPriceData = priceService.getPrice(apidetails, PriceProcessConst.ONDEMAND, businessDate, secMaster.getTicker(), secMaster.getTickerSource(), serviceRequest);
+            logger.info("PriceProcessor.onDemandProcessing() getting Price Values for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource());
+            objPriceData = priceService.getPrice(apidetails, PriceProcessConst.ONDEMAND, businessDate, secMaster.getTicker_source_name(), secMaster.getTickerSource(), serviceRequest);
             if (objPriceData.get("status").toString().equalsIgnoreCase("failure"))
             {
-               mailAlertMsg.append("PriceProcessor.onDemandProcessing() getting History Price Values fails for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource() + "\n");
-               logger.info("PriceProcessor.onDemandProcessing() getting History Price Values fails for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource());
+               mailFailureAlertMsg.append("History Price Values fails for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource() + "\n");
+               logger.info("PriceProcessor.onDemandProcessing() getting History Price Values fails for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource());
             }
             else
             {
-               logger.info("PriceProcessor.onDemandProcessing() History Price Values are for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource());
+               logger.info("PriceProcessor.onDemandProcessing() History Price Values are for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource());
                //deleting all rows from tmp_rbsa_daily table
                priceDataDao.delete();
 //            Getting History Price Data
@@ -386,8 +409,8 @@ public class PriceProcessing
 
                if (pdList == null || pdList.size() == 0)
                {
-                  mailAlertMsg.append("PriceProcessor.onDemandProcessing() History Price Values are unavailable for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource() + "\n");
-                  logger.info("PriceProcessor.onDemandProcessing() History Price Values are unavailable for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource());
+                  mailFailureAlertMsg.append("History Price Values are unavailable for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource() + "\n");
+                  logger.info("PriceProcessor.onDemandProcessing() History Price Values are unavailable for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource());
                }
                else
                {
@@ -404,28 +427,39 @@ public class PriceProcessing
                      }
                      if (pdList.get(i).getClosePrice() == null || pdList.get(i).getClosePrice().equals(0.0) || pdList.get(i).getClosePrice().equals(""))
                      {
-                        logger.info("PriceProcessor.onDemandProcessing() Price value getting 0 for ticker:" + secMaster.getTicker());
-                        mailAlertMsg.append("PriceProcessor.onDemandProcessing() Price value getting 0 for ticker:" + secMaster.getTicker() + "\n");
+                        logger.info("PriceProcessor.onDemandProcessing() Price value getting 0 for ticker:" + secMaster.getTicker_source_name());
+                        mailWaringAlertMsg.append("Price value getting 0 for ticker:" + secMaster.getTicker_source_name() + "\n");
                      }
                   }
                   if (isPriceAvaiForBusiDate == false)
                   {
-                     priceDataDao.GetDailyMissingData(businessDate, secMaster.getTicker());
-                     mailAlertMsg.append("PriceProcessor.onDemandProcessing() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessDate + "\n");
-                     logger.info("PriceProcessor.onDemandProcessing() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessDate);
+                     try
+                     {
+                        priceDataDao.GetDailyMissingData(businessDate, secMaster.getTicker_source_name());
+                        mailWaringAlertMsg.append("Price not available for ticker:" + secMaster.getTicker_source_name() + " for businessdate :" + businessDate + ",generated holiday data\n");
+                        logger.info("PriceProcessor.onDemandProcessing() Price not available for ticker:" + secMaster.getTicker_source_name() + " for businessdate :" + businessDate + ",generated holiday data\n");
+                     }
+                     catch (Exception e)
+                     {
+                        logger.error("PriceProcessor.onDemandProcessing()  Error  " + e.getMessage());
+                        e.printStackTrace();
+                     }
                   }
                   try
                   {
-                     priceDataDao.insertBatch(pdList);
+                     priceDataDao.insertBatch(pdList, secMaster.getDest_currency());
                      startDate = pdList.get((pdList.size() - 1)).getBusinessDate();
                      endDate = pdList.get(0).getBusinessDate();
                      priceDataDao.callHolidayProcedure(startDate, businessDate);
-                     priceDataDao.GetExchangePriceData(secMaster.getTicker());
-                     priceDataDao.callProcedure(PriceProcessConst.MONTHLY, businessDate, secMaster.getTicker());
+                     if (secMaster.getExchange_required().equalsIgnoreCase("Y"))
+                     {
+                        priceDataDao.GetExchangePriceData(secMaster.getTicker_source_name());
+                     }
+                     priceDataDao.callProcedure(PriceProcessConst.MONTHLY, businessDate, secMaster.getTicker_source_name());
                   }
                   catch (Exception e)
                   {
-                     mailAlertMsg.append("PriceProcessor.onDemandProcessing() Error while data insertion db activity " + e.getMessage() + " \n");
+                     mailFailureAlertMsg.append("Error while Historcal data insertion db activity " + e.getMessage() + " \n");
                      logger.error("PriceProcessor.onDemandProcessing()  Error while data insertion db activity " + e.getMessage());
                      e.printStackTrace();
                   }
@@ -433,23 +467,23 @@ public class PriceProcessing
                   {
                      try
                      {
-                        rbsaCall(secMaster.getTicker());
+                        rbsaCall(secMaster.getTicker_source_name());
                      }
                      catch (Exception e)
                      {
-                        mailAlertMsg.append("PriceProcessor.onDemandProcessing() RBSA process call issue for ticker " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
-                        logger.error("PriceProcessor.onDemandProcessing() Error while RBSA process call for ticker " + secMaster.getTicker() + "\n" + e);
+                        mailFailureAlertMsg.append("Ondemand RBSA process call issue for ticker " + secMaster.getTicker_source_name() + "\n" + e.getMessage() + "\n");
+                        logger.error("PriceProcessor.onDemandProcessing() Error while RBSA process call for ticker " + secMaster.getTicker_source_name() + "\n" + e);
                         e.printStackTrace();
                      }
                   }
                }
             }
          }
-         logger.info("PriceProcessor.onDemandProcessing() OnDemand Process execution End for " + secMaster.getTicker());
+         logger.info("PriceProcessor.onDemandProcessing() OnDemand Process execution End for " + secMaster.getTicker_source_name());
       }
       catch (Exception e)
       {
-         mailAlertMsg.append("PriceProcessor.onDemandProcessing() api exception" + e.getMessage() + "\n");
+         mailFailureAlertMsg.append("Ondemand Process exception" + e.getMessage() + "\n");
          logger.error("PriceProcessor.onDemandProcessing() api exception" + e);
          e.printStackTrace();
       }
@@ -506,22 +540,22 @@ public class PriceProcessing
                         try
                         {
                            //deleting all rows from tmp_rbsa_daily
-                           logger.info("PriceProcessor.onDemandProcess() getting Price Value for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource());
-                           objPriceData = priceService.getPrice(apidetails, PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker(), secMaster.getTickerSource(), serviceRequest);
+                           logger.info("PriceProcessor.onDemandProcess() getting Price Value for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource());
+                           objPriceData = priceService.getPrice(apidetails, PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker_source_name(), secMaster.getTickerSource(), serviceRequest);
                            if (objPriceData.get("status").toString().equalsIgnoreCase("failure"))
                            {
-                              mailAlertMsg.append("PriceProcessor.onDemandProcess() getting History Price Values fails for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource() + "\n");
-                              logger.info("PriceProcessor.onDemandProcess() getting History Price Values fails for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource());
+                              mailAlertMsg.append("PriceProcessor.onDemandProcess() getting History Price Values fails for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource() + "\n");
+                              logger.info("PriceProcessor.onDemandProcess() getting History Price Values fails for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource());
                            }
                            else
                            {
-                              logger.info("PriceProcessor.onDemandProcess() History Price Values are for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource());
+                              logger.info("PriceProcessor.onDemandProcess() History Price Values are for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource());
                               //deleting all rows from tmp_rbsa_daily table
                               priceDataDao.delete();
                               pdList = (List<PriceData>) objPriceData.get("priceData");
                               if (pdList == null || pdList.size() == 0 || pdList.equals(""))
                               {
-                                 mailAlertMsg.append("PriceProcessor.onDemandProcess() price data not available for ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource() + "\n");
+                                 mailAlertMsg.append("PriceProcessor.onDemandProcess() price data not available for ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource() + "\n");
                               }
                               else
                               {
@@ -529,28 +563,28 @@ public class PriceProcessing
                                  {
                                     if (pdList.get(i).getClosePrice() == null || pdList.get(i).getClosePrice().equals(0.0) || pdList.get(i).getClosePrice().equals(""))
                                     {
-                                       mailAlertMsg.append("PriceProcessor.onDemandProcess() Price value getting 0 for ticker:" + secMaster.getTicker() + "\n");
+                                       mailAlertMsg.append("PriceProcessor.onDemandProcess() Price value getting 0 for ticker:" + secMaster.getTicker_source_name() + "\n");
                                     }
                                  }
                                  try
                                  {
                                     // List is inserted in tmp_rbsa_daily table
-                                    priceDataDao.insertBatch(pdList);
+                                    priceDataDao.insertBatch(pdList, secMaster.getDest_currency());
 
                                     priceDataDao.callHolidayProcedure(pdList.get(0).getBusinessDate(), priceDate);
                                     try
                                     {
                                        //code to call monthly_price_processor procedure(in this we are calculating daily return,monthly return and inserting values in rbsa_daily table)
-                                       priceDataDao.callProcedure(PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker());
+                                       priceDataDao.callProcedure(PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker_source_name());
                                        if (secMaster.getRbsaFlag() != null && secMaster.getRbsaFlag().equalsIgnoreCase("Y"))
                                        {
                                           try
                                           {
-                                             rbsaCall(secMaster.getTicker());
+                                             rbsaCall(secMaster.getTicker_source_name());
                                           }
                                           catch (Exception e)
                                           {
-                                             mailAlertMsg.append("PriceProcessor.onDemandProcess() RBSA process call issue for ticker " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
+                                             mailAlertMsg.append("PriceProcessor.onDemandProcess() RBSA process call issue for ticker " + secMaster.getTicker_source_name() + "\n" + e.getMessage() + "\n");
                                           }
                                        }
                                        try
@@ -568,27 +602,27 @@ public class PriceProcessing
                                     catch (Exception e)
                                     {
                                        e.printStackTrace();
-                                       mailAlertMsg.append("PriceProcessor.onDemandProcess() OnDemand price data operation issue for ticker " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
+                                       mailAlertMsg.append("PriceProcessor.onDemandProcess() OnDemand price data operation issue for ticker " + secMaster.getTicker_source_name() + "\n" + e.getMessage() + "\n");
                                     }
                                  }
                                  catch (Exception e)
                                  {
-                                    mailAlertMsg.append("PriceProcessor.onDemandProcess() OnDemand price data upload issue " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
+                                    mailAlertMsg.append("PriceProcessor.onDemandProcess() OnDemand price data upload issue " + secMaster.getTicker_source_name() + "\n" + e.getMessage() + "\n");
                                  }
                               }
                            }
                         }
                         catch (Exception e)
                         {
-                           System.out.println("PriceProcessor.onDemandProcess() OnDemand api Exception for ticker" + secMaster.getTicker() + "\n" + e.getMessage());
-                           mailAlertMsg.append("PriceProcessor.onDemandProcess() OnDemand api Exception for ticker" + secMaster.getTicker() + "\n");
+                           System.out.println("PriceProcessor.onDemandProcess() OnDemand api Exception for ticker" + secMaster.getTicker_source_name() + "\n" + e.getMessage());
+                           mailAlertMsg.append("PriceProcessor.onDemandProcess() OnDemand api Exception for ticker" + secMaster.getTicker_source_name() + "\n");
                         }
                      }
                   }
                   catch (Exception e)
                   {
-                     System.out.println("PriceProcessor.onDemandProcess() Ticker Exception:" + secMaster.getTicker());
-                     mailAlertMsg.append("PriceProcessor.onDemandProcess() Ticker Exception:" + secMaster.getTicker() + "\n");
+                     System.out.println("PriceProcessor.onDemandProcess() Ticker Exception:" + secMaster.getTicker_source_name());
+                     mailAlertMsg.append("PriceProcessor.onDemandProcess() Ticker Exception:" + secMaster.getTicker_source_name() + "\n");
                   }
                }
             }
@@ -657,23 +691,23 @@ public class PriceProcessing
                         try
                         {
                            //deleting all rows from tmp_rbsa_dailyBUSINESS
-                           logger.info("PriceProcessor.onDemandProcess() getting Price Value for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource());
-                           objPriceData = priceService.getPrice(apidetails, PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker(), secMaster.getTickerSource(), serviceRequest);
+                           logger.info("PriceProcessor.onDemandProcess() getting Price Value for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource());
+                           objPriceData = priceService.getPrice(apidetails, PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker_source_name(), secMaster.getTickerSource(), serviceRequest);
                            if (objPriceData.get("status").toString().equalsIgnoreCase("failure"))
                            {
-                              mailAlertMsg.append("PriceProcessor.initialProcess() getting History Price Values fails for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource() + "\n");
-                              logger.info("PriceProcessor.initialProcess() getting History Price Values fails for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource());
+                              mailAlertMsg.append("PriceProcessor.initialProcess() getting History Price Values fails for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource() + "\n");
+                              logger.info("PriceProcessor.initialProcess() getting History Price Values fails for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource());
                            }
                            else
                            {
-                              logger.info("PriceProcessor.initialProcess() History Price Values are for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource());
+                              logger.info("PriceProcessor.initialProcess() History Price Values are for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource());
                               //deleting all rows from tmp_rbsa_daily table
                               priceDataDao.delete();
                               pdList = (List<PriceData>) objPriceData.get("priceData");
                               if (pdList == null || pdList.size() == 0 || pdList.equals(""))
                               {
 //                                 mailAlertMsg.append("SPY price data not available  ");
-                                 mailAlertMsg.append("PriceProcessor.initialProcess() price data not available for ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource() + "\n");
+                                 mailAlertMsg.append("PriceProcessor.initialProcess() price data not available for ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource() + "\n");
 
                               }
                               else
@@ -682,30 +716,30 @@ public class PriceProcessing
                                  {
                                     if (pdList.get(i).getClosePrice() == null || pdList.get(i).getClosePrice().equals(0.0) || pdList.get(i).getClosePrice().equals(""))
                                     {
-                                       mailAlertMsg.append("PriceProcessor.initialProcess() Price value getting 0 for ticker:" + secMaster.getTicker() + "\n");
+                                       mailAlertMsg.append("PriceProcessor.initialProcess() Price value getting 0 for ticker:" + secMaster.getTicker_source_name() + "\n");
                                     }
                                  }
                                  try
                                  {
                                     // List is inserted in tmp_rbsa_daily table
-                                    priceDataDao.insertBatch(pdList);
+                                    priceDataDao.insertBatch(pdList, secMaster.getDest_currency());
                                     priceDataDao.callHolidayProcedure(pdList.get((pdList.size() - 1)).getBusinessDate(), priceDate);
                                     try
                                     {
                                        //code to call monthly_price_processor procedure(in this we are calculating daily return,monthly return and inserting values in rbsa_daily table)
-                                       priceDataDao.callProcedure(PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker());
+                                       priceDataDao.callProcedure(PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker_source_name());
 
 
                                     }
                                     catch (Exception e)
                                     {
                                        e.printStackTrace();
-                                       mailAlertMsg.append("PriceProcessor.initialProcess() price data operation issue for ticker " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
+                                       mailAlertMsg.append("PriceProcessor.initialProcess() price data operation issue for ticker " + secMaster.getTicker_source_name() + "\n" + e.getMessage() + "\n");
                                     }
                                  }
                                  catch (Exception e)
                                  {
-                                    mailAlertMsg.append("PriceProcessor.initialProcess() price data upload issue " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
+                                    mailAlertMsg.append("PriceProcessor.initialProcess() price data upload issue " + secMaster.getTicker_source_name() + "\n" + e.getMessage() + "\n");
                                  }
                               }
                            }
@@ -716,15 +750,15 @@ public class PriceProcessing
                         }
                         catch (Exception e)
                         {
-                           System.out.println("PriceProcessor.initialProcess() api Exception for ticker" + secMaster.getTicker() + "\n" + e.getMessage());
-                           mailAlertMsg.append("PriceProcessor.initialProcess() api Exception for ticker" + secMaster.getTicker() + "\n");
+                           System.out.println("PriceProcessor.initialProcess() api Exception for ticker" + secMaster.getTicker_source_name() + "\n" + e.getMessage());
+                           mailAlertMsg.append("PriceProcessor.initialProcess() api Exception for ticker" + secMaster.getTicker_source_name() + "\n");
                         }
                      }
                   }
                   catch (Exception e)
                   {
-                     System.out.println("PriceProcessor.initialProcess()  Ticker Exception:" + secMaster.getTicker());
-                     mailAlertMsg.append("PriceProcessor.initialProcess() Ticker Exception:" + secMaster.getTicker() + "\n");
+                     System.out.println("PriceProcessor.initialProcess()  Ticker Exception:" + secMaster.getTicker_source_name());
+                     mailAlertMsg.append("PriceProcessor.initialProcess() Ticker Exception:" + secMaster.getTicker_source_name() + "\n");
                   }
                }
             }

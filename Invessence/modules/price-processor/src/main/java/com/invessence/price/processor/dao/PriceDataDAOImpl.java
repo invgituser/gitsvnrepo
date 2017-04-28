@@ -37,9 +37,9 @@ public class PriceDataDAOImpl implements PriceDataDao
       rbsaJdbcTemplate.execute(sql);
    }
 
-   public void callProcedure(String process, String businessDate, String ticker) throws SQLException
+   public String callProcedure(String process, String businessDate, String ticker) throws SQLException
    {
-
+      String strReturn;
       System.out.println("callProcedure process "+process+" businessDate "+businessDate+" ticker "+ticker);
       //rbsaJdbcTemplate = new JdbcTemplate(dataSource);
       SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(rbsaJdbcTemplate)
@@ -51,8 +51,11 @@ public class PriceDataDAOImpl implements PriceDataDao
       SqlParameterSource in = new MapSqlParameterSource(inParamMap);
       Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
       System.out.println(simpleJdbcCallResult);
-      System.out.println("******************************");
+      strReturn= (String)simpleJdbcCallResult.get("dailymsg");
+      System.out.println("callProcedure process Daily Message"+ strReturn);
 
+      System.out.println("******************************");
+      return  strReturn;
 
    }
 
@@ -98,11 +101,11 @@ public class PriceDataDAOImpl implements PriceDataDao
 
    }
 
-   public void insertBatch(final List<PriceData> customers)
+   public void insertBatch(final List<PriceData> customers,final String destCurrency )
    {
 
       String sql = "INSERT INTO tmp_rbsa_daily "
-         + "(TICKER, BUSINESSDATE, OPEN_PRICE, CLOSE_PRICE, HIGH_PRICE, LOW_PRICE, ADJUSTED_PRICE,VOLUME/*,INSERTED_BY,INSERTED_ON*/) VALUES (?, ?, ?, ?,?,?,?,?/*, ?, ?*/)";
+         + "(TICKER, BUSINESSDATE, OPEN_PRICE, CLOSE_PRICE, HIGH_PRICE, LOW_PRICE, ADJUSTED_PRICE,VOLUME,dest_currency,converted_adjusted_price/*,INSERTED_BY,INSERTED_ON*/) VALUES (?, ?, ?, ?,?,?,?,?,?,?/*, ?, ?*/)";
 
       rbsaJdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter()
       {
@@ -126,7 +129,8 @@ public class PriceDataDAOImpl implements PriceDataDao
             ps.setDouble(6, priceData.getLowPrice());
             ps.setDouble(7, priceData.getAdjustedPrice());
             ps.setDouble(8, priceData.getVolume());
-            //  ps.setString(9, ""+priceData.getPrevBusinessdate());
+            ps.setString(9, destCurrency);
+            ps.setDouble(10, priceData.getAdjustedPrice());
 
          }
       });

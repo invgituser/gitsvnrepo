@@ -91,6 +91,7 @@ public class CallingServiceFISExhange implements CallingExchangeService
          logger.info("getHistoricalExchangeRate Start");
          jaxbContext = JAXBContext.newInstance(HistoricalData.class);
          unmarshaller = jaxbContext.createUnmarshaller();
+
          while (bflag)
          {
             String strURL2;
