@@ -8,7 +8,7 @@ delete from invdb.inv_date_table;
 
 ##
 
-call p_genDate('1970-01-01','2021-01-01');
+call rbsa.p_genDate('1970-01-01','2021-01-01');
 
 ##
 
@@ -26,7 +26,7 @@ GROUP BY DATE_FORMAT(idt.businessdate, '%Y-%m');
 
 ##
 
-call p_genMonthTable();
+call rbsa.p_genMonthTable();
 
 ##
 
