@@ -1,11 +1,11 @@
 ## Create Procedure rbsa.monthly_price_processor
 
-USE rbsa;
-DROP procedure IF EXISTS monthly_price_processor;
+USE `rbsa`;
+DROP procedure IF EXISTS `monthly_price_processor`;
 
 DELIMITER $$
-USE rbsa$$
-CREATE PROCEDURE monthly_price_processor(in  p_businessDate varchar(20), in  p_ticker varchar(20))
+USE `rbsa`$$
+CREATE PROCEDURE `monthly_price_processor`(in  p_businessDate varchar(20), in  p_ticker varchar(20))
 BEGIN
     DECLARE v_finished INTEGER DEFAULT 0;
     DECLARE v_ticker varchar(20) DEFAULT '';
@@ -39,13 +39,13 @@ BEGIN
     DECLARE v_prev_converted_adjusted_price double DEFAULT 0;
     declare v_prev_converted_eom double(20,8) default 0.0;
     DECLARE v_converted_adjusted_price double DEFAULT 0;
-    DECLARE v_converted_prev_adjusted double DEFAULT 0;
+    DECLARE v_converted_prev_monthly_adjusted double DEFAULT 0;
 
 
     DEClARE price_cursor CURSOR FOR SELECT ticker,
     businessdate,open_price,close_price,high_price,low_price,
     adjusted_price,prev_businessdate,prev_close_price,daily_return,
-    volume,monthly_return,converted_adjusted_price,converted_prev_adjusted FROM  tmp_rbsa_daily where ticker =p_ticker ;
+    volume,monthly_return,converted_adjusted_price FROM  tmp_rbsa_daily where ticker =p_ticker ;
     DECLARE CONTINUE HANDLER
     FOR NOT FOUND SET v_finished = 1;
     OPEN price_cursor;
@@ -59,7 +59,7 @@ BEGIN
     FETCH price_cursor INTO v_ticker,
     v_businessdate,v_open_price,v_close_price,v_high_price,v_low_price,
     v_adjusted_price,v_prev_businessdate,v_prev_close_price,v_daily_return,
-    v_volume,v_monthly_return,v_converted_adjusted_price,v_converted_prev_adjusted;
+    v_volume,v_monthly_return,v_converted_adjusted_price;
 
 
     	IF (v_prev_businessdate is NULL and cnt>0) THEN
@@ -78,7 +78,8 @@ BEGIN
 
     			UPDATE tmp_rbsa_daily
     			SET prev_businessdate = v_prev_businessdate,
-    			 prev_close_price = v_prev_close_price
+    			 prev_close_price = v_prev_close_price,
+    			 converted_prev_adjusted=v_prev_converted_adjusted_price
     			WHERE ticker = p_ticker
     			AND businessdate = v_businessdate;
     		end if;
@@ -115,7 +116,7 @@ BEGIN
     				IF (IFNULL(v_prev_close_price,0) <> 0)then
     					-- SET v_daily_return = ln (v_adjusted_price/v_prev_close_price);
     					SET v_daily_return = ln (v_converted_adjusted_price/v_prev_converted_adjusted_price);
-               select v_converted_adjusted_price,v_prev_converted_adjusted_price,'A';
+               -- select v_converted_adjusted_price,v_prev_converted_adjusted_price,'A';
 
     					UPDATE tmp_rbsa_daily
     					SET daily_return = v_daily_return
@@ -136,18 +137,16 @@ BEGIN
     						AND businessdate = v_prev_last_bdate;
 
  						select prev_last_bdate into v_prev_month_end from invdb.inv_monthly_date_table where last_businessdate=v_businessdate;
- 						select adjusted_price,monthly_return,converted_adjusted_price into v_prev_adjusted_price,v_prev_monthly_return,v_prev_converted_adjusted_price  from rbsa.tmp_rbsa_daily where businessdate=v_prev_month_end;
+ 						select adjusted_price,monthly_return,converted_adjusted_price into v_prev_adjusted_price,v_prev_monthly_return,v_converted_prev_monthly_adjusted  from rbsa.tmp_rbsa_daily where businessdate=v_prev_month_end;
     						IF (IFNULL(v_prev_eom,0) <> 0)then
                         -- select v_prev_month_end,v_prev_adjusted_price,v_prev_monthly_return;
     							-- SET v_monthly_return = ln (v_adjusted_price/v_prev_eom);
                                 SET v_monthly_return = ln (v_converted_adjusted_price/v_prev_converted_eom);
 						-- select v_converted_adjusted_price,v_prev_converted_eom;
-    							update tmp_rbsa_daily set monthly_return=v_monthly_return ,prev_month_businessdate=v_prev_month_end,prev_monthly_adjusted=v_prev_adjusted_price,converted_prev_adjusted=v_prev_converted_adjusted_price
+    							update tmp_rbsa_daily set monthly_return=v_monthly_return ,prev_month_businessdate=v_prev_month_end,prev_monthly_adjusted=v_prev_adjusted_price,converted_prev_monthly_adjusted=v_converted_prev_monthly_adjusted
     							where ticker =v_ticker and businessdate= v_businessdate;
     						end if;
     					end if;
-    				-- set vctext=concat(vctext,'\n',v_prev_last_bdate);
-
     			end if;
     		end if;
     	END IF;
@@ -160,75 +159,13 @@ BEGIN
 
     CLOSE price_cursor;
 
-    -- select vc as  'p';
-    -- select vctext as  'ptext';
-
     delete from rbsa_daily where ticker= p_ticker;
 
     		INSERT INTO rbsa_daily
-    			  (ticker, businessdate, open_price, close_price, high_price, low_price, adjusted_price, prev_businessdate, prev_close_price, daily_return, volume, monthly_return,prev_month_businessdate,prev_monthly_adjusted,dest_currency,converted_adjusted_price,converted_prev_adjusted)
-    		select ticker, businessdate, open_price, close_price, high_price, low_price, adjusted_price, prev_businessdate, prev_close_price, daily_return, volume, monthly_return,prev_month_businessdate,prev_monthly_adjusted,dest_currency,converted_adjusted_price,converted_prev_adjusted
+    			  (ticker, businessdate, open_price, close_price, high_price, low_price, adjusted_price, prev_businessdate, prev_close_price, daily_return, volume, monthly_return,prev_month_businessdate,prev_monthly_adjusted,dest_currency,converted_adjusted_price,converted_prev_adjusted,converted_prev_monthly_adjusted)
+    		select ticker, businessdate, open_price, close_price, high_price, low_price, adjusted_price, prev_businessdate, prev_close_price, daily_return, volume, monthly_return,prev_month_businessdate,prev_monthly_adjusted,dest_currency,converted_adjusted_price,converted_prev_adjusted,converted_prev_monthly_adjusted
     		from tmp_rbsa_daily
     		where ticker=p_ticker;
-/*
-    BEGIN
-    	     SELECT instrumentid
-    		 INTO t_instrID
-    		 FROM invdb.sec_master
-    		 WHERE ticker = p_ticker;
-
-    	   IF (t_instrID is NOT NULL)
-    		   THEN
- 		delete FROM invdb.sec_daily_info
-    		WHERE ticker = p_ticker;
-
-    		SELECT COUNT(*)
-    		INTO t_count
-    		FROM invdb.sec_daily_info
-    		WHERE ticker = p_ticker;
-
-    	   IF (t_count > 0)
-    			THEN
-
-    		begin
-    			UPDATE invdb.sec_daily_info sdi, tmp_rbsa_daily trd
-    			SET
-    			sdi.open_price=trd.open_price,
-    			sdi.close_price=trd.close_price,
-    			sdi.high_price=trd.high_price,
-    			sdi.low_price=trd.low_price,
-    			sdi.adjusted_price=trd.adjusted_price,
-    			sdi.prev_businessdate=trd.prev_businessdate,
-    			sdi.prev_close_price=trd.prev_close_price,
-    			sdi.daily_return=trd.daily_return,
-    			sdi.volume=trd.volume,
-    			sdi.monthly_return =trd.monthly_return,
-             sdi.prev_month_businessdate=trd.prev_month_businessdate,
-             sdi.prev_monthly_adjusted=trd.prev_monthly_adjusted,
-             sdi.dest_currency=trd.dest_currency,
-             sdi.converted_adjusted_price=trd.converted_adjusted_price,
-             sdi.converted_prev_adjusted=trd.converted_prev_adjusted
-    			WHERE sdi.ticker = p_ticker
-    				AND sdi.businessdate = p_businessdate
-    				AND sdi.ticker = trd.ticker
-    				AND sdi.businessdate = trd.businessdate;
-    		end;
-
-    	 else
-
-    		BEGIN
-    		insert into invdb.sec_daily_info ( ticker, businessdate, open_price, close_price,high_price, low_price, adjusted_price, prev_businessdate,prev_close_price, daily_return, volume, monthly_return,prev_month_businessdate,prev_monthly_adjusted,dest_currency,converted_adjusted_price,converted_prev_adjusted)
-    		SELECT sc.ticker,businessdate,open_price,close_price,high_price, low_price, adjusted_price,prev_businessdate,prev_close_price, daily_return, volume, monthly_return,prev_month_businessdate,prev_monthly_adjusted,dest_currency,converted_adjusted_price,converted_prev_adjusted FROM
-    			tmp_rbsa_daily trd,
-    			invdb.sec_master sc
-    		WHERE
-    			trd.ticker = p_ticker
-    			AND trd.businessdate = p_businessdate
-    			AND sc.ticker = trd.ticker;
-    		end;
-    	end if;
-    end if;
-    end;*/
 
     end$$
 

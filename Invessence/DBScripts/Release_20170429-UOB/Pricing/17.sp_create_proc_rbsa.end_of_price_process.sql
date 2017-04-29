@@ -1,11 +1,11 @@
 ## Create Procedure rbsa.end_of_price_process
 
-USE rbsa;
-DROP procedure IF EXISTS end_of_price_process;
+USE `rbsa`;
+DROP procedure IF EXISTS `end_of_price_process`;
 
 DELIMITER $$
-USE rbsa$$
-CREATE  PROCEDURE end_of_price_process(in p_process varchar(20),in p_businessdate varchar(20) )
+USE `rbsa`$$
+CREATE PROCEDURE `end_of_price_process`(in p_process varchar(20),in p_businessdate varchar(20) )
 BEGIN
  DECLARE d_count   INTEGER;
  declare m_count integer ;
@@ -130,9 +130,9 @@ WHERE
 
 delete from invdb.sec_daily_info;
 insert into invdb.sec_daily_info(dest_currency,ticker,businessdate,open_price,close_price,high_price,low_price,adjusted_price,converted_adjusted_price,volume,
-prev_businessdate,prev_close_price,daily_return,prev_month_businessdate,prev_monthly_adjusted,monthly_return,converted_prev_adjusted)
+prev_businessdate,prev_close_price,daily_return,prev_month_businessdate,prev_monthly_adjusted,monthly_return,converted_prev_adjusted,converted_prev_monthly_adjusted)
 select rd.dest_currency,rd.ticker,rd.businessdate,rd.open_price,rd.close_price,rd.high_price,rd.low_price,rd.adjusted_price,rd.converted_adjusted_price,rd.volume,
-rd.prev_businessdate,rd.prev_close_price,rd.daily_return,rd.prev_month_businessdate,rd.prev_monthly_adjusted,rd.monthly_return,rd.converted_prev_adjusted
+rd.prev_businessdate,rd.prev_close_price,rd.daily_return,rd.prev_month_businessdate,rd.prev_monthly_adjusted,rd.monthly_return,rd.converted_prev_adjusted,rd.converted_prev_monthly_adjusted
 from rbsa.rbsa_daily rd join invdb.sec_source_mapping ssm on(rd.ticker=ssm.ticker_source_name) where businessdate=p_businessdate;
 
  END$$
