@@ -342,12 +342,7 @@
     <!--<version>2.1.17.1</version>-->
 <!--</dependency>-->
 
-      <!-- https://mvnrepository.com/artifact/org.primefaces/primefaces-mobile -->
-      <dependency>
-    <groupId>org.primefaces</groupId>
-    <artifactId>primefaces-mobile</artifactId>
-    <version>0.9.3</version>
-</dependency>
+
 
 
    </dependencies>

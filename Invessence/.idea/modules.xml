@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/modules/aggregate-services/aggregate-services.iml" filepath="$PROJECT_DIR$/modules/aggregate-services/aggregate-services.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/aggregator/aggregator.iml" filepath="$PROJECT_DIR$/modules/aggregator/aggregator.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/broker-webservices/broker-webservices.iml" filepath="$PROJECT_DIR$/modules/broker-webservices/broker-webservices.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/core/core.iml" filepath="$PROJECT_DIR$/modules/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/download-services/download-services.iml" filepath="$PROJECT_DIR$/modules/download-services/download-services.iml" />
@@ -20,4 +21,3 @@
     </modules>
   </component>
 </project>
-

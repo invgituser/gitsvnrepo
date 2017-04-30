@@ -28,18 +28,9 @@
         <processorPath useClasspath="true" />
         <module name="aggregate-services" />
         <module name="broker-services" />
-        <module name="broker-webservices" />
         <module name="brokerservice" />
         <module name="core" />
-        <module name="download-services" />
-        <module name="emailer" />
-        <module name="invmodel" />
-        <module name="price-processor" />
-        <module name="rbsa-preprocessor" />
-        <module name="reports" />
-        <module name="service" />
         <module name="showcase" />
-        <module name="trading-services" />
         <module name="trading_service" />
         <module name="virtual-trades" />
         <module name="web" />
@@ -47,9 +38,80 @@
         <module name="web2" />
         <module name="yodlee-services" />
       </profile>
+      <profile default="false" name="Annotation profile for price-processor" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="price-processor" />
+      </profile>
+      <profile default="false" name="Annotation profile for trading-services" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="trading-services" />
+      </profile>
+      <profile default="false" name="Annotation profile for rbsa-preprocessor" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="rbsa-preprocessor" />
+      </profile>
+      <profile default="false" name="Annotation profile for broker-webservices" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="broker-webservices" />
+      </profile>
+      <profile default="false" name="Annotation profile for service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="service" />
+      </profile>
+      <profile default="false" name="Annotation profile for download-services" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="download-services" />
+      </profile>
+      <profile default="false" name="Annotation profile for emailer" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="emailer" />
+      </profile>
+      <profile default="false" name="Annotation profile for invmodel" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="invmodel" />
+      </profile>
+      <profile default="false" name="Annotation profile for reports" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="reports" />
+      </profile>
+      <profile default="false" name="Annotation profile for aggregator" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="aggregator" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="aggregate-services" target="1.7" />
+      <module name="aggregator" target="1.7" />
       <module name="broker-services" target="1.7" />
       <module name="broker-webservices" target="1.7" />
       <module name="brokerservice" target="1.6" />
@@ -77,4 +139,3 @@
     </bytecodeTargetLevel>
   </component>
 </project>
-
