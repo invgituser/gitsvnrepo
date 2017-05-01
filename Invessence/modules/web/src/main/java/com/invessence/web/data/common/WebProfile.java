@@ -15,6 +15,7 @@ public class WebProfile
    String mode;    // This mode will be set on forced.  (DEMO, UAT to control some flow on webpage).
    String defaultAdvisor, defaultRep;
    Map<String, String> webInfo;
+   Map<String, WebMenu> webmenu;
 
    String supportInfo;
 
@@ -33,6 +34,7 @@ public class WebProfile
       defaultAdvisor = null;
       defaultRep = null;
       webInfo = new HashMap<String, String>();
+      webmenu = new HashMap<String, WebMenu>();
    }
 
    public void finalConfig()
@@ -405,5 +407,16 @@ public class WebProfile
          }
       }
       this.supportInfo = output;
+   }
+
+   public void loadWebMenu(String url, String access, String label,
+                           Integer level, Integer toplevel, Integer seq,
+                           String status, String destdir, String htmlpage, String command) {
+      if (label != null) {
+         WebMenu thisMenu = new WebMenu( url,  access,  label,
+                                         level, toplevel,  seq,
+                                         status,  destdir,  htmlpage,  command);
+         webmenu.put(label,thisMenu);
+      }
    }
 }

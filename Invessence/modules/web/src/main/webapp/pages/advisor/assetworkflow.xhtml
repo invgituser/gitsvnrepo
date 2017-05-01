@@ -6,23 +6,20 @@
 	template="/template/common/template.xhtml">
 
 	<f:metadata>
-		<f:event type="preRenderView" listener="#{adashbean.preRenderView}" />
+		<f:event type="preRenderView" listener="#{investmentmodel.preRenderView}" />
 	</f:metadata>
 	<ui:define name="content">
-		<p:panel id="reviewBlkPanel" style="display: none;">
+		<p:panel id="reviewBlkPanel" rendered="#{investmentmodel.reviewPanel}">
 			<div class="reviewBlock">
 				<div class="titleLabelPanel">
 					<div class="tLabel">Review the models</div>
 					<div class="awbtnBlock centerPanel">
 						<p:commandButton type="button" value="Submit"
-							styleClass="awBtn Wid20">
+                                         styleClass="awBtn Wid20">
 						</p:commandButton>
 						<p:commandButton type="button" icon="fa fa-close"
-							styleClass="awCloseBtn">
-							<p:effect type="slide" event="click" for="reviewBlkPanel">
-								<f:param name="mode" value="'hide'" />
-								<f:param name="direction" value="'up'" />
-							</p:effect>
+							styleClass="awCloseBtn"
+                            actionListener="#{investmentmodel.setReviewPanel(false)}">
 						</p:commandButton>
 					</div>
 				</div>
@@ -31,35 +28,35 @@
 		<div class="Container25 wfMainBlock">
 			<div class="awbtnBlockRB">
 				<p:commandButton type="button" icon="fa fa-undo" value="Rollback"
-					styleClass="awBtn Wid100">
-					<p:effect type="slide" event="click" for="dwnlstPanel">
-									<f:param name="mode" value="'show'" />
-									<f:param name="direction" value="'down'" />
-								</p:effect>
+					styleClass="awBtn Wid100"
+                    actionListener="#{investmentmodel.changeDownloadPanel(true)}">
 				</p:commandButton>
 			</div>
-			<p:panel id="dwnlstPanel" style="display: none;">
+			<p:panel id="dwnlstPanel" rendered="#{investmentmodel.downloadPanel}">
 				<div class="downloadList">
 					<div class="titleLabelPanel">
-						<div class="tLabel">Select the templates
+						<div class="tLabel">#{investmentmodel.whichModel} Model
 						</div>
 					</div>
-					<div class="contentSecond">
-						<p:selectManyCheckbox layout="grid" columns="3">
-							<f:selectItems value="Model Sample 1" itemLabel="Model Sample 1"
-								itemValue="Model Sample 1" />
-						</p:selectManyCheckbox>
+					<div class="contentSecond TexAlCenter">
+                        Please select the templates to download.
+						<p:selectManyMenu id="downloadfileID"
+										  value="#{investmentmodel.selecteddownloadfiles}"
+										  showCheckbox="true">
+							<f:selectItems value="#{investmentmodel.downloadlist.entrySet()}"
+										   var="downloadlistvar" itemLabel="#{downloadlistvar.key}"
+										   itemValue="#{downloadlistvar.key}"/>
+						</p:selectManyMenu>
+
 					</div>
 					<div class="awbtnBlocklist">
-						<p:commandButton type="button" value="Download"
-							styleClass="awBtn Wid80">
+						<p:commandButton value="Download"
+                                         actionListener="#{investmentmodel.downloadfile()}"
+							             styleClass="awBtn Wid80">
 						</p:commandButton>
 						<p:commandButton type="button" icon="fa fa-close"
-							styleClass="awCloseBtn">
-							<p:effect type="slide" event="click" for="dwnlstPanel">
-								<f:param name="mode" value="'hide'" />
-								<f:param name="direction" value="'up'" />
-							</p:effect>
+							             styleClass="awCloseBtn"
+                                         actionListener="#{investmentmodel.changeDownloadPanel(false)}">
 						</p:commandButton>
 					</div>
 				</div>
@@ -79,20 +76,20 @@
 					<div class="tcLabel">Select the template you wish to
 						download.</div>
 					<div class="contentSecond">
-						<p:selectOneRadio class="awdnrbtn" layout="pageDirection">
-							<f:selectItem id="awrb1" itemLabel="Fixed Allocation Mode"
-								itemValue="1">
-								
+						<p:selectOneRadio class="awdnrbtn" layout="pageDirection"
+								value="#{investmentmodel.whichModel}">
+							<f:selectItem id="awrb1" itemLabel="Predefined Allocation Model"
+								itemValue="PREDEFINED">
 							</f:selectItem>
-							<f:selectItem id="awrb2" itemLabel="Optimmized Allocation Mode"
-								itemValue="2" />
+							<f:selectItem id="awrb2" itemLabel="Optimmized Allocation Model"
+								itemValue="OPTIMIZED" />
 						</p:selectOneRadio>
 					</div>
 				</div>
 				<div class="awbtnBlock">
-					<p:commandButton type="button" value="Download"
-						styleClass="awBtn Wid100">
-
+					<p:commandButton type="button" value="Select"
+                                     styleClass="awBtn Wid100"
+                                     actionListener="#{investmentmodel.changeDownloadPanel(true)}">
 					</p:commandButton>
 				</div>
 			</div>

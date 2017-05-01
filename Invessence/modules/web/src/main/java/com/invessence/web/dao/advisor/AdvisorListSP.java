@@ -50,6 +50,9 @@ public class AdvisorListSP extends StoredProcedure
             declareParameter(new SqlParameter("p_messagetype", Types.VARCHAR));
             declareParameter(new SqlParameter("p_archive", Types.VARCHAR));
             break;
+         case 9: // sel_notification_advisor
+            declareParameter(new SqlParameter("p_modeltype", Types.VARCHAR));
+            break;
          default:
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             break;
@@ -130,6 +133,13 @@ public class AdvisorListSP extends StoredProcedure
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", logonid);
+      return super.execute(inputMap);
+   }
+
+   public Map getAssetModelTemplates(String modeltype)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_modeltype", modeltype);
       return super.execute(inputMap);
    }
 }

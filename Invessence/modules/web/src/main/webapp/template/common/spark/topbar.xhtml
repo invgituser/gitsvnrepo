@@ -59,7 +59,7 @@
                     <li class="fa fa-ellipsis-v menu-separator" style="float:left!important;"></li>
                     <li>
                         <h:form styleClass="logoutBtnFrm">
-                        <h:commandLink action="#{sessionControl.logout}" style="" styleClass="Animated05">
+                        <h:commandLink actionListener="#{sessionControl.logout}" style="" styleClass="Animated05">
                             <i class="fa fa-sign-out"></i> Logout
                         </h:commandLink>
                         </h:form>

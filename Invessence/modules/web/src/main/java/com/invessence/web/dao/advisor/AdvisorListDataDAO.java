@@ -447,4 +447,26 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
       }
       return null;
    }
+
+   public Map<String, String> getAssetModelTemplates(String modeltype) {
+      DataSource ds = getDataSource();
+      AdvisorListSP sp = new AdvisorListSP(ds, "sel_investmentmodel_template",9);
+      Map outMap = sp.getAssetModelTemplates(modeltype);
+      Map<String, String> filelist = new HashMap<String, String>();
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows;
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)  {
+               Integer i = 0;
+               for (Map<String, Object> rs : rows)
+               {
+                  filelist.put(convert.getStrData(rs.get("name")),
+                               convert.getStrData(rs.get("template")));
+                  i++;
+               }
+            }
+         }
+         return filelist;
+   }
 }

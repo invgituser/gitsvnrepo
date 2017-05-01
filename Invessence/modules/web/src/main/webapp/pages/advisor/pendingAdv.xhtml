@@ -57,8 +57,8 @@
                                <p:ajax update="@form" event="change"
                                        listener="#{manageAdvisorBean.refreshPage}" />
                                <f:selectItem itemLabel="Visitor" itemValue="V" />
+                               <f:selectItem itemLabel="Registered" itemValue="N" />
                                <f:selectItem itemLabel="Processing" itemValue="P" />
-                               <f:selectItem itemLabel="New" itemValue="N" />
                            </p:selectOneButton>
                            </div>
                         </div>
@@ -69,7 +69,7 @@
                         </p:panel>
                         <div class="Container100">
                         <p:dataTable id="managedTable" var="managedVar" styleClass="AdvisorGridtcmLayout" widgetVar="managedTable"
-                                     paginator="true" rows="10" rowsPerPageTemplate="5,10,15"
+                                     paginator="true" rows="25" rowsPerPageTemplate="5,10,15,25,50"
                                      paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                                      value="#{manageAdvisorBean.filteredDataList}" 
                                      sortMode="multiple"
