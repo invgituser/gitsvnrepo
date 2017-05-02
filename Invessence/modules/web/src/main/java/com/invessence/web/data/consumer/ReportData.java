@@ -1,5 +1,11 @@
 package com.invessence.web.data.consumer;
 
+import java.io.InputStream;
+
+import javax.faces.context.FacesContext;
+
+import org.primefaces.model.*;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Prashant
@@ -14,6 +20,7 @@ public class ReportData
    private String reportName;
    private String businessdate;
    private String filename;
+   private StreamedContent downloadfile;
    private Boolean viewReport;
    private Boolean downloadReport;
 
@@ -69,7 +76,18 @@ public class ReportData
    public void setFilename(String filename)
    {
       this.filename = filename;
+      if (this.filename.toLowerCase().endsWith("pdf")) {
+         InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/demo/images/optimus.jpg");
+         String outname = reportName + businessdate + ".pdf";
+         downloadfile = new DefaultStreamedContent(stream, "application/pdf", outname);
+      }
    }
+
+   public StreamedContent getDownloadfile()
+   {
+      return downloadfile;
+   }
+
 
    public Boolean getViewReport()
    {

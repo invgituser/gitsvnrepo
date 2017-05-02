@@ -417,12 +417,11 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             {
                Map rs = (Map) rows.get(i);
                ReportData rdata = new ReportData();
-               rdata.setAcctnum(convert.getStrData(rs.get("IB_acctnum")));
+               rdata.setAcctnum(convert.getStrData(rs.get("acctnum")));
                rdata.setBusinessdate(convert.getStrData(rs.get("reportDate")));
-               filename = convert.getStrData(rs.get("filename"));
-               rdata.setFilename(filename);
                rdata.setReportName(convert.getStrData(rs.get("reportName")));
                rdata.setSource(convert.getStrData(rs.get("src")));
+               filename = convert.getStrData(rs.get("filename"));
                if (filename.contains(".pdf")) {
                   rdata.setDownloadReport(true);
                   rdata.setViewReport(false);
@@ -431,6 +430,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                   rdata.setViewReport(true);
                   rdata.setDownloadReport(false);
                }
+               rdata.setFilename(filename);
                reports.add(rdata);
                i++;
             }

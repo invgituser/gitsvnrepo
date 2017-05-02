@@ -33,24 +33,11 @@
             Template
         </ui:insert>
 
-      <div class="layout-portlets-box TexAlCenter" style="font-size: 13px;">
-           <ui:fragment rendered="#{webutil.hasSSL}">
-                <div class="layout-portlets-box TexAlCenter" style="border-radius:0;">
-                    <div class="ShowOnDesktopTablet">
-                        <script type="text/javascript"
-                                src="#{webutil.webprofile.sslseal}">
-                        </script>
-                    </div>
-                </div>
-            </ui:fragment>
-            Powered by Invessence<sup class="Fs9">SM</sup><br/>
-            <!--#{webutil.webprofile.companyname}<sup class="Fs9">TM</sup> - All rights reserved.-->
-          <script type="text/javascript" src="https://integratedchat.teamviewer.com/widget"></script>
-        </div>
 
         <div class="layout-portlets-box footerContext">
             <div class="Container100 Responsive100">
-                <div class="ContainerIndent"><div id="ceForm:j_idt277" class="ui-outputpanel ui-widget">
+                <div class="ContainerIndent">
+                    <div id="ceForm:j_idt277" class="ui-outputpanel ui-widget">
                     <p style="font-style: italic; font-size: .8em;">
                         This portfolio is designed for illustration purposes only. The cumulative value of the portfolio
                         (net of fees) is based on the historical performance of the underlying securities and adjusted for changes in the asset allocation over time.
@@ -61,12 +48,27 @@
                         solicitation of an offer, or advice to buy or sell securities in jurisdictions
                         where Invessence is not registered
 
-                    </p></div>
+                    </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="layout-portlets-box footerContext">
+        <div class="Container100 Responsive100">
+            <ui:fragment rendered="#{webutil.hasSSL}">
+                    <div class="ShowOnDesktopTablet">
+                        <script type="text/javascript"
+                                src="#{webutil.webprofile.sslseal}">
+                        </script>
+                    </div>
+            </ui:fragment>
+            Powered by Invessence<sup class="Fs9">SM</sup><br/>
+            <!--#{webutil.webprofile.companyname}<sup class="Fs9">TM</sup> - All rights reserved.-->
+            <script type="text/javascript" src="https://integratedchat.teamviewer.com/widget"></script>
+        </div>
+    </div>
 
     <h:outputStylesheet name="css/core-layout.css" library="invessence-layout"/>
     <h:outputStylesheet name="css/custom.css" library="invessence-layout"/>
