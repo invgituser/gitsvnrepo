@@ -4244,3 +4244,11 @@ padding: 10px 0px;
 	background: #0076C0!important;
 }
 
+.fineTuneBtn {
+	width: 60px;
+	left: -25px;
+}
+
+.fineTuneBtn .ui-button-text {
+	padding: 6px 0px !important;
+}

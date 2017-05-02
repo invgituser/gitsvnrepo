@@ -28,18 +28,19 @@
                         </div>
                     </div>
                     <div class="Container100">
-                        <div class="Container50 Fleft">
+                        <div class="Container100 Fleft">
                             <div class="Seperator"></div>
                         </div>
                     </div>
                 </div>
                 <h:form id="crform">
                 <div class="Container100 Responsive100">
-                    <div class="Container60 ">
+                    <div class="Container100">
                         <p:panel id="workArea" style="border:0px !important; background:none;">
                             <p:growl id="reportGrowl" showDetail="true" sticky="true" escape="true"/>
                             <p:dataTable var="report" value="#{reportBean.filterReportList}"
                                          emptyMessage="No report found."
+                                         styleClass="uob_graphTable"
                                          reflow="true">
 
                                 <p:column styleClass="Wid20 TexAlLeft"

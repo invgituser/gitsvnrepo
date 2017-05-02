@@ -4131,7 +4131,6 @@ padding: 10px 0px;
     border-radius: 0px!important;
 }
 
-
 .menuBtnCustom .ui-button-text {
 	 border-radius: 0px!important;
 	 background: #666666;
@@ -4156,4 +4155,8 @@ padding: 10px 0px;
 .supportAdvBlock div {
 	padding: 0px 5px;
 	text-align: right;
+}
+
+.titleContentPanelDwnP {
+	padding:0px 15px;
 }

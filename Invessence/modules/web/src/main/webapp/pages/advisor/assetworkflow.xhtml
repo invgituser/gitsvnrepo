@@ -83,6 +83,8 @@
 							</f:selectItem>
 							<f:selectItem id="awrb2" itemLabel="Optimmized Allocation Model"
 								itemValue="OPTIMIZED" />
+							<f:selectItem id="awrb3" itemLabel="Skip to upload section"
+										  itemValue="3" />
 						</p:selectOneRadio>
 					</div>
 				</div>
@@ -127,8 +129,11 @@
 				<div class="iconPanel Wid100">
 					<div class="iconCircle">
 						<img
-							src="/javax.faces.resource/images/awvcheck.svg.xhtml?ln=invessence"
-							height="40" />
+								src="/javax.faces.resource/images/awvcheck.svg.xhtml?ln=invessence"
+								height="40" />
+						<img style="display: none;"
+							 src="/javax.faces.resource/images/validateLoader.gif.xhtml?ln=invessence"
+							 height="40" />
 					</div>
 					<div class="titleLabelPanel">
 						<div class="tLabel">Validation Check</div>
@@ -140,7 +145,13 @@
 				</div>
 				<div class="awbtnBlock">
 					<p:commandButton type="button" value="Validate"
-						styleClass="awBtn Wid100">
+									 styleClass="awBtn Wid100">
+					</p:commandButton>
+					<p:commandButton rendered="false" type="button" value="Review"
+									 styleClass="awBtn Wid100">
+					</p:commandButton>
+					<p:commandButton rendered="false" type="button" value="Next"
+									 styleClass="awBtn Wid100">
 					</p:commandButton>
 				</div>
 			</div>

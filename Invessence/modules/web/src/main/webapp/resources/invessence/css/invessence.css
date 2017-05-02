@@ -1566,3 +1566,6 @@ text-align: center;
 	top: -70px;
 }
 
+#TvChatWidget {
+	z-index: 169999999!important;
+}
