@@ -37,7 +37,7 @@ public class PriceDataDAOImpl implements PriceDataDao
       rbsaJdbcTemplate.execute(sql);
    }
 
-   public String callProcedure(String process, String businessDate, String ticker) throws SQLException
+   public String callProcedure(String process, String businessDate, String ticker,String dest_currency) throws SQLException
    {
       String strReturn;
       System.out.println("callProcedure process "+process+" businessDate "+businessDate+" ticker "+ticker);
@@ -48,6 +48,8 @@ public class PriceDataDAOImpl implements PriceDataDao
       inParamMap.put("p_process", process);
       inParamMap.put("p_businessDate", businessDate);
       inParamMap.put("p_ticker", ticker);
+      inParamMap.put("p_dest_currency", dest_currency);
+
       SqlParameterSource in = new MapSqlParameterSource(inParamMap);
       Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
       System.out.println(simpleJdbcCallResult);
@@ -182,14 +184,15 @@ public class PriceDataDAOImpl implements PriceDataDao
    }
 
 
-   public void GetExchangePriceData(String ticker) throws SQLException
+   public void GetExchangePriceData(String ticker,String destcurrency) throws SQLException
    {
-      System.out.println("GetExchangePriceData ticker"+ticker);
+      System.out.println("GetExchangePriceData ticker"+ticker+" destcurrency "+destcurrency);
       //rbsaJdbcTemplate = new JdbcTemplate(dataSource);
       SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(rbsaJdbcTemplate)
          .withProcedureName("exchange_rate_processing");
       Map<String, Object> inParamMap = new HashMap<String, Object>();
       inParamMap.put("p_ticker", ticker);
+      inParamMap.put("p_dest_currency", destcurrency);
       SqlParameterSource in = new MapSqlParameterSource(inParamMap);
       Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
 //      simpleJdbcCallResult.get("")

@@ -5,7 +5,7 @@ DROP procedure IF EXISTS `monthly_price_processor`;
 
 DELIMITER $$
 USE `rbsa`$$
-CREATE PROCEDURE `monthly_price_processor`(in  p_businessDate varchar(20), in  p_ticker varchar(20))
+CREATE PROCEDURE `monthly_price_processor`(in  p_businessDate varchar(20), in  p_ticker varchar(20),in p_dest_currency varchar(20))
 BEGIN
     DECLARE v_finished INTEGER DEFAULT 0;
     DECLARE v_ticker varchar(20) DEFAULT '';
@@ -159,7 +159,7 @@ BEGIN
 
     CLOSE price_cursor;
 
-    delete from rbsa_daily where ticker= p_ticker;
+    delete from rbsa_daily where ticker= p_ticker and dest_currency=p_dest_currency;
 
     		INSERT INTO rbsa_daily
     			  (ticker, businessdate, open_price, close_price, high_price, low_price, adjusted_price, prev_businessdate, prev_close_price, daily_return, volume, monthly_return,prev_month_businessdate,prev_monthly_adjusted,dest_currency,converted_adjusted_price,converted_prev_adjusted,converted_prev_monthly_adjusted)

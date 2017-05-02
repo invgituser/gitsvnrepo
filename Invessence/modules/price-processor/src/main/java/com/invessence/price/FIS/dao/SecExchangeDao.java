@@ -16,4 +16,5 @@ public interface  SecExchangeDao
    public void insert(HistoricalData objDailyRates,String symbol ) throws SQLException;
    public void callHolidayProcedure(String startDate, String endDate,String symbol) throws SQLException;
    public void GetDailyMissingData(String startDate, String symbol) throws SQLException;
+   public void deleteAll(String symbol) throws SQLException;
 }

@@ -34,7 +34,7 @@ public class Processing
          mailWaringAlertMsg = new StringBuilder();
          if (args.length != 0)
          {
-            String company = null, mode = null, pricingrqd = null;
+            String company = null, mode = null, exchngrqd = null, ondemandrqd = null;
             logger.info(" Processing.startProcessing() passing argument length " + args.length);
             for (int i = 0; i < args.length; i++)
             {
@@ -48,23 +48,27 @@ public class Processing
                }
                if (i == 2)
                {
-                  pricingrqd = "" + args[i].trim();
+                  exchngrqd = "" + args[i].trim();
+               }
+               if (i == 3)
+               {
+                  ondemandrqd = "" + args[i].trim();
                }
             }
 
-            logger.info(" Processing.startProcessing() passing argument company " + company + " mode " + mode + " pricingrqd " + pricingrqd);
-            if (company != null && mode != null && pricingrqd != null && company != "" && mode != "" && pricingrqd != "")
+            logger.info(" Processing.startProcessing() passing argument company " + company + " mode " + mode + " exchngrqd " + exchngrqd+" ondemandrqd "+ondemandrqd);
+            if (company != null && mode != null && exchngrqd != null && ondemandrqd != null && company != "" && mode != "" && exchngrqd != "" && ondemandrqd != "")
             {
 
-               if (pricingrqd.equalsIgnoreCase("Y") || pricingrqd.equalsIgnoreCase("EXCHANGE_YES"))
+               if (exchngrqd.equalsIgnoreCase("Y") || exchngrqd.equalsIgnoreCase("EXCHANGE_YES"))
                {
                   //ExchangeRateProcessing exchngProcess = context.getBean(ExchangeRateProcessing.class);
-                  boolean bFlag = exchngProcess.process(company, mode, mailFailureAlertMsg, mailWaringAlertMsg);
+                  boolean bFlag = exchngProcess.process(company, mode, mailFailureAlertMsg, mailWaringAlertMsg,ondemandrqd);
                   logger.info(" Processing.startProcessing() Exchange rate processing bFlag " + bFlag);
                   if (bFlag)
                   {
 //                  PriceProcessing priceProcess = context.getBean(PriceProcessing.class);
-                     priceProcess.process(company, mode, mailFailureAlertMsg, mailWaringAlertMsg);
+                     priceProcess.process(company, mode, mailFailureAlertMsg, mailWaringAlertMsg,ondemandrqd);
                   }
                   else
                   {
@@ -76,7 +80,7 @@ public class Processing
                else
                {
 //               PriceProcessing priceProcess = context.getBean(PriceProcessing.class);
-                  priceProcess.process(company, mode, mailFailureAlertMsg, mailWaringAlertMsg);
+                  priceProcess.process(company, mode, mailFailureAlertMsg, mailWaringAlertMsg,ondemandrqd);
 //               context.close();
                }
             }

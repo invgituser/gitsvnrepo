@@ -28,13 +28,19 @@ public class SecExchangeDAOImpl implements SecExchangeDao
       rbsaJdbcTemplate.execute(sql);
    }
 
+   public void deleteAll(String symbol) throws SQLException
+   {
+      String sql = "DELETE from rbsa.sec_exchangerate_data where symbol='" + symbol + "'";
+      rbsaJdbcTemplate.execute(sql);
+   }
+
    public List<SecExchangeMaster> getSymbol() throws SQLException
    {
       List<SecExchangeMaster> lst = null;
 
       System.out.println("SecMasterDAOImpl.getTicker()");
       //String sql = "SELECT instrumentid, status,sm.ticker,ssm.tickersource, cusip, isin, name, assetclass, subclass, type, style, expenseRatio, lowerBoundReturn, upperBoundReturn, taxableReturn, nontaxableReturn, issuer, adv3months, aum, beta, securityRiskSTD, lowerbound, upperbound, yield, rbsaFlag FROM invdb.sec_master sm left join invdb.sec_source_mapping ssm on (sm.ticker=ssm.ticker)";
-      String sql = "SELECT sem.symbol,ses.source,sem.fromCurrency,sem.toCurrency,sem.description,(CASE WHEN sed.symbol IS NULL OR sed.symbol = '' THEN 'YES'  ELSE 'NO' END) AS 'onDemand' FROM invdb.sec_exchangerate_master sem JOIN invdb.sec_exchangerate_source ses ON (ses.symbol = sem.symbol) left join rbsa.sec_exchangerate_data sed ON (sed.symbol = ses.symbol) WHERE ses.status = 'A' AND sem.status = 'A' GROUP BY sem.symbol order by onDemand";
+      String sql = "SELECT sem.symbol,ses.source,sem.fromCurrency,sem.toCurrency,sem.description,ifnull(max(sed.exchangeDate),'') as exchangeDate,(CASE WHEN sed.symbol IS NULL OR sed.symbol = '' THEN 'YES'  ELSE 'NO' END) AS 'onDemand' FROM invdb.sec_exchangerate_master sem JOIN invdb.sec_exchangerate_source ses ON (ses.symbol = sem.symbol) left join rbsa.sec_exchangerate_data sed ON (sed.symbol = ses.symbol) WHERE ses.status = 'A' AND sem.status = 'A' GROUP BY sem.symbol order by onDemand";
       lst = rbsaJdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(SecExchangeMaster.class));
       System.out.println("lst size**************** :" + lst.size());
       return lst;

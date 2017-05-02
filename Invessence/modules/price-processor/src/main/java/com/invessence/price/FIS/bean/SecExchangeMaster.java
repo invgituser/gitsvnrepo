@@ -11,6 +11,7 @@ public class SecExchangeMaster
    private String toCurrency;
    private String description;
    private String onDemand;
+   private String exchangeDate;
 
    public String getSymbol()
    {
@@ -72,6 +73,16 @@ public class SecExchangeMaster
       this.onDemand = onDemand;
    }
 
+   public String getExchangeDate()
+   {
+      return exchangeDate;
+   }
+
+   public void setExchangeDate(String exchangeDate)
+   {
+      this.exchangeDate = exchangeDate;
+   }
+
    @Override
    public String toString()
    {
@@ -82,6 +93,7 @@ public class SecExchangeMaster
          ", toCurrency='" + toCurrency + '\'' +
          ", description='" + description + '\'' +
          ", onDemand='" + onDemand + '\'' +
+         ", exchangeDate='" + exchangeDate + '\'' +
          '}';
    }
 }

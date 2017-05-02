@@ -42,7 +42,7 @@ public class PriceProcessing
    SimpleDateFormat switchFormat = new SimpleDateFormat("yyyyMMdd");
 
    // This method fetch Security details along with source information, depends on type it gets daily or historical data
-   public void process(String company, String mode, StringBuilder mailFailureAlertMsg, StringBuilder mailWaringAlertMsg) throws SQLException
+   public void process(String company, String mode, StringBuilder mailFailureAlertMsg, StringBuilder mailWaringAlertMsg,String ondemandrqd) throws SQLException
    {
 
       ServiceRequest serviceRequest = new ServiceRequest(company, mode);
@@ -81,7 +81,7 @@ public class PriceProcessing
                {
                   logger.info("PriceProcessing.process DAILY_PRICING");
                   apidetails = secMasterDao.getSwitch(companyName, "DAILY_PRICING");
-                  dailyProcess(apidetails, businessDate, secLst, mailFailureAlertMsg, serviceRequest, mailWaringAlertMsg,prev_businessDate);
+                  dailyProcess(apidetails, businessDate, secLst, mailFailureAlertMsg, serviceRequest, mailWaringAlertMsg,prev_businessDate,ondemandrqd);
                }
                // code to check for dailyProcess or monthlyProcess
                else if (CommonUtil.dateCompare(dbParamMap.get("BUSINESS_DATE").getValue().toString(), dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == true)
@@ -129,7 +129,7 @@ public class PriceProcessing
     * In this method we are performing daily process
     */
 
-   public void dailyProcess(List<APIDetails> apidetails, String businessDate, List<SecMaster> secLst, StringBuilder mailFailureAlertMsg, ServiceRequest serviceRequest, StringBuilder mailWaringAlertMsg,String prev_businessDate)
+   public void dailyProcess(List<APIDetails> apidetails, String businessDate, List<SecMaster> secLst, StringBuilder mailFailureAlertMsg, ServiceRequest serviceRequest, StringBuilder mailWaringAlertMsg,String prev_businessDate,String ondemandrqd)
    {
       List<PriceData> pdList = null;
       HashMap<String, Object> objPriceData = null;
@@ -145,9 +145,9 @@ public class PriceProcessing
 
                logger.info("PriceProcessor.dailyProcess() OnDemand processing for Ticker: " + secLst.get(i1).getTicker_source_name() + " required flag " + secLst.get(i1).getOnDemand()
                               +" Previous Businessdate condition available "+(secLst.get(i1).getOnDemand().equalsIgnoreCase("YES") || (!secLst.get(i1).getBusinessdate().trim().equalsIgnoreCase(prev_businessDate.trim())
-                  && !secLst.get(i1).getBusinessdate().trim().equalsIgnoreCase(businessDate.trim()))));
+                  && !secLst.get(i1).getBusinessdate().trim().equalsIgnoreCase(businessDate.trim())))+" Forceful On Demand "+ondemandrqd);
                if (secLst.get(i1).getOnDemand().equalsIgnoreCase("YES") || (!secLst.get(i1).getBusinessdate().trim().equalsIgnoreCase(prev_businessDate.trim())
-                  && !secLst.get(i1).getBusinessdate().trim().equalsIgnoreCase(businessDate.trim())))
+                  && !secLst.get(i1).getBusinessdate().trim().equalsIgnoreCase(businessDate.trim())) || ondemandrqd.equalsIgnoreCase("ONDEMAND_YES"))
                {
                   logger.info("PriceProcessor.dailyProcess() OnDemand processing for Ticker: "+ secLst.get(i1).getTicker_source_name()+" initiated " );
                   onDemandProcessing(apidetails, businessDate, secLst.get(i1), mailFailureAlertMsg, serviceRequest, mailWaringAlertMsg);
@@ -165,9 +165,9 @@ public class PriceProcessing
                      mailWaringAlertMsg.append("Daily Process Price Value Missing for Ticker:" + secLst.get(i1).getTicker_source_name() + ",generated holiday data\n");
                      if (secLst.get(i1).getExchange_required().equalsIgnoreCase("Y"))
                      {
-                        priceDataDao.GetExchangePriceData(secLst.get(i1).getTicker_source_name());
+                        priceDataDao.GetExchangePriceData(secLst.get(i1).getTicker_source_name(),secLst.get(i1).getDest_currency());
                      }
-                     dailyReturnAlertFlag = priceDataDao.callProcedure(PriceProcessConst.DAILY, businessDate, secLst.get(i1).getTicker_source_name());
+                     dailyReturnAlertFlag = priceDataDao.callProcedure(PriceProcessConst.DAILY, businessDate, secLst.get(i1).getTicker_source_name(),secLst.get(i1).getDest_currency());
                   }
                   else
                   {
@@ -186,9 +186,9 @@ public class PriceProcessing
                         priceDataDao.insertBatch(pdList, secLst.get(i1).getDest_currency());
                         if (secLst.get(i1).getExchange_required().equalsIgnoreCase("Y"))
                         {
-                           priceDataDao.GetExchangePriceData(secLst.get(i1).getTicker_source_name());
+                           priceDataDao.GetExchangePriceData(secLst.get(i1).getTicker_source_name(),secLst.get(i1).getDest_currency());
                         }
-                        dailyReturnAlertFlag = priceDataDao.callProcedure(PriceProcessConst.DAILY, businessDate, secLst.get(i1).getTicker_source_name());
+                        dailyReturnAlertFlag = priceDataDao.callProcedure(PriceProcessConst.DAILY, businessDate, secLst.get(i1).getTicker_source_name(),secLst.get(i1).getDest_currency());
                      }
                      catch (Exception e)
                      {
@@ -320,9 +320,9 @@ public class PriceProcessing
                         priceDataDao.callHolidayProcedure(pdList.get((pdList.size() - 1)).getBusinessDate(), businessdate);
                         if (secMaster.getExchange_required().equalsIgnoreCase("Y"))
                         {
-                           priceDataDao.GetExchangePriceData(secMaster.getTicker_source_name());
+                           priceDataDao.GetExchangePriceData(secMaster.getTicker_source_name(),secMaster.getDest_currency());
                         }
-                        priceDataDao.callProcedure(PriceProcessConst.MONTHLY, businessdate, secMaster.getTicker_source_name());
+                        priceDataDao.callProcedure(PriceProcessConst.MONTHLY, businessdate, secMaster.getTicker_source_name(),secMaster.getDest_currency());
                      }
                      catch (Exception e)
                      {
@@ -459,9 +459,9 @@ public class PriceProcessing
                      priceDataDao.callHolidayProcedure(startDate, businessDate);
                      if (secMaster.getExchange_required().equalsIgnoreCase("Y"))
                      {
-                        priceDataDao.GetExchangePriceData(secMaster.getTicker_source_name());
+                        priceDataDao.GetExchangePriceData(secMaster.getTicker_source_name(),secMaster.getDest_currency());
                      }
-                     priceDataDao.callProcedure(PriceProcessConst.MONTHLY, businessDate, secMaster.getTicker_source_name());
+                     priceDataDao.callProcedure(PriceProcessConst.MONTHLY, businessDate, secMaster.getTicker_source_name(),secMaster.getDest_currency());
                   }
                   catch (Exception e)
                   {
@@ -581,7 +581,7 @@ public class PriceProcessing
                                     try
                                     {
                                        //code to call monthly_price_processor procedure(in this we are calculating daily return,monthly return and inserting values in rbsa_daily table)
-                                       priceDataDao.callProcedure(PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker_source_name());
+                                       priceDataDao.callProcedure(PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker_source_name(),secMaster.getDest_currency());
                                        if (secMaster.getRbsaFlag() != null && secMaster.getRbsaFlag().equalsIgnoreCase("Y"))
                                        {
                                           try
@@ -733,7 +733,7 @@ public class PriceProcessing
                                     try
                                     {
                                        //code to call monthly_price_processor procedure(in this we are calculating daily return,monthly return and inserting values in rbsa_daily table)
-                                       priceDataDao.callProcedure(PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker_source_name());
+                                       priceDataDao.callProcedure(PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker_source_name(),secMaster.getDest_currency());
 
 
                                     }

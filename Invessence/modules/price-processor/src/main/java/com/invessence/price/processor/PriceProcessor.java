@@ -204,7 +204,7 @@ public class PriceProcessor
                   {
 
                      // code to call daily_price_processor procedure(in this we are calculating daily return and inserting values in rbsa_daily table)
-                     priceDataDao.callProcedure(PriceProcessConst.DAILY, priceDate, "");
+                     priceDataDao.callProcedure(PriceProcessConst.DAILY, priceDate, "","");
                      try
                      {
                         //code to call end_of_price_process procedure(in this we are updating sec_daily_info table,invessence_switch table and invdb.inv_date_table)
@@ -293,7 +293,7 @@ public class PriceProcessor
                   try
                   {
                      // code to call monthly_price_processor procedure(in this we are calculating daily return,monthly return and inserting values in rbsa_daily table)
-                     priceDataDao.callProcedure(PriceProcessConst.MONTHLY, priceDate, secMaster.getTicker());
+                     priceDataDao.callProcedure(PriceProcessConst.MONTHLY, priceDate, secMaster.getTicker(),"");
                      if (secMaster.getRbsaFlag().equalsIgnoreCase("Y"))
                      {
                         try
@@ -421,7 +421,7 @@ public class PriceProcessor
                                  try
                                  {
                                     //code to call monthly_price_processor procedure(in this we are calculating daily return,monthly return and inserting values in rbsa_daily table)
-                                    priceDataDao.callProcedure(PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker());
+                                    priceDataDao.callProcedure(PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker(),"");
                                     if (secMaster.getRbsaFlag().equalsIgnoreCase("Y"))
                                     {
                                        try
@@ -558,7 +558,7 @@ public class PriceProcessor
                                  try
                                  {
                                     //code to call monthly_price_processor procedure(in this we are calculating daily return,monthly return and inserting values in rbsa_daily table)
-                                    priceDataDao.callProcedure(PriceProcessConst.INITIAL_PROCESS, priceDate, secMaster.getTicker());
+                                    priceDataDao.callProcedure(PriceProcessConst.INITIAL_PROCESS, priceDate, secMaster.getTicker(),"");
                                     /*try
                                     {
                                        //code to call end_of_price_process procedure(in this we are updating sec_daily_info table,invessence_switch table,

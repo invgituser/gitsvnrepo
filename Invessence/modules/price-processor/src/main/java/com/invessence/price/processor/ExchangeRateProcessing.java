@@ -35,11 +35,11 @@ public class ExchangeRateProcessing
    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
    SimpleDateFormat switchFormat = new SimpleDateFormat("yyyyMMdd");
 
-   public boolean process(String company, String mode, StringBuilder mailFailureAlertMsg, StringBuilder mailWaringAlertMsg) throws SQLException
+   public boolean process(String company, String mode, StringBuilder mailFailureAlertMsg, StringBuilder mailWaringAlertMsg,String ondemandrqd) throws SQLException
    {
       boolean bFlag = true;
       String URL = null;
-      String exchangeDate = null;
+      String exchangeDate = null,prev_exchangeDate=null;
       Map<String, DBParameters> dbParamMap = null;
       DailyRates dailyExchangeData = null;
       ServiceRequest serviceRequest = null;
@@ -59,7 +59,9 @@ public class ExchangeRateProcessing
          else
          {
             exchangeDate = sdf.format(switchFormat.parse(dbParamMap.get("BUSINESS_DATE").getValue().toString()));
-            logger.info("ExchangeRateProcessing.process()  exchangeDate : " + exchangeDate);
+            logger.info("ExchangeRateProcessing.process()  Exchange Date : " + exchangeDate);
+            prev_exchangeDate=dbParametersDao.getPrevBusinessDate(exchangeDate).get("PREV_BUSINESSDATE").getValue().toString();
+            logger.info("PriceProcessing.process Previous Exchange Date :" + prev_exchangeDate);
             symLst = secExchangeMaster.getSymbol();
 
             if (symLst != null && symLst.size() > 0)
@@ -68,8 +70,11 @@ public class ExchangeRateProcessing
                logger.info(" ExchangeRateProcessing.process() currency symbol list size " + symLst.size());
                for (int i = 0; i < symLst.size(); i++)
                {
-                  logger.info(" ExchangeRateProcessing.process() Ondemand required " + symLst.get(i).getOnDemand().equalsIgnoreCase("Y") + " for Symbol " + symLst.get(i).getSymbol());
-                  if (symLst.get(i).getOnDemand().equalsIgnoreCase("Y") || symLst.get(i).getOnDemand().equalsIgnoreCase("YES"))
+                  logger.info(" ExchangeRateProcessing.process() Ondemand for Symbol " +symLst.get(i).getSymbol() + " required " +  symLst.get(i).getOnDemand().equalsIgnoreCase("Y")
+                                 +" Previous Exchange Date condition available "+(!symLst.get(i).getExchangeDate().trim().equalsIgnoreCase(prev_exchangeDate.trim())
+                     && !symLst.get(i).getExchangeDate().trim().equalsIgnoreCase(exchangeDate.trim())) +" Forceful On Demand "+ondemandrqd);
+                  if (symLst.get(i).getOnDemand().equalsIgnoreCase("Y") || symLst.get(i).getOnDemand().equalsIgnoreCase("YES")|| (!symLst.get(i).getExchangeDate().trim().equalsIgnoreCase(prev_exchangeDate.trim())
+                     && !symLst.get(i).getExchangeDate().trim().equalsIgnoreCase(exchangeDate.trim())) || ondemandrqd.equalsIgnoreCase("ONDEMAND_YES"))
                   {
                      URL = ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.PRICING.toString(), serviceRequest.getMode(), Constant.PRICING.FIS.toString(), "HISTORY.URL");
                      logger.info(" ExchangeRateProcessing.process() Historical requesting URL " + URL);
@@ -93,6 +98,7 @@ public class ExchangeRateProcessing
                      {
                         try
                         {
+                           secExchangeMaster.deleteAll(symLst.get(i).getSymbol());
                            secExchangeMaster.insertBatch(historicalExchangeData, symLst.get(i).getSymbol());
                         }
                         catch (Exception e)

@@ -5,7 +5,7 @@ DROP procedure IF EXISTS `daily_price_processor`;
 
 DELIMITER $$
 USE `rbsa`$$
-CREATE PROCEDURE `daily_price_processor`(in p_businessDate varchar(20),out dailymsg varchar(20))
+CREATE PROCEDURE `daily_price_processor`(in p_businessDate varchar(20),out dailymsg varchar(20),in p_dest_currency varchar(20))
 BEGIN
   DECLARE v_finished INTEGER DEFAULT 0;
 
@@ -144,7 +144,8 @@ WHERE
          volume=v_volume,dest_currency=v_dest_currency,converted_adjusted_price=v_converted_adjusted_price,converted_prev_adjusted=v_prev_converted_adjusted_price
          where
          ticker=v_ticker and
-         businessdate=v_businessdate;
+         businessdate=v_businessdate and
+         dest_currency=p_dest_currency;
 
        end;
        else
