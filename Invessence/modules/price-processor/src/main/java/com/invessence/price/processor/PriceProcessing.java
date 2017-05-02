@@ -52,7 +52,7 @@ public class PriceProcessing
       List<APIDetails> apidetails = null;
       Map<String, DBParameters> dbParamMap = null;
       List<SecMaster> secLst = null;
-      String businessDate = null;
+      String businessDate = null,prev_businessDate=null;
       try
       {
          // code to get values for businessdate,last businessdate of month,price date from invessence_switch table
@@ -73,13 +73,15 @@ public class PriceProcessing
 
                businessDate = sdf.format(switchFormat.parse(dbParamMap.get("BUSINESS_DATE").getValue().toString()));
                logger.info("PriceProcessing.process Business Date :" + businessDate);
+               prev_businessDate=dbParametersDao.getPrevBusinessDate(businessDate).get("PREV_BUSINESSDATE").getValue().toString();
+               logger.info("PriceProcessing.process Previous Business Date :" + prev_businessDate);
                logger.info("PriceProcessing.process Business Date :" + dbParamMap.get("BUSINESS_DATE").getValue().toString() + " Last BuiDate: " + dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString());
                // code to check for dailyProcess or monthlyProcess
                if (CommonUtil.dateCompare(dbParamMap.get("BUSINESS_DATE").getValue().toString(), dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == false)
                {
                   logger.info("PriceProcessing.process DAILY_PRICING");
                   apidetails = secMasterDao.getSwitch(companyName, "DAILY_PRICING");
-                  dailyProcess(apidetails, businessDate, secLst, mailFailureAlertMsg, serviceRequest, mailWaringAlertMsg);
+                  dailyProcess(apidetails, businessDate, secLst, mailFailureAlertMsg, serviceRequest, mailWaringAlertMsg,prev_businessDate);
                }
                // code to check for dailyProcess or monthlyProcess
                else if (CommonUtil.dateCompare(dbParamMap.get("BUSINESS_DATE").getValue().toString(), dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == true)
@@ -127,7 +129,7 @@ public class PriceProcessing
     * In this method we are performing daily process
     */
 
-   public void dailyProcess(List<APIDetails> apidetails, String businessDate, List<SecMaster> secLst, StringBuilder mailFailureAlertMsg, ServiceRequest serviceRequest, StringBuilder mailWaringAlertMsg)
+   public void dailyProcess(List<APIDetails> apidetails, String businessDate, List<SecMaster> secLst, StringBuilder mailFailureAlertMsg, ServiceRequest serviceRequest, StringBuilder mailWaringAlertMsg,String prev_businessDate)
    {
       List<PriceData> pdList = null;
       HashMap<String, Object> objPriceData = null;
@@ -141,9 +143,13 @@ public class PriceProcessing
             {
                //deleting all rows from tmp_rbsa_daily table
 
-               logger.info("PriceProcessor.dailyProcess() OnDemand processing for Ticker:" + secLst.get(i1).getTicker_source_name() + " required " + secLst.get(i1).getOnDemand());
-               if (secLst.get(i1).getOnDemand().equalsIgnoreCase("YES"))
+               logger.info("PriceProcessor.dailyProcess() OnDemand processing for Ticker: " + secLst.get(i1).getTicker_source_name() + " required flag " + secLst.get(i1).getOnDemand()
+                              +" Previous Businessdate condition available "+(secLst.get(i1).getOnDemand().equalsIgnoreCase("YES") || (!secLst.get(i1).getBusinessdate().trim().equalsIgnoreCase(prev_businessDate.trim())
+                  && !secLst.get(i1).getBusinessdate().trim().equalsIgnoreCase(businessDate.trim()))));
+               if (secLst.get(i1).getOnDemand().equalsIgnoreCase("YES") || (!secLst.get(i1).getBusinessdate().trim().equalsIgnoreCase(prev_businessDate.trim())
+                  && !secLst.get(i1).getBusinessdate().trim().equalsIgnoreCase(businessDate.trim())))
                {
+                  logger.info("PriceProcessor.dailyProcess() OnDemand processing for Ticker: "+ secLst.get(i1).getTicker_source_name()+" initiated " );
                   onDemandProcessing(apidetails, businessDate, secLst.get(i1), mailFailureAlertMsg, serviceRequest, mailWaringAlertMsg);
                }
                else
@@ -392,7 +398,7 @@ public class PriceProcessing
 
          if (secMaster.getTickerSource() != null && !secMaster.getTickerSource().isEmpty())
          {
-            logger.info("PriceProcessor.onDemandProcessing() getting Price Values for Ticker:" + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource());
+            logger.info("PriceProcessor.onDemandProcessing() getting Price Values for Ticker: " + secMaster.getTicker_source_name() + " Using " + secMaster.getTickerSource());
             objPriceData = priceService.getPrice(apidetails, PriceProcessConst.ONDEMAND, businessDate, secMaster.getTicker_source_name(), secMaster.getTickerSource(), serviceRequest);
             if (objPriceData.get("status").toString().equalsIgnoreCase("failure"))
             {
