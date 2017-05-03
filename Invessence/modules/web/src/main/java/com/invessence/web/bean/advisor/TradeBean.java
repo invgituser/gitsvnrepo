@@ -495,6 +495,7 @@ public class TradeBean extends TradeClientData implements Serializable
                return 0;
             }
          };
+         stream.close();
          file = new DefaultStreamedContent(stream, "application/csv", outputName);
          return file;
       }

@@ -76,6 +76,8 @@ INSERT INTO `invdb`.`user_basket_access`
 VALUES 
 ('BB', '0.BB', 'A', 'BB Strategy', '0', 'Y', 'N', '2016-08-01 12:36:46', null),
 ('BB', 'T.0.BB', 'A', 'BB Strategy', '0', 'N', 'Y', '2016-08-01 12:36:46', null),
+('BB-TCM', '0.BB', 'A', 'BB Strategy', '0', 'Y', 'N', '2016-08-01 12:36:46', null),
+('BB-TCM', 'T.0.BB', 'A', 'BB Strategy', '0', 'N', 'Y', '2016-08-01 12:36:46', null),
 ('CITI', '0.CITI', 'A', 'Grow Wealth', '1', 'Y', 'N', '2017-01-30 00:00:00', null),
 ('CITI', 'T.0.CITI', 'A', 'Grow Wealth', '0', 'Y', 'N', '2017-01-30 00:00:00', null),
 ('DEFAULT', '0.Core', 'A', 'Default', '0', 'Y', 'N', '2016-08-01 12:36:46', null),

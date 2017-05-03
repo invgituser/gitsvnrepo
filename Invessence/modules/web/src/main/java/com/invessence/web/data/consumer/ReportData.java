@@ -1,6 +1,6 @@
 package com.invessence.web.data.consumer;
 
-import java.io.InputStream;
+import java.io.*;
 
 import javax.faces.context.FacesContext;
 
@@ -24,8 +24,10 @@ public class ReportData
    private Boolean viewReport;
    private Boolean downloadReport;
 
+   private InputStream stream;
    public ReportData()
    {
+      stream = null;
    }
 
    public String getAcctnum()
@@ -76,15 +78,33 @@ public class ReportData
    public void setFilename(String filename)
    {
       this.filename = filename;
+   }
+
+   private void createPDFStream() {
       if (this.filename.toLowerCase().endsWith("pdf")) {
-         InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/demo/images/optimus.jpg");
-         String outname = reportName + businessdate + ".pdf";
-         downloadfile = new DefaultStreamedContent(stream, "application/pdf", outname);
+         try {
+            // stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream(filename);
+            stream = new FileInputStream(new File(filename));
+            String outname = reportName + businessdate + ".pdf";
+            downloadfile = new DefaultStreamedContent(stream, "application/pdf", outname);
+         }
+         catch (Exception ex) {
+         }
+      }
+   }
+
+   private void cleanupStream() {
+      try
+      {
+         stream.close();
+      }
+      catch (Exception ex) {
       }
    }
 
    public StreamedContent getDownloadfile()
    {
+      createPDFStream();
       return downloadfile;
    }
 

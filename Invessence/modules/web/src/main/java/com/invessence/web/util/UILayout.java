@@ -423,14 +423,13 @@ public class UILayout implements Serializable
 
    public String getLogo()
    {
-      String logo = WebConst.DEFAULT_LOGO;
       if (webutil.getWebprofile() == null)
       {
-         return (logo);
+         return (WebConst.DEFAULT_LOGO);
       }
       else if (webutil.getWebprofile().getLogo() == null || webutil.getWebprofile().getLogo().trim().length() == 0)
       {
-         return (logo);
+         return (WebConst.DEFAULT_LOGO);
       }
       else
       {
