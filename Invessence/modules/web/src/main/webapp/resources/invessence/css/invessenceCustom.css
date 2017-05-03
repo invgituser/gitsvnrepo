@@ -3509,7 +3509,7 @@ a {
 	border-right: 1px solid #666666;
 }
 
-.nextButtonLP, .RPHeadings1 {
+.nextButtonLP {
 	color: #A4332F;
 }
 
@@ -4159,4 +4159,22 @@ padding: 10px 0px;
 
 .titleContentPanelDwnP {
 	padding:0px 15px;
+}
+
+.fineTuneBtn {
+	width: 60px;
+	left: -25px;
+}
+
+.fineTuneBtn .ui-button-text {
+	padding: 6px 0px !important;
+}
+
+
+.titleColorActive {
+	color: #A4332F!important;
+}
+
+.pDisplayShow {
+	display:block!important;
 }

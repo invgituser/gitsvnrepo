@@ -24,6 +24,9 @@ $(function ()
 
       $('#progressChart').highcharts(
               {
+                  chart: {
+                      renderTo: 'progressChart',
+                  },
 
                   title: {
                       text: ''
