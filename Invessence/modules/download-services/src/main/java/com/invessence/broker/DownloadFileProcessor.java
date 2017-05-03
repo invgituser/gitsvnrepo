@@ -65,7 +65,7 @@ public class DownloadFileProcessor
       logger.info("EodProcedure :" + postProcessor);
       StringBuilder mailAlertMsg = null;
       File localDirectory = null;
-      String strFileName = null, strSourcePath = null, strRequiredFlag = null;
+      String strFileName = null, strSourcePath = null, strRequiredFlag = null,strAdvisorCode=null;
       try
       {
          mailAlertMsg = new StringBuilder();
@@ -129,6 +129,7 @@ public class DownloadFileProcessor
 
                            strFileName = downloadFileDetails.getFileName();
                            strSourcePath = downloadFileDetails.getSourcePath();
+                           strAdvisorCode=strSourcePath.substring(strSourcePath.lastIndexOf("/")+1);
                            strRequiredFlag = downloadFileDetails.getRequired();
                            channel.cd(downloadFileDetails.getSourcePath());
                            logger.info(downloadFileDetails.toString());
@@ -165,9 +166,9 @@ public class DownloadFileProcessor
                               {
                                  if (downloadFileDetails.getRequired().equalsIgnoreCase("Y"))
                                  {
-                                    mailAlertMsg.append(downloadFileDetails.getFileName() + " files are not available on server for download.\n");
+                                    mailAlertMsg.append(downloadFileDetails.getFileName() + " files are not available on server for download, for Advisor "+strAdvisorCode+"\n");
                                  }
-                                 logger.info(downloadFileDetails.getFileName() + " files are not available on server for download.");
+                                 logger.info(downloadFileDetails.getFileName() + " files are not available on server for download, for Advisor "+strAdvisorCode+"\n");
                               }
                               else
                               {
@@ -177,9 +178,9 @@ public class DownloadFileProcessor
                                  {
                                     if (downloadFileDetails.getRequired().equalsIgnoreCase("Y"))
                                     {
-                                       mailAlertMsg.append(downloadFileDetails.getFileName() + " files are not available on server to load.\n");
+                                       mailAlertMsg.append(downloadFileDetails.getFileName() + " files are not available on server to load, for Advisor "+strAdvisorCode+"\n");
                                     }
-                                    logger.info(downloadFileDetails.getFileName() + " files are not available on server to load.");
+                                    logger.info(downloadFileDetails.getFileName() + " files are not available on server to load, For Advisor "+strAdvisorCode+"\n");
                                  }
                                  else
                                  {
@@ -205,6 +206,7 @@ public class DownloadFileProcessor
                                              catch (Exception e)
                                              {
                                                 logger.error("Creating local directory :" + localDirectory + " \n" + e.getMessage());
+                                                e.printStackTrace();
                                              }
                                           }
                                           String localFileName = localDirectory + "/" + fileToDownload;
@@ -232,9 +234,10 @@ public class DownloadFileProcessor
                                                    }
                                                    catch (Exception e)
                                                    {
-                                                      logger.error("While " + fileToDownload + " csv file processing \n" + e.getMessage());
+                                                      logger.error("While " + fileToDownload + " csv file processing, for Advisor "+strAdvisorCode+"\n"+ e.getMessage());
                                                       //exceptionHandler(e, mailAlertMsg, "Issue " + fileToDownload + " csv file processing");
-                                                      mailAlertMsg.append("Issue " + fileToDownload + " csv file processing \n");
+                                                      mailAlertMsg.append("Issue " + fileToDownload + " csv file processing, for Advisor "+strAdvisorCode+"\n");
+                                                      e.printStackTrace();
                                                    }
                                                 }
                                              }
@@ -262,6 +265,7 @@ public class DownloadFileProcessor
                                                          logger.error("While " + fileToDownload + " csv file processing \n" + e.getMessage());
                                                          //exceptionHandler(e, mailAlertMsg, "Issue " + fileToDownload + " csv file processing");
                                                          mailAlertMsg.append("Issue " + fileToDownload + " csv file processing \n");
+                                                         e.printStackTrace();
                                                       }
                                                    }
                                                 }
@@ -278,17 +282,19 @@ public class DownloadFileProcessor
                                           }
                                           catch (Exception e)
                                           {
-                                             logger.error("While " + fileToDownload + " file reading into local directory \n" + e.getMessage());
-                                             mailAlertMsg.append("While " + fileToDownload + " file reading into local directory \n" + e.getMessage());
+                                             logger.error("While " + fileToDownload + " file reading into local directory, for Advisor "+strAdvisorCode+"\n" + e.getMessage());
+                                             mailAlertMsg.append("While " + fileToDownload + " file reading into local directory, for Advisor "+strAdvisorCode+"\n" + e.getMessage());
                                              //exceptionHandler(e, mailAlertMsg, "While " + fileToDownload + " file coping into local directory");
+                                             e.printStackTrace();
                                           }
 
                                        }
                                        catch (Exception e)
                                        {
-                                          logger.error("While " + fileToDownload + " file coping from server \n" + e.getMessage());
-                                          mailAlertMsg.append("While " + fileToDownload + " file coping from server \n" + e.getMessage());
+                                          logger.error("While " + fileToDownload + " file coping from server, for Advisor "+strAdvisorCode+"\n"+ e.getMessage());
+                                          mailAlertMsg.append("While " + fileToDownload + " file coping from server, for Advisor "+strAdvisorCode+"\n" + e.getMessage());
                                           //exceptionHandler(e, mailAlertMsg, "While " + fileToDownload + " file coping from server");
+                                          e.printStackTrace();
                                        }
                                     }
 
