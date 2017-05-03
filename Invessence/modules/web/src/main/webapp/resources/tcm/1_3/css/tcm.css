@@ -4066,6 +4066,7 @@ width: 41%;
     background:#fbfbfb;
     border: 1px solid #5fcf80;
     z-index: 200;
+    animation: changeStrategy 3s;
 }
 
 .FTLabel {
@@ -4162,5 +4163,17 @@ box-sizing: border-box;
     .BorderBoxPanel {
         box-sizing: border-box;
         padding: 0px 20px;
+    }
+}
+
+@keyframes changeStrategy {
+    0% {
+        opacity: 0;
+        box-shadow: none;
+    }
+
+    100% {
+        opacity: 1;
+        box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.32);
     }
 }
