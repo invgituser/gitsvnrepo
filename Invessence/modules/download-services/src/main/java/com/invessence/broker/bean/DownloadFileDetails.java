@@ -23,6 +23,7 @@ public class DownloadFileDetails
    private String encColumns;
    private String fileExtension;
    private String encryptionMethod;
+   private String canbedups;
 
 
    private boolean isEmpty;
@@ -250,13 +251,23 @@ public class DownloadFileDetails
       this.vendor = vendor;
    }
 
+   public String getCanbedups()
+   {
+      return canbedups;
+   }
+
+   public void setCanbedups(String canbedups)
+   {
+      this.canbedups = canbedups;
+   }
+
    @Override
    public String toString()
    {
       return "DownloadFileDetails{" +
-         "active='" + active + '\'' +
-         ", vendor='" + vendor + '\'' +
+         "vendor='" + vendor + '\'' +
          ", fileName='" + fileName + '\'' +
+         ", active='" + active + '\'' +
          ", tmpTableName='" + tmpTableName + '\'' +
          ", tmp_TableName='" + tmp_TableName + '\'' +
          ", available='" + available + '\'' +
@@ -272,6 +283,7 @@ public class DownloadFileDetails
          ", encColumns='" + encColumns + '\'' +
          ", fileExtension='" + fileExtension + '\'' +
          ", encryptionMethod='" + encryptionMethod + '\'' +
+         ", canbedups='" + canbedups + '\'' +
          ", isEmpty=" + isEmpty +
          ", isCopied=" + isCopied +
          ", isError=" + isError +

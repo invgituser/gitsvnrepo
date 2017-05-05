@@ -37,53 +37,61 @@ public class CommonDaoImpl implements CommonDao
    }
 */
 
-   public List<DownloadFileDetails> getDownloadFileDetails(String where)throws SQLException
+   public List<DownloadFileDetails> getDownloadFileDetails(String where) throws SQLException
    {
       List<DownloadFileDetails> lst = null;
       logger.info("Fetching download files");
       //String sql = "SELECT vendor, filename, active, tmp_tableName, available, sourcepath, downloaddir, format, required, canbeempty, postProcess, postInstruction,containsheader,keyData FROM download_files "+where;
       String sql = "Select vendor, seqno, filename, active, tmp_tableName, available, sourcepath, downloaddir, loadFormat, required, " +
-         "canbeempty, postProcess, postInstruction, containsheader, ifnull(keyData,0) keyData, encColumns, fileExtension, encryptionMethod " +
-         "FROM download_files "+where + " order by vendor, seqno";
+         "canbeempty,canbedups,postProcess, postInstruction, containsheader, ifnull(keyData,0) keyData, encColumns, fileExtension, encryptionMethod " +
+         "FROM download_files " + where + " order by vendor, seqno";
       lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(DownloadFileDetails.class));
       return lst;
    }
 
-   public Map<String, DBParameters> getDBParametres() throws SQLException{
+   public Map<String, DBParameters> getDBParametres() throws SQLException
+   {
       List<DBParameters> dbParamsLst = null;
       Map<String, DBParameters> dbParamsMap = null;
-     // try {
+      // try {
       logger.info("Fetching DB parameters");
-         String sql = "SELECT name, value, format, description FROM vw_invessence_switch /*where name in('LAST_BDATE_OF_MONTH','PRICE_DATE')*/";
-         dbParamsLst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(DBParameters.class));
-         if(dbParamsLst.size()>0){
-            dbParamsMap=new HashMap<String, DBParameters>();
-            Iterator<DBParameters> itr=dbParamsLst.iterator();
-            while (itr.hasNext()) {
-               DBParameters dbParameters = (DBParameters) itr.next();
-               dbParamsMap.put(dbParameters.getName(), dbParameters);
-            }
-
+      String sql = "SELECT name, value, format, description FROM vw_invessence_switch /*where name in('LAST_BDATE_OF_MONTH','PRICE_DATE')*/";
+      dbParamsLst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(DBParameters.class));
+      if (dbParamsLst.size() > 0)
+      {
+         dbParamsMap = new HashMap<String, DBParameters>();
+         Iterator<DBParameters> itr = dbParamsLst.iterator();
+         while (itr.hasNext())
+         {
+            DBParameters dbParameters = (DBParameters) itr.next();
+            dbParamsMap.put(dbParameters.getName(), dbParameters);
          }
 
-         return dbParamsMap;
+      }
+
+      return dbParamsMap;
 //      } catch (Exception e) {
 //         e.printStackTrace();
 //      }
    }
-   public void truncateTable(String tableName) throws SQLException{
-      String sql = "delete from "+tableName;
+
+   public void truncateTable(String tableName) throws SQLException
+   {
+      String sql = "delete from " + tableName;
       jdbcTemplate.execute(sql);
    }
 
 
    @Transactional
-   public void insertBatch(final List<String[]> dataArrLst, String sql, String proc)throws SQLException{
+   public void insertBatch(final List<String[]> dataArrLst, String sql, String proc) throws SQLException
+   {
       logger.info("Processing batch insertion");
-      if(sql==null || sql.equals("")){
+      if (sql == null || sql.equals(""))
+      {
          System.out.println("Insertion sql is not valid");
          logger.info("Insertion sql is not valid");
-      }else
+      }
+      else
       {
          jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter()
          {
@@ -105,11 +113,13 @@ public class CommonDaoImpl implements CommonDao
          });
       }
 //      System.out.println("******************************");
-      if(proc==null || proc.equals("")){
-         logger.info("Procedure name is not valid");
-      }else
+      if (proc == null || proc.equals(""))
       {
-         logger.info("Calling post process procedure :"+proc);
+         logger.info("Procedure name is not valid");
+      }
+      else
+      {
+         logger.info("Calling post process procedure :" + proc);
          new SimpleJdbcCall(jdbcTemplate).withProcedureName(proc).execute();
       }
 
@@ -124,7 +134,9 @@ public class CommonDaoImpl implements CommonDao
 
 
    }
-   public void callEODProcess(String proc) throws SQLException{
+
+   public void callEODProcess(String proc) throws SQLException
+   {
       new SimpleJdbcCall(jdbcTemplate).withProcedureName(proc).execute();
 //      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 //         .withProcedureName(proc);
