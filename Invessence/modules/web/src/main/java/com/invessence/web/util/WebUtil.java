@@ -116,7 +116,9 @@ public class WebUtil implements Serializable
       if (request == null)
          return defaultVal;
 
-      String uri = (String) request.getServerName();
+      String uri = request.getServerName();
+      Integer portnum = request.getServerPort();
+      String port = portnum.toString();
 
       if (WebUtil.isNull(uri))
       {
@@ -124,6 +126,9 @@ public class WebUtil implements Serializable
       }
       else
       {
+         if (uri.equalsIgnoreCase("localhost")) {
+            uri += ':' + port;
+         }
          return uri;
       }
    }
@@ -395,7 +400,7 @@ public class WebUtil implements Serializable
       try
       {
          Authentication auth = (Authentication) ((SecurityContext)
-            SecurityContextHolder.getContext()).getAuthentication();
+         SecurityContextHolder.getContext()).getAuthentication();
 
          if ((auth != null) && (auth.getPrincipal() instanceof UserInfoData))
          {

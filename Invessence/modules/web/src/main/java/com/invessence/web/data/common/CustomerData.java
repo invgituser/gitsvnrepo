@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.invessence.converter.JavaUtil;
 import com.invessence.emailer.data.MsgData;
 import com.invessence.web.constant.*;
+import com.invessence.web.dao.common.UserInfoDAO;
 import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.*;
 import com.invessence.web.util.*;
@@ -45,6 +46,10 @@ public class CustomerData extends ProfileData
 
    @ManagedProperty("#{consumerListDataDAO}")
    public ConsumerListDataDAO listDAO;
+
+   @ManagedProperty("#{userInfoDAO}")
+   public UserInfoDAO userInfoDAO;
+
    @ManagedProperty("#{consumerSaveDataDAO}")
    public ConsumerSaveDataDAO saveDAO;
 
@@ -115,8 +120,6 @@ public class CustomerData extends ProfileData
    private Boolean managed, editable, isUnopened;
    public String managedFlag, currentStatus;
 
-
-
    public void setWebutil(WebUtil webutil)
    {
       this.webutil = webutil;
@@ -135,6 +138,11 @@ public class CustomerData extends ProfileData
    public void setListDAO(ConsumerListDataDAO listDAO)
    {
       this.listDAO = listDAO;
+   }
+
+   public void setUserInfoDAO(UserInfoDAO userInfoDAO)
+   {
+      this.userInfoDAO = userInfoDAO;
    }
 
    public void setSaveDAO(ConsumerSaveDataDAO saveDAO)

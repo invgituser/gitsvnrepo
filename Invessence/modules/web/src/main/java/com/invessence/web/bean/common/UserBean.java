@@ -483,7 +483,7 @@ public class UserBean implements Serializable
    }
 
    // This method is used during Pre-signup process.  Validate the Email.
-   public void simpleSignup()
+   public Integer simpleSignup()
    {
       String msg;
       String msgheader;
@@ -500,29 +500,43 @@ public class UserBean implements Serializable
             msgheader = "signup.U100";
             msg= webutil.getMessageText().getDisplayMessage(msgheader, "This Email is already registered!", null);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
+            return -1;
          }
          else
          {
             Long acctnum = webutil.getConverter().getLongData(beanCustID);
             userdata.setAcctnum(acctnum);
             userdata.setUserID(beanEmail);
-            Long logonID = saveUser("I");
-            if (logonID > 0L)
+            Integer myResetID = webutil.randomGenerator(0, 347896);
+            userdata.setUserInfo(WebConst.ROLE_USER,
+                                 webutil.getWebprofile().getDefaultAdvisor(),
+                                 webutil.getWebprofile().getDefaultRep(),
+                                 myResetID);
+            String supportInfo = webutil.getWebprofile().getSupportemail();
+
+            // Save data to database....
+            long loginID = userInfoDAO.addUserInfo(userdata);
+
+            if (loginID <= 0L)
             {
+               logger.debug("ERROR: Had issue with this userid when attempting to save: " + loginID);
+               msgheader = "signup.U106";
+               msg = webutil.getMessageText().getDisplayMessage(msgheader, "There was some error when attempting to save this userid.  Please reach out to support desk.", null);
+               webutil.redirecttoMessagePage("ERROR", msg, "Failed Signup" + msgheader);
+               webutil.alertSupport("Userbean.saveUser", "Save -" + beanEmail, "Save Registration Error", null);
+               return -2;
+            }
+
+            if (loginID > 0L)
+            {
+               userdata.setLogonID(loginID);
                logger.debug("Info: Saving data UserID/Password, all checks were successful for: " + userdata.getUserID());
                webutil.sendConfirmation(userdata);
                //uiLayout.doMenuAction("consumer","aftersignup.xhtml?log="+userdata.getLogonID()+"&acct="+userdata.getAcctnum().toString());
-               uiLayout.doCustody(logonID, userdata.getAcctnum());
-            }
-            else
-            {
-               logger.debug("Debug: DB failure: " + beanUserID);
-               msgheader = "signup.U101";
-               msg= webutil.getMessageText().getDisplayMessage(msgheader, "Failed to save data.  Your session must have timed out.", null);
-               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
+               return 0;
             }
          }
-
+         return 0;
       }
       catch (Exception ex)
       {
@@ -532,6 +546,7 @@ public class UserBean implements Serializable
          msg= webutil.getMessageText().getDisplayMessage(msgheader, "Exception: Create UserID/Pwd, problem attempting to create simpleuser", null);
          webutil.alertSupport("Userbean.preRenderSimpleSignup", msgheader, msg, ex.getMessage());
          webutil.redirecttoMessagePage("ERROR", "Signup Failure", msgheader);
+         return -100;
       }
    }
 
@@ -584,8 +599,13 @@ public class UserBean implements Serializable
          userdata.setSecCode(pwd1);
          userdata.setPassword(pwd1);
          userdata.setConfirmNewPassword(pwd2);
-         Long logonID = saveUser(logonStatus);
-         if (logonID > 0L)
+         Integer myResetID = webutil.randomGenerator(0, 347896);
+         userdata.setUserInfo(WebConst.ROLE_USER,
+                              webutil.getWebprofile().getDefaultAdvisor(),
+                              webutil.getWebprofile().getDefaultRep(),
+                              myResetID);
+         long loginID = userInfoDAO.addUserInfo(userdata);
+         if (loginID > 0L)
          {
             webutil.sendConfirmation(userdata);
             webutil.redirect("/signup2.xhtml", null);
@@ -681,108 +701,6 @@ public class UserBean implements Serializable
          webutil.resetSession(); // Force a logout to clear session and cache.
          webutil.redirect("/signup4.xhtml", null);
       }
-   }
-
-   public Long saveUser(String logonStatus)
-   {
-      String msg;
-      String msgheader;
-
-      if (beanUserID == null || beanUserID.length() < 5)
-      {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid UserID", "Invalid UserID"));
-      }
-
-      try
-      {
-
-         String emailMsgType = "HTML";
-/*
-         userdata.setEmail(beanEmail);
-         userdata.setUserID(beanUserID);
-         userdata.setQ1(beanq1);
-         userdata.setQ2(beanq2);
-         userdata.setQ3(beanq3);
-         userdata.setAns1(beanans1);
-         userdata.setAns2(beanans2);
-         userdata.setAns3(beanans3);
-*/
-
-         String dataText = "Email: " + userdata.getEmail() + "/n" +
-            "UserID: " + userdata.getUserID() + "/n" +
-            "Name: " + userdata.getFirstName() + " " + userdata.getLastName();
-
-         userdata.setEmailmsgtype(emailMsgType);
-         // Save data to database....
-         if (userdata.getAccess() != null && userdata.getAccess().equalsIgnoreCase("advisor"))
-         {
-            userdata.setLogonstatus("A");
-         }
-         else
-         {
-            userdata.setLogonstatus(logonStatus);
-         }
-         // We are using the First Name, Last Name from UserData as entered.
-
-         if (logonStatus == null || logonStatus.isEmpty() || logonStatus.startsWith("I")) {
-            String rndmPassword = PasswordGenerator.getSecCode();
-            String tmpCode = com.invessence.web.util.MsgDigester.getMessageDigest(rndmPassword);
-            userdata.setSecCode(tmpCode);
-            userdata.setPassword(tmpCode);
-         }
-         else {
-            String tmpCode = com.invessence.web.util.MsgDigester.getMessageDigest(userdata.getPassword());
-            userdata.setSecCode(tmpCode);
-            userdata.setPassword(tmpCode);
-         }
-
-         if (userdata.getLogonstatus() != null && userdata.getLogonstatus().startsWith("A")) {
-            userdata.setResetID(null);
-         }
-         else {
-            Integer myResetID = webutil.randomGenerator(0, 347896);
-            userdata.setResetID(myResetID.toString());
-         }
-
-         String myIP = webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
-         String img = "123";
-         // Map<String, String> cookieInfo = new HashMap<String, String>();
-         // cookieInfo.put("img", img);
-         //utl.setCookie(Const.COMPANY_NAME,"image",cookieInfo);
-         userdata.setIp(myIP);
-         userdata.setCid(webutil.getWebprofile().getCid());
-         userdata.setAdvisor(webutil.getWebprofile().getDefaultAdvisor());
-         userdata.setRep(webutil.getWebprofile().getDefaultRep());
-         // secCode = "Default123";
-         userdata.setEmailmsgtype(userdata.getEmailmsgtype());
-         String supportInfo = webutil.getWebprofile().getSupportemail();
-
-         // Save data to database....
-         long loginID = userInfoDAO.addUserInfo(userdata);
-
-         if (loginID <= 0L)
-         {
-            logger.debug("ERROR: Had issue with this userid when attempting to save: " + loginID);
-            msgheader = "signup.U106";
-            msg = webutil.getMessageText().getDisplayMessage(msgheader, "There was some error when attempting to save this userid.  Please reach out to support desk.", null);
-            webutil.redirecttoMessagePage("ERROR", msg, "Failed Signup" + msgheader);
-            webutil.alertSupport("Userbean.saveUser", "Save -" + beanEmail, "Save Registration Error", null);
-            return loginID;
-         }
-         userdata.setLogonID(loginID);
-         return loginID;
-
-      }
-      catch (Exception ex)
-      {
-         logger.debug("Exception " + ex.getMessage());
-         logger.debug("Error: Attempting to save UserID, for: " + beanEmail);
-
-         msgheader = "signup.EX.100";
-         msg= webutil.getMessageText().getDisplayMessage(msgheader, "Exception: Sorry, there was an issue with signup.  Please call support.", null);
-         webutil.alertSupport("Userbean.saveUser", "Signup -" + msgheader, msg, ex.getMessage());
-      }
-      return 0L;
    }
 
    public void saveQnA()

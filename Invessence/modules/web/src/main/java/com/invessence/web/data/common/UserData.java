@@ -538,4 +538,46 @@ public class UserData
    {
       this.phone = phone;
    }
+
+   public void setUserInfo(String access, String advisor, String rep, Integer newresetID) {
+
+      String emailMsgType = "HTML";
+      String dataText = "Email: " + getEmail() + "/n" +
+         "UserID: " + getUserID() + "/n" +
+         "Name: " + getFirstName() + " " + getLastName();
+
+      setEmailmsgtype(emailMsgType);
+      // Save data to database....
+      setAccess(access);
+      // We are using the First Name, Last Name from UserData as entered.
+
+      if (getLogonstatus() == null)
+      {
+         setLogonstatus("I");
+      }
+
+      if (getPassword() == null) {
+         String rndmPassword = PasswordGenerator.getSecCode();
+         String tmpCode = com.invessence.web.util.MsgDigester.getMessageDigest(rndmPassword);
+         setSecCode(tmpCode);
+         setPassword(tmpCode);
+      }
+      else {
+         String tmpCode = com.invessence.web.util.MsgDigester.getMessageDigest(getPassword());
+         setSecCode(tmpCode);
+         setPassword(tmpCode);
+      }
+
+      if (getLogonstatus().startsWith("A")) {
+         setResetID(null);
+      }
+      else {
+         setResetID(newresetID.toString());
+      }
+
+      setIp(null);
+      setCid(null);
+      setAdvisor(advisor);
+      setRep(rep);
+   }
 }

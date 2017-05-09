@@ -10,18 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.converter.*;
 import com.invessence.web.constant.WebConst;
-import com.invessence.web.controller.HighChartsController;
-import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.tcm.*;
-import com.invessence.web.util.*;
 import com.invessence.web.util.Impl.PagesImpl;
-import com.invmodel.Const.InvConst;
 import com.invmodel.inputData.ProfileData;
 import com.invmodel.model.fixedmodel.data.FMData;
 import com.invmodel.performance.data.ProjectionData;
-import org.apache.commons.lang.SerializationUtils;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
 
 
@@ -68,6 +62,9 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    private Boolean finalCheck1, finalCheck2, confirmationCheck = false;
    private String projectionChart;
    private String performanceChart;
+   private String savedRiskFormula;
+   private Integer savedAllocSliderIndex;
+   private Boolean doesUserHavaLogonID;
 
    public PagesImpl getPagemanager()
    {
@@ -357,7 +354,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          return "Save Recommendations";
       }
-      if (webutil.isUserLoggedIn())
+      if (doesUserHavaLogonID)
       {
          return "Open Account";
       }
@@ -428,7 +425,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          if (!FacesContext.getCurrentInstance().isPostback())
          {
             // Page management
-            pagemanager = new PagesImpl(4);
+            pagemanager = new PagesImpl(5);
             pagemanager.setPage(0);
             setPrefView(0);
             formPortfolioEdit = false;
@@ -442,7 +439,11 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
             if (newapp != null && newapp.startsWith("N"))
             {
+               setNewapp("N");
                beanAcctnum = null;
+            }
+            else {
+               setNewapp("E");
             }
 
             // Client related data.
@@ -493,7 +494,11 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
             if (newapp != null && newapp.startsWith("N"))
             {
+               setNewapp("N");
                beanAcctnum = null;
+            }
+            else {
+               setNewapp("E");
             }
 
             // Client related data.
@@ -600,32 +605,53 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    }
 
    public void showFTPanel() {
-      RequestContext context = RequestContext.getCurrentInstance();
+      if (savedRiskFormula == null || savedRiskFormula.isEmpty() || savedRiskFormula.equalsIgnoreCase("C")) {
+         savedRiskFormula = riskCalculator.getRiskFormula();
+         // savedAllocSliderIndex = getAllocationIndex();
+      }
+
       displayFTPanel=true;
+      // RequestContext context = RequestContext.getCurrentInstance();
       //context.update("fineTunePanel");
 
    }
 
+   public void saveFTPanel() {
+      savedRiskFormula = riskCalculator.getRiskFormula();
+      savedAllocSliderIndex = getAllocationIndex();
+      closeFTPanel();
+   }
+
    public void closeFTPanel() {
-      RequestContext context = RequestContext.getCurrentInstance();
       displayFTPanel=false;
+      // RequestContext context = RequestContext.getCurrentInstance();
       //context.execute("PF('wvfineTunePanel.hide()')");
       //context.update("fineTunePanel");
    }
 
    public void cancelFTPanel() {
-      doAllocReset();
+      setRiskCalcMethod(savedRiskFormula);
+      riskCalculator.setRiskFormula(savedRiskFormula);
+      setAllocationIndex(savedAllocSliderIndex);
+      createAssetPortfolio(1); // Build default chart for the page...
+      if (getFixedModelName() != null)
+         newLongDesc = fmDataMap.get(getFixedModelName()).getDescription();
+      doPerformanceFinalpage();
       closeFTPanel();
    }
 
    private void resetDataForm()
    {
+      doesUserHavaLogonID = false;
       disablegraphtabs = true;
       disabledetailtabs = true;
       displayGoalGraph = false;
       displayGoalText = false;
       resetCustomerData();
       riskCalculator.resetAllData();
+      savedRiskFormula = null;
+      savedAllocSliderIndex = null;
+
    }
 
    private void loadBaskets()
@@ -969,17 +995,20 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       Boolean validate = false;
       try
       {
-         saveProfile();
-         if (webutil.isUserLoggedIn())
+         if (newapp != null && newapp.equalsIgnoreCase("N"))
          {
-            uiLayout.doCustody(webutil.getLogonid(), getAcctnum());
+            saveProfile();  // Save only if on New Page.
+            if (doesUserHavaLogonID)
+            {
+               uiLayout.doCustody(getLogonid(), getAcctnum()); // Open Custody account.
+            }
+            else
+            {
+               nextPage();  // Now we go to Next Pagee register page (Next page on Panel)
+            }
          }
-         else
-         {
-            // if (canOpenAccount == 0) {
-            uiLayout.doMenuAction("consumer", "signup.xhtml?acct=" + getAcctnum().toString());
-            //webutil.redirect("/pages/custody/td/index.xhtml?acct=" + getAcctnum(), null);
-            // }
+         else {
+            nextPage();  // Now we go to Next Pagee confirm page(Next page on Panel)
          }
 
       }
@@ -1000,6 +1029,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          resetDataForm();
          if (getBeanAcctnum() != null && getBeanAcctnum() > 0L)
          {
+            doesUserHavaLogonID = true;
             loadProfileData(getBeanAcctnum());
             loadRiskData(getBeanAcctnum());
             riskCalculator.setInvestmentobjective(getGoal());  // Goal needs to be restored to use the proper calculator
@@ -1013,6 +1043,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          }
          else
          {
+            doesUserHavaLogonID = false;
             loadNewClientData();
 
          }
@@ -1328,6 +1359,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          case 4:
             cangoToNext = validatePage(currentpage);
             break;
+         case 5:
+            break;
 
       }
       if (cangoToNext)
@@ -1486,6 +1519,69 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                                           riskCalculator.getRetireAge(),
                                           null);
       }
+   }
+
+   public void gotoReview() {
+      if (registerUser())
+      {
+         doesUserHavaLogonID = true;
+         createAssetPortfolio(1); // Build default chart for the page...
+         doPerformanceFinalpage();
+         prevPage();
+      }
+   }
+
+   public void gotoCustody() {
+      if (registerUser()) {
+         uiLayout.doCustody(getLogonid(), getAcctnum());
+      }
+
+   }
+
+   private Boolean registerUser() {
+      try {
+         UserData userdata = new UserData();
+         userdata.setFirstName(getFirstname());
+         userdata.setLastName(getLastname());
+         userdata.setEmail(getEmail());
+         userdata.setUserID(getEmail());
+         userdata.setAcctnum(getAcctnum());
+         String msgheader, msg;
+
+         if (userInfoDAO.validateUserID(userdata))
+         {
+            logger.debug("LOG: Validate UserID failed: " + getEmail());
+            msgheader = "signup.U100";
+            msg= webutil.getMessageText().getDisplayMessage(msgheader, "This Email is already registered!", null);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
+         }
+         else
+         {
+            Integer myResetID = webutil.randomGenerator(0, 347896);
+            userdata.setUserInfo(WebConst.ROLE_USER, getAdvisor(), getRep(), myResetID);
+            long loginID = userInfoDAO.addUserInfo(userdata);
+
+            if (loginID <= 0L)
+            {
+               logger.debug("ERROR: Had issue with this userid when attempting to save: " + loginID);
+               msgheader = "signup.U106";
+               msg = webutil.getMessageText().getDisplayMessage(msgheader, "There was some error when attempting to save this userid.  Please reach out to support desk.", null);
+               webutil.redirecttoMessagePage("ERROR", msg, "Failed Signup" + msgheader);
+               webutil.alertSupport("Userbean.saveUser", "Save -" + getEmail(), "Save Registration Error", null);
+            }
+            userdata.setLogonID(loginID);
+            setLogonid(loginID);
+            return true;
+         }
+         return false;
+      }
+      catch (Exception ex) {
+         String msgheader = "signup.EX.100";
+         String msg= webutil.getMessageText().getDisplayMessage(msgheader, "Exception: Create UserID/Pwd, problem attempting to create simpleuser", null);
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
+         ex.printStackTrace();
+      }
+      return false;
    }
 
 
