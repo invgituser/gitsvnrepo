@@ -70,9 +70,6 @@ public class CommonDaoImpl implements CommonDao
       }
 
       return dbParamsMap;
-//      } catch (Exception e) {
-//         e.printStackTrace();
-//      }
    }
 
    public void truncateTable(String tableName) throws SQLException
@@ -82,9 +79,11 @@ public class CommonDaoImpl implements CommonDao
    }
 
 
-   @Transactional
-   public void insertBatch(final List<String[]> dataArrLst, String sql, String proc) throws SQLException
+   //   @Transactional
+   public boolean insertBatch(final List<String[]> dataArrLst, String sql, String proc) throws SQLException
    {
+      boolean bflag = false;
+
       logger.info("Processing batch insertion");
       if (sql == null || sql.equals(""))
       {
@@ -105,50 +104,18 @@ public class CommonDaoImpl implements CommonDao
                String[] inData = dataArrLst.get(i);
                for (int ip = 1; ip <= inData.length; ip++)
                {
-                  //System.out.print((inData[ip - 1].trim().replaceAll("\"", "")) + ",");
                   ps.setString(ip, inData[ip - 1].trim().replaceAll("\"", ""));
                }
-               //System.out.println("");
             }
          });
       }
-//      System.out.println("******************************");
-      if (proc == null || proc.equals(""))
-      {
-         logger.info("Procedure name is not valid");
-      }
-      else
-      {
-         logger.info("Calling post process procedure :" + proc);
-         new SimpleJdbcCall(jdbcTemplate).withProcedureName(proc).execute();
-      }
+      bflag = true;
 
-//      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName(proc);
-//      simpleJdbcCall.execute();
-//      Map<String, Object> inParamMap = new HashMap<String, Object>();
-//      inParamMap.put("process", "MONTHLY");
-//      SqlParameterSource in = new MapSqlParameterSource(inParamMap);
-//      Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
-//      System.out.println(simpleJdbcCallResult);
-//      System.out.println("******************************");
-
-
+      return bflag;
    }
 
-   public void callEODProcess(String proc) throws SQLException
+   public void callProcedure(String proc) throws SQLException
    {
       new SimpleJdbcCall(jdbcTemplate).withProcedureName(proc).execute();
-//      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
-//         .withProcedureName(proc);
-//
-//      Map<String, Object> inParamMap = new HashMap<String, Object>();
-//      inParamMap.put("firstName", "Smita");
-//      inParamMap.put("lastName", "Chaudhari");
-//      SqlParameterSource in = new MapSqlParameterSource(inParamMap);
-//
-//
-//      Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
-//      System.out.println(simpleJdbcCallResult);
    }
-
 }

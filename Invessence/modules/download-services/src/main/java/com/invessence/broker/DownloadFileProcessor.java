@@ -47,7 +47,7 @@ public class DownloadFileProcessor
    SimpleDateFormat sdfFileParsing = new SimpleDateFormat("yyyyMMdd");
 
    //   private String baseDirectory;
-   private String postProcessor,preProcessor;
+   private String postProcessor, preProcessor;
 /*
    public BrokerFileProcessor(String _baseDirectory, String _eodProcedure){
       this.baseDirectory=_baseDirectory;
@@ -61,7 +61,7 @@ public class DownloadFileProcessor
       System.out.println("ENCRY_DECRY_KEY" + ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "ENCRY_DECRY_KEY"));
 //      baseDirectory=ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "LOCAL_SRC_DIRECTORY");
       postProcessor = ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "POST_PROCESSOR");
-      preProcessor= ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "PRE_PROCESSOR");
+      preProcessor = ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "PRE_PROCESSOR");
 
 //      logger.info("BaseDirectory :" + baseDirectory);
       logger.info("EodProcedure :" + postProcessor);
@@ -107,7 +107,7 @@ public class DownloadFileProcessor
                {
                   try
                   {
-                     commonDao.callEODProcess(preProcessor);
+                     commonDao.callProcedure(preProcessor);
                      //
                      JSch jsch = new JSch();
                      Session session = null;
@@ -177,6 +177,7 @@ public class DownloadFileProcessor
                               {
                                  Collections.sort(fileNameLst);
                                  List<String> filesToLoad = getFilesToLoad(fileNameLst, sdfFileParsing.parse("" + dbParamMap.get("BUSINESS_DATE").getValue()), downloadFileDetails.getFileName());
+                                 System.out.print("File Size ["+filesToLoad.size()+"]");
                                  if (filesToLoad == null || filesToLoad.size() == 0)
                                  {
                                     if (downloadFileDetails.getRequired().equalsIgnoreCase("Y"))
@@ -397,7 +398,7 @@ public class DownloadFileProcessor
                else
                {
                   logger.info("Calling Post Processor:" + postProcessor + "\n");
-                  commonDao.callEODProcess(postProcessor);
+                  commonDao.callProcedure(postProcessor);
                }
             }
             catch (Exception e)
@@ -517,7 +518,7 @@ public class DownloadFileProcessor
          {
 //            commonDao.truncateTable(fileDetails.getTmp_TableName());
             logger.info("Process Csv start");
-            logger.info("fileDetails"+fileDetails.toString());
+            logger.info("fileDetails" + fileDetails.toString());
 
             StringBuilder sb = null;
             try
@@ -550,7 +551,7 @@ public class DownloadFileProcessor
                if (inLst.size() > 0)
                {
                   StringBuilder insertQuery = null;
-                  System.out.print("fileDetails.getCanbedups()"+fileDetails.getCanbedups());
+                  System.out.print("fileDetails.getCanbedups()" + fileDetails.getCanbedups());
                   if (fileDetails.getCanbedups().equalsIgnoreCase("Y"))
                   {
                      insertQuery = new StringBuilder("insert ignore into " + fileDetails.getTmp_TableName() + " values (");
@@ -599,14 +600,37 @@ public class DownloadFileProcessor
                      }
                   }
                   logger.info("insertQuery :" + insertQuery.toString());
+                  boolean bFlag = false;
                   try
                   {
-                     commonDao.insertBatch(inLst, insertQuery.toString(), fileDetails.getPostInstruction());
+                     bFlag = commonDao.insertBatch(inLst, insertQuery.toString(), fileDetails.getPostInstruction());
                   }
                   catch (Exception e)
                   {
+                     bFlag = false;
                      mailAlertMsg.append("While batch insertion " + fileDetails.getTmp_TableName() + "\n" + e.getMessage());
                      logger.error("While batch insertion " + fileDetails.getTmp_TableName() + "\n" + e.getMessage());
+                  }
+                  logger.error("Batch insertion Flag" + bFlag);
+                  if (bFlag)
+                  {
+                     if (fileDetails.getPostInstruction() == null || fileDetails.getPostInstruction().equals(""))
+                     {
+                        logger.info("Procedure name is not valid");
+                     }
+                     else
+                     {
+                        try
+                        {
+                           logger.info("Calling post process procedure :" + fileDetails.getPostInstruction());
+                           commonDao.callProcedure(fileDetails.getPostInstruction());
+                        }
+                        catch (Exception e)
+                        {
+                           mailAlertMsg.append(" While post process procedure  " + fileDetails.getTmp_TableName() + "\n" + e.getMessage());
+                           logger.error(" While post process procedure  " + fileDetails.getTmp_TableName() + "\n" + e.getMessage());
+                        }
+                     }
                   }
 
                }
@@ -712,6 +736,7 @@ public class DownloadFileProcessor
 //         //ex.printStackTrace();
 //      }
 //   }
+
    public static String unescape(String data)
    {
       StringBuilder buffer = new StringBuilder(data.length());

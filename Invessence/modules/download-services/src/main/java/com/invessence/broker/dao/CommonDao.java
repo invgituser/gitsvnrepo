@@ -15,7 +15,7 @@ public interface CommonDao
 */
    public List<DownloadFileDetails> getDownloadFileDetails(String where)throws SQLException;
    public Map<String, DBParameters> getDBParametres() throws SQLException;
-   public void insertBatch(final List<String[]> dataArrLst, String sql, String proc) throws SQLException;
+   public boolean insertBatch(final List<String[]> dataArrLst, String sql, String proc) throws SQLException;
    public void truncateTable(String tableName) throws SQLException;
-   public void callEODProcess(String proc) throws SQLException;
+   public void callProcedure(String proc) throws SQLException;
 }
