@@ -23,6 +23,11 @@ public class WebConst
    public static String DB_FUNCTION_ADD = "A";
    public static String DB_FUNCTION_MOD = "M";
 
+   public static String PROFILE_STANDARD_PROCESS = "Q";
+   public static String PROFILE_ADVANCE_PROCESS = "D";
+
+   public static String CONSUMER_RISK_FORMULA = "C";
+   public static String ADVISOR_RISK_FORMULA = "A";
 
    public final static String URL_HOME = "index.html";
 

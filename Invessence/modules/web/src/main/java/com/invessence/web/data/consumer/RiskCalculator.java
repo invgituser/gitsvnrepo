@@ -1,6 +1,7 @@
 package com.invessence.web.data.consumer;
 
 import com.invessence.converter.SQLData;
+import com.invessence.web.constant.WebConst;
 import com.invessence.web.data.common.CustomerData;
 import com.invmodel.Const.InvConst;
 
@@ -33,7 +34,7 @@ public class RiskCalculator
       riskAge = 30;
       riskHorizon = 20;
       totalRisk = 0.0;
-      riskFormula = "C";
+      riskFormula = WebConst.CONSUMER_RISK_FORMULA;
       retired = 0;  // same as false;  Need to use 0,1 (because of dropdown on the menu)
 
    }

@@ -41,7 +41,7 @@
                                     <div class="Container25 TexAlRight Fs14 uobSliderLabel firstLabel">
                                         Conservative</div>
                                     <div class="Container50 TexAlCenter Fs20">
-                                        <h:inputHidden id="allocValue" value="#{tcmpb.allocationIndex}" />
+                                        <h:inputHidden id="allocValue" value="#{tcmpb.sliderAllocationIndex}" />
                                         <p:slider id="allocSlider" for="allocValue" minValue="0"
                                                   maxValue="#{tcmpb.maxAssetAllocatonPoints}" step="1">
                                             <p:ajax event="slideEnd"
@@ -230,10 +230,11 @@
 									 actionListener="#{tcmpb.showFTPanel}" >
 					</p:commandButton>
 
-					<p:commandButton style="margin-right: 0px!important;" styleClass="Fright ResponsiveBtnFS spWid100" id="tcmpnafopenacct"
+					<p:commandButton id="tcmpnafopenacct"
+                                     style="margin-right: 0px!important;"
+                                     styleClass="Fright ResponsiveBtnFS spWid100"
 									 value="#{tcmpb.fundButtonText}" update=":ceForm:inputArea"
 									 actionListener="#{tcmpb.fundAccount}" />
-
 				</div>
 
 			</p:panel>

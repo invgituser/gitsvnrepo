@@ -48,7 +48,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    private Integer prefView = 0;
    private String whichChart;
-   private String formula = "";
+   private String profileProcess = "";
    private String acceptterms = "";
 
    private Integer imageSelected = 0;
@@ -270,23 +270,23 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
    }
 
-   public String getFormula()
+   public String getProfileProcess()
    {
-      return formula;
+      return profileProcess;
    }
 
-   public void setFormula(String formula)
+   public void setProfileProcess(String profileProcess)
    {
-      this.formula = formula;
-      if (formula != null && !formula.isEmpty())
+      this.profileProcess = profileProcess;
+      if (profileProcess != null && !profileProcess.isEmpty())
       {
-         if (!formula.equalsIgnoreCase("D"))
+         if (!profileProcess.equalsIgnoreCase(WebConst.PROFILE_ADVANCE_PROCESS))
          {
-            riskCalculator.setRiskFormula("C");
+            setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
          }
          else
          {
-            riskCalculator.setRiskFormula("D");
+            setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
          }
       }
    }
@@ -350,13 +350,15 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public String getFundButtonText()
    {
 
-      if (webutil == null)
-      {
-         return "Save Recommendations";
-      }
       if (doesUserHavaLogonID)
       {
-         return "Open Account";
+         if (getEditable())
+         {
+            return "Open Account";
+         }
+         else {
+            return "Next";
+         }
       }
       else
       {
@@ -447,7 +449,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             }
 
             // Client related data.
-            setRiskCalcMethod("C");
+            setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
             fetchClientData();
             canOpenAccount = initCanOpenAccount();
             welcomeDialog = false;
@@ -478,7 +480,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             finalCheck2 = false;
             confirmationCheck = false;
             acceptterms = "";
-            formula = "";
+            profileProcess = WebConst.PROFILE_STANDARD_PROCESS;
             newLongDesc = "";
             formPortfolioEdit = true;
             // Page management
@@ -502,7 +504,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             }
 
             // Client related data.
-            setRiskCalcMethod("C");
+            setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
 
 
             fetchClientData();
@@ -605,9 +607,10 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    }
 
    public void showFTPanel() {
-      if (savedRiskFormula == null || savedRiskFormula.isEmpty() || savedRiskFormula.equalsIgnoreCase("C")) {
-         savedRiskFormula = riskCalculator.getRiskFormula();
-         // savedAllocSliderIndex = getAllocationIndex();
+      if (savedRiskFormula == null || savedRiskFormula.isEmpty()) {
+         savedRiskFormula = getRiskCalcMethod();
+         savedAllocSliderIndex = getAllocationIndex();
+         setSliderAllocationIndex(savedAllocSliderIndex);
       }
 
       displayFTPanel=true;
@@ -617,8 +620,9 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    }
 
    public void saveFTPanel() {
-      savedRiskFormula = riskCalculator.getRiskFormula();
+      savedRiskFormula = getRiskCalcMethod();
       savedAllocSliderIndex = getAllocationIndex();
+      setSliderAllocationIndex(savedAllocSliderIndex);
       closeFTPanel();
    }
 
@@ -631,7 +635,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void cancelFTPanel() {
       setRiskCalcMethod(savedRiskFormula);
-      riskCalculator.setRiskFormula(savedRiskFormula);
+      setSliderAllocationIndex(savedAllocSliderIndex);
+      // riskCalculator.setRiskFormula(savedRiskFormula);
       setAllocationIndex(savedAllocSliderIndex);
       createAssetPortfolio(1); // Build default chart for the page...
       if (getFixedModelName() != null)
@@ -738,8 +743,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    {
       // setAge(event.getValue());
 
-      setRiskCalcMethod("A");
-      riskCalculator.setRiskFormula("A");
+      setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
       setAllocationIndex(event.getValue());
       createAssetPortfolio(1);
       if (getFixedModelName() != null)
@@ -751,8 +755,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void onPortfolioSlider(SlideEndEvent event)
    {
       //setDefaultRiskIndex(event.getValue());
-      setRiskCalcMethod("A");
-      riskCalculator.setRiskFormula("A");
+      setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
       setPortfolioIndex(event.getValue());
       createAssetPortfolio(1);
       // createPortfolio(1);    // Due to fixed allocaton, we have to do both (asset and portfolio)
@@ -762,9 +765,9 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void doAllocReset()
    {
-      setRiskCalcMethod("C");
-      riskCalculator.setRiskFormula("C");
+      setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
       createAssetPortfolio(1); // Build default chart for the page...
+      setSliderAllocationIndex(getAllocationIndex());
       doPerformanceFinalpage();
 
    }
@@ -827,8 +830,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
       try
       {
-
-         riskCalculator.setRiskFormula("D");
+         setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
          riskCalculator.setTotalRisk(fmDataMap.get(selectedThemeName).getHighRisk());
          setRiskIndex(riskCalculator.calculateRisk());
          setNumOfAllocation(noOfYears);
@@ -995,22 +997,18 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       Boolean validate = false;
       try
       {
-         if (newapp != null && newapp.equalsIgnoreCase("N"))
-         {
+         if (newapp != null && newapp.equalsIgnoreCase("N")) {
             saveProfile();  // Save only if on New Page.
-            if (doesUserHavaLogonID)
-            {
-               uiLayout.doCustody(getLogonid(), getAcctnum()); // Open Custody account.
-            }
-            else
-            {
-               nextPage();  // Now we go to Next Pagee register page (Next page on Panel)
-            }
-         }
-         else {
-            nextPage();  // Now we go to Next Pagee confirm page(Next page on Panel)
          }
 
+         if (doesUserHavaLogonID && getEditable())
+         {
+            uiLayout.doCustody(getLogonid(), getAcctnum()); // Open Custody account.
+         }
+         else
+         {
+            nextPage();  // Now we go to Next Pagee register page (Next page on Panel)
+         }
       }
       catch (Exception ex)
       {
@@ -1111,14 +1109,20 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    }
 
+   @Override
+   public void setRiskCalcMethod(String format) {
+      this.riskCalcMethod = format;
+      riskCalculator.setRiskFormula(format);
+
+   }
+
    public void startover()
    {
       pagemanager.setPage(0);
       fetchClientData();
       selectedThemeName = "";
       newLongDesc = "";
-      setRiskCalcMethod("C");
-      riskCalculator.setRiskFormula("C");
+      setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
       // webutil.redirect("/start.xhtml", null);
 
    }
@@ -1381,11 +1385,14 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             }
          }
 
-         if ((getFormula() != null && getFormula().equalsIgnoreCase("Q")) && pagemanager.getPage() == 0 && formPortfolioEdit)
+         String profileProcess = getProfileProcess();
+         if ((profileProcess != null && profileProcess.equalsIgnoreCase(WebConst.PROFILE_STANDARD_PROCESS)) &&
+            pagemanager.getPage() == 0 && formPortfolioEdit)
          {
             pagemanager.nextPage();
          }
-         else if ((getFormula() != null && getFormula().equalsIgnoreCase("D")) && pagemanager.getPage() == 0 && formPortfolioEdit)
+         else if ((profileProcess != null && profileProcess.equalsIgnoreCase(WebConst.PROFILE_ADVANCE_PROCESS)) &&
+            pagemanager.getPage() == 0 && formPortfolioEdit)
          {
             pagemanager.setPage(5);
             doPerformanceFinalpage();
@@ -1394,7 +1401,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          {
             pagemanager.nextPage();
          }
-         if (pagemanager.getPage() == 5 && getFormula().equalsIgnoreCase("Q"))
+         if (pagemanager.getPage() == 5 && profileProcess.equalsIgnoreCase(WebConst.PROFILE_STANDARD_PROCESS))
          {
             selectedThemeName = getFixedModelName();
             newLongDesc = fmDataMap.get(selectedThemeName).getDescription();
@@ -1503,7 +1510,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          }
 
       }
-      setRiskCalcMethod("C");
       formEdit = true;
       createAssetPortfolio(1);
    }

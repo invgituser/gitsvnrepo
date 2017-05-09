@@ -74,7 +74,7 @@ public class
    private Double riskIndex = 0.0;        // On riskIndex 0 = highest risk, 28 = lowest risk.
    private Integer displayRiskIndex = 10; // On displayRiskIndex 0 = lowest risk, 10 = highest risk.
 
-   private String riskCalcMethod = "C";  // Choices: C - Consumer, A - Advisor
+   public String riskCalcMethod = "C";  // Choices: C - Consumer, A - Advisor
    private Integer allocationIndex = InvConst.ASSET_DEFAULT_POINT;
    private Integer portfolioIndex = InvConst.PORTFOLIO_DEFAULT_POINT;
    private Integer meterRiskIndicator = 5;

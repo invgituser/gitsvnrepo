@@ -1,5 +1,6 @@
 package com.invessence.web.data.consumer.uob;
 
+import com.invessence.web.constant.WebConst;
 import com.invessence.web.data.consumer.RiskCalculator;
 
 /**
@@ -48,7 +49,7 @@ public class UOBRiskCalculator extends RiskCalculator
       riskAge = 30;
       riskHorizon = 20;
       totalRisk = 0.0;
-      riskFormula = "C";
+      riskFormula = WebConst.CONSUMER_RISK_FORMULA;
       retired = 0;  // same as false;  Need to use 0,1 (because of dropdown on the menu)
    }
 
@@ -62,10 +63,10 @@ public class UOBRiskCalculator extends RiskCalculator
       {
          if (riskFormula == null)
          {
-            riskFormula = "C";
+            riskFormula = WebConst.CONSUMER_RISK_FORMULA;
          }
 
-         if (riskFormula.equalsIgnoreCase("C"))
+         if (riskFormula.equalsIgnoreCase(WebConst.CONSUMER_RISK_FORMULA))
          {
             if (numberofQuestions == null)
             {
@@ -161,7 +162,7 @@ public class UOBRiskCalculator extends RiskCalculator
       riskAge = 30;
       riskHorizon = 10;
       totalRisk = 0.0;
-      riskFormula = "C";
+      riskFormula = WebConst.CONSUMER_RISK_FORMULA;
    }
 
    @Override

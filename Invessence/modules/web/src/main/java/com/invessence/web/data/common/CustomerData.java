@@ -119,6 +119,7 @@ public class CustomerData extends ProfileData
    public Map<String, String> advisorBasket;
    private Boolean managed, editable, isUnopened;
    public String managedFlag, currentStatus;
+   private Integer sliderAllocationIndex, sliderPortfolioIndex;
 
    public void setWebutil(WebUtil webutil)
    {
@@ -296,6 +297,26 @@ public class CustomerData extends ProfileData
    public void setCurrentStatus(String currentStatus)
    {
       this.currentStatus = currentStatus;
+   }
+
+   public Integer getSliderAllocationIndex()
+   {
+      return sliderAllocationIndex;
+   }
+
+   public void setSliderAllocationIndex(Integer sliderAllocationIndex)
+   {
+      this.sliderAllocationIndex = sliderAllocationIndex;
+   }
+
+   public Integer getSliderPortfolioIndex()
+   {
+      return sliderPortfolioIndex;
+   }
+
+   public void setSliderPortfolioIndex(Integer sliderPortfolioIndex)
+   {
+      this.sliderPortfolioIndex = sliderPortfolioIndex;
    }
 
    public Double getTotalRisk() {
@@ -756,6 +777,8 @@ public class CustomerData extends ProfileData
       else {
          advisorBasket.clear();
       }
+      sliderAllocationIndex = 0;
+      sliderPortfolioIndex = 0;
       resetAdvisor();  // Reset Advisor
    }
 
@@ -1356,6 +1379,8 @@ public class CustomerData extends ProfileData
          return getCurrentStatus();
       }
    }
+
+
 
 
 

@@ -1,6 +1,7 @@
 package com.invessence.web.data.consumer.tcm;
 
 import com.invessence.converter.*;
+import com.invessence.web.constant.WebConst;
 import com.invessence.web.data.consumer.RiskCalculator;
 
 /**
@@ -199,10 +200,10 @@ public class TCMRiskCalculator extends RiskCalculator
       {
          if (riskFormula == null)
          {
-            riskFormula = "C";
+            riskFormula = WebConst.CONSUMER_RISK_FORMULA;
          }
 
-         if (riskFormula.equalsIgnoreCase("C"))
+         if (riskFormula.equalsIgnoreCase(WebConst.CONSUMER_RISK_FORMULA))
          {
             if (numberofQuestions == null)
             {
@@ -265,7 +266,7 @@ public class TCMRiskCalculator extends RiskCalculator
       riskAge = 30;
       riskHorizon = 20;
       totalRisk = 0.0;
-      riskFormula = "C";
+      riskFormula = WebConst.CONSUMER_RISK_FORMULA;
       //ans5 = "1";
       //ans5AggressiveRadio = "4";
    }

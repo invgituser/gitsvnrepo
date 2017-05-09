@@ -167,7 +167,7 @@ public class PortfolioModel
             advisor = InvConst.INVESSENCE_ADVISOR;
          }
          profileData.setMaxPortfolioAllocationPoints(InvConst.PORTFOLIO_INTERPOLATION - 1);
-         if (profileData.getRiskCalcMethod() == null || profileData.getRiskCalcMethod().startsWith("C"))
+         if (profileData.getRiskCalcMethod() == null || profileData.getRiskCalcMethod().startsWith(InvConst.CONSUMER_RISK_FORMULA))
          {
             return getPortfolioByIndex(assetData, profileData, profileData.getRiskIndex().intValue(),
                                       advisor, theme, invCapital, investment, reinvestment, keepLiquidCash, duration, riskOffset);
@@ -179,7 +179,7 @@ public class PortfolioModel
          }
 
 /*
-         if (profileData.getRiskCalcMethod() == null || profileData.getRiskCalcMethod().startsWith("C"))
+         if (profileData.getRiskCalcMethod() == null || profileData.getRiskCalcMethod().startsWith(InvConst.CONSUMER_RISK_FORMULA))
          {
             return getPortfolioByRisk(assetData, profileData,
                                       advisor, theme, invCapital, investment, reinvestment, keepLiquidCash, duration, riskOffset);
@@ -785,7 +785,7 @@ public class PortfolioModel
       portfolio.setTheme(pdata.getTheme());
       portfolio.setCashMoney(investment);
       FMData fixedModelData;
-      if (pdata.getRiskCalcMethod().equalsIgnoreCase("C"))
+      if (pdata.getRiskCalcMethod().equalsIgnoreCase(InvConst.CONSUMER_RISK_FORMULA))
       {
          fixedModelData = fixedOptimizer.getTheme(theme, assetData[0].getRiskOffset());
       }

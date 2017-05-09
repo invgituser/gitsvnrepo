@@ -82,7 +82,7 @@ public class AssetAllocationModel
       pdata.setHasReturn(true);
       pdata.setHasRisk(true);
 
-      if (pdata.getRiskCalcMethod() == null || pdata.getRiskCalcMethod().startsWith("C"))
+      if (pdata.getRiskCalcMethod() == null || pdata.getRiskCalcMethod().startsWith(InvConst.CONSUMER_RISK_FORMULA))
       {
          return getAssetsInfoByIndex(pdata, pdata.getRiskIndex().intValue());
       }
@@ -92,7 +92,7 @@ public class AssetAllocationModel
       }
 
 /*
-      if (pdata.getRiskCalcMethod() == null || pdata.getRiskCalcMethod().startsWith("C"))
+      if (pdata.getRiskCalcMethod() == null || pdata.getRiskCalcMethod().startsWith(InvConst.CONSUMER_RISK_FORMULA))
       {
          return getAssetInfoByRisk(pdata);
       }
@@ -449,7 +449,7 @@ public class AssetAllocationModel
          assetclass.initAssetClass(pdata.getAge(), pdata.getDefaultHorizon(), adjRiskOffet,
                                    pdata.getStayInvested(), theme);
 
-         if (pdata.getRiskCalcMethod().equalsIgnoreCase("C")) {
+         if (pdata.getRiskCalcMethod().equalsIgnoreCase(InvConst.CONSUMER_RISK_FORMULA)) {
             fixedModelData = fixedOptimizer.getTheme(theme, adjRiskOffet);
          }
          else {

@@ -10,13 +10,13 @@
 
 
             <p:outputPanel id="workArea">
-            <p:outputPanel id="reviewArea">
+                <p:outputPanel id="reviewArea">
 
-            <div class="Container100 Responsive100">
+                    <div class="Container100 Responsive100">
                         <div class="Container50 Responsive100 Fleft ">
                             <p:panel id="fineTunePanel" styleClass="fineTuneBlock" rendered="#{tcmpb.displayFTPanel}">
                                 <p:effect type="slide" event="close" for="fineTunePanel">
-                                    <f:param name="mode" value="'hide'" />
+                                    <f:param name="mode" value="'hide'"/>
                                 </p:effect>
                                 <div class="Container100 FTLabel">
                                     <span class="Fs16">Change Strategy</span>
@@ -48,7 +48,7 @@
                                             Conservative
                                         </div>
                                         <div class="Container50 TexAlCenter Fs20">
-                                            <h:inputHidden id="allocValue" value="#{tcmpb.allocationIndex}"/>
+                                            <h:inputHidden id="allocValue" value="#{tcmpb.sliderAllocationIndex}"/>
                                             <p:slider id="allocSlider" for="allocValue" minValue="0"
                                                       maxValue="#{tcmpb.maxAssetAllocatonPoints}" step="1">
                                                 <p:ajax event="slideEnd"
@@ -81,7 +81,7 @@
                                     <div class="Container100" style="text-align: center;">
                                         <p:commandButton id="scsavebtn3" value="Save" styleClass=""
                                                          update=":ceForm:reviewArea"
-                                                         actionListener="#{tcmpb.closeFTPanel}">
+                                                         actionListener="#{tcmpb.saveFTPanel}">
                                         </p:commandButton>
                                         <p:commandButton id="sccancelbtn4" value="Cancel" styleClass=""
                                                          update=":ceForm:reviewArea"
@@ -197,19 +197,19 @@
                                 <ui:fragment rendered="#{tcmpb.sameStrategy}">
                                     <div class="Container100 csWarningPanel BorderBoxPanel">
 
-                                    <div class="textAlign red cswLabel">
-                                        <i class="fa fa-exclamation-triangle red" aria-hidden="true"></i><br/>
+                                        <div class="textAlign red cswLabel">
+                                            <i class="fa fa-exclamation-triangle red" aria-hidden="true"></i><br/>
                                         <span class="Fs14">
                                         Your current and revised portfolio is same, you can not do further processing. <br/>
                                         Please use Change Strategy button below to change.
                                         </span>
-                                    </div>
+                                        </div>
                                         <div class="EmptyBox10"></div>
-                                        <p:commandButton type="button" id="tcmp7achngstrategy2"
-                                                         styleClass="fineTuneBtn fineTuneBtnImg spWid100" value="Change Strategy">
-                                            <p:effect type="slide" event="click" for="fineTunePanel">
-                                                <f:param name="mode" value="'show'"/>
-                                            </p:effect>
+                                        <p:commandButton id="tcmp7achngstrategy2"
+                                                         styleClass="fineTuneBtn fineTuneBtnImg spWid100"
+                                                         value="Change Strategy"
+                                                         update=":ceForm:reviewArea"
+                                                         actionListener="#{tcmpb.showFTPanel}">
                                         </p:commandButton>
                                     </div>
                                 </ui:fragment>
@@ -234,7 +234,7 @@
 
                                             <div class="EmptyBox5"></div>
 								<span class="Fs17 DispBlock BBGreen"> <h:outputText id="tcmp7aavgperformance"
-                                        value="#{tcmpb.charts.chartdata.getIntChartData('AvgPerformance')}">
+                                                                                    value="#{tcmpb.charts.chartdata.getIntChartData('AvgPerformance')}">
                                     <f:convertNumber pattern="$#,###,###,##0"/>
                                 </h:outputText>
 								</span>
@@ -249,7 +249,7 @@
 
                                             <div class="EmptyBox5"></div>
 								<span class="Fs17 DispBlock BBGreen"> <h:outputText id="tcmp7apoorperformance"
-                                        value="#{tcmpb.charts.chartdata.getIntChartData('PoorPerformance')}">
+                                                                                    value="#{tcmpb.charts.chartdata.getIntChartData('PoorPerformance')}">
                                     <f:convertNumber pattern="$#,###,###,##0"/>
                                 </h:outputText>
 								</span>
@@ -276,17 +276,19 @@
                         <p:commandButton id="tcmp7achngstrategy"
                                          styleClass="fineTuneBtn fineTuneBtnImg spWid100" value="Change Strategy"
                                          update=":ceForm:reviewArea"
-                                         actionListener="#{tcmpb.showFTPanel}" >
+                                         actionListener="#{tcmpb.showFTPanel}">
                         </p:commandButton>
 
-                        <p:commandButton id="tcmp7anext" style="margin-right: 0px!important;" styleClass="Fright ResponsiveBtnFS spWid100" value="Next"
+                        <p:commandButton id="tcmp7anext" style="margin-right: 0px!important;"
+                                         styleClass="Fright ResponsiveBtnFS spWid100"
+                                         value="Next"
                                          rendered="#{tcmpb.pagemanager.nextButtonStat}"
                                          update=":ceForm:inputArea"
                                          disabled="#{tcmpb.sameStrategy}"
                                          actionListener="#{tcmpb.nextPage}"/>
 
                     </div>
-            </p:outputPanel>
+                </p:outputPanel>
                 <div class="EmptyBox10"></div>
                 <p:fieldset legend="Detail" toggleable="true" toggleSpeed="500">
                     <div class="Container100 Responsive100">
