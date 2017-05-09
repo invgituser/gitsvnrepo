@@ -2584,7 +2584,7 @@ h3 {
 
     .tab_main > div {
         margin: 0 auto;
-        width: 189px;
+        width: 222px;
     }
 
     .tab_main {
@@ -2621,7 +2621,7 @@ h3 {
 
     .tab_main > div {
         margin: 0 auto;
-        width: 217px;
+        width: 258px;
     }
 
     .tab_main {
@@ -2658,7 +2658,7 @@ h3 {
 
     .tab_main > div {
         margin: 0 auto;
-        width: 227px;
+        width: 270px;
     }
 
     .portfolioCreationStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
@@ -2691,7 +2691,7 @@ h3 {
 
     .tab_main > div {
         margin: 0 auto;
-        width: 305px;
+        width: 366px;
     }
 
     .portfolioCreationStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
@@ -2711,7 +2711,7 @@ h3 {
 @media (max-width: 729px) and (min-width: 641px) {
     .tab_main > div {
         margin: 0 auto;
-        width: 355px;
+        width: 426px;
     }
 
     .tab_main {
@@ -2739,7 +2739,7 @@ h3 {
 @media (max-width: 770px) and (min-width: 730px) {
     .tab_main > div {
         margin: 0 auto;
-        width: 430px;
+        width: 516px;
     }
 
 
@@ -2755,7 +2755,7 @@ h3 {
 @media (max-width: 960px) and (min-width: 771px) {
     .tab_main > div {
         margin: 0 auto;
-        width: 455px;
+        width: 546px;
     }
 
     .portfolioCreationStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
@@ -2770,7 +2770,7 @@ h3 {
 @media (max-width: 999px) and (min-width: 961px) {
     .tab_main > div {
         margin: 0 auto;
-        width: 555px;
+        width: 666px;
     }
 
     .tab_main {
@@ -2787,14 +2787,14 @@ h3 {
 @media (max-width: 1320px) and (min-width: 1000px) {
     .tab_main > div {
         margin: 0 auto;
-        width: 530px;
+        width: 636px;
     }
 }
 
 @media (min-width: 1321px) {
     .tab_main > div {
         margin: 0 auto;
-        width: 705px;
+        width: 846px;
     }
 }
 
