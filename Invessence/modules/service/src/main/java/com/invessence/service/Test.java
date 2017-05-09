@@ -18,6 +18,8 @@ public class Test
          ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("serviceConfig.xml");
          ServiceDao wsCommonDao = (ServiceDao) context.getBean("wsCommonDao");
          new  ServiceDetails(wsCommonDao);
+
+         
 //         System.out.println(ServiceParameters.getServiceProvider(Constant.SERVICES.EMAIL_SERVICE.toString()));
 //         System.out.println(ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(),ServiceParameters.getServiceProvider(Constant.SERVICES.EMAIL_SERVICE.toString()),"HOST"));
    }
