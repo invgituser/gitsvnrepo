@@ -9,15 +9,28 @@
 		<div class="Container100">
 			<div class="ContainerIndent Responsive100 tab_main">
 
-				<p:steps id="progressbar" styleClass="portfolioCreationStepsPanel tabColorOnluCustom"
-					activeIndex="#{tcmpb.pagemanager.page}">
-					<p:menuitem value="Start" />
-					<p:menuitem value="Objective" />
-					<p:menuitem value="Risk" />
-					<p:menuitem value="Projection" />
-					<p:menuitem value="Review" />
-					<p:menuitem value="Register" />
-				</p:steps>
+				<ui:fragment rendered="#{tcmpb.doesUserHavaLogonID}">
+					<p:steps id="progressbar" styleClass="portfolioCreationStepsPanel tabColorOnluCustom"
+							 activeIndex="#{tcmpb.pagemanager.page}">
+						<p:menuitem value="Start" />
+						<p:menuitem value="Objective" />
+						<p:menuitem value="Risk" />
+						<p:menuitem value="Projection" />
+						<p:menuitem value="Review" />
+					</p:steps>
+
+				</ui:fragment>
+				<ui:fragment rendered="#{! tcmpb.doesUserHavaLogonID}">
+					<p:steps id="progressbar2" styleClass="portfolioCreationStepsPanel tabColorOnluCustom"
+							 activeIndex="#{tcmpb.pagemanager.page}">
+						<p:menuitem value="Start" />
+						<p:menuitem value="Objective" />
+						<p:menuitem value="Risk" />
+						<p:menuitem value="Projection" />
+						<p:menuitem value="Review" />
+						<p:menuitem value="Register" />
+					</p:steps>
+				</ui:fragment>
 
 			</div>
 		</div>

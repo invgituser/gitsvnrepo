@@ -347,6 +347,12 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       return newLongDesc;
    }
 
+
+   public Boolean getDoesUserHavaLogonID()
+   {
+      return doesUserHavaLogonID;
+   }
+
    public String getFundButtonText()
    {
 
