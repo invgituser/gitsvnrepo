@@ -14,18 +14,17 @@
 
                     <div class="Container100 Responsive100">
                         <div class="Container50 Responsive100 Fleft ">
-                            <p:panel id="fineTunePanel" styleClass="fineTuneBlock" rendered="#{tcmpb.displayFTPanel}">
-                                <p:effect type="slide" event="close" for="fineTunePanel">
-                                    <f:param name="mode" value="'hide'"/>
-                                </p:effect>
+                            <p:panel id="fineTunePanel"
+                                     styleClass="fineTuneBlock"
+                                     rendered="#{tcmpb.displayFTPanel}">
                                 <div class="Container100 FTLabel">
                                     <span class="Fs16">Change Strategy</span>
                                     <div class="Wid10 Fright closeFTbtn">
-                                        <p:commandButton id="tcmp7afpbtn" type="button" styleClass="fineTuneBtn"
-                                                         icon="fa fa-times">
-                                            <p:effect type="slide" event="click" for="fineTunePanel">
-                                                <f:param name="mode" value="'hide'"/>
-                                            </p:effect>
+                                        <p:commandButton id="tcmp7afpbtn"
+                                                         styleClass="fineTuneBtn"
+                                                         icon="fa fa-times"
+                                                         update=":ceForm:workArea"
+                                                         actionListener="#{tcmpb.cancelFTPanel}">
                                         </p:commandButton>
                                     </div>
                                 </div>
@@ -80,16 +79,12 @@
                                     <div class="EmptyBox5"></div>
                                     <div class="Container100" style="text-align: center;">
                                         <p:commandButton id="scsavebtn3" value="Save" styleClass=""
-                                                         update=":ceForm:reviewArea"
+                                                         update=":ceForm:workArea"
                                                          actionListener="#{tcmpb.saveFTPanel}">
                                         </p:commandButton>
                                         <p:commandButton id="sccancelbtn4" value="Cancel" styleClass=""
-                                                         update=":ceForm:reviewArea"
+                                                         update=":ceForm:workArea"
                                                          actionListener="#{tcmpb.cancelFTPanel}">
-
-                                            <p:effect type="slide" event="click" for="fineTunePanel">
-                                                <f:param name="mode" value="'hide'"/>
-                                            </p:effect>
                                         </p:commandButton>
                                     </div>
                                 </p:panel>
@@ -208,7 +203,8 @@
                                         <p:commandButton id="tcmp7achngstrategy2"
                                                          styleClass="fineTuneBtn fineTuneBtnImg spWid100"
                                                          value="Change Strategy"
-                                                         update=":ceForm:reviewArea"
+                                                         disabled="#{! tcmpb.enableChangeStrategy}"
+                                                         update=":ceForm:reviewArea, :ceForm:tcmp7achngstrategy2"
                                                          actionListener="#{tcmpb.showFTPanel}">
                                         </p:commandButton>
                                     </div>
@@ -275,7 +271,8 @@
 
                         <p:commandButton id="tcmp7achngstrategy"
                                          styleClass="fineTuneBtn fineTuneBtnImg spWid100" value="Change Strategy"
-                                         update=":ceForm:reviewArea"
+                                         update=":ceForm:reviewArea, :ceForm:tcmp7achngstrategy"
+                                         disabled="#{! tcmpb.enableChangeStrategy}"
                                          actionListener="#{tcmpb.showFTPanel}">
                         </p:commandButton>
 

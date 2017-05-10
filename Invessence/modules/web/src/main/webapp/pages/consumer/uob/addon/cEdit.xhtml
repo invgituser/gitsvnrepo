@@ -6,22 +6,24 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Wid30 Fleft LeftPanel">
+        <p:panel id="inputArea" style="border: 0px; background: transparent;">
+
         <div class="finetuneBtnBlock Fright">
-            <p:commandButton type="button" styleClass="fineTuneBtn fineTuneBtnImg" id="uobfinetunebtn" icon="ui-icon-image">
-                <p:effect type="slide" event="click" for="abc">
-                    <f:param name="mode" value="'show'" />
-                </p:effect>
+            <p:commandButton id="uobfinetunebtn" styleClass="fineTuneBtn fineTuneBtnImg"
+                             icon="ui-icon-image"
+                             disabled="#{! uobpb.enableChangeStrategy}"
+                             update=":ceForm:inputArea"
+                             actionListener="#{uobpb.showFTPanel}">
             </p:commandButton>
             <div class="ftBtnLabel">Fine Tune</div>
         </div>
-        <p:panel id="abc" styleClass="fineTuneBlock" style="display: none;">
+        <p:panel id="fineTunePanel" styleClass="fineTuneBlock" rendered="#{uobpb.displayFTPanel}">
             <div class="Container100 FTLabel">
                 <span class="Fs30 mainHeaderUOB">Fine Tune Strategy</span>
                 <div class="Wid10 closeFTBtn Fright">
-                    <p:commandButton type="button" styleClass="fineTuneBtn" id="uobftclose"  icon="fa fa-times">
-                        <p:effect type="slide" event="click" for="abc">
-                            <f:param name="mode" value="'hide'" />
-                        </p:effect>
+                    <p:commandButton id="uobftclose"  styleClass="fineTuneBtn" icon="fa fa-times"
+                                     update=":ceForm:inputArea"
+                                     actionListener="#{uobpb.cancelFTPanel}">
                     </p:commandButton>
 
                 </div>
@@ -38,11 +40,11 @@
                 <div class="Container25 TexAlRight Fs14 uobSliderLabel firstLabel">
                     Conservative</div>
                 <div class="Container50 TexAlCenter Fs20">
-                    <h:inputHidden id="allocValue" value="#{uobpb.allocationIndex}" />
+                    <h:inputHidden id="allocValue" value="#{uobpb.sliderAllocationIndex}" />
                     <p:slider id="allocSlider" for="allocValue" minValue="0"
                               maxValue="#{uobpb.maxAssetAllocatonPoints}" step="1">
                         <p:ajax event="slideEnd"
-                                update="ceForm:graphArea"
+                                update=":ceForm:graphArea, :ceForm:fineTunePanel"
                                 listener="#{uobpb.onAllocSlider}" />
                     </p:slider>
                 </div>
@@ -53,18 +55,24 @@
                     <div class="ContainerIndent">
                         <p:commandButton id="allocSliderResetButton" value="Recommended"
                                          styleClass="uob_button"
-                                         update=":ceForm:allocSlider, :ceForm:allocValue, :ceForm:graphArea"
+                                         update=":ceForm:graphArea, :ceForm:fineTunePanel"
                                          actionListener="#{uobpb.doAllocReset}">
                         </p:commandButton>
                     </div>
                 </div>
                 <div class="Container100 TexAlCenter">
                     <div class="ContainerIndent">
-                        <p:commandButton value="Save"
-                                         styleClass="uob_button">
+                        <p:commandButton id="uobFTSave"
+                                         value="Save"
+                                         styleClass="uob_button"
+                                         update=":ceForm:workArea"
+                                         actionListener="#{uobpb.saveFTPanel}">
                         </p:commandButton>
-                        <p:commandButton value="Cancel"
-                                         styleClass="uob_button">
+                        <p:commandButton id="uobFTCancel"
+                                         value="Cancel"
+                                         styleClass="uob_button"
+                                         update=":ceForm:workArea"
+                                         actionListener="#{uobpb.cancelFTPanel}">
                         </p:commandButton>
                     </div>
                 </div>
@@ -130,10 +138,10 @@
             <div id="buttondiv" class="Container100 LPBtnPanelBottom" style="margin: 5px 0;">
                 <div class="Wid100">
                     <ui:fragment rendered="#{uobpb.flagforInvestShow}">
-                        <p:commandLink id="invsetBtn" value="Invest Now"
+                        <p:commandLink id="invsetBtn" value="Save"
                                        styleClass="investNowBtn Fleft"
-                                       actionListener="#{uobpb.fundAccount}"
-                                       type="submit" />
+                                       update=":ceForm:workArea"
+                                       actionListener="#{uobpb.saveAccount}"/>
                     </ui:fragment>
                     <ui:fragment rendered="#{uobpb.pagemanager.page >= 0 and uobpb.rTab != 6}">
                         <p:commandLink id="nextBtn" value="Next"
@@ -146,7 +154,6 @@
                     <ui:fragment rendered="#{uobpb.rTab == 6}">
                         <p:commandLink id="startBtn" value="Start Over"
                                        styleClass="nextButtonLP Fright"
-                                       type="submit"
                                        outcome="transition=slidefade"
                                        update=":ceForm:workArea, :ceForm:graphArea"
                                        actionListener="#{uobpb.gotoStartOverPage}"/>
@@ -154,8 +161,7 @@
 
                     <ui:fragment rendered="false">
                         <p:commandLink value="Start Over"
-                                       styleClass="nextButtonLP Fright"
-                                       type="submit" />
+                                       styleClass="nextButtonLP Fright"/>
                     </ui:fragment>
 
                     <ui:fragment rendered="#{uobpb.pagemanager.page >= 1}">
@@ -169,6 +175,7 @@
                 </div>
             </div>
 
+        </p:panel>
         </p:panel>
     </div>
     <div class="Wid66 Fleft RightPanel">

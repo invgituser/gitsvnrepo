@@ -3,12 +3,9 @@ package com.invessence.web.data.common;
 import java.util.*;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 import javax.faces.bean.ManagedProperty;
 
-import com.google.api.client.util.ArrayMap;
-import com.google.gson.Gson;
 import com.invessence.converter.JavaUtil;
 import com.invessence.emailer.data.MsgData;
 import com.invessence.web.constant.*;
@@ -56,7 +53,6 @@ public class CustomerData extends ProfileData
    @ManagedProperty("#{webMessage}")
    public WebMessage messageText;
 
-
    private JavaUtil javautil = new JavaUtil();
 
    public USMaps usstates = USMaps.getInstance();
@@ -70,6 +66,7 @@ public class CustomerData extends ProfileData
    private String dateOpened;
    private String role, privileges;
    private String created;
+   private String phone;
 
    // Income/Expenses
    private Integer householdwages;
@@ -120,6 +117,13 @@ public class CustomerData extends ProfileData
    private Boolean managed, editable, isUnopened;
    public String managedFlag, currentStatus;
    private Integer sliderAllocationIndex, sliderPortfolioIndex;
+
+   private Boolean enableChangeStrategy;
+   private Boolean displayFTPanel;
+   private String savedRiskFormula;
+   private Integer savedAllocSliderIndex;
+   private Boolean doesUserHavaLogonID;
+
 
    public void setWebutil(WebUtil webutil)
    {
@@ -319,6 +323,41 @@ public class CustomerData extends ProfileData
       this.sliderPortfolioIndex = sliderPortfolioIndex;
    }
 
+   public Boolean getEnableChangeStrategy()
+   {
+      return enableChangeStrategy;
+   }
+
+   public void setEnableChangeStrategy(Boolean enableChangeStrategy)
+   {
+      this.enableChangeStrategy = enableChangeStrategy;
+   }
+
+   public Boolean getDisplayFTPanel()
+   {
+      return displayFTPanel;
+   }
+
+   public void setDisplayFTPanel(Boolean displayFTPanel)
+   {
+      this.displayFTPanel = displayFTPanel;
+   }
+
+   public void setSavedRiskFormula(String savedRiskFormula)
+   {
+      this.savedRiskFormula = savedRiskFormula;
+   }
+
+   public void setDoesUserHavaLogonID(Boolean doesUserHavaLogonID)
+   {
+      this.doesUserHavaLogonID = doesUserHavaLogonID;
+   }
+
+   public void setSavedAllocSliderIndex(Integer savedAllocSliderIndex)
+   {
+      this.savedAllocSliderIndex = savedAllocSliderIndex;
+   }
+
    public Double getTotalRisk() {
       Double value = 0.0;
       if (getPortfolioData() != null) {
@@ -328,6 +367,21 @@ public class CustomerData extends ProfileData
            value = getPortfolioData()[0].getTotalRisk();
       }
       return value;
+   }
+
+   public String getSavedRiskFormula()
+   {
+      return savedRiskFormula;
+   }
+
+   public Integer getSavedAllocSliderIndex()
+   {
+      return savedAllocSliderIndex;
+   }
+
+   public Boolean getDoesUserHavaLogonID()
+   {
+      return doesUserHavaLogonID;
    }
 
    public Double getTotalExpectedReturns() {
@@ -439,6 +493,16 @@ public class CustomerData extends ProfileData
    public void setCreated(String created)
    {
       this.created = created;
+   }
+
+   public String getPhone()
+   {
+      return phone;
+   }
+
+   public void setPhone(String phone)
+   {
+      this.phone = phone;
    }
 
    public Integer getHouseholdwages()
@@ -779,6 +843,15 @@ public class CustomerData extends ProfileData
       }
       sliderAllocationIndex = 0;
       sliderPortfolioIndex = 0;
+
+      setDoesUserHavaLogonID(false);
+      setSavedRiskFormula(null);
+      setSavedAllocSliderIndex(null);
+
+      setDoesUserHavaLogonID(false);
+      setSavedRiskFormula(null);
+      setSavedAllocSliderIndex(null);
+
       resetAdvisor();  // Reset Advisor
    }
 

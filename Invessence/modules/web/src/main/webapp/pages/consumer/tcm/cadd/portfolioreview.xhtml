@@ -12,24 +12,28 @@
                 <div class="Container100 Responsive100">
                     <p:panel id="workPanel" styleClass="Container50 Responsive100 Fleft summaryLBlock"
                              style="border: 0px; background: transparent;">
-                        <p:panel id="fineTunePanel" widgetVar="wvfineTunePanel" styleClass="fineTuneBlock" rendered="#{tcmpb.displayFTPanel}">
+                        <p:panel id="fineTunePanel" widgetVar="wvfineTunePanel" styleClass="fineTuneBlock"
+                                 rendered="#{tcmpb.displayFTPanel}">
+
                             <div class="Container100 FTLabel">
                                 <span class="Fs16">Change Strategy</span>
-                                <!--<div class="Wid10 Fright closeFTbtn">
-                                    <p:commandButton  styleClass="fineTuneBtn"
-                                        icon="fa fa-times">
-                                        <p:effect type="slide" event="click" for="fineTunePanel">
-                                            <f:param name="mode" value="'hide'" />
-                                        </p:effect>
+                                <div class="Wid10 Fright closeFTbtn">
+                                    <p:commandButton id="tcmp7afpbtn"
+                                                     styleClass="fineTuneBtn"
+                                                     icon="fa fa-times"
+                                                     update=":ceForm:workArea"
+                                                     actionListener="#{tcmpb.cancelFTPanel}">
                                     </p:commandButton>
-                                </div>-->
+                                </div>
                             </div>
+
                             <div class="Fs13 fineTuneDetail">Rather than having a
                                 strategy recommended to me based on my time horizon and risk
                                 tolerance, I would rather directly choose my investment strategy
                                 and am familiar with the associated risks. The strategy I choose
                                 is:</div>
-                            <p:panel id="tcmSliderArea" style="border: 0px; background: transparent;">
+                            <p:panel id="tcmSliderArea" style="border: 0px;
+                            background: transparent;">
                                 <div class="EmptyBox10"></div>
                                 <div class="Container100 Fleft TexAlCenter"
                                      style="padding: 0px 20px; box-sizing: border-box;">
@@ -70,12 +74,14 @@
                                 </div>
                                 <div class="EmptyBox5"></div>
                                 <div class="Container100" style="text-align: center;">
-                                    <p:commandButton id="scsavebtn1" value="Save" styleClass=""
-                                                     update=":ceForm:reviewArea"
+                                    <p:commandButton id="scsavebtn1" value="Save"
+                                                     styleClass=""
+                                                     update=":ceForm:workArea"
                                                      actionListener="#{tcmpb.saveFTPanel}">
                                     </p:commandButton>
-                                    <p:commandButton id="sccancelbtn1" value="Cancel" styleClass=""
-                                                     update=":ceForm:reviewArea"
+                                    <p:commandButton id="sccancelbtn1" value="Cancel"
+                                                     styleClass=""
+                                                     update=":ceForm:workArea"
                                                      actionListener="#{tcmpb.cancelFTPanel}">
                                     </p:commandButton>
                                 </div>
@@ -225,15 +231,17 @@
 									 value="Start Over" update=":ceForm:inputArea" immediate="true"
 									 actionListener="#{tcmpb.startover}" />
 
-					<p:commandButton styleClass="fineTuneBtn fineTuneBtnImg spWid100" id="tcmpnafftbtn" value="Change Strategy"
-									 update=":ceForm:workPanel"
+					<p:commandButton id="tcmpnafftbtn" styleClass="fineTuneBtn fineTuneBtnImg spWid100"
+                                     value="Change Strategy" disabled="#{! tcmpb.enableChangeStrategy}"
+									 update=":ceForm:workPanel, :ceForm:tcmpnafftbtn"
 									 actionListener="#{tcmpb.showFTPanel}" >
 					</p:commandButton>
 
 					<p:commandButton id="tcmpnafopenacct"
                                      style="margin-right: 0px!important;"
                                      styleClass="Fright ResponsiveBtnFS spWid100"
-									 value="#{tcmpb.fundButtonText}" update=":ceForm:inputArea"
+									 value="#{tcmpb.fundButtonText}"
+                                     update=":ceForm:inputArea"
 									 actionListener="#{tcmpb.fundAccount}" />
 				</div>
 

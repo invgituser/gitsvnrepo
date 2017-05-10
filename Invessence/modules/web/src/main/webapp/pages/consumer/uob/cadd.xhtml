@@ -35,11 +35,16 @@
         <h:form id="ceForm">
             <p:outputPanel id="workArea">
 
-                <div class="FullContainer">
-                    <ui:include src="/pages/consumer/uob/addon/cEdit.xhtml"/>
-
-                </div>
-
+                <ui:fragment rendered="#{uobpb.masterpagemanager.page == 0}">
+                    <div class="FullContainer">
+                        <ui:include src="/pages/consumer/uob/addon/cEdit.xhtml"/>
+                    </div>
+                </ui:fragment>
+                <ui:fragment rendered="#{uobpb.masterpagemanager.page == 1}">
+                    <div class="FullContainer">
+                        <ui:include src="/pages/consumer/uob/addon/register.xhtml"/>
+                    </div>
+                </ui:fragment>
             </p:outputPanel>
         </h:form>
     </ui:define>

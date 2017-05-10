@@ -36,7 +36,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    private PagesImpl pagemanager;
    private Boolean formEdit = false;
    private Boolean formPortfolioEdit = false;
-   private Boolean displayFTPanel;
    private Boolean disablegraphtabs = true, disabledetailtabs = true, disablesaveButton = true;
    private Boolean prefVisible = true;
    private Integer canOpenAccount;
@@ -62,9 +61,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    private Boolean finalCheck1, finalCheck2, confirmationCheck = false;
    private String projectionChart;
    private String performanceChart;
-   private String savedRiskFormula;
-   private Integer savedAllocSliderIndex;
-   private Boolean doesUserHavaLogonID;
 
    public PagesImpl getPagemanager()
    {
@@ -90,11 +86,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    {
       SQLData converter = new SQLData();
       this.beanAcctnum = converter.getLongData(beanAcctnum);
-   }
-
-   public Boolean getDisplayFTPanel()
-   {
-      return displayFTPanel;
    }
 
    public Boolean getDisablegraphtabs()
@@ -348,15 +339,10 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    }
 
 
-   public Boolean getDoesUserHavaLogonID()
-   {
-      return doesUserHavaLogonID;
-   }
-
    public String getFundButtonText()
    {
 
-      if (doesUserHavaLogonID)
+      if (getDoesUserHavaLogonID())
       {
          if (getEditable())
          {
@@ -433,11 +419,13 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          if (!FacesContext.getCurrentInstance().isPostback())
          {
             // Page management
+            setDisplayFTPanel(false);
+            setEnableChangeStrategy(true);
+
             pagemanager = new PagesImpl(5);
             pagemanager.setPage(0);
             setPrefView(0);
             formPortfolioEdit = false;
-            displayFTPanel = false;
 
             // set dafaults
             riskCalculator.setNumberofQuestions(5);
@@ -458,10 +446,11 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
             fetchClientData();
             canOpenAccount = initCanOpenAccount();
-            if(getLogonid()!=null && getLogonid()>0){
-               doesUserHavaLogonID = true;
-            }else
-            welcomeDialog = false;
+            if(webutil.isUserLoggedIn()){
+               setDoesUserHavaLogonID(true);
+               welcomeDialog = false;
+            }
+
          }
       }
       catch (Exception e)
@@ -484,6 +473,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             }
 
 
+            setDisplayFTPanel(false);
+            setEnableChangeStrategy(true);
             selectedThemeName = "";
             finalCheck1 = false;
             finalCheck2 = false;
@@ -616,37 +607,38 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    }
 
    public void showFTPanel() {
-      if (savedRiskFormula == null || savedRiskFormula.isEmpty()) {
-         savedRiskFormula = getRiskCalcMethod();
-         savedAllocSliderIndex = getAllocationIndex();
-         setSliderAllocationIndex(savedAllocSliderIndex);
+      if (getSavedRiskFormula() == null || getSavedRiskFormula().isEmpty()) {
+         setSavedRiskFormula(getRiskCalcMethod());
+         setSavedAllocSliderIndex(getAllocationIndex());
+         setSliderAllocationIndex(getAllocationIndex());
       }
 
-      displayFTPanel = true;
-      // RequestContext context = RequestContext.getCurrentInstance();
-      //context.update("fineTunePanel");
+      setDisplayFTPanel(true);
+      setEnableChangeStrategy(false);
 
    }
 
    public void saveFTPanel() {
-      savedRiskFormula = getRiskCalcMethod();
-      savedAllocSliderIndex = getAllocationIndex();
-      setSliderAllocationIndex(savedAllocSliderIndex);
+      setSavedRiskFormula(getRiskCalcMethod());
+      setSavedAllocSliderIndex(getAllocationIndex());
+      setSliderAllocationIndex(getAllocationIndex());
       closeFTPanel();
    }
 
    public void closeFTPanel() {
-      displayFTPanel = false;
+      setDisplayFTPanel(false);
+      setEnableChangeStrategy(true);
+
       // RequestContext context = RequestContext.getCurrentInstance();
       //context.execute("PF('wvfineTunePanel.hide()')");
       //context.update("fineTunePanel");
    }
 
    public void cancelFTPanel() {
-      setRiskCalcMethod(savedRiskFormula);
-      setSliderAllocationIndex(savedAllocSliderIndex);
+      setRiskCalcMethod(getSavedRiskFormula());
+      setSliderAllocationIndex(getSavedAllocSliderIndex());
       // riskCalculator.setRiskFormula(savedRiskFormula);
-      setAllocationIndex(savedAllocSliderIndex);
+      setAllocationIndex(getSavedAllocSliderIndex());
       createAssetPortfolio(1); // Build default chart for the page...
       if (getFixedModelName() != null)
          newLongDesc = fmDataMap.get(getFixedModelName()).getDescription();
@@ -656,16 +648,12 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    private void resetDataForm()
    {
-      doesUserHavaLogonID = false;
       disablegraphtabs = true;
       disabledetailtabs = true;
       displayGoalGraph = false;
       displayGoalText = false;
       resetCustomerData();
       riskCalculator.resetAllData();
-      savedRiskFormula = null;
-      savedAllocSliderIndex = null;
-
    }
 
    private void loadBaskets()
@@ -1010,7 +998,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             saveProfile();  // Save only if on New Page.
          }
 
-         if (doesUserHavaLogonID && getEditable())
+         if (getDoesUserHavaLogonID() && getEditable())
          {
             uiLayout.doCustody(getLogonid(), getAcctnum()); // Open Custody account.
          }
@@ -1036,7 +1024,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          resetDataForm();
          if (getBeanAcctnum() != null && getBeanAcctnum() > 0L)
          {
-            doesUserHavaLogonID = true;
+            setDoesUserHavaLogonID(true);
             loadProfileData(getBeanAcctnum());
             loadRiskData(getBeanAcctnum());
             riskCalculator.setInvestmentobjective(getGoal());  // Goal needs to be restored to use the proper calculator
@@ -1050,7 +1038,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          }
          else
          {
-            doesUserHavaLogonID = false;
+            setDoesUserHavaLogonID(false);
             loadNewClientData();
 
          }
@@ -1539,7 +1527,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void gotoReview() {
       if (registerUser())
       {
-         doesUserHavaLogonID = true;
+         setDoesUserHavaLogonID(true);
          createAssetPortfolio(1); // Build default chart for the page...
          doPerformanceFinalpage();
          prevPage();

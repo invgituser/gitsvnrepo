@@ -12,11 +12,8 @@ import com.invessence.converter.*;
 import com.invessence.web.bean.consumer.InvessenceCharts;
 import com.invessence.web.constant.*;
 import com.invessence.web.controller.HighChartsController;
-import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.common.*;
-import com.invessence.web.data.consumer.inv.INVRiskCalculator;
 import com.invessence.web.data.consumer.uob.UOBRiskCalculator;
-import com.invessence.web.util.*;
 import com.invessence.web.util.Impl.PagesImpl;
 import com.invmodel.Const.InvConst;
 import org.primefaces.component.tabview.Tab;
@@ -185,6 +182,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    private PagesImpl pagemanager;
 
+
    public PagesImpl getPagemanager()
    {
       return pagemanager;
@@ -193,6 +191,17 @@ public class UOBProfileBean extends CustomerData implements Serializable
    public void setPagemanager(PagesImpl pagemanager)
    {
       this.pagemanager = pagemanager;
+   }
+   private PagesImpl masterpagemanager;
+
+   public PagesImpl getMasterpagemanager()
+   {
+      return masterpagemanager;
+   }
+
+   public void setMasterpagemanager(PagesImpl masterpagemanager)
+   {
+      this.masterpagemanager = masterpagemanager;
    }
 
    @Override
@@ -230,9 +239,12 @@ public class UOBProfileBean extends CustomerData implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            fineTunePanel = false;
+            setDisplayFTPanel(false);
+            setEnableChangeStrategy(true);
             flagforInvestShow = false;
 
+            masterpagemanager = new PagesImpl(3);
+            masterpagemanager.setPage(0);
             pagemanager = new PagesImpl(9);
             if (newapp != null && newapp.startsWith("N"))
             {
@@ -1163,6 +1175,32 @@ public class UOBProfileBean extends CustomerData implements Serializable
       return checkAns;
    }
 
+   public void saveAccount()
+   {
+      long acctnum;
+      try
+      {
+         saveProfile();
+
+         if (getDoesUserHavaLogonID())
+         {
+            masterpagemanager.setPage(2); // If user is already looged in then redirect to opne account page.
+         }
+         else
+         {
+            masterpagemanager.nextPage();
+         }
+      }
+      catch (Exception ex)
+      {
+         String stackTrace = ex.getMessage();
+         ex.printStackTrace();
+         webutil.alertSupport("UOBProfile.saveAccount", "Error:UOBProfile.saveAccount",
+                              "error.saveAccount", stackTrace);
+      }
+
+   }
+
    public void fundAccount()
    {
       long acctnum;
@@ -1191,6 +1229,105 @@ public class UOBProfileBean extends CustomerData implements Serializable
       }
 
    }
+
+   public void showFTPanel()
+   {
+      if (getSavedRiskFormula() == null || getSavedRiskFormula().isEmpty())
+      {
+         setSavedRiskFormula(getRiskCalcMethod());
+         setSavedAllocSliderIndex(getAllocationIndex());
+         setSliderAllocationIndex(getAllocationIndex());
+      }
+      setDisplayFTPanel(true);
+      setEnableChangeStrategy(false);
+   }
+
+   public void saveFTPanel() {
+      setSavedRiskFormula(getRiskCalcMethod());
+      setSavedAllocSliderIndex(getAllocationIndex());
+      setSliderAllocationIndex(getAllocationIndex());
+      closeFTPanel();
+   }
+
+   public void closeFTPanel() {
+      setDisplayFTPanel(false);
+      setEnableChangeStrategy(true);
+      // RequestContext context = RequestContext.getCurrentInstance();
+      //context.execute("PF('wvfineTunePanel.hide()')");
+      //context.update("fineTunePanel");
+   }
+
+   public void cancelFTPanel() {
+      setRiskCalcMethod(getSavedRiskFormula());
+      setSliderAllocationIndex(getSavedAllocSliderIndex());
+      // riskCalculator.setRiskFormula(savedRiskFormula);
+      setAllocationIndex(getSavedAllocSliderIndex());
+      createAssetPortfolio(1); // Build default chart for the page...
+      closeFTPanel();
+   }
+
+   public void gotoReview() {
+      if (registerUser())
+      {
+         setDoesUserHavaLogonID(true);
+         createAssetPortfolio(1); // Build default chart for the page...
+         masterpagemanager.prevPage();
+      }
+   }
+
+   public void gotoCustodyInfoForm() {
+      if (registerUser()) {
+         masterpagemanager.nextPage();
+      }
+
+   }
+
+   private Boolean registerUser() {
+      try {
+         UserData userdata = new UserData();
+         userdata.setFirstName(getFirstname());
+         userdata.setLastName(getLastname());
+         userdata.setEmail(getEmail());
+         userdata.setUserID(getEmail());
+         userdata.setAcctnum(getAcctnum());
+         String msgheader, msg;
+
+         if (userInfoDAO.validateUserID(userdata))
+         {
+            logger.debug("LOG: Validate UserID failed: " + getEmail());
+            msgheader = "signup.U100";
+            msg= webutil.getMessageText().getDisplayMessage(msgheader, "This Email is already registered!", null);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
+         }
+         else
+         {
+            Integer myResetID = webutil.randomGenerator(0, 347896);
+            userdata.setUserInfo(WebConst.ROLE_USER, getAdvisor(), getRep(), myResetID);
+            long loginID = userInfoDAO.addUserInfo(userdata);
+
+            if (loginID <= 0L)
+            {
+               logger.debug("ERROR: Had issue with this userid when attempting to save: " + loginID);
+               msgheader = "signup.U106";
+               msg = webutil.getMessageText().getDisplayMessage(msgheader, "There was some error when attempting to save this userid.  Please reach out to support desk.", null);
+               webutil.redirecttoMessagePage("ERROR", msg, "Failed Signup" + msgheader);
+               webutil.alertSupport("Userbean.saveUser", "Save -" + getEmail(), "Save Registration Error", null);
+            }
+            userdata.setLogonID(loginID);
+            setLogonid(loginID);
+            return true;
+         }
+         return false;
+      }
+      catch (Exception ex) {
+         String msgheader = "signup.EX.100";
+         String msg= webutil.getMessageText().getDisplayMessage(msgheader, "Exception: Create UserID/Pwd, problem attempting to create simpleuser", null);
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
+         ex.printStackTrace();
+      }
+      return false;
+   }
+
 
 
 }
