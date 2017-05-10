@@ -437,7 +437,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             pagemanager.setPage(0);
             setPrefView(0);
             formPortfolioEdit = false;
-            displayFTPanel=false;
+            displayFTPanel = false;
 
             // set dafaults
             riskCalculator.setNumberofQuestions(5);
@@ -458,6 +458,9 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
             fetchClientData();
             canOpenAccount = initCanOpenAccount();
+            if(getLogonid()!=null && getLogonid()>0){
+               doesUserHavaLogonID = true;
+            }else
             welcomeDialog = false;
          }
       }
@@ -619,7 +622,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          setSliderAllocationIndex(savedAllocSliderIndex);
       }
 
-      displayFTPanel=true;
+      displayFTPanel = true;
       // RequestContext context = RequestContext.getCurrentInstance();
       //context.update("fineTunePanel");
 
@@ -633,7 +636,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    }
 
    public void closeFTPanel() {
-      displayFTPanel=false;
+      displayFTPanel = false;
       // RequestContext context = RequestContext.getCurrentInstance();
       //context.execute("PF('wvfineTunePanel.hide()')");
       //context.update("fineTunePanel");
@@ -712,7 +715,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             origCustomerData.copyData(getInstance());  // Need a way to do clean copy.
             fmDataArrayList = getFixedModelPortfolioList();
             fmDataMap = getFmDataLinkedHashMap();
-            if (origCustomerData.getPortfolioName() != null )
+            if (origCustomerData.getPortfolioName() != null)
             {
                if (fmDataMap.containsKey(origCustomerData.getPortfolioName()))
                {
@@ -1386,8 +1389,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             saveProfile();
             if (currentpage == 0)
             {  // This is before moving to next page. ONLY for FIRST PAGE
-                  // We need to record the account number...  SP: If data was already saved, then it skips
-                  saveVisitor();
+               // We need to record the account number...  SP: If data was already saved, then it skips
+               saveVisitor();
             }
          }
 
@@ -1509,10 +1512,10 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          {
             Integer portfolioID = getProjectionDatas().size() - 1;
             charts.createProjectionHighChart(getProjectionDatas().get(whichslide),
-                                                                getHorizon(),
-                                                                getAge(),
-                                                                riskCalculator.getRetireAge(),
-                                                                getProjectionDatas().get(portfolioID));
+                                             getHorizon(),
+                                             getAge(),
+                                             riskCalculator.getRetireAge(),
+                                             getProjectionDatas().get(portfolioID));
          }
 
       }
@@ -1524,7 +1527,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    {
       if (getFixedModel())
       {
-         ProjectionData[]  performancedata = modelUtil.buildPerformanceChart((ProfileData) getInstance(), getFixedFMModel());
+         ProjectionData[] performancedata = modelUtil.buildPerformanceChart((ProfileData) getInstance(), getFixedFMModel());
          charts.createProjectionHighChart(performancedata,
                                           getHorizon(),
                                           getAge(),
@@ -1564,7 +1567,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          {
             logger.debug("LOG: Validate UserID failed: " + getEmail());
             msgheader = "signup.U100";
-            msg= webutil.getMessageText().getDisplayMessage(msgheader, "This Email is already registered!", null);
+            msg = webutil.getMessageText().getDisplayMessage(msgheader, "This Email is already registered!", null);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
          }
          else
@@ -1589,7 +1592,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
       catch (Exception ex) {
          String msgheader = "signup.EX.100";
-         String msg= webutil.getMessageText().getDisplayMessage(msgheader, "Exception: Create UserID/Pwd, problem attempting to create simpleuser", null);
+         String msg = webutil.getMessageText().getDisplayMessage(msgheader, "Exception: Create UserID/Pwd, problem attempting to create simpleuser", null);
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
          ex.printStackTrace();
       }
