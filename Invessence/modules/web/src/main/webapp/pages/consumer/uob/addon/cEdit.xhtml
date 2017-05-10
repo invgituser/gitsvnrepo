@@ -44,7 +44,7 @@
                     <p:slider id="allocSlider" for="allocValue" minValue="0"
                               maxValue="#{uobpb.maxAssetAllocatonPoints}" step="1">
                         <p:ajax event="slideEnd"
-                                update=":ceForm:graphArea, :ceForm:fineTunePanel"
+                                update=":ceForm:graphArea, :ceForm:inputArea"
                                 listener="#{uobpb.onAllocSlider}" />
                     </p:slider>
                 </div>

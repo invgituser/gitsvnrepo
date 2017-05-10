@@ -218,6 +218,13 @@ public class UOBProfileBean extends CustomerData implements Serializable
       riskCalculator.setRiskHorizon(horizon);
    }
 
+   @Override
+   public void setRiskCalcMethod(String riskCalcMethod)
+   {
+      this.riskCalcMethod = riskCalcMethod;
+      riskCalculator.setRiskFormula(riskCalcMethod);
+   }
+
    public void setRiskBar(String value) {
       riskCalculator.setAnswer(9,value);
       onChangeValue();
@@ -261,14 +268,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
             riskCalculator.setNumberofQuestions(9);
             whichChart = "pie";
             setPrefView(0);
-            if (webutil.hasAccess("Advisor") || webutil.hasAccess("Admin"))
-            {
-               setRiskCalcMethod("A");
-            }
-            else
-            {
-               setRiskCalcMethod("C");
-            }
+            setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
 
             disablegraphtabs = true;
             disabledetailtabs = true;
@@ -321,8 +321,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public void onChange()
    {
-      riskCalculator.setRiskFormula("C");
-      setRiskCalcMethod("C");
+      setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
       formEdit = true;
       isAllDataEntered();
    }
@@ -340,8 +339,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
    public void onChangeValue()
    {
       formEdit = true;
-      riskCalculator.setRiskFormula("C");
-      setRiskCalcMethod("C");
+      setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
       createAssetPortfolio(1);
       isAllDataEntered();
    }
@@ -352,7 +350,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       {
          formEdit = true;
          getGoalData().setTerm(getHorizon().doubleValue());
-         riskCalculator.setRiskFormula("C");
+         setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
          createAssetPortfolio(1);
          // if (getPortfolioData() != null) {
          // charts.createGoalChart(getProjectionData(), getGoalData());
@@ -569,18 +567,18 @@ public class UOBProfileBean extends CustomerData implements Serializable
    public void onAllocSlider(SlideEndEvent event)
    {
       // setAge(event.getValue());
-      setRiskCalcMethod("A");
-      riskCalculator.setRiskFormula("A");
+      setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
       setAllocationIndex(event.getValue());
       formEdit = true;
       createAssetPortfolio(1);
+      setSliderAllocationIndex(getAllocationIndex());
       setFlagforInvestShow(true);
    }
 
    public void onPortfolioSlider(SlideEndEvent event)
    {
       //setDefaultRiskIndex(event.getValue());
-      setRiskCalcMethod("A");
+      setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
       setPortfolioIndex(event.getValue());
       formEdit = true;
       createAssetPortfolio(1);
@@ -590,8 +588,9 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public void doAllocReset()
    {
-      setRiskCalcMethod("C");
+      setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
       createAssetPortfolio(1); // Build default chart for the page...
+      setSliderAllocationIndex(getAllocationIndex());
    }
 
    public void doPortfolioReset()
@@ -607,7 +606,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public void consumerRefresh()
    {
-      setRiskCalcMethod("C");
+      setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
       createAssetPortfolio(1);
       formEdit = true;
       isAllDataEntered();
@@ -780,7 +779,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       }
 
 /*
-      if (getRiskCalcMethod() == null || getRiskCalcMethod().toUpperCase().startsWith("C"))
+      if (getRiskCalcMethod() == null || getRiskCalcMethod().toUpperCase().startsWith(WebConst.CONSUMER_RISK_FORMULA))
       {
          resetAllocationIndex();
          resetPortfolioIndex();
@@ -1236,8 +1235,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
       {
          setSavedRiskFormula(getRiskCalcMethod());
          setSavedAllocSliderIndex(getAllocationIndex());
-         setSliderAllocationIndex(getAllocationIndex());
       }
+      setSliderAllocationIndex(getAllocationIndex());
       setDisplayFTPanel(true);
       setEnableChangeStrategy(false);
    }
