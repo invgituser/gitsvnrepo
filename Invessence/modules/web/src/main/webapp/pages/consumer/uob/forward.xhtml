@@ -32,25 +32,36 @@
                 <p>
                     You will now be redirected to Utrade.</p>
 
-                <p>You will also be <u>logged out of #{uiLayout.webProfile.ssl}</u>!</p>
+                <p>You will also be <u>logged out of #{uiLayout.webProfile.securehomepage}</u>!</p>
                 <div class="EmptyBox10"/>
-                <form id="_id0" method="get"
-                      action="#{uiLayout.uiprofile.forwardURL}"
+
+                <!--
+                <form id="_id0" method="post"
+                      action="#{uiLayout.webProfile.custodyURL}"
                       target="_self">
 
-                        <input type="hidden" name="RoboID" value="#{uobpb.acctnum}"/>
+                        <input type="hidden" name="roboid" value="#{uobpb.acctnum}"/>
                         <input type="hidden" name="givenname" value="#{uobpb.firstname}"/>
                         <input type="hidden" name="familyname" value="#{uobpb.lastname}"/>
                         <input type="hidden" name="email" value="#{uobpb.email}"/>
                         <input type="hidden" name="phone" value="#{uobpb.phone}"/>
 
-                        <h:commandButton type="submit" styleClass="investnow btn_rite"/>
+                        <h:commandButton type="submit" styleClass="investnow btn_rite" value="Invest Now"/>
                 </form>
+                -->
+                <h:form>
+                    <p:commandButton id="uobForwardBtn"
+                                     value="Invest Now"
+                                     styleClass="uob_button"
+                                     actionListener="#{uobpb.investnow}">
+                    </p:commandButton>
+
+                </h:form>
             </div>
         </div>
         <div class="Container40 Responsive50">
             <div class="ContainerIndent">
-                <div class="Container100 Responsive50">
+                <div class="Container100">
                     <h1 class="BigTopic">Support</h1>
                     <h3>Questions? Talk to one of our product specialists.</h3>
                     <br/>
@@ -63,7 +74,7 @@
                     </a>
                     <div class="EmptyBox20"/>
                 </div>
-                <div class="Container100 Responsive50">
+                <div class="Container100">
                     <h1 class="BigTopic">Information</h1>
                     <p>
                         Disclaimer goes here.

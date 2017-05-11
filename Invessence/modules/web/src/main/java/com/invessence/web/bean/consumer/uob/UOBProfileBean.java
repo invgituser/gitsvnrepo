@@ -1183,7 +1183,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
          if (getDoesUserHavaLogonID())
          {
-            masterpagemanager.setPage(2); // If user is already looged in then redirect to opne account page.
+            gotoCustodyInfoForm(); // If user is already looged in then redirect to opne account page.
          }
          else
          {
@@ -1270,15 +1270,25 @@ public class UOBProfileBean extends CustomerData implements Serializable
       {
          setDoesUserHavaLogonID(true);
          createAssetPortfolio(1); // Build default chart for the page...
-         masterpagemanager.prevPage();
+         if (! masterpagemanager.isFirstPage())
+            masterpagemanager.prevPage();
       }
    }
 
    public void gotoCustodyInfoForm() {
-      if (registerUser()) {
-         masterpagemanager.nextPage();
+      if (!getDoesUserHavaLogonID())
+      {
+         registerUser();
       }
+         uiLayout.doMenuAction("consumer", "forward.xhtml");
 
+   }
+
+   public void investnow() {
+      String url="https://sguat.uobkayhian.com/robo/uwealth_signup.jsp";
+      String args="?roboid=" + getAcctnum() + "&email=" + getEmail();
+      String command=url+args;
+      uiLayout.doMenuAction(command);
    }
 
    private Boolean registerUser() {

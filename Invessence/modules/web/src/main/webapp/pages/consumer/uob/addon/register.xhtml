@@ -22,6 +22,7 @@
                                         <p:messages id="signmsg" showDetail="false" sticky="true" escape="true" closable="true"/>
                                     </div>
 
+                                    <div class="EmptyBox10"></div>
                                     <div class="Container100" style="text-align: center;">
                                         <p:inputText id="firstName" styleClass="FS14 InputMergeRight CustomWidthFA3"
                                                      value="#{uobpb.firstname}" placeholder="Given Name"
@@ -60,10 +61,10 @@
                             <f:facet name="footer">
                                 <div class="Container100" style="text-align: center;">
                                     <p:commandButton value="Review"
-                                                     update=":ceForm:inputArea"
+                                                     update=":ceForm:workArea"
                                                      actionListener="#{uobpb.gotoReview}"/>
-                                    <p:commandButton value="Open Account" type="submit"
-                                                     update=":ceForm:inputArea"
+                                    <p:commandButton value="Open Account"
+                                                     update=":ceForm:workArea"
                                                      actionListener="#{uobpb.gotoCustodyInfoForm}"/>
                                 </div>
                             </f:facet>
