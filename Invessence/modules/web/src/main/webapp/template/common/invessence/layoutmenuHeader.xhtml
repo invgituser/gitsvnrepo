@@ -6,17 +6,36 @@
                 xmlns:p="http://primefaces.org/ui">
     <h:outputScript name="js/jquery.url.js"
                     library="#{uiLayout.webProfile.cssdir}"/>
-    <script>
-        $(document).ready(function ()
+    <script type="text/javascript">
+
+
+       $(document).ready(function ()
+
+
                           {
                               $('.MobileButton').click(function ()
                                                        {
-                                                           $('.menuBtnLinks').fadeIn();
+                                                           if ($(window).width() &lt; 700)
+                                                           {
+                                                               $('.displaymobMenuView').fadeIn();
+                                                           }
                                                        });
 
-                              $('.menuBtnLinks').mouseleave(function ()
+                              $('.submenuBtn1').click(function ()
+                                                       {
+                                                           $('.submenuContent1').fadeIn();
+                                                       });
+                              $('.submenuContent1').mouseleave(function ()
+                                                      {
+                                                          $('.submenuContent1').fadeOut();
+                                                      });
+
+                              $('.displaymobMenuView').mouseleave(function ()
                                                             {
-                                                                $('.menuBtnLinks').fadeOut();
+                                                                if ($(window).width() &lt; 700)
+                                                                {
+                                                                    $('.displaymobMenuView').fadeOut();
+                                                                }
                                                             });
                           });
 
@@ -93,12 +112,17 @@
                                             });
 
           });
+
+
+
+
     </script>
     <div class="Wid60 Fright menuButtons">
         <ul class="MobileButton">
             <li class="fa fa-bars"></li>
         </ul>
-        <ul id="menuMainNavigation" class="menuBtnLinks">
+
+        <ul id="menuMainNavigation" class="menuBtnLinks displaymobMenuView">
             <li id="dashboardMenuHighlight">
                 <a href="#{uiLayout.defaultHome}" id="menudashboardbtn">Dashboard</a>
             </li>
@@ -142,11 +166,19 @@
             </ui:fragment>
 
             <li id="myprofileMenuHighlight">
-                <a href="/pages/common/myprofile.xhtml" id="menumyprofilebtn">My Profile</a>
+                <a href="#" class="submenuBtn1" id="menumyprofilebtn">My Profile</a>
             </li>
-            <li><p:commandLink id="menulogoutBtn" actionListener="#{sessionControl.logout}">
-                <h:outputText value="Logout"/>
-            </p:commandLink></li>
+            <div class="subMenuBlk submenuContent1">
+                <ul>
+                    <li><a href="/pages/common/myprofile.xhtml">Setting</a></li>
+                    <div class="menuSeperator"></div>
+                    <li>My Advisors</li>
+                    <div class="menuSeperator"></div>
+                    <li><p:commandLink id="menulogoutBtn" actionListener="#{sessionControl.logout}">
+                        <h:outputText value="Logout"/>
+                    </p:commandLink></li>
+                </ul>
+            </div>
         </ul>
 
     </div>

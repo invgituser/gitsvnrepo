@@ -2582,7 +2582,7 @@ h3 {
         padding: 0 10px !important;
     }
 
-    .tab_main > div {
+    .tab_main > .guestTabs {
         margin: 0 auto;
         width: 222px;
     }
@@ -2619,7 +2619,7 @@ h3 {
         padding: 0 11px !important;
     }
 
-    .tab_main > div {
+    .tab_main > .guestTabs {
         margin: 0 auto;
         width: 258px;
     }
@@ -2656,7 +2656,7 @@ h3 {
         padding: 0 12px;
     }
 
-    .tab_main > div {
+    .tab_main > .guestTabs {
         margin: 0 auto;
         width: 270px;
     }
@@ -2689,7 +2689,7 @@ h3 {
         background-color: transparent!important;
     }
 
-    .tab_main > div {
+    .tab_main > .guestTabs {
         margin: 0 auto;
         width: 366px;
     }
@@ -2709,7 +2709,7 @@ h3 {
 
 
 @media (max-width: 729px) and (min-width: 641px) {
-    .tab_main > div {
+    .tab_main > .guestTabs {
         margin: 0 auto;
         width: 426px;
     }
@@ -2737,7 +2737,7 @@ h3 {
 }
 
 @media (max-width: 770px) and (min-width: 730px) {
-    .tab_main > div {
+    .tab_main > .guestTabs {
         margin: 0 auto;
         width: 516px;
     }
@@ -2753,7 +2753,7 @@ h3 {
 }
 
 @media (max-width: 960px) and (min-width: 771px) {
-    .tab_main > div {
+    .tab_main > .guestTabs {
         margin: 0 auto;
         width: 546px;
     }
@@ -2768,7 +2768,7 @@ h3 {
 }
 
 @media (max-width: 999px) and (min-width: 961px) {
-    .tab_main > div {
+    .tab_main > .guestTabs {
         margin: 0 auto;
         width: 666px;
     }
@@ -2785,20 +2785,262 @@ h3 {
 }
 
 @media (max-width: 1320px) and (min-width: 1000px) {
-    .tab_main > div {
+    .tab_main > .guestTabs {
         margin: 0 auto;
         width: 636px;
     }
 }
 
 @media (min-width: 1321px) {
-    .tab_main > div {
+    .tab_main > .guestTabs {
         margin: 0 auto;
         width: 846px;
     }
 }
 
 /**/
+
+/*Steps-tab-center-alligned*/
+@media (max-width: 361px) and (min-width: 320px) {
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(2) {
+        visibility: hidden;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(1) {
+        visibility: visible!important;
+        position: static!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel .portfolioCreationStepsPanel > ul > .ui-steps-item {
+        padding: 0 10px !important;
+    }
+
+    .tab_main > .loginTabs {
+        margin: 0 auto;
+        width: 189px;
+    }
+
+    .tab_main {
+        padding: 35px 0px 0px 0px !important;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
+        background: #F6FAFC;
+        width: 20px;
+    }
+}
+
+@media (max-width: 481px) and (min-width: 361px) {
+
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(2) {
+        visibility: hidden;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(1) {
+        visibility: visible!important;
+        position: static!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
+    }
+    .portfolioCreationStepsPanel .portfolioCreationStepsPanel > ul > .ui-steps-item {
+        padding: 0 11px !important;
+    }
+
+    .tab_main > .loginTabs {
+        margin: 0 auto;
+        width: 217px;
+    }
+
+    .tab_main {
+        padding: 35px 0px 0px 0px !important;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
+        background: #F6FAFC;
+        width: 22px;
+    }
+}
+
+@media (max-width: 560px) and (min-width: 481px) {
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(2) {
+        visibility: hidden;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(1) {
+        visibility: visible!important;
+        position: static!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel .portfolioCreationStepsPanel > ul > .ui-steps-item {
+        padding: 0 12px;
+    }
+
+    .tab_main > .loginTabs {
+        margin: 0 auto;
+        width: 227px;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
+        width: 24px;
+    }
+
+    .tab_main {
+        padding: 20px 0px 0px 0px !important;
+    }
+}
+
+@media (max-width: 640px) and (min-width: 561px) {
+
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(2) {
+        visibility: hidden;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(1) {
+        visibility: visible!important;
+        position: static!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
+    }
+
+    .tab_main > .loginTabs {
+        margin: 0 auto;
+        width: 305px;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
+        width: 40px;
+    }
+
+    .tab_main {
+        padding: 20px 0px 0px 0px !important;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a > span.ui-steps-title {
+        visibility: hidden;
+    }
+}
+
+
+@media (max-width: 729px) and (min-width: 641px) {
+    .tab_main > .loginTabs {
+        margin: 0 auto;
+        width: 355px;
+    }
+
+    .tab_main {
+        padding: 20px 0px 0px 0px !important;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(2) {
+        visibility: hidden;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(1) {
+        visibility: visible!important;
+        position: static!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
+    }
+}
+
+@media (max-width: 770px) and (min-width: 730px) {
+    .tab_main > .loginTabs {
+        margin: 0 auto;
+        width: 430px;
+    }
+
+
+    .tab_main {
+        padding: 20px 0px 0px 0px !important;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a > span.ui-steps-title {
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 960px) and (min-width: 771px) {
+    .tab_main > .loginTabs {
+        margin: 0 auto;
+        width: 455px;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
+        width: 70px;
+    }
+
+    .tab_main {
+        padding: 20px 0px 0px 0px !important;
+    }
+}
+
+@media (max-width: 999px) and (min-width: 961px) {
+    .tab_main > .loginTabs {
+        margin: 0 auto;
+        width: 555px;
+    }
+
+    .tab_main {
+        padding: 20px 0px 0px 0px !important;
+    }
+}
+
+@media (min-width: 1301px) and (max-width: 1320px){
+    .portfolioCreationStepsPanel > ul > li > a > span.ui-steps-title {
+        margin-left: -6px!important;
+    }
+}
+
+@media (max-width: 1320px) and (min-width: 1000px) {
+    .tab_main > .loginTabs {
+        margin: 0 auto;
+        width: 530px;
+    }
+}
+
+@media (min-width: 1321px) {
+    .tab_main > .loginTabs {
+        margin: 0 auto;
+        width: 705px;
+    }
+}
+
+/***/
+
 /**/
 
 /*Steps-tab-center-alligned (Fund Account)*/

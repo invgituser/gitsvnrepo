@@ -10,7 +10,7 @@
 			<div class="ContainerIndent Responsive100 tab_main">
 
 				<ui:fragment rendered="#{tcmpb.doesUserHavaLogonID}">
-					<p:steps id="progressbar" styleClass="portfolioCreationStepsPanel tabColorOnluCustom"
+					<p:steps id="progressbar" styleClass="portfolioCreationStepsPanel tabColorOnluCustom loginTabs"
 							 activeIndex="#{tcmpb.pagemanager.page}">
 						<p:menuitem value="Start" />
 						<p:menuitem value="Objective" />
@@ -21,7 +21,7 @@
 
 				</ui:fragment>
 				<ui:fragment rendered="#{! tcmpb.doesUserHavaLogonID}">
-					<p:steps id="progressbar2" styleClass="portfolioCreationStepsPanel tabColorOnluCustom"
+					<p:steps id="progressbar2" styleClass="portfolioCreationStepsPanel tabColorOnluCustom guestTabs"
 							 activeIndex="#{tcmpb.pagemanager.page}">
 						<p:menuitem value="Start" />
 						<p:menuitem value="Objective" />
