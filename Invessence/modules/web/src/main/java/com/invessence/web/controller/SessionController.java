@@ -92,8 +92,10 @@ public class SessionController implements Serializable
 
    public void logout()
    {
+      System.out.print("Hello Logout");
       try
       {
+
          uiLayout.logout();
       }
       catch (Exception ex)
@@ -309,4 +311,16 @@ public class SessionController implements Serializable
       }
    }
 
+   public void onIdleSessionLogout() {
+      System.out.println("Session Logout Start");
+      logout();
+      System.out.println("Session Logout End");
+//      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+//                                                                          "No activity.", "What are you doing over there?"));
+   }
+
+   public void onTwo() {
+//      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+//                                                                          "Welcome Back", "Well, that's a long coffee break!"));
+   }
 }
