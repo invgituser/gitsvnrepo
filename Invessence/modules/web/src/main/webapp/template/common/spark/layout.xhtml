@@ -29,18 +29,17 @@
         <!-- If idle 10 seconds, run 'idleDialog' -->
         <p:idleMonitor timeout="5000" onidle="idleDialog123()"  />
 
-        <p:confirmDialog id="confirmDialog"
-                         message="You have been idle for at least 10 seconds,
-                            Please click ok to continue."
+    <div class="confirmDialogueBlock">
+        <div class="innercdb">
+        <p:confirmDialog id="confirmDialog" style="width: 400px;"
+                         message="You have been idle for at least 10 seconds, Please click ok to continue."
                          header="Are you there?" severity="alert" widgetVar="idleDialog">
-
-          <p:commandButton id="confirm" value="Ok" update="msg"
+        <p:commandButton id="confirm" value="Ok" update="msg"
                              oncomplete="idleDialog.hide()"
                              actionListener="#{sessionControl.onIdleSessionLogout}"/>
-
-
         </p:confirmDialog>
-
+            </div>
+    </div>
     <!--</h:form>-->
 
     <div id="layout-portlets-cover">
