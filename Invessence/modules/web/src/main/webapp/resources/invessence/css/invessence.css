@@ -1572,7 +1572,7 @@ text-align: center;
 
 
 
-.confirmDialogueBlock .ui-icon-closethick {
+.innercdb .ui-icon-closethick {
 display: none;
 pointer-events: none;
 }
@@ -1584,12 +1584,16 @@ pointer-events: none;
 	right: 0;
 	top: 0;
 	bottom: 0;
-	z-index: 200;
+	z-index: -1;
 }
 
 
 .innercdb {
 	width: 400px!important;
 	margin: 0 auto;
-	padding: 20% 0%;
+	z-index: 300;
+}
+
+.innercdb > .ui-confirm-dialog {
+	margin-top: 13%;
 }
