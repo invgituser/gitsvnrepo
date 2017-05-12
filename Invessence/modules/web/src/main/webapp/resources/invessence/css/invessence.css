@@ -1570,6 +1570,14 @@ text-align: center;
 	z-index: 169999999!important;
 }
 
+
+
+.confirmDialogueBlock .ui-icon-closethick {
+display: none;
+pointer-events: none;
+}
+
+
 .confirmDialogueBlock {
 	position: absolute;
 	left: 0;
@@ -1577,16 +1585,11 @@ text-align: center;
 	top: 0;
 	bottom: 0;
 	z-index: 200;
-	background: rgba(0, 0, 0, 0.25);
 }
+
 
 .innercdb {
 	width: 400px!important;
 	margin: 0 auto;
 	padding: 20% 0%;
-}
-
-.confirmDialogueBlock .ui-icon-closethick {
-display: none;
-pointer-events: none;
 }
