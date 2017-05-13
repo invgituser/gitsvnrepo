@@ -189,7 +189,7 @@ public class UILayout implements Serializable
       {
 
       }
-      webutil.redirect("/j_spring_security_logout", null);
+      // webutil.redirect("/j_spring_security_logout", null);
    }
 
    public void doMenuAction(String menuItem)

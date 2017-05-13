@@ -17,6 +17,8 @@ import com.invmodel.inputData.ProfileData;
 import com.invmodel.model.fixedmodel.data.FMData;
 import com.invmodel.performance.data.ProjectionData;
 import org.primefaces.event.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 
 /**
@@ -33,6 +35,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 {
    private String newapp;
    private Long beanAcctnum;
+   private Long beanLogonID;
    private PagesImpl pagemanager;
    private Boolean formEdit = false;
    private Boolean formPortfolioEdit = false;
@@ -86,6 +89,17 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    {
       SQLData converter = new SQLData();
       this.beanAcctnum = converter.getLongData(beanAcctnum);
+   }
+
+   public Long getBeanLogonID()
+   {
+      return beanLogonID;
+   }
+
+   public void setBeanLogonID(Long beanLogonID)
+   {
+      SQLData converter = new SQLData();
+      this.beanLogonID = converter.getLongData(beanLogonID);
    }
 
    public Boolean getDisablegraphtabs()
@@ -421,6 +435,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             // Page management
             setDisplayFTPanel(false);
             setEnableChangeStrategy(true);
+            setDoesUserHavaLogonID(false);  //  This is default, but fetchCustomer will set reset it.
 
             pagemanager = new PagesImpl(5);
             pagemanager.setPage(0);
@@ -447,7 +462,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             fetchClientData();
             canOpenAccount = initCanOpenAccount();
             if(webutil.isUserLoggedIn()){
-               setDoesUserHavaLogonID(true);
                welcomeDialog = false;
             }
 
@@ -475,6 +489,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
             setDisplayFTPanel(false);
             setEnableChangeStrategy(true);
+            setDoesUserHavaLogonID(false);  //  This is default, but fetchCustomer will set reset it.
+
             selectedThemeName = "";
             finalCheck1 = false;
             finalCheck2 = false;
@@ -694,6 +710,12 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
                setRep(uid.getRep()); // Portfolio solves the null issue, or blank issue.
                setLogonid(uid.getLogonID());
+            }
+            else {
+               setAdvisor(webutil.getWebprofile().getDefaultAdvisor()); // Portfolio solves the null issue, or blank issue.
+               setRep(webutil.getWebprofile().getDefaultRep()); // Portfolio solves the null issue, or blank issue.
+               setLogonid(getBeanLogonID());
+
             }
             setAcctnum(acctnum);
             listDAO.getProfileData(getInstance());
@@ -994,6 +1016,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       Boolean validate = false;
       try
       {
+         closeFTPanel();
          if (newapp != null && newapp.equalsIgnoreCase("N")) {
             saveProfile();  // Save only if on New Page.
          }
@@ -1032,14 +1055,18 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             createAssetPortfolio(1);
             if (getFixedModelName() != null)
             {
-               setPortfolioName(getFixedModelName());
                newLongDesc = fmDataMap.get(getFixedModelName()).getDescription();
             }
          }
          else
          {
-            setDoesUserHavaLogonID(false);
-            loadNewClientData();
+            if(webutil.isUserLoggedIn() || getDoesUserHavaLogonID()) {
+               setDoesUserHavaLogonID(true);
+            }
+            else {
+               setDoesUserHavaLogonID(false);
+               loadNewClientData();
+            }
 
          }
 
@@ -1115,6 +1142,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void startover()
    {
+      closeFTPanel();
       pagemanager.setPage(0);
       fetchClientData();
       selectedThemeName = "";
@@ -1536,7 +1564,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void gotoCustody() {
       if (registerUser()) {
-         uiLayout.doCustody(getLogonid(), getAcctnum());
+         if (getBeanLogonID() != null && getBeanAcctnum() != null)
+            uiLayout.doCustody(getBeanLogonID(), getBeanAcctnum());
       }
 
    }
@@ -1574,6 +1603,19 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             }
             userdata.setLogonID(loginID);
             setLogonid(loginID);
+/*
+            if (webutil.getUserInfoData() == null)
+            {
+               Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+               authorities.add(new SimpleGrantedAuthority(WebConst.WEB_USER));
+               webutil.setUserInfoData(loginID, getEmail(),userdata.getPassword(),
+                                       getAdvisor(),getRep(),authorities);
+            }
+            setBeanAcctnum(getAcctnum());
+            setBeanLogonID(getLogonid();
+            }
+*/
+            setDoesUserHavaLogonID(true);
             return true;
          }
          return false;

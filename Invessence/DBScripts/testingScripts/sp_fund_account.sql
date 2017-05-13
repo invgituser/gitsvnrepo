@@ -75,6 +75,28 @@ CREATE PROCEDURE `testing`.`sp_fund_account`(
 				 `cash` = `cash` + `p_amount`
                 , `total` = `total` + `p_amount`
 			;
+            
+			INSERT INTO `invdb`.`trade_process_identifier`
+			(`acctnum`,
+			`tradeStatus`,
+			`processStatus`,
+			`reason`,
+			`created`,
+			`updated`)
+			VALUES
+			(p_acctnum,
+			'N',
+			null,
+			'Funded',
+			now(),
+			null)
+            ON duplicate key update
+				`tradeStatus` = CASE WHEN (`tradeStatus` = 'N') THEN 'N'
+									 ELSE 'A'
+								END,
+                `reason` = 'Funded',
+                `updated` = now()
+			;
 
     END IF;
   END$$

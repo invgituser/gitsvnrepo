@@ -92,7 +92,6 @@ public class SessionController implements Serializable
 
    public void logout()
    {
-      System.out.print("Hello Logout");
       try
       {
 
@@ -103,6 +102,14 @@ public class SessionController implements Serializable
 
       }
       reset();
+      String homeurl;
+
+      homeurl = webutil.webprofile.getHomepage();
+      if (homeurl != null && ! homeurl.isEmpty()) {
+         webutil.redirect(homeurl, null);
+         return;
+      }
+
       webutil.redirect("/j_spring_security_logout", null);
    }
 
@@ -185,8 +192,9 @@ public class SessionController implements Serializable
    }
 
    public void reset() {
-         webutil.webprofile.setLocked(false);
-         loadWebProfile(null);
+      webutil.webprofile.setLocked(false);
+      // NOTE; We don't want to load the advisor, because it resets to actual base site.
+      loadWebProfile(webutil.getURLAddress("Invessence"));
    }
 
    public void indexGetStarted()
@@ -238,6 +246,12 @@ public class SessionController implements Serializable
       logger.info("Module: resetCIDByURL called");
       if (webutil == null)
          return;
+
+      // Not it is not prod mode then don't override the properties based on advisor.
+      if (webutil.webprofile != null) {
+         if (! webutil.webprofile.getMode().equalsIgnoreCase("prod"))
+            return;
+      }
 
       Map<String, String> advisorMap;
       if (advisor == null)

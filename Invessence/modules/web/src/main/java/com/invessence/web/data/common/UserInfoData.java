@@ -32,6 +32,17 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
 
    private List<String> authList = new ArrayList<String>();
 
+
+   public UserInfoData(Long logonID, String userID, String password,
+                       String advisor, String rep, Collection<GrantedAuthority> authorities) {
+      super(userID, password, authorities);
+      this.password = password;
+      this.logonID = logonID;
+      this.userID = userID;
+      this.advisor = advisor;
+      this.rep = rep;
+   }
+
    public UserInfoData(Long logonID, String userID, String username, String email, String password,
                        boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired,
                        boolean accountNonLocked, Collection<GrantedAuthority> authorities,

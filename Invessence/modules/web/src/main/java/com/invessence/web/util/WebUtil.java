@@ -423,6 +423,13 @@ public class WebUtil implements Serializable
 
    }
 
+   public void setUserInfoData(Long logonID, String userID, String  password,
+                               String advisor, String rep, Collection<GrantedAuthority> authorities) {
+      UserInfoData userInfo = new UserInfoData(logonID,userID, password, advisor,rep,authorities);
+      FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.USER_INFO);
+      FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.USER_INFO, userInfo);
+   }
+
    public String getWelcome()
    {
       String username = null;
@@ -552,7 +559,7 @@ public class WebUtil implements Serializable
 
       if (getUserInfoData() != null)
       {
-         return true;
+         return (getUserInfoData().getLogonID() != null);
       }
       else
       {

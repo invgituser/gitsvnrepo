@@ -89,7 +89,7 @@ public class CustomerData extends ProfileData
 
    private Integer assetyear = 0;
    private String registeredState;
-   private Boolean userAssetOverride = false;
+   private Boolean userAssetOverride;
 
    private String portfolioName;
 
@@ -234,9 +234,7 @@ public class CustomerData extends ProfileData
 
    public Boolean getManaged()
    {
-      if (managed == null)
-         return false;
-      return managed;
+      return ((managed == null) ? false : managed);
    }
 
    public void setManaged(Boolean managed)
@@ -261,7 +259,7 @@ public class CustomerData extends ProfileData
 
    public Boolean getEditable()
    {
-      return (editable == null)? true : editable;
+      return ((editable == null)? true : editable);
    }
 
    public void setEditable(Boolean editable)
@@ -381,7 +379,7 @@ public class CustomerData extends ProfileData
 
    public Boolean getDoesUserHavaLogonID()
    {
-      return doesUserHavaLogonID;
+      return ((doesUserHavaLogonID == null) ? false : doesUserHavaLogonID);
    }
 
    public Double getTotalExpectedReturns() {
@@ -768,91 +766,89 @@ public class CustomerData extends ProfileData
    }
 
    public void resetCustomerData() {
-      // Master ProfileData
-      // setName	(null);  Being reset at bottom.
-      resetPortfolioData();
 
       // Manage Goal Data.
-      setAcctnum(null);
-      setClientAccountID(null);
-      setLogonid(null);
-      setUserid(null);
-      setPortfolioName(null);
-      setAddmodflag(null);
-      setDateOpened(null);
-      setManaged(false);
-      setRole(null);
-      setPrivileges(null);
-      setNumofaccounts(0);
+      if (! getDoesUserHavaLogonID())
+      {
+         // Master ProfileData
+         // setName	(null);  Being reset at bottom.
+         resetPortfolioData();
+         // setAcctnum(null);
+         // setClientAccountID(null);
+         // setLogonid(null);
+         setUserid(null);
+         setPortfolioName(null);
+         setAddmodflag(null);
+         setDateOpened(null);
+         setManaged(false);
+         setRole(null);
+         setPrivileges(null);
+         setNumofaccounts(0);
 
-      // Income/Expenses
-      setHouseholdwages(null);
-      setMortgagePayment	(null);
-      setOtherIncome	(null);
-      setOtherExpense	(null);
+         // Income/Expenses
+         setHouseholdwages(null);
+         setMortgagePayment	(null);
+         setOtherIncome	(null);
+         setOtherExpense	(null);
 
-      // Asset/Liability
-      setMoneymarket	(null);
-      setAutoLoan	(null);
-      setInvestment	(null);
-      setMedical	(null);
-      setMortgateEquity	(null);
-      setMortgageLoan	(null);
-      setOtherSavings	(null);
-      setOtherDebt	(null);
-      setStock(null);
-      setBond(null);
-      setAccrual(null);
+         // Asset/Liability
+         setMoneymarket	(null);
+         setAutoLoan	(null);
+         setInvestment	(null);
+         setMedical	(null);
+         setMortgateEquity	(null);
+         setMortgageLoan	(null);
+         setOtherSavings	(null);
+         setOtherDebt	(null);
+         setStock(null);
+         setBond(null);
+         setAccrual(null);
 
-      setAssetyear(0);
+         setAssetyear(0);
 
-      setEmail(null);
-      setFirstname(null);
-      setLastname(null);
-      setRegisteredState(null);
-      setUserAssetOverride(false);
-      setName(null);
-      setUserAssetOverride(false);
+         setEmail(null);
+         setFirstname(null);
+         setLastname(null);
+         setRegisteredState(null);
+         setUserAssetOverride(false);
+         setName(null);
+         setUserAssetOverride(false);
 
-      if (displayPortfolioList != null)
-         displayPortfolioList.clear();
+         if (displayPortfolioList != null)
+            displayPortfolioList.clear();
 
-      setSelectedPortfolio(null);
+         setSelectedPortfolio(null);
 
-      if (selectedPortfolioList != null)
-         selectedPortfolioList.clear();
+         if (selectedPortfolioList != null)
+            selectedPortfolioList.clear();
 
-      setAssetAllocationTotal(0.0);
-      setTotalSharesAllocated(0.0);
-      setTotalMoneyAllocated(0.0);
-      setManagedassetAllocationTotal(0.0);
-      setManagedtotalMoney(0.0);
+         setAssetAllocationTotal(0.0);
+         setTotalSharesAllocated(0.0);
+         setTotalMoneyAllocated(0.0);
+         setManagedassetAllocationTotal(0.0);
+         setManagedtotalMoney(0.0);
 
-      if (excludedSubAsset != null)
-         excludedSubAsset.clear();
-      if (subassetList != null)
-         subassetList.clear();
-      if (orderedSubclass != null)
-         orderedSubclass.clear();
+         if (excludedSubAsset != null)
+            excludedSubAsset.clear();
+         if (subassetList != null)
+            subassetList.clear();
+         if (orderedSubclass != null)
+            orderedSubclass.clear();
 
-      if (advisorBasket == null) {
-         advisorBasket = new HashMap<String,String>();
+         if (advisorBasket == null) {
+            advisorBasket = new HashMap<String,String>();
+         }
+         else {
+            advisorBasket.clear();
+         }
+         sliderAllocationIndex = 0;
+         sliderPortfolioIndex = 0;
+
+         setSavedRiskFormula(null);
+         setSavedAllocSliderIndex(null);
+         resetAdvisor();  // Reset Advisor
       }
-      else {
-         advisorBasket.clear();
-      }
-      sliderAllocationIndex = 0;
-      sliderPortfolioIndex = 0;
 
-      setDoesUserHavaLogonID(false);
-      setSavedRiskFormula(null);
-      setSavedAllocSliderIndex(null);
-
-      setDoesUserHavaLogonID(false);
-      setSavedRiskFormula(null);
-      setSavedAllocSliderIndex(null);
-
-      resetAdvisor();  // Reset Advisor
    }
 
    public void resetAdvisor() {
@@ -963,7 +959,7 @@ public class CustomerData extends ProfileData
 
    public Boolean getUserAssetOverride()
    {
-      return userAssetOverride;
+      return (userAssetOverride == null ? false :  userAssetOverride);
    }
 
    public void setUserAssetOverride(Boolean userAssetOverride)

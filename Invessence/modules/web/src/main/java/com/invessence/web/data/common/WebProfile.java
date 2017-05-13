@@ -376,7 +376,15 @@ public class WebProfile
    public void addToMap(Map<String, String> newList) {
       if (newList != null) {
          for (String name: newList.keySet()) {
-            webInfo.put(name, newList.get(name));
+            // IF On NOT prod mode, if don't over-load based on the advisor.
+            if (! getMode().equalsIgnoreCase("prod")) {
+               if (! webInfo.containsKey(name))
+                  webInfo.put(name, newList.get(name));
+            }
+            else
+            {
+               webInfo.put(name, newList.get(name));
+            }
          }
       }
    }

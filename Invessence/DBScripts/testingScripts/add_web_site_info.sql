@@ -1,5 +1,8 @@
+delete from invdb.web_site_info 
+where url like 'localhost%' or url like 'pre%' or url like 'uat%' or url like 'demo%'
+
 insert into invdb.web_site_info
-SELECT 'uattcm',
+SELECT 'prebb',
     `web_site_info`.`name`,
     `web_site_info`.`status`,
     `web_site_info`.`value`,
@@ -7,7 +10,7 @@ SELECT 'uattcm',
     `web_site_info`.`created`,
     `web_site_info`.`updated`
 FROM `invdb`.`web_site_info`
-WHERE url = 'traditionadvisers';
+WHERE url = 'buildingbenjamins';
 
 select * from invdb.web_site_info where url like 'localhost%' and name like 'URL%';
 
@@ -16,16 +19,17 @@ UPDATE `invdb`.`web_site_info` SET `value`='https://sguat.uobkayhian.com/robo/uw
 
 update invdb.web_site_info
 set value = 'UAT'
-where (url like 'uat%' or url like 'localhost%')
+where (
+url like 'localhost%' or url like 'pre%' or url like 'uat%' or url like 'demo%')
 and (name like 'SERVICE%MODE' or name in ('WEB.MODE'));
 
 update invdb.web_site_info
 set value = CONCAT('http://',url,'.invessence.com:8080')
-where (url like 'uat%')
+where (url like 'localhost%' or url like 'pre%' or url like 'uat%' or url like 'demo%')
 and (name in ('URL.SECURE', 'URL.WEBSITE'));
 
 update invdb.web_site_info
-set value = CONCAT('http://',url,'')
+set value = CONCAT('http://',url)
 where url like 'localhost%'
 and name in ('URL.SECURE', 'URL.WEBSITE');
 
