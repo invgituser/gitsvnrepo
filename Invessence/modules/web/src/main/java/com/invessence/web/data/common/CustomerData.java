@@ -768,7 +768,10 @@ public class CustomerData extends ProfileData
    public void resetCustomerData() {
 
       // Manage Goal Data.
-      if (! getDoesUserHavaLogonID())
+      if (getDoesUserHavaLogonID()) {
+         resetPortfolio();
+      }
+      else
       {
          // Master ProfileData
          // setName	(null);  Being reset at bottom.

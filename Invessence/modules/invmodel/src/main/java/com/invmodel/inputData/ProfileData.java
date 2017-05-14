@@ -1343,6 +1343,15 @@ public class
       setAcctnum(null);
       setClientAccountID(null);
 
+      setAdvisor(null);
+      setRep(null);
+      setTheme(null);
+      setBasket(null);
+      resetPortfolio();
+   }
+
+   public void resetPortfolio()
+   {
       setYearly(12);
       setGoal(null);
       setAccountType(null);
@@ -1360,10 +1369,6 @@ public class
       setExperience(2);   // 1 = Experienced, 2 = inExperienced (See method strExpeience)
       setObjective(2);    // 1 = Preservation, 2 = Accumulation; (See method strObjective)
 
-      setAdvisor(null);
-      setRep(null);
-      setTheme(null);
-      setBasket(null);
       setRiskAnswers(null);
       setFixedModel(false);
       goalData = new GoalsData();

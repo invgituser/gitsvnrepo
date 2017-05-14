@@ -1023,7 +1023,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
          if (getDoesUserHavaLogonID() && getEditable())
          {
-            uiLayout.doCustody(getLogonid(), getAcctnum()); // Open Custody account.
+            doCustody();
          }
          else
          {
@@ -1060,12 +1060,19 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          }
          else
          {
-            if(webutil.isUserLoggedIn() || getDoesUserHavaLogonID()) {
+            // 1) Remember we called New account from Dashboard.  So the first case is based on Dashboard.
+            if(webutil.isUserLoggedIn())  {
                setDoesUserHavaLogonID(true);
+               setLogonid(webutil.getLogonid());
             }
             else {
-               setDoesUserHavaLogonID(false);
-               loadNewClientData();
+               // 2 - If user is not registered get the get New customer info.
+               // NOTE: getDoesUserHavaLogonID returns false if it is null.
+               if (! getDoesUserHavaLogonID())
+               {
+                  setDoesUserHavaLogonID(false); // If it is null, we are forcing to be false.
+                  loadNewClientData();
+               }
             }
 
          }
@@ -1564,10 +1571,13 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void gotoCustody() {
       if (registerUser()) {
-         if (getBeanLogonID() != null && getBeanAcctnum() != null)
-            uiLayout.doCustody(getBeanLogonID(), getBeanAcctnum());
+         doCustody();
       }
+   }
 
+   public void doCustody() {
+      if (getLogonid() != null && getAcctnum() != null)
+         uiLayout.doCustody(getLogonid(), getAcctnum());
    }
 
    private Boolean registerUser() {
