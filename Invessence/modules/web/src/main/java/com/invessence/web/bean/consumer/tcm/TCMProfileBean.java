@@ -635,6 +635,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    }
 
    public void saveFTPanel() {
+      saveProfile();
       setSavedRiskFormula(getRiskCalcMethod());
       setSavedAllocSliderIndex(getAllocationIndex());
       setSliderAllocationIndex(getAllocationIndex());
@@ -1017,9 +1018,11 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       try
       {
          closeFTPanel();
+         /*
          if (newapp != null && newapp.equalsIgnoreCase("N")) {
             saveProfile();  // Save only if on New Page.
          }
+         */
 
          if (getDoesUserHavaLogonID() && getEditable())
          {
@@ -1150,6 +1153,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void startover()
    {
       closeFTPanel();
+      setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
       pagemanager.setPage(0);
       fetchClientData();
       selectedThemeName = "";
