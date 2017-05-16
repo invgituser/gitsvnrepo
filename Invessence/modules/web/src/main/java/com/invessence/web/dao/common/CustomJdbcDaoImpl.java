@@ -161,21 +161,31 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          authorities = getAuthorities(username);
          // Note: it is either set with number of attempts or it was set in past attempt.
          randomQuestion = webutl.randomGenerator(0, 2);
-         if (logonStatus != null && logonStatus.equalsIgnoreCase("A"))
-         {
-            enabled = true;
-         }
-         else if (logonStatus != null)
-         {
+         String urlbasedadvisor = webutl.getWebprofile().getDefaultAdvisor();
+         String testmode = webutl.getWebprofile().getMode();
+         if (testmode.equalsIgnoreCase("prod") &&
+            advisor != null && ! advisor.equalsIgnoreCase(urlbasedadvisor.toLowerCase())) {
             enabled = false;
-            exception="This account is LOCKED.";
-            if (logonStatus.equalsIgnoreCase("X"))
+            throw new BadCredentialsException("Username is not valid!");
+         }
+         else {
+            if (logonStatus != null && logonStatus.equalsIgnoreCase("A"))
             {
-               exception = "Username is DISABLED!";
+               enabled = true;
             }
-            else if (logonStatus.equalsIgnoreCase("T") || logonStatus.equalsIgnoreCase("I"))
+            else if (logonStatus != null)
             {
-               exception = "User is NOT ACTIVE, please activate account!";
+               enabled = false;
+               exception="This account is LOCKED.";
+               if (logonStatus.equalsIgnoreCase("X"))
+               {
+                  exception = "Username is DISABLED!";
+               }
+               else if (logonStatus.equalsIgnoreCase("T") || logonStatus.equalsIgnoreCase("I"))
+               {
+                  exception = "User is NOT ACTIVE, please activate account!";
+               }
+               throw new BadCredentialsException(exception);
             }
          }
       }

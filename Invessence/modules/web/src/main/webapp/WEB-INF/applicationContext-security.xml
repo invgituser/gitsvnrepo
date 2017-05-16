@@ -9,7 +9,6 @@
            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 
-   <http pattern="/demo.xhtml" security="none"/>
    <http pattern="/index.xhtml" security="none"/>
    <http pattern="/getstarted.xhtml" security="none"/>
    <http pattern="/login.xhtml" security="none" create-session="never" use-expressions="true"/>
@@ -42,17 +41,6 @@
    <http pattern="/spark/ui/**" security="none"/>
     <http pattern="/mobile.xhtml" security="none" />
 
-
-
-
-   <!--
-      <http pattern="/chartTest.xhtml" security="none" />
-      <http pattern="/chartTest2.xhtml"security="none" />
-      <http pattern="/test1.xhtml" security="none" />
-      <http pattern="/test1.jsp" security="none" />
-      <http pattern="/test2.xhtml" security="none" />
-      <http pattern="/test2.jsp" security="none" />
-   -->
 
    <http auto-config="true" access-denied-page="/access-denied.xhtml">
       <custom-filter ref="sessionManagementFilter" before="SESSION_MANAGEMENT_FILTER" />

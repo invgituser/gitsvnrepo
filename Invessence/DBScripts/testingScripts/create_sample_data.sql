@@ -66,12 +66,14 @@ BEGIN
 	as 
 	select * from invdb.user_logon 
 	where logonid in (select logonid from testing.user_access_role);
+    
+    COMMIT;
+    
     OPEN cur1;
  
 	SET newacctnum = 0;
 	the_loop: LOOP
  
-    
 	FETCH cur1 INTO tacctnum, tclientAccountID;
 	
 	IF updt_done THEN
@@ -101,7 +103,7 @@ BEGIN
 			set acctnum = newacctnum, clientAccountID = newclientID 
 		where acctnum = tacctnum;
         
-		UPDATE testing.ext_name
+		UPDATE testing.ext_nav
 			set clientAccountID = newclientID 
 		where clientAccountID = tclientAccountID;
     
@@ -112,6 +114,9 @@ BEGIN
     
  
     CLOSE cur1;
+    
+	COMMIT;
+
     
     -- NOW MOVE ALL DATA TO invdb.
     DELETE FROM invdb.ext_acct_info
@@ -167,7 +172,8 @@ BEGIN
              WHEN (MOD(`acctnum`,3) = 2) THEN 'D'
              ELSE 'V'
 		END,
-        null,'TESTING',now(),null;
+        null,'TESTING',now(),null
+	FROM testing.ext_acct_info;
         
 END$$
 

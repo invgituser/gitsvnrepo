@@ -1171,6 +1171,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
          }
       }
       setFlagforInvestShow(checkAns);
+      setEnableChangeStrategy(checkAns);
       return checkAns;
    }
 
@@ -1245,6 +1246,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       setSavedRiskFormula(getRiskCalcMethod());
       setSavedAllocSliderIndex(getAllocationIndex());
       setSliderAllocationIndex(getAllocationIndex());
+      savePanelProfile();
       closeFTPanel();
    }
 
@@ -1268,6 +1270,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
    public void gotoReview() {
       if (registerUser())
       {
+         savePanelProfile();
          setDoesUserHavaLogonID(true);
          createAssetPortfolio(1); // Build default chart for the page...
          if (! masterpagemanager.isFirstPage())

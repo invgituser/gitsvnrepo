@@ -9,7 +9,7 @@ import com.invessence.emailer.data.MsgData;
 import com.invessence.web.util.*;
 import com.invessence.web.constant.*;
 
-@RequestScoped
+@SessionScoped
 public class ResetPasswordData
 {
 
