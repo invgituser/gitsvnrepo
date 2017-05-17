@@ -4260,3 +4260,49 @@ padding: 10px 0px;
 .pDisplayShow {
 	display:block!important;
 }
+
+.pDisplayShow {
+	display:block!important;
+}
+
+.subMenuBlk {
+	width: 150px;
+	position: absolute;
+	right: 0px;
+	box-shadow: 1px 1px 10px #e4dada;
+	background: white;
+	padding: 10px 0px;
+	margin-top: 5px;
+}
+
+.displaymobMenuView {
+	display: none;
+
+}
+
+.menuSeperator {
+	width: 100%;
+	height: 1px;
+	margin: 8px 0px;
+	background: rgba(102, 102, 102, 0.12);
+}
+
+.subMenuBlk ul {
+	text-align: center!important;
+}
+
+
+.subMenuBlk li {
+	padding: 0px!important;
+}
+
+@media (max-width: 700px) {
+	.subMenuBlk {
+		right: 40px;
+		margin-top: -5px;
+	}
+}
+
+.submenuContent1 {
+	display: none;
+}
