@@ -1,0 +1,254 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/common/template.xhtml">
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{uobdash.preRenderView}" />
+	</f:metadata>
+
+
+	<ui:define name="content">
+		<h:form id="form">
+			<!-- BOX START -->
+			<div class="Container30 userPanelBlock">
+				<div class="Wid100 userPanelv3d">
+				<div class="Wid100 advLabelBlockv3d">
+							<div class="supportAdvBlock">
+								<div class="sAdvLabel Fs14">
+									<span>My Advisor</span>
+								</div>
+								<div class="sAdvName Fs12">
+									<span>Patil, Abhang <i class="fa fa-hand-o-left"
+										aria-hidden="true"></i></span>
+								</div>
+								<div class="sAdvLabelMail Fs12">
+									<span>support@invessence.com <i
+										class="fa fa-hand-o-left" aria-hidden="true"></i></span>
+								</div>
+							</div>
+						</div>
+					<div class="Wid100 userNameBlockv3d">
+						<div class="userNamePanel Wid100">
+							<div class="userNameLabelv3d Wid100">Lal, Prakash</div>
+							<div class="seperaterusv3d"></div>
+							<div class="addDtlv3d Wid100">
+								<span>College</span> <span>26.04.2017</span>
+							</div>
+						</div>
+						
+					</div>
+					
+					
+					<div class="Container100 leftAccountInfoBlock MoileModeAcctOvw">
+						<div class="Wid100 AccountInfoPanel">
+							<div class="Wid100 blockHeader">
+								<span>Lal, Prakash</span>
+							</div>
+							<div class="Wid100 blockContentList">
+								<div class="Wid100 table">
+									<div class="rowBlock">
+										<div class="Wid50 cellBlock">Goal</div>
+										<div class="Wid50 cellBlock">Retirement</div>
+									</div>
+									<div class="rowBlock">
+										<div class="Wid50 cellBlock">Strategy</div>
+										<div class="Wid50 cellBlock">Conservative Balanced</div>
+									</div>
+									<div class="rowBlock">
+										<div class="Wid50 cellBlock">Invested Amount</div>
+										<div class="Wid50 cellBlock">$163,451.0</div>
+									</div>
+									<div class="rowBlock">
+										<div class="Wid50 cellBlock">Account Number</div>
+										<div class="Wid50 cellBlock">DEMO-112</div>
+									</div>
+									<div class="rowBlock">
+										<div class="Wid50 cellBlock">Account Type</div>
+										<div class="Wid50 cellBlock">Non-Taxable</div>
+									</div>
+									<div class="rowBlock">
+										<div class="Wid50 cellBlock">Date</div>
+										<div class="Wid50 cellBlock">03/06/2017</div>
+									</div>
+								</div>
+							</div>
+							<div class="Wid100 quickBtnBlock">
+								<div class="Wid100">
+									<div class="Container30 firstBtnBlck">
+										<div class="boxBtn">
+											<i class="fa fa-file-text" aria-hidden="true"></i> <label>Overview</label>
+										</div>
+									</div>
+									<div class="Container40 centerRelCenter">
+										<div class="boxBtn">
+											<i class="fa fa-pie-chart" aria-hidden="true"></i> <label>Strategy</label>
+										</div>
+									</div>
+									<div class="Container30 centerRelRight">
+										<div class="boxBtn">
+											<i class="fa fa-university" aria-hidden="true"></i> <label>Funding</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="Wid100 extraMenuBlock">
+								<div class="Wid100">
+									<div class="Container45 Fleft firstBlockEMB">
+										<p:menuButton value="Options"
+											styleClass="menuBtnCustom customMenuButtonDashboard">
+											<p:menuitem value="Change Address" />
+											<p:menuitem value="Add Beneficiary" />
+											<p:menuitem value="Amount Withdrawal" />
+										</p:menuButton>
+									</div>
+									<div class="Container45 Fright secondBlockEMB">
+										<p:commandButton id="uidHelp" styleClass="reportBtnCustom"
+											icon="fa fa-info Fs14" value="Statement" process="@none" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="Container70 detailsPanelBlock">
+				<div class="detailsPanelv3d">
+					<div class="Wid100 acctCombinedBlk">
+						<div class="Wid70 acctdtlsPanel">
+							<div class="Wid100 acctinfoPanel">
+								<div class="Wid100 v3dMainTitle">
+									<span>Prakash Lal</span>
+								</div>
+								<div class="Wid70 blockContentList Fleft">
+									<div class="Wid100 table">
+										<div class="rowBlock">
+											<div class="Wid50 cellBlock">Goal</div>
+											<div class="Wid50 cellBlock">Retirement</div>
+										</div>
+										<div class="rowBlock">
+											<div class="Wid50 cellBlock">Strategy</div>
+											<div class="Wid50 cellBlock">Conservative Balanced</div>
+										</div>
+										<div class="rowBlock">
+											<div class="Wid50 cellBlock">Invested Amount</div>
+											<div class="Wid50 cellBlock">$163,451.0</div>
+										</div>
+										<div class="rowBlock">
+											<div class="Wid50 cellBlock">Account Number</div>
+											<div class="Wid50 cellBlock">DEMO-112</div>
+										</div>
+										<div class="rowBlock">
+											<div class="Wid50 cellBlock">Account Type</div>
+											<div class="Wid50 cellBlock">Non-Taxable</div>
+										</div>
+										<div class="rowBlock">
+											<div class="Wid50 cellBlock">Date</div>
+											<div class="Wid50 cellBlock">03/06/2017</div>
+										</div>
+									</div>
+								</div>
+								<div class="Wid30 addBtnsv3d Fleft">
+									<div class="v3dinfoBtnBlk v3dbtnBlk Wid100">
+										<p:commandButton type="button" icon="fa fa-sort-desc"
+											value="Options" styleClass="v3dinfoBtn Wid100">
+										</p:commandButton>
+									</div>
+									<div class="v3dbtnBlk Wid100">
+										<div class="Wid40 Fleft">
+											<div class="boxBtnv3d">
+												<i class="fa fa-file-text" aria-hidden="true"></i>
+											</div>
+										</div>
+										<div class="Wid60 Fleft Fs13 btnLabev3d">
+											<label>Overview</label>
+										</div>
+									</div>
+									<div class="v3dbtnBlk Wid100">
+										<div class="Wid40 Fleft">
+											<div class="boxBtnv3d">
+												<i class="fa fa-pie-chart" aria-hidden="true"></i>
+											</div>
+										</div>
+										<div class="Wid60 Fleft Fs13 btnLabev3d">
+											<label>Strategy</label>
+										</div>
+									</div>
+									<div class="v3dbtnBlk Wid100">
+										<div class="Wid40 Fleft">
+											<div class="boxBtnv3d">
+												<i class="fa fa-university" aria-hidden="true"></i>
+											</div>
+										</div>
+										<div class="Wid60 Fleft Fs13 btnLabev3d">
+											<label>Funding</label>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+						</div>
+						<div class="Wid30 notificationBlk">
+							<div class="innerNotificationBlk">
+								<div class="notifinfoPanelTitleBlk">
+									<div class="Wid100 v3dMainTitle">
+										<span>Activity Center</span>
+									</div>
+								</div>
+								<div class="Wid100 notifinfoPanel">
+
+									<div class="Fleft nblock">
+										<div class="contentnotiBlk Wid100 Hig100">
+											<div class="nIconContent Wid100">
+												<i class="fa fa-bell"></i>
+											</div>
+											<div class="nLabelContent Wid100">Alert</div>
+										</div>
+									</div>
+									<div class="Fleft nblock">
+										<div class="contentnotiBlk Wid100 Hig100">
+											<div class="nIconContent Wid100">
+												<i class="fa fa-comments-o"></i>
+											</div>
+											<div class="nLabelContent Wid100">Chat</div>
+										</div>
+									</div>
+
+									<div class="Fleft nblock">
+										<div class="contentnotiBlk Wid100 Hig100">
+											<div class="nIconContent Wid100">
+												<i class="fa fa-user"></i>
+											</div>
+											<div class="nLabelContent Wid100">Account</div>
+										</div>
+									</div>
+									<div class="Fleft nblock">
+										<div class="contentnotiBlk Wid100 Hig100">
+											<div class="nIconContent Wid100">
+												<i class="fa fa-bullseye"></i>
+											</div>
+											<div class="nLabelContent Wid100">Set Goals</div>
+										</div>
+									</div>
+
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="Wid100 assetOvrPanel">
+						<div class="Wid100 assetinfoPanel"></div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+		<!-- BOX END -->
+	</ui:define>
+
+</ui:composition>
