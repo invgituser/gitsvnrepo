@@ -12,7 +12,7 @@ import com.invessence.service.bean.docuSign.*;
 public interface ServiceDao
 {
    public Map<String, SwitchDetails> getSwitchDetails();
-   public List<ServiceConfigDetails> getServiceConfigDetails()throws SQLException;
+   public List<ServiceConfigDetails> getServiceConfigDetails( List<String> service)throws SQLException;
    public List<ServiceConfigDetails> getServiceConfigDetails(String serviceMode, String company, String service)throws SQLException;
    public List<ServiceConfigDetails> getServiceConfigDetails(String serviceMode, String company, List<String> service)throws SQLException;
    public List<ServiceOperationDetails> getServiceOperationDetails(String serviceMode, String company)throws SQLException;

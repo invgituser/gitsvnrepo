@@ -427,14 +427,14 @@ public class ServiceParameters
             logger.info("Validating Configuration Properties for " + Constant.SERVICES.PRICING.toString());
          }
          if(serviceConfigDetails.containsKey(Constant.SERVICES.DOWNLOAD_SERVICES.toString())){
-            ServiceValidator.validateBrokerService(null, Constant.DOWNLOAD_SERVICES.GEMINI.toString());
+            //ServiceValidator.validateBrokerService(null, Constant.DOWNLOAD_SERVICES.GEMINI.toString());
          }
 
          if(serviceConfigDetails.containsKey(Constant.SERVICES.BROKER_WEBSERVICES.toString())){
             if(serviceConfigDetails.get(Constant.SERVICES.BROKER_WEBSERVICES.toString()).containsKey(Constant.BROKER_WEBSERVICES.GEMINI.toString())){
                ServiceValidator.validateBrokerWebService(Constant.BROKER_WEBSERVICES.GEMINI.toString());
             }else if(serviceConfigDetails.get(Constant.SERVICES.BROKER_WEBSERVICES.toString()).containsKey(Constant.BROKER_WEBSERVICES.TD.toString())){
-               ServiceValidator.validateBrokerService(null,Constant.BROKER_WEBSERVICES.TD.toString());
+               //ServiceValidator.validateBrokerService(null,Constant.BROKER_WEBSERVICES.TD.toString());
             }
          }
       }

@@ -7,11 +7,29 @@ public class ServiceRequest
 {
    private String product;
    private String mode;
+   private String processId;
 
    public ServiceRequest(String product, String mode)
    {
       this.product = product;
       this.mode = mode;
+   }
+
+   public ServiceRequest(String product, String mode, String processId)
+   {
+      this.product = product;
+      this.mode = mode;
+      this.processId = processId;
+   }
+
+   public String getProcessId()
+   {
+      return processId;
+   }
+
+   public void setProcessId(String processId)
+   {
+      this.processId = processId;
    }
 
    public String getProduct()
@@ -40,6 +58,7 @@ public class ServiceRequest
       return "ServiceRequest{" +
          "product='" + product + '\'' +
          ", mode='" + mode + '\'' +
+         ", processId='" + processId + '\'' +
          '}';
    }
 }

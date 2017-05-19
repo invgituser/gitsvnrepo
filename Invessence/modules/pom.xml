@@ -30,5 +30,6 @@
       <module>price-processor</module>
       <module>rbsa-preprocessor</module>
       <module>aggregator</module>
+      <module>file-processor</module>
    </modules>
 </project>

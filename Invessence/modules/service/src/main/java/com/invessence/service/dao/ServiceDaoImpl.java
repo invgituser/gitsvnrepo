@@ -6,6 +6,7 @@ import java.util.*;
 import com.invessence.converter.SQLData;
 import com.invessence.service.bean.*;
 import com.invessence.service.bean.docuSign.*;
+import com.invessence.service.bean.fileProcessor.*;
 import com.invessence.service.util.Constant;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -326,14 +327,26 @@ public class ServiceDaoImpl implements ServiceDao
 
 
 
-   public List<ServiceConfigDetails> getServiceConfigDetails() throws SQLException
+   public List<ServiceConfigDetails> getServiceConfigDetails(List<String> service) throws SQLException
 {
    logger.info("ServiceDaoImpl.getServiceConfigDetailsNew");
    List<ServiceConfigDetails> lst = null;
 
-   logger.debug("getServiceConfigDetailsNew = " + getServiceConfigDetailsNew);
-   lst = serviceJdbcTemplate.query(getServiceConfigDetailsNew, ParameterizedBeanPropertyRowMapper.newInstance(ServiceConfigDetails.class));
+//   logger.debug("getServiceConfigDetailsNew = " + getServiceConfigDetailsNew);
+//   lst = serviceJdbcTemplate.query(getServiceConfigDetailsNew, ParameterizedBeanPropertyRowMapper.newInstance(ServiceConfigDetails.class));
 
+   logger.info("ServiceDaoImpl.getServiceConfigDetails");
+   logger.info("service = [" + service + "]");
+   if(service==null || service.size()==0 || service.contains("ALL"))
+   {
+      logger.debug("getServiceConfigDetailsNew = " + getServiceConfigDetailsNew);
+      lst = serviceJdbcTemplate.query(getServiceConfigDetailsNew, ParameterizedBeanPropertyRowMapper.newInstance(ServiceConfigDetails.class));
+   }else if(service.size()>0){
+      logger.debug("getServiceConfigDetailsWherClause = " + getServiceConfigDetailsWherClause);
+      NamedParameterJdbcTemplate npjt=new NamedParameterJdbcTemplate(serviceJdbcTemplate);
+//         lst = serviceJdbcTemplate.query(getServiceConfigDetailsWherClause, new Object[]{serviceMode, company, Collections.singletonMap("names", service)},  ParameterizedBeanPropertyRowMapper.newInstance(ServiceConfigDetails.class));
+      lst = npjt.query("select * from vw_service_config_details_new where service in (:names)", Collections.singletonMap("names", service), ParameterizedBeanPropertyRowMapper.newInstance(ServiceConfigDetails.class));
+   }
    return lst;
 }
 
@@ -371,12 +384,19 @@ public class ServiceDaoImpl implements ServiceDao
             Map outMap = serviceSP.getCommonDetails(product,service, type, infoType);
             if (outMap != null)
             {
-               if(service.equalsIgnoreCase(Constant.SERVICES.TRADE_PROCESS.toString()) && type.equalsIgnoreCase(Constant.SERVICES_DETAILS.COMMON_DETAILS.toString()) && infoType.equalsIgnoreCase(Constant.COMMON_DETAILS.TRADE_FILE_DETAILS.toString()))
+               if(service.equalsIgnoreCase(Constant.SERVICES.FILE_PROCESS.toString()) && type.equalsIgnoreCase(Constant.SERVICES_DETAILS.ADDITIONAL_DETAILS.toString()) && infoType.equalsIgnoreCase(Constant.ADDITIONAL_DETAILS.FILE_DETAILS.toString()))
                {
-                  ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+                  ArrayList<LinkedHashMap<String, Object>> rows = (ArrayList<LinkedHashMap<String, Object>>) outMap.get("#result-set-1");
                   if (rows != null)
                   {
-                     return getTradeFileDetails(rows);
+                     return getFileDetails(rows);
+                  }
+               }else if(service.equalsIgnoreCase(Constant.SERVICES.FILE_PROCESS.toString()) && type.equalsIgnoreCase(Constant.SERVICES_DETAILS.COMMON_DETAILS.toString()) && infoType.equalsIgnoreCase(Constant.COMMON_DETAILS.FILE_RULES.toString()))
+               {
+                  ArrayList<LinkedHashMap<String, Object>> rows = (ArrayList<LinkedHashMap<String, Object>>) outMap.get("#result-set-1");
+                  if (rows != null)
+                  {
+                     return getFileRules(rows);
                   }
                }else if(service.equalsIgnoreCase(Constant.SERVICES.DOCUSIGN_SERVICES.toString())&& type.equalsIgnoreCase(Constant.SERVICES_DETAILS.COMMON_DETAILS.toString()) && infoType.equalsIgnoreCase(Constant.COMMON_DETAILS.DOCUSIGN_MAPPING.toString()))
                {
@@ -567,28 +587,44 @@ public class ServiceDaoImpl implements ServiceDao
       return rs;
 
    }
-   private List<TradeProcessFile> getTradeFileDetails(ArrayList<Map<String, Object>> rows){
-      List<TradeProcessFile> rs=null;
+   private List<FileDetails> getFileDetails(ArrayList<LinkedHashMap<String, Object>> rows){
+      List<FileDetails> rs=null;
       try
       {
-         Iterator<Map<String, Object>> itr = rows.iterator();
+         Iterator<LinkedHashMap<String, Object>> itr = rows.iterator();
          rs = new ArrayList<>();
          while (itr.hasNext())
          {
-            Map<String, Object> map = itr.next();
+            LinkedHashMap<String, Object> map = itr.next();
 
-            rs.add(new TradeProcessFile(convert.getStrData(map.get("vendor")),
-                                        convert.getStrData(map.get("fileName")),
-                                        convert.getStrData(map.get("fileType")),
-                                        convert.getStrData(map.get("fileExtension")),
-                                        convert.getStrData(map.get("delimeter")),
-                                        convert.getStrData(map.get("containsHeader")),
-                                        convert.getStrData(map.get("active")),
-                                        convert.getIntData(map.get("seqNum")),
-                                        convert.getStrData(map.get("uploadDir")),
-                                        convert.getStrData(map.get("dbStoredProc")),
-                                        convert.getStrData(map.get("preInstruction")),
-                                        convert.getStrData(map.get("postInstruction"))
+            rs.add(new FileDetails(convert.getStrData(map.get("vendor")),
+                                   convert.getStrData(map.get("fileName")),
+                                   convert.getStrData(map.get("processId")),
+                                   convert.getStrData(map.get("process")),
+                                   convert.getStrData(map.get("fileType")),
+                                   convert.getStrData(map.get("fileExtension")),
+                                   convert.getStrData(map.get("fileId")),
+                                   convert.getStrData(map.get("containsHeader")),
+                                   convert.getStrData(map.get("active")),
+                                   convert.getIntData(map.get("seqNo")),
+                                   convert.getStrData(map.get("uploadDir")),
+                                   convert.getStrData(map.get("preDBProcess")),
+                                   convert.getStrData(map.get("postDBProcess")),
+                                   convert.getStrData(map.get("preInstruction")),
+                                   convert.getStrData(map.get("postInstruction")),
+                                   convert.getStrData(map.get("fileNameAppender")),
+                                   convert.getStrData(map.get("appenderFormat")),
+                                   convert.getStrData(map.get("available")),
+                                   convert.getStrData(map.get("sourcePath")),
+                                   convert.getStrData(map.get("downloadDir")),
+                                   convert.getStrData(map.get("loadFormat")),
+                                   convert.getStrData(map.get("required")),
+                                   convert.getStrData(map.get("canBeEmpty")),
+                                   convert.getIntData(map.get("keyData")),
+                                   convert.getStrData(map.get("encryptionMethod")),
+                                   convert.getStrData(map.get("encColumns")),
+                                   convert.getStrData(map.get("tmpTableName")),
+                                   convert.getStrData(map.get("canBeDups"))
             ));
          }
       }catch(Exception e)
@@ -597,6 +633,91 @@ public class ServiceDaoImpl implements ServiceDao
       }
       return rs;
    }
+
+   private LinkedHashMap<String, LinkedHashMap<String,FileRules>> getFileRules(ArrayList<LinkedHashMap<String, Object>> rows){
+      LinkedHashMap<String, LinkedHashMap<String,FileRules>> rs=null;
+      try{
+         Iterator<LinkedHashMap<String, Object>> itr = rows.iterator();
+         rs=new LinkedHashMap<>();
+         LinkedHashMap<String,FileRules> tempMap = null;
+         String fileId = null;
+         while (itr.hasNext())
+         {
+            LinkedHashMap<String, Object> map = itr.next();
+            if (fileId == null)
+            {
+               fileId = convert.getStrData(map.get("fileId"));
+               tempMap = new LinkedHashMap<>();
+               tempMap.put(convert.getStrData(map.get("dataField")),
+                           new FileRules(convert.getStrData(map.get("fileId")),
+                                         convert.getStrData(map.get("dataField")),
+                                         convert.getStrData(map.get("description")),
+                                         convert.getIntData(map.get("seqNo")),
+                                         convert.getIntData(map.get("startPos")),
+                                         convert.getIntData(map.get("endPos")),
+                                         convert.getIntData(map.get("length")),
+                                         convert.getStrData(map.get("format")),
+                                         convert.getIntData(map.get("decimals")),
+                                         convert.getStrData(map.get("isDelimited")),
+                                         convert.getStrData(map.get("delimiter")),
+                                         convert.getStrData(map.get("justified")),
+                                         convert.getStrData(map.get("dbColumn"))
+                           ));
+            }
+            else if (fileId.equalsIgnoreCase(convert.getStrData(map.get("fileId"))))
+            {
+               tempMap.put(convert.getStrData(map.get("dataField")),
+                           new FileRules(convert.getStrData(map.get("fileId")),
+                                         convert.getStrData(map.get("dataField")),
+                                         convert.getStrData(map.get("description")),
+                                         convert.getIntData(map.get("seqNo")),
+                                         convert.getIntData(map.get("startPos")),
+                                         convert.getIntData(map.get("endPos")),
+                                         convert.getIntData(map.get("length")),
+                                         convert.getStrData(map.get("format")),
+                                         convert.getIntData(map.get("decimals")),
+                                         convert.getStrData(map.get("isDelimited")),
+                                         convert.getStrData(map.get("delimiter")),
+                                         convert.getStrData(map.get("justified")),
+                                         convert.getStrData(map.get("dbColumn"))
+                           ));
+            }
+            else if (!fileId.equalsIgnoreCase(convert.getStrData(map.get("fileId"))))
+            {
+               rs.put(fileId, tempMap);
+               fileId = convert.getStrData(map.get("fileId"));
+               tempMap = new LinkedHashMap<>();
+
+               tempMap.put(convert.getStrData(map.get("dataField")),
+                           new FileRules(convert.getStrData(map.get("fileId")),
+                                         convert.getStrData(map.get("dataField")),
+                                         convert.getStrData(map.get("description")),
+                                         convert.getIntData(map.get("seqNo")),
+                                         convert.getIntData(map.get("startPos")),
+                                         convert.getIntData(map.get("endPos")),
+                                         convert.getIntData(map.get("length")),
+                                         convert.getStrData(map.get("format")),
+                                         convert.getIntData(map.get("decimals")),
+                                         convert.getStrData(map.get("isDelimited")),
+                                         convert.getStrData(map.get("delimiter")),
+                                         convert.getStrData(map.get("justified")),
+                                         convert.getStrData(map.get("dbColumn"))
+                           ));
+            }
+         }
+         if (tempMap != null)
+         {
+            rs.put(fileId, tempMap);
+         }
+
+
+      }catch(Exception e)
+      {
+         e.printStackTrace();
+      }
+      return rs;
+   }
+
    private LinkedHashMap<String,ServiceOperationDetails> getOperationDetails(ArrayList<Map<String, Object>> rows){
       LinkedHashMap<String,ServiceOperationDetails> rs=null;
       try
