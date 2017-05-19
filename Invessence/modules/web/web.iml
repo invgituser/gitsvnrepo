@@ -183,5 +183,13 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet.jsp:jsp-api:2.1" level="project" />
     <orderEntry type="library" name="Maven: com.itextpdf:itextpdf:5.1.3" level="project" />
     <orderEntry type="library" name="Maven: com.lowagie:itext:2.1.7" level="project" />
+    <orderEntry type="module" module-name="file-processor" />
+    <orderEntry type="library" name="Maven: org.apache.camel:camel-core:2.11.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.camel:camel-spring:2.11.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.camel:camel-sql:2.11.0" level="project" />
+    <orderEntry type="library" name="Maven: com.jcraft:jsch:0.1.49" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcpg-jdk15on:1.51" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.51" level="project" />
+    <orderEntry type="library" name="Maven: commons-net:commons-net:3.3" level="project" />
   </component>
 </module>

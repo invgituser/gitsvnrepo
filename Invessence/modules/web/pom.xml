@@ -333,7 +333,7 @@
                      <artifactId>bctsp-jdk14</artifactId>
                  </exclusion>
              </exclusions>
-         </dependency>
+         </dependency><dependency><groupId>com.invessence</groupId><artifactId>file-processor</artifactId><version>1.0-SNAPSHOT</version></dependency>
 
       <!-- https://mvnrepository.com/artifact/net.sourceforge.fiftyone-java/51Degrees.mobi.detection.core -->
       <!--<dependency>-->
