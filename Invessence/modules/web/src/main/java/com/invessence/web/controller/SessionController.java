@@ -119,8 +119,9 @@ public class SessionController implements Serializable
       if (webutil != null) {
          if (webutil.isUserLoggedIn()) {
             if (webutil.getUserInfoData() != null) {
-               // On logon, if the Advisor and rep is defined to the user, then use that instead.
-               resetUserCIDByAdvisor(webutil.getUserInfoData().getAdvisor());  // Since user is loging on, use the User's Advisor's Setup
+               // On logon, if the Advisor and rep is defined to the user, then use that instead.  Removed this check on May 17th, 2017
+               // resetUserCIDByAdvisor(webutil.getUserInfoData().getAdvisor());  // Since user is loging on, use the User's Advisor's Setup
+               resetCIDByURL(null);  // Use the URL Mapping (May 17th, 2017)
                if (webutil.getUserInfoData().getAdvisor() != null ) {
                   webutil.getWebprofile().setDefaultAdvisor(webutil.getUserInfoData().getAdvisor());
                   webutil.getWebprofile().setDefaultRep(webutil.getUserInfoData().getRep());

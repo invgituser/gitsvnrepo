@@ -32,7 +32,7 @@
         <p:panelGrid columns="1" layout="grid" class="FormContent"
                      styleClass="Container100 Responsive100 liabilityCenterContent_uob"
                      style="border:0px !important; background:none;margin-bottom:10px; text-align: center;">
-            <p:selectOneRadio value="#{uobpb.dependent}" id="uobdddependents" stytleclass="fltr">
+            <p:selectOneRadio value="#{uobpb.accountFinancials.dependent}" id="uobdddependents" stytleclass="fltr">
                 <p:ajax listener="#{uobpb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
                 <f:selectItem id="uobddd0" itemLabel="0" itemValue="0"/>
@@ -48,7 +48,7 @@
             <div class="uobBoldText">Total Expenses</div>
             <div class="uobSubText">(Include your annual cost for Household, Family Expenses, Children’s Tuition, Mortgage, Holiday Travel and any other living cost)</div>
         </div>
-        <p:inputNumber value="#{uobpb.totalExpense}" placeholder="$" id="uobinputtexp"
+        <p:inputNumber value="#{uobpb.accountFinancials.totalExpense}" placeholder="$" id="uobinputtexp"
                        styleClass="Wid100 uob_number_field" maxlength="15"
                        decimalPlaces="0" symbol="$">
             <p:ajax listener="#{uobpb.onChangeValue}"
@@ -60,7 +60,7 @@
             <div class="uobBoldText">Total Debt</div>
             <div class="uobSubText">(Include your Car Payments, Credit Card bills etc.)</div>
         </div>
-        <p:inputNumber value="#{uobpb.totalLiability}" placeholder="$" id="uobinputtdebt"
+        <p:inputNumber value="#{uobpb.accountFinancials.totalDebt}" placeholder="$" id="uobinputtdebt"
                        styleClass="Wid100 uob_number_field" maxlength="15"
                        decimalPlaces="0" symbol="$">
             <p:ajax listener="#{uobpb.onChangeValue}"

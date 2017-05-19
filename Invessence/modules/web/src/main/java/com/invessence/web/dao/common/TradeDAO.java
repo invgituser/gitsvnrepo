@@ -390,42 +390,15 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
             TradeClientData data = new TradeClientData();
 
             data.setAcctnum(convert.getLongData(rs.get("acctnum")));
-            //data.setLogonid(convert.getLongData(rs.get("logonid")));
-            data.setName(convert.getStrData(rs.get("firstname")) + " " + convert.getStrData(rs.get("lastname")));
             data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
-            data.setTradePreference(convert.getStrData(rs.get("tradePreference")));
-            data.setGoal(convert.getStrData(rs.get("goal")));
-            data.setAccountType(convert.getStrData(rs.get("accttype")));
-            data.setAge(convert.getIntData(rs.get("age")));
-            data.setHorizon(convert.getIntData(rs.get("horizon")));
-            data.setCalendarYear(convert.getIntData(rs.get("yearnum")));
-            data.setRiskIndex(convert.getDoubleData(rs.get("riskIndex")));
-            data.setInitialInvestment(convert.getIntData(rs.get("initialInvestment")));
-            data.setKeepLiquid(convert.getIntData(rs.get("keepLiquid")));
-            data.setActualInvestment(convert.getDoubleData(rs.get("actualCapital")));
-            data.setRecurringInvestment(convert.getIntData(rs.get("recurringInvestment")));
-            data.setObjective(convert.getIntData(rs.get("longTermGoal")));
-            data.setStayInvested(convert.getIntData(rs.get("stayInvested")));
-            data.setDependent(convert.getIntData(rs.get("dependent")));
-
-            data.setTotalIncome(convert.getIntData(rs.get("totalIncomeAnnulized")));
-            data.setTotalExpense(convert.getIntData(rs.get("totalExpenseAnnulized")));
-            data.setTotalAsset(convert.getIntData(rs.get("totalAsset")));
-            data.setTotalLiability(convert.getIntData(rs.get("totalDebt")));
-            data.setLiquidAsset(convert.getIntData(rs.get("liquidnetworth")));
-            // data.setNetWorth(convert.getIntData(rs.get("networth")));
-
+            data.setTradeStatus(convert.getStrData(rs.get("tradeStatus")));
             data.setProcessStatus(convert.getStrData(rs.get("processStatus")));
-            data.setLastTraded(convert.getStrData(rs.get("lastTraded")));
             data.setReason(convert.getStrData(rs.get("reason")));
-            data.setAssetAllocationOffset(convert.getDoubleData(rs.get("assetAllocationOffset")));
-            data.setPosition(convert.getDoubleData(rs.get("position")));
-            data.setAssetClass(convert.getStrData(rs.get("assetclass")));
-            data.setCashMargin(convert.getStrData(rs.get("accountCapabilities")));
-            data.setCurrentAllocation(convert.getDoubleData(rs.get("currentAllocation")));
-            data.setRequiredAllocation(convert.getDoubleData(rs.get("requiredAllocation")));
-            data.setCreated(convert.getStrData(rs.get("created")));
-            data.setLastUpdated(convert.getStrData(rs.get("lastUpdated")));
+            data.setFirstname(convert.getStrData(rs.get("applicantFName")));
+            data.setLastname(convert.getStrData(rs.get("applicantLName")));
+            data.setLastTraded(convert.getStrData(rs.get("lastTraded")));
+            data.setCash(convert.getDoubleData(rs.get("cash")));
+            data.setInvestment(convert.getDoubleData(rs.get("investment")));
             listProfiles.add(i, data);
             i++;
          }

@@ -163,7 +163,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          randomQuestion = webutl.randomGenerator(0, 2);
          String urlbasedadvisor = webutl.getWebprofile().getDefaultAdvisor();
          String testmode = webutl.getWebprofile().getMode();
-         if (testmode.equalsIgnoreCase("prod") &&
+         if (! testmode.equalsIgnoreCase("demo") &&
             advisor != null && ! advisor.equalsIgnoreCase(urlbasedadvisor.toLowerCase())) {
             enabled = false;
             throw new BadCredentialsException("Username is not valid!");

@@ -56,14 +56,6 @@ public class
 
    private Integer dependent = 0;
 
-   private Integer currentIncome = 0;
-   private Integer liquidAsset = 0;
-
-   private Integer totalIncome = 0;
-   private Integer totalExpense = 0;
-   private Integer totalAsset = 0;
-   private Integer totalLiability = 0;
-
    private boolean accountTaxable = false; //1 (True) for accountTaxable 0 (False) for nonTaxable
    private Double taxrate = 0.1;
    private Double shortLossCarry = 0.0;
@@ -776,65 +768,6 @@ public class
       this.dependent = dependent;
    }
 
-   public Integer getCurrentIncome()
-   {
-      return currentIncome;
-   }
-
-   public void setCurrentIncome(Integer currentIncome)
-   {
-      this.currentIncome = currentIncome;
-   }
-
-   public Integer getTotalIncome()
-   {
-      return totalIncome;
-   }
-
-   public void setTotalIncome(Integer totalIncome)
-   {
-      this.totalIncome = totalIncome;
-   }
-
-   public Integer getTotalExpense()
-   {
-      return totalExpense;
-   }
-
-   public void setTotalExpense(Integer totalExpense)
-   {
-      this.totalExpense = totalExpense;
-   }
-
-   public Integer getTotalAsset()
-   {
-      return totalAsset;
-   }
-
-   public void setTotalAsset(Integer totalAsset)
-   {
-      this.totalAsset = totalAsset;
-   }
-
-   public Integer getTotalLiability()
-   {
-      return totalLiability;
-   }
-
-   public void setTotalLiability(Integer totalLiability)
-   {
-      this.totalLiability = totalLiability;
-   }
-
-   public Integer getLiquidAsset()
-   {
-      return liquidAsset;
-   }
-
-   public void setLiquidAsset(Integer liquidAsset)
-   {
-      this.liquidAsset = liquidAsset;
-   }
 
    public void setAge(Integer age)
    {
@@ -864,16 +797,7 @@ public class
    public Double getTaxrate()
    {
       // Added currentIncome == 0 for rebalancing when income is missing
-      if (currentIncome == null || currentIncome == 0)
-      {
-
-         return 0.30;
-      }
-
-      else
-      {
          return taxrate;
-      }
    }
 
    public void setTaxrate(Double taxrate)
@@ -888,47 +812,11 @@ public class
       }
    }
 
-   public void taxRate()
-   {
-      if (currentIncome == null)
-      {
-         setTaxrate(0.10);
-      }
-      else if (currentIncome > 400000)
-      {
-         setTaxrate(0.396);
-      }
-      else if (currentIncome > 398350 && currentIncome <= 400000)
-      {
-         setTaxrate(0.35);
-      }
-      else if (currentIncome > 183250 && currentIncome <= 398350)
-      {
-         setTaxrate(0.33);
-      }
-      else if (currentIncome > 87850 && currentIncome <= 183250)
-      {
-         setTaxrate(0.28);
-      }
-      else if (currentIncome > 36250 && currentIncome <= 87850)
-      {
-         setTaxrate(0.25);
-      }
-      else if (currentIncome > 8925 && currentIncome <= 36250)
-      {
-         setTaxrate(0.15);
-      }
-      else if (currentIncome > 0 && currentIncome <= 8925)
-      {
-         setTaxrate(0.10);
-      }
-   }
-
    public String getRiskCalcMethod()
    {
       if (riskCalcMethod == null)
       {
-         return ("C");
+         return (InvConst.CONSUMER_RISK_FORMULA);
       }
       else
       {
@@ -1377,13 +1265,6 @@ public class
       setCharitableGoals(null);
 
       setDependent(0);
-
-      setCurrentIncome(null);
-      setLiquidAsset(null);
-      setTotalIncome(null);
-      setTotalExpense(null);
-      setTotalAsset(null);
-      setTotalLiability(null);
 
       setAccountTaxable(false); //1 (True) for accountTaxable (False) for nonTaxable
       setTaxrate(0.1);

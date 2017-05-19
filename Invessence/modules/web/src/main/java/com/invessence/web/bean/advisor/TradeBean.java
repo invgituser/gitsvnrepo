@@ -3,6 +3,7 @@ package com.invessence.web.bean.advisor;
 import java.io.*;
 import java.text.*;
 import java.util.*;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
@@ -13,12 +14,11 @@ import com.invessence.web.dao.common.*;
 import com.invessence.web.dao.consumer.ConsumerSaveDataDAO;
 import com.invessence.web.data.common.*;
 import com.invessence.web.io.TradeWriter;
-import com.invessence.web.util.WebUtil;
+import com.invessence.web.util.*;
 import com.invmodel.rebalance.RebalanceProcess;
 import com.invmodel.rebalance.data.*;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.model.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
@@ -31,12 +31,14 @@ public class TradeBean extends TradeClientData implements Serializable
    private List<TradeClientData> tradeClientDataList;
    private List<TradeClientData> filteredClientList;
    private List<TradeClientData> selectedClientList;
-   private List<String> selectedFilterOptions;
+   private String[] selectedFilterOptions;
+   private String[] selectedReviewFilterOptions;
    private String nextRebalDate;
 
    private Map<String, TradeSummary> tradeDetailsData = null;
    private TradeClientData selectedClient;
    private TradeSummary selectedTradeSummary;
+   private List<String> tradeFilters;
 
    @ManagedProperty("#{tradeDAO}")
    private TradeDAO tradeDAO;
@@ -58,15 +60,31 @@ public class TradeBean extends TradeClientData implements Serializable
 
 
    private TradeWriter tw = new TradeWriter();
-   @Autowired
-   private WebUtil webutil;
 
-/*
-   public void setCommonListDataDAO(CommonDAO commonDAO)
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
    {
-      this.commonListDataDAO = commonDAO;
+      this.webutil = webutil;
    }
-*/
+
+   @ManagedProperty("#{uiLayout}")
+   private UILayout uiLayout;
+   public void setUiLayout(UILayout uiLayout)
+   {
+      this.uiLayout = uiLayout;
+   }
+
+
+   @PostConstruct
+   public void init() {
+      tradeFilters = new ArrayList<String>();
+      tradeFilters.add("New");
+      tradeFilters.add("Date");
+      tradeFilters.add("Allocation");
+      tradeFilters.add("Other");
+   }
+
 
    public void setCsdDAO(ConsumerSaveDataDAO csdDAO)
    {
@@ -103,14 +121,24 @@ public class TradeBean extends TradeClientData implements Serializable
       this.filteredClientList = filteredClientList;
    }
 
-   public List<String> getSelectedFilterOptions()
+   public String[] getSelectedFilterOptions()
    {
       return selectedFilterOptions;
    }
 
-   public void setSelectedFilterOptions(List<String> selectedFilterOptions)
+   public void setSelectedFilterOptions(String[] selectedFilterOptions)
    {
       this.selectedFilterOptions = selectedFilterOptions;
+   }
+
+   public String[] getSelectedReviewFilterOptions()
+   {
+      return selectedReviewFilterOptions;
+   }
+
+   public void setSelectedReviewFilterOptions(String[] selectedReviewFilterOptions)
+   {
+      this.selectedReviewFilterOptions = selectedReviewFilterOptions;
    }
 
    public List<TradeClientData> getSelectedClientList()
@@ -173,7 +201,17 @@ public class TradeBean extends TradeClientData implements Serializable
       this.selectedTradeSummary = selectedTradeSummary;
    }
 
-   public void init()
+   public List<String> getTradeFilters()
+   {
+      return tradeFilters;
+   }
+
+   public void setTradeFilters(List<String> tradeFilters)
+   {
+      this.tradeFilters = tradeFilters;
+   }
+
+   public void preRender()
    {
       Long logonid;
       try
@@ -227,11 +265,11 @@ public class TradeBean extends TradeClientData implements Serializable
       Integer numOptions=0;
       Boolean skip;
       try {
-         if (getSelectedFilterOptions() == null || getSelectedFilterOptions().size() == 0) {
+         if (getSelectedFilterOptions() == null || getSelectedFilterOptions().length == 0) {
             filteredClientList = getTradeClientDataList();
          }
          else {
-            numOptions = getSelectedFilterOptions().size();
+            numOptions = getSelectedFilterOptions().length;
             filteredClientList = new ArrayList<TradeClientData>();
 
             for (Integer loop=0; loop < getTradeClientDataList().size(); loop++) {
@@ -239,7 +277,7 @@ public class TradeBean extends TradeClientData implements Serializable
                Integer opt=0;
                String filter;
                while (! skip && opt < numOptions) {
-                  if (getTradeClientDataList().get(loop).getReason().startsWith(getSelectedFilterOptions().get(opt)))
+                  if (getTradeClientDataList().get(loop).getReason().startsWith(getSelectedFilterOptions()[opt]))
                      skip=true;
                   else
                      opt++;
@@ -255,9 +293,7 @@ public class TradeBean extends TradeClientData implements Serializable
    }
 
    public void reloadTradeClient() {
-      getSelectedFilterOptions().clear();
-      setSelectedFilterOptions(null);
-      tradeDAO.deletePendingTrades();
+      //tradeDAO.deletePendingTrades();
       collectTradeInfo();
       String msg = getTradeClientDataList().size() + " Account(s) were loaded.";
       showGrowl(msg, "Info");
@@ -292,8 +328,8 @@ public class TradeBean extends TradeClientData implements Serializable
          if (getSelectedClient() == null)
             return "failed";
          else
-            webutil.redirect("/consumer/cadd.xhtml?acct="+getSelectedClient().getAcctnum().toString(),null);
-      }
+            uiLayout.doMenuAction("consumer", "cadd.xhtml?app=E&acct="+getSelectedClient().getAcctnum().toString());
+       }
       catch (Exception ex)
       {
          return ("failed");
@@ -312,10 +348,15 @@ public class TradeBean extends TradeClientData implements Serializable
       }
    }
 
-   public void createtlhTrades()
+   public void createTrades(String filter)
    {
       TradeClientData tData = null;
       Long logonid;
+
+      if (! filter.equalsIgnoreCase("I")) {
+         setSelectedClientList(getFilteredClientList());
+      }
+
       ArrayList<RebalanceTradeData> tradedata = null;
       try
       {
@@ -356,6 +397,7 @@ public class TradeBean extends TradeClientData implements Serializable
       }
    }
 
+/*
    public void createsqlTrades()
    {
       TradeClientData data;
@@ -399,8 +441,9 @@ public class TradeBean extends TradeClientData implements Serializable
          ex.printStackTrace();
       }
    }
+*/
 
-   public void collectTradeSummary()
+   public void reloadReviewTrades()
    {
       webutil.getProgressbar();
       if (getTradeDetailsData() != null)
@@ -423,7 +466,6 @@ public class TradeBean extends TradeClientData implements Serializable
       return dateFormatWithDateAndTime.format(date) + prefix + ".csv";
    }
 
-   String tradeFile1, tradeFile2, allocFile1, allocFile2;
    public void generateTrades()
    {
       try {
@@ -440,16 +482,6 @@ public class TradeBean extends TradeClientData implements Serializable
          tradeDAO.createTrades(null);
          List<Map<String, Object>> data;
          data = tradeDAO.getTradeData();
-         tradeFile1 = getFileNameWithDateAndTime("_TRADES_BUY");
-         tradeFile1 = userHomeDir + tradeFile1;
-         allocFile1 = getFileNameWithDateAndTime("_ALLOC_BUY");
-         allocFile1 =  userHomeDir + allocFile1;
-         tw.downloadTradesAllocationFile(data, tradeFile1, allocFile1, "BUY");
-         tradeFile2 = getFileNameWithDateAndTime("_TRADES_SELL");
-         tradeFile2 = userHomeDir + tradeFile2;
-         allocFile2 = getFileNameWithDateAndTime("_ALLOC_SELL");
-         allocFile2 =  userHomeDir + allocFile2;
-         tw.downloadTradesAllocationFile(data, tradeFile2, allocFile2, "SELL");
          tradeDAO.updateExecutedTrades();
          webutil.setProgressbar(100);
          String msg = "Trade and Allocation files produced";
@@ -462,26 +494,6 @@ public class TradeBean extends TradeClientData implements Serializable
          // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
          ex.printStackTrace();
       }
-   }
-
-   public StreamedContent getTrade1()
-   {
-      return downloadFile(tradeFile1, "TradeBUY.csv");
-   }
-
-   public StreamedContent getTrade2()
-   {
-      return downloadFile(tradeFile2, "TradeSELL.csv");
-   }
-
-   public StreamedContent getAlloc1()
-   {
-      return downloadFile(allocFile1, "AllocBUY.csv");
-   }
-
-   public StreamedContent getAlloc2()
-   {
-      return downloadFile(allocFile2, "AllocSELL.csv");
    }
 
    private StreamedContent downloadFile(String name, String outputName) {

@@ -27,7 +27,6 @@ public class InvModelSP extends StoredProcedure
                   declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
                   break;
                case 1:
-                  declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
                   declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
 
                   break;
@@ -94,11 +93,10 @@ public class InvModelSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map collectProfileData(Long p_logonid, Long acctnum)
+   public Map collectTradeCustomerProfile(Long p_logonid, Long acctnum)
    {
 
       Map inputMap = new HashMap();
-      inputMap.put("p_logonid", p_logonid);
       inputMap.put("p_acctnum", acctnum);
 
       return super.execute(inputMap);

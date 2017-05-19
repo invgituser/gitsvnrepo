@@ -99,11 +99,7 @@ public class TestDistribution
       invCapital = profileData.getInitialInvestment();
       // profileData.setRecurringInvestment(5000);
 
-      profileData.setDependent(0);
-      profileData.setTotalIncome(120000);
-      profileData.setLiquidAsset(5000000);
-      profileData.setTotalExpense(0);
-      profileData.setNumOfAllocation(duration);
+     profileData.setNumOfAllocation(duration);
 
       profileData.setRiskCalcMethod("A"); //Using age based option A or C
       profileData.setAllocationIndex(30);  // When flag is A

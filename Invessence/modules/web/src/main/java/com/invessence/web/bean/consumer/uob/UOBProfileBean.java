@@ -36,23 +36,41 @@ public class UOBProfileBean extends CustomerData implements Serializable
    private Long beanAcctnum;
    private String newapp;
    private Boolean formEdit = false;
-   private Boolean disablegraphtabs = true, disabledetailtabs = true, disablesaveButton = true;
-   private Boolean prefVisible = true;
+   private Boolean disablegraphtabs, disabledetailtabs, disablesaveButton;
+   private Boolean prefVisible;
    private Integer canOpenAccount;
-   private Boolean welcomeDialog = true;
-   private Boolean flagforInvestShow = false;
-   private Boolean displayGoalGraph = false,
-      displayGoalText = false;
+   private Boolean welcomeDialog;
+   private Boolean flagforInvestShow;
+   private Boolean displayGoalGraph, displayGoalText;
 
-   private Boolean fineTunePanel = false;
-   private Integer prefView = 0;
+   private Boolean fineTunePanel;
+   private Integer prefView;
    private String whichChart;
-   private Integer pageNo = 0;
-   private Integer imageSelected = 0;
-   private JavaUtil jutil = new JavaUtil();
-   private InvessenceCharts charts = new InvessenceCharts();
-   private HighChartsController highChartsController = new HighChartsController();
-   private UOBRiskCalculator riskCalculator = new UOBRiskCalculator();
+   private Integer pageNo;
+   private Integer imageSelected;
+   private JavaUtil jutil;
+   private InvessenceCharts charts;
+   private HighChartsController highChartsController;
+   private UOBRiskCalculator riskCalculator;
+
+   public UOBProfileBean()
+   {
+      super();
+      riskCalculator = new UOBRiskCalculator();
+      highChartsController = new HighChartsController();
+      charts = new InvessenceCharts();
+      jutil = new JavaUtil();
+      fineTunePanel = false;
+      formEdit = false;
+      disablegraphtabs = true;
+      disabledetailtabs = true;
+      disablesaveButton = true;
+      prefVisible = true;
+      welcomeDialog = true;
+      flagforInvestShow = false;
+      displayGoalGraph = false;
+      displayGoalText = false;
+   }
 
    public Integer getPageNo()
    {
@@ -1078,29 +1096,29 @@ public class UOBProfileBean extends CustomerData implements Serializable
             }
             break;
          case 1:
-            if (getHouseholdwages() == null || getHouseholdwages() == 0)
+            if (getAccountFinancials().getHouseholdwages() == null || getAccountFinancials().getHouseholdwages() == 0)
             {
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.wages.required", "Salary/Wages is required", null));
             }
-            if (getMoneymarket() == null)
+            if (getAccountFinancials().getLiquidnetworth() == null)
             {
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.liquid.asset.required", "Liquid Asset is required", null));
             }
-            if (getInvestment() == null)
+            if (getAccountFinancials().getInvestment() == null)
             {
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.other.investments.required", "Other Investments is required.", null));
             }
             break;
          case 2:
-            if (getTotalExpense() == null || getTotalExpense() == 0)
+            if (getAccountFinancials().getTotalExpense() == null || getAccountFinancials().getTotalExpense() == 0)
             {
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.total.expenses.required", "Total Expenses is required.", null));
             }
-            if (getTotalLiability() == null)
+            if (getAccountFinancials().getTotalDebt() == null)
             {
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.total.debt.required", "Total Debt is required.", null));

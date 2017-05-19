@@ -57,7 +57,7 @@ public class CustomerData extends ProfileData
 
    public USMaps usstates = USMaps.getInstance();
 
-   private CustomerData manageGoalinstance = null;
+   private CustomerData manageGoalinstance;
 
    private Integer numofaccounts;
    private String advisorDisplayName;
@@ -68,24 +68,7 @@ public class CustomerData extends ProfileData
    private String created;
    private String phone;
 
-   // Income/Expenses
-   private Integer householdwages;
-   private Integer mortgagePayment;
-   private Integer otherIncome;
-   private Integer otherExpense;
-
-   // Asset/Liability
-   private Integer moneymarket;
-   private Integer autoLoan;
-   private Integer investment;
-   private Integer medical;
-   private Integer mortgateEquity;
-   private Integer mortgageLoan;
-   private Integer otherSavings;
-   private Integer otherDebt;
-   private Double  stock;
-   private Double  bond;
-   private Double  accrual;
+   private AccountFinancials accountFinancials;
 
    private Integer assetyear = 0;
    private String registeredState;
@@ -220,6 +203,15 @@ public class CustomerData extends ProfileData
    {
       super();
       this.manageGoalinstance = this;
+      displayPortfolioList = new ArrayList<DataPortfolio>();
+      selectedPortfolio = new DataPortfolio();
+      selectedPortfolioList = null;
+      subassetList = new HashMap<String, ManagedSubclassData>();
+      orderedSubclass = new ArrayList<ManagedSubclassData>();
+      excludedSubAsset = new ArrayList<PortfolioSubclass>();
+      accountFinancials = new AccountFinancials();
+
+      // resetCustomerData();
    }
 
    public CustomerData getInstance()
@@ -394,7 +386,7 @@ public class CustomerData extends ProfileData
    }
 
    public Double getEstimatedGoal() {
-      Double value = getInvestment().doubleValue();
+      Double value = accountFinancials.getInvestment().doubleValue();
       Integer finalyear;
       if (getProjectionData() != null) {
          finalyear = getProjectionData().length;
@@ -503,168 +495,6 @@ public class CustomerData extends ProfileData
       this.phone = phone;
    }
 
-   public Integer getHouseholdwages()
-   {
-      return householdwages;
-   }
-
-   public void setHouseholdwages(Integer householdwages)
-   {
-      this.householdwages = householdwages;
-      setCurrentIncome(convertNumber(householdwages));
-      addTotalIncome();
-   }
-
-   public Integer getMortgagePayment()
-   {
-      return mortgagePayment;
-   }
-
-   public void setMortgagePayment(Integer mortgagePayment)
-   {
-      this.mortgagePayment = mortgagePayment;
-      addTotalExpense();
-   }
-
-   public Integer getOtherIncome()
-   {
-      return otherIncome;
-   }
-
-   public void setOtherIncome(Integer otherIncome)
-   {
-      this.otherIncome = otherIncome;
-      addTotalIncome();
-   }
-
-   public Integer getOtherExpense()
-   {
-      return otherExpense;
-   }
-
-   public void setOtherExpense(Integer otherExpense)
-   {
-      this.otherExpense = otherExpense;
-      addTotalExpense();
-   }
-
-   public Integer getMoneymarket()
-   {
-      return moneymarket;
-   }
-
-   public void setMoneymarket(Integer moneymarket)
-   {
-      this.moneymarket = moneymarket;
-      addTotalAsset();
-   }
-
-   public Integer getAutoLoan()
-   {
-      return autoLoan;
-   }
-
-   public void setAutoLoan(Integer autoLoan)
-   {
-      this.autoLoan = autoLoan;
-      addTotalLiability();
-   }
-
-   public Integer getInvestment()
-   {
-      return investment;
-   }
-
-   public void setInvestment(Integer investment)
-   {
-      this.investment = investment;
-      addTotalAsset();
-   }
-
-   public Integer getMedical()
-   {
-      return medical;
-   }
-
-   public void setMedical(Integer medical)
-   {
-      this.medical = medical;
-      addTotalLiability();
-   }
-
-   public Integer getMortgateEquity()
-   {
-      return mortgateEquity;
-   }
-
-   public void setMortgateEquity(Integer mortgateEquity)
-   {
-      this.mortgateEquity = mortgateEquity;
-      addTotalAsset();
-   }
-
-   public Integer getMortgageLoan()
-   {
-      return mortgageLoan;
-   }
-
-   public void setMortgageLoan(Integer mortgageLoan)
-   {
-      this.mortgageLoan = mortgageLoan;
-      addTotalLiability();
-   }
-
-   public Integer getOtherSavings()
-   {
-      return otherSavings;
-   }
-
-   public void setOtherSavings(Integer otherSavings)
-   {
-      this.otherSavings = otherSavings;
-      addTotalAsset();
-   }
-
-   public Integer getOtherDebt()
-   {
-      return otherDebt;
-   }
-
-   public void setOtherDebt(Integer otherDebt)
-   {
-      this.otherDebt = otherDebt;
-      addTotalLiability();
-   }
-
-   public Double getStock()
-   {
-      return stock;
-   }
-
-   public void setStock(Double stock)
-   {
-      this.stock = stock;
-   }
-
-   public Double getBond()
-   {
-      return bond;
-   }
-
-   public void setBond(Double bond)
-   {
-      this.bond = bond;
-   }
-
-   public Double getAccrual()
-   {
-      return accrual;
-   }
-
-   public void setAccrual(Double accrual)
-   {
-      this.accrual = accrual;
-   }
 
    public Integer convertNumber(Integer num) {
       if (num == null)
@@ -673,31 +503,14 @@ public class CustomerData extends ProfileData
          return num;
    }
 
-   public void addTotalIncome() {
-      setTotalIncome((convertNumber(getHouseholdwages())+
-         convertNumber(getOtherIncome())));
+   public AccountFinancials getAccountFinancials()
+   {
+      return accountFinancials;
    }
 
-   public void addTotalExpense() {
-      setTotalExpense((convertNumber(getMortgagePayment()) +
-         convertNumber(getOtherExpense())));
-
-   }
-
-   public void addTotalAsset() {
-      setLiquidAsset(convertNumber(getMoneymarket()));
-      setTotalAsset(convertNumber(getMortgateEquity()) +
-                       convertNumber(getInvestment()) +
-                       convertNumber(getOtherSavings()) +
-                       convertNumber(getMoneymarket()));
-
-   }
-
-   public void addTotalLiability() {
-       setTotalLiability(convertNumber(getMortgageLoan()) +
-                            convertNumber(getAutoLoan()) +
-                            convertNumber(getMedical()) +
-                            convertNumber(getOtherDebt()));
+   public void setAccountFinancials(AccountFinancials accountFinancials)
+   {
+      this.accountFinancials = accountFinancials;
    }
 
    public Integer getAssetyear()
@@ -788,25 +601,6 @@ public class CustomerData extends ProfileData
          setPrivileges(null);
          setNumofaccounts(0);
 
-         // Income/Expenses
-         setHouseholdwages(null);
-         setMortgagePayment	(null);
-         setOtherIncome	(null);
-         setOtherExpense	(null);
-
-         // Asset/Liability
-         setMoneymarket	(null);
-         setAutoLoan	(null);
-         setInvestment	(null);
-         setMedical	(null);
-         setMortgateEquity	(null);
-         setMortgageLoan	(null);
-         setOtherSavings	(null);
-         setOtherDebt	(null);
-         setStock(null);
-         setBond(null);
-         setAccrual(null);
-
          setAssetyear(0);
 
          setEmail(null);
@@ -849,6 +643,8 @@ public class CustomerData extends ProfileData
 
          setSavedRiskFormula(null);
          setSavedAllocSliderIndex(null);
+
+         accountFinancials = new AccountFinancials();
          resetAdvisor();  // Reset Advisor
       }
 
@@ -891,11 +687,6 @@ public class CustomerData extends ProfileData
       setStayInvested	(	newgoals.getStayInvested	());
       setCharitableGoals	(	newgoals.getCharitableGoals	());
       setDependent	(	newgoals.getDependent	());
-      setCurrentIncome	(	newgoals.getCurrentIncome	());
-      setTotalIncome	(	newgoals.getTotalIncome	());
-      setTotalExpense	(	newgoals.getTotalExpense	());
-      setTotalAsset	(	newgoals.getTotalAsset	());
-      setTotalLiability	(	newgoals.getTotalLiability	());
       setAccountTaxable	(	newgoals.getAccountTaxable	());
       setTaxrate	(	newgoals.getTaxrate	());
       setRiskIndex	(	newgoals.getRiskIndex	());
@@ -910,18 +701,6 @@ public class CustomerData extends ProfileData
       setGoal  (    newgoals.getGoal());
       setAccountType(newgoals.getAccountType());
       setName(newgoals.getName());
-      setHouseholdwages(newgoals.getHouseholdwages());
-      setMortgagePayment(newgoals.getMortgagePayment());
-      setOtherIncome(newgoals.getOtherIncome());
-      setOtherExpense(newgoals.getOtherExpense());
-      setMoneymarket(newgoals.getMoneymarket());
-      setAutoLoan(newgoals.getAutoLoan());
-      setInvestment(newgoals.getInvestment());
-      setMedical(newgoals.getMedical());
-      setMortgateEquity(newgoals.getMortgateEquity());
-      setMortgageLoan(newgoals.getMortgageLoan());
-      setOtherSavings(newgoals.getOtherSavings());
-      setOtherDebt(newgoals.getOtherDebt());
       setAssetData	(	newgoals.getAssetData	());
       setPortfolioData	(	newgoals.getPortfolioData	());
       setFirstname(newgoals.getFirstname());
@@ -929,6 +708,8 @@ public class CustomerData extends ProfileData
       setRegisteredState(newgoals.getRegisteredState());
       setUserAssetOverride(false);
       setName(newgoals.getFirstname() + " " + newgoals.getLastname());
+
+      accountFinancials = newgoals.accountFinancials;
    }
 
    public String getHorizonQuestion()

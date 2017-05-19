@@ -94,9 +94,9 @@ SELECT 'uatuob',
 FROM `invdb`.`web_site_info`
 WHERE `web_site_info`.`url` = 'uwealth'; 
 
-DELETE FROM `invdb`.`web_site_info` WHERE `web_site_info`.`url` = 'demo';
+DELETE FROM `invdb`.`web_site_info` WHERE `web_site_info`.`url` = 'demouob';
 INSERT INTO `invdb`.`web_site_info`
-SELECT 'demo',
+SELECT 'demouob',
     `web_site_info`.`name`,
     `web_site_info`.`status`,
     `web_site_info`.`value`,

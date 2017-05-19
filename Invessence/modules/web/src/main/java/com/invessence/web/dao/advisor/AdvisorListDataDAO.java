@@ -127,8 +127,6 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
                data.setRecurringInvestment(convert.getIntData(rs.get("recurringInvestment")));
                data.setObjective(convert.getIntData(rs.get("longTermGoal")));
                data.setStayInvested(convert.getIntData(rs.get("stayInvested")));
-               data.setStock(convert.getDoubleData(rs.get("stock")));
-               data.setAccrual(convert.getDoubleData(rs.get("accrual")));
                data.setDateOpened(convert.getStrData(rs.get("created")));
                i++;
                break;  // Only load the first account info.

@@ -337,6 +337,7 @@ public class TradeBean extends TradeClientData implements Serializable
       }
    }
 
+/*
    public void createsqlTrades()
    {
       TradeClientData data;
@@ -380,6 +381,7 @@ public class TradeBean extends TradeClientData implements Serializable
          ex.printStackTrace();
       }
    }
+*/
 
    public void collectTradeSummary()
    {

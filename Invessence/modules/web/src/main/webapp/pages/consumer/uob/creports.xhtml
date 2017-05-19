@@ -65,7 +65,8 @@
 
                                    </ui:fragment>
                                     <ui:fragment rendered="#{report.isPdf}">
-                                        <p:commandLink value="Download" ajax="false">
+                                        <p:commandLink value="Download" ajax="false"
+                                                        update="crform">
                                             <p:fileDownload value="#{report.downloadfile}"/>
                                             <h:graphicImage value="/images/pdf.png" />
                                         </p:commandLink>

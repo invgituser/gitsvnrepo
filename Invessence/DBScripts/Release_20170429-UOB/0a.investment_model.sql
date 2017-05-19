@@ -17,7 +17,8 @@ INSERT INTO `invdb`.`investment_model` (`modeltype`, `name`, `template`) VALUES 
 INSERT INTO `invdb`.`investment_model` (`modeltype`, `name`, `template`) VALUES ('OPTIMIZED', 'RBSA', 'sec_rbsa');
 
 
-DROP PROCEDURE IF EXISTS `invdb`.`sel_investmentmodel_template`
+DROP PROCEDURE IF EXISTS `invdb`.`sel_investmentmodel_template`;
+
 DELIMITER $$
 CREATE PROCEDURE `invdb`.`sel_investmentmodel_template`(
 	IN p_modeltype VARCHAR(20)

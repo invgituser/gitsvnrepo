@@ -114,8 +114,6 @@ public class AssetAllocationModel
          Integer duration = pdata.getDefaultHorizon();
          Integer stayInvested = pdata.getStayInvested();
 
-         pdata.taxRate();
-
          theme = pdata.getTheme();
 
          int numofAllocation = pdata.getNumOfAllocation();
@@ -265,7 +263,6 @@ public class AssetAllocationModel
          Integer stayInvested = pdata.getStayInvested();
          Integer objective = pdata.getObjective();
          adj_riskOffet = riskIndex;
-         pdata.taxRate();
 
          theme = pdata.getTheme();
 

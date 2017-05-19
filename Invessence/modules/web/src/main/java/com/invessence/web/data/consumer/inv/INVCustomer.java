@@ -67,78 +67,6 @@ public class INVCustomer extends CustomerData
       this.riskCalculator = riskCalculator;
    }
 
-   @Override
-   public void resetCustomerData() {
-      // Master ProfileData
-      // setName	(null);  Being reset at bottom.
-      resetPortfolioData();
-
-      // Manage Goal Data.
-      setAcctnum(null);
-      setClientAccountID(null);
-      setLogonid(null);
-      setUserid(null);
-      setPortfolioName(null);
-      setAddmodflag(null);
-      setDateOpened(null);
-      setManaged(false);
-
-      // Income/Expenses
-      setHouseholdwages(null);
-      setMortgagePayment	(null);
-      setOtherIncome	(null);
-      setOtherExpense	(null);
-
-      // Asset/Liability
-      setMoneymarket	(null);
-      setAutoLoan	(null);
-      setInvestment	(null);
-      setMedical	(null);
-      setMortgateEquity	(null);
-      setMortgageLoan	(null);
-      setOtherSavings	(null);
-      setOtherDebt	(null);
-      setStock(null);
-      setBond(null);
-      setAccrual(null);
-
-      riskCalculator.resetAllData();
-
-      setAssetyear(0);
-
-      setEmail(null);
-      setFirstname(null);
-      setLastname(null);
-      setRegisteredState(null);
-      setUserAssetOverride(false);
-      setName(null);
-      setUserAssetOverride(false);
-
-      if (displayPortfolioList != null)
-         displayPortfolioList.clear();
-
-      setSelectedPortfolio(null);
-
-      if (selectedPortfolioList != null)
-         selectedPortfolioList.clear();
-
-      setAssetAllocationTotal(0.0);
-      setTotalSharesAllocated(0.0);
-      setTotalMoneyAllocated(0.0);
-      setManagedassetAllocationTotal(0.0);
-      setManagedtotalMoney(0.0);
-
-      if (excludedSubAsset != null)
-         excludedSubAsset.clear();
-      if (subassetList != null)
-         subassetList.clear();
-      if (orderedSubclass != null)
-         orderedSubclass.clear();
-
-      advisorBasket.clear();
-
-   }
-
 
    @Override
    public void copyData(CustomerData newgoals) {
@@ -154,11 +82,6 @@ public class INVCustomer extends CustomerData
       setStayInvested	(	newgoals.getStayInvested	());
       setCharitableGoals	(	newgoals.getCharitableGoals	());
       setDependent	(	newgoals.getDependent	());
-      setCurrentIncome	(	newgoals.getCurrentIncome	());
-      setTotalIncome	(	newgoals.getTotalIncome	());
-      setTotalExpense	(	newgoals.getTotalExpense	());
-      setTotalAsset	(	newgoals.getTotalAsset	());
-      setTotalLiability	(	newgoals.getTotalLiability	());
       setAccountTaxable	(	newgoals.getAccountTaxable	());
       setTaxrate	(	newgoals.getTaxrate	());
       setRiskIndex	(	newgoals.getRiskIndex	());
@@ -171,18 +94,6 @@ public class INVCustomer extends CustomerData
       setGoal  (    newgoals.getGoal());
       setAccountType(newgoals.getAccountType());
       setName(newgoals.getName());
-      setHouseholdwages(newgoals.getHouseholdwages());
-      setMortgagePayment(newgoals.getMortgagePayment());
-      setOtherIncome(newgoals.getOtherIncome());
-      setOtherExpense(newgoals.getOtherExpense());
-      setMoneymarket(newgoals.getMoneymarket());
-      setAutoLoan(newgoals.getAutoLoan());
-      setInvestment(newgoals.getInvestment());
-      setMedical(newgoals.getMedical());
-      setMortgateEquity(newgoals.getMortgateEquity());
-      setMortgageLoan(newgoals.getMortgageLoan());
-      setOtherSavings(newgoals.getOtherSavings());
-      setOtherDebt(newgoals.getOtherDebt());
       setAssetData	(	newgoals.getAssetData	());
       setPortfolioData	(	newgoals.getPortfolioData	());
       setFirstname(newgoals.getFirstname());
@@ -190,6 +101,8 @@ public class INVCustomer extends CustomerData
       setRegisteredState(newgoals.getRegisteredState());
       setUserAssetOverride(false);
       setName(newgoals.getFirstname() + " " + newgoals.getLastname());
+
+      setAccountFinancials(newgoals.getAccountFinancials());
    }
 
    public ArrayList<ProjectionData[]> getProjectionDatas()

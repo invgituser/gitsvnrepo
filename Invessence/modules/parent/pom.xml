@@ -529,6 +529,18 @@
          </properties>
       </profile>
       <profile>
+         <id>3D-EXT-DEMO</id>
+         <properties>
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://demo.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://demo.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <service.url>jdbc:mysql://demo.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
+            <temp.url>jdbc:mysql://uat.invessence.com:3306/temp?noAccessToProcedureBodies=true</temp.url>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
+         </properties>
+      </profile>
+      <profile>
          <id>3P1-EXT-PROD-INV</id>
          <properties>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>

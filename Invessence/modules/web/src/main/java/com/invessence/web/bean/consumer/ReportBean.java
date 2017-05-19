@@ -1,4 +1,4 @@
-package com.invessence.web.bean.consumer.uob;
+package com.invessence.web.bean.consumer;
 
 import java.io.*;
 import java.util.*;
@@ -10,7 +10,7 @@ import com.invessence.web.data.consumer.ReportData;
 import com.invessence.web.util.WebUtil;
 import org.primefaces.context.RequestContext;
 
-@ManagedBean(name = "uobreportBean")
+@ManagedBean(name = "reportBean")
 @RequestScoped
 public class ReportBean implements Serializable
 {

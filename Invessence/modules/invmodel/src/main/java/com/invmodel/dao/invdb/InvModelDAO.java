@@ -110,9 +110,9 @@ public class InvModelDAO extends JdbcDaoSupport
 
    public List<ProfileData> loadCustomerData4Rebal(Long logonid, Long acctnum, String filter) {
       // DataSource ds = getDs();
-      InvModelSP sp = new InvModelSP(ds, "sel_ClientProfileData2",1, 1);
+      InvModelSP sp = new InvModelSP(ds, "sel_collectTradeCustomerProfile",1, 1);
       List<ProfileData> profileList = new ArrayList<ProfileData>();
-      Map outMap = sp.collectProfileData(logonid, acctnum);
+      Map outMap = sp.collectTradeCustomerProfile(logonid, acctnum);
       try {
          if (outMap != null)
          {
@@ -122,30 +122,22 @@ public class InvModelDAO extends JdbcDaoSupport
             {
                Map rs = (Map) rows.get(i);
                ProfileData data = new ProfileData();
-               data.setLogonid(convert.getLongData(rs.get("logoid")));
                data.setAcctnum(convert.getLongData(rs.get("acctnum")));
                data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
 
                data.setAdvisor(convert.getStrData(rs.get("advisor")));
                data.setTheme(convert.getStrData(rs.get("theme")));
-               data.setBasket(convert.getStrData(rs.get("basket")));
-               data.setName(convert.getStrData(rs.get("firstname")) + " " + convert.getStrData(rs.get("lastname")));
-               data.setGoal(convert.getStrData(rs.get("goal")));
                data.setAccountType(convert.getStrData(rs.get("accttype")));
                data.setAge(convert.getIntData(rs.get("age")));
                data.setHorizon(convert.getIntData(rs.get("horizon")));
                data.setRiskIndex(convert.getDoubleData(rs.get("riskIndex")));
-               data.setInitialInvestment(convert.getIntData(rs.get("initialInvestment")));
                data.setKeepLiquid(convert.getIntData(rs.get("keepLiquid")));
                data.setActualInvestment(convert.getDoubleData(rs.get("actualCapital")));
-               data.setRecurringInvestment(convert.getIntData(rs.get("recurringInvestment")));
                data.setObjective(convert.getIntData(rs.get("longTermGoal")));
                data.setStayInvested(convert.getIntData(rs.get("stayInvested")));
                data.setRiskCalcMethod(convert.getStrData(rs.get("calcModel")));
                data.setAllocationIndex(convert.getIntData(rs.get("assetIndex")));
                data.setPortfolioIndex(convert.getIntData(rs.get("portfolioIndex")));
-               data.setDependent(convert.getIntData(rs.get("dependent")));
-               //data.setDateOpened(convert.getStrData(rs.get("dateOpened")));
                String taxable = convert.getStrData(rs.get("taxable"));
                if (taxable == null)
                   data.setAccountTaxable(false);

@@ -7,24 +7,72 @@ package com.invessence.web.data.common;
  * Time: 10:32 PM
  * To change this template use File | Settings | File Templates.
  */
-public class TradeClientData extends CustomerData
+public class TradeClientData
 {
+   private Long acctnum;
+   private String clientAccountID;
+   private String tradeStatus;
    private String processStatus;
    private String reason;
+   private String firstname;
+   private String lastname;
    private String lastTraded;
-   private Double assetAllocationOffset;
-   private String created;
-   private String lastUpdated;
-   private String assetClass;
-   private Double position, currentAllocation, requiredAllocation;
-   private String cashMargin;
+   private Double cash;
+   private Double investment;
 
    public TradeClientData getInstance()
    {
       return this;
    }
 
-    public String getProcessStatus()
+   public Long getAcctnum()
+   {
+      return acctnum;
+   }
+
+   public void setAcctnum(Long acctnum)
+   {
+      this.acctnum = acctnum;
+   }
+
+   public String getClientAccountID()
+   {
+      return clientAccountID;
+   }
+
+   public void setClientAccountID(String clientAccountID)
+   {
+      this.clientAccountID = clientAccountID;
+   }
+
+   public String getFirstname()
+   {
+      return firstname;
+   }
+
+   public void setFirstname(String firstname)
+   {
+      this.firstname = firstname;
+   }
+
+   public String getLastname()
+   {
+      return lastname;
+   }
+
+   public void setLastname(String lastname)
+   {
+      this.lastname = lastname;
+   }
+
+   public String getName() {
+      if (getFirstname() != null) {
+         return (getLastname() == null) ? getFirstname() : getLastname() + ", " + getFirstname();
+      }
+      else
+         return getLastname();
+   }
+   public String getProcessStatus()
    {
       return processStatus;
    }
@@ -37,14 +85,6 @@ public class TradeClientData extends CustomerData
    public String getReason()
    {
       return reason;
-   }
-
-   public String getDescription() {
-      if (this.reason.toUpperCase().startsWith("O"))
-         return getAssetAllocationOffset().toString();
-      else
-         return "";
-
    }
 
    public void setReason(String reason)
@@ -62,83 +102,46 @@ public class TradeClientData extends CustomerData
       this.lastTraded = lastTraded;
    }
 
-   public Double getAssetAllocationOffset()
+   public String getTradeStatus()
    {
-      return assetAllocationOffset;
+      return tradeStatus;
    }
 
-   public void setAssetAllocationOffset(Double assetAllocationOffset)
+   public void setTradeStatus(String tradeStatus)
    {
-      this.assetAllocationOffset = assetAllocationOffset;
+      this.tradeStatus = tradeStatus;
    }
 
-   public String getCreated()
+   public String getTradeDisplayStatus()
    {
-      return created;
+      if (tradeStatus != null) {
+         if (tradeStatus.startsWith("N"))
+            return "New";
+         if (tradeStatus.startsWith("D"))
+            return "Date";
+         if (tradeStatus.startsWith("A"))
+            return "Allocation";
+      }
+      return null;
    }
 
-   public void setCreated(String created)
+   public Double getCash()
    {
-      this.created = created;
+      return cash;
    }
 
-   public String getLastUpdated()
+   public void setCash(Double cash)
    {
-      return lastUpdated;
+      this.cash = cash;
    }
 
-   public void setLastUpdated(String lastUpdated)
+   public Double getInvestment()
    {
-      this.lastUpdated = lastUpdated;
+      return investment;
    }
 
-   public String getAssetClass()
+   public void setInvestment(Double investment)
    {
-      return assetClass;
-   }
-
-   public void setAssetClass(String assetClass)
-   {
-      this.assetClass = assetClass;
-   }
-
-   public Double getPosition()
-   {
-      return position;
-   }
-
-   public void setPosition(Double position)
-   {
-      this.position = position;
-   }
-
-   public Double getCurrentAllocation()
-   {
-      return currentAllocation;
-   }
-
-   public void setCurrentAllocation(Double currentAllocation)
-   {
-      this.currentAllocation = currentAllocation;
-   }
-
-   public Double getRequiredAllocation()
-   {
-      return requiredAllocation;
-   }
-
-   public void setRequiredAllocation(Double requiredAllocation)
-   {
-      this.requiredAllocation = requiredAllocation;
-   }
-
-   public String getCashMargin()
-   {
-      return cashMargin;
-   }
-
-   public void setCashMargin(String cashMargin)
-   {
-      this.cashMargin = cashMargin;
+      this.investment = investment;
    }
 }

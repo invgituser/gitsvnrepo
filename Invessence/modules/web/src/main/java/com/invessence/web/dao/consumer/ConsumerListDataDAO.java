@@ -72,7 +72,6 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setRecurringInvestment(convert.getIntData(rs.get("recurringInvestment")));
                data.setObjective(convert.getIntData(rs.get("longTermGoal")));
                data.setStayInvested(convert.getIntData(rs.get("stayInvested")));
-               data.setDependent(convert.getIntData(rs.get("dependent")));
 
                data.setRiskCalcMethod(convert.getStrData(rs.get("calcModel")));
                data.setAllocationIndex(convert.getIntData(rs.get("assetIndex")));
@@ -89,18 +88,60 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setPrivileges(convert.getStrData(rs.get("privileges")));
                data.setDateOpened(convert.getStrData(rs.get("dateOpened")));
 
-               data.setHouseholdwages(convert.getIntData(rs.get("householdwages")));
-               data.setOtherExpense(convert.getIntData(rs.get("miscExpenses")));
-               data.setMoneymarket(convert.getIntData(rs.get("moneyMarket")));
-               data.setInvestment(convert.getIntData(rs.get("investment")));
-               data.setOtherDebt(convert.getIntData(rs.get("otherDebt")));
+               data.setDependent(convert.getIntData(rs.get("dependent")));
+               data.getAccountFinancials().setDependent(convert.getIntData(rs.get("dependent")));
+               data.getAccountFinancials().setEstdDependentExpense(convert.getLongData(rs.get("estdDependentExpense")));
+               data.getAccountFinancials().setHouseholdwages(convert.getLongData(rs.get("householdwages")));
+               data.getAccountFinancials().setOtherincome(convert.getLongData(rs.get("otherincome")));
+               data.getAccountFinancials().setBonusincome(convert.getLongData(rs.get("bonusincome")));
+               data.getAccountFinancials().setInterestincome(convert.getLongData(rs.get("interestincome")));
+               data.getAccountFinancials().setDividentincome(convert.getLongData(rs.get("dividentincome")));
+               data.getAccountFinancials().setRentalIncome(convert.getLongData(rs.get("rentalIncome")));
+               data.getAccountFinancials().setTotalIncome(convert.getLongData(rs.get("totalIncome")));
+               data.getAccountFinancials().setTotalIncomeAnnulized(convert.getLongData(rs.get("totalIncomeAnnulized")));
 
-               data.setTotalIncome(convert.getIntData(rs.get("totalIncomeAnnulized")));
-               data.setTotalExpense(convert.getIntData(rs.get("totalExpenseAnnulized")));
-               data.setTotalAsset(convert.getIntData(rs.get("totalAsset")));
-               data.setTotalLiability(convert.getIntData(rs.get("totalDebt")));
-               data.setLiquidAsset(convert.getIntData(rs.get("liquidnetworth")));
-               //data.setNetWorth(convert.getIntData(rs.get("networth")));
+               data.getAccountFinancials().setTotalIncomeAnnulized(convert.getLongData(rs.get("householdPayment")));
+               data.getAccountFinancials().setOtherPropertiesPayment(convert.getLongData(rs.get("otherPropertiesPayment")));
+               data.getAccountFinancials().setAutomobilePayment(convert.getLongData(rs.get("automobilePayment")));
+               data.getAccountFinancials().setMedicalPayment(convert.getLongData(rs.get("medicalPayment")));
+
+               data.getAccountFinancials().setFederaltaxes(convert.getLongData(rs.get("federaltaxes")));
+               data.getAccountFinancials().setStateTaxes(convert.getLongData(rs.get("stateTaxes")));
+               data.getAccountFinancials().setPropertyTax(convert.getLongData(rs.get("propertyTax")));
+               data.getAccountFinancials().setOtherPropertyTax(convert.getLongData(rs.get("otherPropertyTax")));
+
+               data.getAccountFinancials().setHomeInsurance(convert.getLongData(rs.get("homeInsurance")));
+               data.getAccountFinancials().setLifeInsurance(convert.getLongData(rs.get("lifeInsurance")));
+               data.getAccountFinancials().setAutoInsurance(convert.getLongData(rs.get("autoInsurance")));
+
+               data.getAccountFinancials().setEducationPayment(convert.getLongData(rs.get("educationPayment")));
+               data.getAccountFinancials().setCreditCardPayment(convert.getLongData(rs.get("creditCardPayment")));
+               data.getAccountFinancials().setMiscExpenses(convert.getLongData(rs.get("miscExpenses")));
+               data.getAccountFinancials().setTotalExpense(convert.getLongData(rs.get("totalExpense")));
+               data.getAccountFinancials().setTotalExpenseAnnulized(convert.getLongData(rs.get("totalExpenseAnnulized")));
+
+               data.getAccountFinancials().setHomeEquity(convert.getLongData(rs.get("homeEquity")));
+               data.getAccountFinancials().setAutoValue(convert.getLongData(rs.get("autoValue")));
+               data.getAccountFinancials().setMoneyMarket(convert.getLongData(rs.get("moneyMarket")));
+               data.getAccountFinancials().setCheckingAcct(convert.getLongData(rs.get("checkingAcct")));
+               data.getAccountFinancials().setSavingAcct(convert.getLongData(rs.get("savingAcct")));
+               data.getAccountFinancials().setInvestment(convert.getLongData(rs.get("investment")));
+               data.getAccountFinancials().setEquityOtherProperties(convert.getLongData(rs.get("equityOtherProperties")));
+               data.getAccountFinancials().setRetirementInvestement(convert.getLongData(rs.get("retirementInvestement")));
+               data.getAccountFinancials().setMiscInvestment(convert.getLongData(rs.get("miscInvestment")));
+               data.getAccountFinancials().setTotalAsset(convert.getLongData(rs.get("totalAsset")));
+
+               data.getAccountFinancials().setMortgageLoan(convert.getLongData(rs.get("mortgageLoan")));
+               data.getAccountFinancials().setAutoLoan(convert.getLongData(rs.get("autoLoan")));
+               data.getAccountFinancials().setEducationLoan(convert.getLongData(rs.get("educationLoan")));
+               data.getAccountFinancials().setCreditCardDebt(convert.getLongData(rs.get("creditCardDebt")));
+               data.getAccountFinancials().setOtherPropertiesLoan(convert.getLongData(rs.get("otherPropertiesLoan")));
+               data.getAccountFinancials().setMedicalDebt(convert.getLongData(rs.get("medicalDebt")));
+               data.getAccountFinancials().setOtherDebt(convert.getLongData(rs.get("otherDebt")));
+               data.getAccountFinancials().setTotalDebt(convert.getLongData(rs.get("totalDebt")));
+
+               data.getAccountFinancials().setLiquidnetworth(convert.getLongData(rs.get("liquidnetworth")));
+               data.getAccountFinancials().setNetworth(convert.getLongData(rs.get("networth")));
 
                if (data.getGoalData() == null )
                   data.setGoalData(new GoalsData());
@@ -230,17 +271,66 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setAccountTaxable(true);
 
 
-            data.setDependent(convert.getIntData(rs.get("dependent")));
             data.setDateOpened(convert.getStrData(rs.get("dateOpened")));
 
-            data.setTotalIncome(convert.getIntData(rs.get("totalIncomeAnnulized")));
-            data.setTotalExpense(convert.getIntData(rs.get("totalExpenseAnnulized")));
-            data.setTotalAsset(convert.getIntData(rs.get("totalAsset")));
-            data.setTotalLiability(convert.getIntData(rs.get("totalDebt")));
-            data.setLiquidAsset(convert.getIntData(rs.get("liquidnetworth")));
             //data.setNetWorth(convert.getIntData(rs.get("networth")));
+            data.setDependent(convert.getIntData(rs.get("dependent")));
+            data.getAccountFinancials().setDependent(convert.getIntData(rs.get("dependent")));
+            data.getAccountFinancials().setEstdDependentExpense(convert.getLongData(rs.get("estdDependentExpense")));
+            data.getAccountFinancials().setHouseholdwages(convert.getLongData(rs.get("householdwages")));
+            data.getAccountFinancials().setOtherincome(convert.getLongData(rs.get("otherincome")));
+            data.getAccountFinancials().setBonusincome(convert.getLongData(rs.get("bonusincome")));
+            data.getAccountFinancials().setInterestincome(convert.getLongData(rs.get("interestincome")));
+            data.getAccountFinancials().setDividentincome(convert.getLongData(rs.get("dividentincome")));
+            data.getAccountFinancials().setRentalIncome(convert.getLongData(rs.get("rentalIncome")));
+            data.getAccountFinancials().setTotalIncome(convert.getLongData(rs.get("totalIncome")));
+            data.getAccountFinancials().setTotalIncomeAnnulized(convert.getLongData(rs.get("totalIncomeAnnulized")));
 
-         if (data.getGoalData() == null )
+            data.getAccountFinancials().setTotalIncomeAnnulized(convert.getLongData(rs.get("householdPayment")));
+            data.getAccountFinancials().setOtherPropertiesPayment(convert.getLongData(rs.get("otherPropertiesPayment")));
+            data.getAccountFinancials().setAutomobilePayment(convert.getLongData(rs.get("automobilePayment")));
+            data.getAccountFinancials().setMedicalPayment(convert.getLongData(rs.get("medicalPayment")));
+
+            data.getAccountFinancials().setFederaltaxes(convert.getLongData(rs.get("federaltaxes")));
+            data.getAccountFinancials().setStateTaxes(convert.getLongData(rs.get("stateTaxes")));
+            data.getAccountFinancials().setPropertyTax(convert.getLongData(rs.get("propertyTax")));
+            data.getAccountFinancials().setOtherPropertyTax(convert.getLongData(rs.get("otherPropertyTax")));
+
+            data.getAccountFinancials().setHomeInsurance(convert.getLongData(rs.get("homeInsurance")));
+            data.getAccountFinancials().setLifeInsurance(convert.getLongData(rs.get("lifeInsurance")));
+            data.getAccountFinancials().setAutoInsurance(convert.getLongData(rs.get("autoInsurance")));
+
+            data.getAccountFinancials().setEducationPayment(convert.getLongData(rs.get("educationPayment")));
+            data.getAccountFinancials().setCreditCardPayment(convert.getLongData(rs.get("creditCardPayment")));
+            data.getAccountFinancials().setMiscExpenses(convert.getLongData(rs.get("miscExpenses")));
+            data.getAccountFinancials().setTotalExpense(convert.getLongData(rs.get("totalExpense")));
+            data.getAccountFinancials().setTotalExpenseAnnulized(convert.getLongData(rs.get("totalExpenseAnnulized")));
+
+            data.getAccountFinancials().setHomeEquity(convert.getLongData(rs.get("homeEquity")));
+            data.getAccountFinancials().setAutoValue(convert.getLongData(rs.get("autoValue")));
+            data.getAccountFinancials().setMoneyMarket(convert.getLongData(rs.get("moneyMarket")));
+            data.getAccountFinancials().setCheckingAcct(convert.getLongData(rs.get("checkingAcct")));
+            data.getAccountFinancials().setSavingAcct(convert.getLongData(rs.get("savingAcct")));
+            data.getAccountFinancials().setInvestment(convert.getLongData(rs.get("investment")));
+            data.getAccountFinancials().setEquityOtherProperties(convert.getLongData(rs.get("equityOtherProperties")));
+            data.getAccountFinancials().setRetirementInvestement(convert.getLongData(rs.get("retirementInvestement")));
+            data.getAccountFinancials().setMiscInvestment(convert.getLongData(rs.get("miscInvestment")));
+            data.getAccountFinancials().setTotalAsset(convert.getLongData(rs.get("totalAsset")));
+
+            data.getAccountFinancials().setMortgageLoan(convert.getLongData(rs.get("mortgageLoan")));
+            data.getAccountFinancials().setAutoLoan(convert.getLongData(rs.get("autoLoan")));
+            data.getAccountFinancials().setEducationLoan(convert.getLongData(rs.get("educationLoan")));
+            data.getAccountFinancials().setCreditCardDebt(convert.getLongData(rs.get("creditCardDebt")));
+            data.getAccountFinancials().setOtherPropertiesLoan(convert.getLongData(rs.get("otherPropertiesLoan")));
+            data.getAccountFinancials().setMedicalDebt(convert.getLongData(rs.get("medicalDebt")));
+            data.getAccountFinancials().setOtherDebt(convert.getLongData(rs.get("otherDebt")));
+            data.getAccountFinancials().setTotalDebt(convert.getLongData(rs.get("totalDebt")));
+
+            data.getAccountFinancials().setLiquidnetworth(convert.getLongData(rs.get("liquidnetworth")));
+            data.getAccountFinancials().setNetworth(convert.getLongData(rs.get("networth")));
+
+
+            if (data.getGoalData() == null )
                data.setGoalData(new GoalsData());
 
             data.getGoalData().setGoalDesired(convert.getDoubleData(rs.get("goalDesired")));
