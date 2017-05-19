@@ -70,7 +70,7 @@ public class NewPortfolioCreationOpenaccountVisitor_BB  {
 			String investmentamt,String bankaccttype,String bankname,String nameofbankacct,String bankcity,
 			String bankphone,String routingno,String bankacctno,String accounttitle,String accounttype1 ,String deliveringfirm,String frequency,
 			String trnamt,String trndate,String accountnumber,String clientaccountnumber,String recurringflag,
-			String fundingflag,String vlogo,
+			String fundingflag,String vlogo,String reviewstatus,
 			String Execute,String Results) throws Exception {
 
 		if (Execute.equals("Y")) {	
@@ -119,19 +119,25 @@ public class NewPortfolioCreationOpenaccountVisitor_BB  {
 						log.info("Pass -New Portfolio is created");
 						//open account
 						
-						accountnumber = driver.getCurrentUrl();
-						System.out.println("URL is :"+ accountnumber);
-						accountnumber =StringUtils.substringAfterLast(accountnumber, "=");
-						System.out.println("acct nos is :"+ accountnumber);
+//Enter details for registration
 						
-						//Enter details for registration
-						
-						driver.findElement(By.id("signupformblock:firstName")).sendKeys(fname);
-						driver.findElement(By.id("signupformblock:lastName")).sendKeys(lname);
-						driver.findElement(By.id("signupformblock:email")).sendKeys(email);
-						driver.findElement(By.xpath("//span[contains(text(),'Register')]")).click();
+						driver.findElement(By.id("ceForm:firstName")).sendKeys(fname);
+						driver.findElement(By.id("ceForm:lastName")).sendKeys(lname);
+						driver.findElement(By.id("ceForm:email")).sendKeys(email);
+					
+						if(reviewstatus.equals("Yes"))
+						{
+							driver.findElement(By.xpath("//*[@id='ceForm:newregreview']")).click();
+							Thread.sleep(4000);
+							driver.findElement(By.xpath("//span[contains(text(),'Open Account')]")).click();
+							Thread.sleep(4000);
+							
+						}
+						else
+						{
+						driver.findElement(By.xpath("//span[contains(text(),'Open Account')]")).click();
 						Thread.sleep(4000);
-						
+						}
 						
 						//open account
 						boolean accountopen = AccountOpeningPO.AccountopeningScenario(driver, vURL, username, password, accounttype, fname, lname, dob, ssn, phoneno, email, streetname, city, state, zip, regulatoryoption, empstatus, incomesrc, employername, occupation, bfname, blname, bdob, bssn, relationship, sharepercent, fundingtype, investmentamt, bankaccttype, bankname, nameofbankacct, bankcity, bankphone, routingno, bankacctno, accounttitle, accounttype1, deliveringfirm, frequency, trnamt, trndate, accountnumber, clientaccountnumber,recurringflag, fundingflag,vlogo);

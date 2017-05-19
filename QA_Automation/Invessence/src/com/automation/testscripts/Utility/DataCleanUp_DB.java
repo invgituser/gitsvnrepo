@@ -28,7 +28,7 @@ public class DataCleanUp_DB
 	{
 		try{
 			
-			dburl= Utility.readTestDataFromProperties("Properties/testdatalocation.properties","proddbUrl");
+			dburl= Utility.readTestDataFromProperties("Properties/testdatalocation.properties","uatdbUrl");
 			dbusername = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbusername");
 			dbpassword = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbpassword");
 			
