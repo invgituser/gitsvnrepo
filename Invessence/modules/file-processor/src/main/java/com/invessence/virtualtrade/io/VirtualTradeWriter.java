@@ -61,7 +61,7 @@ public class VirtualTradeWriter
          writeWithNewLine(writer, Joiner.on("\n").join(Iterables.transform(sharesByAccountNum.keySet(), new Function<String, String>()
          {
             @Override
-            public String apply(java.lang.String s)
+            public String apply(String s)
             {
                return s + "," + "Shares";
             }
@@ -73,7 +73,7 @@ public class VirtualTradeWriter
             writeWithNewLine(writer, Joiner.on("\n").join(Iterables.transform(sharesByAccountNum.get(ticker), new Function<AccountInfo, String>()
             {
                @Override
-               public String apply(com.invessence.virtualtrade.io.VirtualTradeWriter.AccountInfo accountInfo)
+               public String apply(AccountInfo accountInfo)
                {
                   return ticker + "," + accountInfo.accountNum + "," + accountInfo.quantity;
                }
