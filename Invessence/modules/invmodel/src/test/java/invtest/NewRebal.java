@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.invmodel.Const.InvConst;
 import com.invmodel.dao.invdb.*;
+import com.invmodel.model.ModelUtil;
 import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.rebalance.*;
 import com.invmodel.rebalance.data.*;
@@ -23,8 +24,8 @@ public class NewRebal
    public static void main(String[] args) throws Exception
    {
       // Intialize the Instance and Load prerequired data.
-      PortfolioOptimizer portfolioOptimizer = PortfolioOptimizer.getInstance();
-      portfolioOptimizer.refreshDataFromDB();
+      ModelUtil modelUtil = ModelUtil.getInstance();
+      modelUtil.refreshData();
 
       RebalanceProcess rbal = RebalanceProcess.getInstance();
       TLHSecurityCollection tlhsecurityCollection =  TLHSecurityCollection.getInstance();
@@ -33,11 +34,12 @@ public class NewRebal
       DailyReturns dailyReturnDAO = DailyReturns.getInstance();*/
 
       SecurityCollection secCollection = new SecurityCollection();
-      secCollection.loadDataFromDB(InvConst.INVESSENCE_ADVISOR, "0.Wealth");
+      //secCollection.loadDataFromDB(InvConst.INVESSENCE_ADVISOR, "0.Wealth");
+      secCollection.loadDataFromDB("BB", "0.BB");
       rbal.setTlhSecurityCollection(tlhsecurityCollection);
 
       // Now we can do re-balancing on account(s).
-      ArrayList<RebalanceTradeData> rebalanceTradeDataList = rbal.process(10L, 1L);
+      ArrayList<RebalanceTradeData> rebalanceTradeDataList = rbal.process(2L, 1L);
       printTradeFile(rebalanceTradeDataList);
    }
 

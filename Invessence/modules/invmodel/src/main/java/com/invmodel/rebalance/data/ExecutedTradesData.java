@@ -9,40 +9,80 @@ package com.invmodel.rebalance.data;
  */
 public class ExecutedTradesData implements Comparable<ExecutedTradesData>
 {
-   private String tradeID;
+   private Long acctnum;
+   private String clientAccountID;
    private String ticker;
-   private String dateExecuted;
-   private Integer qty;
+   private String confirmNumber;
+   private String transactionSource;
+   private String transactionType;
+   private String transactionStatus;
+   private String controlNumber;
+   private Double qty;
    private Double tradePrice;
-   private Double proceed;
-   private Double tradeFee;
-   private Integer lastExecuted;
+   private Double netAmount;
+   private Double commission;
+   private Double otherFees;
+
+   private String tradeDate;
+   private String settDate;
+   private String voidDate;
+
+   private String currencyPrimary;
+   private Double fxRateToBase;
+
+   private Integer daysExecuted;
 
    public ExecutedTradesData()
    {
    }
 
-   public ExecutedTradesData(String tradeID, String ticker, String dateExecuted,
-                             Integer qty, Double tradePrice, Double proceed, Double tradeFee, Integer lastExecuted)
+   public ExecutedTradesData(Long acctnum, String clientAccountID,
+                             String ticker, String confirmNumber, String transactionSource, String transactionType,
+                             String transactionStatus, String controlNumber,
+                             Double qty, Double tradePrice, Double netAmount, Double commission, Double otherFees,
+                             String tradeDate, String settDate, String voidDate,
+                             String currencyPrimary, Double fxRateToBase,
+                             Integer daysExecuted)
    {
-      this.tradeID = tradeID;
+      this.acctnum = acctnum;
+      this.clientAccountID = clientAccountID;
       this.ticker = ticker;
-      this.dateExecuted = dateExecuted;
+      this.confirmNumber = confirmNumber;
+      this.transactionSource = transactionSource;
+      this.transactionType = transactionType;
+      this.transactionStatus = transactionStatus;
+      this.controlNumber = controlNumber;
       this.qty = qty;
       this.tradePrice = tradePrice;
-      this.proceed = proceed;
-      this.tradeFee = tradeFee;
-      this.lastExecuted = lastExecuted;
+      this.netAmount = netAmount;
+      this.commission = commission;
+      this.otherFees = otherFees;
+      this.tradeDate = tradeDate;
+      this.settDate = settDate;
+      this.voidDate = voidDate;
+      this.currencyPrimary = currencyPrimary;
+      this.fxRateToBase = fxRateToBase;
+      this.daysExecuted = daysExecuted;
    }
 
-   public String getTradeID()
+   public Long getAcctnum()
    {
-      return tradeID;
+      return acctnum;
    }
 
-   public void setTradeID(String tradeID)
+   public void setAcctnum(Long acctnum)
    {
-      this.tradeID = tradeID;
+      this.acctnum = acctnum;
+   }
+
+   public String getClientAccountID()
+   {
+      return clientAccountID;
+   }
+
+   public void setClientAccountID(String clientAccountID)
+   {
+      this.clientAccountID = clientAccountID;
    }
 
    public String getTicker()
@@ -55,22 +95,62 @@ public class ExecutedTradesData implements Comparable<ExecutedTradesData>
       this.ticker = ticker;
    }
 
-   public String getDateExecuted()
+   public String getConfirmNumber()
    {
-      return dateExecuted;
+      return confirmNumber;
    }
 
-   public void setDateExecuted(String dateExecuted)
+   public void setConfirmNumber(String confirmNumber)
    {
-      this.dateExecuted = dateExecuted;
+      this.confirmNumber = confirmNumber;
    }
 
-   public Integer getQty()
+   public String getTransactionSource()
+   {
+      return transactionSource;
+   }
+
+   public void setTransactionSource(String transactionSource)
+   {
+      this.transactionSource = transactionSource;
+   }
+
+   public String getTransactionType()
+   {
+      return transactionType;
+   }
+
+   public void setTransactionType(String transactionType)
+   {
+      this.transactionType = transactionType;
+   }
+
+   public String getTransactionStatus()
+   {
+      return transactionStatus;
+   }
+
+   public void setTransactionStatus(String transactionStatus)
+   {
+      this.transactionStatus = transactionStatus;
+   }
+
+   public String getControlNumber()
+   {
+      return controlNumber;
+   }
+
+   public void setControlNumber(String controlNumber)
+   {
+      this.controlNumber = controlNumber;
+   }
+
+   public Double getQty()
    {
       return qty;
    }
 
-   public void setQty(Integer qty)
+   public void setQty(Double qty)
    {
       this.qty = qty;
    }
@@ -85,42 +165,102 @@ public class ExecutedTradesData implements Comparable<ExecutedTradesData>
       this.tradePrice = tradePrice;
    }
 
-   public Double getProceed()
+   public Double getNetAmount()
    {
-      return proceed;
+      return netAmount;
    }
 
-   public void setProceed(Double proceed)
+   public void setNetAmount(Double netAmount)
    {
-      this.proceed = proceed;
+      this.netAmount = netAmount;
    }
 
-   public Double getTradeFee()
+   public Double getCommission()
    {
-      return tradeFee;
+      return commission;
    }
 
-   public void setTradeFee(Double tradeFee)
+   public void setCommission(Double commission)
    {
-      this.tradeFee = tradeFee;
+      this.commission = commission;
    }
 
-   public Integer getLastExecuted()
+   public Double getOtherFees()
    {
-      return lastExecuted;
+      return otherFees;
    }
 
-   public void setLastExecuted(Integer lastExecuted)
+   public void setOtherFees(Double otherFees)
    {
-      this.lastExecuted = lastExecuted;
+      this.otherFees = otherFees;
+   }
+
+   public String getTradeDate()
+   {
+      return tradeDate;
+   }
+
+   public void setTradeDate(String tradeDate)
+   {
+      this.tradeDate = tradeDate;
+   }
+
+   public String getSettDate()
+   {
+      return settDate;
+   }
+
+   public void setSettDate(String settDate)
+   {
+      this.settDate = settDate;
+   }
+
+   public String getVoidDate()
+   {
+      return voidDate;
+   }
+
+   public void setVoidDate(String voidDate)
+   {
+      this.voidDate = voidDate;
+   }
+
+   public String getCurrencyPrimary()
+   {
+      return currencyPrimary;
+   }
+
+   public void setCurrencyPrimary(String currencyPrimary)
+   {
+      this.currencyPrimary = currencyPrimary;
+   }
+
+   public Double getFxRateToBase()
+   {
+      return fxRateToBase;
+   }
+
+   public void setFxRateToBase(Double fxRateToBase)
+   {
+      this.fxRateToBase = fxRateToBase;
+   }
+
+   public Integer getDaysExecuted()
+   {
+      return daysExecuted;
+   }
+
+   public void setDaysExecuted(Integer daysExecuted)
+   {
+      this.daysExecuted = daysExecuted;
    }
 
    @Override
    public int compareTo(ExecutedTradesData compareExecutedTrades) {
 
-      String compareDate = ((ExecutedTradesData) compareExecutedTrades).getDateExecuted();
+      String compareDate = ((ExecutedTradesData) compareExecutedTrades).getTradeDate();
       Integer compareValue = Integer.valueOf(compareDate);
-      Integer thisValue = Integer.valueOf(getDateExecuted());
+      Integer thisValue = Integer.valueOf(getTradeDate());
 
       //ascending order
       //return (thisValue - compareValue);

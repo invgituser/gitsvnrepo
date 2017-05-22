@@ -250,7 +250,6 @@ public class InvModelDAO extends JdbcDaoSupport
          {
             Map rs = (Map) rows.get(i);
             String ticker = convert.getStrData(rs.get("symbol"));
-            ExecutedTradesData executedTradedata = new ExecutedTradesData();
             if (tradeMap.containsKey(ticker)) {
                executedList = tradeMap.get(ticker);
                if (executedList == null)
@@ -260,16 +259,30 @@ public class InvModelDAO extends JdbcDaoSupport
                executedList = new ArrayList<ExecutedTradesData>();
             }
 
-            executedTradedata.setTicker(ticker);
-            executedTradedata.setDateExecuted(convert.getStrData(rs.get("reportDate")));
-            executedTradedata.setTradeID(convert.getStrData(rs.get("tradeID")));
-            executedTradedata.setQty(convert.getIntData(rs.get("quantity")));
-            executedTradedata.setTradeFee(convert.getDoubleData(rs.get("ibcommission")));
-            executedTradedata.setProceed(convert.getDoubleData(rs.get("proceed")));
-            executedTradedata.setTradePrice(convert.getDoubleData(rs.get("tradeprice")));
-            executedTradedata.setLastExecuted(convert.getIntData(rs.get("days_last_executed")));
-            executedList.add(executedTradedata);
-            tradeMap.put(ticker,executedList);
+            ExecutedTradesData executedTradedata = new ExecutedTradesData(
+               convert.getLongData(rs.get("acctnum")),
+               convert.getStrData(rs.get("clientAccountID")),
+               convert.getStrData(rs.get("ticker")),
+               convert.getStrData(rs.get("confirmNumber")),
+               convert.getStrData(rs.get("transactionSource")),
+               convert.getStrData(rs.get("transactionType")),
+               convert.getStrData(rs.get("transactionStatus")),
+               convert.getStrData(rs.get("controlNumber")),
+               convert.getDoubleData(rs.get("qty")),
+               convert.getDoubleData(rs.get("tradePrice")),
+               convert.getDoubleData(rs.get("netAmount")),
+               convert.getDoubleData(rs.get("commission")),
+               convert.getDoubleData(rs.get("otherFees")),
+               convert.getStrData(rs.get("tradeDate")),
+               convert.getStrData(rs.get("settDate")),
+               convert.getStrData(rs.get("voidDate")),
+               convert.getStrData(rs.get("currencyPrimary")),
+               convert.getDoubleData(rs.get("fxRateToBase")),
+               convert.getIntData(rs.get("daysExecuted"))
+            );
+
+            if (! tradeMap.containsKey(ticker))
+               tradeMap.put(ticker,executedList);
             i++;
          }
       }
@@ -367,7 +380,7 @@ public class InvModelDAO extends JdbcDaoSupport
 
    public void saveTradeData(ArrayList<RebalanceTradeData> rebalanceTradeData) {
       // DataSource ds = getDs();
-      String storedProcName = "sp_save_rebalanced_trades";
+      String storedProcName = "save_rebalanced_trades";
       InvModelSP sp = new InvModelSP(ds, storedProcName,1, 10);
       for (RebalanceTradeData tData : rebalanceTradeData) {
          sp.saveTradeData(tData);

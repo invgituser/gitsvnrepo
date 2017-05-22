@@ -297,7 +297,7 @@ public class RebalanceProcess
             Do we want the allocation from our DB or should we look at the holding and get the allocation from holding?
              */
 
-            Map<String, Asset> asset = loadCurrentAssetAllocation(pdata.getAcctnum());
+            // Map<String, Asset> asset = loadCurrentAssetAllocation(pdata.getAcctnum());
             /*
             Questions2: loadPortfolio recreates the Asset allocation and portfolio.  Should we get only one year or two years?
             Currently this process get it for size as defined in horizon (Projection issue).
@@ -535,7 +535,7 @@ public class RebalanceProcess
          for(int i = tradesExecutedMap.get(ticker).size()-1; i >= 0; i--){
 
             xTrades =  (ExecutedTradesData) tradesExecutedMap.get(ticker).get(i);
-            int tdays = xTrades.getLastExecuted();
+            int tdays = xTrades.getDaysExecuted();
 
             if(tdays > 31 && i == 0)
                hData.setOutRightSellFlag(true);
