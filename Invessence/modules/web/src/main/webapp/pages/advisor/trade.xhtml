@@ -19,7 +19,9 @@
                     <p:growl id="growltrademsg" closable="true" style="top: 25%"/>
 
                     <p:tabView id="tradeTab" styleClass="AdvTabNBWidget">
-                        <p:tab title="Trade">
+                        <p:ajax event="tabChange" listener="#{tradeBean.onTabChange}"
+                                update="tradeTab"/>
+                        <p:tab id="tab0" title="Trade">
                             <p:panel id="tradePanel" styleClass="invNBgrid">
                                 <div class="Container100">
                                     <div class="Fleft filterMBBlock margintoptrade">
@@ -55,94 +57,97 @@
 
                                     </p:selectManyButton>
                                 </div>
-                                <p:dataTable id="tradeDT" var="filteredData" value="#{tradeBean.filteredClientList}"
-                                             border="1" styleClass="AdvisorGridtcmLayout"
-                                             sortMode="multiple"
-                                             reflow="true"
-                                             rowKey="#{filteredData.acctnum}"
-                                             paginator="true" rows="10"
-                                             rowsPerPageTemplate="5,10,15"
-                                             paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                                             selection="#{tradeBean.selectedClientList}">
-                                    <f:facet name="header" style="text-align: left;">
+                                <div class="Container100">
+                                    <p:dataTable id="tradeClientDT" var="filteredClientData" value="#{tradeBean.filteredClientList}"
+                                                 border="1" styleClass="AdvisorGridtcmLayout"
+                                                 sortMode="multiple"
+                                                 reflow="true"
+                                                 rowKey="#{filteredClientData.acctnum}"
+                                                 paginator="true" rows="10"
+                                                 rowsPerPageTemplate="5,10,15"
+                                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                                 selection="#{tradeBean.selectedClientList}">
+                                        <f:facet name="header" style="text-align: left;">
 
-                                    </f:facet>
+                                        </f:facet>
 
-                                    <p:column selectionMode="multiple" styleClass="multipleSelectionChkList"
-                                              style="width:50px;text-align:center" resizable="true"/>
+                                        <p:column selectionMode="multiple" styleClass="multipleSelectionChkList"
+                                                  style="width:50px;text-align:center" resizable="true"/>
 
-                                    <p:column styleClass="AdvtcmLayoutColumn" resizable="true">
-                                        <p:commandButton id="editButton"
-                                                         styleClass="editAdvButtonIcon"
-                                                         process="@this" immediate="true"
-                                                         icon="fa fa-pencil-square-o"
-                                                         action="#{tradeBean.doManagedAction}">
-                                            <f:setPropertyActionListener value="#{filteredData}"
-                                                                         target="#{tradeBean.selectedClient}"/>
-                                        </p:commandButton>
-                                    </p:column>
+                                        <p:column styleClass="AdvtcmLayoutColumn" resizable="true">
+                                            <p:commandButton id="editButton"
+                                                             styleClass="editAdvButtonIcon"
+                                                             process="@this" immediate="true"
+                                                             icon="fa fa-pencil-square-o"
+                                                             action="#{tradeBean.doManagedAction}">
+                                                <f:setPropertyActionListener value="#{filteredClientData}"
+                                                                             target="#{tradeBean.selectedClient}"/>
+                                            </p:commandButton>
+                                        </p:column>
 
-                                    <!-- <p:column headerText="InvAcc#" styleClass="AdvtcmLayoutColumn" resizable="true"
-                                               sortBy="#{filteredData.acctnum}">
-                                         #{filteredData.acctnum}
-                                     </p:column>-->
+                                        <!-- <p:column headerText="InvAcc#" styleClass="AdvtcmLayoutColumn" resizable="true"
+                                                   sortBy="#{filteredClientData.acctnum}">
+                                             #{filteredClientData.acctnum}
+                                         </p:column>-->
 
-                                    <p:column headerText="Account No." styleClass="AdvtcmLayoutColumn" resizable="true" style=""
-                                              sortBy="#{filteredData.clientAccountID}">
-                                        #{filteredData.clientAccountID}
-                                    </p:column>
+                                        <p:column headerText="Account No." styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                                  sortBy="#{filteredClientData.clientAccountID}">
+                                            #{filteredClientData.clientAccountID}
+                                        </p:column>
 
-                                    <p:column headerText="Name" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
-                                              sortBy="#{filteredData.name}">
-                                        #{filteredData.name}
-                                    </p:column>
+                                        <p:column headerText="Name" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                                  sortBy="#{filteredClientData.name}">
+                                            #{filteredClientData.name}
+                                        </p:column>
 
-                                    <p:column headerText="Break" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
-                                              sortBy="#{filteredData.tradeDisplayStatus}">
-                                        #{filteredData.tradeDisplayStatus}
-                                    </p:column>
+                                        <p:column headerText="Break" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                                  sortBy="#{filteredClientData.tradeDisplayStatus}">
+                                            #{filteredClientData.tradeDisplayStatus}
+                                        </p:column>
 
-                                    <p:column headerText="Reason" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
-                                              sortBy="#{filteredData.reason}">
-                                        #{filteredData.reason}
-                                    </p:column>
+                                        <p:column headerText="Reason" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                                  sortBy="#{filteredClientData.reason}">
+                                            #{filteredClientData.reason}
+                                        </p:column>
 
-                                    <p:column headerText="Traded" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
-                                              sortBy="#{filteredData.lastTraded}">
-                                        #{filteredData.lastTraded}
-                                    </p:column>
-                                    <!--
-                                                        <p:column headerText="Description" style="width:10; text-align: left">
-                                                            #{filteredData.description}
-                                                        </p:column>
-                                    -->
+                                        <p:column headerText="Traded" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                                  sortBy="#{filteredClientData.lastTraded}">
+                                            #{filteredClientData.lastTraded}
+                                        </p:column>
+                                        <!--
+                                                            <p:column headerText="Description" style="width:10; text-align: left">
+                                                                #{filteredClientData.description}
+                                                            </p:column>
+                                        -->
 
 
-                                    <p:column headerText="Cash" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
-                                              sortBy="#{filteredData.cash}">
-                                        <h:outputText value="#{filteredData.cash}">
-                                            <f:convertNumber type="currency" currencySymbol="$"/>
-                                        </h:outputText>
-                                    </p:column>
+                                        <p:column headerText="Cash" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                                  sortBy="#{filteredClientData.cash}">
+                                            <h:outputText value="#{filteredClientData.cash}">
+                                                <f:convertNumber type="currency" currencySymbol="$"/>
+                                            </h:outputText>
+                                        </p:column>
 
-                                    <p:column headerText="Investment" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
-                                              sortBy="#{filteredData.investment}">
-                                        <h:outputText value="#{filteredData.investment}">
-                                            <f:convertNumber type="currency" currencySymbol="$"/>
-                                        </h:outputText>
-                                    </p:column>
+                                        <p:column headerText="Investment" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                                  sortBy="#{filteredClientData.investment}">
+                                            <h:outputText value="#{filteredClientData.investment}">
+                                                <f:convertNumber type="currency" currencySymbol="$"/>
+                                            </h:outputText>
+                                        </p:column>
 
-                                    <f:facet name="footer">
-                                        <p:commandButton id="rebalBtn" styleClass="advButton" value="Rebalance"
-                                                         update="@form" ajax="true"
-                                                         actionListener="#{tradeBean.createTrades('I')}">
-                                        </p:commandButton>
+                                        <f:facet name="footer">
+                                            <p:commandButton id="rebalBtn" styleClass="advButton" value="Rebalance"
+                                                             update="@form" ajax="true"
+                                                             actionListener="#{tradeBean.createTrades('I')}">
+                                            </p:commandButton>
 
-                                    </f:facet>
-                                </p:dataTable>
+                                        </f:facet>
+                                    </p:dataTable>
+                                </div>
                             </p:panel>
                         </p:tab>
-                        <p:tab title="Review">
+
+                        <p:tab id="tab1" title="Review">
                             <p:panel id="reviewPanel" styleClass="invNBgrid">
                                 <div class="Container100">
                                     <div class="Fleft filterMBBlock margintoptrade">
@@ -154,14 +159,83 @@
 
                                         <p:commandButton styleClass="advButton" value="Reload"
                                                          process="@form" update="reviewPanel"
-                                                         actionListener="#{tradeBean.reloadReviewTrades}"/>
+                                                         actionListener="#{tradeBean.reloadTradeSummary}"/>
                                     </div>
                                     <div class="Fright" style="margin-top: 9px;">
 
                                         <p:commandButton styleClass="advButton" value="Download" actionListener="#{fileProcessBean.processDownloadFile('DOWD1')}"/>
                                     </div>
                                 </div>
-                             </p:panel>
+
+                                <div class="Container100">
+                                    <p:dataTable id="tradeReviewDT" var="filteredSummaryData" value="#{tradeBean.filteredSummaryList}"
+                                                 border="1" styleClass="AdvisorGridtcmLayout"
+                                                 sortMode="multiple"
+                                                 reflow="true"
+                                                 rowKey="#{filteredSummaryData.acctnum}"
+                                                 paginator="true" rows="10"
+                                                 rowsPerPageTemplate="5,10,15"
+                                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                                 selection="#{tradeBean.selectedSummaryList}">
+                                        <f:facet name="header" style="text-align: left;">
+
+                                        </f:facet>
+
+                                        <p:column selectionMode="multiple" styleClass="multipleSelectionChkList"
+                                                  style="width:50px;text-align:center" resizable="true"/>
+
+                                        <p:column styleClass="AdvtcmLayoutColumn" resizable="true">
+                                            <p:commandButton id="editButton"
+                                                             styleClass="editAdvButtonIcon"
+                                                             process="@this" immediate="true"
+                                                             icon="fa fa-search">
+                                                <f:setPropertyActionListener value="#{filteredSummaryData}"
+                                                                             target="#{tradeBean.selectedSummary}"/>
+                                            </p:commandButton>
+                                        </p:column>
+
+                                        <p:column headerText="Account No." styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                                  sortBy="#{filteredSummaryData.clientAccountID}">
+                                            #{filteredSummaryData.clientAccountID}
+                                        </p:column>
+
+                                        <p:column headerText="Name" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                                  sortBy="#{filteredSummaryData.name}">
+                                            #{filteredSummaryData.name}
+                                        </p:column>
+
+                                        <p:column headerText="Break" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                                  sortBy="#{filteredSummaryData.tradeDisplayStatus}">
+                                            #{filteredSummaryData.tradeDisplayStatus}
+                                        </p:column>
+
+
+                                        <p:column headerText="Holding" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                                  sortBy="#{filteredSummaryData.totalInvestment}">
+                                            <h:outputText value="#{filteredSummaryData.totalInvestment}">
+                                                <f:convertNumber type="currency" currencySymbol="$"/>
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <!--<p:column headerText="Adjustments" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                                  sortBy="#{filteredSummaryData.sumcurValue}">
+                                            <h:outputText value="#{filteredSummaryData.sumcurValue}">
+                                                <f:convertNumber type="currency" currencySymbol="$"/>
+                                            </h:outputText>
+                                        </p:column>-->
+
+
+                                        <p:column headerText="New Investment" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                                  sortBy="#{filteredSummaryData.sumnewValue}">
+                                            <h:outputText value="#{filteredSummaryData.sumnewValue}">
+                                                <f:convertNumber type="currency" currencySymbol="$"/>
+                                            </h:outputText>
+                                        </p:column>
+
+                                    </p:dataTable>
+                                </div>
+
+                            </p:panel>
 
                         </p:tab>
 

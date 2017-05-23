@@ -1,8 +1,8 @@
 delete from invdb.web_site_info 
-where url like 'localhost:8080' or url like 'pre%' or url like 'uat%' or url like 'demo%'
+where url like 'localhost:8080' or url like 'pre%' or url like 'uat%' or url like 'demo%';
 
 insert into invdb.web_site_info
-SELECT 'localhost:8080',
+SELECT 'csibb',
     `web_site_info`.`name`,
     `web_site_info`.`status`,
     `web_site_info`.`value`,
@@ -10,7 +10,7 @@ SELECT 'localhost:8080',
     `web_site_info`.`created`,
     `web_site_info`.`updated`
 FROM `invdb`.`web_site_info`
-WHERE url = 'uob';
+WHERE url = 'buildingbenjamins';
 
 select * from invdb.web_site_info where url like 'pre%' and name like 'URL%';
 
@@ -24,12 +24,12 @@ and (name like 'SERVICE%MODE' or name in ('WEB.MODE'));
 update invdb.web_site_info
 set value = CONCAT('http://',url,'.invessence.com:8080')
 where (url like 'localhost%' or url like 'pre%' or url like 'uat%' or url like 'demo%')
-and (name in ('URL.SECURE', 'URL.WEBSITE'));
+and (name in ('URL.SECURE', 'URL.WEBSITE', 'URL.MOBILE'));
 
 update invdb.web_site_info
 set value = CONCAT('http://',url)
 where url like 'localhost%'
-and name in ('URL.SECURE', 'URL.WEBSITE');
+and name in ('URL.SECURE', 'URL.WEBSITE', 'URL.MOBILE');
 
 
 INSERT INTO 

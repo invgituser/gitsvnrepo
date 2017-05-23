@@ -14,7 +14,7 @@ VALUES
 (6,'ey.advisor','c39680887e67fa9860fd197f1279805d','A','UOB','Advisor','ey.advisor@invessence.com','NJ','EY','','HTML','advisor',now()),
 (10,'tcmintrep.advisor','c39680887e67fa9860fd197f1279805d','A','TCMIntRep100','Advisor','tcmintrep.advisor@invessence.com','NJ','BB-TCM','100','HTML','advisor',now()),
 (11,'tcmextrep.advisor','c39680887e67fa9860fd197f1279805d','A','TCMExtRep200','Advisor','tcmextrep.advisor@invessence.com','NJ','BB-TCM','200','HTML','advisor',now()),
-(12,'csi.advisor','c39680887e67fa9860fd197f1279805d','A','CSI','Advisor','csi.advisor@invessence.com','NJ','CSI','','HTML','advisor',now())
+(12,'csi.advisor','c39680887e67fa9860fd197f1279805d','A','CSI','Advisor','csi.advisor@invessence.com','NJ','UOB','','HTML','advisor',now())
 ;
 
 INSERT INTO `invdb`.`user_advisor_info` (`logonid`, `advisor`, `rep`, `accttype`, `companyname`, `displayName`, `created`) 
@@ -27,7 +27,7 @@ VALUES
 ('6', 'EY', 'CATCHALL', 'REP', 'Ernst and Young', 'Ernst and Young', now()),
 ('10', 'BB-TCM', '100', 'REP', 'Tradition Adviseres', 'TCMIntRep100 Advisor', now()),
 ('11', 'BB-TCM', '200', 'REP', 'Tradition Adviseres', 'TCMExtRep200 Advisor', now()),
-('12', 'CSI', 'CATCHALL', 'REP', 'CSI', 'CSI Advisor', now())
+('12', 'UOB', 'DEMO', 'REP', 'CSI', 'CSI Advisor', now())
 ;
 
 

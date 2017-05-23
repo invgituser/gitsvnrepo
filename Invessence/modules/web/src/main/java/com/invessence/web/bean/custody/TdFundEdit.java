@@ -684,7 +684,7 @@ public class TdFundEdit extends BaseTD
                }
                else
                {
-                  sendAlertMessage("P");
+                  sendAlertMessage("F");
                   getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
                }
             }

@@ -48,10 +48,16 @@ public class TradeSP extends StoredProcedure
             declareParameter(new SqlParameter("p_investmentvalue", Types.DOUBLE));
             break;
          case 4: // sp_createTrades
-            declareParameter(new SqlParameter("p_acctnum", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
          case 5: // sel_position
-            declareParameter(new SqlParameter("p_acctnum", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
+         case 6: // save_markTradeAccountAsRebalanced
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_tradeStatus", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_processStatus", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_reason", Types.VARCHAR));
             break;
          case 99:  // sel_displayTrades2Execute, delete_pending_trades
             break;
@@ -65,6 +71,11 @@ public class TradeSP extends StoredProcedure
             declareParameter(new SqlParameter("p_acctnum", Types.VARCHAR));
             break;
          case 103: // sel_collectTradeProfile
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_filter", Types.VARCHAR));
+            break;
+         case 104: // sel_collectTradeSummary
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_filter", Types.VARCHAR));
             break;
          case 199: // All others
@@ -93,6 +104,22 @@ public class TradeSP extends StoredProcedure
       super.execute(inputMap);
    }
 
+   public void markTradeAccountAsRebalanced(Long acctnum)
+   {
+      Map inputAssetMap = new HashMap();
+      inputAssetMap.put("p_acctnum", acctnum);
+      super.execute(inputAssetMap);
+   }
+
+   public void saveTradeProcessIdentifier(Long acctnum, String tradeStatus, String processStatus, String reason)
+   {
+      Map inputAssetMap = new HashMap();
+      inputAssetMap.put("p_acctnum", acctnum);
+      inputAssetMap.put("p_tradeStatus", tradeStatus);
+      inputAssetMap.put("p_processStatus", processStatus);
+      inputAssetMap.put("p_reason", reason);
+      super.execute(inputAssetMap);
+   }
 
    public void deleteAllocation(CustomerData data)
    {
@@ -173,6 +200,23 @@ public class TradeSP extends StoredProcedure
       inputMap.put("p_acctnum", acctnum);
       return super.execute(inputMap);
    }
+
+   public Map loadTradeSummaryData(Long logonid, String filter)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", logonid);
+      inputMap.put("p_filter", filter);
+      return super.execute(inputMap);
+   }
+
+   public Map loadProfile(Long logonid, String filter)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", logonid);
+      inputMap.put("p_filter", filter);
+      return super.execute(inputMap);
+   }
+
 
    public Map getTradeData()
    {

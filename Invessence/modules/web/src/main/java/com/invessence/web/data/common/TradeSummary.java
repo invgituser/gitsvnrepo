@@ -14,17 +14,14 @@ import com.invmodel.rebalance.data.*;
  */
 public class TradeSummary
 {
+   private Long acctnum;
    private String clientAccountID;
-   private Long   acctnum;
    private String lastName, firstName;
-   private String taxable, theme, goal;
-   private String email;
-   private Double totalbought, totalsold, newcash, keepLiquid;
-   private Double totalCurrentValue, totalNewValue, totalHoldingValue;
-   private Map<String, RebalanceInfo> listofHoldingTickers = new HashMap<String, RebalanceInfo>();
-   private Map<String, Asset> asset = new LinkedHashMap<String, Asset>();
-   private ArrayList<RebalanceTradeData> tradeDetails = new ArrayList<RebalanceTradeData>();
-   private RebalanceTradeData cashDetail = new RebalanceTradeData();
+   private String tradeStatus, processStatus;
+   private Double totalInvestment;
+   private Double sumcurQty, sumcurValue;
+   private Double sumholdingQty, sumholdingValue;
+   private Double sumnewQty, sumnewValue;
 
    public String getClientAccountID()
    {
@@ -66,246 +63,117 @@ public class TradeSummary
       this.firstName = firstName;
    }
 
-   public String getFullName()
+   public String getName()
    {
-      return lastName + ", " + firstName;
-   }
-
-   public String getTaxable()
-   {
-      return taxable;
-   }
-
-   public void setTaxable(String taxable)
-   {
-      this.taxable = taxable;
-   }
-
-   public String getTheme()
-   {
-      return theme;
-   }
-
-   public void setTheme(String theme)
-   {
-      this.theme = theme;
-   }
-
-   public String getGoal()
-   {
-      return goal;
-   }
-
-   public void setGoal(String goal)
-   {
-      this.goal = goal;
-   }
-
-   public String getEmail()
-   {
-      return email;
-   }
-
-   public void setEmail(String email)
-   {
-      this.email = email;
-   }
-
-   public Map<String, Asset> getAsset()
-   {
-      return asset;
-   }
-
-   public void setAsset(Map<String, Asset> asset)
-   {
-      this.asset = asset;
-   }
-
-   public ArrayList<Asset> getManagedList(){
-      ArrayList<Asset> managed = new ArrayList<Asset>();
-      if (getAsset() != null) {
-         for (Asset assetclass : getAsset().values())
-            managed.add(assetclass);
+      if (firstName != null) {
+         return ((lastName == null) ? firstName : firstName + " " + lastName);
       }
-
-      return managed;
+      return lastName;
    }
 
-   public Map<String, RebalanceInfo> getListofHoldingTickers()
+   public String getTradeStatus()
    {
-      return listofHoldingTickers;
+      return tradeStatus;
    }
 
-   public Double addListofHoldingTickers(String ticker, Double qty, Double value)
+   public void setTradeStatus(String tradeStatus)
    {
-      RebalanceInfo rinfo;
-      Double newBalance = 0.0;
-      Integer location = 0;
-      if (listofHoldingTickers == null)
-         listofHoldingTickers = new HashMap<String, RebalanceInfo>();
-      if (ticker != null) {
-         if (! ticker.isEmpty()) {
-            if (listofHoldingTickers.containsKey(ticker)) {
-               rinfo = listofHoldingTickers.get(ticker);
-               newBalance = rinfo.getValue() + value;
-               rinfo.setQty(rinfo.getQty() + qty);
-               rinfo.setValue(newBalance);
-            }
-            else {
-               rinfo = new RebalanceInfo();
-               location = listofHoldingTickers.size();
-               rinfo.setQty(qty);
-               rinfo.setValue(value);
-               newBalance = value;
-            }
-            this.listofHoldingTickers.put(ticker,rinfo);
-         }
+      this.tradeStatus = tradeStatus;
+   }
+
+   public String getTradeDisplayStatus()
+   {
+      if (tradeStatus != null) {
+         if (tradeStatus.startsWith("N"))
+            return "New";
+         if (tradeStatus.startsWith("D"))
+            return "Date";
+         if (tradeStatus.startsWith("A"))
+            return "Allocation";
       }
-      return newBalance;
+      return null;
    }
 
-   public ArrayList<RebalanceTradeData> getTradeDetails()
+   public String getProcessStatus()
    {
-      return tradeDetails;
+      return processStatus;
    }
 
-   public void setTradeDetails(ArrayList<RebalanceTradeData> tradeDetails)
+   public void setProcessStatus(String processStatus)
    {
-      this.tradeDetails = tradeDetails;
+      this.processStatus = processStatus;
    }
 
-   public ArrayList<RebalanceTradeData> getTradeData() {
-      return tradeDetails;
-   }
-
-   public RebalanceTradeData getCashDetail()
+   public Double getTotalInvestment()
    {
-      return cashDetail;
+      return totalInvestment;
    }
 
-   public void setCashDetail(RebalanceTradeData cashDetail)
+   public void setTotalInvestment(Double totalInvestment)
    {
-      this.cashDetail = cashDetail;
+      this.totalInvestment = totalInvestment;
    }
 
-   public Double getTotalbought()
+   public Double getSumcurQty()
    {
-      return totalbought;
+      return sumcurQty;
    }
 
-   public void setTotalbought(Double totalbought)
+   public void setSumcurQty(Double sumcurQty)
    {
-      this.totalbought = totalbought;
+      this.sumcurQty = sumcurQty;
    }
 
-   public Double getTotalsold()
+   public Double getSumcurValue()
    {
-      return totalsold;
+      return sumcurValue;
    }
 
-   public void setTotalsold(Double totalsold)
+   public void setSumcurValue(Double sumcurValue)
    {
-      this.totalsold = totalsold;
+      this.sumcurValue = sumcurValue;
    }
 
-   public Double getNewcash()
+   public Double getSumholdingQty()
    {
-      return newcash;
+      return sumholdingQty;
    }
 
-   public void setNewcash(Double newcash)
+   public void setSumholdingQty(Double sumholdingQty)
    {
-      this.newcash = newcash;
+      this.sumholdingQty = sumholdingQty;
    }
 
-   public Double getKeepLiquid()
+   public Double getSumholdingValue()
    {
-      return keepLiquid;
+      return sumholdingValue;
    }
 
-   public void setKeepLiquid(Double keepLiquid)
+   public void setSumholdingValue(Double sumholdingValue)
    {
-      this.keepLiquid = keepLiquid;
+      this.sumholdingValue = sumholdingValue;
    }
 
-   public Double getTotalCurrentValue()
+   public Double getSumnewQty()
    {
-      if (totalCurrentValue == null)
-         return 0.0;
-
-      return totalCurrentValue;
+      return sumnewQty;
    }
 
-   public void setTotalCurentValue(Double totalCurrentValue)
+   public void setSumnewQty(Double sumnewQty)
    {
-      this.totalCurrentValue = totalCurrentValue;
+      this.sumnewQty = sumnewQty;
    }
 
-   public Double getTotalNewValue()
+   public Double getSumnewValue()
    {
-      if (totalNewValue == null)
-         return 0.0;
-      return totalNewValue;
+      return sumnewValue;
    }
 
-   public void setTotalNewValue(Double totalNewValue)
+   public void setSumnewValue(Double sumnewValue)
    {
-      this.totalNewValue = totalNewValue;
+      this.sumnewValue = sumnewValue;
    }
 
-   public Double getTotalHoldingValue()
-   {
-      if (totalHoldingValue == null)
-         return 0.0;
-
-      return totalHoldingValue;
-   }
-
-   public void setTotalHoldingValue(Double totalHoldingValue)
-   {
-      this.totalHoldingValue = totalHoldingValue;
-   }
-
-   public void addTotals() {
-      Double totalHolding = 0.0, totalAlloc = 0.0, totalNewTrades = 0.0;
-      // Double totalHoldingQty = 0.0, totalAllocQty = 0.0, totalNewTradesQty = 0.0;
-      if (asset != null && asset.size() > 0) {
-
-         for (String assetname : asset.keySet()) {
-            totalHolding += asset.get(assetname).getHoldingValue();
-            totalNewTrades += asset.get(assetname).getValue();
-         }
-
-         setTotalHoldingValue(totalHolding);
-         setTotalNewValue(totalNewTrades);
-         // setTotalNewValue(totalNewTrades);
-      }
-   }
-
-   public class RebalanceInfo {
-      public Double qty;
-      public Double value;
-
-      public Double getQty()
-      {
-         return qty;
-      }
-
-      public void setQty(Double qty)
-      {
-         this.qty = qty;
-      }
-
-      public Double getValue()
-      {
-         return value;
-      }
-
-      public void setValue(Double value)
-      {
-         this.value = value;
-      }
-   }
 }
 
 

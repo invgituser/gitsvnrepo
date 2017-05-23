@@ -14,6 +14,7 @@ import com.invessence.web.constant.WebConst;
 import com.invessence.web.data.common.*;
 import org.apache.commons.logging.*;
 import org.primefaces.context.RequestContext;
+import org.primefaces.model.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.core.*;
 import org.springframework.security.core.context.*;
@@ -1088,4 +1089,39 @@ public class WebUtil implements Serializable
       }
       return message;
    }
+
+   private StreamedContent downloadFile(String filenamename, String fileformat, String outputName) {
+      StreamedContent file = null;
+      try {
+         InputStream stream = new FileInputStream(new File(filenamename))
+         {
+            @Override
+            public int read() throws IOException
+            {
+               return 0;
+            }
+         };
+         stream.close();
+         if (fileformat != null) {
+            if (fileformat.equalsIgnoreCase("csv")) {
+               file = new DefaultStreamedContent(stream, "application/csv", outputName);
+            }else {
+               if (fileformat.equalsIgnoreCase("text")) {
+                  file = new DefaultStreamedContent(stream, "application/text", outputName);
+               }
+               else
+               {
+                  if (fileformat.equalsIgnoreCase("pdf")) {
+                     file = new DefaultStreamedContent(stream, "application/pdf", outputName);
+                  }
+               }
+            }
+         }
+      }
+      catch (Exception ex) {
+
+      }
+      return file;
+   }
+
 }

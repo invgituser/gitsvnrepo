@@ -81,6 +81,7 @@ public class AdminSP extends StoredProcedure
             declareParameter(new SqlParameter("p_acctnum", Types.VARCHAR));
             break;
          case 103: // sel_collectTradeProfile
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_filter", Types.VARCHAR));
             break;
          case 104: // sel_displayTradeDetail
@@ -162,9 +163,10 @@ public class AdminSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map loadProfile(String filter)
+   public Map loadProfile(Long logonid, String filter)
    {
       Map inputMap = new HashMap();
+      inputMap.put("p_logonid", logonid);
       inputMap.put("p_filter", filter);
       return super.execute(inputMap);
    }

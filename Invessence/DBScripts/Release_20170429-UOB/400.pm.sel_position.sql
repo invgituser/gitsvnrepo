@@ -1,7 +1,7 @@
-DROP PROCEDURE IF EXISTS `sel_position`;
+DROP PROCEDURE IF EXISTS `invdb`.`sel_position`;
 
 DELIMITER $$
-CREATE PROCEDURE `sel_position`(
+CREATE PROCEDURE `invdb`.`sel_position`(
  	IN p_logonid  bigint(20),
  	IN p_acctnum  bigint(20)
 )

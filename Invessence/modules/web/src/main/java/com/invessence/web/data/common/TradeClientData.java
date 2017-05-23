@@ -67,7 +67,7 @@ public class TradeClientData
 
    public String getName() {
       if (getFirstname() != null) {
-         return (getLastname() == null) ? getFirstname() : getLastname() + ", " + getFirstname();
+         return (getLastname() == null) ? getFirstname() : getFirstname() + " " + getLastname();
       }
       else
          return getLastname();

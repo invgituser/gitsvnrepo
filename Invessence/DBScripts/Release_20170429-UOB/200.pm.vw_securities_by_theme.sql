@@ -1,3 +1,4 @@
+USE invdb;
 CREATE OR REPLACE
 VIEW `invdb`.`vw_securities_by_theme` AS
     SELECT 

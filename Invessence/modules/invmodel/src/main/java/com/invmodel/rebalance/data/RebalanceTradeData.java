@@ -9,13 +9,19 @@ package com.invmodel.rebalance.data;
  */
 public class RebalanceTradeData
 {
-   private String advisor;
-   private String clientAccountID;
    private Long acctnum;
-   private String ticker;
+   private String clientAccountID;
+   private String lastname;
+   private String firstname;
+   private String taxable;
+   private String advisor;
+   private String rep;
    private String assetclass;
    private String subclass;
    private String color;
+
+   private String ticker;
+   private String secname;
    private Double qty;
    private Double money;
    private Double curPrice;
@@ -30,24 +36,35 @@ public class RebalanceTradeData
    private String tradeType;
    private String reason;
 
+   private Integer sortorder;
+
+
+
    public RebalanceTradeData()
    {
    }
 
-   public RebalanceTradeData(String advisor, String clientAccountID, Long acctnum, String ticker,
+   public RebalanceTradeData(Long acctnum, String clientAccountID,
+                             String lastname, String firstname, String taxable, String advisor, String rep,
                              String assetclass, String subclass, String color,
+                             String ticker, String secname,
                              Double qty, Double money, Double curPrice,
                              String holdingTicker, Double holdingQty, Double holdingPrice, Double holdingValue,
                              Double newQty, Double newValue,
-                             String tradeType, String reason)
+                             String tradeType, String reason, Integer sortorder)
    {
-      this.advisor = advisor;
-      this.clientAccountID = clientAccountID;
       this.acctnum = acctnum;
-      this.ticker = ticker;
+      this.clientAccountID = clientAccountID;
+      this.lastname = lastname;
+      this.firstname = firstname;
+      this.taxable = taxable;
+      this.advisor = advisor;
+      this.rep = rep;
       this.assetclass = assetclass;
       this.subclass = subclass;
       this.color = color;
+      this.ticker = ticker;
+      this.secname = secname;
       this.qty = qty;
       this.money = money;
       this.curPrice = curPrice;
@@ -59,26 +76,7 @@ public class RebalanceTradeData
       this.newValue = newValue;
       this.tradeType = tradeType;
       this.reason = reason;
-   }
-
-   public String getAdvisor()
-   {
-      return advisor;
-   }
-
-   public void setAdvisor(String advisor)
-   {
-      this.advisor = advisor;
-   }
-
-   public String getClientAccountID()
-   {
-      return clientAccountID;
-   }
-
-   public void setClientAccountID(String clientAccountID)
-   {
-      this.clientAccountID = clientAccountID;
+      this.sortorder = sortorder;
    }
 
    public Long getAcctnum()
@@ -91,14 +89,64 @@ public class RebalanceTradeData
       this.acctnum = acctnum;
    }
 
-   public String getTicker()
+   public String getClientAccountID()
    {
-      return ticker;
+      return clientAccountID;
    }
 
-   public void setTicker(String ticker)
+   public void setClientAccountID(String clientAccountID)
    {
-      this.ticker = ticker;
+      this.clientAccountID = clientAccountID;
+   }
+
+   public String getLastname()
+   {
+      return lastname;
+   }
+
+   public void setLastname(String lastname)
+   {
+      this.lastname = lastname;
+   }
+
+   public String getFirstname()
+   {
+      return firstname;
+   }
+
+   public void setFirstname(String firstname)
+   {
+      this.firstname = firstname;
+   }
+
+   public String getTaxable()
+   {
+      return taxable;
+   }
+
+   public void setTaxable(String taxable)
+   {
+      this.taxable = taxable;
+   }
+
+   public String getAdvisor()
+   {
+      return advisor;
+   }
+
+   public void setAdvisor(String advisor)
+   {
+      this.advisor = advisor;
+   }
+
+   public String getRep()
+   {
+      return rep;
+   }
+
+   public void setRep(String rep)
+   {
+      this.rep = rep;
    }
 
    public String getAssetclass()
@@ -129,6 +177,26 @@ public class RebalanceTradeData
    public void setColor(String color)
    {
       this.color = color;
+   }
+
+   public String getTicker()
+   {
+      return ticker;
+   }
+
+   public void setTicker(String ticker)
+   {
+      this.ticker = ticker;
+   }
+
+   public String getSecname()
+   {
+      return secname;
+   }
+
+   public void setSecname(String secname)
+   {
+      this.secname = secname;
    }
 
    public Double getQty()
@@ -239,5 +307,15 @@ public class RebalanceTradeData
    public void setReason(String reason)
    {
       this.reason = reason;
+   }
+
+   public Integer getSortorder()
+   {
+      return sortorder;
+   }
+
+   public void setSortorder(Integer sortorder)
+   {
+      this.sortorder = sortorder;
    }
 }

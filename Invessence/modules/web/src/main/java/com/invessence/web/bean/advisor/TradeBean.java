@@ -17,7 +17,7 @@ import com.invessence.web.io.TradeWriter;
 import com.invessence.web.util.*;
 import com.invmodel.rebalance.RebalanceProcess;
 import com.invmodel.rebalance.data.*;
-import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.*;
 import org.primefaces.model.*;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
@@ -31,13 +31,16 @@ public class TradeBean extends TradeClientData implements Serializable
    private List<TradeClientData> tradeClientDataList;
    private List<TradeClientData> filteredClientList;
    private List<TradeClientData> selectedClientList;
+   private TradeClientData selectedClient;
    private String[] selectedFilterOptions;
    private String[] selectedReviewFilterOptions;
    private String nextRebalDate;
 
-   private Map<String, TradeSummary> tradeDetailsData = null;
-   private TradeClientData selectedClient;
-   private TradeSummary selectedTradeSummary;
+   private List<TradeSummary> tradeSummaryData;
+   private List<TradeSummary> filteredSummaryList;
+   private List<TradeSummary> selectedSummaryList;
+   private TradeSummary selectedSummary;
+
    private List<String> tradeFilters;
 
    @ManagedProperty("#{tradeDAO}")
@@ -46,20 +49,9 @@ public class TradeBean extends TradeClientData implements Serializable
    @ManagedProperty("#{consumerSaveDataDAO}")
    private ConsumerSaveDataDAO csdDAO;
 
-/*
-   @ManagedProperty("#{consumerSaveDataDAO}")
-   private ConsumerSaveDataDAO consumerSaveDataDAO;
-
-
-   @ManagedProperty("#{commonDAO}")
-   private CommonDAO commonDAO;
-*/
 
    @ManagedProperty("#{rebalanceProcess}")
    private RebalanceProcess rebalProcess;
-
-
-   private TradeWriter tw = new TradeWriter();
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
@@ -161,26 +153,6 @@ public class TradeBean extends TradeClientData implements Serializable
       this.nextRebalDate = nextRebalDate;
    }
 
-   public Map<String, TradeSummary> getTradeDetailsData()
-   {
-      return tradeDetailsData;
-   }
-
-   public void setTradeDetailsData(Map<String, TradeSummary> tradeDetailsData)
-   {
-      this.tradeDetailsData = tradeDetailsData;
-   }
-
-   public ArrayList<TradeSummary> getTradeSummary() {
-      ArrayList<TradeSummary> tradeSummary = new ArrayList<TradeSummary>();
-      if (tradeDetailsData != null) {
-         for (TradeSummary ts : tradeDetailsData.values())
-            tradeSummary.add(ts);
-      }
-
-      return tradeSummary;
-   }
-
    public TradeClientData getSelectedClient()
    {
       return selectedClient;
@@ -191,14 +163,44 @@ public class TradeBean extends TradeClientData implements Serializable
       this.selectedClient = selectedClient;
    }
 
-   public TradeSummary getSelectedTradeSummary()
+   public List<TradeSummary> getTradeSummaryData()
    {
-      return selectedTradeSummary;
+      return tradeSummaryData;
    }
 
-   public void setSelectedTradeSummary(TradeSummary selectedTradeSummary)
+   public void setTradeSummaryData(List<TradeSummary> tradeSummaryData)
    {
-      this.selectedTradeSummary = selectedTradeSummary;
+      this.tradeSummaryData = tradeSummaryData;
+   }
+
+   public List<TradeSummary> getFilteredSummaryList()
+   {
+      return filteredSummaryList;
+   }
+
+   public void setFilteredSummaryList(List<TradeSummary> filteredSummaryList)
+   {
+      this.filteredSummaryList = filteredSummaryList;
+   }
+
+   public List<TradeSummary> getSelectedSummaryList()
+   {
+      return selectedSummaryList;
+   }
+
+   public void setSelectedSummaryList(List<TradeSummary> selectedSummaryList)
+   {
+      this.selectedSummaryList = selectedSummaryList;
+   }
+
+   public TradeSummary getSelectedSummary()
+   {
+      return selectedSummary;
+   }
+
+   public void setSelectedSummary(TradeSummary selectedSummary)
+   {
+      this.selectedSummary = selectedSummary;
    }
 
    public List<String> getTradeFilters()
@@ -245,11 +247,41 @@ public class TradeBean extends TradeClientData implements Serializable
       }
    }
 
+   public void onTabChange(TabChangeEvent event)
+   {
+      try
+      {
+
+         if (event != null)
+         {
+            String tabname = event.getTab().getId();
+            String tabnum = tabname.substring(3);
+            Integer num = webutil.getConverter().getIntData(tabnum);
+            switch (num)
+            {
+               case 0:
+                  reloadTradeClient();
+                  break;
+               case 1:
+                  reloadTradeSummary();
+                  break;
+            }
+         }
+      }
+      catch (Exception ex)
+      {
+
+         //setActiveTab(0);
+      }
+   }
+
+
    private void collectTradeInfo()
    {
       try
       {
-         tradeClientDataList = tradeDAO.getTradeProfileData("P");
+         Long logonid = webutil.getLogonid();
+         tradeClientDataList = tradeDAO.getTradeProfileData(logonid, "N");
          filterClientData2Display();
       }
       catch (Exception ex)
@@ -277,7 +309,7 @@ public class TradeBean extends TradeClientData implements Serializable
                Integer opt=0;
                String filter;
                while (! skip && opt < numOptions) {
-                  if (getTradeClientDataList().get(loop).getReason().startsWith(getSelectedFilterOptions()[opt]))
+                  if (getTradeClientDataList().get(loop).getTradeStatus().startsWith(getSelectedFilterOptions()[opt].substring(1,1)))
                      skip=true;
                   else
                      opt++;
@@ -295,12 +327,12 @@ public class TradeBean extends TradeClientData implements Serializable
    public void reloadTradeClient() {
       //tradeDAO.deletePendingTrades();
       collectTradeInfo();
-      String msg = getTradeClientDataList().size() + " Account(s) were loaded.";
+      String msg = getFilteredClientList().size() + " Account(s) were loaded.";
       showGrowl(msg, "Info");
 
    }
 
-   public void refreshTradeClient() {
+   public void refreshFilteredClient() {
       filterClientData2Display();
    }
 
@@ -338,15 +370,6 @@ public class TradeBean extends TradeClientData implements Serializable
       return ("success");
    }
 
-   public void onCellEdit(CellEditEvent event) {
-      Object oldValue = event.getOldValue();
-      Object newValue = event.getNewValue();
-
-      if(newValue != null && !newValue.equals(oldValue)) {
-         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-         FacesContext.getCurrentInstance().addMessage(null, msg);
-      }
-   }
 
    public void createTrades(String filter)
    {
@@ -370,6 +393,10 @@ public class TradeBean extends TradeClientData implements Serializable
                webutil.setProgressbar((loop/numClients) * 100);
                tData = getSelectedClientList().get(loop);
                tradedata = rebalProcess.process(logonid, tData.getAcctnum());
+               if (tradedata != null) {
+                  tradeDAO.saveTradeProcessIdentifier(tData.getAcctnum(),tData.getTradeStatus(),"R",tData.getReason());
+               }
+
             }
             String msg = "";
             if (tradedata == null  || tradedata.size() == 0) {
@@ -397,68 +424,6 @@ public class TradeBean extends TradeClientData implements Serializable
       }
    }
 
-/*
-   public void createsqlTrades()
-   {
-      TradeClientData data;
-      try
-      {
-         if (getSelectedClientList() != null)
-         {
-            Integer numClients = 0;
-            for (Integer loop = 0; loop < numClients; loop++)
-            {
-               data = getSelectedClientList().get(loop);
-               if (data != null)
-               {
-                  this.getInstance().copyData((CustomerData) data);
-                  this.getInstance().setNumOfAllocation(1);
-                  this.getInstance().setNumOfPortfolio(1);
-                  this.getInstance().buildAssetClass();
-                  this.getInstance().buildPortfolio();
-                  csdDAO.saveAllocation(this.getInstance());
-                  csdDAO.savePortfolio(this.getInstance());
-                  csdDAO.createTrades(this.getInstance().getAcctnum());
-                  numClients++;
-               }
-            }
-            if (numClients > 0) {
-               String msg = numClients.toString() + " trade(s) were created, successfully";
-               showGrowl(msg, "Info");
-            }
-            else {
-               String msg = " No customers were seletected to create trades.  Action ignored!";
-               showGrowl(msg, "Warning");
-            }
-
-         }
-
-      }
-      catch (Exception ex)
-      {
-         String msg = "Error in creating trades" + ex.getMessage();
-         showGrowl(msg, "Error");
-         ex.printStackTrace();
-      }
-   }
-*/
-
-   public void reloadReviewTrades()
-   {
-      webutil.getProgressbar();
-      if (getTradeDetailsData() != null)
-         getTradeDetailsData().clear();
-      setTradeDetailsData(tradeDAO.loadTradesDetails(null));
-      addTotals();
-      webutil.setProgressbar(100);
-   }
-
-   private void addTotals() {
-      if (getTradeDetailsData() != null && getTradeDetailsData().size() > 0) {
-         for (TradeSummary ts : getTradeDetailsData().values())
-            ts.addTotals();
-      }
-   }
    private String getFileNameWithDateAndTime(String prefix)
    {
       Date date = new Date();
@@ -466,27 +431,66 @@ public class TradeBean extends TradeClientData implements Serializable
       return dateFormatWithDateAndTime.format(date) + prefix + ".csv";
    }
 
+   public void reloadTradeSummary() {
+      //tradeDAO.deletePendingTrades();
+      collectTradeSummary();
+      String msg = getFilteredSummaryList().size() + " Account(s) were loaded.";
+      showGrowl(msg, "Info");
+
+   }
+
+
+   private void collectTradeSummary()
+   {
+      try
+      {
+         Long logonid = webutil.getLogonid();
+         tradeSummaryData = tradeDAO.getTradeSummaryData(logonid, "R");
+         filterSummaryData2Display();
+      }
+      catch (Exception ex)
+      {
+         String msg = "Error in collecting Clients To Trade" + ex.getMessage();
+         showGrowl(msg, "Error");
+         ex.printStackTrace();
+      }
+   }
+
+
+   private void filterSummaryData2Display() {
+      Integer numOptions=0;
+      Boolean skip;
+      try {
+         if (getSelectedFilterOptions() == null || getSelectedFilterOptions().length == 0) {
+            filteredSummaryList = getTradeSummaryData();
+         }
+         else {
+            numOptions = getSelectedFilterOptions().length;
+            filteredClientList = new ArrayList<TradeClientData>();
+
+            for (Integer loop=0; loop < getTradeClientDataList().size(); loop++) {
+               skip=false;
+               Integer opt=0;
+               String filter;
+               while (! skip && opt < numOptions) {
+                  if (getTradeSummaryData().get(loop).getTradeStatus().startsWith(getSelectedFilterOptions()[opt]))
+                     skip=true;
+                  else
+                     opt++;
+               }
+               if (!skip)
+                  filteredClientList.add(getTradeClientDataList().get(loop));
+            }
+         }
+      }
+      catch (Exception ex) {
+
+      }
+   }
+
    public void generateTrades()
    {
       try {
-         String userHomeDir = null;
-         Properties prop = new Properties();
-         InputStream propInput = null;
-         HttpServletRequest req = (HttpServletRequest) getCurrentInstance().getExternalContext().getRequest();
-         propInput = req.getSession().getServletContext().getResourceAsStream("/WEB-INF/classes/invessence.properties");
-         prop.load(propInput);
-         userHomeDir = prop.getProperty("doc.location");
-         // System.out.println("Data File Location :" + userHomeDir);
-         webutil.getProgressbar();
-
-         tradeDAO.createTrades(null);
-         List<Map<String, Object>> data;
-         data = tradeDAO.getTradeData();
-         tradeDAO.updateExecutedTrades();
-         webutil.setProgressbar(100);
-         String msg = "Trade and Allocation files produced";
-         showGrowl(msg, "Info");
-         // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
       }
       catch (Exception ex) {
          String msg = "Error when producing file" + ex.getMessage();
@@ -496,25 +500,5 @@ public class TradeBean extends TradeClientData implements Serializable
       }
    }
 
-   private StreamedContent downloadFile(String name, String outputName) {
-      StreamedContent file = null;
-      try {
-         InputStream stream = new FileInputStream(new File(name))
-         {
-            @Override
-            public int read() throws IOException
-            {
-               return 0;
-            }
-         };
-         stream.close();
-         file = new DefaultStreamedContent(stream, "application/csv", outputName);
-         return file;
-      }
-      catch (Exception ex) {
-
-      }
-      return file;
-   }
 
 }

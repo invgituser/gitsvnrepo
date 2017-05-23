@@ -19,25 +19,28 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
-   public void saveAllocation(CustomerData data) {
+   public void saveAllocation(CustomerData data)
+   {
       DataSource ds = getDataSource();
-      TradeSP sp1 = new TradeSP(ds, "del_asset_alloc",0);
+      TradeSP sp1 = new TradeSP(ds, "del_asset_alloc", 0);
       sp1.deleteAllocation(data);
-      TradeSP sp = new TradeSP(ds, "sp_asset_alloc_add_mod",1);
+      TradeSP sp = new TradeSP(ds, "sp_asset_alloc_add_mod", 1);
       sp.saveAllocation(data);
    }
 
-   public void savePortfolio(CustomerData data) {
+   public void savePortfolio(CustomerData data)
+   {
       DataSource ds = getDataSource();
-      TradeSP sp1 = new TradeSP(ds, "del_virtual_portfolio",2);
+      TradeSP sp1 = new TradeSP(ds, "del_virtual_portfolio", 2);
       sp1.deletePortfolio(data);
-      TradeSP sp = new TradeSP(ds, "sp_virtual_portfolio_add_mod",3);
+      TradeSP sp = new TradeSP(ds, "sp_virtual_portfolio_add_mod", 3);
       sp.savePortfolio(data);
    }
 
-   public void createTrades(Long acctnum) {
+   public void createTrades(Long acctnum)
+   {
       DataSource ds = getDataSource();
-      TradeSP sp = new TradeSP(ds, "sp_createTrades",4);
+      TradeSP sp = new TradeSP(ds, "sp_createTrades", 4);
       sp.createTrades(acctnum);
    }
 
@@ -55,6 +58,13 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
       }
    }
 
+   public void saveTradeProcessIdentifier(Long acctnum, String tradeStatus, String processStatus, String reason)
+   {
+      DataSource ds = getDataSource();
+      TradeSP sp = new TradeSP(ds, "save_trade_process_identifier", 6);
+      sp.saveTradeProcessIdentifier(acctnum, tradeStatus, processStatus, reason);
+   }
+
    public void deletePendingTrades()
    {
       try
@@ -69,16 +79,20 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
       }
    }
 
-   public void updateExecutedTrades() {
+
+   public void updateExecutedTrades()
+   {
       DataSource ds = getDataSource();
-      TradeSP sp = new TradeSP(ds, "sp_updateExecutedTrades",99);
+      TradeSP sp = new TradeSP(ds, "sp_updateExecutedTrades", 99);
       sp.updateExecutedTrades();
    }
 
-   public List<Position> loadVirtualPorfolio(Long acctnum) {
-      try {
+   public List<Position> loadVirtualPorfolio(Long acctnum)
+   {
+      try
+      {
          DataSource ds = getDataSource();
-         TradeSP sp = new TradeSP(ds, "admin_sel_virtual_portfolio",101);
+         TradeSP sp = new TradeSP(ds, "admin_sel_virtual_portfolio", 101);
          List<Position> posList = new ArrayList<Position>();
 
          Map outMap = sp.getVirtualPosition(acctnum);
@@ -111,125 +125,28 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
                posList.add(i, data);
                i++;
             }
-            return  posList;
+            return posList;
          }
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
          ex.printStackTrace();
       }
       return null;
    }
 
-   public Map<String, TradeSummary> loadTradesDetails(Long acctnum)
+   public List<RebalanceTradeData> loadRebalTrades(Long acctnum)
    {
       DataSource ds = getDataSource();
       TradeSP sp;
 
-      sp = new TradeSP(ds, "sel_displayTradeDetail", 102);
+      sp = new TradeSP(ds, "sel_TradeRebalDetail", 102);
       Map outMap = sp.loadTradesDetails(acctnum);
 
-      Map<String, TradeSummary> tradesummary = new HashMap<String, TradeSummary>();
-      Map<String, Map<String,TradeSummary>> possummary = new HashMap<String, Map<String,TradeSummary>>();
-
+      ArrayList<RebalanceTradeData> rebalanceTradesList = new ArrayList<RebalanceTradeData>();
       int i = 0;
-      TradeSummary summary;
-      Map<String, Asset> posAsset = new HashMap<String, Asset>();
-      Asset assetclass;
-      Boolean cashonRebal = false;
-      Double totalCash = 0.0, remainingBalance;
-
-      String clientAccountID = "Blank",taxable, theme;
-      Double newValue, holdingValue;
       if (outMap != null)
       {
-         //NOTE: SP returns two datasets
-         ArrayList<Map<String, Object>> posrows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-2");
-         if (posrows != null)
-         {
-            i = 0;
-            for (Map<String, Object> map : posrows)
-            {
-               Map rs = (Map) posrows.get(i);
-               clientAccountID = convert.getStrData(rs.get("clientAccountID"));
-               String ticker = convert.getStrData(rs.get("ticker"));
-               String asset = convert.getStrData(rs.get("assetClass"));
-               String subclass = convert.getStrData(rs.get("subclass"));
-               String color = convert.getStrData(rs.get("color"));
-               Double posValue = convert.getDoubleData(rs.get("positionValue"));
-               Double posQty = convert.getDoubleData(rs.get("quantity"));
-               Map <String, TradeSummary> tinfo;
-               if (!possummary.containsKey(clientAccountID)) {
-                  tinfo = new HashMap<String, TradeSummary>();
-                  possummary.put(clientAccountID, tinfo);
-               }
-               else {
-                  tinfo = possummary.get(clientAccountID);
-               }
-
-               if (possummary.get(clientAccountID).containsKey(ticker))  {
-                  summary = possummary.get(clientAccountID).get(ticker);
-               }
-               else
-               {
-                  summary = new TradeSummary();
-                  RebalanceTradeData tradedata = new RebalanceTradeData(
-                     "", // advisor
-                     clientAccountID,
-                     null,
-                     ticker,
-                     asset,
-                     subclass,
-                     "",
-                     0.0,    // curQty
-                     0.0,   // curValue
-                     0.0,   // curPrice
-                     ticker,   // holdingTicker
-                     posQty,  //  holdingQty
-                     null,  // holdingPrice
-                     posValue,  // holdingValue
-                     0.0,      // newQty
-                     0.0,      // newValue
-                     "P", // tradeType
-                     "Position" // reason
-                  );
-
-
-                  summary.getTradeData().add(tradedata);
-               }
-               String posKey = clientAccountID + "." + asset;
-
-               if (!posAsset.containsKey(posKey))
-               {
-                  assetclass = new Asset();
-                  assetclass.setColor(color);
-                  assetclass.setAsset(asset);
-                  assetclass.setValue(0.0);
-                  assetclass.setHoldingValue(posValue);
-               }
-               else
-               {
-                  assetclass = posAsset.get(posKey);
-                  assetclass.setHoldingValue(assetclass.getHoldingValue() + posValue);
-               }
-
-               posAsset.put(posKey, assetclass);
-
-               summary.setTotalHoldingValue(summary.getTotalHoldingValue() + posValue);
-               if (summary.getListofHoldingTickers().containsKey(ticker)) {
-                  posQty = summary.getListofHoldingTickers().get(ticker).getQty() + posQty;
-                  posValue = summary.getListofHoldingTickers().get(ticker).getValue() + posValue;
-               }
-               summary.addListofHoldingTickers(ticker,
-                                               posQty,
-                                               posValue);
-
-               tinfo.put(ticker,summary);
-               possummary.put(clientAccountID, tinfo);
-               i++;
-            } // end Position Loop
-         } // Endif Posrow
-
-         //NOTE: SP returns two datasets, note the #result-set- value below.
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
          if (rows != null)
          {
@@ -237,115 +154,21 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
-               clientAccountID = convert.getStrData(rs.get("clientAccountID"));
-               acctnum = convert.getLongData(rs.get("acctnum"));
-               if (tradesummary.containsKey(clientAccountID))
-               {
-                  summary = tradesummary.get(clientAccountID);
-               }
-               else
-               {
-                  summary = new TradeSummary();
-                  summary.setClientAccountID(clientAccountID);
-                  summary.setAcctnum(acctnum);
-                  summary.setEmail(convert.getStrData(rs.get("email")));
-                  summary.setLastName(convert.getStrData(rs.get("lastName")));
-                  summary.setFirstName(convert.getStrData(rs.get("firstName")));
-                  taxable = convert.getStrData(rs.get("taxable"));
-                  theme = convert.getStrData(rs.get("theme"));
-
-                  if (taxable == null || taxable.isEmpty() || taxable.toLowerCase().startsWith("n"))
-                  {
-                     taxable = "Non-taxable";
-                  }
-                  else
-                  {
-                     taxable = "Taxable";
-                  }
-
-                  if (theme == null)
-                  {
-                     theme = "Default";
-                  }
-
-                  summary.setTaxable(taxable);
-                  summary.setTheme(theme);
-                  summary.setGoal(convert.getStrData(rs.get("goal")));
-
-                  summary.setTotalCurentValue(0.0);
-                  summary.setTotalHoldingValue(0.0);
-                  summary.setTotalNewValue(0.0);
-
-               }
-
-               String ticker = convert.getStrData(rs.get("ticker"));
-               String asset = convert.getStrData(rs.get("assetclass"));
-               String subclass = convert.getStrData(rs.get("subclass"));
-               Double curValue = convert.getDoubleData(rs.get("curValue"));
-               Double curQty = convert.getDoubleData(rs.get("curQty"));
-               newValue = convert.getDoubleData(rs.get("newValue"));
-               holdingValue = convert.getDoubleData(rs.get("holdingValue"));
-               Double runningHolding = 0.0, runningBalance = 0.0;
-               Double runningQty = 0.0, runningBalQty = 0.0;
-
-               if (possummary.get(clientAccountID).containsKey(ticker)  && (! ticker.equalsIgnoreCase("cash"))) {
-                  runningHolding = possummary.get(clientAccountID).get(ticker).getListofHoldingTickers().get(ticker).getValue();
-                  runningQty = possummary.get(clientAccountID).get(ticker).getListofHoldingTickers().get(ticker).getQty();
-                  runningBalQty = runningQty + curQty;
-                  runningBalance = runningHolding + curValue;
-                  possummary.get(clientAccountID).get(ticker).addListofHoldingTickers(ticker, curQty, curValue);
-                  // possummary.get(clientAccountID).get(ticker).setTotalHoldingValue(runningBalance);
-               }
-               else {
-                  runningBalance = curValue;
-                  runningHolding = 0.0;
-               }
-
-
-               Double posHolding = 0.0;
-               if (!summary.getAsset().containsKey(asset))
-               {
-                  assetclass = new Asset();
-                  assetclass.setColor(convert.getStrData(rs.get("color")));
-                  assetclass.setAsset(asset);
-                  // If we have position, then use that holding.
-                  String posKey = clientAccountID + "." + asset;
-                  posHolding = 0.0;
-                  if (posAsset.containsKey(posKey)) {
-                     posHolding = posAsset.get(posKey).getHoldingValue();
-                     summary.setTotalHoldingValue(summary.getTotalHoldingValue() + posHolding);
-                     posAsset.remove(posKey);
-                  }
-                  assetclass.setHoldingValue(posHolding); // Only add once, because it is from position.
-                  if (asset.equalsIgnoreCase("cash")) {
-                     assetclass.setValue(curValue);
-
-                  }
-                  else {
-                     assetclass.setValue(posHolding + curValue); // Set current value to same as position, then keep adding trades.
-                     summary.setTotalNewValue(summary.getTotalNewValue() + newValue);
-                  }
-               }
-               else
-               {
-                  assetclass = summary.getAsset().get(asset);
-                  assetclass.setValue(assetclass.getValue() + curValue);
-               }
-               summary.setTotalNewValue(summary.getTotalNewValue() + curValue);
-               summary.setTotalCurentValue(summary.getTotalCurrentValue() + curValue);
-
-               summary.getAsset().put(asset, assetclass);
-
                RebalanceTradeData tradedata = new RebalanceTradeData(
-                  convert.getStrData(rs.get("advisor")), // advisor
-                  clientAccountID,
                   convert.getLongData(rs.get("acctnum")),
-                  ticker,
-                  asset,
-                  subclass,
+                  convert.getStrData(rs.get("clientAccountID")),
+                  convert.getStrData(rs.get("lastname")),
+                  convert.getStrData(rs.get("firstname")),
+                  convert.getStrData(rs.get("taxable")),
+                  convert.getStrData(rs.get("advisor")),
+                  convert.getStrData(rs.get("rep")),
+                  convert.getStrData(rs.get("asset")),
+                  convert.getStrData(rs.get("subasset")),
                   convert.getStrData(rs.get("color")),
+                  convert.getStrData(rs.get("ticker")),
+                  convert.getStrData(rs.get("name")), // Security Name
                   convert.getDoubleData(rs.get("curQty")),
-                  curValue,
+                  convert.getDoubleData(rs.get("curValue")),
                   convert.getDoubleData(rs.get("curPrice")),
                   convert.getStrData(rs.get("holdingTicker")),
                   convert.getDoubleData(rs.get("holdingQty")),
@@ -354,32 +177,24 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
                   convert.getDoubleData(rs.get("newQty")),
                   convert.getDoubleData(rs.get("newValue")),
                   convert.getStrData(rs.get("tradeType")),
-                  convert.getStrData(rs.get("reason"))
+                  convert.getStrData(rs.get("reason")),
+                  convert.getIntData(rs.get("sortorder"))
                );
-
-
-               summary.getTradeDetails().add(tradedata);
-               summary.addListofHoldingTickers(ticker,
-                                               convert.getDoubleData(rs.get("curQty")),
-                                               curValue);
-               tradesummary.put(clientAccountID, summary);
-               i++;
+               rebalanceTradesList.add(tradedata);
+                i++;
             }
          }
-
-
-         // Now Adjust trades
-
       }
 
-      return tradesummary;
+      return rebalanceTradesList;
    }
 
-   public List<TradeClientData> getTradeProfileData(String filter) {
+   public List<TradeClientData> getTradeProfileData(Long logonid, String filter)
+   {
       DataSource ds = getDataSource();
-      AdminSP sp = new AdminSP(ds, "sel_collectTradeProfile",103);
+      TradeSP sp = new TradeSP(ds, "sel_collectTradeProfile", 103);
       List<TradeClientData> listProfiles = new ArrayList<TradeClientData>();
-      Map outMap = sp.loadProfile(filter);
+      Map outMap = sp.loadProfile(logonid, filter);
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
@@ -407,17 +222,63 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
       return null;
    }
 
-   public ArrayList<Map<String, Object>> getTradeData() {
+   public List<TradeSummary> getTradeSummaryData(Long logonid, String filter)
+   {
       DataSource ds = getDataSource();
-      AdminSP sp = new AdminSP(ds, "sel_displayTrades2Execute",199);
+      TradeSP sp = new TradeSP(ds, "sel_TradeSummaryDetail", 104);
+      List<TradeSummary> listProfiles = new ArrayList<TradeSummary>();
+      Map outMap = sp.loadTradeSummaryData(logonid, filter);
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         int i = 0;
+         for (Map<String, Object> map : rows)
+         {
+            Map rs = (Map) rows.get(i);
+            TradeSummary data = new TradeSummary();
+
+            data.setAcctnum(convert.getLongData(rs.get("acctnum")));
+            data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
+            data.setFirstName(convert.getStrData(rs.get("applicantFName")));
+            data.setLastName(convert.getStrData(rs.get("applicantLName")));
+            data.setTradeStatus(convert.getStrData(rs.get("tradeStatus")));
+            data.setProcessStatus(convert.getStrData(rs.get("processStatus")));
+            data.setTotalInvestment(convert.getDoubleData(rs.get("totalInvestment")));
+
+            // data.setSumcurQty(convert.getDoubleData(rs.get("sumcurQty")));
+            data.setSumcurValue(convert.getDoubleData(rs.get("sumcurValue")));
+
+            // data.setSumholdingQty(convert.getDoubleData(rs.get("holdingQty")));
+            // data.setSumholdingValue(convert.getDoubleData(rs.get("sumholdingValue")));
+
+            // data.setSumnewQty(convert.getDoubleData(rs.get("sumnewQty")));
+            data.setSumnewValue(convert.getDoubleData(rs.get("sumnewValue")));
+            listProfiles.add(i, data);
+            i++;
+
+         }
+         return listProfiles;
+      }
+      return null;
+   }
+
+/*
+   public ArrayList<Map<String, Object>> getTradeData()
+   {
+      DataSource ds = getDataSource();
+      TradeSP sp = new TradeSP(ds, "sel_displayTrades2Execute", 199);
       List<TradeDetails> tradeDetails = new ArrayList<TradeDetails>();
       Map outMap = sp.getTradesAllocationData();
       if (outMap != null)
+      {
          return (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+      }
       else
+      {
          return null;
+      }
    }
-
+*/
 
 
 }
