@@ -1378,7 +1378,13 @@ public class RebalanceProcess
             }
             else
             {
-               tShares = portfolioSecurityData.getShares() - holdingData.getQty();
+               //JAV - 5/24/2017 - added temp variables below to use nMoney and not the shares due to fictional price issue
+               // when creating a fix portfolio.
+               //tShares = portfolioSecurityData.getShares() - holdingData.getQty();
+               double nMoney = portfolioSecurityData.getMoney();
+               double cPrice = holdingData.getMarkPrice();
+               double cQty = holdingData.getQty();
+               tShares = (double)Math.round((nMoney/cPrice - cQty)-0.5);
             }
             tMoney = tShares * holdingData.getMarkPrice();
             tMoney = tShares * hPrice;
