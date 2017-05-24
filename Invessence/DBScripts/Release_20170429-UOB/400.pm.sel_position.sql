@@ -7,18 +7,18 @@ CREATE PROCEDURE `invdb`.`sel_position`(
 )
 BEGIN
 
-	DECLARE tAdvisorType VARCHAR(25);
+	DECLARE tAdvisorAccess VARCHAR(25);
     DECLARE tfilterType   VARCHAR(1);
     
     DECLARE tTotalPos	 DOUBLE;
 
 	SELECT 
     MIN(advisor)
-	INTO tAdvisorType FROM
-    user_advisor_info
+	INTO tAdvisorAccess FROM
+    user_advisor_access
 	WHERE logonid = p_logonid;
         
-	IF (tAdvisorType is NOT NULL)
+	IF (tAdvisorAccess is NOT NULL)
 		THEN set tfilterType = 'A';
 		ELSE set tfilterType = 'O';  
 	END IF;
@@ -138,7 +138,7 @@ BEGIN
 				 ON (`sec_master`.`assetclass`= `sec_asset_master`.`assetclass`
 				 AND `sec_asset_master`.`theme` = `user_trade_profile`.`theme`)
 			WHERE `ext_acct_info`.`acctnum` = p_acctnum
-			AND   `user_logon`.`advisor` = tAdvisorType
+			AND   IFNULL(`user_trade_profile`.`advisor`,'Invessence') like tAdvisorAccess
 			AND   `ext_position`.`reportDate` = ( select max(`pos`.`reportDate`) from `ext_position` `pos`)
             GROUP BY
 				 IFNULL(`sec_asset_master`.`sortorder`,9999)

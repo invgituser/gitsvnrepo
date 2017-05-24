@@ -336,7 +336,7 @@ public class RebalanceProcess
             Question3: Also, the loadPortfolio saves the allocation and portfolio on pdata class.
             Info: So,newHoldings is just getting that data.
              */
-            loadPortfolio(pdata, 1);
+            // loadPortfolio(pdata, 1);
 
             //Number of years is 1
             // loadAssetClass(pdata, 1);
