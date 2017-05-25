@@ -20,6 +20,7 @@
     <h:outputScript name="js/ripple-effect.js" library="#{uiLayout.themeLib}"/>
     <h:outputScript name="js/perfect-scrollbar.js" library="#{uiLayout.themeLib}"/>
     <h:outputScript name="js/layout.js" library="#{uiLayout.themeLib}"/>
+    <h:outputScript name="js/sessionManagement.js"  library="invessence"/>
     <link rel="shortcut icon" type="image/x-icon" href="#{uiLayout.webProfile.feviconLogoPath}" />
 
     <ui:insert name="head" />
@@ -35,7 +36,36 @@
         <h:outputScript name="#{uiLayout.webProfile.googleAnalytic}"
                             library="#{uiLayout.webProfile.cssdir}"/>
     </ui:fragment>
+    <p:inputText type="hidden" id="idIsUserLoggedIn"
+                 value="#{webutil.isUserLoggedIn()}"/>
+    <p:inputText type="hidden" id="idHomeURL"
+                 value="#{webutil.webprofile.getHomepage()}"/>
+    <p:inputText type="hidden" id="idSessionTimeout"
+                 value="#{sessionControl.getCustomSessionTimeout()}"/>
+    <p:inputText type="hidden" id="idCountdownTime"
+                 value="#{sessionControl.getSessionCountdownTime()}"/>
+    <p:growl id="msg" showDetail="true" sticky="true"/>
 
+    <p:idleMonitor timeout="#{sessionControl.getCustomSessionTimeout()}" onidle="idleDialog();"/>
+
+    <div id="idConfirmExt">
+        <div class="innercdb">
+            <div id="progressBar"></div>
+            <p:confirmDialog id="confirmDialog"
+                             message="You have been idle for long time."
+                             header="Are you there?" severity="alert" widgetVar="c">
+                <p:commandButton id="idLogout" value="Logout" update="msg"
+                                 actionListener="#{sessionControl.onIdleSessionLogout}"/>
+                <p:commandButton id="idContinue" value="I Am Still Here" update="msg"
+                                 oncomplete="fnDisableDialog()"
+                                 actionListener="#{sessionControl.onActive}"/>
+                <p:commandButton id="idOk" value="Ok" update="msg"
+                                 onclick="fnDisableVisitorDialog()"/>
+
+
+            </p:confirmDialog>
+        </div>
+    </div>
 </h:body>
 
 </html>

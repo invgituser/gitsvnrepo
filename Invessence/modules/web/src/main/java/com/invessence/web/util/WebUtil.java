@@ -1123,5 +1123,21 @@ public class WebUtil implements Serializable
       }
       return file;
    }
+   public boolean isAggregatorMenuActive()
+   {
 
+      try
+      {
+         System.out.print("Print Menu value" + getWebprofile().getWebInfo().get("MENU.AGGREGATOR").toString());
+         if (getWebprofile().getWebInfo().get("MENU.AGGREGATOR") != null && getWebprofile().getWebInfo().get("MENU.AGGREGATOR").toString().equalsIgnoreCase("A"))
+         {
+            return true;
+         }
+      }
+      catch (Exception ex)
+      {
+         return false;
+      }
+      return false;
+   }
 }

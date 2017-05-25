@@ -12,6 +12,7 @@
    <http pattern="/index.xhtml" security="none"/>
    <http pattern="/getstarted.xhtml" security="none"/>
    <http pattern="/login.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/mobilelogin.xhtml" security="none" create-session="never" use-expressions="true"/>
    <http pattern="/logon.xhtml" security="none" create-session="never" use-expressions="true"/>
    <http pattern="/signup.xhtml" security="none"/>
    <http pattern="/signup2.xhtml" security="none"/>

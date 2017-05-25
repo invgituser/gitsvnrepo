@@ -1584,7 +1584,7 @@ pointer-events: none;
 	right: 0;
 	top: 0;
 	bottom: 0;
-	z-index: -1;
+	z-index: 300;
 }
 
 
@@ -1596,4 +1596,43 @@ pointer-events: none;
 
 .innercdb > .ui-confirm-dialog {
 	margin-top: 13%;
+	width:400px !important;
+}
+.confirmDialogueBlock > .ui-dialog-content
+{
+	padding: 0 27px;
+	width: 400px;
+	box-sizing: border-box;
+}
+
+.innercdb .ui-confirm-dialog-message span{
+	width: 220px;
+}
+
+@media screen and (max-width:600px) and (min-width: 320px) {
+
+	.innercdb {
+		width: 320px!important;
+		margin: 0 auto;
+		z-index: 300;
+	}
+
+	.innercdb > .ui-confirm-dialog {
+		margin-top: 50%;
+	}
+
+	.innercdb .ui-dialog-footer {
+
+		padding: 0px 11%!important;
+	}
+
+	.innercdb > .ui-confirm-dialog {
+
+		width:310px !important;
+	}
+
+}
+
+.innercdb  .ui-dialog-titlebar-icon {
+	display:none;
 }

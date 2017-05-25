@@ -29,9 +29,11 @@ public class SessionController implements Serializable
    private Long logonid;
    private String rep;
    private String visitorID;
+   private String device;
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
+
    public void setWebutil(WebUtil webutil)
    {
       this.webutil = webutil;
@@ -39,6 +41,7 @@ public class SessionController implements Serializable
 
    @ManagedProperty("#{uiLayout}")
    private UILayout uiLayout;
+
    public void setUiLayout(UILayout uiLayout)
    {
       this.uiLayout = uiLayout;
@@ -46,6 +49,7 @@ public class SessionController implements Serializable
 
    @ManagedProperty("#{commonDAO}")
    private CommonDAO commonDAO;
+
    public void setCommonDAO(CommonDAO commonDAO)
    {
       this.commonDAO = commonDAO;
@@ -92,46 +96,58 @@ public class SessionController implements Serializable
 
    public void logout()
    {
+      String mobileUserFlag = null;
+      String homeurl = webutil.webprofile.getHomepage();
+
+      mobileUserFlag=webutil.webprofile.getDevice();
+
+      if (mobileUserFlag!=null && mobileUserFlag.equalsIgnoreCase("mobile"))
+      {
+         homeurl = webutil.webprofile.getMobileHomepage();
+      }
+      System.out.println("Redirecting homeurl " + homeurl );
       try
       {
-
          uiLayout.logout();
       }
       catch (Exception ex)
       {
-
       }
       reset();
-      String homeurl;
-
-      homeurl = webutil.webprofile.getHomepage();
-      if (homeurl != null && ! homeurl.isEmpty()) {
+      if (homeurl != null && !homeurl.isEmpty())
+      {
          webutil.redirect(homeurl, null);
          return;
       }
-
       webutil.redirect("/j_spring_security_logout", null);
    }
 
-   public String getLogonStart() {
+   public String getLogonStart()
+   {
 
       logger.info("Module: getLogonStart() called");
-      if (webutil != null) {
-         if (webutil.isUserLoggedIn()) {
-            if (webutil.getUserInfoData() != null) {
+      if (webutil != null)
+      {
+         if (webutil.isUserLoggedIn())
+         {
+            if (webutil.getUserInfoData() != null)
+            {
                // On logon, if the Advisor and rep is defined to the user, then use that instead.  Removed this check on May 17th, 2017
                // resetUserCIDByAdvisor(webutil.getUserInfoData().getAdvisor());  // Since user is loging on, use the User's Advisor's Setup
                resetCIDByURL(null);  // Use the URL Mapping (May 17th, 2017)
-               if (webutil.getUserInfoData().getAdvisor() != null ) {
+               if (webutil.getUserInfoData().getAdvisor() != null)
+               {
                   webutil.getWebprofile().setDefaultAdvisor(webutil.getUserInfoData().getAdvisor());
                   webutil.getWebprofile().setDefaultRep(webutil.getUserInfoData().getRep());
                }
-               if (webutil.getUserInfoData().getAtstart() != null) {
+               if (webutil.getUserInfoData().getAtstart() != null)
+               {
                   uiLayout.whichPage(webutil.getUserInfoData().getAccess(), webutil.getUserInfoData().getAtstart());
                   return "success";
                }
             }
-            else {
+            else
+            {
                goToDash();
                return "success";
             }
@@ -145,15 +161,20 @@ public class SessionController implements Serializable
    public String getAtStart()
    {
       resetCIDByURL(null);
-      if (webutil != null) {
-         if (webutil.isUserLoggedIn()) {
-            if (webutil.getUserInfoData() != null) {
-               if (webutil.getUserInfoData().getAtstart() != null) {
+      if (webutil != null)
+      {
+         if (webutil.isUserLoggedIn())
+         {
+            if (webutil.getUserInfoData() != null)
+            {
+               if (webutil.getUserInfoData().getAtstart() != null)
+               {
                   uiLayout.whichPage(webutil.getUserInfoData().getAccess(), webutil.getUserInfoData().getAtstart());
                   return "success";
                }
             }
-            else {
+            else
+            {
                goToDash();
                return "success";
             }
@@ -173,12 +194,14 @@ public class SessionController implements Serializable
    {
       resetCIDByURL(null);
       String arg = "?app=N";
-      if (this.rep != null && ! this.rep.isEmpty()) {
+      if (this.rep != null && !this.rep.isEmpty())
+      {
          webutil.webprofile.setDefaultRep(this.rep);
          arg += "&rep=" + this.rep;
       }
 
-      if (this.visitorID != null && !this.visitorID.isEmpty()) {
+      if (this.visitorID != null && !this.visitorID.isEmpty())
+      {
          Long visitorlogonid = webutil.converter.getLongData(visitorID);
          if (logonid != null)
          {
@@ -192,7 +215,8 @@ public class SessionController implements Serializable
       // return "success";
    }
 
-   public void reset() {
+   public void reset()
+   {
       webutil.webprofile.setLocked(false);
       // NOTE; We don't want to load the advisor, because it resets to actual base site.
       loadWebProfile(webutil.getURLAddress("Invessence"));
@@ -210,7 +234,8 @@ public class SessionController implements Serializable
       uiLayout.forwardURL("/login.xhtml");
    }
 
-   public void emulateClient(String clienturl) {
+   public void emulateClient(String clienturl)
+   {
       logger.info("Module: emulateClient ->" + clienturl);
       if (clienturl != null)
       {
@@ -223,7 +248,8 @@ public class SessionController implements Serializable
       }
    }
 
-   private void loadWebProfile(String url) {
+   private void loadWebProfile(String url)
+   {
       if (commonDAO != null)
       {
          logger.info("Load WEB property for:" + url);
@@ -234,7 +260,8 @@ public class SessionController implements Serializable
       }
    }
 
-   private void loadAdvisorProfile(String advisor) {
+   private void loadAdvisorProfile(String advisor)
+   {
       if (commonDAO != null)
       {
          logger.info("Load WEB Advisor for:" + advisor);
@@ -246,37 +273,47 @@ public class SessionController implements Serializable
    {
       logger.info("Module: resetCIDByURL called");
       if (webutil == null)
+      {
          return;
+      }
 
       // Not it is not prod mode then don't override the properties based on advisor.
-      if (webutil.webprofile != null) {
-         if (! webutil.webprofile.getMode().equalsIgnoreCase("prod"))
+      if (webutil.webprofile != null)
+      {
+         if (!webutil.webprofile.getMode().equalsIgnoreCase("prod"))
+         {
             return;
+         }
       }
 
       Map<String, String> advisorMap;
       if (advisor == null)
       {
-          advisor = "Invessence";
+         advisor = "Invessence";
       }
 
       if (webutil.getWebprofile().getLocked())
+      {
          logger.info("Status: Advisor cannot revised the locked mode");
+      }
 
-      if (! webutil.getWebprofile().getLocked()) {
-            if (commonDAO != null)
+      if (!webutil.getWebprofile().getLocked())
+      {
+         if (commonDAO != null)
+         {
+            advisorMap = commonDAO.getAdvisorWebInfo(advisor);
+            if (advisorMap != null)
             {
-               advisorMap = commonDAO.getAdvisorWebInfo(advisor);
-               if (advisorMap != null) {
-                  if (advisorMap.containsKey("WEB.URL")) {
-                     logger.info("Override the URL for: " + advisorMap.get("WEB.URL"));
-                     loadWebProfile(advisorMap.get("WEB.URL"));
-                     logger.info("Override the Advisor Property: " + advisor);
-                     webutil.getWebprofile().addToMap(advisorMap);
-                     webutil.getWebprofile().finalConfig();
-                  }
+               if (advisorMap.containsKey("WEB.URL"))
+               {
+                  logger.info("Override the URL for: " + advisorMap.get("WEB.URL"));
+                  loadWebProfile(advisorMap.get("WEB.URL"));
+                  logger.info("Override the Advisor Property: " + advisor);
+                  webutil.getWebprofile().addToMap(advisorMap);
+                  webutil.getWebprofile().finalConfig();
                }
             }
+         }
       }
    }
 
@@ -285,7 +322,9 @@ public class SessionController implements Serializable
    {
       logger.info("Module: resetCIDByURL called");
       if (webutil == null)
+      {
          return;
+      }
 
 
       String origurl = webutil.getWebprofile().getUrl();
@@ -295,10 +334,13 @@ public class SessionController implements Serializable
       }
 
       if (webutil.getWebprofile().getLocked())
-         logger.info("Status: Attempting to reset: " + uri  + " But the profile is locked in: " + origurl);
+      {
+         logger.info("Status: Attempting to reset: " + uri + " But the profile is locked in: " + origurl);
+      }
       // We we are doing demo, then it will be locked. Don't reset (regarless of URL)
 
-      if (! webutil.getWebprofile().getLocked()) {
+      if (!webutil.getWebprofile().getLocked())
+      {
          // Was Webprofile parsed in past.  If se, then we set the origurl.
 
          // Now get the new profile.
@@ -306,13 +348,16 @@ public class SessionController implements Serializable
          logger.info("Compare: ORIG URL: " + origurl + " and New One: " + uri);
          // Now try to determine, we we need to reset, based on URL (either by logged user, or change of URL)
          Boolean reload = false;
-         if (origurl == null) {  // If this is first time, go reload as normal.
+         if (origurl == null)
+         {  // If this is first time, go reload as normal.
             reload = true;
          }
          else
          {  // If doing it again, then is the new URL NOT localhost or is different from current origurl
-            if (! uri.equalsIgnoreCase("localhost")  && ! origurl.equalsIgnoreCase(uri))
+            if (!uri.equalsIgnoreCase("localhost") && !origurl.equalsIgnoreCase(uri))
+            {
                reload = true;
+            }
          }
 
          logger.info("Status: " + ((reload) ? "reload" + uri : "Skip reload"));
@@ -326,16 +371,77 @@ public class SessionController implements Serializable
       }
    }
 
-   public void onIdleSessionLogout() {
-      System.out.println("Session Logout Start");
+   public void onIdleSessionLogout()
+   {
+      System.out.println("onIdleSessionLogout Session Logout Start");
       logout();
-      System.out.println("Session Logout End");
-//      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-//                                                                          "No activity.", "What are you doing over there?"));
+      System.out.println("onIdleSessionLogout Session Logout End");
    }
 
-   public void onTwo() {
-//      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-//                                                                          "Welcome Back", "Well, that's a long coffee break!"));
+   public void onActive()
+   {
+      System.out.println("onActive User is Active");
+   }
+
+   public int getCustomSessionTimeout()
+   {
+      int customSessionTimeout = 10 * 60 * 1000;
+      try
+      {
+         String strCustomSessionTimeout = webutil.getWebprofile().getWebInfo().get("WEB.SESSION.TIMEOUT").toString();
+         customSessionTimeout = Integer.parseInt(strCustomSessionTimeout);
+
+         customSessionTimeout = customSessionTimeout * 60 * 1000;
+         System.out.println("SessionController.getCustomSessionTimeout session timeout " + customSessionTimeout);
+      }
+      catch (Exception e)
+      {
+         customSessionTimeout = 10*60*10000;
+         logger.error("SessionController.getCustomSessionTimeout Error " + e);
+         e.printStackTrace();
+      }
+      return customSessionTimeout;
+   }
+
+   public int getSessionCountdownTime()
+   {
+      int sessionCountdownTime = 60 ;
+      try
+      {
+         String strSessionCountdownTime = webutil.getWebprofile().getWebInfo().get("WEB.SESSION.COUNTDOWNTIME").toString();
+         sessionCountdownTime = Integer.parseInt(strSessionCountdownTime);
+
+         sessionCountdownTime = sessionCountdownTime * 60 ;
+         System.out.println("SessionController.getSessionCountdownTime session countdown time" + sessionCountdownTime);
+      }
+      catch (Exception e)
+      {
+         sessionCountdownTime = 60;
+         logger.error("SessionController.getSessionCountdownTime Error " + e);
+         e.printStackTrace();
+      }
+      return sessionCountdownTime;
+   }
+
+
+
+   public String getDevice()
+   {
+      return device;
+   }
+
+   public void setDevice(String device)
+   {
+      this.device = device;
+   }
+
+   public void mobileRenderView()
+   {
+      if (!FacesContext.getCurrentInstance().isPostback())
+      {
+         logger.info("Module: preRenderView() called");
+         resetCIDByURL(null);  // This method, will find the URL if not defined.
+         webutil.webprofile.setDevice("Mobile");
+      }
    }
 }

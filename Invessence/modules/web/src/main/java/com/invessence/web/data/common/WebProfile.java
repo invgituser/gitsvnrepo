@@ -1,9 +1,6 @@
 package com.invessence.web.data.common;
 
 import java.util.*;
-import javax.faces.bean.ManagedProperty;
-
-import com.invessence.web.dao.common.CommonDAO;
 
 /**
  * Created by Prashant on 12/16/2016.
@@ -13,7 +10,7 @@ public class WebProfile
    String url;
    Boolean locked; // locked, would mean override the default url and use given URL.
    String mode;    // This mode will be set on forced.  (DEMO, UAT to control some flow on webpage).
-   String defaultAdvisor, defaultRep;
+   String defaultAdvisor, defaultRep,device;
    Map<String, String> webInfo;
    Map<String, WebMenu> webmenu;
 
@@ -35,6 +32,7 @@ public class WebProfile
       defaultRep = null;
       webInfo = new HashMap<String, String>();
       webmenu = new HashMap<String, WebMenu>();
+      device=null;
    }
 
    public void finalConfig()
@@ -427,4 +425,20 @@ public class WebProfile
          webmenu.put(label,thisMenu);
       }
    }
+   public String getMobileHomepage()
+   {
+      return getInfo("URL.MOBILE");
+   }
+
+   public String getDevice()
+   {
+      return device;
+   }
+
+   public void setDevice(String device)
+   {
+      this.device = device;
+   }
+
+
 }

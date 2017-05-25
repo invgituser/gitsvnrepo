@@ -25,7 +25,7 @@
                         </ui:fragment>
                     </li>
 
-                    <ui:fragment rendered="#{webutil.hasRole('DEMO')}">
+                    <ui:fragment rendered="#{webutil.isAggregatorMenuActive()}">
                         <li class="MobileModeOnly">
                             <h:form>
                             <h:commandLink action="#{aggrBean.startup('M')}" value="Aggregation" styleClass="Animated05">
