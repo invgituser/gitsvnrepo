@@ -42,10 +42,10 @@
                                                       style="margin-top: 10px;">
 
                                             <p:menuitem value="Individual" itemValue="V"
-                                                        process="@form" update="tradePanel"
+                                                        process="@form" update="@form"
                                                         actionListener="#{tradeBean.createTrades('I')}"/>
                                             <p:menuitem value="All" itemValue="D"
-                                                        process="@form" update="tradePanel"
+                                                        process="@form" update="@form"
                                                         actionListener="#{tradeBean.createTrades('A')}"/>
                                         </p:menuButton>
 
@@ -163,7 +163,16 @@
                                     </div>
                                     <div class="Fright" style="margin-top: 9px;">
 
-                                        <p:commandButton styleClass="advButton" value="Download" actionListener="#{fileProcessBean.processDownloadFile('DOWD1')}"/>
+                                        <p:menuButton value="Download" styleClass="InfoNewDash customMenuButtonDashboard"
+                                                      style="margin-top: 10px;">
+
+                                            <p:menuitem value="Individual" itemValue="V"
+                                                        process="@form" update="@form"
+                                                        actionListener="#{tradeBean.generateTrades('I')}"/>
+                                            <p:menuitem value="All" itemValue="D"
+                                                        process="@form" update="@form"
+                                                        actionListener="#{tradeBean.generateTrades('A')}"/>
+                                        </p:menuButton>
                                     </div>
                                 </div>
 
@@ -231,6 +240,13 @@
                                                 <f:convertNumber type="currency" currencySymbol="$"/>
                                             </h:outputText>
                                         </p:column>
+                                        <f:facet name="footer">
+                                            <p:commandButton id="downloadBtn" styleClass="advButton" value="Download"
+                                                             update="@form" ajax="true"
+                                                             actionListener="#{tradeBean.generateTrades('I')}">
+                                            </p:commandButton>
+
+                                        </f:facet>
 
                                     </p:dataTable>
                                 </div>

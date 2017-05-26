@@ -371,12 +371,12 @@ public class TradeBean extends TradeClientData implements Serializable
    }
 
 
-   public void createTrades(String filter)
+   public void createTrades(String mode)
    {
       TradeClientData tData = null;
       Long logonid;
 
-      if (! filter.equalsIgnoreCase("I")) {
+      if (! mode.equalsIgnoreCase("I")) {
          setSelectedClientList(getFilteredClientList());
       }
 
@@ -488,14 +488,50 @@ public class TradeBean extends TradeClientData implements Serializable
       }
    }
 
-   public void generateTrades()
+   public void generateTrades(String mode)
    {
-      try {
+      Long logonid;
+
+      if (! mode.equalsIgnoreCase("I")) {
+         setSelectedSummaryList(getFilteredSummaryList());
       }
-      catch (Exception ex) {
-         String msg = "Error when producing file" + ex.getMessage();
+
+      try
+      {
+         TradeClientData tData = null;
+         if (getSelectedClientList() != null)
+         {
+            webutil.progessreset();
+            logonid = webutil.getLogonid();
+            Integer numClients = getSelectedClientList().size();
+            for (Integer loop = 0; loop < numClients; loop++)
+            {
+               webutil.setProgressbar((loop/numClients) * 100);
+               tData = getSelectedClientList().get(loop);
+               tradeDAO.executeTrade(tData.getAcctnum());
+            }
+            String msg = "";
+            if (numClients == 0) {
+               msg = "No customers were processed to create trades.  Action ignored!";
+               showGrowl(msg, "Warning");
+            }
+            else if (numClients == 1) {
+                  msg = "Account#: " + tData.getAcctnum().toString() + " was processed, successfully";
+               }
+               else {
+                  msg = numClients.toString() + " accounts were processed, successfully";
+               }
+               showGrowl(msg, "Info");
+               // Add section of the code to call the web-service to generate file.
+               // webutil.downloadFile(filenamename, fileformat, outputName);
+
+         }
+
+      }
+      catch (Exception ex)
+      {
+         String msg = "Error in creating trades" + ex.getMessage();
          showGrowl(msg, "Error");
-         // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
          ex.printStackTrace();
       }
    }
