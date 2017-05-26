@@ -320,6 +320,13 @@ public class CustomerData extends ProfileData
 
    public void setEnableChangeStrategy(Boolean enableChangeStrategy)
    {
+      if (webutil != null)
+      {
+         if (webutil.getWebprofile().getMode().equalsIgnoreCase("demo"))
+         {
+            enableChangeStrategy = true;  // If in demo mode, then leave this button enabled/rendered.
+         }
+      }
       this.enableChangeStrategy = enableChangeStrategy;
    }
 

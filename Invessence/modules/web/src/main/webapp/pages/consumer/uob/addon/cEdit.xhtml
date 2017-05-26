@@ -11,7 +11,7 @@
         <div class="finetuneBtnBlock Fright">
             <p:commandButton id="uobfinetunebtn" styleClass="fineTuneBtn fineTuneBtnImg"
                              icon="ui-icon-image"
-                             disabled="#{! uobpb.enableChangeStrategy}"
+                             rendered="#{uobpb.enableChangeStrategy}"
                              update=":ceForm:inputArea"
                              actionListener="#{uobpb.showFTPanel}">
             </p:commandButton>

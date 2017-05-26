@@ -262,23 +262,12 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
       return null;
    }
 
-/*
-   public ArrayList<Map<String, Object>> getTradeData()
+   public void executeTrade(Long acctnum)
    {
       DataSource ds = getDataSource();
-      TradeSP sp = new TradeSP(ds, "sel_displayTrades2Execute", 199);
-      List<TradeDetails> tradeDetails = new ArrayList<TradeDetails>();
-      Map outMap = sp.getTradesAllocationData();
-      if (outMap != null)
-      {
-         return (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
-      }
-      else
-      {
-         return null;
-      }
+      TradeSP sp = new TradeSP(ds, "save_executedTrades", 105);
+      Map outMap = sp.executeTrade(acctnum);
    }
-*/
 
 
 }

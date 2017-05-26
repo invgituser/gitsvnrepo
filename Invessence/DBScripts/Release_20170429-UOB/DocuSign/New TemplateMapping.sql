@@ -210,6 +210,16 @@ INSERT INTO `invdb`.`adv_request_document_mappings` (`templateId`, `action`, `su
 INSERT INTO `invdb`.`adv_request_document_mappings` (`templateId`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('Direct', 'FUNDING', 'TDTRF', 'TD_TRAN_NEW', 'Please sign TD transfer document.', '1', 'DC');
 INSERT INTO `invdb`.`adv_request_document_mappings` (`templateId`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('External', 'FUNDING', 'TDTRF', 'TD_TRAN_NEW', 'Please sign TD transfer document.', '1', 'DC');
 
+INSERT INTO `invdb`.`adv_request_document_mappings` (`templateId`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('Direct', 'ACCT_OPEN', 'DEFAULT', 'TCM_DIRECT_AGREE', 'Please sign Account Application document.', '4', 'ADV');
+
+UPDATE `service`.`dc_template_details` SET `tempId`='a5d993b6-d21f-4308-89af-7dc3cd7ba790' WHERE `mode`='PROD' and`company`='BUILDINGBENJAMINS' and`service`='DOCUSIGN-SERVICES' and`tempCode`='TCM_DIRECT_AGREE' and`tempId`='1111';
+UPDATE `service`.`dc_template_details` SET `tempId`='a5d993b6-d21f-4308-89af-7dc3cd7ba790' WHERE `mode`='PROD' and`company`='TCM' and`service`='DOCUSIGN-SERVICES' and`tempCode`='TCM_DIRECT_AGREE' and`tempId`='1111';
+UPDATE `service`.`dc_template_details` SET `tempName`='TA Direct Client Advisory Agreement - 5/12/17' WHERE `mode`='PROD' and`company`='BUILDINGBENJAMINS' and`service`='DOCUSIGN-SERVICES' and`tempCode`='TCM_DIRECT_AGREE' and`tempId`='a5d993b6-d21f-4308-89af-7dc3cd7ba790';
+UPDATE `service`.`dc_template_details` SET `tempName`='TA Direct Client Advisory Agreement - 5/12/17' WHERE `mode`='PROD' and`company`='TCM' and`service`='DOCUSIGN-SERVICES' and`tempCode`='TCM_DIRECT_AGREE' and`tempId`='a5d993b6-d21f-4308-89af-7dc3cd7ba790';
+
+
+
+
 
 /*'External', 'ACCT_OPEN', 'DEFAULT', 'TCM_THIRED_PARTY_DISC', 'Please sign Account Application document.', '4', 'ADV'
 'Direct', 'ACCT_OPEN', 'DEFAULT', 'TCM_DIRECT_AGREE', 'Please sign Account Application document.', '4', 'ADV'

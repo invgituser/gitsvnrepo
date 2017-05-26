@@ -78,6 +78,9 @@ public class TradeSP extends StoredProcedure
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_filter", Types.VARCHAR));
             break;
+         case 105: // save_executedTrades
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
          case 199: // All others
          default:  // All other (no arg)
             break;
@@ -243,4 +246,10 @@ public class TradeSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
+   public Map executeTrade(Long acctnum)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_acctnum", acctnum);
+      return super.execute(inputMap);
+   }
 }
