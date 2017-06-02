@@ -163,10 +163,9 @@ public class AssetAllocationModel
          double[] weights = portfolioOptimizer.getAssetOrderedWeight(theme, offset);
          duration = (duration > InvConst.MAX_DURATION) ? InvConst.MAX_DURATION : duration;
          double wght = 0.0;
-         double risk_adjustment = 0.0;
+
          double totalRemainWeight = 1.0;
-         double baseNum = 1 + ((double) duration / (double) age);
-         double powerNum = -1 * (duration - 1);
+
 
          // Currently we are using Fixed Risk Adjustments,  We'll change this to get the data from DB
          // and store in assets Class.
@@ -186,31 +185,18 @@ public class AssetAllocationModel
                continue;
             }
 
-            // If input from user is to go to cash then risk_adjustment should be 0
-            // If input from user is stay_invested then initial equity allocation is
-            // Equity allocation = 100 - age
-            // Adjust this number for risk tolerance
-
-            //only risk adjust equity
-
-
             if (!assetname.equals("Cash"))
             {
-
-               // Do not adjust base on age or stay invested.
-               if (stayInvested == 1)
+               // JAV 6/2/2017
+               //This is to risk adjust target date funds. Only for Invessence models
+               double factor = 0.0;
+               //Only themes used by Invessence
+               if ( theme.contentEquals("0.Core 0.Safety 0.Income T.0.Core T.0.Income T.0.Safety"))
                {
-                  risk_adjustment = portfolioOptimizer.getRiskAdjustment(theme, assetname);
-               }
-               else
-               {
-
-                  risk_adjustment = portfolioOptimizer.getEnd_allocation(theme, assetname);
+                  factor = adjustmentFactors(duration, age, stayInvested, theme, assetname, wght);
                }
 
-               double factor = (risk_adjustment - wght) * Math.pow(baseNum, powerNum);
                wght = (wght + factor);
-
 
                if (wght > totalRemainWeight)
                {
@@ -248,6 +234,37 @@ public class AssetAllocationModel
       }
       return null;
 
+   }
+
+   public double adjustmentFactors(double duration, double age, int stayInvested, String theme, String assetname, double wght)
+   {
+      //JAV 6/2/2017
+      // If input from user is to go to cash then risk_adjustment should be 0
+      // If input from user is stay_invested then initial equity allocation is
+      // Equity allocation = 100 - age
+      // Adjust this number for risk tolerance
+      //only risk adjust equity
+      //This was an adjustment made for the USA models.
+      //For target date type strategies which reduces risk over time.
+      //Since we are moving this can be a separate function if we need to add to USA themes only.
+      double risk_adjustment = 0.0;
+      double baseNum = 1 + ((double) duration / (double) age);
+      double powerNum = -1 * (duration - 1);
+
+      // Do not adjust base on age or stay invested.
+      if (stayInvested == 1)
+      {
+         risk_adjustment = portfolioOptimizer.getRiskAdjustment(theme, assetname);
+      }
+      else
+      {
+
+         risk_adjustment = portfolioOptimizer.getEnd_allocation(theme, assetname);
+      }
+
+      double factor = (risk_adjustment - wght) * Math.pow(baseNum, powerNum);
+
+      return factor;
    }
 
    public AssetClass[] getAssetInfoByRisk(ProfileData pdata)
