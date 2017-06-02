@@ -96,6 +96,11 @@ public class UOBRiskCalculator extends RiskCalculator
                      calcRisk = Math.pow((ageValue.doubleValue() / maxScore), agePowerValue);
                      calcRisk = Math.min(maxScore * calcRisk, ageWeight * maxScore);
                      calcRisk = (calcRisk > 100) ? 100 : calcRisk;
+
+                     //JAV 6/2/2017 when Horizon is 1 its aways cash type portfolio
+                     if (getRiskHorizon()== 1)
+                        calcRisk = 100.0;
+
                      riskValues[loop] = calcRisk; // Store the value in DB
                      break;
                   case 2:
