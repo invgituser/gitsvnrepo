@@ -20,7 +20,9 @@ public class RiskCalculator
    public String  investmentobjective;
    public SQLData converter = new SQLData();
 
+   /*
    private static Double riskValueMatrix[][] = {
+
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #0 Used as default.
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #1 (Corresponds to Age)
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q2 (Corresponds to Horizon)
@@ -39,6 +41,26 @@ public class RiskCalculator
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}  // Q15
    };
 
+*/
+
+   private static Double riskValueMatrix[][] = {
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #0 Used as default.
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #1 (Corresponds to Age)
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q2 (Corresponds to Horizon)
+      {0.0, 0.0, 4.0, 8.0, 12.0, 50.0, 0.0, 0.0, 0.0, 0.0}, // Q3 -> Q1 of Risk
+      {0.0, 0.0, 16.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q4 -> Q2 of Risk
+      {0.0, 0.0, 4.0, 8.0, 12.0, 50.0, 0.0, 0.0, 0.0, 0.0}, // Q5
+      {0.0, 0.0, 50.0, 100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q6
+      {0.0, 0.0, 25.0, 50.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q7
+      {0.0, 0.0, 50.0, 100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q8
+      {0.0, 0.0, 25.0, 75.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q9
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q10
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q11
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q12
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q13
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q14
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}  // Q15
+   };
 
    public RiskCalculator()
    {
@@ -469,13 +491,14 @@ public class RiskCalculator
 
 
             Double value;
+            Double maxDuration = 7.0; // This could be a constant
             for (int loop = 1; loop < numberofQuestions + 1; loop++)
             {
                value = 0.0;
                switch (loop)
                {
                   case 1:
-                     Double maxDuration = 15.0; // This could be a constant
+
                      double horPowerAdj = getRiskHorizon()/maxDuration;
                      if (horPowerAdj > 1.0)
                         horPowerAdj = 1.0;
@@ -487,23 +510,24 @@ public class RiskCalculator
                      calcRisk = Math.pow((ageValue.doubleValue() / maxScore), agePowerValue);
                      calcRisk = Math.min(maxScore * calcRisk, ageWeight * maxScore);
                      calcRisk = (calcRisk > 100) ? 100 : calcRisk;
+                     if (getRiskHorizon()== 1)
+                        calcRisk = 100.0;
                      riskValues[loop] = calcRisk; // Store the value in DB
                      break;
                   case 2:
                      answers[loop] = getRiskHorizon().toString();
                      break;
-                  /*case 2:
-                     answers[loop] = getRiskHorizon().toString();
-                     Double calcHorizonRisk = 0.0;
-                     Double maxDuration = 25.0; // This could be a constant
-                     calcHorizonRisk = (maxDuration-getRiskHorizon()*(80/maxDuration)); // 80 is fixed since we are scaling risk 1 to 100
-                     riskValues[loop] = calcHorizonRisk; // Store the value in DB
-                     if (calcHorizonRisk > calcRisk)
-                     {
-                        calcRisk = calcHorizonRisk;
-                     }
-                     break;
-                     */
+
+                     //answers[loop] = getRiskHorizon().toString();
+                     //Double calcHorizonRisk = 0.0;
+                     //calcHorizonRisk = (maxScore-getRiskHorizon()*(maxScore/maxDuration)); // 80 is fixed since we are scaling risk 1 to 100
+                     //riskValues[loop] = calcHorizonRisk; // Store the value in DB
+                     //if (calcHorizonRisk > calcRisk)
+                     //{
+                     //   calcRisk = calcHorizonRisk;
+                     //}
+                     //break;
+
                   case 3:
                   case 4:
                   case 5:
@@ -531,12 +555,8 @@ public class RiskCalculator
             calcRisk = (calcRisk < 0.0) ? 0.0 : calcRisk;
             calcRisk = (calcRisk > 99.0) ? 99.0 : calcRisk;
             setTotalRisk(100.0 - calcRisk);
-            return calcRisk;
          }
-         else
-         {
-            return totalRisk;
-         }
+         return totalRisk;
       }
       catch (Exception ex)
       {
