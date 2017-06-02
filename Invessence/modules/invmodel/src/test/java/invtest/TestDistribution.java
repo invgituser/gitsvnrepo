@@ -28,7 +28,7 @@ public class TestDistribution
 {
    private static TestDistribution instance = null;
    private static String datadir = "C:/Users/Jigar/Work Related/RiverFrontAdvisors/";
-
+   private static RiskCalculator riskCalculator = new RiskCalculator();
 
    public static synchronized TestDistribution getInstance()
    {
@@ -54,6 +54,26 @@ public class TestDistribution
       //testAllocationV2(args);
    }
 
+
+   public static Double calcRisk(int age, int horizon,
+                                      String ans1,
+                                      String ans2, String ans3,String ans4,String ans5,String ans6,String ans7,String ans8,String ans9)
+   {
+      riskCalculator.setRiskFormula("C");
+      riskCalculator.setNumberofQuestions(9);
+      riskCalculator.setRiskAge(age);
+      riskCalculator.setRiskHorizon(horizon);
+      riskCalculator.setAns3(ans1);
+      riskCalculator.setAns4(ans2);
+      riskCalculator.setAns5(ans3);
+      riskCalculator.setAns6(ans4);
+      riskCalculator.setAns7(ans5);
+      riskCalculator.setAns8(ans6);
+      riskCalculator.setAns9(ans7);
+      riskCalculator.setAns10(ans8);
+      riskCalculator.setAns11(ans9);
+      return riskCalculator.calculateRisk();
+   }
    public static void testPerformanceModel(String[] args) throws Exception
    {
       //AssetDBCollection assetdao = AssetDBCollection.getInstance();
@@ -81,32 +101,46 @@ public class TestDistribution
       profileData.setTheme("0.SGWealth");
       profileData.setAccountTaxable(false);
 
-      profileData.setAge(40);
+      profileData.setAge(45);
       age = profileData.getAge();
 
-      profileData.setHorizon(10);
+      profileData.setHorizon(1);
       duration = profileData.getHorizon();
 
       // profileData.setAccountTaxable(false);
-      profileData.setRiskIndex(70.0);
 
+/*
       //1 = preservation 2 = Accumulation
       profileData.setObjective(2);
       //2 = Go to Cash, 1 = Stay Invested
       profileData.setStayInvested(1);
+*/
 
       profileData.setInitialInvestment(100000);
       invCapital = profileData.getInitialInvestment();
       // profileData.setRecurringInvestment(5000);
 
-     profileData.setNumOfAllocation(duration);
+/*
+      profileData.setDependent(0);
+      profileData.setTotalIncome(120000);
+      profileData.setLiquidAsset(5000000);
+      profileData.setTotalExpense(0);
+      profileData.setNumOfAllocation(duration);
+*/
 
-      profileData.setRiskCalcMethod("A"); //Using age based option A or C
-      profileData.setAllocationIndex(30);  // When flag is A
-      profileData.setPortfolioIndex(69);
+      profileData.setRiskCalcMethod("C"); //Using age based option A or C
+
+      profileData.setAllocationIndex(50);  // When flag is A
+      profileData.setPortfolioIndex(45);
+
       //profileData.offsetRiskIndex();
 
       profileData.setNumOfAllocation(1);
+      // Use this for calculating risk based on questions
+      profileData.setRiskIndex(calcRisk(age, duration, "1", "1", "1", "1", "1", "1", "1", "1", "1"));
+      // Use this for calculating slider
+      //profileData.setRiskIndex(39.0);
+
       AssetClass[] aamc = modelUtil.buildAllocation(profileData);
       profileData.setAssetData(aamc);
 
@@ -117,7 +151,7 @@ public class TestDistribution
       Portfolio[] pfclass = modelUtil.buildPortfolio(aamc, profileData);
 
       tax = "No";
-      createAssetPerformanceFile(tax, pfclass, aamc, age);
+      //createAssetPerformanceFile(tax, pfclass, aamc, age);
 
       createHoldingsFile(pfclass, tax, aamc, profileData);
 
@@ -338,6 +372,89 @@ public class TestDistribution
 
       writer.close();
    }*/
+
+   public static void testRiskCalc()
+   {
+      ArrayList<String> result =new ArrayList<String>();
+      result.add("Age" + "," +
+                    "Horizon" + "," +
+                    "ans3" + "," +
+                    "ans4" + "," +
+                    "ans5" + "," +
+                    "ans6" + "," +
+                    "ans7" + "," +
+                    "ans8" + "," +
+                    "ans9" + "," +
+                    "value1" + "," +
+                    "value2" + "," +
+                    "value3" + "," +
+                    "value4" + "," +
+                    "value5" + "," +
+                    "value6" + "," +
+                    "value7" + "," +
+                    "value8" + "," +
+                    "value9" + "," +
+                    "Total"
+      );
+      riskCalculator = new RiskCalculator();
+      try {
+         riskCalculator.setRiskFormula("C");
+         riskCalculator.setNumberofQuestions(9);
+         for (Integer age = 20; age < 101; age+=10) {
+            riskCalculator.setRiskAge(age);
+            for (Integer horizon=5; horizon < 21; horizon+=5) {
+               riskCalculator.setRiskHorizon(horizon);
+               for (Integer r3=0; r3 < 6; r3+=2) {
+                  riskCalculator.setAns3(r3.toString());
+                  for (Integer r4=0; r4 < 2; r4++) {  // Only two choices
+                     riskCalculator.setAns4(r4.toString());
+                     for (Integer r5=0; r5 < 6; r5+=2) {  // Only five choices
+                        riskCalculator.setAns5(r5.toString());
+                        for (Integer r6=0; r6 < 6; r6+=2) {  // Only five choices
+                           riskCalculator.setAns6(r6.toString());
+                           for (Integer r7=0; r7 < 6; r7+=2) {  // Only five choices
+                              riskCalculator.setAns7(r7.toString());
+                              for (Integer r8=0; r8 < 6; r8+=2) {  // Only five choices
+                                 riskCalculator.setAns8(r8.toString());
+                                 for (Integer r9=0; r9 < 6; r9+=2) {  // Only five choices
+                                    riskCalculator.setAns9(r9.toString());
+                                    riskCalculator.calculateRisk();
+                                    result.add(riskCalculator.getAns1() + "," +
+                                                  riskCalculator.getAns2() + "," +
+                                                  riskCalculator.getAns3() + "," +
+                                                  riskCalculator.getAns4() + "," +
+                                                  riskCalculator.getAns5() + "," +
+                                                  riskCalculator.getAns6() + "," +
+                                                  riskCalculator.getAns7() + "," +
+                                                  riskCalculator.getAns8() + "," +
+                                                  riskCalculator.getAns9() + "," +
+                                                  riskCalculator.getRiskValue(1) + "," +
+                                                  riskCalculator.getRiskValue(2) + "," +
+                                                  riskCalculator.getRiskValue(3) + "," +
+                                                  riskCalculator.getRiskValue(4) + "," +
+                                                  riskCalculator.getRiskValue(5) + "," +
+                                                  riskCalculator.getRiskValue(6) + "," +
+                                                  riskCalculator.getRiskValue(7) + "," +
+                                                  riskCalculator.getRiskValue(8) + "," +
+                                                  riskCalculator.getRiskValue(9) + "," +
+                                                  riskCalculator.getTotalRisk());
+                                 }
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+
+            }
+         }
+         //createRiskCalcFile(result);
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+
+   }
 
    public static void writeForwardPerformanceFile(String filename, ArrayList<ProjectionData[]> projarray) {
 
