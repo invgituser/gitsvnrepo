@@ -19,13 +19,20 @@ public class ConsumerSaveDataDAO extends JdbcDaoSupport implements Serializable
 
    public Long saveProfileData( CustomerData mgoal)
    {
+      Long acctnum = 0L;
+      try {
       DataSource ds = getDataSource();
       ConsumerSaveSP sp = new ConsumerSaveSP(ds, "save_user_trade_profile",0);
-      Long acctnum = 0L;
       Map outMap = sp.saveProfileData(mgoal);
       acctnum = ((Long) outMap.get("p_acctnum")).longValue();
       mgoal.setAcctnum(acctnum);
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+
       return (acctnum);
+
    }
    public Long editProfileData( CustomerData mgoal)
    {
@@ -40,16 +47,28 @@ public class ConsumerSaveDataDAO extends JdbcDaoSupport implements Serializable
 
    public void saveFinancials(CustomerData mgoal)
    {
-      DataSource ds = getDataSource();
-      ConsumerSaveSP sp = new ConsumerSaveSP(ds, "save_user_financial_data",1);
-      sp.saveFinancials(mgoal);
+      try
+      {
+         DataSource ds = getDataSource();
+         ConsumerSaveSP sp = new ConsumerSaveSP(ds, "save_user_financial_data", 1);
+         sp.saveFinancials(mgoal);
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
    }
 
    public void saveRiskProfile(Long acctnum, RiskCalculator data)
    {
-      DataSource ds = getDataSource();
-      ConsumerSaveSP sp = new ConsumerSaveSP(ds, "sav_user_risk_questions",2);
-      sp.saveRiskProfile(acctnum, data);
+      try
+      {
+         DataSource ds = getDataSource();
+         ConsumerSaveSP sp = new ConsumerSaveSP(ds, "sav_user_risk_questions", 2);
+         sp.saveRiskProfile(acctnum, data);
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
    }
 
    public void saveAllocation(CustomerData mgoal )

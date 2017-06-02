@@ -720,6 +720,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             }
             setAcctnum(acctnum);
             listDAO.getProfileData(getInstance());
+            loadRiskData(acctnum);
+
             setFixedModelPortfolioList(getInstance().getTheme());
             setFmDataLinkedHashMap(getInstance().getTheme());
             origCustomerData = new CustomerData();
@@ -965,8 +967,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          if (acctnum > 0)
          {
             setAcctnum(acctnum);
-            saveDAO.saveFinancials(getInstance());
             saveDAO.saveRiskProfile(acctnum, getRiskCalculator());
+            saveDAO.saveFinancials(getInstance());
             saveDAO.saveAllocation(getInstance());
             saveDAO.savePortfolio(getInstance());
          }
@@ -1052,7 +1054,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          {
             setDoesUserHavaLogonID(true);
             loadProfileData(getBeanAcctnum());
-            loadRiskData(getBeanAcctnum());
             riskCalculator.setInvestmentobjective(getGoal());  // Goal needs to be restored to use the proper calculator
             displayGoalText = true;
             createAssetPortfolio(1);

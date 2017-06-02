@@ -1,14 +1,18 @@
 package com.invessence.web.util;
 
+import com.invessence.service.bean.ServiceRequest;
+import com.invessence.web.service.fileProcessor.FileProcessWebLayer;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook.*;
+import org.primefaces.model.*;
 import org.springframework.mail.javamail.ConfigurableMimeFileTypeMap.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.mail.javamail.ConfigurableMimeFileTypeMap;
 
 import javax.activation.FileTypeMap;
 import javax.activation.FileTypeMap.*;
+import javax.faces.bean.ManagedProperty;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -25,6 +29,11 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  */
 public class FilesIO
 {
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   @ManagedProperty("#{fileProcessWebLayer}")
+   private FileProcessWebLayer fileProcessWebLayer;
+
    private FileTypeMap fileTypeMap;
    private static Integer MAX_ROWS = 1500;
    private static Integer MAX_COLS = 300;
@@ -36,6 +45,26 @@ public class FilesIO
       fileTypeMap = new ConfigurableMimeFileTypeMap();
    }
 
+   public FileProcessWebLayer getFileProcessWebLayer()
+   {
+      return fileProcessWebLayer;
+   }
+
+   public void setFileProcessWebLayer(FileProcessWebLayer fileProcessWebLayer)
+   {
+      this.fileProcessWebLayer = fileProcessWebLayer;
+   }
+
+   public WebUtil getWebutil()
+   {
+      return webutil;
+   }
+
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
+
    public String getContentType(String fileName) throws IOException
    {
       if (fileName == null) {
@@ -43,27 +72,6 @@ public class FilesIO
       }
       return fileTypeMap.getContentType(fileName.toLowerCase());
    }
-
-   public Integer convertInteger(String value) {
-      try {
-         Integer result = Integer.parseInt(value);
-         return result;
-      }
-      catch (Exception ex) {
-         return null;
-      }
-   }
-
-   public Double convertDouble(String value) {
-      try {
-         Double result = Double.parseDouble(value);
-         return result;
-      }
-      catch (Exception ex) {
-         return null;
-      }
-   }
-
 
    public void writeToExcelFile(String filename, Map<String, Object[][]> data)
    {
@@ -266,5 +274,83 @@ public class FilesIO
 
       return data;
    }
+
+
+   // Need to return the list of file
+   public Boolean processDownloadFile(String processId){
+      System.out.println("AggregationBean.startup");
+      String product = getWebutil().getWebprofile().getWebInfo().get("SERVICE.PRODUCT").toString();
+      String serviceMode = getWebutil().getWebprofile().getWebInfo().get("SERVICE.FILEPROCESS.MODE").toString();
+//      String processId= getWebutil().getWebprofile().getWebInfo().get("SERVICE.FILEPROCESS.UPLOADPROCESSID").toString();
+      System.out.println("Product " + product);
+      System.out.println("ServiceMode " + serviceMode);
+      System.out.println("ProcessId = " + processId);
+      try {
+         boolean  result=fileProcessWebLayer.processFile(new ServiceRequest(product, serviceMode, processId));
+         return(result);
+
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+      return false;
+   }
+
+   private StreamedContent downloadFile(String processId, String fileformat, String outputName) {
+      StreamedContent file = null;
+      try {
+         InputStream stream = new FileInputStream(new File(processId))
+         {
+            @Override
+            public int read() throws IOException
+            {
+               return 0;
+            }
+         };
+         stream.close();
+         if (fileformat != null) {
+            if (fileformat.equalsIgnoreCase("csv")) {
+               file = new DefaultStreamedContent(stream, "application/csv", outputName);
+            }else {
+               if (fileformat.equalsIgnoreCase("text")) {
+                  file = new DefaultStreamedContent(stream, "application/text", outputName);
+               }
+               else
+               {
+                  if (fileformat.equalsIgnoreCase("pdf")) {
+                     file = new DefaultStreamedContent(stream, "application/pdf", outputName);
+                  }
+               }
+            }
+         }
+      }
+      catch (Exception ex) {
+
+      }
+      return file;
+   }
+
+
+   public StreamedContent downloadFile(String processId) {
+      StreamedContent file = null;
+      try {
+         InputStream stream = new FileInputStream(new File(processId))
+         {
+            @Override
+            public int read() throws IOException
+            {
+               return 0;
+            }
+         };
+         stream.close();
+         file = new DefaultStreamedContent(stream, "application/csv", processId);
+         // application/zip for zip file
+         return file;
+      }
+      catch (Exception ex) {
+
+      }
+      return file;
+   }
+
 
 }

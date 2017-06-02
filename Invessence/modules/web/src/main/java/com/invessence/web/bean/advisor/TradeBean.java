@@ -43,6 +43,8 @@ public class TradeBean extends TradeClientData implements Serializable
 
    private List<String> tradeFilters;
 
+   private FilesIO fileio;
+
    @ManagedProperty("#{tradeDAO}")
    private TradeDAO tradeDAO;
 
@@ -55,6 +57,7 @@ public class TradeBean extends TradeClientData implements Serializable
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
+
    public void setWebutil(WebUtil webutil)
    {
       this.webutil = webutil;
@@ -62,6 +65,7 @@ public class TradeBean extends TradeClientData implements Serializable
 
    @ManagedProperty("#{uiLayout}")
    private UILayout uiLayout;
+
    public void setUiLayout(UILayout uiLayout)
    {
       this.uiLayout = uiLayout;
@@ -69,7 +73,9 @@ public class TradeBean extends TradeClientData implements Serializable
 
 
    @PostConstruct
-   public void init() {
+   public void init()
+   {
+      fileio = new FilesIO();
       tradeFilters = new ArrayList<String>();
       tradeFilters.add("New");
       tradeFilters.add("Date");
@@ -231,17 +237,26 @@ public class TradeBean extends TradeClientData implements Serializable
       }
    }
 
-   private void showGrowl(String msg, String msgType) {
-      try {
+   private void showGrowl(String msg, String msgType)
+   {
+      try
+      {
          if (msgType.startsWith("E"))
+         {
             FacesContext.getCurrentInstance().addMessage("growltrademsg", new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+         }
          else if (msgType.startsWith("W"))
+         {
             FacesContext.getCurrentInstance().addMessage("growltrademsg", new FacesMessage(FacesMessage.SEVERITY_WARN, msg, msg));
+         }
          else
+         {
             FacesContext.getCurrentInstance().addMessage("growltrademsg", new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
+         }
 
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
          FacesContext.getCurrentInstance().addMessage("growltrademsg",
                                                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "System Error", "Please contact support desk."));
       }
@@ -293,38 +308,52 @@ public class TradeBean extends TradeClientData implements Serializable
    }
 
 
-   private void filterClientData2Display() {
-      Integer numOptions=0;
+   private void filterClientData2Display()
+   {
+      Integer numOptions = 0;
       Boolean skip;
-      try {
-         if (getSelectedFilterOptions() == null || getSelectedFilterOptions().length == 0) {
+      try
+      {
+         if (getSelectedFilterOptions() == null || getSelectedFilterOptions().length == 0)
+         {
             filteredClientList = getTradeClientDataList();
          }
-         else {
+         else
+         {
             numOptions = getSelectedFilterOptions().length;
             filteredClientList = new ArrayList<TradeClientData>();
 
-            for (Integer loop=0; loop < getTradeClientDataList().size(); loop++) {
-               skip=false;
-               Integer opt=0;
+            for (Integer loop = 0; loop < getTradeClientDataList().size(); loop++)
+            {
+               skip = false;
+               Integer opt = 0;
                String filter;
-               while (! skip && opt < numOptions) {
-                  if (getTradeClientDataList().get(loop).getTradeStatus().startsWith(getSelectedFilterOptions()[opt].substring(1,1)))
-                     skip=true;
+               while (!skip && opt < numOptions)
+               {
+                  if (getTradeClientDataList().get(loop).getTradeStatus().startsWith(getSelectedFilterOptions()[opt].substring(1, 1)))
+                  {
+                     skip = true;
+                  }
                   else
+                  {
                      opt++;
+                  }
                }
                if (!skip)
+               {
                   filteredClientList.add(getTradeClientDataList().get(loop));
+               }
             }
          }
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
 
       }
    }
 
-   public void reloadTradeClient() {
+   public void reloadTradeClient()
+   {
       //tradeDAO.deletePendingTrades();
       collectTradeInfo();
       String msg = getFilteredClientList().size() + " Account(s) were loaded.";
@@ -332,7 +361,8 @@ public class TradeBean extends TradeClientData implements Serializable
 
    }
 
-   public void refreshFilteredClient() {
+   public void refreshFilteredClient()
+   {
       filterClientData2Display();
    }
 
@@ -341,7 +371,7 @@ public class TradeBean extends TradeClientData implements Serializable
       String saveDate;
       try
       {
-         saveDate = getNextRebalDate().substring(6,10) + getNextRebalDate().substring(0,2) + getNextRebalDate().substring(3,5);
+         saveDate = getNextRebalDate().substring(6, 10) + getNextRebalDate().substring(0, 2) + getNextRebalDate().substring(3, 5);
          tradeDAO.saveNextRebalDate(saveDate);
       }
       catch (Exception ex)
@@ -358,10 +388,14 @@ public class TradeBean extends TradeClientData implements Serializable
       try
       {
          if (getSelectedClient() == null)
+         {
             return "failed";
+         }
          else
-            uiLayout.doMenuAction("consumer", "cadd.xhtml?app=E&acct="+getSelectedClient().getAcctnum().toString());
-       }
+         {
+            uiLayout.doMenuAction("consumer", "cadd.xhtml?app=E&acct=" + getSelectedClient().getAcctnum().toString());
+         }
+      }
       catch (Exception ex)
       {
          return ("failed");
@@ -376,7 +410,8 @@ public class TradeBean extends TradeClientData implements Serializable
       TradeClientData tData = null;
       Long logonid;
 
-      if (! mode.equalsIgnoreCase("I")) {
+      if (!mode.equalsIgnoreCase("I"))
+      {
          setSelectedClientList(getFilteredClientList());
       }
 
@@ -390,24 +425,29 @@ public class TradeBean extends TradeClientData implements Serializable
             Integer numClients = getSelectedClientList().size();
             for (Integer loop = 0; loop < numClients; loop++)
             {
-               webutil.setProgressbar((loop/numClients) * 100);
+               webutil.setProgressbar((loop / numClients) * 100);
                tData = getSelectedClientList().get(loop);
                tradedata = rebalProcess.process(logonid, tData.getAcctnum());
-               if (tradedata != null) {
-                  tradeDAO.saveTradeProcessIdentifier(tData.getAcctnum(),tData.getTradeStatus(),"R",tData.getReason());
+               if (tradedata != null)
+               {
+                  tradeDAO.saveTradeProcessIdentifier(tData.getAcctnum(), tData.getTradeStatus(), "R", tData.getReason());
                }
 
             }
             String msg = "";
-            if (tradedata == null  || tradedata.size() == 0) {
+            if (tradedata == null || tradedata.size() == 0)
+            {
                msg = "No customers were processed to create trades.  Action ignored!";
                showGrowl(msg, "Warning");
             }
-            else if (tradedata != null && tradedata.size() > 0) {
-               if (numClients == 1) {
+            else if (tradedata != null && tradedata.size() > 0)
+            {
+               if (numClients == 1)
+               {
                   msg = "Account#: " + tData.getAcctnum().toString() + " was processed, successfully";
                }
-               else {
+               else
+               {
                   msg = numClients.toString() + " accounts were processed, successfully";
                }
                showGrowl(msg, "Info");
@@ -431,7 +471,8 @@ public class TradeBean extends TradeClientData implements Serializable
       return dateFormatWithDateAndTime.format(date) + prefix + ".csv";
    }
 
-   public void reloadTradeSummary() {
+   public void reloadTradeSummary()
+   {
       //tradeDAO.deletePendingTrades();
       collectTradeSummary();
       String msg = getFilteredSummaryList().size() + " Account(s) were loaded.";
@@ -457,33 +498,46 @@ public class TradeBean extends TradeClientData implements Serializable
    }
 
 
-   private void filterSummaryData2Display() {
-      Integer numOptions=0;
+   private void filterSummaryData2Display()
+   {
+      Integer numOptions = 0;
       Boolean skip;
-      try {
-         if (getSelectedFilterOptions() == null || getSelectedFilterOptions().length == 0) {
+      try
+      {
+         if (getSelectedFilterOptions() == null || getSelectedFilterOptions().length == 0)
+         {
             filteredSummaryList = getTradeSummaryData();
          }
-         else {
+         else
+         {
             numOptions = getSelectedFilterOptions().length;
             filteredClientList = new ArrayList<TradeClientData>();
 
-            for (Integer loop=0; loop < getTradeClientDataList().size(); loop++) {
-               skip=false;
-               Integer opt=0;
+            for (Integer loop = 0; loop < getTradeClientDataList().size(); loop++)
+            {
+               skip = false;
+               Integer opt = 0;
                String filter;
-               while (! skip && opt < numOptions) {
+               while (!skip && opt < numOptions)
+               {
                   if (getTradeSummaryData().get(loop).getTradeStatus().startsWith(getSelectedFilterOptions()[opt]))
-                     skip=true;
+                  {
+                     skip = true;
+                  }
                   else
+                  {
                      opt++;
+                  }
                }
                if (!skip)
+               {
                   filteredClientList.add(getTradeClientDataList().get(loop));
+               }
             }
          }
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
 
       }
    }
@@ -492,7 +546,8 @@ public class TradeBean extends TradeClientData implements Serializable
    {
       Long logonid;
 
-      if (! mode.equalsIgnoreCase("I")) {
+      if (!mode.equalsIgnoreCase("I"))
+      {
          setSelectedSummaryList(getFilteredSummaryList());
       }
 
@@ -506,24 +561,28 @@ public class TradeBean extends TradeClientData implements Serializable
             Integer numClients = getSelectedClientList().size();
             for (Integer loop = 0; loop < numClients; loop++)
             {
-               webutil.setProgressbar((loop/numClients) * 100);
+               webutil.setProgressbar((loop / numClients) * 100);
                tData = getSelectedClientList().get(loop);
                tradeDAO.executeTrade(tData.getAcctnum());
             }
             String msg = "";
-            if (numClients == 0) {
+            if (numClients == 0)
+            {
                msg = "No customers were processed to create trades.  Action ignored!";
                showGrowl(msg, "Warning");
             }
-            else if (numClients == 1) {
-                  msg = "Account#: " + tData.getAcctnum().toString() + " was processed, successfully";
-               }
-               else {
-                  msg = numClients.toString() + " accounts were processed, successfully";
-               }
-               showGrowl(msg, "Info");
-               // Add section of the code to call the web-service to generate file.
-               // webutil.downloadFile(filenamename, fileformat, outputName);
+            else if (numClients == 1)
+            {
+               msg = "Account#: " + tData.getAcctnum().toString() + " was processed, successfully";
+            }
+            else
+            {
+               msg = numClients.toString() + " accounts were processed, successfully";
+            }
+            fileio.processDownloadFile("DOWD1");
+            showGrowl(msg, "Info");
+            // Add section of the code to call the web-service to generate file.
+            // webutil.downloadFile(filenamename, fileformat, outputName);
 
          }
 

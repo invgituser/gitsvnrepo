@@ -267,6 +267,7 @@ public class TCMRiskCalculator extends RiskCalculator
       riskHorizon = 20;
       totalRisk = 0.0;
       riskFormula = WebConst.CONSUMER_RISK_FORMULA;
+      retireAge = null;
       //ans5 = "1";
       //ans5AggressiveRadio = "4";
    }

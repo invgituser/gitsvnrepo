@@ -19,6 +19,6 @@ SELECT `optimized`.`theme`, `optimized`.`assetclass`,'A',`optimized`.`displayNam
 FROM `invdb`.`sec_assetclass_group` as `optimized` WHERE `status` = 'A'
 UNION
 SELECT `predefined`.`theme`, `predefined`.`asset`,'A',`predefined`.`assetname`,`predefined`.`color`, `predefined`.`sortorder`, now(), null
-FROM `invdb`.`sec_fixedmodel_asset` as `predefined` WHERE `status` = 'A'
+FROM `invdb`.`sec_fixedmodel_asset` as `predefined` WHERE `status` = 'A'and predefined.theme not like '%0.CORE%'
 order by 1,2;
 

@@ -94,6 +94,7 @@ BEGIN
 					IFNULL(`profile`.portfolioIndex,0) as portfolioIndex,
 					DATE_FORMAT(`profile`.created,'%Y%m%d') as dateOpened,
 
+					IFNULL(`user_risk_questions`.`retireage`,0) AS retireage,
 					IFNULL(`user_risk_questions`.`ans1`,0) AS ans1,
 					IFNULL(`user_risk_questions`.`ans2`,0) AS ans2,
 					IFNULL(`user_risk_questions`.`ans3`,0) AS ans3,
@@ -226,6 +227,7 @@ BEGIN
 					IFNULL(`profile`.portfolioIndex,0) as portfolioIndex,
 					DATE_FORMAT(`profile`.created,'%Y%m%d') as dateOpened,
 
+					IFNULL(`user_risk_questions`.`retireage`,0) AS retireage,
 					IFNULL(`user_risk_questions`.`ans1`,0) AS ans1,
 					IFNULL(`user_risk_questions`.`ans2`,0) AS ans2,
 					IFNULL(`user_risk_questions`.`ans3`,0) AS ans3,
@@ -361,6 +363,7 @@ BEGIN
 					IFNULL(`profile`.portfolioIndex,0) as portfolioIndex,
 					DATE_FORMAT(`profile`.created,'%Y%m%d') as dateOpened,
 
+					IFNULL(`user_risk_questions`.`retireage`,0) AS retireage,
 					IFNULL(`user_risk_questions`.`ans1`,0) AS ans1,
 					IFNULL(`user_risk_questions`.`ans2`,0) AS ans2,
 					IFNULL(`user_risk_questions`.`ans3`,0) AS ans3,
@@ -495,6 +498,7 @@ BEGIN
 					IFNULL(`profile`.portfolioIndex,0) as portfolioIndex,
 					DATE_FORMAT(`profile`.created,'%Y%m%d') as dateOpened,
 
+					IFNULL(`user_risk_questions`.`retireage`,0) AS retireage,
 					IFNULL(`user_risk_questions`.`ans1`,0) AS ans1,
 					IFNULL(`user_risk_questions`.`ans2`,0) AS ans2,
 					IFNULL(`user_risk_questions`.`ans3`,0) AS ans3,

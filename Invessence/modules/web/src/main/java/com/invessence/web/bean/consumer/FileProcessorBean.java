@@ -99,7 +99,6 @@ public class FileProcessorBean
       }
    }
 
-
    public StreamedContent downloadFile(String processId) {
       StreamedContent file = null;
       try {

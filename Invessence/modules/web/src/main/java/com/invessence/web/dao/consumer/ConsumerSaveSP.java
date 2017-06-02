@@ -49,52 +49,58 @@ public class ConsumerSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_goalDesired", Types.DOUBLE));
             break;
          case 1:  // save_user_financial_data
-            declareParameter(new SqlParameter(	"p_acctnum"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	"p_dependent"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_householdwages" 	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_othercome"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_bonuscome"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_terestcome"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_dividentcome"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_rentalcome"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_totalcome"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_totalcomeAnnulized"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_householdPayment"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_otherPropertiesPayment"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_automobilePayment"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_medicalPayment"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_federaltaxes"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_stateTaxes"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_propertyTax"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_otherPropertyTax"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_homesurance"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_lifesurance"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_autosurance"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_educationPayment"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_creditCardPayment"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_miscExpenses"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_totalExpense"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_estdDependentExpense"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_totalExpenseAnnulized"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_homeEquity"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_autoValue"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_moneyMarket"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_checkgAcct"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_savgAcct"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_vestment"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_equityOtherProperties"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_retirementvestement"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_miscvestment"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_totalAsset"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_mortgageLoan"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_autoLoan"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_creditCardDebt"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_otherPropertiesLoan"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_medicalDebt"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_otherDebt"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_totalDebt"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_liquidnetworth"	, Types.BIGINT	));
-            declareParameter(new SqlParameter(	 "p_networth"	, Types.BIGINT	));
+            declareParameter(new SqlParameter(	"p_acctnum"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_dependent"	, Types.INTEGER	))	;
+            declareParameter(new SqlParameter(	"p_estdDependentExpense"	, Types.BIGINT	))	;
+
+            declareParameter(new SqlParameter(	"p_householdwages"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_otherincome"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_bonusincome"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_interestincome"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_dividentincome"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_rentalIncome"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_totalIncome"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_totalIncomeAnnulized"	, Types.BIGINT	))	;
+
+            declareParameter(new SqlParameter(	"p_householdPayment"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_otherPropertiesPayment"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_automobilePayment"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_medicalPayment"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_federaltaxes"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_stateTaxes"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_propertyTax"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_otherPropertyTax"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_homeInsurance"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_lifeInsurance"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_autoInsurance"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_educationPayment"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_creditCardPayment"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_miscExpenses"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_totalExpense"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_totalExpenseAnnulized"	, Types.BIGINT	))	;
+
+            declareParameter(new SqlParameter(	"p_homeEquity"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_autoValue"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_moneyMarket"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_checkingAcct"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_savingAcct"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_investment"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_equityOtherProperties"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_retirementInvestement"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_miscInvestment"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_totalAsset"	, Types.BIGINT	))	;
+
+            declareParameter(new SqlParameter(	"p_mortgageLoan"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_autoLoan"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_educationLoan"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_creditCardDebt"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_otherPropertiesLoan"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_medicalDebt"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_otherDebt"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_totalDebt"	, Types.BIGINT	))	;
+
+            declareParameter(new SqlParameter(	"p_liquidnetworth"	, Types.BIGINT	))	;
+            declareParameter(new SqlParameter(	"p_networth"	, Types.BIGINT	))	;
             break;
          case 2: // updt_user_risk_index
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
@@ -321,16 +327,23 @@ public class ConsumerSaveSP extends StoredProcedure
 
       String addmodflag;
       Map inputMap = new HashMap();
+
+
+
+
       inputMap.put(	"p_acctnum"	,	data.getAcctnum());
       inputMap.put(	"p_dependent"	,	data.getAccountFinancials().getDependent());
+      inputMap.put(	 "p_estdDependentExpense"	,	 data.getAccountFinancials().getEstdDependentExpense());
+
       inputMap.put(	 "p_householdwages" 	,	 data.getAccountFinancials().getHouseholdwages());
-      inputMap.put(	 "p_othercome"	,	 data.getAccountFinancials().getOtherincome());
-      inputMap.put(	 "p_bonuscome"	,	 data.getAccountFinancials().getBonusincome());
+      inputMap.put(	 "p_otherincome"	,	 data.getAccountFinancials().getOtherincome());
+      inputMap.put(	 "p_bonusincome"	,	 data.getAccountFinancials().getBonusincome());
       inputMap.put(	 "p_interestincome"	,	 data.getAccountFinancials().getInterestincome());
-      inputMap.put(	 "p_dividentcome"	,	 data.getAccountFinancials().getDependent());
+      inputMap.put(	 "p_dividentincome"	,	 data.getAccountFinancials().getDependent());
       inputMap.put(	 "p_rentalIncome"	,	 data.getAccountFinancials().getRentalIncome());
-      inputMap.put(	 "p_totalincome"	,	 data.getAccountFinancials().getTotalIncome());
+      inputMap.put(	 "p_totalIncome"	,	 data.getAccountFinancials().getTotalIncome());
       inputMap.put(	 "p_totalIncomeAnnulized"	,	 data.getAccountFinancials().getTotalIncomeAnnulized());
+
       inputMap.put(	 "p_householdPayment"	,	 data.getAccountFinancials().getHouseholdPayment());
       inputMap.put(	 "p_otherPropertiesPayment"	,	 data.getAccountFinancials().getOtherPropertiesPayment());
       inputMap.put(	 "p_automobilePayment"	,	 data.getAccountFinancials().getAutomobilePayment());
@@ -339,16 +352,17 @@ public class ConsumerSaveSP extends StoredProcedure
       inputMap.put(	 "p_stateTaxes"	,	 data.getAccountFinancials().getStateTaxes());
       inputMap.put(	 "p_propertyTax"	,	 data.getAccountFinancials().getPropertyTax());
       inputMap.put(	 "p_otherPropertyTax"	,	 data.getAccountFinancials().getOtherPropertyTax());
-      inputMap.put(	 "p_homeInsurance"	,	 data.getAccountFinancials().getHomeInsurance());
+
+       inputMap.put(	 "p_homeInsurance"	,	 data.getAccountFinancials().getHomeInsurance());
       inputMap.put(	 "p_lifeInsurance"	,	 data.getAccountFinancials().getLifeInsurance());
       inputMap.put(	 "p_autoInsurance"	,	 data.getAccountFinancials().getAutoInsurance());
       inputMap.put(	 "p_educationPayment"	,	 data.getAccountFinancials().getEducationPayment());
       inputMap.put(	 "p_creditCardPayment"	,	 data.getAccountFinancials().getCreditCardPayment());
       inputMap.put(	 "p_miscExpenses"	,	 data.getAccountFinancials().getMiscExpenses());
       inputMap.put(	 "p_totalExpense"	,	 data.getAccountFinancials().getTotalExpense());
-      inputMap.put(	 "p_estdDependentExpense"	,	 data.getAccountFinancials().getEstdDependentExpense());
       inputMap.put(	 "p_totalExpenseAnnulized"	,	 data.getAccountFinancials().getTotalExpenseAnnulized());
-      inputMap.put(	 "p_homeEquity"	,	 data.getAccountFinancials().getHomeEquity());
+
+       inputMap.put(	 "p_homeEquity"	,	 data.getAccountFinancials().getHomeEquity());
       inputMap.put(	 "p_autoValue"	,	 data.getAccountFinancials().getAutoValue());
       inputMap.put(	 "p_moneyMarket"	,	 data.getAccountFinancials().getMoneyMarket());
       inputMap.put(	 "p_checkingAcct"	,	 data.getAccountFinancials().getCheckingAcct());
@@ -358,17 +372,19 @@ public class ConsumerSaveSP extends StoredProcedure
       inputMap.put(	 "p_retirementInvestement"	,	 data.getAccountFinancials().getRetirementInvestement());
       inputMap.put(	 "p_miscInvestment"	,	 data.getAccountFinancials().getMiscInvestment());
       inputMap.put(	 "p_totalAsset"	,	 data.getAccountFinancials().getTotalAsset());
+
       inputMap.put(	 "p_mortgageLoan"	,	 data.getAccountFinancials().getMortgageLoan());
       inputMap.put(	 "p_autoLoan"	,	 data.getAccountFinancials().getAutoLoan());
+      inputMap.put(	 "p_educationLoan"	,	 data.getAccountFinancials().getEducationLoan());
       inputMap.put(	 "p_creditCardDebt"	,	 data.getAccountFinancials().getCreditCardDebt());
       inputMap.put(	 "p_otherPropertiesLoan"	,	 data.getAccountFinancials().getOtherPropertiesLoan());
       inputMap.put(	 "p_medicalDebt"	,	 data.getAccountFinancials().getMedicalDebt());
       inputMap.put(	 "p_otherDebt"	,	 data.getAccountFinancials().getOtherDebt());
       inputMap.put(	 "p_totalDebt"	,	 data.getAccountFinancials().getTotalDebt());
+
       inputMap.put(	 "p_liquidnetworth"	,	 data.getAccountFinancials().getLiquidnetworth());
       inputMap.put(	 "p_networth"	,	 data.getAccountFinancials().getNetworth());
       super.execute(inputMap);
-
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
