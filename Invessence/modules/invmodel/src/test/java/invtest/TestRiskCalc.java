@@ -20,6 +20,7 @@ public class TestRiskCalc
 {
    private static TestRiskCalc instance = null;
    private static String datadir = "C:/Users/Jigar/Work Related/RiverFrontAdvisors/";
+   //C:\Users\Jigar\Dropbox\Invessence Team Folder\Sales\UOB\Models
    private static RiskCalculator riskCalculator = new RiskCalculator();
 
    /**
@@ -58,34 +59,46 @@ public class TestRiskCalc
       try {
          riskCalculator.setRiskFormula("C");
          riskCalculator.setNumberofQuestions(9);
-         for (Integer age = 20; age < 80; age+=10) {
+
+         for (Integer age = 40; age < 101; age += 10)
+         {
             riskCalculator.setRiskAge(age);
-            for (Integer horizon=5; horizon < 21; horizon+=5) {
+            for (Integer horizon = 1; horizon < 21; horizon += 2)
+            {
                riskCalculator.setRiskHorizon(horizon);
-               for (Integer r3=0; r3 < 6; r3+=2) {
-                  riskCalculator.setAns3(r3.toString());
-                  for (Integer r4=0; r4 < 2; r4++) {  // Only two choices
-                     riskCalculator.setAns4(r4.toString());
-                     for (Integer r5=0; r5 < 6; r5+=2) {  // Only five choices
-                        riskCalculator.setAns5(r5.toString());
-                        for (Integer r6=0; r6 < 6; r6+=2) {  // Only five choices
+               for (Integer r9 = 1; r9 < 4; r9++)
+               {  // Only three choices
+                  riskCalculator.setAns9(r9.toString());
+                  for (Integer r8 = 1; r8 < 4; r8++)
+                  {  // Only three choices
+                     riskCalculator.setAns8(r8.toString());
+                     for (Integer r7 = 1; r7 < 4; r7++)
+                     {  // Only three choices
+                        riskCalculator.setAns7(r7.toString());
+                        for (Integer r6 = 1; r6 < 4; r6++)
+                        {  // Only three choices
                            riskCalculator.setAns6(r6.toString());
-                           for (Integer r7=0; r7 < 6; r7+=2) {  // Only five choices
-                              riskCalculator.setAns7(r7.toString());
-                              for (Integer r8=0; r8 < 6; r8+=2) {  // Only five choices
-                                 riskCalculator.setAns8(r8.toString());
-                                 for (Integer r9=0; r9 < 6; r9+=2) {  // Only five choices
-                                    riskCalculator.setAns9(r9.toString());
+                           for (Integer r5 = 1; r5 < 6; r5++)
+                           {  // Only five choices
+                              riskCalculator.setAns5(r5.toString());
+                              for (Integer r4 = 1; r4 < 3; r4++)
+                              {  // Only two choices
+                                 riskCalculator.setAns4(r4.toString());
+                                 for (Integer r3 = 1; r3 < 6; r3++)
+                                 {
+                                    riskCalculator.setAns3(r3.toString());
+
                                     riskCalculator.calculateRisk();
+
                                     result.add(riskCalculator.getAns1() + "," +
                                                   riskCalculator.getAns2() + "," +
-                                                  riskCalculator.getAns3() + "," +
-                                                  riskCalculator.getAns4() + "," +
-                                                  riskCalculator.getAns5() + "," +
-                                                  riskCalculator.getAns6() + "," +
-                                                  riskCalculator.getAns7() + "," +
-                                                  riskCalculator.getAns8() + "," +
                                                   riskCalculator.getAns9() + "," +
+                                                  riskCalculator.getAns8() + "," +
+                                                  riskCalculator.getAns7() + "," +
+                                                  riskCalculator.getAns6() + "," +
+                                                  riskCalculator.getAns5() + "," +
+                                                  riskCalculator.getAns4() + "," +
+                                                  riskCalculator.getAns3() + "," +
                                                   riskCalculator.getRiskValue(1) + "," +
                                                   riskCalculator.getRiskValue(2) + "," +
                                                   riskCalculator.getRiskValue(3) + "," +
