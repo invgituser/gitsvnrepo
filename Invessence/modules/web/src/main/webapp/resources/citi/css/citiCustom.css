@@ -910,7 +910,7 @@ img.atCheckMarkImg {
 }
 
 .mobileFullWidthinput > input {
-	border-bottom: 1px solid #f2f2f2;
+	border-bottom: 1px solid #c8c8c8;
 	border-radius: 0px!important;
 }
 
@@ -4371,7 +4371,7 @@ border: none !important;}
 	display: block;
 	font-size: 10px;
 	color: #fff;
-	background: #427AA1;
+	background: #A7A5C6;
 	border-radius: 50%;
 	margin: 0 auto 5px auto;
 	position: relative;
@@ -4395,7 +4395,9 @@ border: none !important;}
 /*marking active/completed steps green*/
 /*The number of the step and the connector before it = green*/
 .loadPgNm span.active:before,  #progressbar li.active:after{
-	background: #A7A5C6;
+	background: #427AA1;
+
+
 	color: white;
 }
 
