@@ -3,43 +3,43 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/template/common/simple.xhtml">
+                template="/template/common/main.xhtml">
 
-<f:metadata>
-    <f:event listener="#{sessionControl.mobileRenderView}" type="preRenderView"/>
-</f:metadata>
+    <f:metadata>
+        <f:event listener="#{sessionControl.mobileRenderView}" type="preRenderView"/>
+    </f:metadata>
 
-<ui:define name="content">
-<div class="EmptyBox50"></div>
-    <div id="layout-portlets-cover">
-        <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
-             style="margin-top:5%; background-image:url(/spark/resources/spark-layout/images/loginpageillust.svg); background-repeat:no-repeat; background-position:center; background-size:cover;">
-            <div class="Container90 Fnone MarAuto TexAlCenter">
-                <h:form id="logonForm" prependId="false">
-                    <div class="EmptyBox30"></div>
-                    <h:graphicImage id="logo" name="#{uiLayout.logo}" styleClass="Fleft" library="invessence"
-                                    class="MarAuto MarTop20 MarBot10"/>
-                   
-                    
-                    <div class="EmptyBox20"></div>
-                    
-                    <p:commandButton styleClass="getStartedBtn Fs20" value="Get Started"
-                              actionListener="#{sessionControl.tryOut}"/>
-                    
-                    <div class="EmptyBox10"></div>
-                    <div class="Seperator"></div>
-                    <div class="EmptyBox10"></div>
-                    <p:button value="Login" styleClass="loginStartedBtn Fs16" href="/login.xhtml"/>
-                    <!--
-                        <p:button  value="Register" styleClass="Fs16 OrangeButton" href="/signup.xhtml"/>
-                    -->
+    <ui:define name="content">
+        <div class="EmptyBox50"></div>
+        <div id="layout-portlets-cover">
+            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
+                 style="margin-top:5%; background-image:url(/spark/resources/spark-layout/images/loginpageillust.svg); background-repeat:no-repeat; background-position:center; background-size:cover;">
+                <div class="Container90 Fnone MarAuto TexAlCenter">
+                    <h:form id="logonForm" prependId="false">
+                        <div class="EmptyBox30"></div>
+                        <h:graphicImage id="logo" name="#{uiLayout.logo}" styleClass="Fleft" library="invessence"
+                                        class="MarAuto MarTop20 MarBot10"/>
 
-                    <div class="EmptyBox50"></div>
-                </h:form>
+
+                        <div class="EmptyBox20"></div>
+
+                        <p:commandButton styleClass="getStartedBtn Fs20" value="Get Started"
+                                         actionListener="#{sessionControl.tryOut}"/>
+
+                        <div class="EmptyBox10"></div>
+                        <div class="Seperator"></div>
+                        <div class="EmptyBox10"></div>
+                        <p:button value="Login" styleClass="loginStartedBtn Fs16" href="/login.xhtml"/>
+                        <!--
+                            <p:button  value="Register" styleClass="Fs16 OrangeButton" href="/signup.xhtml"/>
+                        -->
+
+                        <div class="EmptyBox50"></div>
+                    </h:form>
+                </div>
             </div>
         </div>
-    </div>
 
-</ui:define>
+    </ui:define>
 
 </ui:composition>

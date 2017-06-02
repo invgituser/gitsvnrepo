@@ -16,6 +16,7 @@ public class WebConst
    public static String LOGONID_PARAM = "p_logonid";
    public static String ACCTNO_PARAM = "p_acctnum";
    public static String USER_INFO = "userinfo";
+   public static String WEB_INFO = "webinfo";
    public static String USERLOGON_ATTEMPTS = "attempts";
    public static String USERLOGON_ACCTTYPE = "accttype";
    public static String USERLOGON_ACCESS = "access";
@@ -48,14 +49,14 @@ public class WebConst
    public final static String WEB_ADVISOR = "Advisor";
    public final static String WEB_ADMIN = "ADMIN";
 
-/*
-   public final static String HTML_WELCOME = "HTML.WELCOME";
-   public final static String HTML_LOCKED = "HTML.LOCKED";
-   public final static String HTML_RESET = "HTML.RESET";
-   public final static String HTML_WELCOME_ADV = "HTML.WELCOME.ADV";
-   public final static String HTML_INVOICE = "HTML.INVOICE";
-   public final static String HTML_SURVEY = "HTML.SURVEY";
-*/
+   /*
+      public final static String HTML_WELCOME = "HTML.WELCOME";
+      public final static String HTML_LOCKED = "HTML.LOCKED";
+      public final static String HTML_RESET = "HTML.RESET";
+      public final static String HTML_WELCOME_ADV = "HTML.WELCOME.ADV";
+      public final static String HTML_INVOICE = "HTML.INVOICE";
+      public final static String HTML_SURVEY = "HTML.SURVEY";
+   */
    public final static String EMAIL_ACTIVATE = "EMAIL_ACTIVATE";
    public final static String EMAIL_LOCKED = "EMAIL_LOCKED";
    public final static String EMAIL_RESET = "EMAIL_RESET";

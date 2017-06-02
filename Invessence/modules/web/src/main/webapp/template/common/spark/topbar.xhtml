@@ -20,16 +20,16 @@
                 <ul id="layout-topbar-menu">
                     <li class="MobileModeOnly">
                         <ui:fragment rendered="#{webutil.hasAccess('USER')}">
-                        <!--<a href="/pages/consumer/tcm/cadd.xhtml?app=N" class="Animated05"><i class="fa fa-plus-square"></i> New Account</a>-->
-                        <a href="/pages/consumer/tcm/cadd.xhtml?app=N" class="Animated05">New Account</a>
+                            <!--<a href="/pages/consumer/tcm/cadd.xhtml?app=N" class="Animated05"><i class="fa fa-plus-square"></i> New Account</a>-->
+                            <a href="/pages/consumer/tcm/cadd.xhtml?app=N" class="Animated05">New Account</a>
                         </ui:fragment>
                     </li>
 
                     <ui:fragment rendered="#{webutil.isAggregatorMenuActive()}">
                         <li class="MobileModeOnly">
                             <h:form>
-                            <h:commandLink action="#{aggrBean.startup('M')}" value="Aggregation" styleClass="Animated05">
-                            </h:commandLink>
+                                <h:commandLink action="#{aggrBean.startup('M')}" value="Aggregation" styleClass="Animated05">
+                                </h:commandLink>
                             </h:form>
                         </li>
                     </ui:fragment>
@@ -48,9 +48,9 @@
                     <li class="fa fa-ellipsis-v menu-separator" style="float:left!important;"></li>
                     <li>
                         <h:form styleClass="logoutBtnFrm">
-                        <h:commandLink actionListener="#{sessionControl.logout}" style="" styleClass="Animated05">
-                            <i class="fa fa-sign-out"></i> Logout
-                        </h:commandLink>
+                            <h:commandLink actionListener="#{sessionControl.logout}" style="" styleClass="Animated05 idLogoutCommon">
+                                <i class="fa fa-sign-out"></i> Logout
+                            </h:commandLink>
                         </h:form>
                     </li>
                     <!-- <li class="fa fa-ellipsis-v menu-separator"></li> -->

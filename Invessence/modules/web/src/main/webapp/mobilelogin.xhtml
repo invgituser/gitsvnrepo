@@ -3,11 +3,10 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/template/common/simple.xhtml">
+                template="/template/common/main.xhtml">
 
     <f:metadata>
         <f:event listener="#{sessionControl.mobileRenderView}" type="preRenderView"/>
-        <f:event listener="#{loginController.updateMessages}" type="preRenderView"/>
     </f:metadata>
 
     <ui:define name="content">
@@ -53,7 +52,6 @@
                         <div class="Seperator"></div>
                         <div class="EmptyBox10"></div>
                         <p:button  value="Forgot Password ?" styleClass="Fs16 RedButton FgtPwdBtn" href="/forgot.xhtml"></p:button>
-                        <p:button  value="Register" styleClass="Fs16 OrangeButton uob_button" href="/signup.xhtml?a=Y"></p:button>
                         <div class="EmptyBox50"></div>
                     </h:form>
                 </div>

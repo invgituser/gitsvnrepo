@@ -51,82 +51,82 @@
 /**/
 
 .ui-growl {
-    position:fixed;
-    top: 40% !important;
-    left: 37% !important;
+	position:fixed;
+	top: 40% !important;
+	left: 37% !important;
 }
 
 .ui-panel .ui-panel-footer {
-  border-top: 0px !important;
-  background-color: transparent !important
+	border-top: 0px !important;
+	background-color: transparent !important
 }
 
 .AdvTabNBWidget, .NBwidget {
-    border: 0px;
+	border: 0px;
 }
 
 
 .invNBgrid {
-    border: 0px;
-    border-collapse: collapse;
-    border-spacing: 1px !important;
-    vertical-align: middle;
+	border: 0px;
+	border-collapse: collapse;
+	border-spacing: 1px !important;
+	vertical-align: middle;
 }
 
 .FormContent tbody,
 .invNBgrid tbody {
-     border: 0px;
+	border: 0px;
 }
 
 .FormContent tbody tr,
 .invNBgrid tbody tr {
-    border: 0px;
+	border: 0px;
 }
 
 .FormContent tbody tr td,
 .invNBgrid tbody tr td {
-    border: 0px;
+	border: 0px;
 }
 
 .FormContent tr,
 .invNBgrid tr {
-    border-width: 0px !important;
-    vertical-align: middle !important;
+	border-width: 0px !important;
+	vertical-align: middle !important;
 }
 
 .FormContent td,
 .invNBgrid td {
-    border-width: 0px !important;
+	border-width: 0px !important;
 }
 
 .invNBgrid .ui-panelgrid-header {
-    text-align: center;
-    padding: 1px 12px;
+	text-align: center;
+	padding: 1px 12px;
 }
 
 .invNBgrid .ui-panelgrid-footer {
-    text-align: left;
-    padding: 1px 5px;
+	text-align: left;
+	padding: 1px 5px;
 }
 
 
 .inv-widget-header  {
-    text-align: left;
+	text-align: left;
 }
 
 
 .invNBtab {
-   border: 1px solid #cfd449 !important;
+	border: 1px solid #cfd449 !important;
 }
 
 .InvButtonTab {
-    border: 0px !important;;
+	border: 0px !important;;
 }
 
 .inv-widget-header {
-    border: none !important;
-    font-weight: bold;
-    text-align: left !important;
+	border: none !important;
+	font-weight: bold;
+	text-align: left !important;
 }
 
 .invHeader {
@@ -134,47 +134,47 @@
 }
 
 .invLabel {
-    text-align: left;
+	text-align: left;
 }
 
 .invHeaderCenter {
-    text-align: center;
-    border: none !important;
-    font-weight: bold;
-    background-color: #FFFFFF !important;
+	text-align: center;
+	border: none !important;
+	font-weight: bold;
+	background-color: #FFFFFF !important;
 
 }
 
 .invHeaderLeft {
-    text-align: right;
+	text-align: right;
 }
 
 .invInput {
 }
 
 .invRequired {
-    text-align: left;
-    color: #FF0000;
+	text-align: left;
+	color: #FF0000;
 }
 
 .invImportant {
-    font-weight: bold;
-    text-align: left;
-    color: #009abb;
+	font-weight: bold;
+	text-align: left;
+	color: #009abb;
 }
 
 .invWarning {
-    font-weight: bold;
-    text-align: left;
-    color: #FF0000;
+	font-weight: bold;
+	text-align: left;
+	color: #FF0000;
 }
 
 .invDisclaimer {
-    font-size: .75em !important;
-    text-align: left;
+	font-size: .75em !important;
+	text-align: left;
 }
 
-.invSelectOneMenu {	
+.invSelectOneMenu {
 }
 
 .ui-selectonemenu-panel .ui-selectonemenu-items-wrapper {
@@ -182,107 +182,107 @@
 }
 
 .rotateText90 {
-    transform:rotate(90deg);
-    -ms-transform:rotate(90deg); /* IE 9 */
-    -webkit-transform:rotate(90deg); /* Safari and Chrome */
+	transform:rotate(90deg);
+	-ms-transform:rotate(90deg); /* IE 9 */
+	-webkit-transform:rotate(90deg); /* Safari and Chrome */
 }
 
 .invDataTable {
-    font-size: .75em !important;
+	font-size: .75em !important;
 }
 
 .invAdminTable {
-    font-size: .75em !important;
-    border: 1px !important;
-    font-family: Courier, Arial, sans-serif !important;
+	font-size: .75em !important;
+	border: 1px !important;
+	font-family: Courier, Arial, sans-serif !important;
 }
 
 .invRiskQuestion {
-    text-align: left;
-    font-weight: bold;
+	text-align: left;
+	font-weight: bold;
 }
 
 
 /* JQPlot Chart Override */
 table.jqplot-table-legend, table.jqplot-cursor-legend {
-    background-color: transparent !important;;
-    border: 0px !important;
-    font-size: 1em !important;
+	background-color: transparent !important;;
+	border: 0px !important;
+	font-size: 1em !important;
 }
 
 /* Used on Logon window for message */
 .entry-content ul {
-    list-style-type: none !important;
-    padding: 0 0 0px 0px !important;
+	list-style-type: none !important;
+	padding: 0 0 0px 0px !important;
 }
 
 .simpleInputText {
-    background-color: transparent;
-    border: 0px none;
-    border-bottom: solid 1px #465b65;
-    font-size: 24px;
-    width: 140px;
-    text-align: center;
+	background-color: transparent;
+	border: 0px none;
+	border-bottom: solid 1px #465b65;
+	font-size: 24px;
+	width: 140px;
+	text-align: center;
 }
 
 .ul-vertical-align {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
 
 .ul-vertical-align li {
-    display: inline;
-    float: left;
+	display: inline;
+	float: left;
 }
 
 .Fix80Spinner {
-    width: 80px !important;
+	width: 80px !important;
 }
 
-.Fix80Spinner .ui-inputfield 
+.Fix80Spinner .ui-inputfield
 {
-    width: 80px !important;
+	width: 80px !important;
 }
 
 
 /*Prakash - Advisor*/
 @media (max-width: 550px) {
 	.PenelFilter > .ui-selectonebutton > .ui-button > .ui-button-text {
-	padding: 5px!important;
-}
+		padding: 5px!important;
+	}
 
-.layout-portlets-box {
-    padding: 0;
-    width: 100%;
-}
+	.layout-portlets-box {
+		padding: 0;
+		width: 100%;
+	}
 
 
 
-/* .ListOfAccountsTable > .ui-datatable-tablewrapper > table > thead > tr > th > .ui-column-title {
-	font-size: 12px;
-}
+	/* .ListOfAccountsTable > .ui-datatable-tablewrapper > table > thead > tr > th > .ui-column-title {
+        font-size: 12px;
+    }
 
-.ListOfAccountsTable > .ui-datatable-tablewrapper > table > thead > tr > th > .ui-column-title, 
-.ListOfAccountsTable > .ui-datatable-tablewrapper > table > tbody > tr > td {
-	font-size: 11.5px;
-}
-.ListOfAccountsTable > .ui-datatable-tablewrapper > table > thead > tr > th > .ui-sortable-column-icon {
-	margin-left:0px!important;
-	background-size: 75%!important;
-} */
+    .ListOfAccountsTable > .ui-datatable-tablewrapper > table > thead > tr > th > .ui-column-title,
+    .ListOfAccountsTable > .ui-datatable-tablewrapper > table > tbody > tr > td {
+        font-size: 11.5px;
+    }
+    .ListOfAccountsTable > .ui-datatable-tablewrapper > table > thead > tr > th > .ui-sortable-column-icon {
+        margin-left:0px!important;
+        background-size: 75%!important;
+    } */
 }
 
 @media (max-width: 400px) {
 	.HeaderTableBlock > h2 {
-    text-align: center;
-    float: none;
-}
-	
+		text-align: center;
+		float: none;
+	}
+
 	.PenelFilter {
-	width: 100%;
-    text-align: center;
-    margin-top: 35px;
+		width: 100%;
+		text-align: center;
+		margin-top: 35px;
 	}
 }
 
@@ -326,7 +326,7 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 
 .StepsQuestionsFS {
 	font-size: 15px!important;
-	}
+}
 
 .selectOptionAlign {
 	margin: 5px auto;
@@ -341,7 +341,7 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 }
 
 .TCM-UI-Dropdown > .ui-selectonemenu {
-    margin-left: 10px;
+	margin-left: 10px;
 }
 
 .Wid32 {
@@ -349,7 +349,7 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 }
 
 .mobileFullWidth {
-    display: inline-block;
+	display: inline-block;
 }
 
 .MarginBottom {
@@ -362,183 +362,183 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 
 @media (max-width: 360px) {
 	.ResponsiveBtnFS > span {
-	font-size: 11px!important;
+		font-size: 11px!important;
 	}
 }
 
 @media (min-width: 560px) and (max-width: 1075px) {
 	.ListOfAccountsTable table tfoot tr td, .ListOfAccountsTable table thead tr th {
-	    padding: 10px 0!important;
-    font-size: 12px!important;
+		padding: 10px 0!important;
+		font-size: 12px!important;
 	}
-	
+
 	.ListOfAccountsTable table tbody tr td, .advisorButtons > div > div > div > .ui-button-text {
-	font-size: 12px!important;
+		font-size: 12px!important;
 	}
-	
+
 	.ListOfAccountsTable table thead tr th .ui-sortable-column-icon {
-	display: none!important;
+		display: none!important;
 	}
 }
 
 @media (min-width: 1200px) {
 	.StepsQuestionsFSpg3 {
-	margin-top: 10px!important;
+		margin-top: 10px!important;
 	}
-	
+
 	.StepsQuestionsFSpg2 {
-	margin: 130px 0!important;
+		margin: 130px 0!important;
 	}
-	
+
 	.PieGraphPosition {
-	margin: 10px 0!important;
+		margin: 10px 0!important;
 	}
 }
 
 @media (max-width: 640px) {
 	.DualBtnModeLeft, .DualBtnModeRight {
-	width: 49%!important;
-}
-	
+		width: 49%!important;
+	}
+
 	.DualBtnModeLeft {
-	float: left!important;
+		float: left!important;
 	}
-	
+
 	.DualBtnModeRight {
-	float: right!important;
+		float: right!important;
 	}
-	
+
 	.ZeroPaddingBottom {
-    padding-bottom: 0px!important;
-}
+		padding-bottom: 0px!important;
+	}
 
-.ZeroPaddingBottom > .ui-column-title {
-    position: absolute;
-}
+	.ZeroPaddingBottom > .ui-column-title {
+		position: absolute;
+	}
 
-.ZeroPaddingBottom > button {
-    width: 100%;
-}
+	.ZeroPaddingBottom > button {
+		width: 100%;
+	}
 
-.HideMobileMode {
-	display:none!important;
-}
+	.HideMobileMode {
+		display:none!important;
+	}
 }
 
 
 @media (max-width: 960px) and (min-width: 640px) {
 	.mobileFullWidth {
-   /* display: inline;*/
-}
-	
+		/* display: inline;*/
+	}
+
 	.UsernameDashboard {
-	padding: 4px 0;
+		padding: 4px 0;
 	}
-	
+
 	.UsernameDashboard > .Fright > h2 {
-	font-size: 20px;
+		font-size: 20px;
 	}
-	
+
 	.TCM-UI-Dropdown {
-    margin-left: 10px;
-}
+		margin-left: 10px;
+	}
 }
 
 @media (max-width: 640px) and (min-width: 480px) {
-	
+
 	.StepsQuestionsFS {
-	font-size: 15px!important;
+		font-size: 15px!important;
 	}
-	
-	
-	
-.ui-inputNum {
-	padding: 7px 0px!important;
-}
 
-.ui-selectonemenu {
-    margin-left: 0px;
-}
 
-.input_investwid1 > input {
-	width: 20%!important;
-}
-	
-.UsernameDashboard {
-	padding: 5px 0;
+
+	.ui-inputNum {
+		padding: 7px 0px!important;
 	}
-	
+
+	.ui-selectonemenu {
+		margin-left: 0px;
+	}
+
+	.input_investwid1 > input {
+		width: 20%!important;
+	}
+
+	.UsernameDashboard {
+		padding: 5px 0;
+	}
+
 	.UsernameDashboard > .Fright > h2 {
-	font-size: 16px;
+		font-size: 16px;
 	}
 }
 
 @media (max-width: 675px) and (min-width: 320px){
 	.ui-selectonemenu-list-item {
-	text-align: center!important;
+		text-align: center!important;
 	}
-	
+
 	.dropdownInputFullWidth > label {
-	text-align: center!important;
+		text-align: center!important;
 	}
-	
+
 	.StepsQuestionsFS {
-	font-size: 14px!important;
-	    text-align: center;
+		font-size: 14px!important;
+		text-align: center;
 	}
-	
+
 	.ui-selectonemenu {
-    margin-left: 0px;
-}
-	
+		margin-left: 0px;
+	}
+
 	.dropdownInputFullWidth {
-    width: 100%!important;
-    padding: 0px 0!important;
-} 
-	
+		width: 100%!important;
+		padding: 0px 0!important;
+	}
+
 	.mobileFullWidthinput {
-	    width: 100%!important;
-    padding: 10px 0!important;
+		width: 100%!important;
+		padding: 10px 0!important;
 	}
-	
+
 	.mobileFullWidthinput > input{
-	    width: 100%!important;
-    padding: 9px 0!important;
+		width: 100%!important;
+		padding: 9px 0!important;
 	}
-	
-.ui-inputNum {
-	padding: 10px 0px!important;
-}
+
+	.ui-inputNum {
+		padding: 10px 0px!important;
+	}
 	.mobileFullWidth {
-	width:100%;
-	    margin: 5px 0;
+		width:100%;
+		margin: 5px 0;
 	}
-	
-.UsernameDashboard {
-	padding: 5px 0;
+
+	.UsernameDashboard {
+		padding: 5px 0;
 	}
-	
+
 	.UsernameDashboard > .Fright > h2 {
-	font-size: 16px;
-	}	
+		font-size: 16px;
+	}
 }
 
 @media (max-width: 640px) {
 	.dashboardUsrColumnFloatRight {
-	float: right;
-}
+		float: right;
+	}
 }
 
 @media (min-width:320px) and (max-width:500px) {
 	.responsiveFullwidth {
-	width: 100%!important;
+		width: 100%!important;
 	}
 }
 
 /*Fieldset DataTable Responsiveness*/
 @media (min-width:320px) and (max-width:450px) {
 	.ui-fieldset {
-	padding: 0.6em 5px!important;
+		padding: 0.6em 5px!important;
 	}
 }
 
@@ -1128,7 +1128,7 @@ thead > tr > .multipleSelectionChkList > .ui-chkbox > .ui-chkbox-box {
 .ui-confirm-dialog .ui-dialog-footer {
 	background: #fff!important;
 	border-top: 0!important;
-	padding: 0px 55px!important;
+	padding: 1px 55px!important;
 }
 
 .ui-confirm-dialog .ui-button {
@@ -1159,7 +1159,7 @@ thead > tr > .multipleSelectionChkList > .ui-chkbox > .ui-chkbox-box {
 }
 
 .ui-confirm-dialog .ui-icon-check {
-background-image: url("/javax.faces.resource/images/customblackicon.png.xhtml?ln=invessence")!important;
+	background-image: url("/javax.faces.resource/images/customblackicon.png.xhtml?ln=invessence")!important;
 }
 
 .ui-confirm-dialog .ui-icon-close {
@@ -1359,7 +1359,7 @@ background-image: url("/javax.faces.resource/images/customblackicon.png.xhtml?ln
 }
 
 .advisorMsgTable {
-text-align: center;
+	text-align: center;
 }
 
 .advisorMsgTable > select {
@@ -1368,23 +1368,23 @@ text-align: center;
 }
 
 .advDashHeader {
-    border-bottom: 1px solid #009abb;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+	border-bottom: 1px solid #009abb;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .staticBlock {
-    padding: 5px 5px;
-        margin: 10px 10px;
-            box-shadow: 1px 1px 4px #d6d2d2;
+	padding: 5px 5px;
+	margin: 10px 10px;
+	box-shadow: 1px 1px 4px #d6d2d2;
 }
 
 .countlabel {
-	    border-top: 1px solid #009abb;
+	border-top: 1px solid #009abb;
 }
 
 .countValue, .countlabel {
-    padding: 5px 0px;
+	padding: 5px 0px;
 }
 
 .BottomPos {
@@ -1393,8 +1393,8 @@ text-align: center;
 }
 
 .menulabelscustomadv {
-	    margin: 0 10px;
-    font-size: 14px;
+	margin: 0 10px;
+	font-size: 14px;
 }
 
 
@@ -1573,8 +1573,8 @@ text-align: center;
 
 
 .innercdb .ui-icon-closethick {
-display: none;
-pointer-events: none;
+	display: none;
+	pointer-events: none;
 }
 
 

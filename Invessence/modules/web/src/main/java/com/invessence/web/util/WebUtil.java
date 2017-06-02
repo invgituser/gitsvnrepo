@@ -28,7 +28,7 @@ import static javax.faces.context.FacesContext.getCurrentInstance;
 public class WebUtil implements Serializable
 {
    protected final Log webutillooger = LogFactory.getLog(getClass());
-   public WebProfile webprofile = new WebProfile();
+   //   public WebProfile webprofile = null;
    public SQLData converter = new SQLData();
    public DataDisplayConverter dataDisplayConverter = new DataDisplayConverter();
 
@@ -56,17 +56,17 @@ public class WebUtil implements Serializable
 
    public WebProfile getWebprofile()
    {
-      return webprofile;
+      return (WebProfile) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.WEB_INFO);
    }
 
    public boolean isWebProdMode()
    {
-      if (webprofile == null)
+      if (getWebprofile() == null)
       {
          return false;
       }
 
-      String mode = webprofile.getWebmode();
+      String mode = getWebprofile().getWebmode();
       if (mode == null)
       {
          return false;
@@ -136,7 +136,7 @@ public class WebUtil implements Serializable
 
    public Boolean getHasSSL()
    {
-      return (getIsSecure() && webprofile.getSslseal() != null);
+      return (getIsSecure() && getWebprofile().getSslseal() != null);
    }
 
    public Boolean getIsSecure()
@@ -401,7 +401,7 @@ public class WebUtil implements Serializable
       try
       {
          Authentication auth = (Authentication) ((SecurityContext)
-         SecurityContextHolder.getContext()).getAuthentication();
+            SecurityContextHolder.getContext()).getAuthentication();
 
          if ((auth != null) && (auth.getPrincipal() instanceof UserInfoData))
          {
@@ -990,9 +990,9 @@ public class WebUtil implements Serializable
             return;
       }
 
-         emailMsgType = "HTML";
-         htmlfile = htmltempate;
-         // htmlfile = "/template/html/" + htmltempate;
+      emailMsgType = "HTML";
+      htmlfile = htmltempate;
+      // htmlfile = "/template/html/" + htmltempate;
 
       if (subject == null) {
          subject = getWebprofile().getCompanyname() + "Email";

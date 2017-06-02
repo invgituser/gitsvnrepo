@@ -34,7 +34,7 @@
     </ui:fragment>
     <ui:fragment rendered="#{uiLayout.webProfile.hasGoogleAnalytic}">
         <h:outputScript name="#{uiLayout.webProfile.googleAnalytic}"
-                            library="#{uiLayout.webProfile.cssdir}"/>
+                        library="#{uiLayout.webProfile.cssdir}"/>
     </ui:fragment>
     <p:inputText type="hidden" id="idIsUserLoggedIn"
                  value="#{webutil.isUserLoggedIn()}"/>
@@ -55,12 +55,12 @@
                              message="You have been idle for long time."
                              header="Are you there?" severity="alert" widgetVar="c">
                 <p:commandButton id="idLogout" value="Logout" update="msg"
-                                 actionListener="#{sessionControl.onIdleSessionLogout}"/>
+                                 onclick="SessionExpireEvent()"/>
                 <p:commandButton id="idContinue" value="I Am Still Here" update="msg"
                                  oncomplete="fnDisableDialog()"
                                  actionListener="#{sessionControl.onActive}"/>
                 <p:commandButton id="idOk" value="Ok" update="msg"
-                                 onclick="fnDisableVisitorDialog()"/>
+                                 onclick="fnDisableVisitorDialog()" style="width: 100px;display: block;margin: 5px auto;"/>
 
 
             </p:confirmDialog>

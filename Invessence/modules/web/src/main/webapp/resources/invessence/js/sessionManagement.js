@@ -48,7 +48,7 @@ function SessionExpireEvent()
         console.log("SessionExpireEvent ");
         debugger;
         clearInterval(vTimer);
-        $('#idLogout').click();
+        $('.idLogoutCommon').click();
     }
     catch (e)
     {

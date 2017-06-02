@@ -11,7 +11,7 @@ import javax.servlet.*;
 import com.invessence.converter.SQLData;
 import com.invessence.web.constant.WebConst;
 import com.invessence.web.dao.common.CommonDAO;
-import com.invessence.web.data.common.UserInfoData;
+import com.invessence.web.data.common.*;
 import com.invessence.web.util.*;
 import org.apache.commons.logging.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,13 +97,14 @@ public class SessionController implements Serializable
    public void logout()
    {
       String mobileUserFlag = null;
-      String homeurl = webutil.webprofile.getHomepage();
+      String homeurl = webutil.getWebprofile().getHomepage();
 
-      mobileUserFlag=webutil.webprofile.getDevice();
+      mobileUserFlag=getDevice();
+      System.out.println("Redirecting mobileUserFlag [" + mobileUserFlag +"]\n");
 
       if (mobileUserFlag!=null && mobileUserFlag.equalsIgnoreCase("mobile"))
       {
-         homeurl = webutil.webprofile.getMobileHomepage();
+         homeurl = webutil.getWebprofile().getMobileHomepage();
       }
       System.out.println("Redirecting homeurl " + homeurl );
       try
@@ -196,7 +197,7 @@ public class SessionController implements Serializable
       String arg = "?app=N";
       if (this.rep != null && !this.rep.isEmpty())
       {
-         webutil.webprofile.setDefaultRep(this.rep);
+         webutil.getWebprofile().setDefaultRep(this.rep);
          arg += "&rep=" + this.rep;
       }
 
@@ -217,7 +218,7 @@ public class SessionController implements Serializable
 
    public void reset()
    {
-      webutil.webprofile.setLocked(false);
+//      webutil.getWebprofile().setLocked(false);
       // NOTE; We don't want to load the advisor, because it resets to actual base site.
       loadWebProfile(webutil.getURLAddress("Invessence"));
    }
@@ -239,11 +240,11 @@ public class SessionController implements Serializable
       logger.info("Module: emulateClient ->" + clienturl);
       if (clienturl != null)
       {
-         webutil.webprofile.setLocked(false);
+         webutil.getWebprofile().setLocked(false);
          loadWebProfile(clienturl);
          loadAdvisorProfile(webutil.getWebprofile().getDefaultAdvisor());
          webutil.getWebprofile().finalConfig();
-         webutil.webprofile.setLocked(true);
+         webutil.getWebprofile().setLocked(true);
          logger.info("Status: LOCK for this client: " + clienturl);
       }
    }
@@ -253,10 +254,16 @@ public class SessionController implements Serializable
       if (commonDAO != null)
       {
          logger.info("Load WEB property for:" + url);
-         webutil.getWebprofile().initWebProfile();
-         webutil.getWebprofile().setUrl(url);
-         webutil.getWebprofile().setWebInfo(commonDAO.getWebSiteInfo(url));
-         webutil.getWebprofile().finalConfig();
+         if(webutil.getWebprofile()!=null)
+         {
+            WebProfile webProfile = webutil.getWebprofile();
+            webProfile.initWebProfile();
+            webProfile.setUrl(url);
+            webProfile.setWebInfo(commonDAO.getWebSiteInfo(url));
+            webProfile.finalConfig();
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.WEB_INFO);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.WEB_INFO, webProfile);
+         }
       }
    }
 
@@ -278,9 +285,9 @@ public class SessionController implements Serializable
       }
 
       // Not it is not prod mode then don't override the properties based on advisor.
-      if (webutil.webprofile != null)
+      if (webutil.getWebprofile() != null)
       {
-         if (!webutil.webprofile.getMode().equalsIgnoreCase("prod"))
+         if (!webutil.getWebprofile().getMode().equalsIgnoreCase("prod"))
          {
             return;
          }
@@ -324,6 +331,11 @@ public class SessionController implements Serializable
       if (webutil == null)
       {
          return;
+      }
+      if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.WEB_INFO)==null){
+         WebProfile webProfile=new WebProfile();
+         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.WEB_INFO);
+         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.WEB_INFO, webProfile);
       }
 
 
@@ -441,7 +453,8 @@ public class SessionController implements Serializable
       {
          logger.info("Module: preRenderView() called");
          resetCIDByURL(null);  // This method, will find the URL if not defined.
-         webutil.webprofile.setDevice("Mobile");
+         webutil.getWebprofile().setDevice("Mobile");
+         setDevice("mobile");
       }
    }
 }
