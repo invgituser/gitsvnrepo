@@ -52,7 +52,7 @@
         <p:column style="width:7%">
             <p:commandButton id="editButton"
                              process="@this" immediate="true"
-                             icon="ui-icon-pencil"
+                             icon="ui-icon-search"
                              action="#{uobtradeBean.doManagedAction}">
                 <f:setPropertyActionListener value="#{filteredData}"
                                              target="#{uobtradeBean.selectedClient}"/>
@@ -136,7 +136,7 @@
                  sortBy="#{trade.clientAccountID}">
 
         <p:column style="width:5%;text-align: center">
-            <p:commandButton update=":tradeForm:reviewDetailView" oncomplete="PF('reviewDetailDialog').show()" icon="ui-icon-search"
+            <p:commandButton update=":tradeForm:reviewDetailView" oncomplete="PF('reviewDetailDialog').show()" icon="ui-icon-search "
                              title="View">
                 <f:setPropertyActionListener value="#{trade}" target="#{uobtradeBean.selectedTradeSummary}"/>
             </p:commandButton>

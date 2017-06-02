@@ -905,6 +905,8 @@ img.atCheckMarkImg {
 
 .mobileFullWidthinput {
 	border:0px!important;
+	display: inline-block;
+	margin-left: 20px;
 }
 
 .mobileFullWidthinput > input {
@@ -1144,6 +1146,7 @@ Panel-UI > div {
 /*DropDown For Portfolio creation*/
 .TCM-UI-Dropdown > .ui-selectonemenu-trigger, .formpageDropdown > .ui-selectonemenu-trigger, .TCM-UI-Dropdown, .formpageDropdown {
 	background: transparent!important;
+	display: inline-block;
 }
 
 .ui-selectonemenu-panel {
@@ -3147,11 +3150,17 @@ input {
 
 .input, .ui-selectonemenu, .ui-selectcheckboxmenu {
 	color: #546e7a!important;
-border: 1px solid #9A9A9A !important;
+	border-left:solid 0px #0076c0!important;
+	border-right:solid 0px #0076c0!important;
+	border-top:solid 0px #0076c0!important;
+	border-bottom:solid 1px #0076c0!important;
 }
 
 .uob_selectDropdown.ui-state-focus, .uob_selectDropdown.ui-state-focus, .uob_selectDropdown.ui-state-hover {
-	border:solid 1px #0076c0!important;
+	border-left:solid 0px #0076c0!important;
+	border-right:solid 0px #0076c0!important;
+	border-top:solid 0px #0076c0!important;
+	border-bottom:solid 1px #0076c0!important;
 }
 
 .uob_ceditTab_Block .ui-tabs-nav li.ui-tabs-selected, .uob_ceditTab_Block .ui-tabs-nav li.ui-tabs-active, .uob_ceditTab_Block .ui-tabs-nav li.ui-state-hover {
@@ -3432,7 +3441,7 @@ a {
 }
 
 .LeftPanel {
-	border-right: 3px solid #004785;
+	border-right: 0px solid #004785;
 }
 
 /*Styling the InputField*/
@@ -4177,7 +4186,7 @@ padding: 10px 0px;
 	border-left: 1px solid #9A9A9A;
 	border-top: 1px solid #0076C0;
 	border-right: 1px solid #0076C0;
-	border-bottom: 1px solid #0076C0;
+
 	height: 27px;
 }
 
@@ -4306,3 +4315,191 @@ padding: 10px 0px;
 .submenuContent1 {
 	display: none;
 }
+.linkedinbutton{
+color: white !important;
+background: url("https://s30.postimg.org/aukfeceo1/linkedin.png") #1176aa !important;
+background-repeat: no-repeat !important;
+background-size: 19px !important;
+padding-left: 35px !important;
+background-position-y: -1px !important;
+background-position-x: 8px !important;
+border: none !important;}
+
+
+.colorwhite {
+	color: #fff !important; }
+
+.ui-selectonemenu.ui-state-focus .ui-selectonemenu-label {background-color: #fff !important;}
+
+
+
+.loadPgNm {
+	margin-bottom: 30px;
+	overflow: hidden;
+	/*CSS counters to number the steps*/
+	counter-reset: step;
+	margin: 50px auto;
+	text-align: center;
+	position: relative;
+	width: 45%;
+}
+.loadPgNm span {
+	list-style-type: none;
+	color: #427AA1;
+	text-transform: uppercase;
+	font-size: 13px;
+	width: 200px;
+	float: left;
+	position: relative;
+}
+
+.CitiDemotitle{color: #333333;
+	font-size: 26px;
+	font-weight: 100;
+	margin: 10px 0 30px 0;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 20px; text-align: left;}
+
+
+
+
+.loadPgNm span:before {
+	content:counter(step);
+	counter-increment: step;
+	width: 24px;
+	line-height: 24px;
+	display: block;
+	font-size: 10px;
+	color: #fff;
+	background: #427AA1;
+	border-radius: 50%;
+	margin: 0 auto 5px auto;
+	position: relative;
+	z-index: 2;
+}
+/*progressbar connectors*/
+.loadPgNm span:after {
+	content: '';
+	width: 100%;
+	height: 2px;
+	background: #427AA1;
+	position: absolute;
+	left: -50%;
+	top: 11px;
+	z-index:1;
+}
+.loadPgNm span:first-child:after {
+	/*connector not needed before the first step*/
+	content: none;
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+.loadPgNm span.active:before,  #progressbar li.active:after{
+	background: #A7A5C6;
+	color: white;
+}
+
+.CompBlock {        width: 50%;
+	border-radius: 5px;
+	height: 68px;
+	background-color: #4c9fd3;
+	padding: 10px;
+	padding-top: 20px;
+margin-bottom: 20px;}
+
+.CompBlock.active {background-color: #0076c0;}
+
+.CompBlock .Number {    padding: 10px;
+	border-radius: 50%;
+	font-size: 18px;
+	background-color: #fff;
+	width: 30px;
+	height: 30px;
+	line-height: 30px; text-align: center;
+	margin: 0 auto;}
+
+.CompBlock p {color: #fff;}
+
+.CompBlock.active {
+	position: relative;
+	background: #0076c0;
+	border: 4px solid #c2e1f5;
+}
+.CompBlock.active:after, .CompBlock.active:before {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.CompBlock.active:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-left-color: #0076c0;
+	border-width: 30px;
+	margin-top: -30px;
+}
+.CompBlock.active:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-left-color: #c2e1f5;
+	border-width: 36px;
+	margin-top: -36px;
+}
+
+
+.blue_banner_header {
+	position: fixed;
+	top: 0;
+	background: linear-gradient(180deg, #00bdf2, #00b3f0 18%, #0066b3 77%, #004985);
+	width: 100%;
+	left: 0;
+	height: 70px;
+	padding-left: 30px;
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+	z-index: 5555;
+	-webkit-transition: all 900ms ease;
+	-moz-transition: all 900ms ease;
+	-ms-transition: all 900ms ease;
+	-o-transition: all 900ms ease;
+	transition: all 900ms ease;
+}
+
+
+.blue_banner_header img {
+	height: 40px;
+	padding-top: 15px;
+}
+.blue_banner_header p {
+	float: left;
+	line-height: 88px;
+	font-size: 17px;
+	margin-left: 30px;
+	color: white;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, .6);
+}
+.blue_banner_header a {
+	float: left;
+}
+
+.maxWidth {
+	width: 980px;
+	margin: 0 auto;
+}
+
+.citibutton {}
+
+.citibutton span {background-color: #0076C0 !important;-webkit-transition: all 600ms ease;
+	-moz-transition: all 600ms ease;
+	-ms-transition: all 600ms ease;
+	-o-transition: all 600ms ease;
+	transition: all 600ms ease;}
+
+.citibutton span:hover {background-color: #4c9fd3 !important;-webkit-transition: all 600ms ease;
+	-moz-transition: all 600ms ease;
+	-ms-transition: all 600ms ease;
+	-o-transition: all 600ms ease;
+	transition: all 600ms ease;}
+

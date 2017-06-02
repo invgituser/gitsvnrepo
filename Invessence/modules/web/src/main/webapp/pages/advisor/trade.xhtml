@@ -12,6 +12,22 @@
 
     <ui:define name="content">
 
+
+        <script type="text/javascript">
+            $(document).on('click','.multipleSelectionChkList',function(){
+                if($('.ui-chkbox-box').find('.ui-icon-check').length==0 )
+                {
+                    $('.ui-datatable-header').fadeOut();
+                }
+                else if ($('.ui-chkbox-box').find('.ui-icon-check').length>0 ){
+                    $('.ui-datatable-header').fadeIn();
+
+                }
+            });
+            //            });
+
+        </script>
+
         <div class="layout-portlets-box backgroundAdvPortlets">
             <div class="Container100">
                 <h:form id="tradeForm">
@@ -35,6 +51,8 @@
                                         <p:commandButton styleClass="advButton" value="Reload"
                                                          process="@form" update="tradePanel"
                                                          actionListener="#{tradeBean.reloadTradeClient}"/>
+
+
                                     </div>
 
                                     <div class="Fright" style="margin-top: 9px;">
@@ -42,10 +60,10 @@
                                                       style="margin-top: 10px;">
 
                                             <p:menuitem value="Individual" itemValue="V"
-                                                        process="@form" update="@form"
+                                                        process="@form" update="tradePanel"
                                                         actionListener="#{tradeBean.createTrades('I')}"/>
                                             <p:menuitem value="All" itemValue="D"
-                                                        process="@form" update="@form"
+                                                        process="@form" update="tradePanel"
                                                         actionListener="#{tradeBean.createTrades('A')}"/>
                                         </p:menuButton>
 
@@ -78,7 +96,7 @@
                                             <p:commandButton id="editButton"
                                                              styleClass="editAdvButtonIcon"
                                                              process="@this" immediate="true"
-                                                             icon="fa fa-pencil-square-o"
+                                                             icon="fa fa-search"
                                                              action="#{tradeBean.doManagedAction}">
                                                 <f:setPropertyActionListener value="#{filteredClientData}"
                                                                              target="#{tradeBean.selectedClient}"/>
@@ -148,6 +166,7 @@
                         </p:tab>
 
                         <p:tab id="tab1" title="Review">
+
                             <p:panel id="reviewPanel" styleClass="invNBgrid">
                                 <div class="Container100">
                                     <div class="Fleft filterMBBlock margintoptrade">
@@ -160,6 +179,10 @@
                                         <p:commandButton styleClass="advButton" value="Reload"
                                                          process="@form" update="reviewPanel"
                                                          actionListener="#{tradeBean.reloadTradeSummary}"/>
+
+
+
+
                                     </div>
                                     <div class="Fright" style="margin-top: 9px;">
 
@@ -176,7 +199,9 @@
                                     </div>
                                 </div>
 
-                                <div class="Container100">
+
+
+                                <div class="Container100" style="margin-top: 20px !important;">
                                     <p:dataTable id="tradeReviewDT" var="filteredSummaryData" value="#{tradeBean.filteredSummaryList}"
                                                  border="1" styleClass="AdvisorGridtcmLayout"
                                                  sortMode="multiple"
@@ -187,8 +212,13 @@
                                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                                                  selection="#{tradeBean.selectedSummaryList}">
                                         <f:facet name="header" style="text-align: left;">
-
+                                            <div style="width: 100%; text-align: left;" class="centerAlign ForBtnNormal">
+                                                <p:commandButton styleClass="advButton" value="Undo"
+                                                                />
+                                            </div>
                                         </f:facet>
+
+
 
                                         <p:column selectionMode="multiple" styleClass="multipleSelectionChkList"
                                                   style="width:50px;text-align:center" resizable="true"/>
