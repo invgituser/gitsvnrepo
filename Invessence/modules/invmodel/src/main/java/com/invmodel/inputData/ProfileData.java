@@ -51,7 +51,7 @@ public class
    private String typeOfChart;
    ArrayList<Map> consolidateAssetAndSubAssetList;
 
-   private Integer stayInvested = 1;  // 1 = go to cash, 2 = stayInvested (See method strStayInvested)
+   private Integer stayInvested = 2;  // 1 = stayInvested , 2 =  go to cash(See method strStayInvested)
    private Integer charitableGoals;
 
    private Integer dependent = 0;
@@ -379,10 +379,12 @@ public class
    {
       // If Horizon < 5 year then go to cash (2)
       // However, if horizon < 5 and it is taxfree, then stay invested.
-      if (horizon != null)
-      {
-         setStayInvested((horizon <= 5) ? ((getAccountTaxable() ? 2 : 1)) : 1);
-      }
+
+      // Removed by JAV 6/2/2017
+      //if (horizon != null)
+      //{
+      //   setStayInvested((horizon <= 5) ? ((getAccountTaxable() ? 2 : 1)) : 1);
+      //}
       this.horizon = horizon;
    }
 
@@ -659,7 +661,7 @@ public class
    {
       if (stayInvested == null)
       {
-         return 1;
+         return 2;
       }
       else
       {
