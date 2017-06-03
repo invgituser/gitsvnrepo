@@ -253,7 +253,7 @@ public class SessionController implements Serializable
    {
       if (commonDAO != null)
       {
-         logger.info("Load WEB property for:" + url);
+         // logger.info("Load WEB property for:" + url);
          if(webutil.getWebprofile()!=null)
          {
             WebProfile webProfile = webutil.getWebprofile();
@@ -375,7 +375,7 @@ public class SessionController implements Serializable
          logger.info("Status: " + ((reload) ? "reload" + uri : "Skip reload"));
          if (reload)
          {
-            System.out.println("Load WEB property for: " + uri);
+            // System.out.println("Load WEB property for: " + uri);
             loadWebProfile(uri);
             loadAdvisorProfile(webutil.getWebprofile().getDefaultAdvisor());
             webutil.getWebprofile().finalConfig();
@@ -385,9 +385,9 @@ public class SessionController implements Serializable
 
    public void onIdleSessionLogout()
    {
-      System.out.println("onIdleSessionLogout Session Logout Start");
+      // System.out.println("onIdleSessionLogout Session Logout Start");
       logout();
-      System.out.println("onIdleSessionLogout Session Logout End");
+      // System.out.println("onIdleSessionLogout Session Logout End");
    }
 
    public void onActive()
@@ -404,7 +404,7 @@ public class SessionController implements Serializable
          customSessionTimeout = Integer.parseInt(strCustomSessionTimeout);
 
          customSessionTimeout = customSessionTimeout * 60 * 1000;
-         System.out.println("SessionController.getCustomSessionTimeout session timeout " + customSessionTimeout);
+         // System.out.println("SessionController.getCustomSessionTimeout session timeout " + customSessionTimeout);
       }
       catch (Exception e)
       {
@@ -424,7 +424,7 @@ public class SessionController implements Serializable
          sessionCountdownTime = Integer.parseInt(strSessionCountdownTime);
 
          sessionCountdownTime = sessionCountdownTime * 60 ;
-         System.out.println("SessionController.getSessionCountdownTime session countdown time" + sessionCountdownTime);
+         // System.out.println("SessionController.getSessionCountdownTime session countdown time" + sessionCountdownTime);
       }
       catch (Exception e)
       {
