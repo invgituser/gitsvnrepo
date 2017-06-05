@@ -4505,3 +4505,14 @@ margin-bottom: 20px;}
 	-o-transition: all 600ms ease;
 	transition: all 600ms ease;}
 
+.customfooter {
+
+	width: 100%;
+	position: fixed;
+	padding: 10px 20px;
+	position: fixed;
+	bottom: 0;
+	background-color: #fff;
+	-webkit-box-shadow: 0 -2px 9px 2px #C2C2C2;
+	box-shadow: 0 -2px 9px 2px #C2C2C2;
+}
