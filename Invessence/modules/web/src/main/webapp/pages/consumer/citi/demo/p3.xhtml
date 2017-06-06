@@ -20,7 +20,7 @@
                     <p:commandLink id="portID1"
                                    actionListener="#{citidemo.selectPortolio(1)}"
                                    process="@this"
-                                   update=":demoForm:inputArea"  >
+                                   update=":ceForm:inputArea"  >
                         <div Class="#{citidemo.getSelectedPortfolioStyle(1)}">
                             <h:outputText value="#{citidemo.conservativeNum}" styleClass="Number">
                             </h:outputText>
@@ -32,7 +32,7 @@
                     <p:commandLink id="portID0"
                                    actionListener="#{citidemo.selectPortolio(0)}"
                                    process="@this"
-                                   update=":demoForm:inputArea"  >
+                                   update=":ceForm:inputArea"  >
                         <div Class="#{citidemo.getSelectedPortfolioStyle(0)}">
                             <h:outputText value="#{citidemo.recommendedNum}" styleClass="Number">
                             </h:outputText>
@@ -44,7 +44,7 @@
                     <p:commandLink id="portID2"
                                    actionListener="#{citidemo.selectPortolio(2)}"
                                    process="@this"
-                                   update=":demoForm:inputArea"  >
+                                   update=":ceForm:inputArea"  >
                         <div Class="#{citidemo.getSelectedPortfolioStyle(2)}">
                             <h:outputText value="#{citidemo.aggressiveNum}" styleClass="Number">
                             </h:outputText>

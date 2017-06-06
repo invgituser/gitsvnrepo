@@ -2,25 +2,22 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:pe="http://primefaces.org/ui/extensions"
-                template="/template/common/simple.xhtml">
-
-    <f:metadata>
-        <f:viewParam name="acct" value="#{userBean.beanCustID}"/>
-    </f:metadata>
-
-    <ui:define name="content">
+                xmlns:p="http://primefaces.org/ui">
 
         <div id="layout-portlets-cover">
             <div class="EmptyBox50"></div>
+                <ui:include src="/pages/consumer/citi/demo/tickerdata.html"/>
 
-           <div class="customfooter">
 
-               <p:button  value="Back" styleClass="Fs16 citibutton" href="Demo2.xhtml" style="float: left;"></p:button>
-           </div>
+            <div class="customfooter">
+                <p:commandButton id="dpreviousbtn4"
+                                 styleClass="Fs16 citibutton" style="float: left;"
+                                 value="Back"
+                                 update=":ceForm:inputArea"
+                                 immediate="true"
+                                 actionListener="#{citidemo.pagemanager.prevPage}">
+                </p:commandButton>
             </div>
+        </div>
 
-    </ui:define>
-
-</ui:composition>
+ </ui:composition>

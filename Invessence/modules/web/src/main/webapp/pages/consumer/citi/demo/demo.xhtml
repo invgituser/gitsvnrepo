@@ -21,8 +21,27 @@
             </div>
         </div>
         <div style="width: 100%; height: 100vh; background: #e9e9e9;">
+            <h:outputScript name="js/invCharts.js"
+                            library="#{uiLayout.webProfile.cssdir}"/>
+            <h:outputScript name="js/uobHighCharts.js"
+                            library="#{uiLayout.webProfile.cssdir}"/>
 
-            <h:form id="demoForm">
+            <!-- HighChart .js plugin Start -->
+            <h:outputScript name="js/highcharts.js"
+                            library="#{uiLayout.webProfile.cssdir}"/>
+            <h:outputScript name="js/highcharts-3d.js"
+                            library="#{uiLayout.webProfile.cssdir}"/>
+            <h:outputScript name="js/highcharts-more.js"
+                            library="#{uiLayout.webProfile.cssdir}"/>
+            <h:outputScript name="js/exporting.js"
+                            library="#{uiLayout.webProfile.cssdir}"/>
+            <h:outputScript name="js/drilldown.js"
+                            library="#{uiLayout.webProfile.cssdir}"/>
+            <h:outputScript name="js/data.js"
+                            library="#{uiLayout.webProfile.cssdir}"/>
+
+
+            <h:form id="ceForm">
             <div class="EmptyBox40"></div>
 
                 <p:panel id="progressArea"
@@ -51,6 +70,11 @@
                     <ui:fragment rendered="#{citidemo.pagemanager.page == 2}">
                         <div class="step3 fixedHeightLP">
                             <ui:include src="/pages/consumer/citi/demo/p3.xhtml"/>
+                        </div>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{citidemo.pagemanager.page == 3}">
+                        <div class="step3 fixedHeightLP">
+                            <ui:include src="/pages/consumer/citi/demo/security.xhtml"/>
                         </div>
                     </ui:fragment>
                 </p:panel>

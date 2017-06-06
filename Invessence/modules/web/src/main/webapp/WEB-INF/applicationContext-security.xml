@@ -10,6 +10,7 @@
 
 
    <http pattern="/index.xhtml" security="none"/>
+   <http pattern="/watson.xhtml" security="none"/>
    <http pattern="/getstarted.xhtml" security="none"/>
    <http pattern="/login.xhtml" security="none" create-session="never" use-expressions="true"/>
    <http pattern="/mobilelogin.xhtml" security="none" create-session="never" use-expressions="true"/>

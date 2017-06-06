@@ -167,6 +167,7 @@ public class CitiDemo extends CustomerData implements Serializable
       return (webutil.converter.getIntData(getWatsonRiskScore() + 10.0));
    }
 
+
    public void logon() {
       uiLayout.doMenuAction("/pages/consumer/citi/demo/demo.xhtml");
    }
@@ -230,7 +231,7 @@ public class CitiDemo extends CustomerData implements Serializable
             setLogonid(uid.getLogonID());
          }
          setDefaults();
-         listDAO.getNewClientProfileData((CustomerData) this.getInstance());
+         listDAO.getNewClientProfileData(getInstance());
       }
       catch (Exception ex)
       {
@@ -262,15 +263,19 @@ public class CitiDemo extends CustomerData implements Serializable
 
       switch (portfolioNum){
          case 0:
+            setWhichPortfolio(0);
             createAssetPortfolio(getWatsonRiskScore());
             break;
          case 1:
+            setWhichPortfolio(1);
             createAssetPortfolio(getConservativeNum().doubleValue());
             break;
          case 2:
+            setWhichPortfolio(2);
             createAssetPortfolio(getAggressiveNum().doubleValue());
             break;
          default:
+            setWhichPortfolio(0);
             createAssetPortfolio(getWatsonRiskScore());
             break;
       }
@@ -354,14 +359,7 @@ public class CitiDemo extends CustomerData implements Serializable
                   // charts.createLineModel(getProjectionData());
                   // if (getGoalData() != null && getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0.0)
                   charts.createGoalChart(getProjectionData(), getGoalData());
-                  if ((!getGoalData().getReachable()))
-                  {
-                     displayGoalText = true;
-                  }
-                  else
-                  {
-                     displayGoalText = false;
-                  }
+                  displayGoalText = (!getGoalData().getReachable());
                }
             }
          }
@@ -373,5 +371,9 @@ public class CitiDemo extends CustomerData implements Serializable
    }
 
 
+   public void showLink(String secID)
+   {
+      pagemanager.nextPage();
+   }
 
 }
