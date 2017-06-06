@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://java.sun.com/jsf/html">
+
+    <div class="Container100 TextAlCenter">
+
+        <div class="EmptyBox10"></div>
+
+        <div class="other-pages-box Container90 Responsive50 MarAuto Fnone TexAlCenter  MarTop10 BackgroundWhite"
+             style="padding: 50px 0">
+            <div class="Container90 Fnone MarAuto TexAlCenter">
+
+                <h2 class="CitiDemotitle">
+                    Review
+                </h2>
+                <div class="EmptyBox20"></div>
+
+                <div class="Wid30 Fleft LeftPanel">
+
+                    <p:commandLink id="portID1"
+                                   actionListener="#{citidemo.selectPortolio(1)}"
+                                   process="@this"
+                                   update=":demoForm:inputArea"  >
+                        <div Class="#{citidemo.getSelectedPortfolioStyle(1)}">
+                            <h:outputText value="#{citidemo.conservativeNum}" styleClass="Number">
+                            </h:outputText>
+                            <p>Conservative</p>
+                        </div>
+                    </p:commandLink>
+
+
+                    <p:commandLink id="portID0"
+                                   actionListener="#{citidemo.selectPortolio(0)}"
+                                   process="@this"
+                                   update=":demoForm:inputArea"  >
+                        <div Class="#{citidemo.getSelectedPortfolioStyle(0)}">
+                            <h:outputText value="#{citidemo.recommendedNum}" styleClass="Number">
+                            </h:outputText>
+                            <p>Recommended</p>
+                        </div>
+                    </p:commandLink>
+
+
+                    <p:commandLink id="portID2"
+                                   actionListener="#{citidemo.selectPortolio(2)}"
+                                   process="@this"
+                                   update=":demoForm:inputArea"  >
+                        <div Class="#{citidemo.getSelectedPortfolioStyle(2)}">
+                            <h:outputText value="#{citidemo.aggressiveNum}" styleClass="Number">
+                            </h:outputText>
+                            <p>Aggressive</p>
+                        </div>
+                    </p:commandLink>
+
+
+                </div>
+                <div class="Wid66 Fleft RightPanel">
+                    <ui:include src="/pages/consumer/citi/demo/detailArea.xhtml"/>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="EmptyBox10"></div>
+
+
+    </div>
+</ui:composition>
