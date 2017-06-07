@@ -4334,11 +4334,10 @@ border: none !important;}
 
 
 .loadPgNm {
-	margin-bottom: 30px;
 	overflow: hidden;
 	/*CSS counters to number the steps*/
 	counter-reset: step;
-	margin: 50px auto;
+	margin: 45px auto 0px auto;
 	text-align: center;
 	position: relative;
 	width: 45%;
@@ -4493,6 +4492,10 @@ margin-bottom: 20px;}
 
 .citibutton {}
 
+.citibutton.left {float: left;}
+
+.citibutton.right {float: right;}
+
 .citibutton span {background-color: #0076C0 !important;-webkit-transition: all 600ms ease;
 	-moz-transition: all 600ms ease;
 	-ms-transition: all 600ms ease;
@@ -4516,5 +4519,5 @@ margin-bottom: 20px;}
 	box-shadow: 0 -2px 9px 2px #C2C2C2;
 }
 
-.ui-inputfield {padding:7px 9px 0px 9px!important;}
+.step1 .ui-inputfield {padding:7px 9px 0px 9px!important;}
 
