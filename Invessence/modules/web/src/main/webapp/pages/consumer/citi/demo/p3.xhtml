@@ -66,4 +66,15 @@
 
 
     </div>
+
+    <script>
+
+        $(function() {
+            $('.CompBlock').click( function() {
+                $(this).addClass('active');
+                $(this).parent().siblings().children().removeClass('active');
+
+            });
+        });
+    </script>
 </ui:composition>
