@@ -2821,7 +2821,7 @@ input {
 }
 
 .ui-inputfield {
-	font-size: 13px!important; /*To remove the important priority from custom.css:93 for UOB*/
+	font-size: 16px!important; /*To remove the important priority from custom.css:93 for UOB*/
 	border-radius: 0;
 	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1) inset;
 }
@@ -4510,9 +4510,11 @@ margin-bottom: 20px;}
 	width: 100%;
 	position: fixed;
 	padding: 10px 20px;
-	position: fixed;
 	bottom: 0;
 	background-color: #fff;
 	-webkit-box-shadow: 0 -2px 9px 2px #C2C2C2;
 	box-shadow: 0 -2px 9px 2px #C2C2C2;
 }
+
+.ui-inputfield {padding:7px 9px 0px 9px!important;}
+
