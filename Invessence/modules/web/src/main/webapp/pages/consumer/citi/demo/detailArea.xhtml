@@ -131,7 +131,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Name"/>
                             </f:facet>
-                            <p:commandLink process="@this" actionListener="#{citidemo.showLink(ticker.namePlusSymbol)}"
+                            <p:commandLink process="@this" actionListener="#{citidemo.showLink(ticker.isin)}"
                                            update=":ceForm:inputArea">
                                 <h:outputText id="uobtnam" value="#{ticker.namePlusSymbol}"/>
                             </p:commandLink>

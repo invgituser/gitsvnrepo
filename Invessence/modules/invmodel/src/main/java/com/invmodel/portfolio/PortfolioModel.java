@@ -274,7 +274,7 @@ public class PortfolioModel
             // Total Money = Investment + Projection
             portfolioclass[investmentYear].setTotalMoney(invCapital);
             actualInvestment += reinvestment;
-            invCapital += reinvestment;;
+            invCapital += reinvestment;
 
             // Total Money = Investment + Projection
             if (investmentYear == 0)
@@ -476,7 +476,8 @@ public class PortfolioModel
                                                   sd.getSecurityAssetClass(), sd.getSecuritySubAssetClass(),
                                                   price, rbsa_weight,
                                                   0.0, 0.0, 0.0, 0.0,
-                                                  shares, money, pacd.getSortorder(), totalPortfolioWeight);
+                                                  shares, money, pacd.getSortorder(), totalPortfolioWeight,
+                                                  sd.getIsin(), sd.getCusip(), sd.getRic());
                               pclass.addSubclassMap(sd.getSecurityAssetClass(), sd.getSecuritySubAssetClass(),
                                                     asset.getColor(),
                                                     totalPortfolioWeight, money, true);
@@ -514,20 +515,30 @@ public class PortfolioModel
          {
             SecurityData sd = secCollection.getSecurity("CASH");
             assetdata = portfolioOptimizer.getAssetData(theme, "Cash");
-            asset = assetClass.getAsset("Cash");;
+            asset = assetClass.getAsset("Cash");
             assetWgt = (amount2Allocate + keepLiquidCash) / invCapital;
             double cash = amount2Allocate + keepLiquidCash;
             investByAsset = amount2Allocate;
 
             totalPortfolioWeight = assetWgt;
-            pclass.setPortfolio(sd.getTicker(), sd.getName(), asset.getColor(),
-                                sd.getType(), sd.getStyle(), sd.getAssetclass(), sd.getPrimeassetclass(),
+            pclass.setPortfolio("Cash", "Cash", asset.getColor(),
+                                "Cash", "Cash", "Cash", "Cash",
                                 1.0, assetWgt,
                                 0.0, 0.0, 0.0, 0.0,
-                                cash, cash, 999999, assetWgt);
-            pclass.addSubclassMap(sd.getAssetclass(), sd.getPrimeassetclass(),
-                                  asset.getColor(),
-                                  assetWgt, amount2Allocate, true);
+                                cash, cash, 999999, assetWgt,
+                                "Cash", "Cash", "Cash");
+            if (sd != null)
+            {
+               pclass.addSubclassMap(sd.getAssetclass(), sd.getPrimeassetclass(),
+                                     asset.getColor(),
+                                     assetWgt, amount2Allocate, true);
+            }
+            else {
+               pclass.addSubclassMap("Cash", "Cash",
+                                     asset.getColor(),
+                                     assetWgt, amount2Allocate, true);
+
+            }
             if ( assetdata.getPrimeAssetrisk() != null)
             {
                portfolioRisk = portfolioRisk + assetdata.getPrimeAssetrisk()[offset] * totalPortfolioWeight;
@@ -549,7 +560,6 @@ public class PortfolioModel
          pclass.setTotalRisk(portfolioRisk);
          pclass.setTotalCapitalGrowth(incEarned);
          pclass.setAvgExpense(secExpense * invCapital);
-         ;
 
          if (InvConst.MIN_MNGT_FEES_DOLLARS > InvConst.MNGT_FEES * invCapital)
          {
@@ -708,7 +718,8 @@ public class PortfolioModel
                                             sd.getSecurityAssetClass(), sd.getSecuritySubAssetClass(),
                                             price, rbsa_weight,
                                             0.0, 0.0, 0.0, 0.0,
-                                            shares, money, sd.getSortorder(), totalPortfolioWeight);
+                                            shares, money, sd.getSortorder(), totalPortfolioWeight,
+                                            sd.getIsin(),  sd.getCusip(), sd.getRic());
                         pclass.addSubclassMap(sd.getSecurityAssetClass(), sd.getSecurityAssetClass(),
                                               sd.getAssetcolor(),
                                               totalPortfolioWeight, money, true);
@@ -739,7 +750,8 @@ public class PortfolioModel
                                 sd.getType(), sd.getStyle(), sd.getAssetclass(), sd.getPrimeassetclass(),
                                 1.0, 1.0,
                                 0.0, 0.0, 0.0, 0.0,
-                                cash, cash, sd.getSortorder(), totalPortfolioWeight);
+                                cash, cash, sd.getSortorder(), totalPortfolioWeight,
+                                sd.getIsin(), sd.getCusip(), sd.getRic());
             pclass.addSubclassMap(sd.getAssetclass(), sd.getPrimeassetclass(),
                                   asset.getColor(),
                                   totalPortfolioWeight, cash, true);
@@ -749,7 +761,6 @@ public class PortfolioModel
          pclass.setExpReturns(hoptdata.getPortReturnsOffset(hoptdata.getOffset()));
          pclass.setTotalCapitalGrowth(0.0);
          pclass.setAvgExpense(0.0 * invCapital);
-         ;
 
          if (InvConst.MIN_MNGT_FEES_DOLLARS > InvConst.MNGT_FEES * invCapital)
          {
@@ -866,7 +877,8 @@ public class PortfolioModel
                                    type, style, assetname, subclass,
                                    price, wght,
                                    0.0, 0.0, 0.0, 0.0,
-                                   shares, money, sortorder, totalPortfolioWeight);
+                                   shares, money, sortorder, totalPortfolioWeight,
+                                   "", "", "");
             portfolio.addSubclassMap(assetname, subclass,
                                      color,
                                      totalPortfolioWeight, amount_remain, true);
@@ -880,7 +892,8 @@ public class PortfolioModel
                                    null, null, "Cash", "Cash",
                                    1.0, totalWeight,
                                    0.0, 0.0, 0.0, 0.0,
-                                   money, money, 999999, totalWeight);
+                                   money, money, 999999, totalWeight,
+                                   "", "", "");
             portfolio.addSubclassMap("Cash", "Cash",
                                      null,
                                      totalWeight, money, true);

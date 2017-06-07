@@ -202,7 +202,7 @@ public class CustomerData extends ProfileData
    public CustomerData()
    {
       super();
-      this.manageGoalinstance = this;
+      manageGoalinstance = this;
       displayPortfolioList = new ArrayList<DataPortfolio>();
       selectedPortfolio = new DataPortfolio();
       selectedPortfolioList = null;
@@ -790,7 +790,7 @@ public class CustomerData extends ProfileData
    }
 
    public Double getTotalMoneyAllocated() {
-      return this.totalMoneyAllocated;
+      return totalMoneyAllocated;
    }
 
    public void setTotalMoneyAllocated(Double totalMoneyAllocated)
@@ -1035,11 +1035,11 @@ public class CustomerData extends ProfileData
          Double addedTotalMoney=0.0;
          Double weight=0.0;
          if (getDisplayPortfolioList() == null) {
-            this.displayPortfolioList = new ArrayList<DataPortfolio>();
+            displayPortfolioList = new ArrayList<DataPortfolio>();
          }
 
          if (getPortfolioData() != null) {
-            this.displayPortfolioList.clear();
+            displayPortfolioList.clear();
             int rowSize = getPortfolioData()[dataYear].getPortfolio().size();
             totalMoney = getPortfolioData()[dataYear].getTotalMoney();
             for (int loop = 0; loop < rowSize; loop++)
@@ -1054,7 +1054,8 @@ public class CustomerData extends ProfileData
                DataPortfolio dp = new DataPortfolio(pfList.getAssetclass(), pfList.getSubclass(), pfList.getColor(),
                                                     pfList.getTicker(), pfList.getName(), (int) pfList.getShares(),
                                                     pfList.getDailyprice(), pfList.getMoney(), pfList.getSortorder(),
-                                                    pfList.getTickerWeights(), weight);
+                                                    pfList.getTickerWeights(), weight,
+                                                    pfList.getIsin(), pfList.getCusip(), pfList.getRic());
                getDisplayPortfolioList().add(loop, dp);
             }
             addedTotalMoney = Math.round(addedTotalMoney * 100.00) / 100.00; // round off..
@@ -1135,8 +1136,8 @@ public class CustomerData extends ProfileData
          setTheme(InvConst.DEFAULT_THEME);
       }
       else {
-         if (this.advisorBasket.containsKey(value)) {
-            setBasket(value, this.advisorBasket.get(value));
+         if (advisorBasket.containsKey(value)) {
+            setBasket(value, advisorBasket.get(value));
             setTheme(value);
          }
       }
@@ -1218,15 +1219,8 @@ public class CustomerData extends ProfileData
 
    public Boolean getHasPosition()
    {
-      if ((getClientAccountID() != null)
-         && (getActualInvestment() != null && getActualInvestment() > 0.0))
-      {
-         return true;
-      }
-      else
-      {
-         return false;
-      }
+      return (getClientAccountID() != null)
+         && (getActualInvestment() != null && getActualInvestment() > 0.0);
    }
 
    public String getDisplayActiveAcctNum()

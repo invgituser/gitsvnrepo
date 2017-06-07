@@ -8,33 +8,57 @@ import static java.lang.String.valueOf;
 public class PortfolioSecurityData
 {
 
-   private String ticker = "";
-   private String name = "";
-   private String color = "";
-   private String type = "";
-   private String style = "";
-   private String assetclass = "";
-   private String subclass = "";
-   private double dailyprice = 0.0;
-   private double weight = 0.0;
-   private double expectedReturn = 0.0;
+   private String ticker;
+   private String name;
+   private String color;
+   private String type;
+   private String style;
+   private String assetclass;
+   private String subclass;
+   private double dailyprice;
+   private double weight;
+   private double expectedReturn;
    private double expenseRatio;
-   private double secRisk = 0.0;
-   private double yield = 0.0;
-   private double shares = 0.0;
-   private double money = 0.0;
-   private int sortorder = 0;
-   private double tickerWeights = 0.0;
+   private double secRisk;
+   private double yield;
+   private double shares;
+   private double money;
+   private int sortorder;
+   private double tickerWeights;
+   private String isin;
+   private String cusip;
+   private String ric;
 
    public PortfolioSecurityData()
    {
+      ticker = "";
+      name = "";
+      color = "";
+      type = "";
+      style = "";
+      assetclass = "";
+      subclass = "";
+      dailyprice = 0.0;
+      weight = 0.0;
+      expectedReturn = 0.0;
+      expenseRatio = 0.0;
+      secRisk = 0.0;
+      yield = 0.0;
+      shares = 0.0;
+      money = 0.0;
+      sortorder = 0;
+      tickerWeights = 0.0;
+      isin = "";
+      cusip = "";
+      ric = "";
    }
 
    public PortfolioSecurityData(String ticker, String name, String color,
                                 String type, String style, String assetclass, String subclass,
                                 double dailyprice, double weight, double expectedReturn, double expenseRatio,
                                 double secRisk, double yield, double shares, double money, int sortorder,
-                                double tickerWeight)
+                                double tickerWeight,
+                                String isin, String cusip, String ric)
    {
       super();
       setTicker(ticker);
@@ -54,6 +78,9 @@ public class PortfolioSecurityData
       setMoney(money);
       setSortorder(sortorder);
       setTickerWeights(tickerWeight);
+      setIsin(isin);
+      setCusip(cusip);
+      setRic(ric);
    }
 
 
@@ -204,7 +231,7 @@ public class PortfolioSecurityData
 
    public double getMoney()
    {
-      return this.money;
+      return money;
    }
 
    public void setMoney(double money)
@@ -232,6 +259,35 @@ public class PortfolioSecurityData
       this.tickerWeights = round(tickerWeights *100, 2);
    }
 
+   public String getIsin()
+   {
+      return isin;
+   }
+
+   public void setIsin(String isin)
+   {
+      this.isin = isin;
+   }
+
+   public String getCusip()
+   {
+      return cusip;
+   }
+
+   public void setCusip(String cusip)
+   {
+      this.cusip = cusip;
+   }
+
+   public String getRic()
+   {
+      return ric;
+   }
+
+   public void setRic(String ric)
+   {
+      this.ric = ric;
+   }
 
    public double round(double value, int digits)
    {
@@ -257,12 +313,12 @@ public class PortfolioSecurityData
       return value;
    }
 
-
    public PortfolioSecurityData resetPortfolioData(String ticker, String name, String color,
                                                    String type, String style, String assetclass, String subclass,
                                                    double dailyprice, double weight, double expectedReturn, double expenseRatio,
                                                    double secRisk, double yield, double shares, double money, int sortorder,
-                                                   double assetvalue)
+                                                   double assetvalue,
+                                                   String isin, String cusip, String ric)
    {
       setTicker(ticker);
       setName(name);
@@ -281,6 +337,9 @@ public class PortfolioSecurityData
       setMoney(money);
       setSortorder(sortorder);
       setTickerWeights(assetvalue);
+      setIsin(isin);
+      setCusip(cusip);
+      setRic(ric);
       return this;
    }
 
@@ -296,12 +355,12 @@ public class PortfolioSecurityData
          data.add(style);
          data.add(assetclass);
          data.add(subclass);
-         data.add(valueOf(this.dailyprice));
+         data.add(valueOf(dailyprice));
          data.add(valueOf(getWeightsAsInt()));
-         data.add(valueOf(this.shares));
-         data.add(valueOf(this.money));
-         data.add(valueOf(this.sortorder));
-         data.add(valueOf(this.tickerWeights));
+         data.add(valueOf(shares));
+         data.add(valueOf(money));
+         data.add(valueOf(sortorder));
+         data.add(valueOf(tickerWeights));
          return data;
       }
       catch (Exception e)
@@ -356,7 +415,7 @@ public class PortfolioSecurityData
       {
          e.printStackTrace();
       }
-      return this.ticker;
+      return ticker;
    }
 
    public String toXml()

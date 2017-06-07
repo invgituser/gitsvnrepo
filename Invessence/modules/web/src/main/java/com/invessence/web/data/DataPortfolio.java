@@ -6,9 +6,6 @@ import java.io.Serializable;
 public class DataPortfolio implements Serializable
 {
 
-   /**
-    *
-    */
    private static final long serialVersionUID = 1L;
    private String assetType;
    private String subclass;
@@ -21,12 +18,16 @@ public class DataPortfolio implements Serializable
    private Double value;
    private Double tickerWeight;
    private Double weight;
+   private String isin;
+   private String cusip;
+   private String ric;
 
    public DataPortfolio() {}
 
    public DataPortfolio(String assetType, String subclass, String color,
                         String symbol, String name, Integer share, Double price,
-                        Double value, Integer sortorder, Double tickerWeight, Double weight)
+                        Double value, Integer sortorder, Double tickerWeight, Double weight,
+                        String isin, String cusip, String ric)
    {
       this.assetType = assetType;
       this.subclass = subclass;
@@ -39,7 +40,9 @@ public class DataPortfolio implements Serializable
       this.value = value;
       this.tickerWeight = tickerWeight;
       this.weight = weight;
-
+      this.isin = isin;
+      this.cusip = cusip;
+      this.ric = ric;
    }
 
    public String getAssetType()
@@ -142,6 +145,36 @@ public class DataPortfolio implements Serializable
       this.tickerWeight = tickerWeight;
    }
 
+   public String getIsin()
+   {
+      return isin;
+   }
+
+   public void setIsin(String isin)
+   {
+      this.isin = isin;
+   }
+
+   public String getCusip()
+   {
+      return cusip;
+   }
+
+   public void setCusip(String cusip)
+   {
+      this.cusip = cusip;
+   }
+
+   public String getRic()
+   {
+      return ric;
+   }
+
+   public void setRic(String ric)
+   {
+      this.ric = ric;
+   }
+
    public Double getWeight()
    {
       return weight;
@@ -154,15 +187,15 @@ public class DataPortfolio implements Serializable
 
    public String getNamePlusSymbol() {
       String output = null ;
-      if (this.name != null)
-         output = this.name;
+      if (name != null)
+         output = name;
 
-      if (this.symbol != null && ! this.symbol.equalsIgnoreCase("cash"))
+      if (symbol != null && !symbol.equalsIgnoreCase("cash"))
       {
          if (output != null)
-            output = output + " - " + this.symbol;
+            output = output + " - " + symbol;
          else
-            output = this.symbol;
+            output = symbol;
       }
       return output;
 

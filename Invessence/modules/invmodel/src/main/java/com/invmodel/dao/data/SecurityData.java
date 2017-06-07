@@ -10,46 +10,71 @@ import static java.lang.String.valueOf;
 
 public class SecurityData
 {
-   private String advisor = "";
-   private String theme = "";
-   private String ticker = "";
-   private String name = "";
-   private String assetclass = "";
-   private String primeassetclass = "";
-   private String type = "";
+   private String advisor;
+   private String theme;
+   private String ticker;
+   private String name;
+   private String assetclass;
+   private String primeassetclass;
+   private String type;
    private String style;
-   private double dailyprice = 0.0;
-   private int    sortorder = 0;
-   private double rbsaWeight = 0.0;
-   private String assetcolor = "";
-   private String primeassetcolor = "";
-   private String securityAssetClass = "";
-   private String securitySubAssetClass = "";
+   private double dailyprice;
+   private int    sortorder;
+   private double rbsaWeight;
+   private String assetcolor;
+   private String primeassetcolor;
+   private String securityAssetClass;
+   private String securitySubAssetClass;
+   private String isin;
+   private String cusip;
+   private String ric;
 
    public SecurityData()
    {
       super();
+      advisor = "";
+      theme = "";
+      ticker = "";
+      name = "";
+      assetclass = "";
+      primeassetclass = "";
+      type = "";
+      style = "";
+      dailyprice = 0.0;
+      sortorder = 0;
+      rbsaWeight = 0.0;
+      assetcolor = "";
+      primeassetcolor = "";
+      securityAssetClass = "";
+      securitySubAssetClass = "";
+      isin = "";
+      cusip = "";
+      ric = "";
    }
 
    public SecurityData(String advisor, String theme, String ticker, String name,
                        String assetclass, String primeassetclass, String type, String style,
                        double dailyprice, int sortorder, double rbsaWeight,
                        String assetcolor, String primeassetcolor,
-                       String securityAssetClass, String securitySubAssetClass)
+                       String securityAssetClass, String securitySubAssetClass,
+                       String isin, String cusip, String ric)
    {
       super();
       resetSecurityData(advisor, theme, ticker, name,
                         assetclass, primeassetclass, type, style,
                         dailyprice, sortorder, rbsaWeight,
                         assetcolor, primeassetcolor,
-                        securityAssetClass, securitySubAssetClass);
+                        securityAssetClass, securitySubAssetClass,
+                        isin, cusip, ric
+                        );
    }
 
    public SecurityData resetSecurityData(String advisor, String theme, String ticker, String name,
                                          String assetclass, String primeassetclass, String type, String style,
                                          double dailyprice, int sortorder, double rbsaWeight,
                                          String assetcolor, String primeassetcolor,
-                                         String securityAssetClass, String securitySubAssetClass)
+                                         String securityAssetClass, String securitySubAssetClass,
+                                          String isin, String cusip, String ric)
    {
       this.advisor = advisor;
       this.ticker = ticker;
@@ -65,6 +90,9 @@ public class SecurityData
       this.primeassetcolor = primeassetcolor;
       this.securityAssetClass = securityAssetClass;
       this.securitySubAssetClass = securitySubAssetClass;
+      this.isin = isin;
+      this.cusip = cusip;
+      this.ric = ric;
       return this;
    }
 
@@ -143,6 +171,21 @@ public class SecurityData
       return securitySubAssetClass;
    }
 
+   public String getIsin()
+   {
+      return isin;
+   }
+
+   public String getCusip()
+   {
+      return cusip;
+   }
+
+   public String getRic()
+   {
+      return ric;
+   }
+
    public String getHeader()
    {
       String str = Joiner.on(",").join(Arrays.asList("Ticker", "Name",
@@ -156,12 +199,12 @@ public class SecurityData
    {
       try
       {
-         String str = this.ticker + ":" + Joiner.on(",").join(Arrays.asList(getTicker(),
-                                                                            getName(),
-                                                                            getAssetclass(),
-                                                                            getPrimeassetclass(),
-                                                                            getDailyprice(),
-                                                                            getSortorder()
+         String str = ticker + ":" + Joiner.on(",").join(Arrays.asList(getTicker(),
+                                                                       getName(),
+                                                                       getAssetclass(),
+                                                                       getPrimeassetclass(),
+                                                                       getDailyprice(),
+                                                                       getSortorder()
                                                                             ));
          return str;
       }
@@ -169,7 +212,7 @@ public class SecurityData
       {
          e.printStackTrace();
       }
-      return this.ticker;
+      return ticker;
    }
 
    public String toXml()
@@ -190,7 +233,7 @@ public class SecurityData
       {
          e.printStackTrace();
       }
-      return (buildElement("SecurityInfo", this.toString()));
+      return (buildElement("SecurityInfo", toString()));
    }
 
 }

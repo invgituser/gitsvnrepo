@@ -34,7 +34,7 @@ public class Portfolio
 
    public Portfolio()
    {
-      this.tickers.clear();
+      tickers.clear();
       portfolio.clear();
    }
 
@@ -42,16 +42,18 @@ public class Portfolio
                     String type, String style, String assetclass, String subclass,
                     double dailyprice, double weight, double expectedReturn, double expenseRatio,
                     double secRisk, double yield, double shares, double money, int sortorder,
-                    double tickerWeight)
+                    double tickerWeight,
+                    String isin, String cusip, String ric)
    {
       try
       {
-         this.tickers.clear();
+         tickers.clear();
          portfolio.clear();
          setPortfolio(ticker, name, color,
                       type, style, assetclass, subclass,
                       dailyprice, weight, expectedReturn, expenseRatio,
-                      secRisk, yield, shares, money, sortorder, tickerWeight);
+                      secRisk, yield, shares, money, sortorder, tickerWeight,
+                      isin, cusip, ric);
       }
       catch (Exception e)
       {
@@ -188,14 +190,15 @@ public class Portfolio
 
    private void setTickers(String ticker)
    {
-      this.tickers.add(ticker);
+      tickers.add(ticker);
    }
 
    public void setPortfolio(String ticker, String name, String color,
                             String type, String  style, String  assetclass, String  subclass,
                             double dailyprice, double weight, double expectedReturn,double expenseRatio,
                             double secRisk, double yield, double shares, double money, int sortorder,
-                            double tickerWeight)
+                            double tickerWeight,
+                            String isin, String cusip, String ric)
    {
 
       PortfolioSecurityData data;
@@ -207,20 +210,21 @@ public class Portfolio
             if (totalMoney > 0)
                tickerWeight = cashMoney/actualInvestments;
          }
-         if (!this.portfolio.containsKey(ticker))
+         if (!portfolio.containsKey(ticker))
          {
             data = new PortfolioSecurityData(ticker, name, color,
                                              type, style, assetclass, subclass,
                                              dailyprice, weight, expectedReturn, expenseRatio,
                                              secRisk, yield, shares, money,
-                                             sortorder, tickerWeight);
-            this.portfolio.put(ticker, data);
+                                             sortorder, tickerWeight,
+                                             isin, cusip, ric);
+            portfolio.put(ticker, data);
             addTotalMoney(money);
-            this.tickers.add(ticker);
+            tickers.add(ticker);
          }
          else
          {
-            data = this.portfolio.get(ticker);
+            data = portfolio.get(ticker);
             money = data.getMoney() + money;
             if (actualInvestments > 0) {
                tickerWeight = money/actualInvestments;
@@ -242,12 +246,12 @@ public class Portfolio
    {
 
       PortfolioSecurityData data;
-      if (this.portfolio.containsKey(ticker))
+      if (portfolio.containsKey(ticker))
       {
          data = portfolio.get(ticker);
          addTotalMoney(data.getMoney() * -1);  // first subtract the original.
-         this.portfolio.remove(ticker);
-         this.tickers.remove(ticker);
+         portfolio.remove(ticker);
+         tickers.remove(ticker);
       }
    }
 
@@ -365,11 +369,11 @@ public class Portfolio
    {
       try
       {
-         if (!this.portfolio.isEmpty())
+         if (!portfolio.isEmpty())
          {
-            Iterator it = this.portfolio.keySet().iterator();
+            Iterator it = portfolio.keySet().iterator();
             String firstticker = (String) it.next();
-            ArrayList<String> header = this.portfolio.get(firstticker).getPortfolioDataHeader();
+            ArrayList<String> header = portfolio.get(firstticker).getPortfolioDataHeader();
             return header;
          }
 
@@ -385,13 +389,13 @@ public class Portfolio
    public ArrayList<PortfolioSecurityData> getPortfolio()
    {
       ArrayList<PortfolioSecurityData> dataList = new ArrayList<PortfolioSecurityData>();
-         if (!this.portfolio.isEmpty())
+         if (!portfolio.isEmpty())
          {
             PortfolioSecurityData pData;
             for (int i = 0; i < tickers.size(); i++)
             {
                String ticker = tickers.get(i);
-               pData = this.portfolio.get(ticker);
+               pData = portfolio.get(ticker);
                dataList.add(pData);
             }
             return dataList;
@@ -405,12 +409,12 @@ public class Portfolio
    {
       try
       {
-         Iterator it = this.portfolio.keySet().iterator();
+         Iterator it = portfolio.keySet().iterator();
          String assetList = "";
          while (it.hasNext())
          {
             String ticker = (String) it.next();
-            assetList = assetList + this.portfolio.get(ticker).toString() + "\n";
+            assetList = assetList + portfolio.get(ticker).toString() + "\n";
          }
          return assetList;
       }
@@ -427,11 +431,11 @@ public class Portfolio
       String xmlData = "";
       try
       {
-         Iterator it = this.portfolio.keySet().iterator();
+         Iterator it = portfolio.keySet().iterator();
          while (it.hasNext())
          {
             String ticker = (String) it.next();
-            xmlData = xmlData + buildElement("Portfolio", this.portfolio.get(ticker).toXml()) + "\n";
+            xmlData = xmlData + buildElement("Portfolio", portfolio.get(ticker).toXml()) + "\n";
             xmlData = xmlData + "\n";
          }
          return xmlData;
