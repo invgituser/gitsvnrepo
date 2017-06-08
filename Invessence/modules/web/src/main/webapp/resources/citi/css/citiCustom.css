@@ -4521,3 +4521,20 @@ margin-bottom: 20px;}
 
 .step1 .ui-inputfield {padding:7px 9px 0px 9px!important;}
 
+.idSecHtml{
+	width: 80%;
+	margin: 0 auto;
+	box-shadow: 1px 1px 7px #ccc;
+	padding: 30px;
+}
+
+.idSecHtml table {border-collapse: collapse;    width: 100%;
+	margin: 20px;
+	padding: 20px;}
+
+.idSecHtml table:first-child tr {width:100%; border:0px solid #000 !important;}
+
+.idSecHtml table:first-child p:first-child {font-weight: bold; font-size: 18px;}
+
+
+.idSecHtml table p {padding: 0px 15px;}
