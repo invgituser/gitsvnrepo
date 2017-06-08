@@ -6,6 +6,7 @@
                 template="/template/common/simple.xhtml">
 
     <f:metadata>
+        <f:event type="preRenderView" listener="#{watsonBean.preRenderLinkedInCallBack}" />
         <f:event type="preRenderView" listener="#{citidemo.preRender}"/>
     </f:metadata>
 

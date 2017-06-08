@@ -24,6 +24,7 @@ public class CitiDemo extends CustomerData implements Serializable
 {
    private String linkedinUserID, linkedinPassword;
    private Double watsonRiskScore;
+   private Boolean isProfileAvailable;
    private String selectedSecurity;
 
    private Integer whichPortfolio;
@@ -44,6 +45,15 @@ public class CitiDemo extends CustomerData implements Serializable
       this.pagemanager = pagemanager;
    }
 
+   public Boolean getProfileAvailable()
+   {
+      return isProfileAvailable;
+   }
+
+   public void setProfileAvailable(Boolean profileAvailable)
+   {
+      isProfileAvailable = profileAvailable;
+   }
 
    @PostConstruct
    public void init()
@@ -179,7 +189,10 @@ public class CitiDemo extends CustomerData implements Serializable
          {
             pagemanager = new PagesImpl(9);
             setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
-            watsonRiskScore = 45.0;
+            if(isProfileAvailable==null || isProfileAvailable==false)
+            {
+               watsonRiskScore = 45.0;
+            }
             setRiskIndex(getWatsonRiskScore());
             fetchClientData();
             createAssetPortfolio(getWatsonRiskScore());
