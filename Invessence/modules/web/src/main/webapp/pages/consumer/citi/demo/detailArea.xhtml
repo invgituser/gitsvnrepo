@@ -27,6 +27,25 @@
                                                                    $('.detailPanel').show();
                                                                });
                                   });
+                $(document).on("click",".getTickerClass",function (e)
+                {
+                    debugger;
+                    var vISIN=$(this).next().val();
+                    console.log("Ticker ISIN "+vISIN);
+                    try
+                    {
+                        var vurl="http://192.168.100.92:8094/SocialNetwork/rest/discovery/getDocument/"+vISIN;
+                        console.log('vurl'+vurl);
+                        var vresponse = $.ajax({type: "GET", url: vurl, async: false}).responseText;
+                        console.log("Ticker ISIN response "+vresponse);
+                        $('.idSecHtml').html(vresponse);
+                        localStorage.setItem('ISINResponse', vresponse);
+
+                    }catch (e){
+                        console.log("Error "+e);
+                    }
+                });
+
             </script>
 
             <div class="Container100 MarTop20">
@@ -132,9 +151,11 @@
                                 <h:outputText value="Name"/>
                             </f:facet>
                             <p:commandLink process="@this" actionListener="#{citidemo.showLink(ticker.isin)}"
-                                           update=":ceForm:inputArea">
+                                           update=":ceForm:inputArea" styleClass="getTickerClass" >
                                 <h:outputText id="uobtnam" value="#{ticker.namePlusSymbol}"/>
                             </p:commandLink>
+                            <p:inputText type="hidden" name="idTickerIsin"
+                                         value="#{ticker.isin}"/>
                         </p:column>
 
                         <p:column style="width:13%;"

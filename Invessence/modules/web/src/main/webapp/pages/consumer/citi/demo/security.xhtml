@@ -3,11 +3,21 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
-
+    <script>
+        $(document).ready(function (){
+            try
+            {
+                $('.idSecHtml').html(localStorage.getItem('ISINResponse'));
+                localStorage.setItem('ISINResponse', '');
+            }catch (e){
+                console.log("Error "+e);
+            } });
+    </script>
         <div id="layout-portlets-cover">
             <div class="EmptyBox10"></div>
             <p:scrollPanel mode="native" style="width: 100%; height: 400px; padding-bottom: 100px;">
-                <ui:include src="/pages/consumer/citi/demo/tickerdata.html"/>
+                <div class="idSecHtml"></div>
+
             </p:scrollPanel>
 
 
