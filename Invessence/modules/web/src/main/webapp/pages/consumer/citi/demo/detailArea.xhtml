@@ -2,7 +2,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
 
         <p:panel id="graphArea" style="border: 0px; background: white;">
             <script>
@@ -30,11 +30,12 @@
                 $(document).on("click",".getTickerClass",function (e)
                 {
                     debugger;
-                    var vISIN=$(this).next().val();
-                    console.log("Ticker ISIN "+vISIN);
                     try
                     {
-                        var vurl="http://192.168.100.92:8094/SocialNetwork/rest/discovery/getDocument/"+vISIN;
+                        var vISIN=$(this).next().val();
+                        var vWatsonURL=$('.idWatsonUrlClass').val();
+                        console.log("Ticker ISIN "+vISIN+" vWatsonURL "+vWatsonURL);
+                        var vurl=vWatsonURL+"rest/discovery/getDocument/"+vISIN;
                         console.log('vurl'+vurl);
                         var vresponse = $.ajax({type: "GET", url: vurl, async: false}).responseText;
                         console.log("Ticker ISIN response "+vresponse);
@@ -48,6 +49,8 @@
 
             </script>
 
+            <p:inputText type="hidden" id="idWatsonURL" styleClass="idWatsonUrlClass"
+                         value="#{citidemo.getWatsonURL()}"/>
             <div class="Container100 MarTop20">
                 <div class="Fs30 Fleft summaryHeader mainHeaderUOB RPHeadings1"
                      style="cursor: pointer;">Summary
@@ -150,13 +153,18 @@
                             <f:facet name="header">
                                 <h:outputText value="Name"/>
                             </f:facet>
-                            <p:commandLink process="@this" actionListener="#{citidemo.showLink(ticker.isin)}"
-                                           update=":ceForm:inputArea" styleClass="getTickerClass" >
-                                <h:outputText id="uobtnam" value="#{ticker.namePlusSymbol}"/>
-                            </p:commandLink>
+                            <p:panel rendered="#{ticker.isin != ''}" style="border: none!important;">
+                                <p:commandLink process="@this" actionListener="#{citidemo.showLink(ticker.isin)}"
+                                               update=":ceForm:inputArea" styleClass="getTickerClass">
+                                    <h:outputText id="uobtnam" value="#{ticker.namePlusSymbol}"/> >>
+                                </p:commandLink>
+                                <p:inputText type="hidden" name="idTickerIsin"
+                                             value="#{ticker.isin}"/>
+                            </p:panel>
+                            <p:panel rendered="#{ticker.isin == ''}" style="border: none!important;">
+                                <h:outputText id="uobtnam2" value="#{ticker.namePlusSymbol}"/>
+                            </p:panel>
 
-                            <p:inputText type="hidden" name="idTickerIsin"
-                                         value="#{ticker.isin}"/>
                         </p:column>
 
                         <p:column style="width:13%;"
