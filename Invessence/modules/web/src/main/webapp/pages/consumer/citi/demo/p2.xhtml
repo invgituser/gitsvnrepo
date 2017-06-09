@@ -32,6 +32,8 @@
                                        decimalPlaces="0"
                                        required="true" requiredMessage="Min. of $50,000 investment is required!"
                                        validatorMessage="Min. of $50,000 investment is required!">
+                            <p:ajax listener="#{citidemo.selectPortolio(citidemo.getWatsonRiskScore())}"
+                                    update="ceForm:inputArea"/>
                         </p:inputNumber>
                         <p:message id="tcmp1tooltip" for="initialAmt" display="tooltip"/>
 
