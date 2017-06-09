@@ -55,33 +55,7 @@
             <div class="Container100 MarTop20 customclass">
 
 
-                <div class="Wid40 Fright IRERBlock">
-                    <div class="Wid40 Fright ReturnValuePanel">
-                        <div class="Wid100 ERLabel">Expected Return</div>
-                        <div class="Wid100 ERCount">
-                            <h:outputText id="uober" value="#{citidemo.totalExpectedReturns}">
-                                <f:convertNumber pattern="##0.00%"/>
-                            </h:outputText>
-                        </div>
-                    </div>
-                    <div class="Wid40 Fright RiskValuePanel">
-                        <div class="Wid100 IRLabel">
-                            <h:outputLink id="IRinfoPOP" value="#" style="color:#000000!important;">
-                                <i class="fa fa-info-circle" style="padding-right: 5px;"></i>Investment Risk
-                            </h:outputLink></div>
-                        <p:tooltip for="IRinfoPOP" styleClass="tooltipIR" value="Investment risk or volatility of a portfolio is a statistical measure
-                        of the dispersion of returns for a given portfolio. Volatility can be measured by using the standard deviation
-                        of returns of the portfolio. Commonly, the higher the volatility, the riskier the portfolio. Example, volatility of
-                         Singapore Government Bonds could be 1.58% vs. Singapore Equities could be as high as 17%." position="bottom"/>
-                        <div class="Wid100 IRCount">
-                            <h:outputText id="uobir" value="#{citidemo.totalRisk}">
-                                <f:convertNumber pattern="##0.00%"/>
-                            </h:outputText>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+              </div>
             <div class="Container100 tabpanel1 summaryPanel" style="">
                 <div class="Container50 donutChartGraph">
                     <ui:fragment rendered="#{citidemo.typeOfChart == 'HIGHCHART.2DDONUT'}">

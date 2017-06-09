@@ -1,6 +1,9 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://java.sun.com/jsf/html">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+               >
 
     <div class="Container100 TextAlCenter">
         <h:outputScript library="aggr" name="mx/mxCommon.js" />
@@ -15,7 +18,7 @@
                     Review
                 </h2>
 
-                <div class="Fs30 Fleft summaryHeader mainHeaderUOB RPHeadings1"
+                <div class="Fs30 Fleft summaryHeader mainHeaderUOB RPHeadings1 active"
                      style="cursor: pointer;">Summary
                 </div>
                 <div class="Fs30 Fleft detailHeader mainHeaderUOB RPHeadings2"
@@ -23,10 +26,38 @@
                 </div>
 
 
+                <div class="Wid40 Fright IRERBlock">
+                    <div class="Wid40 Fright ReturnValuePanel">
+                        <div class="Wid100 ERLabel">Expected Return</div>
+                        <div class="Wid100 ERCount">
+                            <h:outputText id="uober" value="#{citidemo.totalExpectedReturns}">
+                                <f:convertNumber pattern="##0.00%"/>
+                            </h:outputText>
+                        </div>
+                    </div>
+                    <div class="Wid40 Fright RiskValuePanel">
+                        <div class="Wid100 IRLabel">
+                            <h:outputLink id="IRinfoPOP" value="#" style="color:#000000!important;">
+                                <i class="fa fa-info-circle" style="padding-right: 5px;"></i>Investment Risk
+                            </h:outputLink></div>
+                        <p:tooltip for="IRinfoPOP" styleClass="tooltipIR" value="Investment risk or volatility of a portfolio is a statistical measure
+                        of the dispersion of returns for a given portfolio. Volatility can be measured by using the standard deviation
+                        of returns of the portfolio. Commonly, the higher the volatility, the riskier the portfolio. Example, volatility of
+                         Singapore Government Bonds could be 1.58% vs. Singapore Equities could be as high as 17%." position="bottom"/>
+                        <div class="Wid100 IRCount">
+                            <h:outputText id="uobir" value="#{citidemo.totalRisk}">
+                                <f:convertNumber pattern="##0.00%"/>
+                            </h:outputText>
+                        </div>
+                    </div>
+
+                </div>
+
+
 
                 <div class="EmptyBox20"></div>
 
-                <div class="Wid30 Fleft LeftPanel">
+                <div class="Wid23 Fleft LeftPanel">
 
                     <p:commandLink id="portID1"
                                    actionListener="#{citidemo.selectPortolio(1)}"
@@ -82,10 +113,12 @@
 
     <div class="customfooter">
 
-        <h:outputText rendered="#{!citidemo.profileAvailable}" value="Insufficient personality details on LinkedIn (Assuming Risk Score 45)"></h:outputText>
+        <h:outputText rendered="#{!citidemo.profileAvailable}" value="Insufficient personality details on LinkedIn (Assuming Risk Score 45)"
+                            styleClass="errorText citierrormsg"
+                ></h:outputText>
 
         <p:commandButton
-                         styleClass="Fs16 citisubmitbutton" style="float: left;"
+                         styleClass="Fs16 citibutton" style="float: left;"
                          value="Start Over"
                          icon="ui-icon-refresh"
                          actionListener="#{watsonBean.preRenderLinkedInWidget}">
