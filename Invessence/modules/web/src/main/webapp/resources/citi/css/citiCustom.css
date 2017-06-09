@@ -4581,9 +4581,12 @@ font-size: 22px !important;
 
 .RPHeadings1::after {content: ""; position: absolute; width: 60%; display: block; height: 2px;background-color: #0076c0;    margin-top: 5px;
 	margin-left: -10px;}
+
 .citierrormsg{
 font-size: 16px;
 line-height: 36px;
 margin-left: 15px;}
 
 .Wid23 {width: 23%;}
+
+.uob_graphTable {margin-left: 30px !important;}
