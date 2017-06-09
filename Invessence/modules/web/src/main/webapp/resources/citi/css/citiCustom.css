@@ -4565,7 +4565,7 @@ margin-bottom: 20px;}
 
 .idSecHtml table p {padding: 0px 15px;}
 
-.citiinput label {color:#101010;}
+.citiinput label, .citiinput, .citiinput input  {color:#101010 !important;}
 
 
 .linkicon_citi {    color: #0076c0;
