@@ -3,6 +3,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://java.sun.com/jsf/html">
 
     <div class="Container100 TextAlCenter">
+        <h:outputScript library="aggr" name="mx/mxCommon.js" />
 
         <div class="EmptyBox10"></div>
 
@@ -80,11 +81,15 @@
     </div>
 
     <div class="customfooter">
+
+        <h:outputText rendered="#{!citidemo.profileAvailable}" value="Insufficient personality details on LinkedIn (Assuming Risk Score 45)"></h:outputText>
+
         <p:commandButton
                          styleClass="Fs16 citisubmitbutton" style="float: left;"
                          value="Start Over"
                          icon="ui-icon-refresh"
-                         >
+                         actionListener="#{watsonBean.preRenderLinkedInWidget}">
+
         </p:commandButton>
     </div>
 

@@ -201,8 +201,8 @@ public class WatsonBean
       Url result = null;
       try
       {
-         if (!FacesContext.getCurrentInstance().isPostback())
-         {
+//         if (!FacesContext.getCurrentInstance().isPostback())
+//         {
             System.out.println("mode +"+mode);
             String renderKitId = FacesContext.getCurrentInstance().getViewRoot().getRenderKitId();
             System.out.println("renderKitId = " + renderKitId);
@@ -231,7 +231,7 @@ public class WatsonBean
             {
 //               webutil.redirecttoMessagePage("ERROR", "MX Service", result.getErrorStatus().getErrorMessage(), "/pages/consumer/" + webutil.getWebprofile().getConsumerdir() + "/aggr/errorMessage.xhtml","");
             }
-      }
+//      }
          System.out.println("token = " + token + "secret = " + secret);
       }
       catch (Exception e)
@@ -261,47 +261,68 @@ public class WatsonBean
 
             //LinkedIn call for profile summary
             JSONObject jsonObject=watsonAPIRepository.getLinkedInProfileSummary(token, secret, oauthVerifier);
-            if(jsonObject!=null && jsonObject.getString("summary")!=null)
+            try
             {
-               setSummary(jsonObject.getString("summary"));
-               //Watson call for Personality Insight details
-               jsonObject = watsonAPIRepository.getWatsonPersonalityInsight(summary);
-               if(jsonObject!=null)
+               if (jsonObject != null && jsonObject.getString("summary") != null)
                {
-                  JSONArray jsonArray=jsonObject.getJSONArray("personality");
-                  Double openness=0.0, conscientiousness=0.0, extraversion=0.0, agreeableness=0.0, neuroticism=0.0;
-                  for (int j = 0; j < jsonArray.length(); j++) {
-                     JSONObject jo = jsonArray.getJSONObject(j);
-                     System.out.println(jo.get("trait_id")+" : percentile :"+jo.get("percentile")+" : "+watsonAPIRepository.getNumericVal(jo.get("percentile")));
-                     if(jo.get("trait_id").toString().trim().equals("big5_openness")){
-                        openness=watsonAPIRepository.getNumericVal(jo.get("percentile"));
-                     }else if(jo.get("trait_id").toString().trim().equals("big5_conscientiousness")){
-                        conscientiousness=watsonAPIRepository.getNumericVal(jo.get("percentile"));
-                     }else if(jo.get("trait_id").toString().trim().equals("big5_extraversion")){
-                        extraversion=watsonAPIRepository.getNumericVal(jo.get("percentile"));
-                     }else if(jo.get("trait_id").toString().trim().equals("big5_agreeableness")){
-                        agreeableness=watsonAPIRepository.getNumericVal(jo.get("percentile"));
-                     }else if(jo.get("trait_id").toString().trim().equals("big5_neuroticism")){
-                        neuroticism=watsonAPIRepository.getNumericVal(jo.get("percentile"));
+                  setSummary(jsonObject.getString("summary"));
+                  //Watson call for Personality Insight details
+                  jsonObject = watsonAPIRepository.getWatsonPersonalityInsight(summary);
+                  if (jsonObject != null && jsonObject.getString("personality") != null)
+                  {
+                     JSONArray jsonArray = jsonObject.getJSONArray("personality");
+                     Double openness = 0.0, conscientiousness = 0.0, extraversion = 0.0, agreeableness = 0.0, neuroticism = 0.0;
+                     for (int j = 0; j < jsonArray.length(); j++)
+                     {
+                        JSONObject jo = jsonArray.getJSONObject(j);
+                        System.out.println(jo.get("trait_id") + " : percentile :" + jo.get("percentile") + " : " + watsonAPIRepository.getNumericVal(jo.get("percentile")));
+                        if (jo.get("trait_id").toString().trim().equals("big5_openness"))
+                        {
+                           openness = watsonAPIRepository.getNumericVal(jo.get("percentile"));
+                        }
+                        else if (jo.get("trait_id").toString().trim().equals("big5_conscientiousness"))
+                        {
+                           conscientiousness = watsonAPIRepository.getNumericVal(jo.get("percentile"));
+                        }
+                        else if (jo.get("trait_id").toString().trim().equals("big5_extraversion"))
+                        {
+                           extraversion = watsonAPIRepository.getNumericVal(jo.get("percentile"));
+                        }
+                        else if (jo.get("trait_id").toString().trim().equals("big5_agreeableness"))
+                        {
+                           agreeableness = watsonAPIRepository.getNumericVal(jo.get("percentile"));
+                        }
+                        else if (jo.get("trait_id").toString().trim().equals("big5_neuroticism"))
+                        {
+                           neuroticism = watsonAPIRepository.getNumericVal(jo.get("percentile"));
+                        }
                      }
+                     System.out.println("openness = " + openness);
+                     System.out.println("conscientiousness = " + conscientiousness);
+                     System.out.println("extraversion = " + extraversion);
+                     System.out.println("agreeableness = " + agreeableness);
+                     System.out.println("neuroticism = " + neuroticism);
+                     riskValue = ((openness * 100) + (conscientiousness * 100) + (extraversion * 100) + (agreeableness * 100) + ((1 - neuroticism) * 100)) / 5;
+                     System.out.println("riskValue = " + riskValue);
+                     getCitiDemo().setProfileAvailable(true);
+                     getCitiDemo().setWatsonRiskScore(riskValue);
+                     System.out.println("getCitiDemo().getWatsonRiskScore() = " + getCitiDemo().getWatsonRiskScore());
                   }
-                  System.out.println("openness = " + openness);
-                  System.out.println("conscientiousness = " + conscientiousness);
-                  System.out.println("extraversion = " + extraversion);
-                  System.out.println("agreeableness = " + agreeableness);
-                  System.out.println("neuroticism = " + neuroticism);
-                  riskValue=((openness*100)+ (conscientiousness*100)+ (extraversion*100)+ (agreeableness*100)+ ((1-neuroticism)*100))/5;
-                  System.out.println("riskValue = " + riskValue);
-                  getCitiDemo().setProfileAvailable(true);
-                  getCitiDemo().setWatsonRiskScore(riskValue);
-                  System.out.println("getCitiDemo().getWatsonRiskScore() = " + getCitiDemo().getWatsonRiskScore());
-               }else{
-                  System.out.println("Trait details not available");
+                  else
+                  {
+                     System.out.println("Trait details not available");
+                     getCitiDemo().setProfileAvailable(false);
+                  }
+               }
+               else
+               {
+                  System.out.println("LinkedIn profile summary not available");
                   getCitiDemo().setProfileAvailable(false);
                }
-            }else{
-               System.out.println("LinkedIn profile summary not available");
+            }catch (JSONException e)
+            {
                getCitiDemo().setProfileAvailable(false);
+               e.printStackTrace();
             }
 
          }

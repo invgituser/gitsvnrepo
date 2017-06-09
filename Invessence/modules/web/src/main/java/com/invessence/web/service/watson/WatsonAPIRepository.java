@@ -13,7 +13,7 @@ public class WatsonAPIRepository
 	private static String HOST_URI=null;//http://192.168.100.122:8080/SocialNetwork/rest/";
 	private static String GET_LINKEDIN_URL = "rest/linkedin/getURL";
 	private static String GET_LINKEDIN_AUTH_CODE = "rest/linkedin/authCode/{AUTHCODE}/{TOKEN}/{SECRET}";
-	private static String GET_LINKEDIN_PERSONALITY_INSIGHT = "rest/linkedin/personalityInsight/{SUMMARY}";
+	private static String GET_LINKEDIN_PERSONALITY_INSIGHT = "rest/linkedin/personalityInsight";
 
 	public JSONObject getLinkedInUrl(String hostUrl, String callBackUrl) {
 		HOST_URI=hostUrl;
@@ -79,22 +79,36 @@ public class WatsonAPIRepository
 //			System.out.println("Encoded URL " + encodedUrl);
 //			System.out.println("---------------");
 
-			String url = HOST_URI + GET_LINKEDIN_PERSONALITY_INSIGHT
-				.replace("{SUMMARY}",summary
-				.replaceAll("’","")
-				.replaceAll("[\\\\t\\\\n\\\\r]","")
-				.replaceAll("\\\\u2019","")
-					.replaceAll("\\(","")
-					.replaceAll("\\)","")
-					.replaceAll("\"","")
-					.replaceAll("/","")
-				.replaceAll(" ","%20")
- ); //\u2019
+			String url = HOST_URI + GET_LINKEDIN_PERSONALITY_INSIGHT;
+//				.replace("{SUMMARY}",summary
+//				.replaceAll("’","")
+//				.replaceAll("[\\\\t\\\\n\\\\r]","")
+//				.replaceAll("\\\\u2019","")
+//					.replaceAll("\\(","")
+//					.replaceAll("\\)","")
+//					.replaceAll("\"","")
+//					.replaceAll("/","")
+//				.replaceAll(" ","%20")
+//							//" < > # % { } | \ ^ ~ [ ] `
+//					.replaceAll("<","")
+//					.replaceAll(">","")
+//					.replaceAll("#","")
+//					.replaceAll("%","")
+//					.replaceAll("\\{","")
+//					.replaceAll("}","")
+//					.replaceAll("|","")
+//					.replaceAll("^","")
+//					.replaceAll("~","")
+//					.replaceAll("\\[","")
+//					.replaceAll("]","")
+//					.replaceAll("`","")
+//
+// ); //\u2019
 			System.out.println("url = " + url);
 
 			HttpsURLConnection.setDefaultHostnameVerifier(new NullHostnameVerifier());
-			GetMethod pm = new GetMethod(url);
-
+			PostMethod pm = new PostMethod(url);
+		pm.addParameter("summary",summary);
 			HttpClient hc = new HttpClient();
 			hc.executeMethod(pm);
 
@@ -102,32 +116,32 @@ public class WatsonAPIRepository
 			System.out.println("ydlRes = " + ydlRes);
 
 			jsonObject = new JSONObject(ydlRes);
-			JSONArray jsonArray=jsonObject.getJSONArray("personality");
-			Double openness=0.0, conscientiousness=0.0, extraversion=0.0, agreeableness=0.0, neuroticism=0.0, riskValue=0.0;
-			for (int j = 0; j < jsonArray.length(); j++) {
-				JSONObject jo = jsonArray.getJSONObject(j);
-				System.out.println(jo.get("trait_id")+" : percentile :"+jo.get("percentile")+" : "+getNumericVal(jo.get("percentile")));
-				if(jo.get("trait_id").toString().trim().equals("big5_openness")){
-					openness=getNumericVal(jo.get("percentile"));
-				}else if(jo.get("trait_id").toString().trim().equals("big5_conscientiousness")){
-					conscientiousness=getNumericVal(jo.get("percentile"));
-				}else if(jo.get("trait_id").toString().trim().equals("big5_extraversion")){
-					extraversion=getNumericVal(jo.get("percentile"));
-				}else if(jo.get("trait_id").toString().trim().equals("big5_agreeableness")){
-					agreeableness=getNumericVal(jo.get("percentile"));
-				}else if(jo.get("trait_id").toString().trim().equals("big5_neuroticism")){
-					neuroticism=getNumericVal(jo.get("percentile"));
-				}
-			}
-			System.out.println("openness = " + openness);
-			System.out.println("conscientiousness = " + conscientiousness);
-			System.out.println("extraversion = " + extraversion);
-			System.out.println("agreeableness = " + agreeableness);
-			System.out.println("neuroticism = " + neuroticism);
-			riskValue=(openness+ conscientiousness+ extraversion+ agreeableness+ (1-neuroticism))/5;
-			System.out.println("riskValue = " + riskValue);
-			riskValue=((openness*100)+ (conscientiousness*100)+ (extraversion*100)+ (agreeableness*100)+ (1-(neuroticism*100)))/5;
-			System.out.println("riskValue = " + riskValue);
+//			JSONArray jsonArray=jsonObject.getJSONArray("personality");
+//			Double openness=0.0, conscientiousness=0.0, extraversion=0.0, agreeableness=0.0, neuroticism=0.0, riskValue=0.0;
+//			for (int j = 0; j < jsonArray.length(); j++) {
+//				JSONObject jo = jsonArray.getJSONObject(j);
+//				System.out.println(jo.get("trait_id")+" : percentile :"+jo.get("percentile")+" : "+getNumericVal(jo.get("percentile")));
+//				if(jo.get("trait_id").toString().trim().equals("big5_openness")){
+//					openness=getNumericVal(jo.get("percentile"));
+//				}else if(jo.get("trait_id").toString().trim().equals("big5_conscientiousness")){
+//					conscientiousness=getNumericVal(jo.get("percentile"));
+//				}else if(jo.get("trait_id").toString().trim().equals("big5_extraversion")){
+//					extraversion=getNumericVal(jo.get("percentile"));
+//				}else if(jo.get("trait_id").toString().trim().equals("big5_agreeableness")){
+//					agreeableness=getNumericVal(jo.get("percentile"));
+//				}else if(jo.get("trait_id").toString().trim().equals("big5_neuroticism")){
+//					neuroticism=getNumericVal(jo.get("percentile"));
+//				}
+//			}
+//			System.out.println("openness = " + openness);
+//			System.out.println("conscientiousness = " + conscientiousness);
+//			System.out.println("extraversion = " + extraversion);
+//			System.out.println("agreeableness = " + agreeableness);
+//			System.out.println("neuroticism = " + neuroticism);
+//			riskValue=(openness+ conscientiousness+ extraversion+ agreeableness+ (1-neuroticism))/5;
+//			System.out.println("riskValue = " + riskValue);
+//			riskValue=((openness*100)+ (conscientiousness*100)+ (extraversion*100)+ (agreeableness*100)+ (1-(neuroticism*100)))/5;
+//			System.out.println("riskValue = " + riskValue);
 
 
 		} catch (Exception e) {
@@ -149,11 +163,12 @@ public class WatsonAPIRepository
 	{
 		try{
 		System.out.println("WatsonAPIRepository.main");
+//			new WatsonAPIRepository().getLinkedInUrl("http://localhost:8094/SocialNetwork/","http://localhost:8084/pages/consumer/citi/demo/demo.xhtml");
+
 //			JSONObject jsonObject=new WatsonAPIRepository().getWatsonPersonalityInsight("\"I am Web Designer/ Graphic Designer & Front-End Web Developer Form Mumbai, India.\\nI enjoy taking complex problems and turning them into simple and beautiful interface designs. I also love the logic and structure of coding and always strive to write elegant and efficient code, whether it be HTML, CSS or jQuery.\"");
 //			JSONObject jsonObject=new WatsonAPIRepository().getWatsonPersonalityInsight("I\u2019m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.\\n\\nUntil recently, I led marketing for XYZ Corp, a software developer focused on middleware for the video game industry. In this role I was focused on B2B marketing, although I have done extensive B2C work in the past. Successes included creating a social media and online advertising campaign that generated enormous media buzz and was key to the successful launch of the Zwango software in 2010. Previous experience includes agency work with XYZ & Partners and Red Dog Marketing.\\n\\nColleagues know me as a highly creative marketer who can always be trusted to come up with a new approach. But I know that the client\\u2019s business comes first, and I never try to impose my ideas on others. Instead, I spend a lot of time understanding the business and the audience before suggesting ideas. I can (and often do) work well alone, but I\\u2019m at my best collaborating with others.\\n\\nI have an MBA from New York University and a BA from the University of Southern California");
 //		System.out.println("authURL :"+jsonObject.getString("authURL"));
 //		System.out.println("jsonObject = " + jsonObject);
-			new WatsonAPIRepository().getLinkedInUrl("http://localhost:8094/SocialNetwork/","http://localhost:8084/pages/consumer/citi/demo/demo.xhtml");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
