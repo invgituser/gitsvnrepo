@@ -4359,6 +4359,17 @@ border: none !important;}
 	border-bottom: 1px solid #eee;
 	padding-bottom: 20px; text-align: left;}
 
+.CitiDemotitle1{color: #333333;
+font-size: 26px;
+font-weight: 100;
+margin: 10px 0 30px 0;
+border-bottom: 1px solid #eee;
+padding-bottom: 20px;
+text-align: left;
+width: 24%;
+float: left;
+margin-right: 3% !important;}
+
 
 
 
@@ -4400,7 +4411,7 @@ border: none !important;}
 	color: white;
 }
 
-.CompBlock {        width: 50%;
+.CompBlock {        width: 70%;
 	border-radius: 5px;
 	height: 68px;
 	background-color: #4c9fd3;
@@ -4492,6 +4503,20 @@ margin-bottom: 20px;}
 
 .citibutton {}
 
+.citisubmitbutton {
+	background-color: #0076C0 !important;
+	-webkit-transition: all 600ms ease;
+	-moz-transition: all 600ms ease;
+	-ms-transition: all 600ms ease;
+	-o-transition: all 600ms ease;
+	padding: 5px 10px;
+	transition: all 600ms ease;
+	color: #fff;
+	font-size: 10px;
+	box-shadow: none;
+	border: none;
+	border-radius: 2px !important;
+}
 .citibutton.left {float: left;}
 
 .citibutton.right {float: right;}
@@ -4502,7 +4527,7 @@ margin-bottom: 20px;}
 	-o-transition: all 600ms ease;
 	transition: all 600ms ease;}
 
-.citibutton span:hover {background-color: #4c9fd3 !important;-webkit-transition: all 600ms ease;
+.citibutton span:hover, .citisubmitbutton:hover  {background-color: #4c9fd3 !important;-webkit-transition: all 600ms ease;
 	-moz-transition: all 600ms ease;
 	-ms-transition: all 600ms ease;
 	-o-transition: all 600ms ease;
@@ -4517,6 +4542,7 @@ margin-bottom: 20px;}
 	background-color: #fff;
 	-webkit-box-shadow: 0 -2px 9px 2px #C2C2C2;
 	box-shadow: 0 -2px 9px 2px #C2C2C2;
+	left:0px;
 }
 
 .step1 .ui-inputfield {padding:7px 9px 0px 9px!important;}
@@ -4534,7 +4560,30 @@ margin-bottom: 20px;}
 
 .idSecHtml table:first-child tr {width:100%; border:0px solid #000 !important;}
 
-.idSecHtml table:first-child p:first-child {font-weight: bold; font-size: 18px;}
+.idSecHtml table:first-child  {font-weight: bold; font-size: 18px;}
 
 
 .idSecHtml table p {padding: 0px 15px;}
+
+.citiinput label {color:#101010;}
+
+
+.linkicon_citi {    color: #0076c0;
+	font-size: 12px;
+	padding-left: 10px;}
+
+.RPHeadings1, .RPHeadings2{
+	padding: 5px 10px;
+font-size: 22px !important;
+	margin-top: 15px;}
+
+.RPHeadings1.active, .RPHeadings2.active{background-color: #0076c0; color: #fff;}
+
+.RPHeadings1::after {content: ""; position: absolute; width: 60%; display: block; height: 2px;background-color: #0076c0;    margin-top: 5px;
+	margin-left: -10px;}
+.citierrormsg{
+font-size: 16px;
+line-height: 36px;
+margin-left: 15px;}
+
+.Wid23 {width: 23%;}
