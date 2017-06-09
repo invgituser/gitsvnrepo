@@ -152,7 +152,7 @@
                             <p:panel rendered="#{ticker.isin != ''}" style="border: none!important;">
                                 <p:commandLink process="@this" actionListener="#{citidemo.showLink(ticker.isin)}"
                                                update=":ceForm:inputArea" styleClass="getTickerClass">
-                                    <h:outputText id="uobtnam" value="#{ticker.namePlusSymbol}"/> >>
+                                    <h:outputText id="uobtnam" value="#{ticker.namePlusSymbol}"/> <i class="fa fa-external-link linkicon_citi" aria-hidden="true"></i>
                                 </p:commandLink>
                                 <p:inputText type="hidden" name="idTickerIsin"
                                              value="#{ticker.isin}"/>
