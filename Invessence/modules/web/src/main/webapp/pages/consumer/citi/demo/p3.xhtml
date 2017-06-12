@@ -101,6 +101,15 @@
                 </div>
 
             </div>
+            <div class="EmptyBox10"></div>
+            <p id="hoodbutton"><a> Under The Hood</a></p>
+
+            <p class="hood">
+
+Sagar
+            </p>
+            <div class="EmptyBox10"></div>
+
 
         </div>
 
@@ -136,6 +145,28 @@
             });
         });
     </script>
+
+    <script>
+        $(document).ready(function(){
+            $("#hoodbutton").click(function(){
+                $(".hood").toggle();
+
+                if($('#hoodbutton').hasClass('active')){
+                    $('#hoodbutton').removeClass('active')
+                }else{
+                    $('#hoodbutton').addClass('active')
+                }
+            });
+
+
+
+
+
+        });
+
+
+    </script>
+
 
     <script>
 

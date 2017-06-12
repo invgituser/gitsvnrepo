@@ -12,7 +12,7 @@
         <h:outputScript library="aggr" name="mx/mxCommon.js" />
         <div class="EmptyBox50"></div>
         <div id="layout-portlets-cover">
-            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
+            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10 customBlockLogin"
                  style="margin-top:5%; background-image:url(/spark/resources/spark-layout/images/loginpageillust.svg); background-repeat:no-repeat; background-position:center; background-size:cover;">
                 <div class="Container90 Fnone MarAuto TexAlCenter">
                     <h:form id="logonForm" prependId="false">
@@ -23,7 +23,7 @@
 
                         <div class="EmptyBox20"></div>
 
-                        <p:button styleClass="getStartedBtn Fs20" value="Get Started"
+                        <p:button styleClass=" Fs20 citibutton_gs" value="Get Started"
                                          outcome="/pages/consumer/citi/demo/demo.xhtml"/>
 
                         <div class="EmptyBox10"></div>
@@ -31,7 +31,7 @@
                         <div class="EmptyBox10"></div>
                        <!-- <p:button styleClass="loginStartedBtn Fs16" value="Login"
                                          outcome="/pages/consumer/citi/demo/linkedInLogin.xhtml" />-->
-                        <p:commandButton styleClass="loginStartedBtn Fs16" value="Login" actionListener="#{watsonBean.preRenderLinkedInWidget}"></p:commandButton>
+                        <p:commandButton styleClass="linkedinbutton citibutton Fs16" value="Sign In with LinkedIn" actionListener="#{watsonBean.preRenderLinkedInWidget}"></p:commandButton>
                         <!--
                             <p:button  value="Register" styleClass="Fs16 OrangeButton" href="/signup.xhtml"/>
                         -->
@@ -43,5 +43,7 @@
         </div>
 
     </ui:define>
+
+
 
 </ui:composition>
