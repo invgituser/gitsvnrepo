@@ -36,7 +36,7 @@
                         var vWatsonURL=$('.idWatsonUrlClass').val();
                         console.log("Ticker ISIN "+vISIN+" vWatsonURL "+vWatsonURL);
                         var vurl=vWatsonURL+"rest/discovery/getDocument/"+vISIN;
-                        console.log('vurl'+vurl);
+                        console.log('vurl '+vurl);
                         var vresponse = $.ajax({type: "GET", url: vurl, async: false}).responseText;
                         console.log("Ticker ISIN response "+vresponse);
                         $('.idSecHtml').html(vresponse);
@@ -123,7 +123,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Name"/>
                             </f:facet>
-                            <p:panel rendered="#{ticker.isin != ''}" style="border: none!important;">
+                            <p:panel rendered="#{ticker.isin != '' and ticker.isin != null}" style="border: none!important;">
                                 <p:commandLink process="@this" actionListener="#{citidemo.showLink(ticker.isin)}"
                                                update=":ceForm:inputArea" styleClass="getTickerClass">
                                     <h:outputText id="uobtnam" value="#{ticker.namePlusSymbol}"/> <i class="fa fa-external-link linkicon_citi" aria-hidden="true"></i>
@@ -131,7 +131,7 @@
                                 <p:inputText type="hidden" name="idTickerIsin"
                                              value="#{ticker.isin}"/>
                             </p:panel>
-                            <p:panel rendered="#{ticker.isin == ''}" style="border: none!important;">
+                            <p:panel rendered="#{ticker.isin == '' or ticker.isin == null}" style="border: none!important;">
                                 <h:outputText id="uobtnam2" value="#{ticker.namePlusSymbol}"/>
                             </p:panel>
 
