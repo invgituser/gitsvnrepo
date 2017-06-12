@@ -153,7 +153,7 @@ public class WatsonBean
 //      }
 //   }
 
-   private String token, secret, oauthVerifier, summary;
+   private String token, secret, oauthVerifier, summary, personality, riskCalculation;
 
    public String getToken()
    {
@@ -193,6 +193,26 @@ public class WatsonBean
    public void setSummary(String summary)
    {
       this.summary = summary;
+   }
+
+   public String getPersonality()
+   {
+      return personality;
+   }
+
+   public void setPersonality(String personality)
+   {
+      this.personality = personality;
+   }
+
+   public String getRiskCalculation()
+   {
+      return riskCalculation;
+   }
+
+   public void setRiskCalculation(String riskCalculation)
+   {
+      this.riskCalculation = riskCalculation;
    }
 
    public void preRenderLinkedInWidget()
@@ -245,7 +265,8 @@ public class WatsonBean
       System.out.println("WatsonBean.preRenderLinkedInCallBack");
       System.out.println("Token = " + token + "Secret = " + secret+ "WatsonRiskScore() = " + getCitiDemo().getWatsonRiskScore());
       Url result = null;
-      Double riskValue=0.0;
+      long riskValue=0;
+
       try
       {
          if (!FacesContext.getCurrentInstance().isPostback())
@@ -271,41 +292,55 @@ public class WatsonBean
                   if (jsonObject != null && jsonObject.getString("personality") != null)
                   {
                      JSONArray jsonArray = jsonObject.getJSONArray("personality");
-                     Double openness = 0.0, conscientiousness = 0.0, extraversion = 0.0, agreeableness = 0.0, neuroticism = 0.0;
+                     setPersonality(jsonObject.getJSONArray("personality").toString());
+                     long openness = 0, conscientiousness = 0, extraversion = 0, agreeableness = 0, neuroticism = 0;
+                     StringBuilder riskCalculator=new StringBuilder();
                      for (int j = 0; j < jsonArray.length(); j++)
                      {
                         JSONObject jo = jsonArray.getJSONObject(j);
                         System.out.println(jo.get("trait_id") + " : percentile :" + jo.get("percentile") + " : " + watsonAPIRepository.getNumericVal(jo.get("percentile")));
                         if (jo.get("trait_id").toString().trim().equals("big5_openness"))
                         {
-                           openness = watsonAPIRepository.getNumericVal(jo.get("percentile"));
+                           openness = Math.round(watsonAPIRepository.getNumericVal(jo.get("percentile"))*100);
+                           riskCalculator.append(jo.get("name").toString()).append("(O) : "+openness+"</br>");
                         }
                         else if (jo.get("trait_id").toString().trim().equals("big5_conscientiousness"))
                         {
-                           conscientiousness = watsonAPIRepository.getNumericVal(jo.get("percentile"));
+                           conscientiousness = Math.round(watsonAPIRepository.getNumericVal(jo.get("percentile"))*100);
+                           riskCalculator.append(jo.get("name").toString()).append("(C) : "+conscientiousness+"</br>");
                         }
                         else if (jo.get("trait_id").toString().trim().equals("big5_extraversion"))
                         {
-                           extraversion = watsonAPIRepository.getNumericVal(jo.get("percentile"));
+                           extraversion = Math.round(watsonAPIRepository.getNumericVal(jo.get("percentile"))*100);
+                           riskCalculator.append(jo.get("name").toString()).append("(E) : "+extraversion+"</br>");
                         }
                         else if (jo.get("trait_id").toString().trim().equals("big5_agreeableness"))
                         {
-                           agreeableness = watsonAPIRepository.getNumericVal(jo.get("percentile"));
+                           agreeableness = Math.round(watsonAPIRepository.getNumericVal(jo.get("percentile"))*100);
+                           riskCalculator.append(jo.get("name").toString()).append("(A) : "+agreeableness+"</br>");
                         }
                         else if (jo.get("trait_id").toString().trim().equals("big5_neuroticism"))
                         {
-                           neuroticism = watsonAPIRepository.getNumericVal(jo.get("percentile"));
+                           neuroticism = Math.round(watsonAPIRepository.getNumericVal(jo.get("percentile"))*100);
+                           riskCalculator.append(jo.get("name").toString()).append("(N) : "+neuroticism+"</br>");
                         }
                      }
+                     riskCalculator.append("</br>");
                      System.out.println("openness = " + openness);
                      System.out.println("conscientiousness = " + conscientiousness);
                      System.out.println("extraversion = " + extraversion);
                      System.out.println("agreeableness = " + agreeableness);
                      System.out.println("neuroticism = " + neuroticism);
-                     riskValue = ((openness * 100) + (conscientiousness * 100) + (extraversion * 100) + (agreeableness * 100) + ((1 - neuroticism) * 100)) / 5;
+                     riskValue = (openness + conscientiousness + extraversion + agreeableness + (100 - neuroticism)) / 5;
+                     riskCalculator.append("(O + C + E + A + (100 - N)) / 5 </br>");
+                     riskCalculator.append("("+openness+"+" + conscientiousness +"+"+ extraversion +"+"+ agreeableness +"+ (100 - " +neuroticism+"))/5 = "+riskValue+ "</br>");
+                     riskCalculator.append("</br>");
                      System.out.println("riskValue = " + riskValue);
                      getCitiDemo().setProfileAvailable(true);
-                     getCitiDemo().setWatsonRiskScore(riskValue);
+                     getCitiDemo().setWatsonRiskScore(riskValue*1.0);
+
+                     setRiskCalculation(riskCalculator.toString());
+
                      System.out.println("getCitiDemo().getWatsonRiskScore() = " + getCitiDemo().getWatsonRiskScore());
                   }
                   else

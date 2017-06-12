@@ -102,9 +102,12 @@
                     <div class="EmptyBox10"></div>
                     <p id="hoodbutton"><a> Under The Hood</a></p>
 
-                    <p class="hood">
-
-                        <h:outputText rendered="#{citidemo.profileAvailable}" value="#{watsonBean.summary}"></h:outputText>
+                    <p class="hood" style="word-wrap: break-word;">
+                        <h:outputText rendered="#{citidemo.profileAvailable}" value="#{watsonBean.riskCalculation}" escape="false"></h:outputText>
+                        <b><h:outputText rendered="#{citidemo.profileAvailable}" value="LinkedIn Summary :"></h:outputText></b><br/>
+                        <h:outputText rendered="#{citidemo.profileAvailable}" value="#{watsonBean.summary}" escape="false"></h:outputText><br/><br/>
+                        <b><h:outputText rendered="#{citidemo.profileAvailable}" value="Watson Personality Traits :"></h:outputText></b><br/>
+                        <h:outputText rendered="#{citidemo.profileAvailable}" value="#{watsonBean.personality}" escape="false"></h:outputText>
                     </p>
                 </div>
 
