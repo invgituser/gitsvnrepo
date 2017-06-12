@@ -4347,9 +4347,37 @@ border: none !important;}
 	color: #427AA1;
 	text-transform: uppercase;
 	font-size: 13px;
-	width: 200px;
+	width: 33.33%;
 	float: left;
 	position: relative;
+}
+
+
+@media only screen and (max-width: 960px) and (min-width: 768px) {
+	.loadPgNm {
+		overflow: hidden;
+		/*CSS counters to number the steps*/
+		counter-reset: step;
+		margin: 45px auto 0px auto;
+		text-align: center;
+		position: relative;
+		width: 80%;
+	}
+
+}
+
+
+@media only screen and (max-width: 767px) and (min-width: 320px) {
+	.loadPgNm {
+		overflow: hidden;
+		/*CSS counters to number the steps*/
+		counter-reset: step;
+		margin: 45px auto 0px auto;
+		text-align: center;
+		position: relative;
+		width: 99%;
+	}
+
 }
 
 .CitiDemotitle{color: #333333;
