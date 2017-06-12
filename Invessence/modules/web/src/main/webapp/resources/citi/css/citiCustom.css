@@ -3919,7 +3919,7 @@ margin: 72px 0px 0px 16px;
 	}
 
 	.IRERBlock {
-	width:60%!important;
+	width:42%!important;
 	}
 
 	.closeFTBtn {
@@ -4364,6 +4364,9 @@ border: none !important;}
 		width: 80%;
 	}
 
+	#hoodbutton {
+		width: 92%;}
+
 }
 
 
@@ -4659,3 +4662,32 @@ transition: all 500ms ease;}
 
 .hood {width: 100%;display: none;    text-align: left;
 	margin-left: 1.5%;}
+
+@media only screen and (max-width: 1023px) and (min-width: 768px) {
+
+	.CompBlock{width: 66%;}
+
+	.RightPanel {width: 77%!important;}
+
+	.RightPanel .Container50 {width: 100%!important;}
+
+	.LeftPanel {width: 23%!important;}
+
+	#hoodbutton {
+		width: 92%;
+	}
+
+	#hoodbutton a:after {
+		content: "+";
+		font-size: 25px;
+		position: absolute;
+		margin-left: 70%;
+		top: 0px;
+		-webkit-transition: all 500ms ease;
+		-moz-transition: all 500ms ease;
+		-ms-transition: all 100ms ease;
+		-o-transition: all 100ms ease;
+		transition: all 500ms ease;
+	}
+}
+
