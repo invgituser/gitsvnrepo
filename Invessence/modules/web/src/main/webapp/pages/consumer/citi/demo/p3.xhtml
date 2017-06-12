@@ -98,16 +98,18 @@
                 </div>
                 <div class="Wid66 Fleft RightPanel">
                     <ui:include src="/pages/consumer/citi/demo/detailArea.xhtml"/>
+
+                    <div class="EmptyBox10"></div>
+                    <p id="hoodbutton"><a> Under The Hood</a></p>
+
+                    <p class="hood">
+
+                        <h:outputText rendered="#{citidemo.profileAvailable}" value="#{watsonBean.summary}"></h:outputText>
+                    </p>
                 </div>
 
             </div>
-            <div class="EmptyBox10"></div>
-            <p id="hoodbutton"><a> Under The Hood</a></p>
 
-            <p class="hood">
-
-                <h:outputText rendered="#{citidemo.profileAvailable}" value="#{watsonBean.summary}"></h:outputText>
-            </p>
             <div class="EmptyBox10"></div>
 
 

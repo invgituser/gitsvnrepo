@@ -4597,17 +4597,17 @@ margin-left: 15px;}
 	position: relative;
 	display: block;
 	padding: .4em .4em .4em 2em;
-	margin: .5em 0;
+	margin: 0;
 	background: #5975D9;
 	color: white;
 	text-decoration: none;
 	box-shadow: inset 0.5em 0 #3b4e8f;
 	-webkit-transition: box-shadow 1s;
 	transition: box-shadow 1s;
-	width: 60%;
+	width: 100%;
 	clear: both;
 	text-align: left;
-	margin-left: 5%;
+	margin-left: 1%;
 }
 #hoodbutton a:after {
 	content: "+";
@@ -4629,5 +4629,5 @@ transition: all 500ms ease;}
 	transform: rotate(-405deg);
 }
 
-.hood {width: 60%;display: none;    text-align: left;
-	margin-left: 6%;}
+.hood {width: 100%;display: none;    text-align: left;
+	margin-left: 1.5%;}
