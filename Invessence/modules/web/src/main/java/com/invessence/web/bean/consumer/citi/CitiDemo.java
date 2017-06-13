@@ -32,7 +32,7 @@ public class CitiDemo extends CustomerData implements Serializable
    private Boolean displayGoalGraph, displayGoalText;
    private HighChartsController highChartsController;
    private InvessenceCharts charts;
-   private String watsonURL;
+   private String watsonISINURL;
 
    private PagesImpl pagemanager;
 
@@ -178,14 +178,14 @@ public class CitiDemo extends CustomerData implements Serializable
       return (webutil.converter.getIntData(getWatsonRiskScore() + 10.0));
    }
 
-   public String getWatsonURL()
+   public String getWatsonISINURL()
    {
-      return watsonURL;
+      return watsonISINURL;
    }
 
-   public void setWatsonURL(String watsonURL)
+   public void setWatsonISINURL(String watsonISINURL)
    {
-      this.watsonURL = watsonURL;
+      this.watsonISINURL = watsonISINURL;
    }
 
    public void logon() {
@@ -207,8 +207,6 @@ public class CitiDemo extends CustomerData implements Serializable
             fetchClientData();
             createAssetPortfolio(getWatsonRiskScore());
          }
-
-         watsonURL = getWebutil().getWebprofile().getWebInfo().get("WATSON.API.URL").toString();
 
       }
       catch (Exception ex) {
@@ -399,7 +397,9 @@ public class CitiDemo extends CustomerData implements Serializable
 
    public void showLink(String secID)
    {
+      watsonISINURL = getWebutil().getWebprofile().getWebInfo().get("WATSON.API.URL").toString()+"rest/discovery/getDocument/"+secID;
       pagemanager.nextPage();
    }
+
 
 }
