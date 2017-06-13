@@ -6,8 +6,18 @@ CREATE PROCEDURE `testing`.`sp_fund_account`(
   IN p_amount  DOUBLE
 )
   BEGIN
+  
+  DECLARE tClientAccountID	VARCHAR(10);
+  
+  
       IF (IFNULL(p_acctnum, 'XXX') != 'XXX')
       THEN
+      
+			SELECT `clientAccountID`
+            INTO tClientAccountID
+            FROM `invdb`.`ext_acct_info`
+            WHERE `ext_acct_info`.`acctnum` = `p_acctnum`;
+            
 			INSERT INTO `invdb`.`ext_position`
 				(`acctnum`,
 				`clientAccountID`,
@@ -87,7 +97,7 @@ CREATE PROCEDURE `testing`.`sp_fund_account`(
 			(p_acctnum,
 			'N',
 			null,
-			'Funded',
+			'New',
 			now(),
 			null)
             ON duplicate key update

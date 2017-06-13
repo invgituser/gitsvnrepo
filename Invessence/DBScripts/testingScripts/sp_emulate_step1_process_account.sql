@@ -16,24 +16,26 @@ CREATE PROCEDURE `testing`.`sp_emulate_step1_process_account`(
     FROM `invdb`.`ext_acct_info`
     WHERE `ext_acct_info`.`acctnum` = `p_acctnum`;
 
-    IF (IFNULL(tFound1, 0) = 0)
+    IF (IFNULL(tFound1, 0) > 0)
     THEN
-      SELECT 'No account found!' AS msg;
+      SELECT 'This account is already active!' AS msg;
     ELSE
       SELECT
         `managed`,
         `status`
       INTO tManaged, tStatus
-      FROM `invdb`.`ext_acct_info`
-      WHERE `ext_acct_info`.`acctnum` = `p_acctnum`;
+      FROM `invdb`.`user_trade_profile`
+      WHERE `user_trade_profile`.`acctnum` = `p_acctnum`;
 
-      IF (IFNULL(tManaged, 'N') != 'N' AND IFNULL(tStatus, 'P') != 'P')
+      IF (IFNULL(tManaged, 'N') != 'N')
       THEN
-        SELECT 'This account is either already active or already processed!' AS msg;
+        SELECT 'This account is marked active but has not external account details.  Cannot proceed!' AS msg;
       ELSE
-        UPDATE `invdb`.`ext_acct_info`
+        UPDATE `invdb`.`user_trade_profile`
         SET `managed` = 'N', `status` = 'P'
-        WHERE `ext_acct_info`.`acctnum` = `p_acctnum`;
+        WHERE `user_trade_profile`.`acctnum` = `p_acctnum`;
+
+        SELECT 'This account is process!' AS msg;
       END IF;
 
     END IF;

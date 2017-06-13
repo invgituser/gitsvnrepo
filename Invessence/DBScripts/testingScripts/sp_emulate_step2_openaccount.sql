@@ -9,6 +9,7 @@ CREATE PROCEDURE `testing`.`sp_emulate_step2_openaccount`(
     DECLARE tFound1 INTEGER;
     DECLARE tFound2 INTEGER;
     DECLARE tStatus INTEGER;
+    DECLARE tClientAccountID VARCHAR(10);
 
     SELECT count(*)
     INTO tFound1
@@ -34,41 +35,41 @@ CREATE PROCEDURE `testing`.`sp_emulate_step2_openaccount`(
         FROM `invdb`.`dc_acct_owners_details`
         WHERE `dc_acct_owners_details`.`acctnum` = `p_acctnum`;
 
-        IF (IFNULL(tFound2, 0) > 0)
+        set tClientAccountID = CONCAT('TST', `p_acctnum`);
+        
+		IF (IFNULL(tFound2, 0) > 0)
         THEN
-          INSERT INTO `invdb`.`ext_acct_info`
-          (
-            `clientAccountID`,
-            `acctnum`,
-            `status`,
-            `rep`,
-            `email`,
-            `accountType`,
-            `applicantFName`,
-            `applicantMName`,
-            `applicantLName`,
-            `address1`,
-            `address2`,
-            `address3`,
-            `city`,
-            `state`,
-            `zipcode`,
-            `country`,
-            `primaryPhoneNbr`,
-            `secondayPhoneNbr`,
-            `workPhoneNbr`,
-            `faxNbr`,
-            `ssn`,
-            `dob`,
-            `acctType`,
-            `taxable`,
-            `objective`,
-            `dateOpened`,
-            `created`,
-            `lastUpdated`
-          )
+        INSERT INTO `invdb`.`ext_acct_info`
+		(`clientAccountID`,
+		`acctnum`,
+		`status`,
+		`rep`,
+		`email`,
+		`accountType`,
+		`applicantFName`,
+		`applicantMName`,
+		`applicantLName`,
+		`address1`,
+		`address2`,
+		`address3`,
+		`city`,
+		`state`,
+		`zipcode`,
+		`country`,
+		`primaryPhoneNbr`,
+		`secondayPhoneNbr`,
+		`workPhoneNbr`,
+		`faxNbr`,
+		`ssn`,
+		`dob`,
+		`acctType`,
+		`taxable`,
+		`objective`,
+		`dateOpened`,
+		`created`,
+		`lastUpdated`)
             SELECT
-              CONCAT('TST', `dc_acct_owners_details`.`acctnum`) AS clientAccountID,
+              tClientAccountID AS clientAccountID,
               `dc_acct_owners_details`.`acctnum`,
               'P',
               NULL,
@@ -86,14 +87,14 @@ CREATE PROCEDURE `testing`.`sp_emulate_step2_openaccount`(
               'USA',
               `dc_acct_owners_details`.`phoneNumber`,
               `dc_acct_owners_details`.`secondPhoneNumber`,
-              NULL,
-              NULL,
+              NULL, -- worknumber
+              NULL, -- faxnum
               `dc_acct_owners_details`.`ssn`,
               `invdb`.`funct_strdate2inv_date`(`dc_acct_owners_details`.`dob`, '%m/%d/%Y'),
-              `dc_m_lookup`.`displayName`,
-              NULL,
-              NULL,
-              `invdb`.`funct_date2inv_date`(now())                 `performanceInceptionDate`,
+              `dc_m_lookup`.`displayName`,-- acctType,
+              NULL, -- taxable
+              NULL, -- objective
+              `invdb`.`funct_date2inv_date`(now()) as `performanceInceptionDate`, -- dateOpened 
               now(),
               NULL
             FROM `invdb`.`dc_acct_owners_details` AS `dc_acct_owners_details`
@@ -106,69 +107,75 @@ CREATE PROCEDURE `testing`.`sp_emulate_step2_openaccount`(
                   AND `dc_m_lookup`.`lookupSet` = 'ACCTTYPE';
 
 
-          SELECT 'This account# was ADDED to ext_acct_info' AS msg;
+          SELECT 'This account# was ADDED to ext_acct_info using TDs data' AS msg;
         ELSE
-          INSERT INTO `invdb`.`ext_acct_info`
-          (
-            `clientAccountID`,
-            `acctnum`,
-            `status`,
-            `rep`,
-            `email`,
-            `accountType`,
-            `applicantFName`,
-            `applicantMName`,
-            `applicantLName`,
-            `address1`,
-            `address2`,
-            `address3`,
-            `city`,
-            `state`,
-            `zipcode`,
-            `country`,
-            `primaryPhoneNbr`,
-            `secondayPhoneNbr`,
-            `workPhoneNbr`,
-            `faxNbr`,
-            `ssn`,
-            `dob`,
-            `acctType`,
-            `taxable`,
-            `objective`,
-            `dateOpened`,
-            `created`,
-            `lastUpdated`
-          )
+        INSERT INTO `invdb`.`ext_acct_info`
+		(`clientAccountID`,
+		`acctnum`,
+		`status`,
+		`rep`,
+		`email`,
+		`accountType`,
+		`applicantFName`,
+		`applicantMName`,
+		`applicantLName`,
+		`address1`,
+		`address2`,
+		`address3`,
+		`city`,
+		`state`,
+		`zipcode`,
+		`country`,
+		`primaryPhoneNbr`,
+		`secondayPhoneNbr`,
+		`workPhoneNbr`,
+		`faxNbr`,
+		`ssn`,
+		`dob`,
+		`acctType`,
+		`taxable`,
+		`objective`,
+		`dateOpened`,
+		`created`,
+		`lastUpdated`)
           VALUES (
-            CONCAT('TST', p_acctnum),
+            tClientAccountID,
             p_acctnum,
             'P',
-            NULL,
-            CONCAT('testing', p_acctnum, '@invessence.com'),
-            'Individual',
-            'Testing',
-            NULL,
-            p_acctnum,
-            '1 Main Street, Suite 202',
-            NULL,
-            NULL,
-            'Chatham',
-            'NJ',
-            '07928',
-            'USA',
-            '(201) 977-1955',
-            '(201) 977-6490',
-            NULL,
-            NULL,
-            '123-12-1234'
-            '1986-06-12',
-            CONCAT('TST', p_acctnum),
-            NULL,
-            NULL,
-            `invdb`.`funct_date2inv_date`(now()),
-            NULL
+            NULL, -- rep
+            CONCAT('testing', p_acctnum, '@invessence.com'), -- email
+            'Individual', -- accountType
+            'Testing', -- firstname
+            NULL, -- middleI
+            p_acctnum, -- lastname
+            null, -- address1,
+            NULL, -- address2
+            NULL, -- address3
+            null, -- city,
+            null, -- state,
+            null, -- zip,
+            null, -- country,
+            null, -- primary phone,
+            null, -- secondary phone,
+            NULL, -- work phone
+            NULL, -- fax number
+            null, -- ssnum
+            null, -- DOB,
+            null, -- acctType
+            NULL, -- taxable
+            NULL, -- objective
+            `invdb`.`funct_date2inv_date`(now()), -- date opened
+			now(), -- created
+            NULL -- last updated
           );
+                    
+          SELECT 'This account# was ADDED to ext_acct_info using as sample data' AS msg;
+          
         END IF;
+        UPDATE `invdb`.`user_trade_profile`
+			set clientAccountID = tClientAccountID
+        WHERE `user_trade_profile`.`acctnum` = `p_acctnum`;
+        
         CALL `invdb`.`sp_user_profile_manage`(`p_acctnum`, 'O');
       END IF;
 
