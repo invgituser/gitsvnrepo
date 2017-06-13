@@ -52,12 +52,14 @@
 
                 <p:commandButton value="Fund" ajax="true" styleClass="" actionListener="#{acctEmulBean.emulateFundAccount}"
                 />
-                <p:commandButton value="Trade" ajax="true" styleClass="" actionListener="#{acctEmulBean.emulateTrade}"
+                <p:commandButton value="Trade" ajax="true" styleClass="" actionListener="#{acctEmulBean.emulateTrade}"  style="margin-left: 10px;"
                 />
+
+                    <p:commandButton value="Create" ajax="true" styleClass="add_account_button" icon="ui-icon-plus"
+                                     actionListener="#{acctEmulBean.emulateCreateAccount}" style="margin-left: 20px;"
+                            />
                 <div class="EmptyBox20"></div>
-                <p:commandButton value="Create" ajax="true" styleClass="add_account_button" icon="ui-icon-plus"
-                                 actionListener="#{acctEmulBean.emulateCreateAccount}"
-                />
+
                 </h:form>
             </div>
 
