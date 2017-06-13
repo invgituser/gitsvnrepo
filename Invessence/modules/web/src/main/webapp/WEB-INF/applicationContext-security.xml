@@ -27,7 +27,6 @@
    <http pattern="/forgot.xhtml" security="none"/>
    <http pattern="/signupApproval.xhtml" security="none"/>
    <http pattern="/message.xhtml" security="none"/>
-   <http pattern="/accountEmulation.xhtml" security="none" create-session="never" use-expressions="true"/>
 
    <http pattern="/tryus.xhtml" security="none" />
    <http pattern="/backup/ForgotPassword.xhtml" security="none"/>
