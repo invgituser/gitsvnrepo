@@ -27,30 +27,10 @@
                                                                    $('.detailPanel').show();
                                                                });
                                   });
-                $(document).on("click",".getTickerClass",function (e)
-                {
-                    debugger;
-                    try
-                    {
-                        var vISIN=$(this).next().val();
-                        var vWatsonURL=$('.idWatsonUrlClass').val();
-                        console.log("Ticker ISIN "+vISIN+" vWatsonURL "+vWatsonURL);
-                        var vurl=vWatsonURL+"rest/discovery/getDocument/"+vISIN;
-                        console.log('vurl '+vurl);
-                        var vresponse = $.ajax({type: "GET", url: vurl, async: false}).responseText;
-                        console.log("Ticker ISIN response "+vresponse);
-                        $('.idSecHtml').html(vresponse);
-                        localStorage.setItem('ISINResponse', vresponse);
 
-                    }catch (e){
-                        console.log("Error "+e);
-                    }
-                });
 
             </script>
 
-            <p:inputText type="hidden" id="idWatsonURL" styleClass="idWatsonUrlClass"
-                         value="#{citidemo.watsonURL}"/>
 
             <div class="Container100 MarTop20 customclass">
 
@@ -125,11 +105,9 @@
                             </f:facet>
                             <p:panel rendered="#{ticker.isin != '' and ticker.isin != null}" style="border: none!important;">
                                 <p:commandLink process="@this" actionListener="#{citidemo.showLink(ticker.isin)}"
-                                               update=":ceForm:inputArea" styleClass="getTickerClass">
+                                               update=":ceForm:inputArea" >
                                     <h:outputText id="uobtnam" value="#{ticker.namePlusSymbol}"/> <i class="fa fa-external-link linkicon_citi" aria-hidden="true"></i>
                                 </p:commandLink>
-                                <p:inputText type="hidden" name="idTickerIsin"
-                                             value="#{ticker.isin}"/>
                             </p:panel>
                             <p:panel rendered="#{ticker.isin == '' or ticker.isin == null}" style="border: none!important;">
                                 <h:outputText id="uobtnam2" value="#{ticker.namePlusSymbol}"/>
