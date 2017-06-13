@@ -42,17 +42,19 @@
                 <p:watermark for="e1" value="Account Number"/>
             </p:inputText>
             <div class="EmptyBox10"></div>
-            <p:inputNumber  id="e2" value="" label="Account Number"
+            <p:inputNumber  id="e2" value="" label="Investment Amount"
                           symbol="$"
-                          styleClass="Wid40">
-                <p:watermark for="e2" value="Account Number"/>
+                          styleClass="Wid40" style="width: 40%;">
+                <p:watermark for="e2" value="Investment Amount"/>
             </p:inputNumber>
             <div class="EmptyBox10"></div>
-            <p:commandButton value="Create" ajax="true" styleClass=""
-                             />
+
             <p:commandButton value="Fund" ajax="true" styleClass=""
                     />
             <p:commandButton value="Trade" ajax="true" styleClass=""
+                    />
+            <div class="EmptyBox20"></div>
+            <p:commandButton value="Create" ajax="true" styleClass="add_account_button" icon="ui-icon-plus"
                     />
         </div>
 
