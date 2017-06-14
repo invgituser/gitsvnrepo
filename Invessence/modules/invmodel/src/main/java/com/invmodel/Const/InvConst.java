@@ -33,6 +33,9 @@ public class InvConst
 
    // Used in Portfolio Model
    public static int PORTFOLIO_INTERPOLATION = 100;
+   public static Double MAX_CAPM_RETURNS = 0.12;
+   public static Double MIN_CAPM_RETURNS = 0.01;
+
    public static int PORTFOLIO_DEFAULT_POINT = 70;
    public static Double PORTFOLIO_PRECISION = 0.000001;
    public static double PORTFOLIO_MNAGEMENT_FEES = 0.00;
