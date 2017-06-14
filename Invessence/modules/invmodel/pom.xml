@@ -16,6 +16,11 @@
 
    <dependencies>
       <dependency>
+          <groupId>org.ojalgo</groupId>
+          <artifactId>ojalgo</artifactId>
+          <version>43.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
           <groupId>javax.ejb</groupId>
           <artifactId>ejb-api</artifactId>
           <version>3.0</version>
