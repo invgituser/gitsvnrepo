@@ -195,20 +195,20 @@ public class SessionController implements Serializable
    {
       resetCIDByURL(null);
       String arg = "?app=N";
-      if (this.rep != null && !this.rep.isEmpty())
+      if (rep != null && !rep.isEmpty())
       {
-         webutil.getWebprofile().setDefaultRep(this.rep);
-         arg += "&rep=" + this.rep;
+         webutil.getWebprofile().setDefaultRep(rep);
+         arg += "&rep=" + rep;
       }
 
-      if (this.visitorID != null && !this.visitorID.isEmpty())
+      if (visitorID != null && !visitorID.isEmpty())
       {
          Long visitorlogonid = webutil.converter.getLongData(visitorID);
          if (logonid != null)
          {
             webutil.getUserInfoData().setLogonID(visitorlogonid);
          }
-         arg += "&vid=" + this.visitorID;
+         arg += "&vid=" + visitorID;
 
       }
 
@@ -220,7 +220,7 @@ public class SessionController implements Serializable
    {
 //      webutil.getWebprofile().setLocked(false);
       // NOTE; We don't want to load the advisor, because it resets to actual base site.
-      loadWebProfile(webutil.getURLAddress("Invessence"));
+      loadWebProfile(WebUtil.getURLAddress("Invessence"));
    }
 
    public void indexGetStarted()
@@ -342,7 +342,7 @@ public class SessionController implements Serializable
       String origurl = webutil.getWebprofile().getUrl();
       if (uri == null)
       {
-         uri = webutil.getURLAddress("Invessence");
+         uri = WebUtil.getURLAddress("Invessence");
       }
 
       if (webutil.getWebprofile().getLocked())
@@ -400,8 +400,7 @@ public class SessionController implements Serializable
       int customSessionTimeout = 10 * 60 * 1000;
       try
       {
-         String strCustomSessionTimeout = webutil.getWebprofile().getWebInfo().get("WEB.SESSION.TIMEOUT").toString();
-         customSessionTimeout = Integer.parseInt(strCustomSessionTimeout);
+         customSessionTimeout = webutil.getWebprofile().getSessionTimeout();
 
          customSessionTimeout = customSessionTimeout * 60 * 1000;
          // System.out.println("SessionController.getCustomSessionTimeout session timeout " + customSessionTimeout);
@@ -420,8 +419,7 @@ public class SessionController implements Serializable
       int sessionCountdownTime = 60 ;
       try
       {
-         String strSessionCountdownTime = webutil.getWebprofile().getWebInfo().get("WEB.SESSION.COUNTDOWNTIME").toString();
-         sessionCountdownTime = Integer.parseInt(strSessionCountdownTime);
+         sessionCountdownTime = webutil.getWebprofile().getSessionCountdownTimeout();
 
          sessionCountdownTime = sessionCountdownTime * 60 ;
          // System.out.println("SessionController.getSessionCountdownTime session countdown time" + sessionCountdownTime);

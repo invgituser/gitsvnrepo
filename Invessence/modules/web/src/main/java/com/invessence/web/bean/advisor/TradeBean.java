@@ -339,7 +339,7 @@ public class TradeBean extends TradeClientData implements Serializable
                      opt++;
                   }
                }
-               if (!skip)
+               if (skip)
                {
                   filteredClientList.add(getTradeClientDataList().get(loop));
                }
@@ -410,15 +410,15 @@ public class TradeBean extends TradeClientData implements Serializable
       TradeClientData tData = null;
       Long logonid;
 
-      if (!mode.equalsIgnoreCase("I"))
-      {
-         setSelectedClientList(getFilteredClientList());
-      }
-
       ArrayList<RebalanceTradeData> tradedata = null;
       try
       {
-         if (getSelectedClientList() != null)
+         if (!mode.equalsIgnoreCase("I"))
+         {
+            setSelectedClientList(getFilteredClientList());
+         }
+
+         if (getSelectedClient() != null)
          {
             webutil.progessreset();
             logonid = webutil.getLogonid();
@@ -504,23 +504,25 @@ public class TradeBean extends TradeClientData implements Serializable
       Boolean skip;
       try
       {
-         if (getSelectedFilterOptions() == null || getSelectedFilterOptions().length == 0)
+         if (getSelectedReviewFilterOptions() == null || getSelectedReviewFilterOptions().length == 0)
          {
             filteredSummaryList = getTradeSummaryData();
          }
          else
          {
-            numOptions = getSelectedFilterOptions().length;
-            filteredClientList = new ArrayList<TradeClientData>();
+            numOptions = getSelectedReviewFilterOptions().length;
+            filteredSummaryList = new ArrayList<TradeSummary>();
 
-            for (Integer loop = 0; loop < getTradeClientDataList().size(); loop++)
+            for (Integer loop = 0; loop < getTradeSummaryData().size(); loop++)
             {
                skip = false;
                Integer opt = 0;
-               String filter;
+               String filter, tradeDataFilter;
                while (!skip && opt < numOptions)
                {
-                  if (getTradeSummaryData().get(loop).getTradeStatus().startsWith(getSelectedFilterOptions()[opt]))
+                  filter = getSelectedReviewFilterOptions()[opt];
+                  tradeDataFilter = getTradeSummaryData().get(loop).getTradeStatus();
+                  if (filter.startsWith(tradeDataFilter))
                   {
                      skip = true;
                   }
@@ -529,9 +531,9 @@ public class TradeBean extends TradeClientData implements Serializable
                      opt++;
                   }
                }
-               if (!skip)
+               if (skip)
                {
-                  filteredClientList.add(getTradeClientDataList().get(loop));
+                  filteredSummaryList.add(getTradeSummaryData().get(loop));
                }
             }
          }
@@ -546,23 +548,24 @@ public class TradeBean extends TradeClientData implements Serializable
    {
       Long logonid;
 
-      if (!mode.equalsIgnoreCase("I"))
-      {
-         setSelectedSummaryList(getFilteredSummaryList());
-      }
-
       try
       {
-         TradeClientData tData = null;
-         if (getSelectedClientList() != null)
+         TradeSummary tData = null;
+
+         if (!mode.equalsIgnoreCase("I"))
+         {
+            setSelectedSummaryList(getFilteredSummaryList());
+         }
+
+         if (getSelectedSummaryList() != null)
          {
             webutil.progessreset();
             logonid = webutil.getLogonid();
-            Integer numClients = getSelectedClientList().size();
+            Integer numClients = getSelectedSummaryList().size();
             for (Integer loop = 0; loop < numClients; loop++)
             {
                webutil.setProgressbar((loop / numClients) * 100);
-               tData = getSelectedClientList().get(loop);
+               tData = getSelectedSummaryList().get(loop);
                tradeDAO.executeTrade(tData.getAcctnum());
             }
             String msg = "";

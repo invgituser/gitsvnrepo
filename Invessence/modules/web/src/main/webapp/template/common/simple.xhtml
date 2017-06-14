@@ -20,7 +20,6 @@
     <h:outputScript name="js/ripple-effect.js" library="#{uiLayout.themeLib}"/>
     <h:outputScript name="js/perfect-scrollbar.js" library="#{uiLayout.themeLib}"/>
     <h:outputScript name="js/layout.js" library="#{uiLayout.themeLib}"/>
-    <h:outputScript name="js/sessionManagement.js"  library="invessence"/>
     <link rel="shortcut icon" type="image/x-icon" href="#{uiLayout.webProfile.feviconLogoPath}" />
 
     <ui:insert name="head" />
@@ -46,26 +45,31 @@
                  value="#{sessionControl.getSessionCountdownTime()}"/>
     <p:growl id="msg" showDetail="true" sticky="true"/>
 
-    <p:idleMonitor timeout="#{sessionControl.getCustomSessionTimeout()}" onidle="idleDialog();"/>
+    <ui:fragment rendered="#{sessionControl.customSessionTimeout > 0}">
+        <h:outputScript name="js/sessionManagement.js"  library="invessence"/>
 
-    <div id="idConfirmExt">
-        <div class="innercdb">
-            <div id="progressBar"></div>
-            <p:confirmDialog id="confirmDialog"
-                             message="You have been idle for long time."
-                             header="Are you there?" severity="alert" widgetVar="c">
-                <p:commandButton id="idLogout" value="Logout" update="msg"
-                                 onclick="SessionExpireEvent()"/>
-                <p:commandButton id="idContinue" value="I Am Still Here" update="msg"
-                                 oncomplete="fnDisableDialog()"
-                                 actionListener="#{sessionControl.onActive}"/>
-                <p:commandButton id="idOk" value="Ok" update="msg"
-                                 onclick="fnDisableVisitorDialog()" style="width: 100px;display: block;margin: 5px auto;"/>
+        <p:idleMonitor timeout="#{sessionControl.customSessionTimeout}" onidle="idleDialog();"/>
+        <div id="idConfirmExt">
+            <div class="innercdb">
+                <div id="progressBar"></div>
+                <p:confirmDialog id="confirmDialog"
+                                 message="You have been idle for long time."
+                                 header="Are you there?" severity="alert" widgetVar="c">
+                    <p:commandButton id="idLogout" value="Logout" update="msg"
+                                     onclick="SessionExpireEvent()"/>
+                    <p:commandButton id="idContinue" value="I Am Still Here" update="msg"
+                                     oncomplete="fnDisableDialog()"
+                                     actionListener="#{sessionControl.onActive}"/>
+                    <p:commandButton id="idOk" value="Ok" update="msg"
+                                     onclick="fnDisableVisitorDialog()" style="width: 100px;display: block;margin: 5px auto;"/>
 
 
-            </p:confirmDialog>
+                </p:confirmDialog>
+            </div>
         </div>
-    </div>
+    </ui:fragment>
+
+
 </h:body>
 
 </html>

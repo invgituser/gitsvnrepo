@@ -88,7 +88,7 @@ public class WebProfile
 
    public void setLocked(Boolean forced)
    {
-      this.locked = forced;
+      locked = forced;
    }
 
    public String getMode()
@@ -412,7 +412,7 @@ public class WebProfile
             output = output + " | " + supportEmail;
          }
       }
-      this.supportInfo = output;
+      supportInfo = output;
    }
 
    public void loadWebMenu(String url, String access, String label,
@@ -440,5 +440,20 @@ public class WebProfile
       this.device = device;
    }
 
+   public Integer getSessionTimeout() {
+      if (webInfo.containsKey("WEB.SESSION.TIMEOUT")) {
+         return Integer.parseInt(getInfo("WEB.SESSION.TIMEOUT"));
+      }
+      else
+         return 60;
+   }
+
+   public Integer getSessionCountdownTimeout() {
+      if (webInfo.containsKey("WEB.SESSION.COUNTDOWNTIME")) {
+         return Integer.parseInt(getInfo("WEB.SESSION.COUNTDOWNTIME"));
+      }
+      else
+         return 60;
+   }
 
 }
