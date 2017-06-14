@@ -700,7 +700,6 @@ public class PortfolioOptimizer
             key = buildAssetKey(checkThemeName(theme), assetName);
             value =  assetDataMap.get(key).getEnd_allocation();
 
-
          return value;
 
       }
@@ -837,8 +836,8 @@ public class PortfolioOptimizer
             instanceOfCapitalMarket.setConstraints(lbConstraints, ubConstraints);
 
             instanceOfCapitalMarket.calculateEfficientFrontier(
-               0.0,   // Minimum CAPM returns
-               0.12,  // Maximum CAPM returns
+               InvConst.MIN_CAPM_RETURNS,   // Minimum CAPM returns
+               InvConst.MAX_CAPM_RETURNS,  // Maximum CAPM returns
                covarianceOfFunds,//Covariance matrix
                expectedReturnsOfFunds, // expectedReturns
                InvConst.PORTFOLIO_INTERPOLATION, // numberInterpolationPoints
