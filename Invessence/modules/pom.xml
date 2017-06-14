@@ -18,7 +18,7 @@
 
    <modules>
       <module>core</module>
-      <module>FinLib</module>
+      <module>ojalgo</module>
       <module>invmodel</module>
       <module>service</module>
       <module>broker-webservices</module>
