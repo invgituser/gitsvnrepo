@@ -407,7 +407,7 @@ public class SessionController implements Serializable
       }
       catch (Exception e)
       {
-         customSessionTimeout = 10*60*10000;
+         customSessionTimeout = 10*60*1000;
          logger.error("SessionController.getCustomSessionTimeout Error " + e);
          e.printStackTrace();
       }
