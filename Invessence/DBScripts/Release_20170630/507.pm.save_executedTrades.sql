@@ -7,7 +7,10 @@ CREATE PROCEDURE `invdb`.`save_executedTrades`(
 BEGIN
 	DECLARE today	VARCHAR(10);
 	begin
-            
+        DELETE FROM `invdb`.`user_trade_log`
+        WHERE `user_trade_log`.`acctnum` = p_acctnum
+        AND `user_trade_log`.`tradeStatus` = 'P';
+        
 		INSERT INTO `invdb`.`user_trade_log`
 		(`acctnum`,
 		`clientAccountID`,
@@ -65,7 +68,7 @@ BEGIN
     end;
     
     begin
-		update save_trade_process_identifier
+		update trade_process_identifier
 			set tradeStatus = 'V', processStatus = 'S'
 		where acctnum = p_acctnum;
     end;
