@@ -327,10 +327,12 @@ public class TradeBean extends TradeClientData implements Serializable
             {
                skip = false;
                Integer opt = 0;
-               String filter;
-               while (!skip && opt < numOptions)
+               String filter, tradeDataFilter;
+                  while (!skip && opt < numOptions)
                {
-                  if (getTradeClientDataList().get(loop).getTradeStatus().startsWith(getSelectedFilterOptions()[opt].substring(1, 1)))
+                  filter = getSelectedFilterOptions()[opt];
+                  tradeDataFilter = getTradeClientDataList().get(loop).getTradeStatus();
+                  if (filter.startsWith(tradeDataFilter))
                   {
                      skip = true;
                   }
@@ -418,7 +420,7 @@ public class TradeBean extends TradeClientData implements Serializable
             setSelectedClientList(getFilteredClientList());
          }
 
-         if (getSelectedClient() != null)
+         if (getSelectedClientList() != null)
          {
             webutil.progessreset();
             logonid = webutil.getLogonid();

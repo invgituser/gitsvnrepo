@@ -6,13 +6,14 @@ import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook.*;
 import org.primefaces.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.ConfigurableMimeFileTypeMap.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.mail.javamail.ConfigurableMimeFileTypeMap;
 
 import javax.activation.FileTypeMap;
 import javax.activation.FileTypeMap.*;
-import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -27,17 +28,20 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  * Time: 11:45 AM
  * To change this template use File | Settings | File Templates.
  */
+@ManagedBean(name = "filesIO")
+@SessionScoped
 public class FilesIO
 {
-   @ManagedProperty("#{webutil}")
+   @Autowired
    private WebUtil webutil;
-   @ManagedProperty("#{fileProcessWebLayer}")
+
+   @Autowired
    private FileProcessWebLayer fileProcessWebLayer;
 
    private FileTypeMap fileTypeMap;
    private static Integer MAX_ROWS = 1500;
    private static Integer MAX_COLS = 300;
-   private static enum CellType {
+   private enum CellType {
             CELL_INTEGER, CELL_DOUBLE, CELL_STRING, CELL_BLANK, CELL_
 }
 
@@ -137,7 +141,7 @@ public class FilesIO
 
          //Create Workbook instance holding reference to file
          Workbook wb;
-         FileInputStream fileInputStream = new FileInputStream(new File(filename));;
+         FileInputStream fileInputStream = new FileInputStream(new File(filename));
          if (type.equalsIgnoreCase("xlsx")) {
             wb = new XSSFWorkbook(fileInputStream);
          }
@@ -239,7 +243,7 @@ public class FilesIO
                {
                   if (colcounter >= MAX_COLS)
                      break;
-                  Object cell = (Object) tokenizer.nextToken();
+                  Object cell = tokenizer.nextToken();
 
                   if (cell instanceof String)
                      obj[rowcounter][colcounter] = cell.toString();
