@@ -432,7 +432,8 @@ public class TradeBean extends TradeClientData implements Serializable
                tradedata = rebalProcess.process(logonid, tData.getAcctnum());
                if (tradedata != null)
                {
-                  tradeDAO.saveTradeProcessIdentifier(tData.getAcctnum(), tData.getTradeStatus(), "R", tData.getReason());
+                  tData.setProcessStatus("R");
+                  tradeDAO.saveTradeProcessIdentifier(tData.getAcctnum(), tData.getTradeStatus(), tData.getProcessStatus(), tData.getReason());
                }
 
             }
@@ -568,8 +569,23 @@ public class TradeBean extends TradeClientData implements Serializable
             {
                webutil.setProgressbar((loop / numClients) * 100);
                tData = getSelectedSummaryList().get(loop);
+               // Move each of these trades into executed mode.
                tradeDAO.executeTrade(tData.getAcctnum());
+               tData.setProcessStatus("S");
             }
+            fileio.processDownloadFile("DOWD1");
+
+            // If for some reason, there is an exception, then the trades remain in the same list here.
+            // If there is no error from generating file, then move all of them as processed.
+            for (Integer loop = 0; loop < numClients; loop++)
+            {
+               webutil.setProgressbar((loop / numClients) * 100);
+               tData = getSelectedSummaryList().get(loop);
+               // Move each of these trades into executed mode.
+               tradeDAO.saveTradeProcessIdentifier(tData.getAcctnum(), tData.getTradeStatus(), tData.getProcessStatus(), "Processed");
+            }
+
+            // Finally show the status.
             String msg = "";
             if (numClients == 0)
             {
@@ -584,11 +600,10 @@ public class TradeBean extends TradeClientData implements Serializable
             {
                msg = numClients.toString() + " accounts were processed, successfully";
             }
-            fileio.processDownloadFile("DOWD1");
             showGrowl(msg, "Info");
-            // Add section of the code to call the web-service to generate file.
-            // webutil.downloadFile(filenamename, fileformat, outputName);
 
+            // Refresh the list.
+            reloadTradeSummary();
          }
 
       }
