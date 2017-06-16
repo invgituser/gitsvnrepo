@@ -1,0 +1,332 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<!-- BOX START -->
+
+	<p:outputPanel id="workArea">
+            <p:outputPanel id="reviewArea">
+                <div class="Container100 Responsive100">
+                    <div class="Container50 Responsive100 Fleft summaryLBlock">
+                        <p:panel id="fineTunePanel" widgetVar="wvfineTunePanel" styleClass="fineTuneBlock" rendered="#{tcmpb.displayFTPanel}">
+                            <p:effect type="slide" event="close" for="fineTunePanel">
+                                <f:param name="mode" value="'hide'" />
+                            </p:effect>
+                            <div class="Container100 FTLabel">
+                                <span class="Fs16">Change Strategy</span>
+                                <div class="Wid10 Fright closeFTbtn">
+                                    <p:commandButton  styleClass="fineTuneBtn"
+                                        icon="fa fa-times">
+                                        <p:effect type="slide" event="click" for="fineTunePanel">
+                                            <f:param name="mode" value="'hide'" />
+                                        </p:effect>
+                                    </p:commandButton>
+                                </div>
+                            </div>
+                            <div class="Fs13 fineTuneDetail">Rather than having a
+                                strategy recommended to me based on my time horizon and risk
+                                tolerance, I would rather directly choose my investment strategy
+                                and am familiar with the associated risks. The strategy I choose
+                                is:</div>
+                            <p:panel id="tcmSliderArea" style="border: 0px; background: transparent;">
+                                <div class="EmptyBox10"></div>
+                                <div class="Container100 Fleft TexAlCenter"
+                                     style="padding: 0px 20px; box-sizing: border-box;">
+                                    <strong><h:outputText id="modelnamelbl" value="#{tcmpb.fixedModelName}"/></strong>
+                                </div>
+                                <div class="EmptyBox20"></div>
+                                <div class="Container100 DispBlock gray">
+
+                                    <div class="Container25 TexAlRight Fs14 uobSliderLabel firstLabel">
+                                        Conservative</div>
+                                    <div class="Container50 TexAlCenter Fs20">
+                                        <h:inputHidden id="allocValue" value="#{tcmpb.allocationIndex}" />
+                                        <p:slider id="allocSlider" for="allocValue" minValue="0"
+                                                  maxValue="#{tcmpb.maxAssetAllocatonPoints}" step="1">
+                                            <p:ajax event="slideEnd"
+                                                    update=":ceForm:graphArea, :ceForm:tcmFinal, :ceForm:modelnamelbl, :ceForm:modeldescrlbl, :ceForm:finalbuttonArea, :ceForm:tcmpnafportfoliodetails"
+                                                    listener="#{tcmpb.onAllocSlider}" />
+                                        </p:slider>
+                                    </div>
+                                    <div class="Container25 TexAlLeft Fs14 uobSliderLabel lastLabel">
+                                        Aggressive</div>
+                                    <div class="EmptyBox5"></div>
+                                    <div class="Container100 TexAlCenter">
+                                        <div class="ContainerIndent">
+                                            <p:commandButton id="allocSliderResetButton" value="Recommended"
+                                                             styleClass="uob_button"
+                                                             update=":ceForm:allocSlider, :ceForm:graphArea, :ceForm:tcmFinal, :ceForm:modelnamelbl, :ceForm:modeldescrlbl, :ceForm:finalbuttonArea, , :ceForm:tcmpnafportfoliodetails"
+                                                             actionListener="#{tcmpb.doAllocReset}"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="EmptyBox10"></div>
+                                <div class="Container100 Fleft TexAlLeft"
+                                     style="padding: 0px 20px; box-sizing: border-box;     font-size: 13px;">
+                                    <h:outputText id="modeldescrlbl" value="#{tcmpb.newLongDesc}"/>
+
+                                </div>
+                                <div class="EmptyBox5"></div>
+                                <div class="Container100" style="text-align: center;">
+                                    <p:commandButton id="scsavebtn1" value="Save" styleClass=""
+                                                     update=":ceForm:reviewArea"
+                                                     actionListener="#{tcmpb.closeFTPanel}">
+                                    </p:commandButton>
+                                    <p:commandButton id="sccancelbtn1" value="Cancel" styleClass=""
+                                                     update=":ceForm:reviewArea"
+                                                     actionListener="#{tcmpb.cancelFTPanel}">
+                                    </p:commandButton>
+                                </div>
+                            </p:panel>
+                        </p:panel>
+
+
+
+                        <p:panel id="tcmFinal" style="border: 0px; background: transparent;">
+                            <div class="Container100 Fleft TexAlCenter"
+                                 style="padding: 0px 20px; box-sizing: border-box;">
+                                Based on the responses that you have given, we have selected the <strong>#{tcmpb.fixedModelName}</strong>
+                                strategy for you.
+                            </div>
+                            <div class="EmptyBox10 ResEmptyBox10"></div>
+                            <div class="Container100 Responsive100">
+                                <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth UI-tcm">
+                                    <div class="ContainerIndent">
+                                        <div class="EmptyBox5"></div>
+                                        <span class="Fs14 DispBlock gray">Investment Risk</span>
+                                    <span class="Fs24 DispBlock red">
+                                    <h:outputText value="#{tcmpb.totalRisk}">
+                                        <f:convertNumber pattern="##0.00%"/>
+                                    </h:outputText>
+                                   </span>
+
+                                        <div class="EmptyBox5"></div>
+                                    </div>
+                                </div>
+                                <div class="Wid10 Fright" style="height:1px;"></div>
+                                <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth UI-tcm">
+                                    <div class="ContainerIndent">
+                                        <div class="EmptyBox5"></div>
+                                        <span class="Fs14 DispBlock gray">Expected Return</span>
+                                    <span class="Fs24 DispBlock invessenceblue">
+                                      <h:outputText value="#{tcmpb.totalExpectedReturns}">
+                                          <f:convertNumber pattern="##0.00%"/>
+                                      </h:outputText>
+                                     </span>
+
+                                        <div class="EmptyBox5"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="Container100">
+                                <p:outputPanel deferred="true">
+                                    <div class="Container50 Fleft spResPieBlock">
+                                        <p:chart id="tcmpnafpiechart" type="pie" model="#{tcmpb.charts.pieChart}"
+                                                 style="height: 100%; width: 100%;"
+                                                 rendered="#{tcmpb.charts.pieChart != null}" responsive="true" />
+                                    </div>
+                                    <div class="Container40 Fright assetAllocationTableMobView spResPieTableBlock">
+                                        <p:dataTable id="tcmpnafassettable" styleClass="invAllocTable"
+                                                     value="#{tcmpb.editableAsset}" var="assetList">
+
+                                            <p:column
+                                                    style="width: 1%; background-color: #{assetList.color};">
+                                                <h:outputText value=" " />
+                                            </p:column>
+
+                                            <p:column styleClass="Fs12 TexAlLeft" headerText="Class">
+                                                <h:outputText value="#{assetList.asset}" />
+                                            </p:column>
+                                            <!--  <p:column priority="3"
+                                                          styleClass="Wid15 Fs14 num-text-align TexAlRight"
+                                                          headerText="Weight">
+                                                    <h:outputText value="#{assetList.userEdit}">
+                                                        <f:convertNumber pattern="##0%"/>
+                                                    </h:outputText>
+                                                </p:column> -->
+                                            <p:column styleClass="Fs12 num-text-align TexAlRight"
+                                                      headerText="Value">
+                                                <h:outputText value="#{assetList.value}">
+                                                    <f:convertNumber pattern="$#,###,###" />
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:columnGroup type="footer">
+                                                <p:row>
+                                                    <p:column />
+                                                    <p:column styleClass="Fs12 TexAlLeft FontBold"
+                                                              footerText="Total">
+                                                    </p:column>
+                                                    <p:column styleClass="Fs12 TexAlRight FontBold"
+                                                              footerText="#{dataDisplayConverter.displayAsMoneyRounded(tcmpb.totalMoneyAllocated)}">
+                                                    </p:column>
+                                                </p:row>
+                                            </p:columnGroup>
+                                        </p:dataTable>
+                                    </div>
+                                </p:outputPanel>
+                            </div>
+                        </p:panel>
+                    </div>
+                    <div id="projectChartArea" class="Container50 Responsive100 FrightForced performanceChartBlock">
+                        <p:outputPanel id="graphArea" style="border: 0px; background: transparent;">
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    drawProjectionChart("final2");//pass page info for reuse js method
+                                });
+                            </script>
+
+                            <div class="Container100">
+                                <div class="Container45 Res100MP TexAlCenter Fleft UI-tcm">
+                                    <div class="ContainerIndent">
+                                        <div class="EmptyBox5"></div>
+								<span class="Fs14 DispBlock gray">Average Market
+									Performance</span>
+
+                                        <div class="EmptyBox5"></div>
+								<span class="Fs17 DispBlock BBGreen"> <h:outputText id="tcmpnafavgperformance"
+                                                                                    value="#{tcmpb.charts.chartdata.getIntChartData('AvgPerformance')}">
+                                    <f:convertNumber pattern="$#,###,###,##0" />
+                                </h:outputText>
+								</span>
+                                    </div>
+                                </div>
+
+                                <div
+                                        class="Container45 Res100MP FrightForced TexAlCenter UI-tcm MarTopRes">
+                                    <div class="ContainerIndent">
+                                        <div class="EmptyBox5"></div>
+                                        <span class="Fs14 DispBlock gray">Poor Market Performance</span>
+
+                                        <div class="EmptyBox5"></div>
+								<span class="Fs17 DispBlock BBGreen"> <h:outputText id="tcmpnafpoorperformance"
+                                                                                    value="#{tcmpb.charts.chartdata.getIntChartData('PoorPerformance')}">
+                                    <f:convertNumber pattern="$#,###,###,##0" />
+                                </h:outputText>
+								</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="EmptyBox10"></div>
+
+                            <h:inputHidden value="#{tcmpb.charts.chartdata.highChartresultSet}"
+                                           id="performanceChart" />
+
+                            <div id="progressChart" class="Container100 Wid100">
+                                <!-- Performance Chart Zone -->
+                            </div>
+                        </p:outputPanel>
+                    </div>
+
+                </div>
+            </p:outputPanel>
+			<p:panel id="finalbuttonArea" styleClass="summaryPageBtn" style="background-color: transparent; border: 0px;">
+				<div class="Container100 Responsive100" style="text-align: center;">
+					<p:commandButton styleClass="prev ResponsiveBtnFS Fleft spWid100" id="tcmpnafprevious"
+									 value="Start Over" update=":ceForm:inputArea" immediate="true"
+									 actionListener="#{tcmpb.startover}" />
+
+					<p:commandButton styleClass="fineTuneBtn fineTuneBtnImg spWid100" id="tcmpnafftbtn" value="Change Strategy"
+									 update=":ceForm:reviewArea"
+									 actionListener="#{tcmpb.showFTPanel}" >
+					</p:commandButton>
+
+					<p:commandButton style="margin-right: 0px!important;" styleClass="Fright ResponsiveBtnFS spWid100" id="tcmpnafopenacct"
+									 value="#{tcmpb.fundButtonText}" update=":ceForm:inputArea"
+									 actionListener="#{tcmpb.fundAccount}" />
+
+				</div>
+
+			</p:panel>
+
+		<div class="EmptyBox10"></div>
+		<p:fieldset legend="Detail" toggleable="true" toggleSpeed="500">
+			<div class="Container100 Responsive100">
+				<div class="ContainerIndent">
+					<div class="Wid100 Responsive100 Fleft">
+						<h2 class="Fs20">Portfolio Details</h2>
+					</div>
+				</div>
+			</div>
+			<div class="Container100">
+				<p:dataTable id="tcmpnafportfoliodetails" var="ticker" value="#{tcmpb.displayPortfolioList}">
+
+					<p:column style="width:1%; background-color: #{ticker.color}">
+						<h:outputText value=" " />
+					</p:column>
+
+					<p:column priority="4" style="width:14%;"
+						styleClass="Fs12 TexAlLeft">
+						<f:facet name="header">
+							<h:outputText value="Class" />
+						</f:facet>
+						<h:outputText value="#{ticker.assetType}" />
+					</p:column>
+
+					<p:column style="width:17%;" styleClass="Fs12 TexAlLeft">
+						<f:facet name="header">
+							<h:outputText value="Asset" />
+						</f:facet>
+						<h:outputText value="#{ticker.subclass}" />
+					</p:column>
+
+					<p:column priority="2" style="width:15%;"
+						styleClass="Fs12 num-text-align TexAlRight">
+						<f:facet name="header">
+							<h:outputText value="Allocated" />
+						</f:facet>
+						<h:outputText value="#{ticker.weight}">
+							<f:convertNumber pattern="##0.00%" />
+						</h:outputText>
+					</p:column>
+
+					<p:column style="width:15%;" styleClass="Fs12 TexAlLeft">
+						<f:facet name="header">
+							<h:outputText value="Ticker" />
+						</f:facet>
+						<h:outputText value="#{ticker.symbol}" />
+					</p:column>
+
+					<p:column priority="3" style="width:25%;"
+						styleClass="Fs12 TexAlLeft">
+						<f:facet name="header">
+							<h:outputText value="Name" />
+						</f:facet>
+						<h:outputText value="#{ticker.name}" />
+					</p:column>
+
+					<p:column style="width:18%;"
+						styleClass="Fs12 num-text-align TexAlRight">
+						<f:facet name="header">
+							<h:outputText value="Value" />
+						</f:facet>
+						<h:outputText value="#{ticker.value}">
+							<f:convertNumber pattern="$#,###,###" />
+						</h:outputText>
+					</p:column>
+
+					<p:columnGroup type="footer">
+						<p:row>
+							<p:column />
+							<p:column priority="4" />
+							<p:column priority="3" />
+							<p:column priority="2" />
+							<p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
+								footerText="Total">
+							</p:column>
+							<p:column styleClass="Fs14 TexAlRight FontBold"
+								footerText="#{dataDisplayConverter.displayAsMoneyRounded(tcmpb.totalMoneyAllocated)}">
+							</p:column>
+						</p:row>
+					</p:columnGroup>
+				</p:dataTable>
+
+			</div>
+		</p:fieldset>
+
+	</p:outputPanel>
+	<!-- BOX END -->
+</ui:composition>

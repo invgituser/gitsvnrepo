@@ -1,0 +1,168 @@
+CREATE TABLE invdb.adv_request_document_mappings (
+   advisorid int(11) NOT NULL,
+   action varchar(45) NOT NULL,
+   subaction varchar(45) NOT NULL,
+   reqType varchar(45) NOT NULL,
+   envelopeHeading varchar(100) DEFAULT NULL,
+   seqno int(11) NOT NULL,
+   formType varchar(45) NOT NULL,
+   PRIMARY KEY (action,subaction,reqType,advisorid)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE invdb.dc_requests_final (
+   reqId bigint(20) NOT NULL AUTO_INCREMENT,
+   refReqId bigint(20) NOT NULL,
+   acctnum bigint(20) NOT NULL,
+   advisorid int(11) NOT NULL,
+   eventNum int(11) NOT NULL,
+   caseNumber varchar(45) DEFAULT NULL,
+   reqType varchar(45) NOT NULL,
+   seqno int(11) NOT NULL,
+   envelopeHeading varchar(100) DEFAULT NULL,
+   envelopeId varchar(45) DEFAULT NULL,
+   status varchar(45) NOT NULL COMMENT 'I = Init, S = Sent, C = Completed, E= Error',
+   created date DEFAULT NULL,
+   updated date DEFAULT NULL,
+   terminalDetails varchar(100) DEFAULT NULL,
+   dc_requestsFor varchar(45) DEFAULT NULL,
+   dc_requestscol varchar(45) DEFAULT NULL,
+   dc_requestFor varchar(45) DEFAULT NULL,
+   formType varchar(45) DEFAULT NULL,
+   PRIMARY KEY (reqId),
+   KEY ak1_dc_request (acctnum,reqType)
+ ) ENGINE=InnoDB AUTO_INCREMENT=298 DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE invdb.dc_advisor_details
+ADD COLUMN advisorName varchar(45) DEFAULT NULL after advisorCode;
+
+ALTER TABLE invdb.dc_advisor_details
+ADD COLUMN repId varchar(45) DEFAULT NULL after advisorName;
+
+ALTER TABLE invdb.dc_requests
+ADD COLUMN seqno int(11) NOT NULL after reqType;
+
+ALTER TABLE invdb.dc_requests
+ADD COLUMN advisorid int(11) NOT NULL after acctnum;
+
+ALTER TABLE invdb.dc_requests
+ADD COLUMN action varchar(45) DEFAULT NULL after dc_requestFor;
+
+ALTER TABLE invdb.dc_requests
+ADD COLUMN subaction varchar(45) DEFAULT NULL after action;
+
+
+-- insertion for relation of product,advisorid & repId in dc_advisor_details
+
+-- INSERT INTO `invdb`.`dc_advisor_details` (`id`, `advisorCode`, `advisorName`, `repId`, `firmName`, `primaryContact`, `email`) VALUES ('1', 'AGWQ', 'BB', 'CATCHALL', 'Tradition Capital Management', 'N/A', 'operations@traditioncm.com');
+UPDATE `invdb`.`dc_advisor_details` SET `advisorName`='BB', `repId`='CATCHALL', `primaryContact` = 'BB' WHERE `id`='1';
+INSERT INTO `invdb`.`dc_advisor_details` (`id`, `advisorCode`, `advisorName`, `repId`, `firmName`, `primaryContact`, `email`) VALUES ('2', 'AGWQ', 'BB-TCM', '100', 'Tradition Capital Management', 'Direct', 'operations@traditioncm.com');
+INSERT INTO `invdb`.`dc_advisor_details` (`id`, `advisorCode`, `advisorName`, `repId`, `firmName`, `primaryContact`, `email`) VALUES ('3', 'AGWQ', 'BB-TCM', '200', 'Tradition Capital Management', 'External', 'operations@traditioncm.com');
+INSERT INTO `invdb`.`dc_advisor_details` (`id`, `advisorCode`, `advisorName`, `repId`, `firmName`, `primaryContact`, `email`) VALUES ('4', 'AGWQ', 'BB-TCM', 'CATCHALL', 'Tradition Capital Management', 'Advisor Direct', 'operations@traditioncm.com');
+
+-- insertion for docusign forms in adv_request_document_mappings
+set sql_safe_updates=0;
+delete from `invdb`.`adv_request_document_mappings`;
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'FUNDING', 'ACAT', 'ACCT_TRAN_NEW', 'Please sign Agreement document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'FUNDING', 'ACH', 'MOVE_MONEY_NEW', 'Please sign Move Money document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'FUNDING', 'TDTRF', 'TD_TRAN_NEW', 'Please sign TD transfer document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'ACCT_OPEN', 'DEFAULT', 'BB_TCM_ADV_AGREE', 'Please sign account opening document.', '1', 'ADV');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'FUNDING', 'ACAT2', 'ACAT_OTHER_NEW', 'Please sign account transfer document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'FUNDING', 'REC_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign Electric Fund Transfer document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'ACCT_OPEN', 'IRA_QRP_BEN', 'IRA_QRP_BENE_NEW', 'Please sign account opening document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'ACCT_OPEN', 'TDTRF', 'TD_TRAN_NEW', 'Please sign TD transfer document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'ACCT_OPEN', 'ACCT_APP_NEW', 'ACCT_APPLI_NEW', 'Please sign Account Application document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'ACCT_OPEN', 'IRA_NEW', 'IRA_APPLI_NEW', 'Please sign IRA Account Application document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'FUNDING', 'ACH_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign Electric Fund Transfer document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'ACCT_OPEN', 'ACH_IRA', 'IRA_MOVE_MONEY_NEW', 'Please sign move money document.', '3', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'ACCT_OPEN', 'ACH', 'MOVE_MONEY_NEW', 'Please sign Move Money document.', '3', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'ACCT_OPEN', 'ACAT', 'ACCT_TRAN_NEW', 'Please sign Agreement document.', '3', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'ACCT_OPEN', 'ACAT2', 'ACAT_OTHER_NEW', 'Please sign account transfer document.', '3', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'ACCT_OPEN', 'ACH_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign Electric Fund Transfer document.', '4', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'ACCT_OPEN', 'REC_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign Electric Fund Transfer document.', '5', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'ACCT_OPEN', 'DEFAULT', 'TCM_ADV_2AB', 'Please sign account opening document.', '98', 'ADV');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'ACCT_OPEN', 'DEFAULT', 'TCM_PRIVACY_NOTICE', 'Please sign account opening document.', '99', 'ADV');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('1', 'CHNG_ADDR', 'CHNG_ADDR', 'ACCT_CHNG_ADDR', 'Please sign change address document.', '1000', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'FUNDING', 'ACAT2', 'INT_ACAT_OTHER_NEW', 'Please sign account transfer document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'ACCT_OPEN', 'DEFAULT', 'TAI_ADV_AGREE', 'Please sign account opening document.', '1', 'ADV');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'FUNDING', 'ACAT', 'ACCT_TRAN_NEW', 'Please sign Agreement document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'FUNDING', 'TDTRF', 'TD_TRAN_NEW', 'Please sign TD transfer document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'FUNDING', 'ACH', 'MOVE_MONEY_NEW', 'Please sign Move Money document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'FUNDING', 'REC_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign Electric Fund Transfer document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'ACCT_OPEN', 'IRA_NEW', 'IRA_APPLI_NEW', 'Please sign IRA Account Application document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'FUNDING', 'ACH_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign Electric Fund Transfer document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'ACCT_OPEN', 'TDTRF', 'TD_TRAN_NEW', 'Please sign TD transfer document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'ACCT_OPEN', 'IRA_QRP_BEN', 'IRA_QRP_BENE_NEW', 'Please sign account opening document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'ACCT_OPEN', 'ACCT_APP_NEW', 'ACCT_APPLI_NEW', 'Please sign Account Application document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'ACCT_OPEN', 'ACAT2', 'INT_ACAT_OTHER_NEW', 'Please sign account transfer document.', '3', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'ACCT_OPEN', 'ACH_IRA', 'IRA_MOVE_MONEY_NEW', 'Please sign move money document.', '3', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'ACCT_OPEN', 'ACH', 'MOVE_MONEY_NEW', 'Please sign Move Money document.', '3', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'ACCT_OPEN', 'ACAT', 'ACCT_TRAN_NEW', 'Please sign Agreement document.', '3', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'ACCT_OPEN', 'ACH_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign Electric Fund Transfer document.', '4', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'ACCT_OPEN', 'REC_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign Electric Fund Transfer document.', '5', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'ACCT_OPEN', 'DEFAULT', 'TCM_ADV_2AB', 'Please sign account opening document.', '98', 'ADV');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'ACCT_OPEN', 'DEFAULT', 'TCM_PRIVACY_NOTICE', 'Please sign account opening document.', '99', 'ADV');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('2', 'CHNG_ADDR', 'CHNG_ADDR', 'ACCT_CHNG_ADDR', 'Please sign change address document.', '1000', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'FUNDING', 'TDTRF', 'TD_TRAN_NEW', 'Please sign TD transfer document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'FUNDING', 'ACH', 'MOVE_MONEY_NEW', 'Please sign Move Money document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'FUNDING', 'ACAT2', 'EXT_ACAT_OTHER_NEW', 'Please sign account transfer document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'FUNDING', 'REC_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign Electric Fund Transfer document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'ACCT_OPEN', 'DEFAULT', 'TAE_ADV_AGREE', 'Please sign account opening document.', '1', 'ADV');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'FUNDING', 'ACAT', 'ACCT_TRAN_NEW', 'Please sign Agreement document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'FUNDING', 'ACH_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign Electric Fund Transfer document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'ACCT_OPEN', 'IRA_NEW', 'IRA_APPLI_NEW', 'Please sign IRA Account Application document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'ACCT_OPEN', 'IRA_QRP_BEN', 'IRA_QRP_BENE_NEW', 'Please sign account opening document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'ACCT_OPEN', 'TDTRF', 'TD_TRAN_NEW', 'Please sign TD transfer document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'ACCT_OPEN', 'ACCT_APP_NEW', 'ACCT_APPLI_NEW', 'Please sign Account Application document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'ACCT_OPEN', 'ACH_IRA', 'IRA_MOVE_MONEY_NEW', 'Please sign move money document.', '3', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'ACCT_OPEN', 'ACAT', 'ACCT_TRAN_NEW', 'Please sign Agreement document.', '3', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'ACCT_OPEN', 'ACH', 'MOVE_MONEY_NEW', 'Please sign Move Money document.', '3', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'ACCT_OPEN', 'ACAT2', 'EXT_ACAT_OTHER_NEW', 'Please sign account transfer document.', '3', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'ACCT_OPEN', 'ACH_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign Electric Fund Transfer document.', '4', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'ACCT_OPEN', 'REC_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign Electric Fund Transfer document.', '5', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'ACCT_OPEN', 'DEFAULT', 'TCM_ADV_2AB', 'Please sign account opening document.', '98', 'ADV');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'ACCT_OPEN', 'DEFAULT', 'TCM_PRIVACY_NOTICE', 'Please sign account opening document.', '99', 'ADV');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('3', 'CHNG_ADDR', 'CHNG_ADDR', 'ACCT_CHNG_ADDR', 'Please sign change address document.', '1000', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'FUNDING', 'ACH', 'MOVE_MONEY_NEW', 'Please sign Move Money document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'FUNDING', 'ACAT', 'ACCT_TRAN_NEW', 'Please sign Agreement document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'FUNDING', 'REC_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign Electric Fund Transfer document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'FUNDING', 'TDTRF', 'TD_TRAN_NEW', 'Please sign TD transfer document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'FUNDING', 'ACAT2', 'INT_ACAT_OTHER_NEW', 'Please sign account transfer document.', '1', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'ACCT_OPEN', 'DEFAULT', 'TAI_ADV_AGREE', 'Please sign account opening document.', '1', 'ADV');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'ACCT_OPEN', 'IRA_QRP_BEN', 'IRA_QRP_BENE_NEW', 'Please sign account opening document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'ACCT_OPEN', 'TDTRF', 'TD_TRAN_NEW', 'Please sign TD transfer document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'ACCT_OPEN', 'ACCT_APP_NEW', 'ACCT_APPLI_NEW', 'Please sign Account Application document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'ACCT_OPEN', 'IRA_NEW', 'IRA_APPLI_NEW', 'Please sign IRA Account Application document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'FUNDING', 'ACH_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign Electric Fund Transfer document.', '2', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'ACCT_OPEN', 'ACH', 'MOVE_MONEY_NEW', 'Please sign Move Money document.', '3', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'ACCT_OPEN', 'ACAT2', 'INT_ACAT_OTHER_NEW', 'Please sign account transfer document.', '3', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'ACCT_OPEN', 'ACAT', 'ACCT_TRAN_NEW', 'Please sign Agreement document.', '3', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'ACCT_OPEN', 'ACH_IRA', 'IRA_MOVE_MONEY_NEW', 'Please sign move money document.', '3', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'ACCT_OPEN', 'ACH_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign Electric Fund Transfer document.', '4', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'ACCT_OPEN', 'REC_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign Electric Fund Transfer document.', '5', 'DC');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'ACCT_OPEN', 'DEFAULT', 'TCM_ADV_2AB', 'Please sign account opening document.', '98', 'ADV');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'ACCT_OPEN', 'DEFAULT', 'TCM_PRIVACY_NOTICE', 'Please sign account opening document.', '99', 'ADV');
+INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'CHNG_ADDR', 'CHNG_ADDR', 'ACCT_CHNG_ADDR', 'Please sign change address document.', '1000', 'DC');
+
+
+
+ALTER TABLE `invdb`.`dc_advisor_details`
+ADD COLUMN `templateId` VARCHAR(100) NULL AFTER `firmName`;
+
+update dc_advisor_details set templateId=primaryContact;
+
+UPDATE `invdb`.`dc_advisor_details` SET `primaryContact`='N/A' WHERE `id`='1';
+UPDATE `invdb`.`dc_advisor_details` SET `primaryContact`='N/A' WHERE `id`='2';
+UPDATE `invdb`.`dc_advisor_details` SET `primaryContact`='N/A' WHERE `id`='3';
+UPDATE `invdb`.`dc_advisor_details` SET `primaryContact`='N/A' WHERE `id`='4';
+
+
+-- desc adv_request_document_mappings;
+-- select * from adv_request_document_mappings where templateId <5;
+set sql_safe_updates=0;
+delete from adv_request_document_mappings where templateId >4;
+
+update adv_request_document_mappings set templateId='BB' where templateId='1';
+update adv_request_document_mappings set templateId='Direct' where templateId='2';
+update adv_request_document_mappings set templateId='External' where templateId='3';
+update adv_request_document_mappings set templateId='Advisor Direct' where templateId='4';

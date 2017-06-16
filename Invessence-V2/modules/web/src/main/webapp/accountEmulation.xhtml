@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/simple.xhtml">
+
+    <ui:define name="content">
+        <div class="layout-portlets-box">
+            <!-- Messages/Alerts -->
+            <div class="Container100 Responsive50">
+                <div class="ContainerIndent PaddingTopBottomNone">
+                    <div class="Container100">
+                        <div class="DispInlBlock MarTop20">
+                            <div class="Container20"><i class="fa fa-user Fs40 red Fleft MarRight10"></i></div>
+                            <div class="Container80">
+                                <div class="Fright">
+                                    <h2 class="black Fs18 FontThemeMedium AdvUserName">#{webutil.lastFirstName}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Seperator Container100"></div>
+
+                </div>
+            </div>
+
+            <div class="Container100 Responsive50">
+
+                <h:form id="emulationForm" prependId="false" styleClass="formPage">
+
+                <h2>
+                    <h:outputText value="Emulation Process" styleClass="Wid90"/>
+                </h2>
+
+                <div class="EmptyBox30"></div>
+
+
+                <p:inputText  id="e1"  label="Account Number"
+                              value="#{acctEmulBean.accountNumber}"
+                              styleClass="Wid40">
+                    <p:watermark for="e1" value="Account Number"/>
+                </p:inputText>
+                <div class="EmptyBox10"></div>
+                <p:inputNumber  id="e2" label="Investment Amount"
+                                value="#{acctEmulBean.amount}"
+                                symbol="$"
+                                styleClass="Wid40" style="width: 40%;">
+                    <p:watermark for="e2" value="Investment Amount"/>
+                </p:inputNumber>
+                <div class="EmptyBox10"></div>
+
+                <p:commandButton value="Fund" ajax="true" styleClass="" actionListener="#{acctEmulBean.emulateFundAccount}"
+                />
+                <p:commandButton value="Trade" ajax="true" styleClass="" actionListener="#{acctEmulBean.emulateTrade}"  style="margin-left: 10px;"
+                />
+
+                    <p:commandButton value="Create" ajax="true" styleClass="add_account_button" icon="ui-icon-plus"
+                                     actionListener="#{acctEmulBean.emulateCreateAccount}" style="margin-left: 20px;"
+                            />
+                <div class="EmptyBox20"></div>
+
+                </h:form>
+            </div>
+
+            <!-- Visitors/Stat -->
+
+        </div>
+        <!-- BOX END -->
+
+        <!-- BOX START -->
+
+        <!-- BOX END -->
+
+    </ui:define>
+
+</ui:composition>

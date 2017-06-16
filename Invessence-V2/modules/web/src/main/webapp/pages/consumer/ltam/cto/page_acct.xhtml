@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container80">
+        <div class="ContainerIndent">
+            <div class="Container100">
+                <div class="Container50">
+                    <h3>
+                        <h:outputText style="padding-right: 3px" value="Taxable "/>
+                        <p:selectBooleanButton value="#{ctobean.taxable}" onLabel="Yes" offLabel="No">
+                            <p:ajax update=":ctoForm:accttype"/>
+                        </p:selectBooleanButton>
+                    </h3>
+
+                </div>
+                <div class="Container50">
+                    <h3>
+                        <p:panelGrid id="accttype" columns="2" layout="grid" styleClass="Container100 Responsive50"
+                                     style="border:0px !important; background:none;" class="FormContent">
+
+                            <h:outputText styleClass="Wid50" value="Investment Type "/>
+                            <p:selectOneMenu rendered="#{ctobean.taxable}"
+                                             value="#{ctobean.accounttype}"
+                                             required="true" requiredMessage="Select one investment type.">
+                                <f:selectItem itemLabel="Choose" itemValue=""/>
+                                <f:selectItem itemLabel="IRA" itemValue="IRA"/>
+                                <f:selectItem itemLabel="SEP" itemValue="SEP"/>
+                                <f:selectItem itemLabel="ROTH" itemValue="ROTH"/>
+                            </p:selectOneMenu>
+                            <p:selectOneMenu rendered="#{! ctobean.taxable}"
+                                             value="#{ctobean.accounttype}"
+                                             required="true" requiredMessage="Select one investment type.">
+                                <f:selectItem itemLabel="Choose" itemValue=""/>
+                                <f:selectItem itemLabel="Individual" itemValue="Individual"/>
+                                <f:selectItem itemLabel="Joint" itemValue="Joint"/>
+                                <f:selectItem itemLabel="Trust" itemValue="Trust"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </h3>
+
+                </div>
+
+            </div>
+            <div class="EmptyBox10"></div>
+            <div class="Container100 MarTop5">
+                <div class="Container100 MarTop10">
+                    <h4>Account Holder</h4>
+                </div>
+            </div>
+            <div class="Container100 MarTop5">
+                <div class="Container50 Responsive50">
+                    <div class="Container30">
+                        <p:selectOneMenu style="width: 60px">
+                            <f:selectItem itemLabel="Choose" itemValue=""/>
+                            <f:selectItem itemLabel="Dr." itemValue="Dr"/>
+                            <f:selectItem itemLabel="Mr." itemValue="Mr"/>
+                            <f:selectItem itemLabel="Mrs." itemValue="Mrs"/>
+                            <f:selectItem itemLabel="Miss" itemValue="Miss"/>
+                        </p:selectOneMenu>
+                    </div>
+                    <div class="Container60 Fright">
+                        <p:inputText styleClass="Wid90" placeholder="First Name">
+                        </p:inputText>
+                    </div>
+                </div>
+                <div class="Container50">
+                    <p:inputText styleClass="Wid90" placeholder="Last Name">
+                    </p:inputText>
+                </div>
+            </div>
+            <div class="Container100 MarTop5">
+                <div class="Container50 Responsive50">
+                    <p:inputText styleClass="Wid90" placeholder="Primary Phone#">
+                    </p:inputText>
+                </div>
+                <div class="Container50 Responsive50">
+                    <p:inputText styleClass="Wid90" placeholder="Secondary Phone#">
+                    </p:inputText>
+                </div>
+            </div>
+            <div class="Container100 MarTop5">
+                <div class="Container50 Responsive50">
+                    <p:inputText styleClass="Wid90" placeholder="Primary Email">
+                    </p:inputText>
+                </div>
+                <div class="Container50 Responsive50">
+                    <p:inputText styleClass="Wid90" placeholder="Secondary Email">
+                    </p:inputText>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ui:composition>

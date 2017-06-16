@@ -1,0 +1,219 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/template.xhtml">
+
+<f:metadata>
+    <f:event type="preRenderView" listener="#{adashbean.preRenderView}"/>
+</f:metadata>
+<ui:define name="content">
+    <div class="layout-portlets-box">
+        <!-- Messages/Alerts -->
+        <div class="Container50 Responsive50">
+            <div class="ContainerIndent PaddingTopBottomNone">
+                <div class="Container100">
+                    <div class="DispInlBlock MarTop20">
+                        <div class="Container20"><i class="fa fa-user Fs40 red Fleft MarRight10"></i></div>
+                        <div class="Container80">
+                            <div class="Fright">
+                                <h2 class="black Fs18 FontThemeMedium AdvUserName">#{webutil.lastFirstName}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Seperator Container100"></div>
+                <div class="Container100">
+                    <a id="advmsgntf" href="/pages/advisor/advisornotification.xhtml?Type=M">
+                        <div class="Container50">
+                            <div class="Wid90 BorderedBox TexAlCenter HoverEffect MarAuto">
+                                <div class="ContainerIndent">
+                                    <i class="fa fa-bell Fs20 animated swing infinite gray"></i>
+                                    <span class="Fs14 DispBlock gray FontThemeLight">Messages</span>
+                                    <span id="advmsgcntntf" class="Fs30 DispBlock red">#{adashbean.getMessage("AdvisorMessage")}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <div style="display:none">
+                        <a id="advtskntf" href="/pages/common/notification.xhtml?Type=T">
+                            <div class="Container50">
+                                <div class="Wid90 BorderedBox TexAlCenter HoverEffect MarAuto">
+                                    <div class="ContainerIndent">
+                                        <i class="fa fa-briefcase gray Fs20"></i>
+                                        <span class="Fs14 DispBlock gray FontThemeLight">Tasks</span>
+                                        <span id="advtskcntntf" class="Fs30 DispBlock red">#{adashbean.getMessage("Task")}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visitors/Stat -->
+        <div class="Container50 Responsive50">
+            <div class="ContainerIndent PaddingTopBottomNone">
+                <div class="Container100">
+                    <div class="DispInlBlock TexAlLeft MarTop20">
+                        <div class="Container25"><i class="fa fa-line-chart Fs40 orange Fleft MarRight10"></i></div>
+                        <div class="Container75">
+                            <div class="Fright">
+                                <h2 class="black Fs18 FontThemeMedium AdvVisitorStat">Visitors Stats</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Seperator Container100"></div>
+                <div class="Container100">
+                    <a id="advactive" href="/pages/advisor/activeAdv.xhtml?action=A">
+                        <div class="Container50">
+                            <div class="Wid90 BorderedBox MarAuto TexAlCenter HoverEffect">
+                                <div class="ContainerIndent">
+                                    <div class="Fs15 gray FontThemeRegular">Active</div>
+                                    <div class="EmptyBox10"></div>
+                                    <div class="Fs30 blue FontThemeLight">
+                                        <h:outputText id="advactivecnt" value="#{adashbean.salesInfo.get('Active')}">
+                                            <f:convertNumber pattern="#,###,##0"/>
+                                        </h:outputText>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a id="advaum" href="/pages/advisor/activeAdv.xhtml?action=AA">
+                        <div class="Container50">
+                            <div class="Wid90 BorderedBox MarAuto TexAlCenter HoverEffect">
+                                <div class="ContainerIndent">
+                                    <div class="Fs15 gray FontThemeRegular">AUM</div>
+                                    <div class="EmptyBox10"></div>
+                                    <div class="Fs30 blue FontThemeLight">
+                                        <h:outputText id="advaumcnt" value="#{adashbean.salesInfo.get('AUM')}">
+                                            <f:convertNumber pattern="$#,###,##0"/>
+                                        </h:outputText>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="EmptyBox10"></div>
+                <div class="Container100">
+                    <a id="advpending" href="/pages/advisor/pendingAdv.xhtml?action=P">
+                        <div class="Container50">
+                            <div class="Wid90 BorderedBox TexAlCenter HoverEffect MarAuto">
+                                <div class="ContainerIndent">
+                                    <div class="Fs15 gray FontThemeRegular">Pending Accounts</div>
+                                    <div class="EmptyBox10"></div>
+                                    <div class="Fs30 red FontThemeLight">
+                                        <h:outputText id="advpendingcnt" value="#{adashbean.salesInfo.get('Pending')}">
+                                            <f:convertNumber pattern="#,###,##0"/>
+                                        </h:outputText>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a id="advvisitor" href="/pages/advisor/pendingAdv.xhtml?action=VA">
+                    <div class="Container50">
+                        <div class="Wid90 BorderedBox MarAuto TexAlCenter HoverEffect">
+                            <div class="ContainerIndent">
+                                <div class="Fs15 gray FontThemeRegular">Visitors (Today)</div>
+                                <div class="EmptyBox10"></div>
+                                <div class="Fs30 orange FontThemeLight">
+                                    <h:outputText id="advvisitorcnt" value="#{adashbean.salesInfo.get('VisitorToday')}">
+                                        <f:convertNumber pattern="#,###,##0"/>
+                                    </h:outputText>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- BOX END -->
+
+    <!-- BOX START -->
+    <p:outputPanel style="border: 0px; background: transparent" rendered="false">
+
+        <div class="layout-portlets-box">
+            <div class="Container100 Responsive100">
+
+                <div class="DispInlBlock TexAlLeft MarTop20">
+                    <div class="Container25"><i class="fa fa-ioxhost Fs40 orange Fleft MarRight10"></i></div>
+
+                    <div class="Container75">
+                        <div class="Fright">
+                            <h2 class="black Fs18 FontThemeMedium AdvVisitorStat">Stock Exchanges</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Seperator Container100"></div>
+            <div class="Container100 Responsive100">
+                <div class="ContainerIndent PaddingTopBottomNone">
+                    <div class="Container20 Responsive50 MarginBottomStats">
+                        <div class="BorderedBox TexAlCenter MarginLeftRight">
+                            <div class="ContainerIndent">
+                                <span class="gray Fs18 FontThemeRegular DispBlock">SPY</span>
+
+                                <div class="EmptyBox10"></div>
+                                <span class="green FontThemeLight Fs18">#{adashbean.securityInfo.get('SPY')}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Container20 Responsive50 MarginBottomStats">
+                        <div class="BorderedBox TexAlCenter MarginLeftRight">
+                            <div class="ContainerIndent">
+                                <span class="gray Fs18 FontThemeRegular DispBlock">VEA</span>
+
+                                <div class="EmptyBox10"></div>
+                                <span class="red FontThemeLight Fs18">#{adashbean.securityInfo.get('VEA')}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Container20 Responsive50 MarginBottomStats">
+                        <div class="BorderedBox TexAlCenter MarginLeftRight">
+                            <div class="ContainerIndent">
+                                <span class="gray Fs18 FontThemeRegular DispBlock">IEF</span>
+
+                                <div class="EmptyBox10"></div>
+                                <span class="orange FontThemeLight Fs18">#{adashbean.securityInfo.get('IEF')} </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Container20 Responsive50 MarginBottomStats">
+                        <div class="BorderedBox TexAlCenter MarginLeftRight">
+                            <div class="ContainerIndent">
+                                <span class="gray Fs18 FontThemeRegular DispBlock">IAU</span>
+
+                                <div class="EmptyBox10"></div>
+                                <span class="green FontThemeLight Fs18">#{adashbean.securityInfo.get('IAU')} </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Container20 Responsive50 MarginBottomStats">
+                        <div class="BorderedBox TexAlCenter MarginLeftRight">
+                            <div class="ContainerIndent">
+                                <span class="gray Fs18 FontThemeRegular DispBlock">BIL</span>
+
+                                <div class="EmptyBox10"></div>
+                                <span class="red FontThemeLight Fs18">#{adashbean.securityInfo.get('BIL')} </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </p:outputPanel>
+    <!-- BOX END -->
+
+</ui:define>
+
+</ui:composition>

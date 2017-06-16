@@ -1,0 +1,845 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <p:tabView id="fundTabV" activeIndex="#{tdcto.subtab}">
+        <p:ajax event="tabChange" listener="#{tdcto.onSubTabChange}" update=":ctoForm:tdaccordian:fundTabV"
+                immediate="true" />
+        <p:tab title="Fund" id="tab6S0">
+            <!--<p:panel id="fundPanel" style="border: 0px; background: transparent">-->
+
+            <p:panel rendered="#{tdcto.getErrorMessage(9) != null }"
+                     style="border: 0px; background: transparent"
+                     styleClass="Container100 MarAuto ">
+                <h:outputText id="tdp9Msg" styleClass="errorText"
+                              value="#{tdcto.getErrorMessage(9)}" escape="false"/>
+            </p:panel>
+            <!--</p:panel>-->
+            <p:panel id="funddetailsPanel" style="border: 0px; background: transparent" >
+
+                <div class="Container100">
+                    <p:panel id="fundPanel2" style="border: 0px; background: transparent"
+                             rendered="#{!tdcto.tdMasterData.fundNow}">
+                        <div class="Container80 Responsive100 MarCenter ui-color"
+                             style="margin-bottom: 15px; border: 0px; background: transparent">
+
+                            <p:selectOneRadio id="fundRadio"
+                                              value="#{tdcto.tdMasterData.fundType}" layout="custom"
+                                              required="false"
+                                              requiredMessage="Must select one of these fund method!">
+                                <p:ajax event="change" update=":ctoForm:tdaccordian:fundTabV" process="@this" listener="${tdcto.tdMasterData.resetFundTypeData}"/>
+                                <f:selectItem itemLabel="Later" itemValue="0"/>
+                                <f:selectItem itemLabel="ACH" itemValue="PMACH"/>
+                                <f:selectItem itemLabel="ACAT" itemValue="PMFEDW"/>
+                                <f:selectItem itemLabel="Wire" itemValue="3"/>
+                                <f:selectItem itemLabel="TD Ameritrade Transfer" itemValue="TDTRF"/>
+                            </p:selectOneRadio>
+
+                            <div class="EmptyBox20"></div>
+                            <div class="Container45 CustomWidthAccountypePanel Fleft ">
+                                <p:panel styleClass="Wid90 Fleft MarCenter tcmPanel-UI">
+                                    <div class="Container100">
+                                        <div class="Container60">
+                                            <h4>ACH</h4>
+                                        </div>
+                                        <div class="Container40 textAlign topAdjustCustomFunding">
+                                            <p:radioButton id="fundopt1" for="fundRadio" itemIndex="1"
+                                                           styleClass="textAlign"/>
+                                        </div>
+                                    </div>
+                                    <div class="Container90">
+                                        <div class="EmptyBox5"></div>
+                                        <h6 class="FontNormal">(Bank Transfer)</h6>
+                                    </div>
+                                </p:panel>
+                            </div>
+
+                            <div class="Container45 CustomWidthAccountypePanel Fright Marleft">
+                                <p:panel styleClass="Wid90 MarCenter tcmPanel-UI">
+                                    <div class="Container100">
+                                        <div class="Container60">
+                                            <h4>ACAT</h4>
+                                        </div>
+                                        <div class="Container40 textAlign topAdjustCustomFunding">
+                                            <p:radioButton id="fundopt2" for="fundRadio" itemIndex="2"
+                                                           styleClass="textAlign"/>
+                                        </div>
+                                    </div>
+                                    <div class="Container90">
+                                        <div class="EmptyBox5"></div>
+                                        <h6 class="FontNormal">(Account Transfer)</h6>
+                                    </div>
+                                </p:panel>
+                            </div>
+
+                            <div class="EmptyBox10"></div>
+                           <div class="Container45 CustomWidthAccountypePanel Fleft" style="display: none">
+                                <p:panel styleClass="Wid90 MarCenter tcmPanel-UI">
+                                    <div class="Container100">
+                                        <div class="Container60">
+                                            <h4>Wire Transfer</h4>
+                                        </div>
+                                        <div class="Container40 textAlign topAdjustCustomFunding">
+                                            <p:radioButton id="fundopt3" for="fundRadio" itemIndex="3"
+                                                           styleClass="textAlign"/>
+                                        </div>
+
+                                    </div>
+                                    <div class="Container90">
+                                         <div class="EmptyBox5"></div>
+                                         <h6 class="FontNormal">(Description)</h6>
+                                    </div>
+                                </p:panel>
+                            </div>
+                            <div class="Container45 CustomWidthAccountypePanel Fright Marleft">
+                                <p:panel styleClass="Wid90 MarCenter tcmPanel-UI">
+                                    <div class="Container100">
+                                        <div class="Container60">
+                                            <h4>TD Ameritrade Transfer</h4>
+                                        </div>
+                                        <div class="Container40 textAlign">
+                                            <p:radioButton id="fundopt4" for="fundRadio" itemIndex="4"
+                                                           styleClass="textAlign"/>
+                                        </div>
+                                    </div>
+                                    <div class="Container90">
+                                        <div class="EmptyBox5"></div>
+                                        <h6 class="FontNormal">(Transfer in an account already at TD Ameritrade (either Retail or Advisor managed))</h6>
+                                    </div>
+                                </p:panel>
+                            </div>
+                            <div class="EmptyBox20"></div>
+
+                            <div class="Container100">
+                                <!--<div class="Container45 Fleft CustomWidthFA-Responsive" >-->
+                                <p:panel styleClass="Container45 Fleft CustomWidthFA-Responsive"
+                                         style="border: 0px; background: transparent; "
+                                         rendered="#{tdcto.tdMasterData.fundType == 'PMACH'}">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Investment Amount  *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputNumber id="tdfundAmt"
+                                            styleClass="Wid100 invInputText input_investwid1 amountBRmobileSupport fundingRecurring"
+                                            style="text-align: left;"
+                                            value="#{tdcto.tdMasterData.initialInvestment}" maxlength="11"
+                                            symbol="$" placeholder="$" decimalPlaces="2" required="false"
+                                            requiredMessage="Min. of $50,000 investment is required!"
+                                            validatorMessage="Min. of $50,000 investment is required!">
+                                    </p:inputNumber>
+                                </p:panel>
+                                <!--</div>-->
+                                <div class="Container45 Fleft CustomWidthFA2 MarTop5" style="display: none">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Recurring Funding  *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <div class="CustomWidthFA-Responsive" style="margin-top: 5px; font-size: 18px;">
+                                        <p:selectBooleanCheckbox id="tdrecurringFlag"
+                                                itemLabel="I would like to make recurring investments.">
+                                            <p:ajax update=":ctoForm:tdaccordian:fundTabV" process="@this"/>
+                                        </p:selectBooleanCheckbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ACH -->
+                        <p:panel id="achPanel" styleClass="Container80 Responsive100 Fnone"
+                                 style="border: 0px; background: transparent; margin: 0 auto!important;"
+                                 rendered="#{tdcto.tdMasterData.fundType == 'PMACH'}">
+                            <div class="EmptyBox20"></div>
+                            <div class="Container100">
+                                <!-- <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Bank Name  *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.achBankDetail.bankName}"
+                                                 placeholder="Bank Name">
+                                    </p:inputText>
+                                </div> -->
+                                <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Account Type *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:selectOneMenu id="tdachtype" styleClass="formpageDropdown FundAccountDropdownUI"
+                                                     value="#{tdcto.tdMasterData.achBankDetail.bankAcctType}"
+                                                     style="width: 100%;">
+                                        <p:ajax event="change" update="@this" process="@this"/>
+                                        <f:selectItem itemLabel="Select Account Type" itemValue=""
+                                                      noSelectionOption="true"/>
+                                        <f:selectItem itemLabel="Checking" itemValue="CHECK"/>
+                                        <f:selectItem itemLabel="Savings" itemValue="SAVI"/>
+
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="EmptyBox20"></div>
+                            <div class="Container100">
+                                <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Bank Name  *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText id="tdachbname" styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.achBankDetail.bankName}"
+                                                 maxlength="90"
+                                                 placeholder="Bank Name">
+                                    </p:inputText>
+                                </div>
+                                <div class="Container45 Fright CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Name on Bank Account  *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText id="tdachbacctname" styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.achBankDetail.bankAcctName}"
+                                                 maxlength="90"
+                                                 placeholder="Name on Bank Account">
+                                    </p:inputText>
+                                </div>
+                            </div>
+                            <div class="EmptyBox20"></div>
+                            <div class="Container100">
+                                <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Bank City/State  *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText id="tdachbacctlocation" styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.achBankDetail.bankCityState}"
+                                                 maxlength="30"
+                                                 placeholder="Bank City/State">
+                                    </p:inputText>
+                                </div>
+                                <div class="Container45 Fright CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Bank Phone Number *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputMask id="tdachbacctphone" styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.achBankDetail.bankPhoneNumber}"
+                                                 maxlength="15"
+                                                 mask="(999) 999-9999"
+                                                 placeholder="Bank Phone Number">
+                                    </p:inputMask>
+                                </div>
+                            </div>
+                            <div class="EmptyBox20"></div>
+                            <div class="Container100" style="">
+                                <img src="/images/check_image.gif" class="ResCheckSize"/>
+                            </div>
+                            <div class="EmptyBox20"></div>
+                            <div class="Container100">
+                                <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">ABA
+                                        Routing Number *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText id="tdachbacctaba" styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.achBankDetail.bankABARouting}"
+                                                 maxlength="40"
+                                                 placeholder="ABA Routing Number">
+                                    </p:inputText>
+                                </div>
+                                <div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Bank Account Number *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText id="tdachbacctnum" styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.achBankDetail.bankAcctNumber}"
+                                                 maxlength="90"
+                                                 placeholder="Bank Account Number">
+                                    </p:inputText>
+                                </div>
+                            </div>
+
+                        </p:panel>
+
+                        <!-- ACAT -->
+                        <p:panel id="acatPanel" styleClass="Container80 Responsive100 FundCenterAlignBlock"
+                                 style="border: 0px; background: transparent"
+                                 rendered="#{tdcto.tdMasterData.fundType == 'PMFEDW'}">
+                            <!-- 2 -->
+                            <div class="EmptyBox20"></div>
+                            <div class="Container100 FundTitle">Information on the account your transferring from</div>
+                            <div class="EmptyBox10"></div>
+                            <div class="Container100">
+                                <div class="Container32 Fleft CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Account Title / Registration *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText id="tdacattitle" styleClass="Wid85 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.acatDetails.fromAccountTitle}"
+                                                 maxlength="100"
+                                                 placeholder="Account Title / Registration">
+                                    </p:inputText>
+                                </div>
+                                <div class="Container32 CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">Account Number *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText id="tdacatacctnum" styleClass="Wid85 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.acatDetails.accountNumber2}"
+                                                 maxlength="90"
+                                                 placeholder="Account Number">
+                                    </p:inputText>
+                                </div>
+                                <div class="Container32 CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">Account Type *</label>
+                                    <div class="EmptyBox5"></div>
+                                    <p:selectOneMenu id="tdacataccttype" styleClass="formpageDropdown FundAccountDropdownUI"
+                                                     value="#{tdcto.tdMasterData.acatDetails.fromOtherAccountType}"
+                                                     style="width: 100%;">
+                                        <p:ajax event="change" update="@this" process="@this" />
+                                        <f:selectItem itemLabel="Select Account Type" itemValue=""
+                                                      noSelectionOption="true"/>
+                                        <f:selectItem itemLabel="Individual" itemValue="ACINDIV"/>
+                                        <f:selectItem itemLabel="Joint" itemValue="ACJOINT"/>
+                                        <f:selectItem itemLabel="Roth IRA"  itemValue="IRAROTH"/>
+                                        <f:selectItem itemLabel="Traditional IRA" itemValue="IRATRAD" />
+                                        <f:selectItem itemLabel="Rollover IRA" itemValue="IRAROOV"/>
+                                    </p:selectOneMenu>
+                                    <div class="EmptyBox5"></div>
+
+                            <!--<p:panel id="acatOtherPanel" styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                     style="border: 0px; background: transparent">
+                                    <p:inputText id="FundOthrID"
+                                                 rendered="#{tdcto.tdMasterData.acatDetails.contraFirmList == 'OTH'}"
+                                                 styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.acatDetails.otherContraFirmList}"
+                                                 maxlength="90"
+                                                 placeholder="Other Delivery Firm">
+                                    </p:inputText>
+                                    </p:panel>-->
+                                </div>
+                            </div>
+                            <div class="EmptyBox10"></div>
+
+                                    <div class="Container100">
+                                        <div class="Container100 CustomWidthFA-Responsive" >
+                                            <label Class="Container100" for="event"
+                                                   style="text-align: left !important; font-weight: bold !important;">Name of Delivering Firm *</label>
+
+                                            <div class="EmptyBox5"></div>
+                                            <p:autoComplete id="event" value="#{tdcto.tdMasterData.acatDetails.contraFirmList}"
+                                                     forceSelection="false" placeholder="Name of Delivering Firm"       styleClass="Wid60 FS14 CustomWidthFA-Responsive autoComplteteField"
+                                                          completeMethod="#{tdcto.tdMasterData.lookUpfirm}" minQueryLength="3" >
+                                                <p:ajax event="itemSelect" update=":ctoForm:tdaccordian:fundTabV:acatOtherPanel"   process="@this"
+                                                      listener="${tdcto.tdMasterData.resetContraFirmList}" />
+                                                <p:ajax event="change" update=":ctoForm:tdaccordian:fundTabV:acatOtherPanel"   process="@this"
+                                                        listener="${tdcto.tdMasterData.resetContraFirmList}" />
+                                            </p:autoComplete>
+
+                                        </div>
+                                        <div class="EmptyBox10"></div>
+                                        <p:panel id="acatOtherPanel" styleClass="Container100 CustomWidthFA-Responsive"
+                                                 style="border: 0px; background: transparent"  >
+
+                                        <div class="Container32 CustomWidthFA-Responsive" >
+                                            <label Class="Container100"
+                                                   style="text-align: left !important; font-weight: bold !important;">Physical Address of Firm</label>
+
+                                            <div class="EmptyBox5"></div>
+                                            <p:inputText id="tdacatacctfirm" styleClass="Wid85 FS14 CustomWidthFA-Responsive"
+                                                         value="#{tdcto.tdMasterData.acatDetails.fromFirmAddress}"
+                                                         maxlength="90"
+                                                         placeholder="Physical Address of Firm">
+                                            </p:inputText>
+                                        </div>
+                                        <div class="Container32 CustomWidthFA-Responsive" >
+                                            <label Class="Container100"
+                                                   style="text-align: left !important; font-weight: bold !important;">Phone Number</label>
+
+                                            <div class="EmptyBox5"></div>
+                                            <p:inputMask id="tdacatacctfirmphone" styleClass="Wid85 FS14 CustomWidthFA-Responsive"
+                                                         value="#{tdcto.tdMasterData.acatDetails.fromFirmPhoneNumber}"
+                                                         maxlength="15"
+                                                         mask="(999) 999-9999" placeholder="Phone Number">
+                                            </p:inputMask>
+                                        </div>
+                                        </p:panel>
+
+                                    </div>
+                            <!-- 3 -->
+                            <div class="EmptyBox20"></div>
+                            <div class="Container100 FundTitle">List assets you want to transfer</div>
+                            <div class="EmptyBox10"></div>
+                            <div class="Container100">
+                                <div class="Container32 CustomWidthFA2">
+                                    <div class="Container100 Fleft">
+                                        <div style="margin-top: 15px;">
+                                            <p:selectOneRadio id="tdacatacctassetflag"
+                                                              value="#{tdcto.tdMasterData.acatDetails.transferTypeId}">
+                                                <f:selectItem itemLabel="Full Transfer" itemValue="FULL"/>
+                                                <f:selectItem itemLabel="Partial Transfer" itemValue="PARTIAL"/>
+                                            </p:selectOneRadio>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </p:panel>
+                        <div class="EmptyBox20"></div>
+
+
+                        <!-- TD Transer -->
+                        <p:panel id="tdtrfPanel" styleClass="Container80 Responsive100 Fnone"
+                                 style="border: 0px; background: transparent; margin: 0 auto!important;"
+                                 rendered="#{tdcto.tdMasterData.fundType == 'TDTRF'}">
+                            <div class="EmptyBox20"></div>
+                            <div class="Container100">
+                                <div class="Container45 Fleft CustomWidthFA-Responsive longLabelResponsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Is this a Retail or Advisor managed account ? </label>
+
+                                    <p:selectOneMenu id="tdtdretailflag" styleClass="formpageDropdown FundAccountDropdownUI"
+                                                     value="#{tdcto.tdMasterData.tdTransferDetails.retilFlag}"
+                                                     style="width: 100%;">
+                                        <p:ajax event="change" update=":ctoForm:tdaccordian:fundTabV" process="@this"  listener="${tdcto.tdMasterData.resetRetailFlag}"/>
+                                        <f:selectItem itemLabel="Select Type" itemValue=""
+                                                      noSelectionOption="true"/>
+                                        <f:selectItem itemLabel="Retail" itemValue="N"/>
+                                        <f:selectItem itemLabel="Advisor managed" itemValue="Y"/>
+
+                                    </p:selectOneMenu>
+                                </div>
+                                <!--<div class="Container100 Fleft CustomWidthFA-Responsive">
+                                    <p:selectBooleanCheckbox
+                                            styleClass="RegulatoryCheckBox"
+                                            value="#{tdcto.tdMasterData.tdTransferDetails.removeAdvisor}"
+                                            itemLabel="Is this a Retail or Advisor managed account?">
+                                        <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
+
+                                    </p:selectBooleanCheckbox>
+                                </div>-->
+                            </div>
+                            <div class="EmptyBox20"></div>
+                            <p:panel id="tdtrfDetails1" styleClass="Container100 Responsive100 Fnone"
+                                     style="border: 0px; background: transparent; margin: 0 auto!important;"
+                                     rendered="#{tdcto.tdMasterData.tdTransferDetails.retilFlag=='Y'}">
+                            <div class="Container100">
+                                <div class="Container45 Fleft MarAuto CustomWidthFA2">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Existing Advisory Firm Name  *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText id="tdtdrfirm"  styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.tdTransferDetails.priorFirmName}"
+                                                 maxlength="90"
+                                                 placeholder="Existing Advisory Firm Name">
+                                    </p:inputText>
+                                </div>
+                                <div class="Container45 Fright CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Firm Account Number *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText id="tdtdracctno"  styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.tdTransferDetails.firmAccountNo}"
+                                                 maxlength="45"
+                                                 placeholder="Firm Account Number">
+                                    </p:inputText>
+                                </div>
+                            </div>
+                                </p:panel>
+                            <p:panel id="tdtrfDetails2" styleClass="Container100 Responsive100 Fnone"
+                                     style="border: 0px; background: transparent; margin: 0 auto!important;"
+                                     rendered="#{tdcto.tdMasterData.tdTransferDetails.retilFlag=='N'}">
+
+                            <div class="Container100">
+                                <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                    <label Class="Container100 longLabelResponsive"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        TD Ameritrade Retail Brokerage Account Number *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText id="tdtdbacctno" styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.tdTransferDetails.retailAccountNumber}"
+                                                 maxlength="15"
+                                                 placeholder="TD Ameritrade Retail Brokerage Account Number">
+                                    </p:inputText>
+                                </div>
+                                <div class="Container45 Fright CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Advisor ID *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText id="tdtdbadvid" styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.tdTransferDetails.advisorID}"
+                                                 maxlength="15"
+                                                 placeholder="Advisor ID">
+                                    </p:inputText>
+                                </div>
+                            </div>
+                                </p:panel>
+                            <div class="EmptyBox20"></div>
+                        </p:panel>
+
+
+                        <!-- Wire transfer -->
+                        <p:panel id="wirePanel" styleClass="Container80 Fnone"
+                                 style="border: 0px; background: transparent; margin: 0 auto!important;"
+                                 rendered="#{tdcto.tdMasterData.fundType == '3'}">
+                            <div class="EmptyBox20"></div>
+                            <div class="Container100 FundTitle">Domestic Wire Information</div>
+
+                            <div class="EmptyBox10"></div>
+                            <div class="Container100">
+                                <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Receiving Bank Name *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.fedwireAcctDetail.wireBankName}"
+                                                 maxlength="90"
+                                                 placeholder="Receiving Bank Name">
+                                    </p:inputText>
+                                </div>
+                                <div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Name on Receiving Bank Account *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                                 maxlength="90"
+                                                 placeholder="Name on Receiving Bank Account">
+                                    </p:inputText>
+                                </div>
+                            </div>
+                            <div class="EmptyBox20"></div>
+                            <div class="Container100">
+                                <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        ABA Routing Number *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                                 maxlength="40"
+                                                 placeholder="ABA Routing Number">
+                                    </p:inputText>
+                                </div>
+                                <div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Receiving Bank Account Number *</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                                 maxlength="90"
+                                                 placeholder="Bank Account Number">
+                                    </p:inputText>
+                                </div>
+                            </div>
+                        </p:panel>
+
+                    </p:panel>
+                    <div class="Container80 Fnone CustomWidthFA2">
+                        <p:selectBooleanCheckbox
+                                id="actfundingoptout"
+                                styleClass="RegulatoryCheckBox"
+                                value="#{tdcto.tdMasterData.fundNow}"
+                                itemLabel="I choose to opt-out of funding my account at the moment. (Please note that if your account is not funded within 30 days it will be closed.)">
+                            <p:ajax update=":ctoForm:tdaccordian:fundTabV,:ctoForm:submitBtnId" process="@this" listener="${tdcto.tdMasterData.resetFundNowData}"/>
+
+                        </p:selectBooleanCheckbox>
+                    </div>
+                    <div class="EmptyBox20"></div>
+                </div>
+                <div class="Container80 MarTop20" style="margin: 0 auto!important; float: none!important;">
+                    <p:commandLink id="tdp9prev" styleClass="UI-prevButtonFA Fleft"
+                                   actionListener="#{tdcto.prevPage}"
+                                   update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this"/>
+
+                        <p:commandLink id="tdp9next" styleClass="UI-nextButtonFA Fright UI-tcmButton" rendered="#{!tdcto.tdMasterData.fundNow}"
+                                   style="background-position-x: 50px!important;"
+                                   actionListener="#{tdcto.nextPage}"
+                                   update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
+                                   process=":ctoForm:tdaccordian:fundTabV"/>
+
+                    <div class="saveNopenBtn" style="text-align: right;">
+                        <p:commandButton id="tdp9save" value="Save" rendered="#{tdcto.tdMasterData.fundNow}"
+                                         update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
+                                         actionListener="#{tdcto.nextPage}"
+                                         process=":ctoForm:tdaccordian:fundTabV">
+
+                        </p:commandButton>
+
+                    </div>
+
+
+                </div>
+
+            </p:panel>
+        </p:tab>
+
+        <p:tab  id="tab6S1" title="Recurring" rendered="#{!tdcto.tdMasterData.fundNow}">
+            <p:panel rendered="#{tdcto.getErrorMessage(10) != null}"
+                     style="border: 0px; background: transparent"
+                     styleClass="Container100">
+                <h:outputText id="tdp10Msg" styleClass="errorText"
+                              value="#{tdcto.getErrorMessage(10)}" escape="false"/>
+            </p:panel>
+            <p:panel id="recurrringPanel" styleClass="Container100"
+                     style="border: 0px; background: transparent" >
+                <div class="Container80 Responsive100 MarTop5 MarCenter ui-color"
+                     style="margin-bottom: 15px; border: 0px; background: transparent">
+
+
+
+                    <p:panel style="border: 0px; background: transparent"
+                             rendered="#{!tdcto.tdMasterData.recurringFlag}">
+
+                        <!-- Rerurring -->
+                        <div class="Container100 CustomWidthFA2 MarTop5">
+                            <p:selectBooleanCheckbox id="tdrachInstrflag" styleClass="RegulatoryCheckBox" value="#{tdcto.tdMasterData.copyAchInstructions}"
+                                                     itemLabel="Please use the existing account details"
+                                                     rendered="#{tdcto.tdMasterData.hasachinstruction}" >
+                                <p:ajax update=":ctoForm:tdaccordian:fundTabV:recurrringPanel" listener="#{tdcto.tdMasterData.existingAccount}"/>
+
+                            </p:selectBooleanCheckbox>
+                        </div>
+                        <div class="EmptyBox20"></div>
+                        <div class="Container100">
+                            <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                <label Class="Container100"
+                                       style="text-align: left !important; font-weight: bold !important;">
+                                    Frequency  *</label>
+
+                                <div class="EmptyBox5"></div>
+                                <p:selectOneMenu id="tdrfreq" styleClass="formpageDropdown FundAccountDropdownUI"
+                                                 value="#{tdcto.tdMasterData.electroicBankDetail.tranFreqId}"
+                                                 style="width: 100%;">
+                                    <p:ajax event="change" update="@this" />
+                                    <f:selectItem itemLabel="Select Frequency" itemValue=""
+                                                  noSelectionOption="true"/>
+                                    <f:selectItem itemValue="ANNUALLY" itemLabel="Annually"/>
+                                    <f:selectItem itemValue="BIWEEKLY" itemLabel="Every Other Week "/>
+                                    <f:selectItem itemValue="FIRSTBUSDAY" itemLabel="First Business Day of Month"/>
+                                    <f:selectItem itemValue="FRI1" itemLabel="First Friday of Month"/>
+                                    <f:selectItem itemValue="FRI2" itemLabel="Second Friday of Month "/>
+                                    <f:selectItem itemValue="FRI3" itemLabel="Third Friday of Month"/>
+                                    <f:selectItem itemValue="FRI4" itemLabel="Fourth Friday of Month "/>
+                                    <f:selectItem itemValue="LASTBUSDAY" itemLabel="Last Business Day of Month "/>
+                                    <f:selectItem itemValue="MONTHLY" itemLabel="Monthly"/>
+                                    <f:selectItem itemValue="ONETIME" itemLabel="One-Time "/>
+                                    <f:selectItem itemValue="QUARTERLY" itemLabel="Quarterly"/>
+                                    <f:selectItem itemValue="SEMIANNUALLY" itemLabel="Every 6 Months "/>
+                                    <f:selectItem itemValue="WEEKLY" itemLabel="Weekly "/>
+                                </p:selectOneMenu>
+                            </div>
+
+                        </div>
+
+                        <div class="EmptyBox20"></div>
+                        <div class="Container100">
+                            <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                <label Class="Container100"
+                                       style="text-align: left !important; font-weight: bold !important;">
+                                    Amount of Transaction *</label>
+
+                                <div class="EmptyBox5"></div>
+                                <p:inputNumber id="tdrAmt"
+                                        styleClass="Wid100 invInputText input_investwid1 amountBRmobileSupport fundingRecurring"
+                                        style="text-align: left;"
+                                        value="#{tdcto.tdMasterData.electroicBankDetail.tranAmount}"
+                                        maxlength="11" symbol="$" placeholder="$" decimalPlaces="2" required="false"
+                                        requiredMessage="Min. of $50 is required!"
+                                        validatorMessage="Min. of $50 is required!">
+                                </p:inputNumber>
+                            </div>
+                            <div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+                                <label Class="Container100"
+                                       style="text-align: left !important; font-weight: bold !important;">
+                                    Start Date  *</label>
+
+                                <div class="EmptyBox5"></div>
+                                <p:inputMask id="tdrsdate"
+                                             styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                             value="#{tdcto.tdMasterData.electroicBankDetail.tranStartDate}"
+                                             maxlength="10"
+                                             mask="99/99/9999" placeholder="MM/DD/YYYY" required="false">
+                                </p:inputMask>
+                            </div>
+                        </div>
+
+                        <div class="EmptyBox20"></div>
+
+                        <div class="Container100">
+                            <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                <label Class="Container100"
+                                       style="text-align: left !important; font-weight: bold !important;">
+                                    Account Type *</label>
+
+                                <div class="EmptyBox5"></div>
+                                <p:selectOneMenu id="tdrbaccttype"
+                                                 styleClass="formpageDropdown FundAccountDropdownUI" disabled="#{tdcto.tdMasterData.copyAchInstructions}"
+                                                 value="#{tdcto.tdMasterData.electroicBankDetail.bankAcctType}"
+                                                 style="width: 100%;">
+                                    <p:ajax/>
+                                    <f:selectItem itemLabel="Select Account Type" itemValue=""
+                                                  noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="Checking" itemValue="CHECK"/>
+                                    <f:selectItem itemLabel="Savings" itemValue="SAVI"/>
+
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="Container100">
+                            <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                <label Class="Container100"
+                                       style="text-align: left !important; font-weight: bold !important;">
+                                    Bank Name  *</label>
+
+                                <div class="EmptyBox5"></div>
+                                <p:inputText id="tdrbname"
+                                             styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.copyAchInstructions}"
+                                             value="#{tdcto.tdMasterData.electroicBankDetail.bankName}"
+                                             maxlength="90"
+                                             placeholder="Bank Name">
+                                </p:inputText>
+                            </div>
+                            <div class="Container45 Fright CustomWidthFA-Responsive">
+                                <label Class="Container100 longLabelResponsive"
+                                       style="text-align: left !important; font-weight: bold !important;">Bank Account Title <span class="Fs12">(Please provide full title of the account)</span> *</label>
+
+                                <div class="EmptyBox5"></div>
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" id="fundrecbatitle" disabled="#{tdcto.tdMasterData.copyAchInstructions}"
+                                             value="#{tdcto.tdMasterData.electroicBankDetail.bankAcctName}"
+                                             maxlength="90"
+                                             placeholder="Bank Account Title">
+                                </p:inputText>
+                            </div>
+                        </div>
+                        <div class="EmptyBox20"></div>
+                        <div class="Container100">
+                            <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                <label Class="Container100"
+                                       style="text-align: left !important; font-weight: bold !important;">
+                                    Bank City/State  *</label>
+
+                                <div class="EmptyBox5"></div>
+                                <p:inputText id="tdrbloc"
+                                             styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.copyAchInstructions}"
+                                             value="#{tdcto.tdMasterData.electroicBankDetail.bankCityState}"
+                                             maxlength="90"
+                                             placeholder="Bank City/State">
+                                </p:inputText>
+                            </div>
+                            <div class="Container45 Fright CustomWidthFA-Responsive">
+                                <label Class="Container100"
+                                       style="text-align: left !important; font-weight: bold !important;">Bank Phone Number *</label>
+
+                                <div class="EmptyBox5"></div>
+                                <p:inputMask id="tdrbphone"
+                                             styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.copyAchInstructions}"
+                                             value="#{tdcto.tdMasterData.electroicBankDetail.bankPhoneNumber}"
+                                             maxlength="15"
+                                             mask="(999) 999-9999"
+                                             placeholder="Bank Phone Number">
+                                </p:inputMask>
+                            </div>
+                        </div>
+                        <div class="EmptyBox20"></div>
+                        <div class="Container100" style="">
+                            <img src="/images/check_image.gif" class="ResCheckSize"/>
+                        </div>
+                        <div class="EmptyBox20"></div>
+                        <div class="Container100">
+                            <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                <label Class="Container100"
+                                       style="text-align: left !important; font-weight: bold !important;">ABA
+                                    Routing Number *</label>
+
+                                <div class="EmptyBox5"></div>
+                                <p:inputText id="tdrbaba"
+                                             styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.copyAchInstructions}"
+                                             value="#{tdcto.tdMasterData.electroicBankDetail.bankABARouting}"
+                                             maxlength="40"
+                                             placeholder="ABA Routing Number">
+                                </p:inputText>
+                            </div>
+                            <div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+                                <label Class="Container100"
+                                       style="text-align: left !important; font-weight: bold !important;">
+                                    Bank Account Number *</label>
+
+                                <div class="EmptyBox5"></div>
+                                <p:inputText id="tdrbacctnum"
+                                             styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.copyAchInstructions}"
+                                             value="#{tdcto.tdMasterData.electroicBankDetail.bankAcctNumber}"
+                                             maxlength="90"
+                                             placeholder="Bank Account Number">
+                                </p:inputText>
+                            </div>
+                        </div>
+
+                    </p:panel>
+                    <div class="EmptyBox10"></div>
+                    <div class="Container80 CustomWidthFA2">
+                        <p:selectBooleanCheckbox id="tdroptoutflag"
+                                styleClass="RegulatoryCheckBox"
+                                value="#{tdcto.tdMasterData.recurringFlag}"
+                                itemLabel="I choose to opt-out of setting up a recurring contribution at this time.">
+                            <p:ajax update=":ctoForm:tdaccordian:fundTabV,:ctoForm:submitBtnId" listener="${tdcto.tdMasterData.resetRecurringFlagData}"/>
+                        </p:selectBooleanCheckbox>
+                    </div>
+                    <div class="EmptyBox10"></div>
+                    <div class="Container100 MarTop20" style="margin: 10px 10px;">
+                        <p:commandLink id="tdp10prev" styleClass="UI-prevButtonFA Fleft"
+                                       actionListener="#{tdcto.prevPage}"
+                                       update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this"/>
+                            <div class="saveNopenBtn" style="text-align:right;">
+                                <p:commandButton id="tdp10save" value="Save"
+                                                 update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
+                                                 actionListener="#{tdcto.nextPage}"
+                                                 process=":ctoForm:tdaccordian:fundTabV">
+
+                                </p:commandButton>
+                                </div>
+
+                        <!--   <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+                                  rendered="false"/> -->
+                    </div>
+                </div>
+
+            </p:panel>
+
+        </p:tab>
+
+    </p:tabView>
+
+
+</ui:composition>

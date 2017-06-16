@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+    <ui:define name="content">
+
+        <!-- BOX START -->
+        <h:form id="startForm">
+            <p:panel id="testpanel" style="border: 0px; background: transparent">
+                <p:growl showDetail="false" sticky="true" escape="true"/>
+
+                <div class="layout-portlets-box">
+                    <div class="Container100 Responsive100">
+                        <p:panel id="a1" style="border: 0px" styleClass="Container40">
+                                <p:panelGrid columns="2" layout="grid"
+                                             style="border:0px !important; background:transparent;" class="FormContent">
+                                    <div class="Wid90">Logon ID</div>
+                                    <p:inputText value="#{yodleeBean.logonid}" styleClass="Wid90">
+                                    </p:inputText>
+
+                                </p:panelGrid>
+                            <f:facet name="footer">
+                                <p:commandButton type="submit" value="Start" styleClass="Fleft"
+                                                 actionListener="#{yodleeBean.startup}"/>
+                           </f:facet>
+                        </p:panel>
+                    </div>
+                </div>
+
+            </p:panel>
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

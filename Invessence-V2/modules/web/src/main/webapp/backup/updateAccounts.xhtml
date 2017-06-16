@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+<h:head>
+</h:head>
+
+<h:body>
+<ui:composition template="/template/common/commonSecureLayout.xhtml">
+
+<ui:define name="content">
+<h:form>
+<!--
+        <p:tabView id="tabView" widgetVar="InvTabView" dynamic="true" cache="true" orientation="left">
+ -->
+<p:tabView id="tabView" widgetVar="InvTabView" dynamic="true" cache="true">
+<p:tab title="List of Accounts">
+    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+        <h:outputText value="Please select an account that you want to view and/or update"/>
+        <!--
+        <p:selectOneRadio id="options" value="#{formBean.number}">
+            <f:selectItem itemLabel="I-123456 (Individual Account)" itemValue="1" />
+            <f:selectItem itemLabel="J-098765 (Joint Account)" itemValue="2" />
+            <f:selectItem itemLabel="G-345867 (UGMA Account)" itemValue="3" />
+            <f:selectItem itemLabel="U-956732 (UTMA Account)" itemValue="4" />
+            <f:selectItem itemLabel="R-748230 (IRA Account)" itemValue="5" />
+        </p:selectOneRadio>
+         -->
+
+        <h:outputText value="I-123456 (Individual Account)"/>
+
+        <h:outputText value="J-098765 (Joint Account)"/>
+
+        <h:outputText value="G-345867 (UGMA Account)"/>
+
+        <h:outputText value="R-748230 (IRA Account)"/>
+    </h:panelGrid>
+    <f:facet name="footer">
+        <p:commandButton type="button" value="Next" icon="ui-icon-check" style="margin:0"/>
+    </f:facet>
+</p:tab>
+
+
+<p:tab title="Account Holder" disabled="false">
+
+    <p:layout style="min-width:400px;min-height:400px;" id="ahlayout">
+        <p:layoutUnit position="west" size="50%" resizable="true">
+
+            <p:panelGrid columns="2" cellpadding="10">
+                <h:outputLabel for="socialsecurity" value="Social Security No: *"/>
+                <p:inputText id="socialsecurity" value="" label="Social Security No:"/>
+
+                <h:outputLabel for="prefix" value="Prefix: "/>
+                <p:inputText id="prefix" value="" required="false" label="prefix" maxlength="10" size="5"/>
+
+                <h:outputLabel for="ah1" value="First Name: *"/>
+                <p:inputText id="ah1" value="" label="Firstname" required="false" maxlength="25" size="25"/>
+
+                <h:outputLabel for="middle" value="Middle Name: "/>
+                <p:inputText id="middle" required="false" maxlength="25" size="25"/>
+
+                <h:outputLabel for="lastname" value="Last Name: *"/>
+                <p:inputText id="lastname" value="" required="false" label="Lastname" maxlength="25" size="25"/>
+
+                <h:outputLabel for="suffix" value="Suffix: "/>
+                <p:inputText id="suffix" value="" required="false" label="Suffix" maxlength="25" size="10"/>
+
+                <!--
+                                        <f:facet name="footer">
+                                           <p:commandButton type="button" value="Save" icon="ui-icon-check" style="margin:0"/>
+                                       </f:facet>
+               -->
+            </p:panelGrid>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="center">
+            <p:panelGrid columns="2" cellpadding="10">
+
+                <h:outputLabel for="d-o-b" value="Date of Birth: "/>
+                <p:inputText id="d-o-b" value="" required="false" label="Date of Birth"/>
+
+                <h:outputLabel for="c-o-b" value="Country of Birth: "/>
+                <p:inputText id="c-o-b" value="" required="false" label="Country of Birth"/>
+
+                <h:outputLabel for="c-o-r" value="Country of Residence: "/>
+                <p:inputText id="c-o-r" value="" required="false" label="Country of Residence"/>
+
+                <h:outputLabel for="d-l-s" value="Driver License State: "/>
+                <p:inputText id="d-l-s" value="" required="false" label="Driver License State"/>
+
+                <h:outputLabel for="d-l-n" value="Driver Liense No.: "/>
+                <p:inputText id="d-l-n" value="" required="false" label="Driver Liense No."/>
+
+                <f:facet name="footer">
+                    <p:commandButton type="button" value="Next" icon="ui-icon-check" style="margin:0"/>
+                </f:facet>
+
+            </p:panelGrid>
+        </p:layoutUnit>
+        <style>
+            .ui-layout-unit {
+                border: 2px dotted #FFFFFF;
+            }
+        </style>
+    </p:layout>
+    <!--
+     -->
+</p:tab>
+
+<p:tab title="Contact Information" disabled="false">
+
+    <p:layout style="min-width:400px;min-height:400px;" id="contactlayout">
+        <p:layoutUnit position="west" size="50%" resizable="true">
+
+            <p:panelGrid columns="2" cellpadding="10">
+                <h:outputLabel for="phone" value="Phone: *"/>
+                <p:inputText id="phone" value="" label="Phone" maxlength="15" size="15"/>
+
+                <h:outputLabel for="email" value="Email: *"/>
+                <p:inputText id="email" value="" label="Email" required="false" maxlength="25" size="25"/>
+
+                <h:outputLabel for="addr1" value="Address Line 1: "/>
+                <p:inputText id="addr1" value="" required="false" label="Address Line 1" maxlength="25" size="10"/>
+
+                <h:outputLabel for="addr2" value="Address Line 2: "/>
+                <p:inputText id="addr2" value="" required="false" label="Address Line 2" maxlength="25" size="10"/>
+
+                <h:outputLabel for="city" value="City: "/>
+                <p:inputText id="city" value="" required="false" label="City" maxlength="25" size="10"/>
+
+                <h:outputLabel for="state" value="State: "/>
+                <p:inputText id="state" value="" required="false" label="State" maxlength="25" size="10"/>
+
+                <h:outputLabel for="zip" value="Zipcode: "/>
+                <p:inputText id="zip" value="" required="false" label="Zipcode" maxlength="25" size="10"/>
+
+
+                <!--
+                                        <f:facet name="footer">
+                                           <p:commandButton type="button" value="Save" icon="ui-icon-check" style="margin:0"/>
+                                       </f:facet>
+               -->
+            </p:panelGrid>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="center">
+            <p:panelGrid columns="2" cellpadding="10">
+
+                <h:outputLabel for="alt-phone" value="Alternate Phone: "/>
+                <p:inputText id="alt-phone" value="" required="false" label="Alternate Phone" maxlength="15" size="15"/>
+                <h:outputLabel for="alt-email" value="Alternate Email: "/>
+                <p:inputText id="alt-email" required="false" maxlength="25" size="25"/>
+
+                <h:outputLabel for="alt-addr1" value="Address Line 1: "/>
+                <p:inputText id="alt-addr1" value="" required="false" label="Address Line 1" maxlength="25" size="10"/>
+
+                <h:outputLabel for="alt-addr2" value="Address Line 2: "/>
+                <p:inputText id="alt-addr2" value="" required="false" label="Address Line 2" maxlength="25" size="10"/>
+
+                <h:outputLabel for="alt-city" value="City: "/>
+                <p:inputText id="alt-city" value="" required="false" label="City" maxlength="25" size="10"/>
+
+                <h:outputLabel for="alt-state" value="State: "/>
+                <p:inputText id="alt-state" value="" required="false" label="State" maxlength="25" size="10"/>
+
+                <h:outputLabel for="alt-zip" value="Zipcode: "/>
+                <p:inputText id="alt-zip" value="" required="false" label="Zipcode" maxlength="25" size="10"/>
+
+
+                <f:facet name="footer">
+                    <p:commandButton type="button" value="Next" icon="ui-icon-check" style="margin:0"/>
+                </f:facet>
+
+            </p:panelGrid>
+        </p:layoutUnit>
+        <style>
+            .ui-layout-unit {
+                border: 2px dotted #FFFFFF;
+            }
+        </style>
+    </p:layout>
+    <!--
+     -->
+</p:tab>
+
+<p:tab title="Financial Profile" disabled="false">
+    <p:panelGrid columns="2" cellpadding="10">
+        <h:outputLabel for="maritalstatus" value="Marital Status: *"/>
+        <p:inputText id="maritalstatus" value="" required="true" label="Marital Status"/>
+
+        <h:outputLabel for="n-o-d" value="Number Of Dependents: *"/>
+        <p:inputText id="n-o-d" value="" required="true" label="Number Of Dependents"/>
+
+        <h:outputLabel for="annualincome" value="Annual Income: *"/>
+        <p:inputText id="annualincome" value="" required="true" label="Annual Income"/>
+
+
+        <h:outputLabel for="networth" value="Net Worth: *"/>
+        <p:inputText id="networth" value="" required="true" label="Net Worth"/>
+
+        <h:outputLabel for="liquidnetworth" value="Liquid Net Worth: "/>
+        <p:inputText id="liquidnetworth" value="" required="false" label="Liquid Net Worth"/>
+
+        <h:outputLabel for="invexp" value="Investment Experience in years: "/>
+        <p:inputText id="invexp" value="" required="false" label="Investment Experience in years"/>
+
+        `
+        <f:facet name="footer">
+            <p:commandButton type="button" value="Save" icon="ui-icon-check" style="margin:0"/>
+        </f:facet>
+    </p:panelGrid>
+</p:tab>
+
+<p:tab title="Employment Profile" disabled="false">
+    <p:layout style="min-width:400px;min-height:400px;" id="layout">
+
+        <p:layoutUnit position="west" size="50%" resizable="true">
+            <p:panelGrid columns="2" cellpadding="10">
+                <h:outputLabel for="ocp" value="Occupation: *"/>
+                <p:inputText id="ocp" value="" label="Occupation"/>
+                <!--
+                                   <h:outputLabel for="empstat" value="Employment Status: *" />
+                                   <p:inputText id="empstat" value="" label="Employment Status" />
+
+                                   <h:outputText value="Empoyed" />
+                                   <br> </br>
+                                   <h:outputText value="Unemployed / Not working" />
+                                   <br> </br>
+                                   <h:outputText value="Retired" />
+                                   <br> </br>
+                                   <h:outputText value="Student" />
+                                   <br> </br>
+                  -->
+                <h:outputLabel for="empstat" value=""/>
+                <h:outputText value="Employment Status: *"/>
+                <p:selectOneRadio id="emp_status" layout="pageDirection" value="#{formBean.number}">
+                    <f:selectItem itemLabel="Employed" itemValue="1"/>
+                    <f:selectItem itemLabel="Unemployed / Not working" itemValue="2"/>
+                    <f:selectItem itemLabel="Retired" itemValue="3"/>
+                    <f:selectItem itemLabel="Student" itemValue="4"/>
+                </p:selectOneRadio>
+
+                <h:outputLabel for="d-o-e" value="Date Employed: "/>
+                <p:inputText id="d-o-e" value="" label="Date Employed"/>
+
+                <h:outputLabel for="empname" value="Employer Name: "/>
+                <p:inputText id="empname" value="" label="Employer Name"/>
+
+                <h:outputLabel for="empaddr" value="Employer Address: "/>
+                <p:inputText id="empaddr" value="" label="Employer Address"/>
+
+
+            </p:panelGrid>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="center">
+            <p:panelGrid columns="2" cellpadding="10">
+                <!--  		<h:outputLabel for="s-a-e" value="" />   -->
+                <h:outputLabel for="s-a-e" value=""/>
+                <h:outputText value="Security Affiliated Employee: *"/>
+                <p:selectOneRadio id="sec-aff-emp" layout="pageDirection" value="#{formBean.number}">
+                    <f:selectItem itemLabel="Yes" itemValue="1"/>
+                    <f:selectItem itemLabel="No" itemValue="2"/>
+                </p:selectOneRadio>
+                <!--
+                    <h:outputLabel for="s-a-e" value="Security Affiliated Employee: *" />
+                    <p:inputText id="s-a-e" value="" label="Security Affiliated Employee" />
+                    <h:outputText value="Yes" />
+                    <br> </br>
+                    <h:outputText value="No" />
+                    <br> </br>
+                 -->
+                <h:outputLabel for="s-a-f-r-1" value=""/>
+                <h:outputLabel for="s-a-f-r" value="Sec. Affiliated Firm Relationship: "/>
+                <p:inputText id="s-a-f-r" value="" label="Sec. Affiliated Firm Relationship"/>
+
+                <h:outputLabel for="s-a-f-n" value="Security Affiliated Firm Name: "/>
+                <p:inputText id="s-a-f-n" value="" label="Security Affiliated Firm Name"/>
+
+                <h:outputLabel for="s-a-p-n" value="Security Affiliated Person Name: *"/>
+                <p:inputText id="s-a-p-n" value="" label="Security Affiliated Person Name"/>
+
+                <f:facet name="footer">
+                    <p:commandButton type="button" value="Save" icon="ui-icon-check" style="margin:0"/>
+                </f:facet>
+            </p:panelGrid>
+        </p:layoutUnit>
+        <style>
+            .ui-layout-unit {
+                border: 2px dotted #FFFFFF;
+            }
+        </style>
+    </p:layout>
+</p:tab>
+
+<p:tab title="Source of Funds" disabled="false">
+    <p:panelGrid columns="2" cellpadding="10">
+        <h:outputLabel for="bankaccount" value="Bank Account No: *"/>
+        <p:inputText id="bankaccount" value="" required="true" label="Bank Account No"/>
+
+        <h:outputLabel for="banktoutingno" value="Bank Routing No: *"/>
+        <p:inputText id="banktoutingno" value="" required="true" label="Bank Routing No"/>
+
+        <f:facet name="footer">
+            <p:commandButton type="button" value="Save" icon="ui-icon-check" style="margin:0"/>
+        </f:facet>
+    </p:panelGrid>
+</p:tab>
+
+</p:tabView>
+
+</h:form>
+</ui:define>
+
+<!--
+   <ui:define name="footer">
+       <h2>Footer Need to put appropriate message</h2>
+   </ui:define>
+-->
+
+</ui:composition>
+
+
+</h:body>
+</html>

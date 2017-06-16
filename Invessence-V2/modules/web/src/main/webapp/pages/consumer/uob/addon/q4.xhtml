@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <p:panel style="border: 0px">
+    <div class="Container100">
+        <div class="ContainerIndent">
+            <p:panel rendered="#{uobpb.pagemanager.errorMessage != null }"
+                     style="margin-bottom:7px;border: 0px; background: transparent"
+                     styleClass="Container100">
+                <h:outputText styleClass="errorText"
+                              value="#{uobpb.pagemanager.errorMessage}" escape="false"/>
+                <div class="EmptyBox5"></div>
+            </p:panel>
+            <h5>
+                4. What level of investment risk are you willing to take?
+            </h5>
+            <p:selectOneRadio value="#{uobpb.riskCalculator.ans6}" id="uobrbir" styleClass="riskQ"
+                              layout="pageDirection">
+               <p:ajax listener="#{uobpb.onChangeValue}"
+                        update=":ceForm:graphArea, :ceForm:buttonArea"/>
+                <f:selectItem id="rb1" itemLabel="Aggressive : An Aggressive Investor is prepared to accept higher risks in order to obtain greater returns.
+An Aggressive Investor is comfortable with investments that are more volatile and bear a higher risk of loss of
+Capital." itemValue="1" />
+                <f:selectItem id="rb2" itemLabel="Moderate : A Moderate Investor seeks a maximum of capital growth and regular income from his/her
+investments. A Moderate Investor is therefore prepared to accept moderate amounts of risk to earn moderate
+potential returns.
+" itemValue="2" />
+                <f:selectItem id="rb3" itemLabel="Conservative : A Conservative Investor seeks primarily capital preservation.
+" itemValue="3" />
+
+            </p:selectOneRadio>
+        </div>
+    </div>
+
+    </p:panel>
+
+
+</ui:composition>

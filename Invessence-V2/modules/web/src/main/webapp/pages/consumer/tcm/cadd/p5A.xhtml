@@ -1,0 +1,301 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+	<script type="text/javascript">
+		$(function() {
+
+			var chartValue = document.getElementById('ceForm:beanValueChart').value;
+			//Fetched java beanValueChart in java script
+			var maxGraghPlot = parseInt($.parseJSON(chartValue).maxGraghPlot);
+			var maxGraghPlot1 = maxGraghPlot + 10000;
+			var minGrowth = parseInt($.parseJSON(chartValue).minGrowth);
+
+			var xCategories = $.parseJSON(chartValue).goalYearValue;
+
+			$('#progressChart').highcharts(
+					{
+
+						title : {
+							text : ''
+						},
+						xAxis : {
+
+							// tickInterval: 'auto',
+							labels : {
+								formatter : function() {
+									return xCategories[this.value];
+								},
+								pointStart : -1,
+								startOnTick : false,
+								endOnTick : false,
+								minPadding : 0,
+								maxPadding : 0,
+								rotation : 0,
+								align : 'center',
+								style : {
+									fontSize : '10px',
+									fontFamily : 'Verdana, sans-serif',
+									fontWeight : 'bold',
+									color : '#808080'
+
+								}
+							},
+						},
+						yAxis : {
+							//tickInterval: 'auto',//20000,
+							//minorTickInterval: 'auto',
+							min : minGrowth,
+							max : maxGraghPlot1,
+							lineWidth : 1,
+							//tickWidth: 1,
+							opposite : true,
+							title : {
+								text : '',
+								style : {
+									fontSize : '10px',
+									fontFamily : 'Verdana, sans-serif',
+									fontWeight : 'bold',
+									backgroundColor : '#808080'
+								}
+							},
+							labels : {
+								formatter : function() {
+									return '$'
+											+ this.axis.defaultLabelFormatter
+													.call(this);
+								},
+								style : {
+									fontSize : '10px',
+									fontFamily : 'Verdana, sans-serif',
+									fontWeight : 'bold',
+									color : '#808080'
+
+								}
+							},
+						},
+						legend : {
+
+							floating : false,
+							shadow : true,
+							enabled : true,
+						},
+						plotOptions : {
+							series : {
+								marker : {
+									enabled : false
+								},
+								events : {
+									legendItemClick : function() {
+										return false;
+									}
+								}
+							}
+						},
+						credits : {
+							enabled : true
+						},
+						tooltip : {
+							style : {
+								fontSize : '10pt',
+								fontFamily : 'Verdana',
+							},
+							formatter : function() {
+
+								return 'Year : '
+										+ '<b>'
+										+ xCategories[this.x]
+										+ '</b>'
+										+ '<br/>'
+										+ ' Average Performance : '
+										+ '<b>'
+										+ '$'
+										+ Highcharts.numberFormat(this.point.y,
+												0, ',', ',') + '</b>';
+							},
+							crosshairs : true,
+						//shared: true,
+						},
+						exporting : {
+							enabled : false
+						},
+						series : [ {
+
+							name : 'Average market performance',
+							fontWeight : 'normal',
+							lineColor : '#4d0000',
+							color : '#4d0000',
+							type : 'spline',
+							zIndex : 3,
+							data : $.parseJSON(chartValue).goalAvgValue,
+							zIndex : 3,
+						}, {
+							name : '50% probability range',
+							fontWeight : 'normal',
+							data : $.parseJSON(chartValue).goalLowerValue,
+							type : 'areasplinerange',
+							lineWidth : 0,
+							color : '#54a685', //Highcharts.getOptions().colors[0]'', //#3498DB
+							//fillOpacity: 0.7,
+							border : 0,
+							zIndex : 2,
+							enableMouseTracking : false,
+						}, {
+							name : '95% probability range',
+							fontWeight : 'normal',
+							data : $.parseJSON(chartValue).goalUpperValue,
+							type : 'areasplinerange',
+							lineWidth : 0,
+							color : '#dbe6e0', //Highcharts.getOptions().colors[0],  //#ABEBC6
+							//fillOpacity: 0.7,
+							border : 0,
+							zIndex : 1,
+							enableMouseTracking : false,
+						}, ]
+					});
+
+		});
+	//<!--HighChart JS End  -->
+	</script>
+
+	<div class="Container100 TextAlCenter customRadioBlock">
+
+		<h3 class="TexAlCenter StepsQuestionsFS">
+			<!-- Assuming you invest for at least #{tcmpb.horizon} years, in the course of any given year,
+            which of the below range of returns would be most acceptable to you?-->
+			Below is a simulation of the possible performance ranges over time of
+			5 hypothetical portfolios at differing levels of risk, comparing the
+			5 options, which range of uncertainty best matches your comfort
+			level?
+		</h3>
+		<div class="EmptyBox5"></div>
+		<p:messages showDetail="false" sticky="true" escape="true"
+			closable="true" />
+
+		<div class="EmptyBox5"></div>
+
+
+		<div class="Container100">
+			<!-- <p:slider for="customRadio"
+                       minValue="1" maxValue="5">
+                 <p:ajax event="slideEnd"
+                         update=":ceForm:goalPanel" />
+             </p:slider> -->
+
+			<!-- <div class="TexAlCenter FS14">
+                  Please slide the dot to the select appropriate investment.
+              </div> -->
+
+			<div class="ProjectionChartRadioBlock">
+				<p:selectOneRadio id="projection"
+					value="#{tcmpb.riskCalculator.ans5}" layout="custom"
+					required="true"
+					requiredMessage="Please choose one of these choices for appropriate investment">
+					<p:ajax listener="#{tcmpb.doProjectionChart}"
+						update=":ceForm:inputArea" />
+					<f:selectItem id="tcmp5ainv1" class="ProjectionChartRadioAssetsLabel" itemValue="1" />
+					<f:selectItem id="tcmp5ainv2" class="ProjectionChartRadioAssetsLabel" itemValue="2" />
+					<f:selectItem id="tcmp5ainv3" class="ProjectionChartRadioAssetsLabel" itemValue="3" />
+					<f:selectItem id="tcmp5ainv4" class="ProjectionChartRadioAssetsLabel" itemValue="4" />
+					<f:selectItem id="tcmp5ainv5" class="ProjectionChartRadioAssetsLabel" itemValue="5" />
+				</p:selectOneRadio>
+				<div class="stripe"></div>
+				<table class="ProjectionChartRadioTable">
+					<tbody>
+						<tr>
+							<td><p:radioButton class="ProjectionChartRadioAssets"
+									id="opt0" for="projection" itemIndex="0" /></td>
+							<td><p:radioButton class="ProjectionChartRadioAssets"
+									id="opt1" for="projection" itemIndex="1" /></td>
+							<td><p:radioButton class="ProjectionChartRadioAssets"
+									id="opt2" for="projection" itemIndex="2" /></td>
+							<td><p:radioButton class="ProjectionChartRadioAssets"
+									id="opt3" for="projection" itemIndex="3" /></td>
+							<td><p:radioButton class="ProjectionChartRadioAssets"
+									id="opt4" for="projection" itemIndex="4" /></td>
+						</tr>
+						<tr class="ProjectionChartRadioLabelRow">
+							<td><h:outputLabel id="tcmp5apcon" for="projection"
+									class="ProjectionChartRadioAssetsLabel" value="Conservative" /></td>
+							<td><h:outputLabel id="tcmp5apmcom" for="projection"
+									class="ProjectionChartRadioAssetsLabel"
+									value="Moderately Conservative" /></td>
+							<td><h:outputLabel id="tcmp5apmod" for="projection"
+									class="ProjectionChartRadioAssetsLabel" value="Moderate" /></td>
+							<td><h:outputLabel id="tcmp5apmagg" for="projection"
+									class="ProjectionChartRadioAssetsLabel"
+									value="Moderately Aggressive" /></td>
+							<td><h:outputLabel id="tcmp5apagg" for="projection"
+									class="ProjectionChartRadioAssetsLabel" value="Aggressive" /></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+
+		<!-- customRadio HighChart start  -->
+		<div class="Container80 Responsive100-tcmUI">
+			<p:panel id="tcmp5aradiochart" styleClass="GraphPanel" update="beanValueChart"
+				action="#{tcmpb.docustomRadioChart}" />
+			<h:inputHidden value="#{tcmpb.charts.resultChart}"
+				id="beanValueChart" />
+			<div id="progressChart" class="Conatiner100 customRadioGraph"></div>
+		</div>
+		<!-- customRadio HighChart end  -->
+
+		<div class="Container50">
+			<p:outputPanel id="goalPanel" deferred="true"
+				style="background: transparent; border: 0px">
+				<div class="Container100 PerformanceMeterBlock">
+					<div class="ResponsiveWid-tcmUI Fleft-MP TexAlCenter responsiveFullwidth UI-tcm">
+						<div class="ContainerIndent">
+							<div class="EmptyBox5"></div>
+							<span class="Fs14 DispBlock gray">Average Market
+								Performance</span>
+							<div class="EmptyBox5"></div>
+							<span class="Fs17 DispBlock BBGreen"> <h:outputText id="tcmp5aavgperformance"
+									value="#{tcmpb.charts.avgPerformance}">
+									<f:convertNumber pattern="$#,###,###,##0" />
+								</h:outputText>
+							</span>
+						</div>
+					</div>
+					<div class="ResponsiveWid-tcmUI Fright-MP TexAlCenter responsiveFullwidth UI-tcm">
+						<div class="ContainerIndent">
+							<div class="EmptyBox5"></div>
+							<span class="Fs14 DispBlock gray">Poor Market Performance</span>
+							<div class="EmptyBox5"></div>
+							<span class="Fs17 DispBlock BBDarkGray"> <h:outputText id="tcmp5apoorperformance"
+									value="#{tcmpb.charts.poorPerformance}">
+									<f:convertNumber pattern="$#,###,###,##0" />
+								</h:outputText>
+							</span>
+						</div>
+					</div>
+				</div>
+
+
+			</p:outputPanel>
+		</div>
+		<!-- customRadio HighChart end  -->
+
+		<div class="EmptyBox10"></div>
+		<p:commandLink id="tcmp5aprevious" styleClass="UI-prevButton Fleft" value="Previous"
+			rendered="#{tcmpb.pagemanager.prevButtonStat}"
+			update=":ceForm:inputArea" immediate="true"
+			actionListener="#{tcmpb.prevPage}">
+			<h:outputText value="Previous" />
+		</p:commandLink>
+
+		<p:commandLink id="tcmp5anext" styleClass="UI-nextButton Fright UI-tcmButton"
+			value="Next" rendered="#{tcmpb.pagemanager.nextButtonStat}"
+			update=":ceForm:inputArea" actionListener="#{tcmpb.nextPage}">
+			<h:outputText value="Next" />
+		</p:commandLink>
+	</div>
+</ui:composition>

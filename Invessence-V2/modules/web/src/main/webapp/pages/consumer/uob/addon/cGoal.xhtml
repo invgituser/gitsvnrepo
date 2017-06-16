@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 Responsive50">
+        <p:panel id="goalEntryArea" style="border:0px !important; background:none;">
+            <p:panelGrid columns="3" layout="grid"
+                         styleClass="Container100 Responsive50"
+                         style="border:0px !important; background:none;"
+                         class="FormContent">
+                <div class="Wid90">Desired Goal</div>
+                <p:inputNumber style="width: 80px"
+                                value="#{uobpb.goalData.goalDesired}"
+                                maxlength="11" decimalPlaces="0" symbol="$">
+                </p:inputNumber>
+                <p:spacer width="1"/>
+
+                <div class="Wid90">Number of years when needed</div>
+                <p:spinner value="#{uobpb.horizon}" styleClass="Fix80Spinner"
+                           min="1" max="40" stepFactor="1">
+                </p:spinner>
+                <p:spacer width="1"/>
+
+                <div class="Wid90">Initial investment</div>
+                <h:outputText value="#{uobpb.initialInvestment}">
+                    <f:convertNumber currencySymbol="$" type="currency"/>
+                </h:outputText>
+                <p:spacer width="1"/>
+
+                <div class="Wid90">Recurring investment</div>
+                <p:inputNumber style="width: 80px"
+                                value="#{uobpb.recurringInvestment}"
+                                maxlength="11" decimalPlaces="0" symbol="$">
+                    <p:ajax listener="#{uobpb.onChange}"
+                            update=":ceForm:graphArea"/>
+                </p:inputNumber>
+                <h:outputText style="margin-left: 10px; color: red; font-weight: bold"
+                              value="#{uobpb.goalAdjustment}">
+                </h:outputText>
+
+
+            </p:panelGrid>
+
+            <div class="Container100 MarTop10 Responsive">
+                <div class="ContainerIndent TexAlCenter">
+                    <p:commandButton id="calcButton" value="Calculate" actionListener="#{uobpb.calculateGoal}"
+                                     update="ceForm:pTabView:goalEntryArea, :ceForm:workArea, :ceForm:graphArea"/>
+                </div>
+            </div>
+			<div class="EmptyBox10"></div>
+
+        </p:panel>
+    </div>
+
+</ui:composition>

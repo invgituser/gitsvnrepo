@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+       xmlns:task="http://www.springframework.org/schema/task">
+
+   <bean id="modelUtil" class="com.invmodel.model.ModelUtil" factory-method="getInstance">
+   </bean>
+
+   <bean id="rebalanceProcess" class="com.invmodel.rebalance.RebalanceProcess" factory-method="getInstance">
+      <property name="modelUtil" ref="modelUtil"/>
+   </bean>
+
+   <bean id="refreshDelay" class="java.lang.Long">
+      <constructor-arg value="36000000"/>
+   </bean>
+
+   <task:scheduled-tasks>
+      <task:scheduled ref="modelUtil" method="refreshData" fixed-delay="#{refreshDelay}"/>
+    </task:scheduled-tasks>
+
+
+</beans>

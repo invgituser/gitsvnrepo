@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/simple.xhtml">
+
+
+    <ui:define name="content">
+        <div id="layout-portlets-cover">
+            <div class="EmptyBox50"></div>
+            <div
+                    class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray">
+                <div class="Container90 Fnone MarAuto TexAlLeft">
+                    <h:form styleClass="formPage">
+
+                        <p:panel id="signup" styleClass="Container100"
+                                 style="border:0px; background-color: transparent!important;">
+
+                            <p:panel id="p1"
+                                     styleClass="Container100 Responsive100 SignupBlock0"
+                                     style="background-color: transparent!important; border: 0px">
+                                <div class="Container100 TexAlCenter">
+                                    <h:graphicImage id="logo" name="#{uiLayout.webProfile.logo}"
+                                                    styleClass="" library="invessence" class="MarAuto MarTop20"
+                                                    style="height: 50px"/>
+                                </div>
+                                <div class="Container100">
+                                    <p:messages id="forgotnmsg" showDetail="false" sticky="true"
+                                                escape="true" closable="true"/>
+                                    <div class="EmptyBox10"></div>
+                                </div>
+
+                                <div class="Container100">
+                                    <label class="sigupLabel">Email Id</label>
+                                    <p:inputText id="email"
+                                                 required="true" requiredMessage="Email Address is required."
+                                                 styleClass="Wid100 Fleft MarAuto Fs14"
+                                                 value="#{userBean.beanEmail}" placeholder="Email">
+                                       <f:validator validatorId="EmailValidator"/>
+                                    </p:inputText>
+                                </div>
+                                <div class="EmptyBox10"></div>
+                                <p:separator/>
+
+                                <div class="EmptyBox5"></div>
+                                <div class="Container100">
+                                    <div class="TexAlCenter">
+                                        <p:commandButton value="Send Email" type="submit"
+                                                         actionListener="#{userBean.sendResetEmail}"
+                                                         update="p1, forgotnmsg"/>
+                                    </div>
+                                </div>
+                            </p:panel>
+
+                        </p:panel>
+
+                        <div class="EmptyBox10"></div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

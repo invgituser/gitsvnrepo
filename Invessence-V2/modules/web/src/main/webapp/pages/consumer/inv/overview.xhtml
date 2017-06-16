@@ -1,0 +1,223 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+<f:metadata>
+    <f:viewParam name="acct" value="#{invpos.acctnum}"/>
+    <f:event type="preRenderView" listener="#{invpos.preRenderView}"/>
+</f:metadata>
+
+<ui:define name="content">
+<h:outputScript name="js/invCharts.js" library="spark-layout"/>
+<h:form>
+
+<div class="layout-portlets-box">
+<div class="Container100 Responsive100">
+    <div class="ContainerIndent">
+        <div class="DispInlBlock MarTop20">
+            <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
+            <div class="Container80">
+                <div class="Fright">
+                    <h2 class="black head FontThemeMedium">#{invpos.fullName}</h2>
+                                <span class="Fs15 gray FontThemeRegular DispBlock">Account#: #{invpos.clientAccountID}
+                                </span>
+                </div>
+            </div>
+        </div>
+        <p:accordionPanel multiple="true">
+            <p:tab title="Summary">
+                <div class="Container100">
+                    <div class="Container50 Responsive50"><!-- ROHIT's CHANGE -->
+                        <div class="ContainerIndent">
+                            <p:dataTable id="editAlloc" styleClass="invAllocTable"
+                                         value="#{invpos.managedAssetsList}"
+                                         var="assetList" rowKey="#{assetList.asset}"
+                                         reflow="false"><!-- ROHIT's CHANGE -->
+
+                                <p:column style="width:1%;text-align: center;background-color: #{assetList.color};"
+                                          resizable="true">
+                                    <h:outputText value=" "/>
+                                </p:column>
+
+                                <p:column styleClass="TexAlLeft Fs14" priority="0"
+                                          headerText="Asset" style="width:34%">
+                                    <h:outputText value="#{assetList.asset}" styleClass="Fs14"/>
+                                </p:column>
+
+                                <p:column style="text-align: right; width:30%" priority="2"
+                                          headerText="Holding" styleClass="Fs14">
+                                    <h:outputText value="#{assetList.holdingweight}" styleClass="TexAlRight Fs14">
+                                        <f:convertNumber pattern="##0.00%"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column style="text-align: right; width:35%"
+                                          headerText="Value" priority="0" styleClass="Fs14">
+                                    <h:outputText value="#{assetList.holdingValue}" styleClass="TexAlRight Fs12">
+                                        <f:convertNumber type="currency" currencySymbol="$"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:columnGroup type="footer">
+                                    <p:row>
+                                        <p:column priority="2" class="tbl_hide"/>
+                                        <p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
+                                                  footerText="Total">
+                                        </p:column>
+                                        <p:column styleClass="Fs14 TexAlRight FontBold"
+                                                  footerText="#{dataDisplayConverter.displayAsMoney(invpos.totalvalue)}">
+                                        </p:column>
+                                    </p:row>
+                                </p:columnGroup>
+                            </p:dataTable>
+                        </div>
+                    </div>
+                    <div class="Container50 Responsive50 tp20">
+                        <!-- ROHIT's CHANGE -->
+                        <div class="ContainerIndent">
+                            <div class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarRight10"><!-- ROHIT's CHANGE -->
+                                <div class="ContainerIndent">
+                                    <div class="EmptyBox5"></div>
+                                    <span class="Fs14 DispBlock gray">Percent Reached</span>
+                                        <span class="Fs24 DispBlock invessenceblue">
+                                             <h:outputText value="#{invpos.goalReached}">
+                                                 <f:convertNumber pattern="##0.00%"/>
+                                             </h:outputText>
+                                        </span>
+
+                                    <div class="EmptyBox5"></div>
+                                </div>
+                            </div>
+                            <div class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarRight10"><!-- ROHIT's CHANGE -->
+                                <div class="ContainerIndent">
+                                    <div class="EmptyBox5"></div>
+                                    <span class="Fs14 DispBlock gray">Goal Desired</span>
+                                        <span class="Fs24 DispBlock red">
+                                            <h:outputText value="#{invpos.goalDesired}">
+                                                <f:convertNumber pattern="$#,###,###"/>
+                                            </h:outputText>
+                                         </span>
+
+                                    <div class="EmptyBox5"></div>
+                                </div>
+                            </div>
+
+                            <div class="Wrapper">
+                                <div class="Wid90 hide-mobile"
+                                     style="width:200px; height:200px; margin:20px auto 10px;"><!-- ROHIT's CHANGE -->
+                                    <p:chart type="pie" model="#{invpos.pieModel}"
+                                             styleClass="Wid100 MarTop10" responsive="true"
+                                             rendered="#{invpos.pieModel == null ? false : true}"/>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </p:tab>
+            <p:tab title="Detail">
+                <div class="Container100 Responsive100">
+                    <div class="ContainerIndent">
+                        <p:dataTable id="dataTable" var="position" value="#{invpos.displayPositionList}"
+                                     styleClass="invDataTable" reflow="false"> <!-- ROHIT's CHANGE reflow="true" for previuos table-->
+
+                            <p:column priority="0"
+                                      style="width:1%; text-align: left; background-color: #{position.color}"><!-- ROHIT's CHANGE -->
+                                <h:outputText value=" "/>
+                            </p:column>
+
+                            <p:column headerText="Asset" priority="2"
+                                      style="text-align: left; width:10%;" styleClass="Fs12"><!-- ROHIT's CHANGE -->
+                                <h:outputText value="#{position.assetclass}"/>
+                            </p:column>
+                            <p:column headerText="Ticker" priority="0"
+                                      style="text-align: left" styleClass="Fs12"><!-- ROHIT's CHANGE -->
+                                <h:outputText value="#{position.ticker}"/>
+                            </p:column>
+                            <p:column headerText="Description" priority="2"
+                                      style="text-align: left; width:20%;" styleClass="Fs12"><!-- ROHIT's CHANGE -->
+                                <h:outputText value="#{position.description}"/>
+                            </p:column>
+                            <p:column headerText="Shares" priority="2"
+                                      style="text-align: right;  width:9%;" styleClass="Fs12"><!-- ROHIT's CHANGE -->
+                                <h:outputText value="#{position.qty}">
+                                    <f:convertNumber pattern="###,###,###"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Weight" priority="2"
+                                      style="text-align: right; width:6%;" resizable="true" styleClass="Fs12"><!-- ROHIT's CHANGE -->
+                                <h:outputText value="#{position.weight}">
+                                    <f:convertNumber pattern="##0.00%"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Purchased" priority="2"
+                                      style="text-align: right" resizable="true" styleClass="Fs12"><!-- ROHIT's CHANGE -->
+                                <h:outputText value="#{position.costBasisPrice}">
+                                    <f:convertNumber type="currency" currencySymbol="$"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Cost Basis" priority="2"
+                                      style=" text-align: right; width:10%;" resizable="true"
+                                      styleClass="Fs12"><!-- ROHIT's CHANGE -->
+                                <h:outputText value="#{position.costBasisMoney}">
+                                    <f:convertNumber type="currency" currencySymbol="$"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Mark Price" priority="2"
+                                      style="text-align: right" styleClass="Fs12"
+                                      resizable="true"><!-- ROHIT's CHANGE -->
+                                <h:outputText value="#{position.markPrice}">
+                                    <f:convertNumber type="currency" currencySymbol="$"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Current Value" priority="0"
+                                      style=" text-align: right;" styleClass="Fs12"
+                                      resizable="true"><!-- ROHIT's CHANGE -->
+                                <h:outputText value="#{position.positionValue}">
+                                    <f:convertNumber type="currency" currencySymbol="$"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Gain/Loss" priority="0"
+                                      style="text-align: right" styleClass="Fs12"
+                                      resizable="true"><!-- ROHIT's CHANGE -->
+                                <h:outputText value="#{position.fifoPnlUnrealized}">
+                                    <f:convertNumber type="currency" currencySymbol="$"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:columnGroup type="footer">
+                                <p:row>
+
+                                    <p:column footerText="" style="text-align:left"/>
+                                    <p:column priority="0" footerText="Total" style="text-align:left;"/>
+                                    <p:column styleClass="tbl_hide" colspan="5" footerText="" style="text-align:left"/>
+
+                                    <p:column priority="2"
+                                              footerText="#{dataDisplayConverter.displayAsMoney(invpos.totalmoney)}"
+                                              style="text-align:right"/>
+                                    <p:column priority="2" footerText="" style="text-align:left"/>
+                                    <p:column priority="0"
+                                              footerText="#{dataDisplayConverter.displayAsMoney(invpos.totalvalue)}"
+                                              style="text-align:right"/>
+                                    <p:column colspan="" priority="0"
+                                              footerText="#{dataDisplayConverter.displayAsMoney(invpos.totalpnl)}"
+                                              style="text-align:right"/>
+                                </p:row>
+                            </p:columnGroup>
+
+                        </p:dataTable>
+                    </div>
+                </div>
+            </p:tab>
+        </p:accordionPanel>
+    </div>
+</div>
+</div>
+</h:form>
+
+</ui:define>
+</ui:composition>

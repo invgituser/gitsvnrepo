@@ -1,0 +1,188 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ps="http://primefaces.org/spark"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <h:outputScript name="js/jquery.url.js"
+                    library="#{uiLayout.webProfile.cssdir}"/>
+    <script type="text/javascript">
+
+
+       $(document).ready(function ()
+
+
+                          {
+                              $('.MobileButton').click(function ()
+                                                       {
+                                                           if ($(window).width() &lt; 700)
+                                                           {
+                                                               $('.displaymobMenuView').fadeIn();
+                                                           }
+                                                       });
+
+                              $('.submenuBtn1').click(function ()
+                                                       {
+                                                           $('.submenuContent1').fadeIn();
+                                                       });
+                              $('.submenuContent1').mouseleave(function ()
+                                                      {
+                                                          $('.submenuContent1').fadeOut();
+                                                      });
+
+                              $('.displaymobMenuView').mouseleave(function ()
+                                                            {
+                                                                if ($(window).width() &lt; 700)
+                                                                {
+                                                                    $('.displaymobMenuView').fadeOut();
+                                                                }
+                                                            });
+                          });
+
+
+        $(function ()
+          {
+              $page = jQuery.url.attr("file");
+
+              $('#dashboardMenuHighlight').each(function ()
+                                                {
+                                                    if (($page == 'index.xhtml'))
+                                                    {
+                                                        $(this).addClass('mbSelected');
+                                                    }
+                                                    else
+                                                    {
+                                                        $(this).removeClass('mbSelected');
+                                                    }
+                                                });
+              $('#newaccountMenuHighlight').each(function ()
+                                                 {
+                                                     if (($page == 'cadd.xhtml'))
+                                                     {
+                                                         $(this).addClass('mbSelected');
+                                                     }
+                                                     else
+                                                     {
+                                                         $(this).removeClass('mbSelected');
+                                                     }
+                                                 });
+              $('#myprofileMenuHighlight').each(function ()
+                                                {
+                                                    if (($page == 'myprofile.xhtml'))
+                                                    {
+                                                        $(this).addClass('mbSelected');
+                                                    }
+                                                    else
+                                                    {
+                                                        $(this).removeClass('mbSelected');
+                                                    }
+                                                });
+              $('#tradeMenuHighlight').each(function ()
+                                            {
+                                                if (($page == 'trade.xhtml'))
+                                                {
+                                                    $(this).addClass('mbSelected');
+                                                }
+                                                else
+                                                {
+                                                    $(this).removeClass('mbSelected');
+                                                }
+                                            });
+              $('#aggrMenuHighlight').each(function ()
+                                           {
+                                               if (($page == 'widget.xhtml'))
+                                               {
+                                                   $(this).addClass('mbSelected');
+                                               }
+                                               else
+                                               {
+                                                   $(this).removeClass('mbSelected');
+                                               }
+                                           });
+              $('#modelMenuHighlight').each(function ()
+                                            {
+                                                if (($page == 'assetworkflow.xhtml'))
+                                                {
+                                                    $(this).addClass('mbSelected');
+                                                }
+                                                else
+                                                {
+                                                    $(this).removeClass('mbSelected');
+                                                }
+                                            });
+
+          });
+
+
+
+
+    </script>
+    <div class="Wid60 Fright menuButtons">
+        <ul class="MobileButton">
+            <li class="fa fa-bars"></li>
+        </ul>
+
+        <ul id="menuMainNavigation" class="menuBtnLinks displaymobMenuView">
+            <li id="dashboardMenuHighlight">
+                <a href="#{uiLayout.defaultHome}" id="menudashboardbtn">Dashboard</a>
+            </li>
+
+            <ui:fragment rendered="#{webutil.hasAccess('USER')}">
+                <li id="newaccountMenuHighlight">
+                    <p:commandLink rendered="true" id="menunewacctbtn"
+                                   actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?app=N')}">
+                        <h:outputText value="New Account"/>
+                    </p:commandLink>
+                </li>
+            </ui:fragment>
+            <ui:fragment rendered="#{webutil.hasAccess('ADVISOR')}">
+                <li id="tradeMenuHighlight">
+                    <a href="/pages/advisor/trade.xhtml" id="menutradebtn">Trade</a>
+                </li>
+            </ui:fragment>
+
+            <ui:fragment rendered="#{webutil.hasRole('DEMO')}">
+                <li id="aggrMenuHighlight">
+                    <p:commandLink rendered="true" id="menuaggrbtn"
+                                   actionListener="#{aggrBean.startup('D')}">
+                        <h:outputText value="Aggregation"/>
+                    </p:commandLink>
+                </li>
+            </ui:fragment>
+
+            <ui:fragment rendered="#{webutil.hasRole('DEMO')}">
+                <li id="modelMenuHighlight">
+                    <a href="/pages/advisor/assetworkflow.xhtml" id="menutradebtn">Model</a>
+                </li>
+            </ui:fragment>
+
+            <ui:fragment rendered="#{webutil.hasRole('DEMO')}">
+            <li id="newaccountMenuHighlight">
+                <p:commandLink rendered="true" id="menureportsbtn"
+                               actionListener="#{uiLayout.doMenuAction('consumer', 'creports.xhtml')}">
+                    <h:outputText value="Reports"/>
+                </p:commandLink>
+            </li>
+            </ui:fragment>
+
+            <li id="myprofileMenuHighlight">
+                <a href="#" class="submenuBtn1" id="menumyprofilebtn">My Profile</a>
+            </li>
+            <div class="subMenuBlk submenuContent1">
+                <ul>
+                    <li><a href="/pages/common/myprofile.xhtml">Setting</a></li>
+                    <div class="menuSeperator"></div>
+                    <li>My Advisors</li>
+                    <div class="menuSeperator"></div>
+                    <li><p:commandLink id="menulogoutBtn" actionListener="#{sessionControl.logout}">
+                        <h:outputText value="Logout"/>
+                    </p:commandLink></li>
+                </ul>
+            </div>
+        </ul>
+
+    </div>
+
+
+</ui:composition>
+

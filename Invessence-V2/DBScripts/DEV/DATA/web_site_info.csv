@@ -1,0 +1,92 @@
+url,name,status,value,encrFlag,created,updated
+demo,ARCHIVE.CLOSED,A,10,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,ARCHIVE.INACTIVE,A,30,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,ARCHIVE.UNOPENED,A,30,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,CSS.CUSTODY,A,css/tcm.css,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,CSS.CUSTOM,A,css/tcm.css,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,CSS.DIR,A,tcm,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,CUSTODY.SERVICE,A,INTERNAL,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,CUSTODY.URL,A,,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,DEFAULT.ADVISOR,A,BB-TCM,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,DEFAULT.MODEL,A,0.BB,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,DEFAULT.REP,A,,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,DIR.CONSUMER,A,tcm,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,DIR.CUSTODY,A,td,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,DIR.TEMPLATE,A,/template/common/spark,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,EMAIL.MAIN,A,info@traditionadvisers.net,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,EMAIL.OPERATION,A,operations@traditionadvisers.net,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,EMAIL.SUPPORT,A,support@traditionadvisers.net,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,EMAIL.USER,A,noreply@traditionadvisers.net,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,HTML.FORGOT,A,traditionadvisers-Forgot.htm,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,HTML.LOCKED,A,traditionadvisers-Locked.htm,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,HTML.RESET,A,traditionadvisers-Reset.htm,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,HTML.WELCOME,A,traditionadvisers-Welcome.htm,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,HTML.WELCOME.ADV,A,traditionadvisers-Welcome.htm,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,INVESTMENT.MIN1ST,A,2000,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,INVESTMENT.MIN2ND,A,50,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,INVESTMENT.RECURRING1ST,A,50,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,INVESTMENT.RECURRING2ND,A,50,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,PHONE.MAIN,A,"(908) 333-4733",N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,PHONE.SUPPORT,A,"(908) 333-4733",N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,SUBJECT.EMAIL.ACTIVATE,A,"Welcome to Tradition Advisers - Activate Your Account",N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,SUBJECT.EMAIL.LOCKED,A,"Tradition Advisers - Account is locked",N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,SUBJECT.EMAIL.RESET,A,"Tradition Advisers - Reset Your Password",N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,SUBJECT.EMAIL.WELCOME,A,"Welcome to Tradition Advisers - Activate Your Account",N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,URL.SECURE,A,https://demo.invessence.com:8080,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,URL.WEBSITE,A,http://demo.invessence.com:8080,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,WEB.COMPANYNAME,A,"Tradition Advisers",N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,WEB.COPYRIGHT,A,"Tradition Capital Management",N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,WEB.FAVICONLOGO,A,/javax.faces.resource/images/BBicon.png.xhtml?ln=tcm,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,WEB.GOOGLEANALYTICS,A,bb_googleanalytics.js,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,WEB.LOGO,A,images/logo/tcm-logo.jpe,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,WEB.LOGOLIB,A,invessence,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,WEB.LOGOSIZE,A,200px,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,WEB.MODE,A,PROD,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,WEB.SSLSEAL,A,https://seal.thawte.com/getthawteseal?host_name=www.buildingbenjamins.com&amp;size=S&amp;lang=en,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,WEB.THEME,A,spark,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+demo,WEB.THEMELIB,A,spark-layout,N,"0000-00-00 00:00:00","0000-00-00 00:00:00"
+preuat,ARCHIVE.CLOSED,A,10,N,"2016-12-16 22:20:19",NULL
+preuat,ARCHIVE.INACTIVE,A,30,N,"2016-12-16 22:20:19",NULL
+preuat,ARCHIVE.UNOPENED,A,30,N,"2016-12-16 22:20:19",NULL
+preuat,CSS.CUSTODY,A,css/tcm.css,N,"2016-12-16 22:20:19",NULL
+preuat,CSS.CUSTOM,A,css/tcm.css,N,"2016-12-16 22:20:19",NULL
+preuat,CSS.DIR,A,tcm,N,"2016-12-16 22:20:19",NULL
+preuat,CUSTODY.SERVICE,A,URL,N,"2016-12-16 22:20:19",NULL
+preuat,CUSTODY.URL,A,,N,"2016-12-16 22:20:19",NULL
+preuat,DEFAULT.ADVISOR,A,BB,N,"2016-12-16 22:20:19",NULL
+preuat,DEFAULT.MODEL,A,0.BB,N,"2016-12-16 22:20:19",NULL
+preuat,DEFAULT.REP,A,,N,"2016-12-16 22:20:19",NULL
+preuat,DIR.CONSUMER,A,tcm,N,"2016-12-16 22:20:19",NULL
+preuat,DIR.CUSTODY,A,td,N,"2016-12-16 22:20:19",NULL
+preuat,DIR.TEMPLATE,A,/template/common/spark,N,"2016-12-16 22:20:19",NULL
+preuat,EMAIL.MAIN,A,info@BuildingBenjamins.com,N,"2016-12-16 22:20:19",NULL
+preuat,EMAIL.OPERATION,A,operations@BuildingBenjamins.com,N,"2016-12-16 22:20:19",NULL
+preuat,EMAIL.SUPPORT,A,support@BuildingBenjamins.com,N,"2016-12-16 22:20:19",NULL
+preuat,EMAIL.USER,A,noreply@buldingbenjamins.com,N,"2016-12-16 22:20:19",NULL
+preuat,HTML.FORGOT,A,buildingbenjamins-Forgot.htm,N,"2016-12-16 22:20:19",NULL
+preuat,HTML.LOCKED,A,buildingbenjamins-Locked.htm,N,"2016-12-16 22:20:19",NULL
+preuat,HTML.RESET,A,buildingbenjamins-Reset.htm,N,"2016-12-16 22:20:19",NULL
+preuat,HTML.WELCOME,A,buildingbenjamins-Welcome.htm,N,"2016-12-16 22:20:19",NULL
+preuat,HTML.WELCOME.ADV,A,buildingbenjamins-Welcome.htm,N,"2016-12-16 22:20:19",NULL
+preuat,INVESTMENT.MIN1ST,A,2000,N,"2016-12-16 22:20:19",NULL
+preuat,INVESTMENT.MIN2ND,A,50,N,"2016-12-16 22:20:19",NULL
+preuat,INVESTMENT.RECURRING1ST,A,50,N,"2016-12-16 22:20:19",NULL
+preuat,INVESTMENT.RECURRING2ND,A,50,N,"2016-12-16 22:20:19",NULL
+preuat,PHONE.MAIN,A,"(908) 333-4733",N,"2016-12-16 22:20:19",NULL
+preuat,PHONE.SUPPORT,A,"(908) 333-4733",N,"2016-12-16 22:20:19",NULL
+preuat,SUBJECT.EMAIL.ACTIVATE,A,"Welcome to Building Benjamins – Activate Your Account",N,"2016-12-16 22:20:19",NULL
+preuat,SUBJECT.EMAIL.LOCKED,A,"Building Benjamins – Account is locked",N,"2016-12-16 22:20:19",NULL
+preuat,SUBJECT.EMAIL.RESET,A,"Building Benjamins – Reset Your Password",N,"2016-12-16 22:20:19",NULL
+preuat,SUBJECT.EMAIL.WELCOME,A,"Welcome to Building Benjamins – Activate Your Account",N,"2016-12-16 22:20:19",NULL
+preuat,URL.SECURE,A,https://BuildingBenjamins.com,N,"2016-12-16 22:20:19",NULL
+preuat,URL.WEBSITE,A,http://BuildingBenjamins.com,N,"2016-12-16 22:20:19",NULL
+preuat,WEB.COMPANYNAME,A,"Building Benjamins",N,"2016-12-16 22:20:19",NULL
+preuat,WEB.COPYRIGHT,A,"Tradition Capital Management",N,"2016-12-16 22:20:19",NULL
+preuat,WEB.GOOGLEANALYTICS,A,bb_googleanalytics.js,N,"2016-12-16 22:20:19",NULL
+preuat,WEB.LOGO,A,images/logo/BuildingBenjamins-identity.png,N,"2016-12-16 22:20:19",NULL
+preuat,WEB.LOGOLIB,A,invessence,N,"2016-12-16 22:20:19",NULL
+preuat,WEB.LOGOSIZE,A,200px,N,"2016-12-16 22:20:19",NULL
+preuat,WEB.MODE,A,PROD,N,"2016-12-16 22:20:19",NULL
+preuat,WEB.SSLSEAL,A,NULL,N,"2017-02-27 13:48:09",NULL
+preuat,WEB.THEME,A,spark,N,"2016-12-16 22:20:19",NULL
+preuat,WEB.THEMELIB,A,spark-layout,N,"2016-12-16 22:20:19",NULL

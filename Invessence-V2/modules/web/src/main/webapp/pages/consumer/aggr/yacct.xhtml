@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/WEB-INF/template.xhtml">
+
+
+
+    <ui:define name="content">
+
+        <h:form id="aggrform">
+
+            <div class="Container100">
+                <!-- Left Column -->
+               <ui:include src="leftMenu.xhtml"/>
+                <!-- Right Column -->
+                <div class="Container90 Responsive100">
+                    <div class="Card Wid90 Fright">
+                        <!-- Section -->
+                        <div class="Container100">
+                            <div class="ContainerIndent">
+                                <div class="Card ShadowEffect">
+                                    <h3 class="BigTopic">
+                                        <div class="Wid30 Responsive50 Fleft">Accounts</div>
+                                        <div class="Wid70 Fright Responsive50">
+                                            <h:outputScript library="yodlee" name="js/jquery-1.11.1.min.js"/>
+                                            <h:outputScript library="yodlee" name="js/oauth.js" />
+                                            <h:outputScript library="yodlee" name="js/sha1.js" />
+                                            <h:outputScript library="yodlee" name="js/jquery.colorbox.js" />
+
+                                            <h:outputScript library="yodlee" name="css/colorbox.css" />
+                                            <h:outputScript library="yodlee" name="css/main.css" />
+
+                                            <h:outputScript library="yodlee" name="js/yodleeCommon.js" />
+                                            <h:commandButton styleClass="Fs16 BlueButton"
+                                                             type="submit" value="Refresh All"
+                                                             action="#{yodleeBean.refreshAccountsData}"/>
+
+                                        </div>
+                                    </h3>
+
+                                    <div class="Container100 Responsive50">
+                                        <div>
+                                            <p:dataTable var="consData" value="#{yodleeBean.consDataList}">
+                                                <p:column headerText="siteName" >
+                                                    <h:outputText value="#{consData.siteDetail.siteName}" />
+                                                </p:column>
+                                                <p:column headerText="itemDispName" >
+                                                    <h:outputText value="#{consData.itemDetail.itemDispName}" />
+                                                </p:column><!--
+                                            <p:column>
+                                                    <h:outputText value="ItemId" />
+                                                <h:outputText value="#{consData.itemDetail.itemId}" />
+                                            </p:column>-->
+                                                <p:column headerText="ContServName" >
+                                                    <h:outputText value="#{consData.itemDetail.contServName}" />
+                                                </p:column>
+
+
+                                                <p:column headerText="accName">
+                                                    <h:outputText value="#{consData.accountDetail.accName}" />
+                                                </p:column>
+
+                                                <p:column headerText="Acc Type" >
+                                                    <h:outputText value="#{consData.accType}" />
+                                                </p:column>
+
+                                                <p:column headerText="Available Balance" >
+                                                    <h:outputText value="#{consData.avilbBal}" />
+                                                </p:column>
+
+                                            </p:dataTable>
+                                        </div>
+                                        <div class="EmptyBox150"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

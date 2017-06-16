@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+    <f:metadata>
+        <f:viewParam name="app" value="#{uobpb.newapp}"/>
+        <f:viewParam name="acct" value="#{uobpb.beanAcctnum}"/>
+        <f:event type="preRenderView" listener="#{uobpb.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:outputScript name="js/invCharts.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+        <h:outputScript name="js/uobHighCharts.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+
+        <!-- HighChart .js plugin Start -->
+        <h:outputScript name="js/highcharts.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+        <h:outputScript name="js/highcharts-3d.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+        <h:outputScript name="js/highcharts-more.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+        <h:outputScript name="js/exporting.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+        <h:outputScript name="js/drilldown.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+        <h:outputScript name="js/data.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+
+        <!-- HighChart jsplugin End -->
+        <h:form id="ceForm">
+            <p:outputPanel id="workArea">
+
+                <ui:fragment rendered="#{uobpb.masterpagemanager.page == 0}">
+                    <div class="FullContainer">
+                        <ui:include src="/pages/consumer/uob/addon/cEdit.xhtml"/>
+                    </div>
+                </ui:fragment>
+                <ui:fragment rendered="#{uobpb.masterpagemanager.page == 1}">
+                    <div class="FullContainer">
+                        <ui:include src="/pages/consumer/uob/addon/register.xhtml"/>
+                    </div>
+                </ui:fragment>
+            </p:outputPanel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

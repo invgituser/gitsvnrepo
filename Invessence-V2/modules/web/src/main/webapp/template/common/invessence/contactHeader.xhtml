@@ -1,0 +1,23 @@
+<ui:composition
+
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://java.sun.com/jsf/html">
+
+
+    <div id="" class="TopHeader">
+        <div class="Wid100">
+            <span class="bussinessContact Fright">
+                <p:outputText value="#{webutil.webprofile.supportInfo}"
+                              rendered="#{webutil.webprofile.hasBusinessContact}"/>
+            <ui:fragment rendered="#{webutil.hasRole('DEMO')}">
+                <a class="Animated05 CursPointer" href="https://get.teamviewer.com/s11158247"> | <i class="fa fa-question-circle"></i> Help Desk<i class="fa fa-chevron-down Fs14 Fright ShowOnMobile"></i>
+                </a>
+            </ui:fragment>
+            </span>
+        </div>
+    </div>
+
+</ui:composition>
+        

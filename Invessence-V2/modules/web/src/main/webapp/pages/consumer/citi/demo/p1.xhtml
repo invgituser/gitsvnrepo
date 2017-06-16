@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <div class="Container100 TextAlCenter">
+
+        <div class="EmptyBox10"></div>
+
+        <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter  MarTop10 BackgroundWhite" style="padding: 50px 0">
+            <div class="Container90 Fnone MarAuto TexAlCenter">
+
+                <h2 class="CitiDemotitle">
+                    Goal
+                </h2>
+                <div class="EmptyBox20"></div>
+
+                <div class="TexAlCenter">
+                    <div class="PortfolioCreationFields">
+                <span class="mobileFullWidth">
+
+                    <h:outputText id="demoobjectiveText" value="The objective for this portfolio is " styleClass="formFS "/>
+                    </span>
+                        <p:selectOneMenu id="q1" styleClass="TCM-UI-Dropdown dropdownInputFullWidth portfolioCreationDD citiinput"
+                                         required="true" requiredMessage="Please choose investment strategy"
+                                         value="#{citidemo.goal}">
+
+                            <f:selectItem id="dchooseone" itemLabel="Choose One" itemValue=""/>
+                            <f:selectItem id="dretirement" itemLabel="Retirement" itemValue="Retirement"/>
+                            <f:selectItem id="dcollege" itemLabel="College" itemValue="College"/>
+                            <f:selectItem id="dbuildingwealth" itemLabel="Building Wealth" itemValue="Wealth"/>
+                            <f:selectItem id="dother" itemLabel="Other" itemValue="Other"/>
+                        </p:selectOneMenu>
+                    </div>
+                    <div class="EmptyBox50"></div>
+                    <p:commandButton styleClass="Fs16 citibutton" style="float: right;"
+                                   id="demonextbtn1" value="Next"
+                                   update=":ceForm:inputArea, :ceForm:progressArea"
+                                   actionListener="#{citidemo.pagemanager.nextPage}">
+                    </p:commandButton>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="EmptyBox10"></div>
+    </div>
+
+
+</ui:composition>

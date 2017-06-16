@@ -1,0 +1,122 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="action" value="#{manageAdvisorBean.filteredClient}"/>
+        <f:event type="preRenderView" listener="#{manageAdvisorBean.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <!-- BOX START -->
+        <div class="layout-portlets-box">
+            <div class="Container100 Responsive100">
+                <div class="ContainerIndent">
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode" style="background-color: #ffffff;">
+                        <h:form>
+                            <p:commandButton value="Yes" type="button"
+                                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button"
+                                             styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </h:form>
+                    </p:confirmDialog>
+
+                    <h:form id="form">
+                        <div class="Container100">
+                        <p:dataTable id="managedTable" var="managedVar" styleClass="ListOfAccountsTable" widgetVar="managedTable"
+                                     value="#{manageAdvisorBean.filteredDataList}" reflow="true">
+
+<!--
+                           <f:facet name="header" style="text-align:right">
+                               <p:outputPanel style="text-align:right">
+                                   <h:outputText value="Search:" />
+                                   <p:inputText id="globalFilter" onkeyup="PF('managedTable').filter()"
+                                                style="width:150px; margin-left: 5px" placeholder="Enter keyword"/>
+                                   <p:commandButton value="Clear" onclick="PF('managedTable').clearFilters();"/>
+                               </p:outputPanel>
+                           </f:facet>
+-->
+
+                            <p:column styleClass="ListOfAccntsColWidthBtn ZeroPaddingBottom" resizable="true">
+                                <p:commandButton id="editButton"
+                                                 styleClass="Fs16 BlueButton DualBtnModeLeft"
+                                                 process="@this" immediate="true"
+                                                 icon="fa fa-pencil-square-o Fs14 white"
+                                                 action="#{manageAdvisorBean.doEditAction}">
+                                    <p:tooltip for="editButton" value="Edit" />
+                                    <f:setPropertyActionListener value="#{managedVar}"
+                                                                 target="#{manageAdvisorBean.selectedAccount}"/>
+                                </p:commandButton>
+
+                                <p:commandButton id="ovButton" rendered="#{managedVar.acctStatus == 'Active'}"
+                                                 styleClass="Fs16 GreenButton"
+                                                 process="@this" immediate="true"
+                                                 icon="fa fa-search-plus Fs14 white"
+                                                 action="#{manageAdvisorBean.doManagedAction}">
+                                    <p:tooltip for="ovButton" value="Show" />
+                                    <f:setPropertyActionListener value="#{managedVar}"
+                                                                 target="#{manageAdvisorBean.selectedAccount}"/>
+                                </p:commandButton>
+                                <p:commandButton id="deleteButton" rendered="#{managedVar.acctStatus != 'Active'}"
+                                                 styleClass="Fs16 RedButton DualBtnModeRight"
+                                                 process="@this" immediate="true"
+                                                 icon="fa fa-trash Fs14 white"
+                                                 actionListener="#{manageAdvisorBean.doDelete(managedVar)}"
+                                                 update="managedTable">
+                                    <p:tooltip for="deleteButton" value="Delete" />
+                                    <p:confirm header="Delete This Account" message="Are you sure?" icon="ui-icon-alert"/>
+                                </p:commandButton>
+                            </p:column>
+                            <!-- <p:column styleClass="ListOfAccntsColWidthBtn ZeroPaddingBottom" resizable="true">
+                                
+                            </p:column> -->
+                            <p:column sortBy="#{managedVar.portfolioName}"
+                                      headerText="Strategy"
+                                      styleClass="ListOfAccntsColWidth"
+                                      resizable="true">
+                                <h:outputText styleClass="dashboardUsrColumnFloatLeft" value="#{managedVar.portfolioName}"/>
+                            </p:column>
+                            <p:column sortBy="#{managedVar.displayAcct}"
+                                      headerText="Acct#"
+                                      styleClass="ListOfAccntsColWidth"
+                                      resizable="true">
+                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.displayAcct}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{managedVar.goal}"
+                                      headerText="Goal"
+                                      styleClass="ListOfAccntsColWidth"
+                                      resizable="true">
+                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.goal}"/>
+                            </p:column>
+                            <p:column sortBy="#{managedVar.invested}"
+                                      headerText="Capital($)"
+                                      styleClass="ListOfAccntsColWidth num-text-align invest"
+                                      resizable="true">
+                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.invested}">
+                                    <f:convertNumber currencySymbol="$" type="currency"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column sortBy="#{managedVar.dateOpened}"
+                                      headerText="Date Opened"
+                                      styleClass="ListOfAccntsColWidth"
+                                      resizable="true">
+                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.dateOpened}">
+                                </h:outputText>
+                            </p:column>
+                        </p:dataTable>
+                        </div>
+
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <!-- BOX END -->
+
+    </ui:define>
+
+</ui:composition>
