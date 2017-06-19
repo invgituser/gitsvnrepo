@@ -145,26 +145,6 @@ CREATE TABLE `tmp_unrealized` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-create or replace view invdb.vw_user_trades as select utl.* from invdb.user_trade_log utl, invdb.trade_process_identifier tdi
-where utl.acctnum=tdi.acctnum and utl.tradeStatus='T' and tdi.processStatus='Y' order by acctnum;
-
-USE `invdb`;
-CREATE 
-     OR REPLACE ALGORITHM = UNDEFINED 
-    SQL SECURITY DEFINER
-VIEW `invdb`.`vw_invessence_switch` AS
-    SELECT 
-        `invdb`.`invessence_switch`.`name` AS `name`,
-        `invdb`.`invessence_switch`.`description` AS `description`,
-        `invdb`.`invessence_switch`.`value` AS `value`,
-        `invdb`.`invessence_switch`.`format` AS `format`,
-        `invdb`.`invessence_switch`.`created` AS `created`,
-        `invdb`.`invessence_switch`.`lastupdated` AS `lastupdated`
-    FROM
-        `invdb`.`invessence_switch`;
-
-
-
 USE `invdb`;
 DROP procedure IF EXISTS `file_process_auditrial`;
 

@@ -17,6 +17,19 @@ INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `v
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'UOB', 'FILE-PROCESS', 'VENDOR', 'DOWNLOAD_SFTP_HOST', 'uat.invessence.com', 'N');
 
 
+CREATE
+     OR REPLACE ALGORITHM = UNDEFINED
+    SQL SECURITY DEFINER
+VIEW `service`.`vw_invessence_switch` AS
+    SELECT
+        `service`.`invessence_switch`.`name` AS `name`,
+        `service`.`invessence_switch`.`description` AS `description`,
+        `service`.`invessence_switch`.`value` AS `value`,
+        `service`.`invessence_switch`.`format` AS `format`,
+        `service`.`invessence_switch`.`created` AS `created`,
+        `service`.`invessence_switch`.`lastupdated` AS `lastupdated`
+    FROM
+        `service`.`invessence_switch`;
 
 DROP TABLE IF EXISTS `service`.`file_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
