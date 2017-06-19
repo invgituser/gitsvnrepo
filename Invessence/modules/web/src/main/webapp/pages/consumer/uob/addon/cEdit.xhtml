@@ -60,18 +60,21 @@
                     </div>
                 </div>
                 <div class="Container100 TexAlCenter">
-                    <div class="ContainerIndent">
-                        <p:commandButton id="uobFTSave"
-                                         value="Save"
-                                         styleClass="uob_button"
-                                         update=":ceForm:workArea"
-                                         actionListener="#{uobpb.saveFTPanel}">
-                        </p:commandButton>
+                    <div class="ContainerIndent" style="margin-top: 50px;">
+
                         <p:commandButton id="uobFTCancel"
                                          value="Cancel"
                                          styleClass="uob_button"
+                                         style="width: 100px; margin-right: 60px;"
                                          update=":ceForm:workArea"
                                          actionListener="#{uobpb.cancelFTPanel}">
+                        </p:commandButton>
+                        <p:commandButton id="uobFTSave"
+                                         value="Save"
+                                         styleClass="uob_button"
+                                         style="width: 100px;"
+                                         update=":ceForm:workArea"
+                                         actionListener="#{uobpb.saveFTPanel}">
                         </p:commandButton>
                     </div>
                 </div>
@@ -200,8 +203,8 @@
                                   });
             </script>
 
-            <div class="Container100 MarTop20">
-                <div class="Fs30 Fleft summaryHeader mainHeaderUOB RPHeadings1"
+            <div class="Container100 MarTop20" style="border-bottom: 2px solid #a4332f;">
+                <div class="Fs30 Fleft summaryHeader mainHeaderUOB RPHeadings1 active"
                      style="cursor: pointer;">Summary</div>
                 <div class="Fs30 Fleft detailHeader mainHeaderUOB RPHeadings2"
                      style="cursor: pointer;">Details</div>
@@ -341,4 +344,32 @@
             </div>
         </p:panel>
     </div>
+
+    <script>
+
+        $(function() {
+            $('.RPHeadings2').click( function() {
+                $(this).addClass('active');
+                $('.RPHeadings1').removeClass('active');
+
+
+
+
+            });
+        });
+    </script>
+
+    <script>
+
+        $(function() {
+            $('.RPHeadings1').click( function() {
+                $(this).addClass('active');
+                $('.RPHeadings2').removeClass('active');
+
+
+
+
+            });
+        });
+    </script>
 </ui:composition>
