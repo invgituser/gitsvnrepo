@@ -5,6 +5,7 @@ package invtest;
 import org.ojalgo.finance.portfolio.*;
 import org.ojalgo.matrix.PrimitiveMatrix;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Hello world!
@@ -31,7 +32,7 @@ public class TestNewOjAlgo
    public static void main(String[] args) throws Exception
    {
 
-      testMarkowitzModel( 0.035);
+      // testMarkowitzModel( 0.035);
       testEfficientFrontier(0.035);
 
    }
@@ -215,6 +216,7 @@ public class TestNewOjAlgo
 
       }
 
+      List<SimpleAsset> simpleAssetList = null;
       for (int index = 0; index < 100; index++)
       {
 
@@ -224,7 +226,7 @@ public class TestNewOjAlgo
          efficientFrontTestCase.setRiskAversion(BigDecimal.valueOf(portVol));
 
 
-         efficientFrontTestCase.optimiser();
+         simpleAssetList = efficientFrontTestCase.toSimpleAssets();
 
          ret = ret + incRet;
          portVol = portVol + incVol;
@@ -232,6 +234,13 @@ public class TestNewOjAlgo
          System.out.println("Mean Return");
          System.out.println(efficientFrontTestCase.getMeanReturn());
          System.out.println(efficientFrontTestCase.getWeights());
+
+         for (SimpleAsset sasset : simpleAssetList) {
+            System.out.println("Simp AssetInfo");
+            System.out.println(sasset.getMeanReturn());
+            System.out.println(sasset.getWeights());
+
+         }
 
       }
    }
