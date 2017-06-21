@@ -29,6 +29,8 @@ USE `invdb`;
 
 DROP TABLE IF EXISTS `tmp_client_data`;
 CREATE TABLE `tmp_client_data` (
+  `clientAccountID` varchar(20) DEFAULT '',
+  `acctnum`     	bigint(20) DEFAULT NULL, 
   `companyName` varchar(20) DEFAULT NULL,
   `lastName` varchar(20) DEFAULT NULL,
   `firstName` varchar(20) DEFAULT NULL,
@@ -42,7 +44,6 @@ CREATE TABLE `tmp_client_data` (
   `state` varchar(20) DEFAULT NULL,
   `zipCode` varchar(20) DEFAULT NULL,
   `SSNOrTaxID` varchar(20) DEFAULT NULL,
-  `accountNumber` varchar(20) DEFAULT '',
   `advisorID` varchar(20) DEFAULT '',
   `taxable` varchar(20) DEFAULT NULL,
   `phoneNumber` varchar(20) DEFAULT NULL,
@@ -65,17 +66,43 @@ CREATE TABLE `tmp_client_data` (
   `birthDate` varchar(20) DEFAULT NULL,
   `discountRate` varchar(20) DEFAULT NULL,
   `payoutRate` varchar(20) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `tmp_position`;
+USE `invdb`;
+DROP TABLE IF EXISTS `tmp_nav_daily`;
+CREATE TABLE `tmp_nav_daily` (
+  `clientAccountID` varchar(8) NOT NULL DEFAULT '',
+  `reportDate` varchar(10) NOT NULL DEFAULT '',
+  `currencyPrimary` varchar(03) DEFAULT 'USD',
+  `fxRateToBase` double DEFAULT NULL,
+  `cash` double DEFAULT NULL,
+  `stock` double DEFAULT NULL,
+  `funds` double DEFAULT NULL,
+  `interestAccrual` double DEFAULT NULL,
+  `dividentAccrual` double DEFAULT NULL,
+  `total` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `invdb`.`tmp_position`;
 CREATE TABLE `tmp_position` (
-  `accountNumber` varchar(20) DEFAULT '',
-  `accountType` varchar(20) DEFAULT NULL,
-  `securityType` varchar(20) DEFAULT NULL,
-  `symbolCUSIP` varchar(20) DEFAULT '',
-  `quantity` varchar(20) DEFAULT NULL,
-  `amount` varchar(20) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `clientAccountID` varchar(8) NOT NULL DEFAULT '',
+  `accountAlias` varchar(10) DEFAULT NULL,
+  `currencyPrimary` varchar(3) DEFAULT NULL,
+  `assetClass` varchar(10) DEFAULT NULL,
+  `fxRateToBase` double DEFAULT NULL,
+  `symbol` varchar(10) NOT NULL DEFAULT '',
+  `description` varchar(60) DEFAULT NULL,
+  `reportDate` varchar(8) NOT NULL DEFAULT '',
+  `side` varchar(6) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `costBasisPrice` double DEFAULT NULL,
+  `CostBasisMoney` double DEFAULT NULL,
+  `markPrice` double DEFAULT NULL,
+  `positionValue` double DEFAULT NULL,
+  `fifoPnlUnrealized` double DEFAULT NULL,
+  `LevelOfDetail` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `tmp_security`;
 CREATE TABLE `tmp_security` (
@@ -91,13 +118,13 @@ CREATE TABLE `tmp_security` (
   `sharePerContract` int(11) DEFAULT NULL,
   `annualIncomeAmount` double DEFAULT NULL,
   `comment` varchar(120) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `tmp_transaction`;
 CREATE TABLE `tmp_transaction` (
   `brokerAccount` varchar(20) DEFAULT '',
   `fileDate` varchar(20) DEFAULT NULL,
-  `accountNumber` varchar(20) DEFAULT '',
+  `clientAccountID` varchar(20) DEFAULT '',
   `transactionCode` varchar(20) DEFAULT '',
   `cancelStatusFlag` varchar(20) DEFAULT NULL,
   `symbolCUSIP` varchar(20) DEFAULT '',
@@ -114,13 +141,13 @@ CREATE TABLE `tmp_transaction` (
   `accruedInterest` varchar(20) DEFAULT NULL,
   `closingAccountingMethod` varchar(20) DEFAULT NULL,
   `comments` varchar(120) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `tmp_unrealized`;
 CREATE TABLE `tmp_unrealized` (
   `custodialID` varchar(20) NOT NULL DEFAULT '',
   `businessDate` varchar(20) NOT NULL DEFAULT '',
-  `accountNumber` varchar(30) NOT NULL DEFAULT '',
+  `clientAccountID` varchar(20) NOT NULL DEFAULT '',
   `accountType` varchar(30) NOT NULL DEFAULT '',
   `securityType` varchar(20) DEFAULT NULL,
   `symbolCUSIP` varchar(30) NOT NULL DEFAULT '',
