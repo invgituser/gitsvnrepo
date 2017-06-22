@@ -19,6 +19,7 @@ import java.net.*;
 import java.util.*;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.springframework.stereotype.*;
 
 
 /**
@@ -28,13 +29,10 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  * Time: 11:45 AM
  * To change this template use File | Settings | File Templates.
  */
-@ManagedBean(name = "filesIO")
-@SessionScoped
+
+@Service("filesIO")
 public class FilesIO
 {
-   @Autowired
-   private WebUtil webutil;
-
    @Autowired
    private FileProcessWebLayer fileProcessWebLayer;
 
@@ -57,16 +55,6 @@ public class FilesIO
    public void setFileProcessWebLayer(FileProcessWebLayer fileProcessWebLayer)
    {
       this.fileProcessWebLayer = fileProcessWebLayer;
-   }
-
-   public WebUtil getWebutil()
-   {
-      return webutil;
-   }
-
-   public void setWebutil(WebUtil webutil)
-   {
-      this.webutil = webutil;
    }
 
    public String getContentType(String fileName) throws IOException
@@ -275,16 +263,15 @@ public class FilesIO
                }
             }
          }
-
       return data;
    }
 
 
    // Need to return the list of file
-   public Boolean processDownloadFile(String processId){
+   public Boolean processDownloadFile(String processId, String product, String serviceMode){
       System.out.println("AggregationBean.startup");
-      String product = getWebutil().getWebprofile().getWebInfo().get("SERVICE.PRODUCT").toString();
-      String serviceMode = getWebutil().getWebprofile().getWebInfo().get("SERVICE.FILEPROCESS.MODE").toString();
+//      String product = getWebutil().getWebprofile().getWebInfo().get("SERVICE.PRODUCT").toString();
+//      String serviceMode = getWebutil().getWebprofile().getWebInfo().get("SERVICE.FILEPROCESS.MODE").toString();
 //      String processId= getWebutil().getWebprofile().getWebInfo().get("SERVICE.FILEPROCESS.UPLOADPROCESSID").toString();
       System.out.println("Product " + product);
       System.out.println("ServiceMode " + serviceMode);

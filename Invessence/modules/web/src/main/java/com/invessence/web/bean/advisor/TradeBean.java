@@ -43,7 +43,9 @@ public class TradeBean extends TradeClientData implements Serializable
 
    private List<String> tradeFilters;
 
-   private FilesIO fileio;
+
+   @ManagedProperty("#{filesIO}")
+   private FilesIO fileIO;
 
    @ManagedProperty("#{tradeDAO}")
    private TradeDAO tradeDAO;
@@ -58,6 +60,11 @@ public class TradeBean extends TradeClientData implements Serializable
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
 
+   public WebUtil getWebutil()
+   {
+      return webutil;
+   }
+
    public void setWebutil(WebUtil webutil)
    {
       this.webutil = webutil;
@@ -71,11 +78,19 @@ public class TradeBean extends TradeClientData implements Serializable
       this.uiLayout = uiLayout;
    }
 
+   public FilesIO getFileIO()
+   {
+      return fileIO;
+   }
+
+   public void setFileIO(FilesIO fileIO)
+   {
+      this.fileIO = fileIO;
+   }
 
    @PostConstruct
    public void init()
    {
-      fileio = new FilesIO();
       tradeFilters = new ArrayList<String>();
       tradeFilters.add("New");
       tradeFilters.add("Date");
@@ -573,7 +588,9 @@ public class TradeBean extends TradeClientData implements Serializable
                tradeDAO.executeTrade(tData.getAcctnum());
                tData.setProcessStatus("S");
             }
-            fileio.processDownloadFile("DOWD1");
+            String product = webutil.getWebprofile().getWebInfo().get("SERVICE.PRODUCT");
+            String serviceMode = webutil.getWebprofile().getWebInfo().get("SERVICE.FILEPROCESS.MODE");
+            fileIO.processDownloadFile("DOWD1", product, serviceMode);
 
             // If for some reason, there is an exception, then the trades remain in the same list here.
             // If there is no error from generating file, then move all of them as processed.
