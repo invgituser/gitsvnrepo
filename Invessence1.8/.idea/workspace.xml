@@ -2,23 +2,822 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="3e625fd0-3140-4479-9b6f-a166e40a7972" name="Default" comment="Exclude">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/invessence.iml" afterPath="$PROJECT_DIR$/invessence.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/.settings" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/algebra" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/concurrent" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/constant" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/data" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/simulator" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/aggregator" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/multiary" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/polynomial" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/machine" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/function" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task/iterative" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/transformation" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/convex" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/integer" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/linear" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/process" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/scalar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/function" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/primitive" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/tensor" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/context" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/format" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/keyvalue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/access" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/array" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/array/blas" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/constant" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/finance" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/finance/data" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/finance/portfolio" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/function" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/function/multiary" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/function/polynomial" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/machine" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/operation" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/task" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/convex" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/random" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/random/process" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/scalar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/series" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/type" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/type/context" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/.classpath" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/.cvsignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/.project" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/.settings/edu.umd.cs.findbugs.core.prefs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/.settings/ojAlgo Functionality Tests.launch" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/.settings/org.eclipse.core.resources.prefs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/.settings/org.eclipse.jdt.apt.core.prefs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/.settings/org.eclipse.jdt.core.prefs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/.settings/org.eclipse.jdt.ui.prefs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/.settings/org.eclipse.m2e.core.prefs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/.settings/org.eclipse.wst.common.component" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/.settings/org.eclipse.wst.common.project.facet.core.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/.settings/org.eclipse.wst.validation.prefs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/LICENSE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/jdeps.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/ojalgo.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/pom.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/EffectiveThrowable.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/OjAlgoUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/ProgrammingError.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/RecoverableCondition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/Access1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/Access2D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/AccessAnyD.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/AccessScalar.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/AccessUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/ColumnView.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/ElementView1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/ElementView2D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/Factory1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/Factory2D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/FactoryAnyD.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/FactorySupplement.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/IndexMapper.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/IntIndex.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/IntReference.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/IntRowColumn.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/Iterator1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/LongIndex.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/LongReference.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/LongRowColumn.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/Mutate1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/Mutate2D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/MutateAnyD.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/RowView.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/Stream1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/Stream2D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/StreamAnyD.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/Structure1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/Structure2D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/access/StructureAnyD.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/algebra/Field.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/algebra/Group.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/algebra/NormedVectorSpace.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/algebra/Operation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/algebra/Ring.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/algebra/ScalarOperation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/algebra/VectorSpace.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/Array1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/Array2D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/ArrayAnyD.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/ArrayFactory.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/ArrayUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/BasicArray.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/BigArray.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/BufferArray.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/ComplexArray.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/DenseArray.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/DenseStrategy.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/LongToNumberMap.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/NumberList.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/PlainArray.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/Primitive32Array.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/Primitive64Array.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/PrimitiveArray.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/PrimitiveSubtype.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/QuaternionArray.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/RationalArray.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/Raw1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/Raw2D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/RawAnyD.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/ReferenceTypeArray.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/ScalarArray.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/SegmentedArray.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/SparseArray.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/StrategyBuilder.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/AMAX.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/AMIN.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/ASUM.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/AXPY.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/BLAS1.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/BLAS2.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/BLAS3.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/CABS1.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/COPY.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/DOT.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/DOTC.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/DOTU.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/NRM2.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/ROT.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/ROTG.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/ROTM.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/ROTMG.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/SCAL.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/SDOT.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/array/blas/SWAP.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/concurrent/DaemonFactory.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/concurrent/DaemonPoolExecutor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/concurrent/DivideAndConquer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/constant/BigMath.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/constant/BigPrefix.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/constant/PrimitiveMath.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/constant/PrimitivePrefix.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/FinanceUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/data/DataSource.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/data/DatePrice.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/data/GoogleSymbol.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/data/SourceCache.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/data/YahooSymbol.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/package-info.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/BlackLittermanContext.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/BlackLittermanModel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/CharacteristicLine.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/EfficientFrontier.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/EquilibriumModel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/FinancePortfolio.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/FixedReturnsPortfolio.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/FixedWeightsPortfolio.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/LowerUpper.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/MarketEquilibrium.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/MarkowitzModel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/NormalisedPortfolio.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/OptimisedPortfolio.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/PortfolioContext.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/PortfolioMixer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/SimpleAsset.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/SimplePortfolio.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/package-info.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/simulator/PortfolioSimulator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/BasicFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/BigFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/BinaryFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/ComplexFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/FunctionSet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/FunctionUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/NullaryFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/ParameterFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/PrimitiveFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/QuaternionFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/RationalFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/UnaryFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/VoidFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/aggregator/Aggregator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/aggregator/AggregatorFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/aggregator/AggregatorSet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/aggregator/BigAggregator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/aggregator/ComplexAggregator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/aggregator/PrimitiveAggregator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/aggregator/QuaternionAggregator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/aggregator/RationalAggregator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/multiary/AbstractMultiary.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/multiary/ApproximateFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/multiary/CompoundFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/multiary/ConstantFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/multiary/FirstOrderApproximation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/multiary/LinearFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/multiary/MultiaryFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/multiary/QuadraticFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/multiary/SecondOrderApproximation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/polynomial/AbstractPolynomial.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/polynomial/BigPolynomial.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/polynomial/ComplexPolynomial.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/polynomial/PolynomialFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/polynomial/PrimitivePolynomial.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/polynomial/RationalPolynomial.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/function/polynomial/package-info.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/machine/AbstractMachine.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/machine/BasicMachine.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/machine/Hardware.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/machine/JavaType.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/machine/MemoryEstimator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/machine/VirtualMachine.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/AbstractMatrix.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/BasicMatrix.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/BigMatrix.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/ComplexMatrix.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/MatrixFactory.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/MatrixUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/PrimitiveMatrix.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/AbstractDecomposition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/Bidiagonal.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/BidiagonalDecomposition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/Cholesky.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/CholeskyDecomposition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/DecompositionStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/DeferredTridiagonal.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/DiagonalAccess.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/DiagonalArray1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/DiagonalBasicArray.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/DynamicEvD.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/Eigenvalue.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/EigenvalueDecomposition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/EvD1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/EvD2D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/GenericDecomposition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/HermitianEvD.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/Hessenberg.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/HessenbergDecomposition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/InPlaceDecomposition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/LDL.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/LDLDecomposition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/LDU.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/LU.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/LUDecomposition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/MatrixDecomposition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/NewGeneralEvD.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/OldGeneralEvD.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/Pivot.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/QR.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/QRDecomposition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/RawCholesky.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/RawDecomposition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/RawEigenvalue.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/RawLDL.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/RawLU.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/RawQR.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/RawSingularValue.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/Schur.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/SchurDecomposition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/SimultaneousTridiagonal.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/SingularValue.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/SingularValueDecomposition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/Tridiagonal.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/TridiagonalDecomposition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/function/ExchangeColumns.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/function/NegateColumn.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/decomposition/function/RotateRight.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/AboveBelowStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/AbstractStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/BigDenseStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/ColumnsStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/ColumnsSupplier.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/ComplexDenseStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/ConjugatedStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/DelegatingStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/ElementsConsumer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/ElementsSupplier.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/FactoryStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/GenericDenseStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/IdentityStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/LeftRightStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/LimitStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/LogicalStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/LowerHermitianStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/LowerHessenbergStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/LowerTriangularStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/MatrixPipeline.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/MatrixStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/OffsetStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/PhysicalStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/PrimitiveDenseStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/RawStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/RowsStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/RowsSupplier.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/SelectingStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/ShadingStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/SingleStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/SparseStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/SuperimposedStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/TransjugatedStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/TransposedStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/UpperHermitianStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/UpperHessenbergStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/UpperTriangularStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/WrapperStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/ZeroStore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/AggregateAll.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/ApplyCholesky.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/ApplyLDL.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/ApplyLDU.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/ApplyLU.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/FillConjugated.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/FillMatchingBoth.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/FillMatchingLeft.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/FillMatchingRight.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/FillMatchingSingle.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/FillTransposed.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/GenerateApplyAndCopyHouseholderColumn.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/GenerateApplyAndCopyHouseholderRow.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/HermitianRank2Update.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/HouseholderHermitian.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/HouseholderLeft.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/HouseholderRight.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/MatrixOperation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/ModifyAll.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/MultiplyBoth.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/MultiplyHermitianAndVector.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/MultiplyLeft.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/MultiplyNeither.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/MultiplyRight.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/RotateLeft.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/RotateRight.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/SubstituteBackwards.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/SubstituteForwards.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/store/operation/package-info.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task/AbstractDeterminator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task/AbstractInverter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task/AbstractSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task/DeterminantTask.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task/InverterTask.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task/MatrixTask.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task/SolverTask.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task/iterative/ConjugateGradientSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task/iterative/Equation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task/iterative/GaussSeidelSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task/iterative/IterativeSolverTask.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task/iterative/JacobiSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task/iterative/KrylovSubspaceSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task/iterative/MutableSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/task/iterative/StationaryIterativeSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/transformation/Householder.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/transformation/HouseholderColumn.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/transformation/HouseholderReference.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/transformation/HouseholderRow.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/matrix/transformation/Rotation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/ASCII.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/AbstractParser.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/BasicLogger.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/BasicParser.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/Batch.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/BufferedParsingReader.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/CharArraySegment.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/CharacterRing.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/DelimitedData.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/LineTerminator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/Message.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/Password.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/ProcessInputStream.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/ProcessOutputStream.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/ResourceLocator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/SystemProcess.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/package-info.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/AbstractModel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/BaseSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/Expression.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/ExpressionsBasedConvexIntegration.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/ExpressionsBasedIntegerIntegration.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/ExpressionsBasedLinearIntegration.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/ExpressionsBasedModel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/FunctionsBasedConvexIntegration.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/FunctionsBasedModel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/GenericSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/MathProgSysGenericIntegration.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/MathProgSysModel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/ModelEntity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/Optimisation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/OptimisationUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/Presolvers.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/Variable.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/convex/ActiveSetSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/convex/ConstrainedSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/convex/ConvexSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/convex/DirectASS.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/convex/DirectMixedASS.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/convex/DirectPureASS.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/convex/IterativeASS.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/convex/IterativeMixedASS.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/convex/IterativePureASS.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/convex/QPESolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/convex/UnconstrainedSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/integer/IntegerSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/integer/NewIntegerSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/integer/NodeKey.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/integer/OldIntegerSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/linear/LinearSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/linear/SimplexTableauSolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/optimisation/linear/Tableau.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/AbstractContinuous.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/AbstractDiscrete.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/Binomial.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/ContinuousDistribution.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/Deterministic.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/DiscreteDistribution.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/Distribution.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/Erlang.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/Exponential.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/Gamma.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/Geometric.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/LogNormal.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/Normal.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/Normal1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/Poisson.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/Random1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/RandomNumber.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/RandomNumber1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/RandomUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/SampleSet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/Uniform.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/Weibull.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/process/AbstractProcess.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/process/GaussianField.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/process/GaussianProcess.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/process/GeometricBrownian1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/process/GeometricBrownianMotion.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/process/PoissonProcess.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/process/Process1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/process/RandomProcess.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/process/Wiener1D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/random/process/WienerProcess.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/scalar/BigScalar.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/scalar/ComplexNumber.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/scalar/Money.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/scalar/PrimitiveScalar.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/scalar/Quaternion.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/scalar/RationalNumber.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/scalar/RationalNumber2.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/scalar/Scalar.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/BasicSeries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/CalendarDateSeries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/CoordinationSet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/MappedIndexSeries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/NumberSeries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/SeriesInterpolator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/TreeSeries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/function/SeriesExtrapolator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/function/SeriesForecaster.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/function/SeriesFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/function/SeriesInterpolator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/primitive/AccessSeries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/primitive/BinaryFunctionSeries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/primitive/CoordinatedSet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/primitive/DataSeries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/primitive/DifferencesSeries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/primitive/ExplicitTimeSeries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/primitive/ImplicitTimeSeries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/primitive/PrimitiveSeries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/primitive/PrimitiveTimeSeries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/primitive/PrunedSeries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/primitive/QuotientsSeries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/series/primitive/UnaryFunctionSeries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/tensor/AnyTensor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/tensor/Tensor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/Alternator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/CalendarDate.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/CalendarDateDuration.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/CalendarDateUnit.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/ColourData.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/Disposable.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/IndexSelector.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/IntCount.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/KeyCounter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/Operation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/ScheduleBuilder.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/StandardType.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/TimeIndex.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/TypeCache.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/TypeUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/context/BinaryContext.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/context/BooleanContext.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/context/DateContext.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/context/FormatContext.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/context/GenericContext.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/context/NumberContext.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/context/StringContext.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/context/TypeContext.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/format/BinaryFormat.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/format/BooleanFormat.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/format/DatePart.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/format/DateStyle.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/format/NumberStyle.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/format/StringFormat.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/format/TransformationFormat.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/keyvalue/ComparableToDouble.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/keyvalue/ComparableToObject.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/keyvalue/IntToDouble.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/keyvalue/IntToObject.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/keyvalue/KeyValue.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/keyvalue/LongToDouble.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/keyvalue/LongToObject.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/keyvalue/MapEntry.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/keyvalue/MethodToAtomicLong.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/keyvalue/StringToDouble.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/keyvalue/StringToInt.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/type/keyvalue/StringToObject.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/BenchmarkContestant.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/BenchmarkRequirementsException.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/FunctionalityTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/HypotTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/JUnit4TestCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/LinearAlgebraBenchmark.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/Multiply.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/MultiplyLeftImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/OrderMatrixMultiplication.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/SymmetricEigenvalueProfiling.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/TestUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/TuneRawCholesky.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/access/AccessTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/access/AccessUtilsTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/array/AggregatorCardinality.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/array/AggregatorProduct.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/array/AggregatorSum.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/array/Array1DTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/array/ArrayStructureTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/array/ArrayTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/array/BasicArrayTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/array/BufferArrayTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/array/DirectCleanupTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/array/LongToNumberMapTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/array/NumberListTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/array/SegmentedArrayTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/array/SetGetTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/array/blas/TuneAXPYorder.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/constant/ConstantTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/constant/PrimitiveMathTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/constant/PrimitivePrefixTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/finance/DirtyCovarianceMatrices.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/finance/FinanceTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/finance/FinanceUtilsTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/finance/data/FinanceDataTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/finance/data/SymbolDataTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/finance/portfolio/BlackLittermanTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/finance/portfolio/FinancePortfolioTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/finance/portfolio/GitHubIssue24.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/finance/portfolio/P20090115.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/finance/portfolio/PortfolioProblems.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/finance/portfolio/TestEquilibrium.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/function/CompareImplementations.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/function/ComplexCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/function/FunctionTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/function/PrimitiveCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/function/multiary/ApproximationCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/function/multiary/FunctionMultiaryTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/function/polynomial/FunctionPolynomialTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/function/polynomial/PolynomialImplTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/machine/MachineTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/machine/TestHardware.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/machine/TestMemoryEstimator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/BasicMatrixTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/LargerCholeskyCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/MatrixTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/MatrixUtilsTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/P20030422Case.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/P20030512Case.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/P20030528Case.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/P20050125Case.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/P20050827Case.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/P20061119Case.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/P20071019Case.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/SimpleCholeskyCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/SimpleEigenvalueCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/SimpleEquationCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/SimpleLUCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/SimpleLeastSquaresCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/SimpleQRCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/SimpleSingularValueCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/AbstractPrimitiveOrRaw.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/AbstractThresholdTuner.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/BidiagonalTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/CompareJamaAndPrimitive.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/DecompositionProblems.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/DegenerateLUCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/DesignCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/EigenvalueTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/ExtremeElementsCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/HessenbergTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/LDLTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/LUTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/MatrixDecompositionTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/PrimitiveOrRawCholesky.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/PrimitiveOrRawEigenvalue.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/PrimitiveOrRawLU.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/PrimitiveOrRawQR.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/PrimitiveOrRawSingularValue.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/PrimitiveOrRawTridiagonal.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/QRTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/SVDbyEvD.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/SchurTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/SingularValueTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/TestJama.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/TestSolveAndInvert.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/ThresholdAggregateAll.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/ThresholdApplyCholesky.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/ThresholdApplyLU.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/ThresholdFillMatchingLeft.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/ThresholdFillMatchingRight.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/ThresholdHouseholderHermitian.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/ThresholdHouseholderLeft.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/ThresholdHouseholderRight.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/ThresholdMultiplyBoth.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/ThresholdMultiplyLeft.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/ThresholdMultiplyRight.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/decomposition/TridiagonalizeCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/AbstractMatrixStoreTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/ConjugatedCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/IdentityCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/MatrixStoreTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/MergedColumnsCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/MergedRowsCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/NonPhysicalTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/SelectedColumnsCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/SelectedRowsCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/StoreProblems.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/SuperimposedMatrixColumnCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/SuperimposedMatrixElementCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/SuperimposedMatrixRowCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/SuppliersAndConsumers.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/TransposedCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/ZeroCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/operation/MultLeftRight.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/operation/MultTranspRight.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/store/operation/MultTranspRightBoth.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/task/AbstractMatrixDecompositionTaskTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/task/DeterminantTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/task/InverterTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/task/JacobiSolverTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/task/MatrixTaskTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/matrix/task/SolverTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/ExpressionsBasedModelTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/OptimisationTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/convex/ComPictetPamBamTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/convex/ConvexProblems.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/convex/FinancePortfolioProblem.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/convex/GenericQPSolverTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/convex/MostBasicCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/convex/OJAlgoTest3.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/convex/OptimisationConvexTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/convex/P20150720.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/convex/P20150809.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/convex/Qsd20030327P1Case.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/convex/Qsd20030409P1Case.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/convex/QsdOldFundOfFundsCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/convex/QsdOldNormalCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/convex/QsdOldOptimalCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/DesignCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/IntegerProblems.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/KnapsackItem.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/KnapsackTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/LpsolveSemiContCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/MarketShareCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/MipCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/MipLibCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/OptimisationIntegerData.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/OptimisationIntegerTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/P20130225.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/P20150127a.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/P20150127b.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/P20160701.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/RelaxedLpCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/SamplePerformanceIssueSolvingILP.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/SpecificBranchCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/StrategyMixer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/TestOjAlgo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/UCLAee236aCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/lpsolve_sc_not.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/lpsolve_sc_org.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/markshare.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/markshare1.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/markshare2.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/markshare_5_0.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/markshare_5_0.sol" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/mas76.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/mas76.sol" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/modglob.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/modglob.sol" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/neos-911880.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/neos-911880.sol" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/noswot.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/noswot.sol" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/output.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/p2m2p1m1p0n100.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/pk1.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/pk1.sol" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/pp08a.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/pp08a.sol" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/pp08aCUTS.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/pp08aCUTS.sol" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/timtab1.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/timtab1.sol" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/vpm2.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/integer/vpm2.sol" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/BurkardtDatasetsMps.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/ComPictetPamBamTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/CommonsMathSimplexSolverTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/LinearDesignTestCases.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/LinearProblems.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/NetlibCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/OptimisationLinearTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/adlittle.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/adlittle.results" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/afiro.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/afiro.results" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/blend.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/blend.results" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/boeing2.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/boeing2.results" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/empstest.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/kb2.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/kb2.results" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/maros.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/nazareth.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/sc50b.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/sc50b.results" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/share2b.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/share2b.results" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/optimisation/linear/testprob.mps" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/random/QuantileTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/random/RandomNumberTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/random/RandomTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/random/SampleSetTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/random/process/GaussianProcessTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/random/process/GeometricBrownianMotionTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/random/process/MultidimensionalSimulatorTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/random/process/RandomProcessTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/scalar/FundamentalScalarTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/scalar/QuaternionTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/scalar/RationalScalarTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/scalar/ScalarTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/series/CalendarDateSeriesTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/series/SeriesTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/type/TimeIndexTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/type/TypeTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/type/context/NumberContextTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/type/context/TypeContextTests.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="$PROJECT_DIR$/.idea/.name" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/core/core.iml" afterPath="$PROJECT_DIR$/modules/core/core.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/invmodel/invmodel.iml" afterPath="$PROJECT_DIR$/modules/invmodel/invmodel.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/invmodel/pom.xml" afterPath="$PROJECT_DIR$/modules/invmodel/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestNewOjAlgo.java" afterPath="$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestNewOjAlgo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestOjAlgo.java" afterPath="$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestOjAlgo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/modules.iml" afterPath="$PROJECT_DIR$/modules/modules.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/parent/pom.xml" afterPath="$PROJECT_DIR$/modules/parent/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/pom.xml" afterPath="$PROJECT_DIR$/modules/pom.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/invessence.iml" afterPath="$PROJECT_DIR$/invessence1.8.iml" />
     </list>
     <list id="e62eef83-d9e2-40fa-bac3-332936f79c31" name="Failed commit: Default" comment="Fixed few bugs and try to comply with Tablet" />
     <list id="9985637f-cfac-4423-bd84-01c846e49f8e" name="Rejected commit: Default" comment="Advisor Version 1.4" />
-    <list id="dd7c7ebb-bab3-4e26-849e-28c186d0ef9c" name="Exclude" comment="Exclude">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/web_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/web_war_exploded.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list id="dd7c7ebb-bab3-4e26-849e-28c186d0ef9c" name="Exclude" comment="Exclude" />
     <list id="602c5146-c000-4fee-8772-866f5b856e8c" name="Failed commit: Default (2)" comment="TCM Version 1.1" />
     <ignored path="invessence.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,6 +839,7 @@
     <ignored path=".idea/dataSources.local.xml" />
     <ignored path="$PROJECT_DIR$/modules/aggregator/target/" />
     <ignored path="$PROJECT_DIR$/modules/file-processor/target/" />
+    <ignored path="$PROJECT_DIR$/modules/ojalgo/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -649,11 +1449,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/parent/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+            <state relative-caret-position="4454">
+              <caret line="262" column="16" lean-forward="false" selection-start-line="262" selection-start-column="16" selection-end-line="262" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="invmodel.iml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/invmodel/invmodel.iml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="578">
+              <caret line="34" column="14" lean-forward="false" selection-start-line="34" selection-start-column="14" selection-end-line="34" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -662,18 +1472,104 @@
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/invmodel/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+            <state relative-caret-position="552">
+              <caret line="80" column="17" lean-forward="false" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestNewOjAlgo.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TestNewOjAlgo.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestNewOjAlgo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+            <state relative-caret-position="68">
+              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="19" column="27" lean-forward="false" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EfficientFrontier.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/EfficientFrontier.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-254">
+              <caret line="37" column="63" lean-forward="false" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="63" />
+              <folding>
+                <element signature="e#0#2954#0" expanded="false" />
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EquilibriumModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/EquilibriumModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="297">
+              <caret line="108" column="60" lean-forward="false" selection-start-line="108" selection-start-column="36" selection-end-line="108" selection-end-column="60" />
+              <folding>
+                <element signature="e#0#7863#0" expanded="false" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#3655#3656#0" expanded="false" />
+                <element signature="e#3714#3715#0" expanded="false" />
+                <element signature="e#3763#3764#0" expanded="false" />
+                <element signature="e#3822#3823#0" expanded="false" />
+                <element signature="e#3883#3884#0" expanded="false" />
+                <element signature="e#3932#3933#0" expanded="false" />
+                <element signature="e#4712#4713#0" expanded="false" />
+                <element signature="e#4772#4773#0" expanded="false" />
+                <element signature="e#4814#4815#0" expanded="false" />
+                <element signature="e#4871#4872#0" expanded="false" />
+                <element signature="e#5348#5349#0" expanded="false" />
+                <element signature="e#5397#5398#0" expanded="false" />
+                <element signature="e#6198#6199#0" expanded="false" />
+                <element signature="e#6287#6288#0" expanded="false" />
+                <element signature="e#6333#6334#0" expanded="false" />
+                <element signature="e#6438#6439#0" expanded="false" />
+                <element signature="e#7792#7793#0" expanded="false" />
+                <element signature="e#7858#7859#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/ojalgo/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="55" column="24" lean-forward="false" selection-start-line="55" selection-start-column="24" selection-end-line="55" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/core/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="17" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -697,6 +1593,13 @@
       <find>repository.primefaces.org</find>
       <find>org.springframework.jdbc</find>
       <find>org.springframework</find>
+      <find>testYahooMonthly</find>
+      <find>getMea</find>
+      <find>getMeanReturn</find>
+      <find>getMe</find>
+      <find>spring-security-version</find>
+      <find>java</find>
+      <find>gmaven.runtime</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -714,11 +1617,12 @@
       <list>
         <option value="$PROJECT_DIR$/modules/web/pom.xml" />
         <option value="$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/advisor/TradeBean.java" />
-        <option value="$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestOjAlgo.java" />
         <option value="$PROJECT_DIR$/modules/pom.xml" />
-        <option value="$PROJECT_DIR$/modules/parent/pom.xml" />
-        <option value="$PROJECT_DIR$/modules/invmodel/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestOjAlgo.java" />
         <option value="$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestNewOjAlgo.java" />
+        <option value="$PROJECT_DIR$/modules/parent/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/ojalgo/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/invmodel/pom.xml" />
       </list>
     </option>
   </component>
@@ -766,6 +1670,18 @@
           <option name="myItemId" value="invessence" />
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
         </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Modules" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ModulesNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Invessence" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Modules" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ModulesNode" />
+        </PATH_ELEMENT>
       </PATH>
       <PATH>
         <PATH_ELEMENT>
@@ -777,15 +1693,84 @@
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
+          <option name="myItemId" value="Modules" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ModulesNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Invessence" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Modules" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ModulesNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="invmodel" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="invessence" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Modules" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ModulesNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Invessence" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Modules" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ModulesNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="invmodel" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
           <option name="myItemId" value="Lifecycle" />
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$LifecycleNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="invessence" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Modules" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ModulesNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Invessence" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="invessence" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
         </PATH_ELEMENT>
       </PATH>
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="175" />
     <option name="width" value="1616" />
     <option name="height" value="876" />
   </component>
@@ -828,11 +1813,13 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="invessence" />
+              <option name="myItemId" value="invessence1.8" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -842,21 +1829,7 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="invessence" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Invessence1.8" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="invessence" />
+              <option name="myItemId" value="invessence1.8" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -867,14 +1840,10 @@
               <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="parent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="invessence" />
+              <option name="myItemId" value="invessence1.8" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -892,41 +1861,7 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="invessence" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Invessence1.8" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="invmodel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="invtest" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="invessence" />
+              <option name="myItemId" value="invessence1.8" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -948,14 +1883,12 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth1" value="53" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0" value="41" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth3" value="40" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth2" value="54" />
     <property name="project.structure.proportion" value="0.15" />
@@ -1001,9 +1934,21 @@
     <property name="dynamic.classpath" value="false" />
     <property name="options.searchVisible" value="true" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
-    <property name="settings.editor.selected.configurable" value="vcs.Subversion" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Source\tcm\modules\web\src\main\java\com\invessence\web\util" />
+      <recent name="C:\Workspace\Source\project\modules\web\src" />
+      <recent name="C:\Workspace\Source\project\modules" />
+      <recent name="C:\Workspace\Source\project\db\sql\admin_sp" />
+      <recent name="C:\Workspace\Source\project\modules\web\src\main\webapp\backup" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.invessence.emailer" />
+      <recent name="com.invessence.web" />
+      <recent name="com.invessence" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.invessence.web.bean.consumer.tcm" />
       <recent name="com.invessence.dao" />
@@ -1017,18 +1962,6 @@
       <recent name="C:\Source\tcm\modules\web\src\main\webapp\resources\tcm\js" />
       <recent name="D:\Project\Prakash\Projects\tcm\modules\web\src\main\webapp\pages\consumer\tcm" />
       <recent name="D:\Project\Prakash\Projects\tcm\modules\web\src\main\webapp\pages\consumer\tcm\cadd" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="com.invessence.emailer" />
-      <recent name="com.invessence.web" />
-      <recent name="com.invessence" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Source\tcm\modules\web\src\main\java\com\invessence\web\util" />
-      <recent name="C:\Workspace\Source\project\modules\web\src" />
-      <recent name="C:\Workspace\Source\project\modules" />
-      <recent name="C:\Workspace\Source\project\db\sql\admin_sp" />
-      <recent name="C:\Workspace\Source\project\modules\web\src\main\webapp\backup" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1553,32 +2486,32 @@
     <option name="myMappingRoots">
       <list>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence1.8" />
-          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence1.8" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\branches\Invessence1.8" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\branches\Invessence1.8" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence1.8\.idea" />
-          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence1.8\.idea" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\branches\Invessence1.8\.idea" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\branches\Invessence1.8\.idea" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence1.8\modules" />
-          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence1.8\modules" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\branches\Invessence1.8\modules" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\branches\Invessence1.8\modules" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence1.8\modules\core" />
-          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence1.8\modules\core" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\branches\Invessence1.8\modules\core" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\branches\Invessence1.8\modules\core" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence1.8\modules\invmodel" />
-          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence1.8\modules\invmodel" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\branches\Invessence1.8\modules\invmodel" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\branches\Invessence1.8\modules\invmodel" />
         </SvnCopyRootSimple>
       </list>
     </option>
     <option name="myMoreRealMappingRoots">
       <list>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence1.8" />
-          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence1.8" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\branches\Invessence1.8" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\branches\Invessence1.8" />
         </SvnCopyRootSimple>
       </list>
     </option>
@@ -1608,13 +2541,9 @@
       <workItem from="1497493046827" duration="6220000" />
       <workItem from="1497538506257" duration="12075000" />
       <workItem from="1497637578703" duration="4992000" />
-    </task>
-    <task id="LOCAL-00130" summary="Introduced new Fixed Model">
-      <created>1457828415107</created>
-      <option name="number" value="00130" />
-      <option name="presentableId" value="LOCAL-00130" />
-      <option name="project" value="LOCAL" />
-      <updated>1457828415107</updated>
+      <workItem from="1497974884073" duration="8886000" />
+      <workItem from="1498085630412" duration="1203000" />
+      <workItem from="1498216584124" duration="3368000" />
     </task>
     <task id="LOCAL-00131" summary="Introduced new Fixed Model">
       <created>1458840195161</created>
@@ -1952,11 +2881,18 @@
       <option name="project" value="LOCAL" />
       <updated>1497634017103</updated>
     </task>
-    <option name="localTasksCounter" value="179" />
+    <task id="LOCAL-00179" summary="Convert to SimpleAsset">
+      <created>1497975294106</created>
+      <option name="number" value="00179" />
+      <option name="presentableId" value="LOCAL-00179" />
+      <option name="project" value="LOCAL" />
+      <updated>1497975294106</updated>
+    </task>
+    <option name="localTasksCounter" value="180" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="127951000" />
+    <option name="totallyTimeSpent" value="141408000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1979,13 +2915,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <frame x="175" y="0" width="1616" height="876" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21286173" sideWeight="0.61022365" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32102728" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20771705" sideWeight="0.545045" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1414791" sideWeight="0.545045" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1993,20 +2928,18 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.67270195" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15258041" sideWeight="0.52" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43593314" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" x="34" y="627" width="1552" height="192" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27019498" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" x="34" y="627" width="1552" height="192" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33236152" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37428573" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30222842" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="21" y="529" width="1552" height="257" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25857142" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22980501" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="21" y="529" width="1552" height="257" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6406685" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32423207" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2096463" sideWeight="0.545045" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22572348" sideWeight="0.545045" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25283876" sideWeight="0.46067417" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17966574" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="SVN Repositories" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
@@ -2014,15 +2947,18 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15270619" sideWeight="0.729805" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32102728" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925257" sideWeight="0.7799443" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="SVN Properties" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329296" sideWeight="0.84636873" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25075075" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37428573" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947233" sideWeight="0.84636873" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25283876" sideWeight="0.46067417" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17966574" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven-2 Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -2086,8 +3022,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="comiting - Prakash" />
-    <MESSAGE value="Code checked in 9/24/2016" />
     <MESSAGE value="Projection HighChart - Sudhir" />
     <MESSAGE value="Revised 9/24/2016" />
     <MESSAGE value="Checked in Prashant 9/25/2016" />
@@ -2111,7 +3045,9 @@
     <MESSAGE value="Checked in 06/15/2017 Introduce org.ojalgo jar file" />
     <MESSAGE value="Exclude" />
     <MESSAGE value="Prashant 06/16/2017 - Added ojalgo process" />
-    <option name="LAST_COMMIT_MESSAGE" value="Prashant 06/16/2017 - Added ojalgo process" />
+    <MESSAGE value="Convert to SimpleAsset" />
+    <MESSAGE value="ojAlgo introduced in 1.8 project" />
+    <option name="LAST_COMMIT_MESSAGE" value="ojAlgo introduced in 1.8 project" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2142,33 +3078,59 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestNewOjAlgo.java</url>
-          <line>46</line>
+          <line>47</line>
           <properties />
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestNewOjAlgo.java</url>
-          <line>103</line>
+          <line>104</line>
           <properties />
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestNewOjAlgo.java</url>
-          <line>38</line>
+          <line>39</line>
           <properties />
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestNewOjAlgo.java</url>
-          <line>95</line>
+          <line>96</line>
           <properties />
           <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestNewOjAlgo.java</url>
+          <line>230</line>
+          <properties />
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestNewOjAlgo.java</url>
+          <line>35</line>
+          <properties />
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestNewOjAlgo.java</url>
+          <line>211</line>
+          <properties />
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/finance/data/SymbolDataTest.java</url>
+          <line>97</line>
+          <properties class="org.ojalgo.finance.data.SymbolDataTest" method="testYahooDaily">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="21" />
+      <option name="time" value="26" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2177,48 +3139,27 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestOjAlgo.java">
+    <entry file="file://$PROJECT_DIR$/modules/parent/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="28" lean-forward="false" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+        <state relative-caret-position="9741">
+          <caret line="573" column="19" lean-forward="false" selection-start-line="573" selection-start-column="17" selection-end-line="573" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/invmodel/pom.xml">
+    <entry file="file://$PROJECT_DIR$/modules/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+        <state relative-caret-position="306">
+          <caret line="18" column="6" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestDistribution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="55" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestNewOjAlgo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/advisor/TradeBean.java" />
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/common/TradeDAO.java" />
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/util/FilesIO.java" />
+    <entry file="file://$PROJECT_DIR$/modules/web/pom.xml" />
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2243,32 +3184,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/parent/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9741">
-          <caret line="573" column="19" lean-forward="false" selection-start-line="573" selection-start-column="17" selection-end-line="573" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="6" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web/pom.xml" />
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2302,14 +3217,6 @@
     <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/custody/CustodySaveSP.java" />
     <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/custody/CustodySaveDAO.java" />
     <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/custody/TdCto.java" />
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/web/pom.xml" />
     <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/common/TradeDAO.java" />
     <entry file="file://$PROJECT_DIR$/modules/price-processor/pom.xml" />
@@ -2318,17 +3225,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
           <caret line="55" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestOjAlgo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="28" lean-forward="false" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2336,39 +3232,180 @@
     <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/util/WebUtil.java" />
     <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/util/FilesIO.java" />
     <entry file="file://$PROJECT_DIR$/modules/web/src/main/resources/log4j.properties" />
-    <entry file="file://$PROJECT_DIR$/modules/core/pom.xml">
+    <entry file="file://$PROJECT_DIR$/modules/maven-repository/lpsolve/lpsolve/5.5/lpsolve-5.5.pom">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/maven-repository/webcab/portfolioJ2SE/5.0/portfolioJ2SE-5.0.pom">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/netio/BasicParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1122">
+          <caret line="96" column="1" lean-forward="false" selection-start-line="96" selection-start-column="1" selection-end-line="96" selection-end-column="1" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/ojalgo/test/org/ojalgo/finance/data/SymbolDataTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="531">
+          <caret line="123" column="1" lean-forward="true" selection-start-line="123" selection-start-column="1" selection-end-line="123" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestOjAlgo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/OptimisedPortfolio.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="39" column="58" lean-forward="false" selection-start-line="39" selection-start-column="58" selection-end-line="39" selection-end-column="58" />
+          <folding>
+            <element signature="e#0#8527#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#5210#5211#0" expanded="false" />
+            <element signature="e#5250#5251#0" expanded="false" />
+            <element signature="e#5286#5287#0" expanded="false" />
+            <element signature="e#5324#5325#0" expanded="false" />
+            <element signature="e#5529#5530#0" expanded="false" />
+            <element signature="e#5575#5576#0" expanded="false" />
+            <element signature="e#6636#6637#0" expanded="false" />
+            <element signature="e#6680#6681#0" expanded="false" />
+            <element signature="e#6725#6726#0" expanded="false" />
+            <element signature="e#6766#6767#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/MarkowitzModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-196">
+          <caret line="157" column="18" lean-forward="false" selection-start-line="157" selection-start-column="13" selection-end-line="157" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#12821#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#4742#4743#0" expanded="false" />
+            <element signature="e#4781#4782#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/EquilibriumModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="108" column="60" lean-forward="false" selection-start-line="108" selection-start-column="36" selection-end-line="108" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#7863#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#3655#3656#0" expanded="false" />
+            <element signature="e#3714#3715#0" expanded="false" />
+            <element signature="e#3763#3764#0" expanded="false" />
+            <element signature="e#3822#3823#0" expanded="false" />
+            <element signature="e#3883#3884#0" expanded="false" />
+            <element signature="e#3932#3933#0" expanded="false" />
+            <element signature="e#4712#4713#0" expanded="false" />
+            <element signature="e#4772#4773#0" expanded="false" />
+            <element signature="e#4814#4815#0" expanded="false" />
+            <element signature="e#4871#4872#0" expanded="false" />
+            <element signature="e#5348#5349#0" expanded="false" />
+            <element signature="e#5397#5398#0" expanded="false" />
+            <element signature="e#6198#6199#0" expanded="false" />
+            <element signature="e#6287#6288#0" expanded="false" />
+            <element signature="e#6333#6334#0" expanded="false" />
+            <element signature="e#6438#6439#0" expanded="false" />
+            <element signature="e#7792#7793#0" expanded="false" />
+            <element signature="e#7858#7859#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/ojalgo/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/ojalgo/src/org/ojalgo/finance/portfolio/EfficientFrontier.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-254">
+          <caret line="37" column="63" lean-forward="false" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="63" />
+          <folding>
+            <element signature="e#0#2954#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/invmodel/invmodel.iml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="578">
+          <caret line="34" column="14" lean-forward="false" selection-start-line="34" selection-start-column="14" selection-end-line="34" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/ojalgo/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="55" column="24" lean-forward="false" selection-start-line="55" selection-start-column="24" selection-end-line="55" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="7" lean-forward="false" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
+        <state relative-caret-position="323">
+          <caret line="19" column="27" lean-forward="false" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/maven-repository/lpsolve/lpsolve/5.5/lpsolve-5.5.pom">
+    <entry file="file://$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestNewOjAlgo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="68">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/invmodel/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="80" column="17" lean-forward="false" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/maven-repository/webcab/portfolioJ2SE/5.0/portfolioJ2SE-5.0.pom">
+    <entry file="file://$PROJECT_DIR$/modules/core/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="17" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -2378,24 +3415,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/parent/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/invmodel/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestNewOjAlgo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+        <state relative-caret-position="4454">
+          <caret line="262" column="16" lean-forward="false" selection-start-line="262" selection-start-column="16" selection-end-line="262" selection-end-column="16" />
           <folding />
         </state>
       </provider>
@@ -2435,7 +3456,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.39217877" />
               </list>
             </option>
           </splitter-proportions>
@@ -2443,11 +3464,11 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>1.7</last-edited>
+          <last-edited>1.8 (2)</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.39217877" />
               </list>
             </option>
           </splitter-proportions>
@@ -2455,11 +3476,12 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>invmodel</last-edited>
+          <last-edited>invessence1.8</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.31012657" />
+                <option value="0.39217877" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -2479,7 +3501,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Maven: org.ojalgo:ojalgo:43.0</last-edited>
+          <last-edited>Maven: com.google.guava:guava:r08</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

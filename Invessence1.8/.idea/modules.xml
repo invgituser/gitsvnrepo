@@ -9,9 +9,10 @@
       <module fileurl="file://D:\Project\Prashant\Source\trunc\Invessence1.8\modules\download-services\download-services.iml" filepath="D:\Project\Prashant\Source\trunc\Invessence1.8\modules\download-services\download-services.iml" />
       <module fileurl="file://D:\Project\Prashant\Source\trunc\Invessence1.8\modules\emailer\emailer.iml" filepath="D:\Project\Prashant\Source\trunc\Invessence1.8\modules\emailer\emailer.iml" />
       <module fileurl="file://D:\Project\Prashant\Source\trunc\Invessence1.8\modules\file-processor\file-processor.iml" filepath="D:\Project\Prashant\Source\trunc\Invessence1.8\modules\file-processor\file-processor.iml" />
-      <module fileurl="file://$PROJECT_DIR$/invessence.iml" filepath="$PROJECT_DIR$/invessence.iml" />
+      <module fileurl="file://$PROJECT_DIR$/invessence1.8.iml" filepath="$PROJECT_DIR$/invessence1.8.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/invmodel/invmodel.iml" filepath="$PROJECT_DIR$/modules/invmodel/invmodel.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/modules.iml" filepath="$PROJECT_DIR$/modules/modules.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/ojalgo/ojalgo.iml" filepath="$PROJECT_DIR$/modules/ojalgo/ojalgo.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/parent.iml" filepath="$PROJECT_DIR$/modules/parent.iml" />
       <module fileurl="file://D:\Project\Prashant\Source\trunc\Invessence1.8\modules\price-processor\price-processor.iml" filepath="D:\Project\Prashant\Source\trunc\Invessence1.8\modules\price-processor\price-processor.iml" />
       <module fileurl="file://D:\Project\Prashant\Source\trunc\Invessence1.8\modules\rbsa-preprocessor\rbsa-preprocessor.iml" filepath="D:\Project\Prashant\Source\trunc\Invessence1.8\modules\rbsa-preprocessor\rbsa-preprocessor.iml" />

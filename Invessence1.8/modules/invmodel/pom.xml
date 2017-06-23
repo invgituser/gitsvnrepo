@@ -21,9 +21,10 @@
          </dependency>
 
       <dependency>
-       <groupId>org.ojalgo</groupId>
-       <artifactId>ojalgo</artifactId>
-      </dependency>
+          <groupId>org.ojalgo</groupId>
+          <artifactId>ojalgo</artifactId>
+          <version>43.1-SNAPSHOT</version>
+         </dependency>
       <dependency>
          <groupId>lpsolve</groupId>
          <artifactId>lpsolve</artifactId>
@@ -71,63 +72,24 @@
       <plugins>
          <plugin>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>2.3.2</version>
+            <version>3.6.1</version>
             <configuration>
-               <source>1.6</source>
-               <target>1.6</target>
+               <source>1.8</source>
+               <target>1.8</target>
             </configuration>
-         </plugin>
-         <plugin>
-            <groupId>org.codehaus.groovy.maven</groupId>
-            <artifactId>gmaven-plugin</artifactId>
-            <version>1.0</version>
-            <executions>
-               <execution>
-                  <goals>
-                     <goal>testCompile</goal>
-                  </goals>
-               </execution>
-            </executions>
          </plugin>
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
-            <version>2.3.1</version>
+            <version>3.0.2</version>
             <configuration>
                <archive>
-                  <!--<manifest>-->
-                  <!--<addClasspath>true</addClasspath>-->
-                  <!--<mainClass>com.invessence.eod.EndOfDayProcessor</mainClass>-->
-                  <!--</manifest>-->
                </archive>
             </configuration>
          </plugin>
-         <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <configuration>
-               <descriptorRefs>
-                  <descriptorRef>jar-with-dependencies</descriptorRef>
-               </descriptorRefs>
-               <archive>
-                  <!--<manifest>-->
-                  <!--<mainClass>com.invessence.eod.EndOfDayProcessor</mainClass>-->
-                  <!--</manifest>-->
-                 </archive>
-              </configuration>
-              <executions>
-                 <execution>
-                    <id>single</id>
-                    <phase>package</phase>
-                    <goals>
-                       <goal>single</goal>
-                    </goals>
-                 </execution>
-              </executions>
-           </plugin>
         </plugins>
     </build>
+
    <properties>
-		<gmaven.runtime>1.5</gmaven.runtime>
-      <!-- read by gmaven -->
 	</properties>
 </project>

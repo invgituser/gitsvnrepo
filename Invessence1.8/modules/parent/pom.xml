@@ -12,11 +12,10 @@
 
    <properties>
       <invessence.version>1.0-SNAPSHOT</invessence.version>
-      <spring-version>3.2.0.RELEASE</spring-version>
-      <spring-security-version>3.2.0.M1</spring-security-version>
+      <spring-version>4.3.7.RELEASE</spring-version>
       <camel-version>2.11.0</camel-version>
-      <maven.compiler.source>1.7</maven.compiler.source>
-  <maven.compiler.target>1.7</maven.compiler.target>
+      <maven.compiler.source>1.8</maven.compiler.source>
+      <maven.compiler.target>1.8</maven.compiler.target>
    </properties>
 
    <repositories>
@@ -37,11 +36,6 @@
             <version>${invessence.version}</version>
          </dependency>
 
-         <dependency>
-          <groupId>org.ojalgo</groupId>
-          <artifactId>ojalgo</artifactId>
-          <version>43.0</version>
-         </dependency>
         <dependency>
           <groupId>webcab</groupId>
           <artifactId>portfolioJ2SE</artifactId>

@@ -18,6 +18,7 @@
 
    <modules>
       <module>core</module>
+      <module>ojalgo</module>
       <module>invmodel</module>
    </modules>
 </project>

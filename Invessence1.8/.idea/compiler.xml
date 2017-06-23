@@ -30,6 +30,7 @@
         <module name="emailer" />
         <module name="file-processor" />
         <module name="invmodel" />
+        <module name="ojalgo" />
         <module name="price-processor" />
         <module name="rbsa-preprocessor" />
         <module name="reports" />
@@ -51,15 +52,17 @@
       <module name="broker-webservices" target="1.7" />
       <module name="brokerservice" target="1.6" />
       <module name="brokerservices" target="1.6" />
-      <module name="core" target="1.7" />
+      <module name="core" target="1.8" />
       <module name="download-services" target="1.7" />
       <module name="emailer" target="1.6" />
       <module name="eod" target="1.6" />
       <module name="file-processor" target="1.6" />
       <module name="ibservice" target="1.6" />
       <module name="invessence" target="1.5" />
-      <module name="invmodel" target="1.6" />
-      <module name="modules" target="1.7" />
+      <module name="invessence1.8" target="1.5" />
+      <module name="invmodel" target="1.8" />
+      <module name="modules" target="1.8" />
+      <module name="ojalgo" target="1.8" />
       <module name="price-processor" target="1.7" />
       <module name="rbsa-preprocessor" target="1.6" />
       <module name="reports" target="1.6" />

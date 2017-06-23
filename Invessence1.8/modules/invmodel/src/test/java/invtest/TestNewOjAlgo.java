@@ -95,7 +95,7 @@ public class TestNewOjAlgo
 
 
 
-     final MarkowitzModel markowitzModel = new MarkowitzModel(PrimitiveMatrix.FACTORY.rows(covariance),
+     MarkowitzModel markowitzModel = new MarkowitzModel(PrimitiveMatrix.FACTORY.rows(covariance),
                                                                PrimitiveMatrix.FACTORY.rows(expectedReturns));
 
       double minRet = getMin(expectedReturns);
