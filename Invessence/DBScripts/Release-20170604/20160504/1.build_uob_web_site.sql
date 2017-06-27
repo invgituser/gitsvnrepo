@@ -1,4 +1,4 @@
-DELETE FROM  `invdb`.`web_site_info` where url = 'uwealth';
+DELETE FROM  `invdb`.`web_site_info` where url = 'master';
 
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uwealth', 'ARCHIVE.CLOSED', 'A', '10', 'N', now(), null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uwealth', 'ARCHIVE.INACTIVE', 'A', '30', 'N', now(), null);
@@ -60,7 +60,7 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 
 DELETE FROM `invdb`.`web_site_info` WHERE `web_site_info`.`url` = 'uob';
 INSERT INTO `invdb`.`web_site_info`
-SELECT 'uob',
+SELECT 'prebb',
     `web_site_info`.`name`,
     `web_site_info`.`status`,
     `web_site_info`.`value`,

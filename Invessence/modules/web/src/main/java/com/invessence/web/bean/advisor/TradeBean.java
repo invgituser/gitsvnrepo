@@ -41,6 +41,8 @@ public class TradeBean extends TradeClientData implements Serializable
    private List<TradeSummary> selectedSummaryList;
    private TradeSummary selectedSummary;
 
+   private List<RebalanceTradeData> rebalancetradedatalist;
+
    private List<String> tradeFilters;
 
 
@@ -234,6 +236,11 @@ public class TradeBean extends TradeClientData implements Serializable
       this.tradeFilters = tradeFilters;
    }
 
+   public List<RebalanceTradeData> getRebalancetradedatalist()
+   {
+      return rebalancetradedatalist;
+   }
+
    public void preRender()
    {
       Long logonid;
@@ -277,6 +284,7 @@ public class TradeBean extends TradeClientData implements Serializable
       }
    }
 
+/*
    public void onTabChange(TabChangeEvent event)
    {
       try
@@ -304,6 +312,7 @@ public class TradeBean extends TradeClientData implements Serializable
          //setActiveTab(0);
       }
    }
+*/
 
 
    private void collectTradeInfo()
@@ -378,6 +387,20 @@ public class TradeBean extends TradeClientData implements Serializable
 
    }
 
+   private void collectTradeDetails(Long acctnum)
+   {
+      try
+      {
+         rebalancetradedatalist = tradeDAO.loadRebalTrades(acctnum);
+      }
+      catch (Exception ex)
+      {
+         String msg = "Error in collecting Rebalance Trade Details" + ex.getMessage();
+         showGrowl(msg, "Error");
+         ex.printStackTrace();
+      }
+   }
+
    public void refreshFilteredClient()
    {
       filterClientData2Display();
@@ -400,25 +423,47 @@ public class TradeBean extends TradeClientData implements Serializable
       }
    }
 
-   public String doManagedAction()
+   public void doManagedAction()
    {
       try
       {
-         if (getSelectedClient() == null)
-         {
-            return "failed";
-         }
-         else
+         if (getSelectedClient() != null)
          {
             uiLayout.doMenuAction("consumer", "cadd.xhtml?app=E&acct=" + getSelectedClient().getAcctnum().toString());
          }
       }
       catch (Exception ex)
       {
-         return ("failed");
+         return;
       }
 
-      return ("success");
+   }
+
+   public void showTradeUI(Integer whichScreen)
+   {
+      if (whichScreen == null)
+         whichScreen = 1;
+
+      switch (whichScreen)
+      {
+         case 1:
+            reloadTradeClient();
+            uiLayout.doMenuAction("advisor", "trade/operations/trade.xhtml");
+            break;
+         case 2:
+            reloadTradeSummary();
+            uiLayout.doMenuAction("advisor", "trade/operations/reviewTrades.xhtml");
+            break;
+         case 3:
+            if (getSelectedSummary() != null)
+            {
+               collectTradeDetails(getSelectedSummary().getAcctnum());
+               uiLayout.doMenuAction("advisor", "trade/operations/tradesummary.xhtml");
+            }
+            break;
+         default:
+            uiLayout.doMenuAction("advisor", "trade/operations/trade.xhtml");
+      }
    }
 
 

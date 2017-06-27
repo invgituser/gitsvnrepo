@@ -17,6 +17,7 @@ public class TradeSummary
    private Long acctnum;
    private String clientAccountID;
    private String lastName, firstName;
+   private String accountTaxable;
    private String tradeStatus, processStatus;
    private Double totalInvestment;
    private Double sumcurQty, sumcurValue;
@@ -92,6 +93,16 @@ public class TradeSummary
             return "Allocation";
       }
       return null;
+   }
+
+   public String getAccountTaxable()
+   {
+      return accountTaxable;
+   }
+
+   public void setAccountTaxable(String accountTaxable)
+   {
+      this.accountTaxable = accountTaxable;
    }
 
    public String getProcessStatus()

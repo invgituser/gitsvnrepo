@@ -20,7 +20,7 @@ public class AdminBean extends AdminData implements Serializable
    @ManagedProperty("#{adminDAO}")
    private AdminDAO adminDAO;
 
-   //private Map<String,List<TradeDetails>> tradesDetails = new HashMap<String,List<TradeDetails>>();
+   //private Map<String,List<RebalanceDetails>> tradesDetails = new HashMap<String,List<RebalanceDetails>>();
    @Autowired
    private WebUtil webutil;
 

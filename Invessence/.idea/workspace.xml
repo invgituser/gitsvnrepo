@@ -2,16 +2,59 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="3e625fd0-3140-4479-9b6f-a166e40a7972" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DBScripts/testingScripts/model_loader" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/admin" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DBScripts/Release_20170630/0a0.pm.sec_asset_mapping.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DBScripts/Release_20170630/510.pm.sel_TradeRebalDetail.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DBScripts/Release_20170630/510.pm.sp_upload_sec_asset_mapping.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DBScripts/SETUP/Master/90a.build_localhost_web_site.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DBScripts/SETUP/Models/0.pm.create_tmp_tables.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DBScripts/SETUP/Models/bb+ta.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DBScripts/testingScripts/model_loader/sp_upload_sec_fixedmodel_perfomance.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DBScripts/testingScripts/model_loader/sp_upload_sec_fixedmodel_projection.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DBScripts/testingScripts/model_loader/sp_upload_sec_fixedmodel_sec_master.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DBScripts/testingScripts/model_loader/sp_upload_sec_fixedmodel_subasset.sql" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/reviewtrades.xhtml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/trade.xhtml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/web_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/web_war_exploded.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_primefaces_extensions_primefaces_extensions_6_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_primefaces_extensions_primefaces_extensions_6_0_0.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_primefaces_extensions_resources_codemirror_6_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_primefaces_extensions_resources_codemirror_6_0_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DBScripts/Release-20170604/20160504/1.build_uob_web_site.sql" afterPath="$PROJECT_DIR$/DBScripts/Release-20170604/20160504/1.build_uob_web_site.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DBScripts/testingScripts/add_web_site_info.sql" afterPath="$PROJECT_DIR$/DBScripts/testingScripts/add_web_site_info.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/aggregate-services/aggregate-services.iml" afterPath="$PROJECT_DIR$/modules/aggregate-services/aggregate-services.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/aggregator/aggregator.iml" afterPath="$PROJECT_DIR$/modules/aggregator/aggregator.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/web/pom.xml" afterPath="$PROJECT_DIR$/modules/web/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/broker-webservices/broker-webservices.iml" afterPath="$PROJECT_DIR$/modules/broker-webservices/broker-webservices.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/core/core.iml" afterPath="$PROJECT_DIR$/modules/core/core.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/download-services/download-services.iml" afterPath="$PROJECT_DIR$/modules/download-services/download-services.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/emailer/emailer.iml" afterPath="$PROJECT_DIR$/modules/emailer/emailer.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/file-processor/file-processor.iml" afterPath="$PROJECT_DIR$/modules/file-processor/file-processor.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/invmodel/invmodel.iml" afterPath="$PROJECT_DIR$/modules/invmodel/invmodel.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/invmodel/pom.xml" afterPath="$PROJECT_DIR$/modules/invmodel/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/parent/pom.xml" afterPath="$PROJECT_DIR$/modules/parent/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/price-processor/price-processor.iml" afterPath="$PROJECT_DIR$/modules/price-processor/price-processor.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/rbsa-preprocessor/rbsa-preprocessor.iml" afterPath="$PROJECT_DIR$/modules/rbsa-preprocessor/rbsa-preprocessor.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/reports/reports.iml" afterPath="$PROJECT_DIR$/modules/reports/reports.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/service/service.iml" afterPath="$PROJECT_DIR$/modules/service/service.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/trading-services/trading-services.iml" afterPath="$PROJECT_DIR$/modules/trading-services/trading-services.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/admin/AdminBean.java" afterPath="$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/admin/AdminBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/advisor/TradeBean.java" afterPath="$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/advisor/TradeBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/data/common/TradeSummary.java" afterPath="$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/data/common/TradeSummary.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/web/src/main/webapp/template/common/invessence/layoutmenuHeader.xhtml" afterPath="$PROJECT_DIR$/modules/web/src/main/webapp/template/common/invessence/layoutmenuHeader.xhtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/web/web.iml" afterPath="$PROJECT_DIR$/modules/web/web.iml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/admin/billingRpt.xhtml" afterPath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/productadmin/billingRpt.xhtml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/admin/emailer.xhtml" afterPath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/productadmin/emailer.xhtml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/admin/marketing.xhtml" afterPath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/productadmin/marketing.xhtml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/admin/portfolio.xhtml" afterPath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/productadmin/portfolio.xhtml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/admin/profile.xhtml" afterPath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/productadmin/profile.xhtml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/admin/reviewtrades.xhtml" afterPath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/productadmin/reviewtrades.xhtml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/admin/trade.xhtml" afterPath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/productadmin/trade.xhtml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/admin/users.xhtml" afterPath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/productadmin/users.xhtml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/admin" afterPath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/productadmin" />
     </list>
     <list id="e62eef83-d9e2-40fa-bac3-332936f79c31" name="Failed commit: Default" comment="Fixed few bugs and try to comply with Tablet" />
     <list id="9985637f-cfac-4423-bd84-01c846e49f8e" name="Rejected commit: Default" comment="Advisor Version 1.4" />
@@ -36,6 +79,7 @@
     <ignored path="$PROJECT_DIR$/modules/trading-services/target/" />
     <ignored path=".idea/dataSources.local.xml" />
     <ignored path="$PROJECT_DIR$/modules/aggregator/target/" />
+    <ignored path="$PROJECT_DIR$/modules/file-processor/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +87,6 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="Commander">
     <leftPanel />
     <rightPanel />
@@ -645,48 +688,137 @@
     <favorites_list name="invessence" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="tradesummary.xhtml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/tradesummary.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="85">
+              <caret line="5" column="51" lean-forward="false" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/parent/pom.xml">
+      <file leaf-file-name="TradeDetails.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/data/TradeDetails.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.0363636">
-              <caret line="573" column="19" selection-start-line="573" selection-start-column="17" selection-end-line="573" selection-end-column="19" />
+            <state relative-caret-position="102">
+              <caret line="6" column="30" lean-forward="false" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/pom.xml">
+      <file leaf-file-name="AdvisorListDataDAO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/advisor/AdvisorListDataDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.5636363">
-              <caret line="18" column="6" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="6" />
+            <state relative-caret-position="-7106">
+              <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/modules/web/pom.xml">
+      <file leaf-file-name="TradeDAO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/common/TradeDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33200794">
-              <caret line="337" column="87" selection-start-line="337" selection-start-column="86" selection-end-line="337" selection-end-column="87" />
+            <state relative-caret-position="85">
+              <caret line="151" column="10" lean-forward="false" selection-start-line="151" selection-start-column="10" selection-end-line="151" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TradeBean.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/advisor/TradeBean.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="400" column="7" lean-forward="false" selection-start-line="400" selection-start-column="7" selection-end-line="400" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="trade.xhtml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/trade.xhtml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="39" column="38" lean-forward="false" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tradereview.xhtml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/tradereview.xhtml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="434">
+              <caret line="73" column="84" lean-forward="false" selection-start-line="73" selection-start-column="64" selection-end-line="73" selection-end-column="84" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="invessenceCustom.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/resources/invessence/1_0/css/invessenceCustom.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-544">
+              <caret line="19" column="14" lean-forward="true" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="layout.xhtml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/template/common/invessence/layout.xhtml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="946">
+              <caret line="80" column="45" lean-forward="true" selection-start-line="80" selection-start-column="45" selection-end-line="80" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="template.xhtml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/template/common/template.xhtml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="901">
+              <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>create</find>
+      <find>is</find>
+      <find>isA</find>
+      <find>isAgg</find>
+      <find>isAggr</find>
+      <find>isAggre</find>
+      <find>pre</find>
+      <find>('uwealth',</find>
+      <find>('traditionadvisers',</find>
+      <find>('buildingbenjamins',</find>
+      <find>t</find>
+      <find>trd</find>
+      <find>trade</find>
+      <find>tradeRe</find>
+      <find>tradeRev</find>
+      <find>tradeRevi</find>
+      <find>tradeReview</find>
+      <find>advisorBean</find>
+      <find>doM</find>
+      <find>selectedSummary</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>demo</replace>
+      <replace>uat</replace>
+      <replace>('tmp',</replace>
+    </replaceStrings>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -705,13 +837,34 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/modules/web/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/invmodel/pom.xml" />
+        <option value="$PROJECT_DIR$/DBScripts/Release_20170630/FileProcessor/FileProcessor invdb DB Scripts.sql" />
+        <option value="$PROJECT_DIR$/DBScripts/SETUP/Master/2a.build_tcm_web_site.sql" />
+        <option value="$PROJECT_DIR$/DBScripts/SETUP/Master/3a.build__webuob_site.sql" />
+        <option value="$PROJECT_DIR$/DBScripts/SETUP/Master/99.build_preuat_web_site.sql" />
+        <option value="$PROJECT_DIR$/DBScripts/SETUP/Master/99b.build_uat_web_site.sql" />
+        <option value="$PROJECT_DIR$/DBScripts/SETUP/Master/100.build_demo_web_site.sql" />
+        <option value="$PROJECT_DIR$/DBScripts/SETUP/Master/1.build_master_web_site.sql" />
+        <option value="$PROJECT_DIR$/DBScripts/SETUP/Master/3a.build_uob_web_site.sql" />
+        <option value="$PROJECT_DIR$/DBScripts/SETUP/Master/2b.build_tcm_web_site.sql" />
+        <option value="$PROJECT_DIR$/DBScripts/SETUP/Master/2a.build_bb_web_site.sql" />
+        <option value="$PROJECT_DIR$/DBScripts/SETUP/Master/90a.build_localhost_web_site.sql" />
+        <option value="$PROJECT_DIR$/modules/parent/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/tradeReview.xhtml" />
+        <option value="$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/data/common/TradeSummary.java" />
+        <option value="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/reviewtrades.xhtml" />
+        <option value="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/trade.xhtml" />
+        <option value="$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/data/common/TradeDetails.java" />
+        <option value="$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/advisor/TradeBean.java" />
+        <option value="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/tradereview.xhtml" />
       </list>
     </option>
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" />
-  <component name="JsBuildToolPackageJson" detection-done="true" />
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -733,31 +886,15 @@
     </option>
     <option name="enabledProfiles">
       <list>
-        <option value="ZZ DEPLOY" />
+        <option value="3A-LOCAL" />
+        <option value="2A-HOST-WIN" />
+        <option value="1B-MODE-UAT" />
       </list>
     </option>
   </component>
   <component name="MavenProjectNavigator">
     <option name="groupStructurally" value="true" />
     <treeState>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="invessence" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Modules" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ModulesNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Invessence" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-      </PATH>
       <PATH>
         <PATH_ELEMENT>
           <option name="myItemId" value="" />
@@ -787,14 +924,17 @@
           <option name="myItemId" value="" />
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
         </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Profiles" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProfilesNode" />
+        </PATH_ELEMENT>
       </PATH>
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="y" value="1" />
+    <option name="width" value="1600" />
+    <option name="height" value="858" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -815,15 +955,7 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
-    <OptionsSetting value="true" id="Add" />
-    <OptionsSetting value="true" id="Remove" />
-    <OptionsSetting value="true" id="Checkout" />
-    <OptionsSetting value="true" id="Update" />
-    <OptionsSetting value="true" id="Status" />
-    <OptionsSetting value="true" id="Edit" />
-    <OptionsSetting value="true" id="Undo Check Out" />
-    <OptionsSetting value="true" id="Get Latest Version" />
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
     <ConfirmationsSetting value="1" id="Remove" />
   </component>
@@ -842,16 +974,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="invessence" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="invessence" />
@@ -908,19 +1034,405 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dao" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dao" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dao" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="advisor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Invessence" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="parent" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth1" value="53" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0" value="41" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth3" value="40" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth2" value="54" />
     <property name="project.structure.proportion" value="0.15" />
@@ -936,7 +1448,7 @@
     <property name="recentsLimit" value="5" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth1" value="53" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder4" value="4" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth0" value="54" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth5" value="488" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth4" value="54" />
@@ -944,7 +1456,6 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="FullScreen" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth4" value="80" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -959,7 +1470,7 @@
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4" value="4" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1" value="1" />
     <property name="DefaultHtmlFileTemplate" value="Xhtml" />
-    <property name="project.structure.side.proportion" value="0.31012657" />
+    <property name="project.structure.side.proportion" value="0.40446928" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder2" value="2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder0" value="0" />
@@ -968,32 +1479,44 @@
     <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.invessence.web.bean.consumer.tcm" />
-      <recent name="com.invessence.dao" />
-      <recent name="com.invessence.data" />
-      <recent name="com.invessence.broker.processors" />
-      <recent name="com.invessence.broker.filters" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Source\tcm\modules\web\src\main\webapp\pages\advisor" />
-      <recent name="C:\Source\tcm\modules\web\src\main\resources" />
-      <recent name="C:\Source\tcm\modules\web\src\main\webapp\resources\tcm\js" />
-      <recent name="D:\Project\Prakash\Projects\tcm\modules\web\src\main\webapp\pages\consumer\tcm" />
-      <recent name="D:\Project\Prakash\Projects\tcm\modules\web\src\main\webapp\pages\consumer\tcm\cadd" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.invessence.emailer" />
       <recent name="com.invessence.web" />
       <recent name="com.invessence" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Project\Prashant\Source\trunc\Invessence\modules\web\src\main\webapp\pages\advisor\operations" />
+      <recent name="D:\Project\Prashant\Source\trunc\Invessence\DBScripts\SETUP\Master" />
+      <recent name="C:\Source\tcm\modules\web\src\main\webapp\pages\advisor" />
+      <recent name="C:\Source\tcm\modules\web\src\main\resources" />
+      <recent name="C:\Source\tcm\modules\web\src\main\webapp\resources\tcm\js" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.invessence.web.data.common" />
+      <recent name="com.invessence.web.bean.consumer.tcm" />
+      <recent name="com.invessence.dao" />
+      <recent name="com.invessence.data" />
+      <recent name="com.invessence.broker.processors" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Project\Prashant\Source\trunc\Invessence\modules\web\src\main\webapp\pages\advisor\operations" />
+      <recent name="D:\Project\Prashant\Source\trunc\Invessence\modules\web\src\main\webapp\pages\advisor" />
       <recent name="C:\Source\tcm\modules\web\src\main\java\com\invessence\web\util" />
       <recent name="C:\Workspace\Source\project\modules\web\src" />
       <recent name="C:\Workspace\Source\project\modules" />
-      <recent name="C:\Workspace\Source\project\db\sql\admin_sp" />
-      <recent name="C:\Workspace\Source\project\modules\web\src\main\webapp\backup" />
     </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager" selected="Tomcat Server.Web">
     <configuration default="false" name="TestClass" type="Application" factoryName="Application" temporary="true">
@@ -1039,35 +1562,35 @@
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
       <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
       <method />
     </configuration>
-    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="" />
-      <option name="ACTIVITY_CLASS" value="" />
-      <option name="MODE" value="default_activity" />
       <option name="DEPLOY" value="true" />
       <option name="ARTIFACT_NAME" value="" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
       <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="" />
-      <option name="IS_VALID_CLOUD_MATRIX_SELECTION" value="false" />
-      <option name="INVALID_CLOUD_MATRIX_SELECTION_ERROR" value="" />
-      <option name="IS_VALID_CLOUD_DEVICE_SELECTION" value="false" />
-      <option name="INVALID_CLOUD_DEVICE_SELECTION_ERROR" value="" />
-      <option name="CLOUD_DEVICE_SERIAL_NUMBER" value="" />
+      <Java />
+      <Profilers>
+        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
+        <option name="GAPID_ENABLED" value="false" />
+        <option name="GAPID_DISABLE_PCS" value="false" />
+        <option name="SUPPORT_LIB_ENABLED" value="true" />
+        <option name="INSTRUMENTATION_ENABLED" value="true" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
       <method />
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
@@ -1077,27 +1600,24 @@
       <option name="METHOD_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
       <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="" />
-      <option name="IS_VALID_CLOUD_MATRIX_SELECTION" value="false" />
-      <option name="INVALID_CLOUD_MATRIX_SELECTION_ERROR" value="" />
-      <option name="IS_VALID_CLOUD_DEVICE_SELECTION" value="false" />
-      <option name="INVALID_CLOUD_DEVICE_SELECTION_ERROR" value="" />
-      <option name="CLOUD_DEVICE_SERIAL_NUMBER" value="" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
+        <option name="GAPID_ENABLED" value="false" />
+        <option name="GAPID_DISABLE_PCS" value="false" />
+        <option name="SUPPORT_LIB_ENABLED" value="true" />
+        <option name="INSTRUMENTATION_ENABLED" value="true" />
+      </Profilers>
       <method />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -1181,6 +1701,9 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Cold Fusion runner description" factoryName="Cold Fusion" custom_browser="" web_path="">
       <method />
     </configuration>
     <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
@@ -1268,13 +1791,13 @@
       <method />
     </configuration>
     <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
-      <module name="" />
       <setting name="vmparams" value="" />
       <setting name="cmdLine" value="run-app" />
-      <setting name="depsClasspath" value="false" />
       <setting name="passParentEnv" value="true" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <setting name="launchBrowser" value="false" />
+      <setting name="launchBrowserUrl" value="" />
+      <setting name="depsClasspath" value="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <method />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -1298,27 +1821,6 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="true" type="JUnitTestDiscovery" factoryName="JUnit Test Discovery" changeList="All">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <envs />
@@ -1337,6 +1839,19 @@
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
       <envs />
       <method />
     </configuration>
@@ -1432,35 +1947,8 @@
       <listeners />
       <method />
     </configuration>
-    <configuration default="true" type="TestNGTestDiscovery" factoryName="TestNG Test Discovery" changeList="All">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
-      <method />
-    </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
       <node-options />
       <gulpfile />
       <tasks />
@@ -1469,8 +1957,9 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
-      <command value="run-script" />
+      <command value="run" />
       <scripts />
+      <node-interpreter value="project" />
       <envs />
       <method />
     </configuration>
@@ -1614,12 +2103,43 @@
         <item index="0" class="java.lang.String" itemvalue="Application.TestClass" />
       </list>
     </recent_temporary>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="0" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="0" />
+      <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="" />
+      <option name="IS_VALID_CLOUD_MATRIX_SELECTION" value="false" />
+      <option name="INVALID_CLOUD_MATRIX_SELECTION_ERROR" value="" />
+      <option name="IS_VALID_CLOUD_DEVICE_SELECTION" value="false" />
+      <option name="INVALID_CLOUD_DEVICE_SELECTION_ERROR" value="" />
+      <option name="CLOUD_DEVICE_SERIAL_NUMBER" value="" />
+      <method />
+    </configuration>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
       <Port>5050</Port>
     </configuration>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
   <component name="SvnConfiguration" myUseAcceleration="nothing" cleanupOnStartRun="true">
     <configuration useDefault="false">C:\Users\sg0211412\AppData\Roaming\Subversion</configuration>
     <supportedVersion>125</supportedVersion>
@@ -1628,76 +2148,80 @@
     <option name="myMappingRoots">
       <list>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence\.idea" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence\.idea" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence\.idea" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence\.idea" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\aggregate-services" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\aggregate-services" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\aggregate-services" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\aggregate-services" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\aggregator" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\aggregator" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\aggregator" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\aggregator" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\broker-webservices" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\broker-webservices" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\broker-webservices" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\broker-webservices" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\core" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\core" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\core" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\core" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\download-services" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\download-services" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\download-services" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\download-services" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\emailer" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\emailer" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\emailer" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\emailer" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\invmodel" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\invmodel" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\file-processor" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\file-processor" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\price-processor" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\price-processor" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\invmodel" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\invmodel" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\rbsa-preprocessor" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\rbsa-preprocessor" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\price-processor" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\price-processor" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\reports" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\reports" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\rbsa-preprocessor" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\rbsa-preprocessor" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\service" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\service" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\reports" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\reports" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\trading-services" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\trading-services" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\service" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\service" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\web" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence\modules\web" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\trading-services" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\trading-services" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\web" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence\modules\web" />
         </SvnCopyRootSimple>
       </list>
     </option>
     <option name="myMoreRealMappingRoots">
       <list>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\Project\kanaka\projects\trunk\Invessence" />
-          <option name="myCopyRoot" value="D:\Project\kanaka\projects\trunk\Invessence" />
+          <option name="myVcsRoot" value="D:\Project\Prashant\Source\trunc\Invessence" />
+          <option name="myCopyRoot" value="D:\Project\Prashant\Source\trunc\Invessence" />
         </SvnCopyRootSimple>
       </list>
     </option>
@@ -1708,6 +2232,7 @@
       <changelist id="dd7c7ebb-bab3-4e26-849e-28c186d0ef9c" name="Exclude" comment="" />
       <created>1377556962676</created>
       <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
       <updated>1377556962676</updated>
       <workItem from="1467622294660" duration="1768000" />
       <workItem from="1467692731355" duration="1932000" />
@@ -1721,350 +2246,406 @@
       <workItem from="1492702196823" duration="75281000" />
       <workItem from="1493383733781" duration="840000" />
       <workItem from="1493539618660" duration="1336000" />
-    </task>
-    <task id="LOCAL-00125" summary="Version 3.2">
-      <created>1429799977103</created>
-      <option name="number" value="00125" />
-      <option name="project" value="LOCAL" />
-      <updated>1429799977103</updated>
-    </task>
-    <task id="LOCAL-00126" summary="Version 3.2">
-      <created>1429800009105</created>
-      <option name="number" value="00126" />
-      <option name="project" value="LOCAL" />
-      <updated>1429800009105</updated>
-    </task>
-    <task id="LOCAL-00127" summary="Version 3.2">
-      <created>1429802402110</created>
-      <option name="number" value="00127" />
-      <option name="project" value="LOCAL" />
-      <updated>1429802402110</updated>
-    </task>
-    <task id="LOCAL-00128" summary="Version 3.2.01">
-      <created>1430002235208</created>
-      <option name="number" value="00128" />
-      <option name="project" value="LOCAL" />
-      <updated>1430002235208</updated>
+      <workItem from="1497650012390" duration="452000" />
+      <workItem from="1497650472724" duration="626000" />
+      <workItem from="1497870039579" duration="24000" />
+      <workItem from="1497870071710" duration="5000" />
+      <workItem from="1497883757045" duration="2707000" />
+      <workItem from="1497957423049" duration="3631000" />
+      <workItem from="1498084803046" duration="96000" />
+      <workItem from="1498132887325" duration="4274000" />
+      <workItem from="1498245847666" duration="20455000" />
     </task>
     <task id="LOCAL-00129" summary="Version 3.2.01">
       <created>1430170312209</created>
       <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
       <option name="project" value="LOCAL" />
       <updated>1430170312209</updated>
     </task>
     <task id="LOCAL-00130" summary="Introduced new Fixed Model">
       <created>1457828415107</created>
       <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
       <option name="project" value="LOCAL" />
       <updated>1457828415107</updated>
     </task>
     <task id="LOCAL-00131" summary="Introduced new Fixed Model">
       <created>1458840195161</created>
       <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
       <option name="project" value="LOCAL" />
       <updated>1458840195161</updated>
     </task>
     <task id="LOCAL-00132" summary="Introduced new Fixed Model">
       <created>1459002469107</created>
       <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
       <option name="project" value="LOCAL" />
       <updated>1459002469107</updated>
     </task>
     <task id="LOCAL-00133" summary="New version of deployment">
       <created>1459353315346</created>
       <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
       <option name="project" value="LOCAL" />
       <updated>1459353315346</updated>
     </task>
     <task id="LOCAL-00134" summary="Introduced new Fixed Model">
       <created>1459353385107</created>
       <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
       <option name="project" value="LOCAL" />
       <updated>1459353385107</updated>
     </task>
     <task id="LOCAL-00135" summary="Introduced new Fixed Model">
       <created>1459542470116</created>
       <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
       <option name="project" value="LOCAL" />
       <updated>1459542470116</updated>
     </task>
     <task id="LOCAL-00136" summary="Merge Code Version 3.0">
       <created>1459943174183</created>
       <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
       <option name="project" value="LOCAL" />
       <updated>1459943174183</updated>
     </task>
     <task id="LOCAL-00137" summary="Price version 2.5 fixing last few bugs related to call.">
       <created>1459980433104</created>
       <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
       <option name="project" value="LOCAL" />
       <updated>1459980433104</updated>
     </task>
     <task id="LOCAL-00138" summary="Price version 2.5 fixing last few bugs related to call.">
       <created>1460045772103</created>
       <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
       <option name="project" value="LOCAL" />
       <updated>1460045772103</updated>
     </task>
     <task id="LOCAL-00139" summary="Introduced UOB">
       <created>1461764256134</created>
       <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
       <option name="project" value="LOCAL" />
       <updated>1461764256134</updated>
     </task>
     <task id="LOCAL-00140" summary="Introduced UOB">
       <created>1463617628108</created>
       <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
       <option name="project" value="LOCAL" />
       <updated>1463617628108</updated>
     </task>
     <task id="LOCAL-00141" summary="TCM Version 1.0">
       <created>1463797502218</created>
       <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
       <option name="project" value="LOCAL" />
       <updated>1463797502219</updated>
     </task>
     <task id="LOCAL-00142" summary="TCM Version 1.0">
       <created>1463797544107</created>
       <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
       <option name="project" value="LOCAL" />
       <updated>1463797544107</updated>
     </task>
     <task id="LOCAL-00143" summary="comiting p1.xhtml - Prakash">
       <created>1468321270108</created>
       <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
       <option name="project" value="LOCAL" />
       <updated>1468321270109</updated>
     </task>
     <task id="LOCAL-00144" summary="Code checked in 9/24/2016">
       <created>1474749261207</created>
       <option name="number" value="00144" />
+      <option name="presentableId" value="LOCAL-00144" />
       <option name="project" value="LOCAL" />
       <updated>1474749261207</updated>
     </task>
     <task id="LOCAL-00145" summary="Projection HighChart - Sudhir">
       <created>1474769945104</created>
       <option name="number" value="00145" />
+      <option name="presentableId" value="LOCAL-00145" />
       <option name="project" value="LOCAL" />
       <updated>1474769945104</updated>
     </task>
     <task id="LOCAL-00146" summary="Revised 9/24/2016">
       <created>1474771593104</created>
       <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
       <option name="project" value="LOCAL" />
       <updated>1474771593104</updated>
     </task>
     <task id="LOCAL-00147" summary="Checked in Prashant 9/25/2016">
       <created>1474855597220</created>
       <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
       <option name="project" value="LOCAL" />
       <updated>1474855597220</updated>
     </task>
     <task id="LOCAL-00148" summary="Code checked in 9/26/2016">
       <created>1474946555146</created>
       <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
       <option name="project" value="LOCAL" />
       <updated>1474946555146</updated>
     </task>
     <task id="LOCAL-00149" summary="Code changed  9/27/2016">
       <created>1475003738185</created>
       <option name="number" value="00149" />
+      <option name="presentableId" value="LOCAL-00149" />
       <option name="project" value="LOCAL" />
       <updated>1475003738185</updated>
     </task>
     <task id="LOCAL-00150" summary="Checked in 9/30/2016">
       <created>1475283879210</created>
       <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
       <option name="project" value="LOCAL" />
       <updated>1475283879210</updated>
     </task>
     <task id="LOCAL-00151" summary="Checked in 9/30/2016">
       <created>1475461427109</created>
       <option name="number" value="00151" />
+      <option name="presentableId" value="LOCAL-00151" />
       <option name="project" value="LOCAL" />
       <updated>1475461427109</updated>
     </task>
     <task id="LOCAL-00152" summary="Checked in 10/04/2016">
       <created>1475592953126</created>
       <option name="number" value="00152" />
+      <option name="presentableId" value="LOCAL-00152" />
       <option name="project" value="LOCAL" />
       <updated>1475592953126</updated>
     </task>
     <task id="LOCAL-00153" summary="Checked in 10/04/2016">
       <created>1475592987103</created>
       <option name="number" value="00153" />
+      <option name="presentableId" value="LOCAL-00153" />
       <option name="project" value="LOCAL" />
       <updated>1475592987103</updated>
     </task>
     <task id="LOCAL-00154" summary="Checked in 10/04/2016">
       <created>1475682229153</created>
       <option name="number" value="00154" />
+      <option name="presentableId" value="LOCAL-00154" />
       <option name="project" value="LOCAL" />
       <updated>1475682229153</updated>
     </task>
     <task id="LOCAL-00155" summary="Checked in 10/06/2016">
       <created>1475791518109</created>
       <option name="number" value="00155" />
+      <option name="presentableId" value="LOCAL-00155" />
       <option name="project" value="LOCAL" />
       <updated>1475791518109</updated>
     </task>
     <task id="LOCAL-00156" summary="Checked in 10/06/2016">
       <created>1475791927109</created>
       <option name="number" value="00156" />
+      <option name="presentableId" value="LOCAL-00156" />
       <option name="project" value="LOCAL" />
       <updated>1475791927110</updated>
     </task>
     <task id="LOCAL-00157" summary="Checked in 10/07/2016">
       <created>1475887927105</created>
       <option name="number" value="00157" />
+      <option name="presentableId" value="LOCAL-00157" />
       <option name="project" value="LOCAL" />
       <updated>1475887927105</updated>
     </task>
     <task id="LOCAL-00158" summary="Checked in 10/12/2016">
       <created>1476284950107</created>
       <option name="number" value="00158" />
+      <option name="presentableId" value="LOCAL-00158" />
       <option name="project" value="LOCAL" />
       <updated>1476284950107</updated>
     </task>
     <task id="LOCAL-00159" summary="Checked in 10/14/2016">
       <created>1476465562111</created>
       <option name="number" value="00159" />
+      <option name="presentableId" value="LOCAL-00159" />
       <option name="project" value="LOCAL" />
       <updated>1476465562111</updated>
     </task>
     <task id="LOCAL-00160" summary="Checked in 10/14/2016">
       <created>1476555885107</created>
       <option name="number" value="00160" />
+      <option name="presentableId" value="LOCAL-00160" />
       <option name="project" value="LOCAL" />
       <updated>1476555885107</updated>
     </task>
     <task id="LOCAL-00161" summary="Checked in 10/17/2016">
       <created>1476705197167</created>
       <option name="number" value="00161" />
+      <option name="presentableId" value="LOCAL-00161" />
       <option name="project" value="LOCAL" />
       <updated>1476705197167</updated>
     </task>
     <task id="LOCAL-00162" summary="Checked in 10/17/2016">
       <created>1476763252105</created>
       <option name="number" value="00162" />
+      <option name="presentableId" value="LOCAL-00162" />
       <option name="project" value="LOCAL" />
       <updated>1476763252105</updated>
     </task>
     <task id="LOCAL-00163" summary="Checked in 10/18/2016">
       <created>1476837154132</created>
       <option name="number" value="00163" />
+      <option name="presentableId" value="LOCAL-00163" />
       <option name="project" value="LOCAL" />
       <updated>1476837154132</updated>
     </task>
     <task id="LOCAL-00164" summary="Checked in 10/18/2016">
       <created>1476837173103</created>
       <option name="number" value="00164" />
+      <option name="presentableId" value="LOCAL-00164" />
       <option name="project" value="LOCAL" />
       <updated>1476837173103</updated>
     </task>
     <task id="LOCAL-00165" summary="Checked in 10/18/2016">
       <created>1476849879106</created>
       <option name="number" value="00165" />
+      <option name="presentableId" value="LOCAL-00165" />
       <option name="project" value="LOCAL" />
       <updated>1476849879107</updated>
     </task>
     <task id="LOCAL-00166" summary="Checked in 10/19/2016">
       <created>1476892478107</created>
       <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
       <option name="project" value="LOCAL" />
       <updated>1476892478107</updated>
     </task>
     <task id="LOCAL-00167" summary="Checked in 10/20/2016">
       <created>1477015800105</created>
       <option name="number" value="00167" />
+      <option name="presentableId" value="LOCAL-00167" />
       <option name="project" value="LOCAL" />
       <updated>1477015800105</updated>
     </task>
     <task id="LOCAL-00168" summary="Checked in 10/20/2016">
       <created>1477017477104</created>
       <option name="number" value="00168" />
+      <option name="presentableId" value="LOCAL-00168" />
       <option name="project" value="LOCAL" />
       <updated>1477017477104</updated>
     </task>
     <task id="LOCAL-00169" summary="Checked in 10/20/2016">
       <created>1477019803104</created>
       <option name="number" value="00169" />
+      <option name="presentableId" value="LOCAL-00169" />
       <option name="project" value="LOCAL" />
       <updated>1477019803104</updated>
     </task>
     <task id="LOCAL-00170" summary="Checked in 10/25/2016">
       <created>1477452194171</created>
       <option name="number" value="00170" />
+      <option name="presentableId" value="LOCAL-00170" />
       <option name="project" value="LOCAL" />
       <updated>1477452194171</updated>
     </task>
     <task id="LOCAL-00171" summary="Checked in 10/25/2016">
       <created>1477452231103</created>
       <option name="number" value="00171" />
+      <option name="presentableId" value="LOCAL-00171" />
       <option name="project" value="LOCAL" />
       <updated>1477452231103</updated>
     </task>
     <task id="LOCAL-00172" summary="Checked in 10/26/2016">
       <created>1477590800147</created>
       <option name="number" value="00172" />
+      <option name="presentableId" value="LOCAL-00172" />
       <option name="project" value="LOCAL" />
       <updated>1477590800147</updated>
     </task>
     <task id="LOCAL-00173" summary="Checked in 10/28/2016">
       <created>1477654386143</created>
       <option name="number" value="00173" />
+      <option name="presentableId" value="LOCAL-00173" />
       <option name="project" value="LOCAL" />
       <updated>1477654386143</updated>
     </task>
-    <option name="localTasksCounter" value="174" />
+    <task id="LOCAL-00174" summary="Checked in 06/21/2017 File process Stored Procedures and Table DDLs">
+      <created>1498084885104</created>
+      <option name="number" value="00174" />
+      <option name="presentableId" value="LOCAL-00174" />
+      <option name="project" value="LOCAL" />
+      <updated>1498084885104</updated>
+    </task>
+    <task id="LOCAL-00175" summary="Prashant 06/23/2017 Web_site_info_managements">
+      <created>1498247327103</created>
+      <option name="number" value="00175" />
+      <option name="presentableId" value="LOCAL-00175" />
+      <option name="project" value="LOCAL" />
+      <updated>1498247327103</updated>
+    </task>
+    <task id="LOCAL-00176" summary="Prashant 06/23/2017 Web_site_info_managements">
+      <created>1498253204104</created>
+      <option name="number" value="00176" />
+      <option name="presentableId" value="LOCAL-00176" />
+      <option name="project" value="LOCAL" />
+      <updated>1498253204104</updated>
+    </task>
+    <task id="LOCAL-00177" summary="Prashant 06/27/2017 Web pages for Trade process.">
+      <created>1498565275104</created>
+      <option name="number" value="00177" />
+      <option name="presentableId" value="LOCAL-00177" />
+      <option name="project" value="LOCAL" />
+      <updated>1498565275104</updated>
+    </task>
+    <option name="localTasksCounter" value="178" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104442000" />
+    <option name="totallyTimeSpent" value="136712000" />
   </component>
-  <component name="TodoView" selected-index="0">
+  <component name="TodoView">
     <todo-panel id="selected-file">
-      <are-packages-shown value="false" />
-      <are-modules-shown value="false" />
-      <flatten-packages value="false" />
       <is-autoscroll-to-source value="true" />
     </todo-panel>
     <todo-panel id="all">
       <are-packages-shown value="true" />
-      <are-modules-shown value="false" />
-      <flatten-packages value="false" />
       <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="default-changelist">
-      <are-packages-shown value="false" />
-      <are-modules-shown value="false" />
-      <flatten-packages value="false" />
-      <is-autoscroll-to-source value="false" />
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="1" width="1600" height="858" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33236152" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29854015" sideWeight="0.61022365" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32102728" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20590462" sideWeight="0.545045" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35494882" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32423207" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25283876" sideWeight="0.46067417" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09356725" sideWeight="0.545045" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20817563" sideWeight="0.545045" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25283876" sideWeight="0.46067417" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32853898" sideWeight="0.84636873" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.67270195" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329296" sideWeight="0.84636873" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15258041" sideWeight="0.52" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6314286" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" x="34" y="627" width="1552" height="192" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33142856" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.67285717" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38285714" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="21" y="529" width="1552" height="257" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20857143" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25283876" sideWeight="0.46067417" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29239765" sideWeight="0.545045" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25283876" sideWeight="0.46067417" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37571427" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2073,16 +2654,15 @@
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925257" sideWeight="0.7799443" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="SVN Properties" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43243244" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" x="34" y="627" width="1552" height="192" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25075075" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2987988" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45392492" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="21" y="529" width="1552" height="257" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947233" sideWeight="0.84636873" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17966574" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven-2 Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -2096,9 +2676,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="TCM Version 1.0" />
-    <MESSAGE value="TCM Version 1.1" />
-    <MESSAGE value="commiting p1.xhtml - Prakash" />
     <MESSAGE value="comiting p1.xhtml - Prakash" />
     <MESSAGE value="comiting - Prakash" />
     <MESSAGE value="Code checked in 9/24/2016" />
@@ -2121,7 +2698,10 @@
     <MESSAGE value="Checked in 10/26/2016" />
     <MESSAGE value="Checked in 10/28/2016" />
     <MESSAGE value="Checked in 04/30/2016 Removed mobile jar dependency primce faces related error" />
-    <option name="LAST_COMMIT_MESSAGE" value="Checked in 04/30/2016 Removed mobile jar dependency primce faces related error" />
+    <MESSAGE value="Checked in 06/21/2017 File process Stored Procedures and Table DDLs" />
+    <MESSAGE value="Prashant 06/23/2017 Web_site_info_managements" />
+    <MESSAGE value="Prashant 06/27/2017 Web pages for Trade process." />
+    <option name="LAST_COMMIT_MESSAGE" value="Prashant 06/27/2017 Web pages for Trade process." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2137,125 +2717,390 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/consumer/ConsumerSaveSP.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.035639413">
-          <caret line="100" column="73" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/template/common/spark/layoutmenu.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/template/common/spark/topbar.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.038812786">
-          <caret line="15" column="65" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/index.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.038812786">
-          <caret line="117" column="39" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/alist.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="65" column="98" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/src/main/java/com/invessence/service/dao/ServiceDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="70" column="55" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/consumer/ConsumerListDataDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="444" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/vwProfile.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-58.192307">
-          <caret line="89" column="42" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/advisor/ManageAdvisorBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="256" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/data/consumer/RiskCalculator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.08">
-          <caret line="307" column="21" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/custody/CustodySaveSP.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14673047">
-          <caret line="330" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/custody/CustodySaveDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14673047">
-          <caret line="42" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/custody/TdCto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14285715">
-          <caret line="1534" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/parent/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.0363636">
-          <caret line="573" column="19" selection-start-line="573" selection-start-column="17" selection-end-line="573" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.5636363">
-          <caret line="18" column="6" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="6" />
+        <state relative-caret-position="306">
+          <caret line="18" column="6" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/web/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33200794">
-          <caret line="337" column="87" selection-start-line="337" selection-start-column="86" selection-end-line="337" selection-end-column="87" />
+        <state relative-caret-position="5729">
+          <caret line="337" column="87" lean-forward="false" selection-start-line="337" selection-start-column="86" selection-end-line="337" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/consumer/ConsumerSaveSP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="100" column="73" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/template/common/spark/layoutmenu.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/template/common/spark/topbar.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="15" column="65" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/index.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="117" column="39" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/alist.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="65" column="98" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/src/main/java/com/invessence/service/dao/ServiceDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="70" column="55" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/consumer/ConsumerListDataDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="444" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/vwProfile.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="89" column="42" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/advisor/ManageAdvisorBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="256" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/data/consumer/RiskCalculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="307" column="21" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/custody/CustodySaveSP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="330" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/custody/CustodySaveDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/custody/TdCto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="1534" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml" />
+    <entry file="file://$PROJECT_DIR$/modules/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="6" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/invmodel/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DBScripts/Release-20170604/20160504/1b.pm.additional_web_site_info.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DBScripts/SETUP/Master/100.build_demo_web_site.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="31" lean-forward="true" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DBScripts/SETUP/Master/99b.build_uat_web_site.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="28" column="29" lean-forward="true" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DBScripts/SETUP/Master/99a.build_preuat_web_site.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DBScripts/Release-20170604/20160504/1.build_uob_web_site.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="71" column="0" lean-forward="true" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DBScripts/SETUP/Master/1.build_master_web_site.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="3" lean-forward="true" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="337" column="87" lean-forward="false" selection-start-line="337" selection-start-column="86" selection-end-line="337" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DBScripts/SETUP/Master/3a.build_uob_web_site.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="69" lean-forward="true" selection-start-line="0" selection-start-column="36" selection-end-line="0" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DBScripts/SETUP/Master/2b.build_tcm_web_site.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DBScripts/SETUP/Master/2a.build_bb_web_site.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1122">
+          <caret line="66" column="21" lean-forward="true" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DBScripts/testingScripts/add_web_site_info.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="34" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DBScripts/SETUP/Master/90a.build_localhost_web_site.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="21" lean-forward="false" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DBScripts/Release_20170630/FileProcessor/FileProcessor invdb DB Scripts.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="33" lean-forward="true" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/invmodel/src/test/java/invtest/TestNewOjAlgo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-223">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/parent/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3019">
+          <caret line="629" column="44" lean-forward="false" selection-start-line="629" selection-start-column="44" selection-end-line="629" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/backup/add_sav.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="44" column="36" lean-forward="true" selection-start-line="44" selection-start-column="36" selection-end-line="44" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/tradeReview.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="68" column="26" lean-forward="true" selection-start-line="68" selection-start-column="26" selection-end-line="68" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/uploadTradeData.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/upload.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-357">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/data/common/TradeClientData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/data/common/TradeSummary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/data/common/Position.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="44" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/data/common/RebalanceDetails.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1683">
+          <caret line="209" column="6" lean-forward="false" selection-start-line="209" selection-start-column="6" selection-end-line="209" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/data/TradeDetails.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="30" lean-forward="false" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/advisor/AdvisorListDataDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7106">
+          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/common/TradeDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="151" column="10" lean-forward="false" selection-start-line="151" selection-start-column="10" selection-end-line="151" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/advisor/TradeBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="400" column="7" lean-forward="false" selection-start-line="400" selection-start-column="7" selection-end-line="400" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/trade.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="39" column="38" lean-forward="false" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/tradesummary.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="51" lean-forward="false" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/tradereview.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="73" column="84" lean-forward="false" selection-start-line="73" selection-start-column="64" selection-end-line="73" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/resources/invessence/1_0/css/invessenceCustom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-544">
+          <caret line="19" column="14" lean-forward="true" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/template/common/invessence/layout.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="946">
+          <caret line="80" column="45" lean-forward="true" selection-start-line="80" selection-start-column="45" selection-end-line="80" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/template/common/template.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="901">
+          <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -2270,7 +3115,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.40446928" />
                 <option value="0.5" />
               </list>
             </option>
@@ -2283,7 +3128,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.40446928" />
               </list>
             </option>
           </splitter-proportions>
@@ -2295,7 +3140,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.40446928" />
               </list>
             </option>
           </splitter-proportions>
@@ -2315,11 +3160,12 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>web</last-edited>
+          <last-edited>invmodel</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.31012657" />
+                <option value="0.40446928" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -2339,11 +3185,11 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Maven: aopalliance:aopalliance:1.0</last-edited>
+          <last-edited>Maven: commons-fileupload:commons-fileupload:1.2.2</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.31012657" />
+                <option value="0.40446928" />
               </list>
             </option>
           </splitter-proportions>

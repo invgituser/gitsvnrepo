@@ -1,8 +1,10 @@
+select url, count(*) from invdb.web_site_info group by url; 
+
 delete from invdb.web_site_info 
 where url like 'localhost:8080' or url like 'pre%' or url like 'uat%' or url like 'demo%';
 
 insert into invdb.web_site_info
-SELECT 'csibb',
+SELECT 'localhost:8080',
     `web_site_info`.`name`,
     `web_site_info`.`status`,
     `web_site_info`.`value`,
@@ -10,7 +12,7 @@ SELECT 'csibb',
     `web_site_info`.`created`,
     `web_site_info`.`updated`
 FROM `invdb`.`web_site_info`
-WHERE url = 'buildingbenjamins';
+WHERE url = 'uob';
 
 select * from invdb.web_site_info where url like 'pre%' and name like 'URL%';
 
