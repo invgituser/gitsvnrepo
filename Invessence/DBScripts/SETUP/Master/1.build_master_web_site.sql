@@ -1,5 +1,6 @@
 DELETE FROM `invdb`.`web_site_info`  where url = 'master';
 
+
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'ARCHIVE.CLOSED', 'A', '10', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'ARCHIVE.INACTIVE', 'A', '30', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'ARCHIVE.UNOPENED', 'A', '30', 'N', '2017-06-03 13:31:07', null);
@@ -66,4 +67,7 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 
 update `invdb`.`web_site_info`
 set value = null, status = 'I'
-where url = 'master'
+where url = 'master';
+
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'VERSION', 'A', '1.0', 'N', now(), null);
+
