@@ -624,7 +624,18 @@ public class ServiceDaoImpl implements ServiceDao
                                    convert.getStrData(map.get("encryptionMethod")),
                                    convert.getStrData(map.get("encColumns")),
                                    convert.getStrData(map.get("tmpTableName")),
-                                   convert.getStrData(map.get("canBeDups"))
+                                   convert.getStrData(map.get("canBeDups")),
+                                   convert.getStrData(map.get("delimiter")),
+                                   convert.getStrData(map.get("delFlagServerFile")),
+                                   convert.getIntData(map.get("delDayServerFile")),
+                                   convert.getStrData(map.get("delFlagLocalFile")),
+                                   convert.getIntData(map.get("delDayLocalFile")),
+                                   convert.getStrData(map.get("delFlagDecrFile")),
+                                   convert.getStrData(map.get("fileProcessType")),
+                                   convert.getStrData(map.get("parentPreDBProcess")),
+                                   convert.getStrData(map.get("parentPostDBProcess")),
+                                   convert.getStrData(map.get("parentPreInstruction")),
+                                   convert.getStrData(map.get("parentPostInstruction"))
             ));
          }
       }catch(Exception e)

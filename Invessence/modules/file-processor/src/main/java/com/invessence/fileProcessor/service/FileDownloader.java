@@ -1,14 +1,17 @@
 package com.invessence.fileProcessor.service;
 
 import java.io.*;
+import java.nio.file.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.invessence.converter.SQLData;
+import com.invessence.fileProcessor.bean.DBParameters;
 import com.invessence.fileProcessor.dao.FileProcessorDao;
 import com.invessence.service.bean.ServiceRequest;
 import com.invessence.service.bean.fileProcessor.*;
 import com.invessence.service.util.*;
+import com.jcraft.jsch.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +28,8 @@ public class FileDownloader
 
    SQLData convert = new SQLData();
 
-   public void download(ServiceRequest serviceRequest, FileDetails fileDetails, LinkedHashMap<String,FileRules> fileRules){
+   public boolean download(ServiceRequest serviceRequest, FileDetails fileDetails, LinkedHashMap<String,FileRules> fileRules, StringBuilder mailAlertMsg, Map<String, DBParameters> dbParamMap){
+      boolean returnValue=false;
       try
       {
          System.out.println("FileDownloader.download");
@@ -35,6 +39,8 @@ public class FileDownloader
                                  Constant.ADDITIONAL_DETAILS.FILE_DETAILS.toString(), fileDetails.getPreDBProcess());
          if(rows==null || rows.size()==0){
             System.out.println("Data not available in "+fileDetails.getPreDBProcess()+" for File Processor ");
+            mailAlertMsg.append("Data not available in "+fileDetails.getPreDBProcess()+" for File Processor \n");
+
          }else{
             Iterator<LinkedHashMap<String, Object>> itr = rows.iterator();
             List<String> fileData=new ArrayList<String>();
@@ -73,15 +79,17 @@ public class FileDownloader
             }
 
             if(fileData.size()>0){
-               generateFile(fileData, fileDetails);
+               generateFile(fileData, fileDetails, serviceRequest, dbParamMap.get("BUSINESS_DATE").getValue().toString(), mailAlertMsg);
+               returnValue = true;
             }else{
                logger.warn("Data not available for "+fileDetails.getFileName()+" file.");
             }
          }
       }catch(Exception e){
+         mailAlertMsg.append("Issue while processing file " + fileDetails.getFileName() + " from processId "+fileDetails.getProcessId()+" \n");
          e.printStackTrace();
-
       }
+      return  returnValue;
    }
 
    public String getValue(String val, FileRules fileRules){
@@ -122,23 +130,23 @@ public class FileDownloader
       }
       return sb.toString();
    }
-   private void generateFile(List<String> fileData, FileDetails fileDetails){
+   private void generateFile(List<String> fileData, FileDetails fileDetails, ServiceRequest serviceRequest, String businessDate, StringBuilder mailAlertMsg)throws Exception{
       System.out.println("FileDownloader.generateFile");
 
       try{
          Iterator<String> fileDataItr=fileData.iterator();
 
-         File file = new File(fileDetails.getUploadDir()+"/"+createFileName(fileDetails));
+         File file = new File(FileProcessor.getFilePath(serviceRequest,fileDetails,"LOCAL",businessDate));
          if (!file.getParentFile().exists())
          {
             try
             {
-               logger.info("Creating upload directory :" + file);
+               logger.info("Creating local upload directory :" + file);
                file.getParentFile().mkdirs();
             }
             catch (Exception e)
             {
-               logger.error("Creating upload directory :" + file + " \n" + e.getMessage());
+               logger.error("Creating local upload directory :" + file + " \n" + e.getMessage());
             }
          }
          FileWriter fr = null;
@@ -153,7 +161,13 @@ public class FileDownloader
                br.write(row);
                br.newLine();
             }
+            br.close();
+            fr.close();
+            if(fileDetails.getFileProcessType()!=null && !fileDetails.getFileProcessType().equals("")&& fileDetails.getFileProcessType().equals("SFTP")){
+               copyFileToSFTPServer(serviceRequest, file, fileDetails, businessDate, mailAlertMsg);
+            }
          } catch (IOException e) {
+            mailAlertMsg.append("Issue while creating file " + fileDetails.getFileName() + " to local directory from processId "+fileDetails.getProcessId()+" \n");
             e.printStackTrace();
          }finally{
             try {
@@ -168,6 +182,52 @@ public class FileDownloader
          e.printStackTrace();
       }
 
+   }
+
+   private void copyFileToSFTPServer(ServiceRequest serviceRequest, File f, FileDetails fileDetails, String businessDate, StringBuilder mailAlertMsg){
+      Session session = null;
+//      Channel channel = null;
+      ChannelSftp channel = null;
+      try{
+         JSch jsch = new JSch();
+         session = jsch.getSession(ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.FILE_PROCESS.toString(), serviceRequest.getMode(), "DOWNLOAD_SFTP_USERNAME"),
+                                   ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.FILE_PROCESS.toString(), serviceRequest.getMode(), "DOWNLOAD_SFTP_HOST"), 22);
+         session.setPassword(ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.FILE_PROCESS.toString(), serviceRequest.getMode(), "DOWNLOAD_SFTP_PASSWORD"));
+         session.setConfig("StrictHostKeyChecking", "no");
+         session.connect();
+
+         logger.info("Established the connection with host server");
+
+         channel = (ChannelSftp) session.openChannel("sftp");
+         channel.connect();
+
+//         String serverPath = ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.FILE_PROCESS.toString(), serviceRequest.getMode(), "DOWNLOAD_SFTP_SRC_DIRECTORY")+fileDetails.getUploadDir();
+//         System.out.println("*FILE PATH :"+FileProcessor.getFilePath(serviceRequest,fileDetails,"SFTP",businessDate));
+//         System.out.println("serverPath = " + serverPath);
+
+         Path p= Paths.get(FileProcessor.getFilePath(serviceRequest,fileDetails,"SFTP",businessDate));
+
+         String fileName = p.getFileName().toString();
+         String directory = p.getParent().toString().replaceAll("\\\\","/");
+         System.out.println("directory = " + directory+ " fileName = " + fileName);
+
+         channel.mkdir(directory);
+         channel.cd(directory);
+         channel.put(new FileInputStream(f), fileName);
+
+         channel.disconnect();
+         session.disconnect();
+
+      }catch(Exception e){
+         mailAlertMsg.append("Issue while coping file " + fileDetails.getFileName() + " to SFTP server from processId "+fileDetails.getProcessId()+" \n");
+         e.printStackTrace();
+      }finally {
+
+         channel.disconnect();
+         System.out.println("Channel disconnected.");
+         session.disconnect();
+         System.out.println("Host Session disconnected.");
+      }
    }
 
    private String createFileName(FileDetails fileDetails){

@@ -280,11 +280,12 @@ IN p_info varchar(50)
 BEGIN
 if(p_service ='FILE-PROCESS' and p_type='ADDITIONAL_DETAILS' and p_info='FILE_DETAILS')then
 
-	select vendor, fileName, processId, process, fileType, fileExtension, fileId, containsHeader, 
-    active, seqNo, uploadDir, preDBProcess, postDBProcess, preInstruction, postInstruction, fileNameAppender, 
-    appenderFormat, available, sourcePath, downloadDir, loadFormat, required, canBeEmpty, keyData, encryptionMethod, 
-    encColumns, tmpTableName, canBeDups, delimiter, delFlagServerFile, delDayServerFile, delFlagLocalFile, 
-	delDayLocalFile, delFlagDecrFile, fileProcessType, created, lastupdated
+	select vendor, fileName, processId, process, fileType, fileExtension, fileId, containsHeader,
+    active, seqNo, uploadDir, preDBProcess, postDBProcess, preInstruction, postInstruction, fileNameAppender,
+    appenderFormat, available, sourcePath, downloadDir, loadFormat, required, canBeEmpty, keyData, encryptionMethod,
+    encColumns, tmpTableName, canBeDups, delimiter, delFlagServerFile, delDayServerFile, delFlagLocalFile,
+	delDayLocalFile, delFlagDecrFile, fileProcessType, parentPreDBProcess, parentPostDBProcess, parentPreInstruction,
+    parentPostInstruction, created, lastupdated
 	from service.file_details
     where vendor= p_product;
 elseif(p_service ='FILE-PROCESS' and p_type='COMMON_DETAILS' and p_info='FILE_RULES')then
@@ -314,3 +315,35 @@ end if;
 END$$
 
 DELIMITER ;
+
+
+
+UPDATE `service`.`file_process_rules` SET `dbColumn`='clientAccountID' WHERE `fileId`='UOB_CLIENT_ACCT_BALANCE_FILE' and`dataField`='ROBOID';
+UPDATE `service`.`file_process_rules` SET `dbColumn`='clientAccountID' WHERE `fileId`='UOB_CLIENT_ACCT_HOLDING_FILE' and`dataField`='ROBOID';
+UPDATE `service`.`file_process_rules` SET `dbColumn`='clientAccountID' WHERE `fileId`='UOB_EOD_ORDER_EXEC_FILE' and`dataField`='ROBOID';
+UPDATE `service`.`file_process_rules` SET `dbColumn`='clientAccountID' WHERE `fileId`='UOB_CLIENT_STATUS_FILE' and`dataField`='ROBOID';
+UPDATE `service`.`file_process_rules` SET `dbColumn`='lastName' WHERE `fileId`='UOB_CLIENT_STATUS_FILE' and`dataField`='NAME';
+
+UPDATE `service`.`file_details` SET `postDBProcess`='invdb.sp_upload_ext_acct_info' WHERE `vendor`='UOB' and`fileName`='CLNTSTATUS';
+UPDATE `service`.`file_details` SET `postDBProcess`='invdb.sp_upload_nav' WHERE `vendor`='UOB' and`fileName`='CLNTBAL';
+UPDATE `service`.`file_details` SET `postDBProcess`='invdb.sp_upload_position' WHERE `vendor`='UOB' and`fileName`='CLNTHOLD';
+UPDATE `service`.`file_details` SET `postDBProcess`='invdb.sp_upload_tranaction' WHERE `vendor`='UOB' and`fileName`='CLNTORDEXE';
+
+UPDATE `service`.`service_config_details` SET `value`='D:/data/tradeFiles' WHERE `mode`='UAT' and`company`='UOB' and`service`='FILE-PROCESS' and`vendor`='VENDOR' and`name`='DOWNLOAD_LOCAL_SRC_DIRECTORY';
+
+
+ALTER TABLE `service`.`file_details`
+ADD COLUMN `parentPreDBProcess` VARCHAR(80) NULL DEFAULT NULL AFTER `fileProcessType`,
+ADD COLUMN `parentPostDBProcess` VARCHAR(80) NULL DEFAULT NULL AFTER `parentPreDBProcess`,
+ADD COLUMN `parentPreInstruction` VARCHAR(80) NULL DEFAULT NULL AFTER `parentPostDBProcess`,
+ADD COLUMN `parentPostInstruction` VARCHAR(80) NULL DEFAULT NULL AFTER `parentPreInstruction`;
+
+UPDATE `service`.`file_details` SET `fileNameAppender`='PREFIX' WHERE `vendor`='UOB' and`fileName`='CLNTBAL';
+UPDATE `service`.`file_details` SET `fileNameAppender`='PREFIX' WHERE `vendor`='UOB' and`fileName`='CLNTHOLD';
+UPDATE `service`.`file_details` SET `fileNameAppender`='POSTFIX' WHERE `vendor`='UOB' and`fileName`='CLNTORDEXE';
+UPDATE `service`.`file_details` SET `fileNameAppender`='POSTFIX' WHERE `vendor`='UOB' and`fileName`='CLNTSTATUS';
+
+UPDATE `service`.`file_details` SET `uploadDir`='/eodFiles' WHERE `vendor`='UOB' and`fileName`='CLNTBAL';
+UPDATE `service`.`file_details` SET `uploadDir`='/eodFiles' WHERE `vendor`='UOB' and`fileName`='CLNTSTATUS';
+UPDATE `service`.`file_details` SET `uploadDir`='/eodFiles' WHERE `vendor`='UOB' and`fileName`='CLNTORDEXE';
+UPDATE `service`.`file_details` SET `uploadDir`='/eodFiles' WHERE `vendor`='UOB' and`fileName`='CLNTHOLD';

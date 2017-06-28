@@ -33,8 +33,40 @@ public class FileDetails
    private String encColumns;
    private String tmpTableName;
    private String canBeDups;
+   private String delimiter;
+   private String delFlagServerFile;
+   private int delDayServerFile;
+   private String delFlagLocalFile;
+   private int delDayLocalFile;
+   private String delFlagDecrFile;
+   private String fileProcessType;
+   private String parentPreDBProcess;
+   private String parentPostDBProcess;
+   private String parentPreInstruction;
+   private String parentPostInstruction;
 
-   public FileDetails(String vendor, String fileName, String processId, String process, String fileType, String fileExtension, String fileId, String containsHeader, String active, Integer seqNo, String uploadDir, String preDBProcess, String postDBProcess, String preInstruction, String postInstruction, String fileNameAppender, String appenderFormat, String available, String sourcePath, String downloadDir, String loadFormat, String required, String canBeEmpty, int keyData, String encryptionMethod, String encColumns, String tmpTableName, String canBeDups)
+   private boolean processStatus;
+
+   public FileDetails(String fileName, String processId, boolean processStatus, String fileProcessType, String downloadDir)
+   {
+      this.fileName = fileName;
+      this.processId = processId;
+      this.processStatus = processStatus;
+      this.fileProcessType =fileProcessType;
+      this.downloadDir=downloadDir;
+   }
+
+   public FileDetails(String vendor, String fileName, String processId, String process, String fileType, String fileExtension, String fileId, String containsHeader, String active, Integer seqNo, String uploadDir, String preDBProcess, String postDBProcess, String preInstruction, String postInstruction, String fileNameAppender, String appenderFormat, String available, String sourcePath, String downloadDir, String loadFormat, String required, String canBeEmpty, int keyData, String encryptionMethod, String encColumns, String tmpTableName, String canBeDups, String delimiter,
+                      String delFlagServerFile,
+                      int delDayServerFile,
+                      String delFlagLocalFile,
+                      int delDayLocalFile, String delFlagDecrFile,
+                      String fileProcessType,
+                      String parentPreDBProcess,
+                         String parentPostDBProcess,
+                         String parentPreInstruction,
+                         String parentPostInstruction
+                      )
    {
       this.vendor = vendor;
       this.fileName = fileName;
@@ -64,6 +96,17 @@ public class FileDetails
       this.encColumns = encColumns;
       this.tmpTableName = tmpTableName;
       this.canBeDups = canBeDups;
+      this.delimiter=        delimiter;
+      this.delFlagServerFile=delFlagServerFile;
+      this.delDayServerFile= delDayServerFile;
+      this.delFlagLocalFile= delFlagLocalFile;
+      this.delDayLocalFile=  delDayLocalFile;
+      this.delFlagDecrFile=  delFlagDecrFile;
+      this.fileProcessType=  fileProcessType;
+      this.parentPreDBProcess= parentPreDBProcess;
+         this.parentPostDBProcess=parentPostDBProcess;
+         this.parentPreInstruction=parentPreInstruction;
+         this.parentPostInstruction=parentPostInstruction;
    }
 
 
@@ -99,7 +142,69 @@ public class FileDetails
          ", encColumns='" + encColumns + '\'' +
          ", tmpTableName='" + tmpTableName + '\'' +
          ", canBeDups='" + canBeDups + '\'' +
+         ", delimiter='" + delimiter + '\'' +
+         ", delFlagServerFile='" + delFlagServerFile + '\'' +
+         ", delDayServerFile=" + delDayServerFile +
+         ", delFlagLocalFile='" + delFlagLocalFile + '\'' +
+         ", delDayLocalFile=" + delDayLocalFile +
+         ", delFlagDecrFile='" + delFlagDecrFile + '\'' +
+         ", fileProcessType='" + fileProcessType + '\'' +
+         ", parentPreDBProcess='" + parentPreDBProcess + '\'' +
+         ", parentPostDBProcess='" + parentPostDBProcess + '\'' +
+         ", parentPreInstruction='" + parentPreInstruction + '\'' +
+         ", parentPostInstruction='" + parentPostInstruction + '\'' +
+         ", processStatus=" + processStatus +
          '}';
+   }
+
+   public String getParentPreDBProcess()
+   {
+      return parentPreDBProcess;
+   }
+
+   public void setParentPreDBProcess(String parentPreDBProcess)
+   {
+      this.parentPreDBProcess = parentPreDBProcess;
+   }
+
+   public String getParentPostDBProcess()
+   {
+      return parentPostDBProcess;
+   }
+
+   public void setParentPostDBProcess(String parentPostDBProcess)
+   {
+      this.parentPostDBProcess = parentPostDBProcess;
+   }
+
+   public String getParentPreInstruction()
+   {
+      return parentPreInstruction;
+   }
+
+   public void setParentPreInstruction(String parentPreInstruction)
+   {
+      this.parentPreInstruction = parentPreInstruction;
+   }
+
+   public String getParentPostInstruction()
+   {
+      return parentPostInstruction;
+   }
+
+   public void setParentPostInstruction(String parentPostInstruction)
+   {
+      this.parentPostInstruction = parentPostInstruction;
+   }
+
+   public String getFileProcessType()
+   {
+      return fileProcessType;
+   }
+
+   public void setFileProcessType(String fileProcessType)
+   {
+      this.fileProcessType = fileProcessType;
    }
 
    public String getVendor()
@@ -235,6 +340,16 @@ public class FileDetails
    public String getPreInstruction()
    {
       return preInstruction;
+   }
+
+   public boolean isProcessStatus()
+   {
+      return processStatus;
+   }
+
+   public void setProcessStatus(boolean processStatus)
+   {
+      this.processStatus = processStatus;
    }
 
    public void setPreInstruction(String preInstruction)
@@ -380,5 +495,65 @@ public class FileDetails
    public void setCanBeDups(String canBeDups)
    {
       this.canBeDups = canBeDups;
+   }
+
+   public String getDelimiter()
+   {
+      return delimiter;
+   }
+
+   public void setDelimiter(String delimiter)
+   {
+      this.delimiter = delimiter;
+   }
+
+   public String getDelFlagServerFile()
+   {
+      return delFlagServerFile;
+   }
+
+   public void setDelFlagServerFile(String delFlagServerFile)
+   {
+      this.delFlagServerFile = delFlagServerFile;
+   }
+
+   public int getDelDayServerFile()
+   {
+      return delDayServerFile;
+   }
+
+   public void setDelDayServerFile(int delDayServerFile)
+   {
+      this.delDayServerFile = delDayServerFile;
+   }
+
+   public String getDelFlagLocalFile()
+   {
+      return delFlagLocalFile;
+   }
+
+   public void setDelFlagLocalFile(String delFlagLocalFile)
+   {
+      this.delFlagLocalFile = delFlagLocalFile;
+   }
+
+   public int getDelDayLocalFile()
+   {
+      return delDayLocalFile;
+   }
+
+   public void setDelDayLocalFile(int delDayLocalFile)
+   {
+      this.delDayLocalFile = delDayLocalFile;
+   }
+
+   public String getDelFlagDecrFile()
+   {
+      return delFlagDecrFile;
+   }
+
+   public void setDelFlagDecrFile(String delFlagDecrFile)
+   {
+      this.delFlagDecrFile = delFlagDecrFile;
    }
 }

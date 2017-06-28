@@ -1,7 +1,7 @@
 package com.invessence.fileProcessor;
 
 import com.invessence.fileProcessor.service.FileProcessor;
-import com.invessence.service.bean.ServiceRequest;
+import com.invessence.service.bean.*;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -16,14 +16,15 @@ public class MainFileProcessor
       try
       {
          ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("fileProcessorConfig.xml");
-         FileProcessor pp = context.getBean(FileProcessor.class);
+         FileProcessor fp = context.getBean(FileProcessor.class);
          System.out.println("************** Execution Start **************");
          if(args.length>=3)
          {
             ServiceRequest serviceRequest = new ServiceRequest(args[0], args[1], args[2]);
             System.out.println("serviceRequest = " + serviceRequest);
 
-            pp.process(serviceRequest);
+            WSCallResult wsCallResult=fp.process(serviceRequest);
+//            System.out.println("wsCallResult = " + wsCallResult);
          }else{
             System.out.println("Required parameters are not entered!");
          }
