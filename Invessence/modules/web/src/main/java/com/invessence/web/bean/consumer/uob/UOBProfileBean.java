@@ -52,6 +52,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
    private InvessenceCharts charts;
    private HighChartsController highChartsController;
    private UOBRiskCalculator riskCalculator;
+   private boolean altrOnChngStrategy;
 
    public UOBProfileBean()
    {
@@ -266,6 +267,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
          {
             setDisplayFTPanel(false);
             setEnableChangeStrategy(true);
+            setAltrOnChngStrategy(true);
+            setDoesUserHavaLogonID(false);  //  This is default, but fetchCustomer will set reset it.
             flagforInvestShow = false;
 
             masterpagemanager = new PagesImpl(3);
@@ -496,6 +499,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
          resetDataForm();
          if (getBeanAcctnum() != null && getBeanAcctnum() > 0L)
          {
+            setDoesUserHavaLogonID(true);
             loadProfileData(getBeanAcctnum());
             loadRiskData(getBeanAcctnum());
             riskCalculator.setInvestmentobjective(getGoal());  // Goal needs to be restored to use the proper calculator
@@ -503,7 +507,21 @@ public class UOBProfileBean extends CustomerData implements Serializable
          }
          else
          {
-            loadNewClientData();
+            // 1) Remember we called New account from Dashboard.  So the first case is based on Dashboard.
+            if(webutil.isUserLoggedIn())  {
+               setDoesUserHavaLogonID(true);
+               setLogonid(webutil.getLogonid());
+            }
+            else {
+               // 2 - If user is not registered get the get New customer info.
+               // NOTE: getDoesUserHavaLogonID returns false if it is null.
+               if (! getDoesUserHavaLogonID())
+               {
+                  setDoesUserHavaLogonID(false); // If it is null, we are forcing to be false.
+                  loadNewClientData();
+               }
+            }
+//            loadNewClientData();
 
          }
          loadBaskets(); // Once we know about advisor, then use that info
@@ -1077,100 +1095,102 @@ public class UOBProfileBean extends CustomerData implements Serializable
             if (getAge() == null || getAge() == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.age.required", "Age is required", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.age.required", "Age is required", null));
             }
             if (getHorizon() == null || getHorizon() == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.plantoinvestamt.requiredMsg", "Plan to Invest is required", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.plantoinvestamt.requiredMsg", "Enter a number (years) for how long you plan to invest", null));
+//               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.plantoinvestamt.requiredMsg", "Plan to Invest is required", null));
             }
             if (getInitialInvestment() == null || getInitialInvestment() == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investamt.requiredMsg", "Investment amount is required", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.investamt.requiredMsg", "Investment amount is required", null));
             }
             if (getGoal() == null || getGoal() == "")
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.goal.required", "Please choose an investment strategy", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.goal.required", "Please choose your investment goal", null));
+//               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.goal.required", "Please choose an investment strategy", null));
             }
             break;
          case 1:
             if (getAccountFinancials().getHouseholdwages() == null || getAccountFinancials().getHouseholdwages() == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.wages.required", "Salary/Wages is required", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.wages.required", "Salary/Wages are required", null));
             }
             if (getAccountFinancials().getLiquidnetworth() == null)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.liquid.asset.required", "Liquid Asset is required", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.liquid.asset.required", "Liquid Assets are required", null));
             }
             if (getAccountFinancials().getInvestment() == null)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.other.investments.required", "Other Investments is required.", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.other.investments.required", "Other Investments are required.", null));
             }
             break;
          case 2:
             if (getAccountFinancials().getTotalExpense() == null || getAccountFinancials().getTotalExpense() == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.total.expenses.required", "Total Expenses is required.", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.total.expenses.required", "Total expenses are required.", null));
             }
             if (getAccountFinancials().getTotalDebt() == null)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.total.debt.required", "Total Debt is required.", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.total.debt.required", "Total debt is required.", null));
             }
             break;
          case 3:
             if (this.riskCalculator.getAnswerValue(pagenum) == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.employment.situation.required", "Employment Situation is required.", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.employment.situation.required", "Employment situation is required.", null));
             }
             break;
          case 4:
             if (this.riskCalculator.getAnswerValue(pagenum) == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.sources.income.required", "Sources of income is required.", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.sources.income.required", "Sources of income is required.", null));
             }
             break;
          case 5:
             if (this.riskCalculator.getAnswerValue(pagenum) == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.selection.required", "Select one of the option.", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.selection.required", "Select one of the option.", null));
             }
             break;
          case 6:
             if (this.riskCalculator.getAnswerValue(pagenum) == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.level.investment.required", "level of investment is required.", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.level.investment.required", "level of investment is required.", null));
             }
             break;
          case 7:
             if (this.riskCalculator.getAnswerValue(pagenum) == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investment.approach.required", "Investment approach is required.", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.investment.approach.required", "Investment approach is required.", null));
             }
             break;
          case 8:
             if (this.riskCalculator.getAnswerValue(pagenum) == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.level.volatility.required", "Level of volatility is required.", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.level.volatility.required", "Level of volatility is required.", null));
             }
             break;
          case 9:
             if (this.riskCalculator.getAnswerValue(pagenum) == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.long-term.investment.required", "long-term investment is required.", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.long-term.investment.required", "long-term investment is required.", null));
             }
             break;
       }
@@ -1258,6 +1278,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       setSliderAllocationIndex(getAllocationIndex());
       setDisplayFTPanel(true);
       setEnableChangeStrategy(false);
+      setAltrOnChngStrategy(false);
    }
 
    public void saveFTPanel() {
@@ -1271,6 +1292,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
    public void closeFTPanel() {
       setDisplayFTPanel(false);
       setEnableChangeStrategy(true);
+      setAltrOnChngStrategy(true);
       // RequestContext context = RequestContext.getCurrentInstance();
       //context.execute("PF('wvfineTunePanel.hide()')");
       //context.update("fineTunePanel");
@@ -1345,6 +1367,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
             }
             userdata.setLogonID(loginID);
             setLogonid(loginID);
+            setDoesUserHavaLogonID(true);
             return true;
          }
          return false;
@@ -1358,7 +1381,15 @@ public class UOBProfileBean extends CustomerData implements Serializable
       return false;
    }
 
+   public boolean isAltrOnChngStrategy()
+   {
+      return altrOnChngStrategy;
+   }
 
+   public void setAltrOnChngStrategy(boolean altrOnChngStrategy)
+   {
+      this.altrOnChngStrategy = altrOnChngStrategy;
+   }
 
 }
 

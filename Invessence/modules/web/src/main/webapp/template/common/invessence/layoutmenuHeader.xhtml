@@ -174,9 +174,13 @@
                     <div class="menuSeperator"></div>
                     <li>My Advisors</li>
                     <div class="menuSeperator"></div>
-                    <li><p:commandLink id="menulogoutBtn" actionListener="#{sessionControl.logout}">
-                        <h:outputText value="Logout"/>
-                    </p:commandLink></li>
+                    <li>
+                        <h:form >
+                            <h:commandLink id="menulogoutBtn" actionListener="#{sessionControl.logout}" styleClass="idLogoutCommon">
+                                <h:outputText value="Logout"/>
+                            </h:commandLink>
+                        </h:form>
+                    </li>
                 </ul>
             </div>
         </ul>

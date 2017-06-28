@@ -32,8 +32,12 @@
                         library="#{uiLayout.webProfile.cssdir}"/>
 
         <!-- HighChart jsplugin End -->
+
         <h:form id="ceForm">
             <p:outputPanel id="workArea">
+
+                <p:inputText type="hidden" id="idHdnAcct" class="idHdnAcctCls"
+                             value="#{uobpb.acctnum}"/>
 
                 <ui:fragment rendered="#{uobpb.masterpagemanager.page == 0}">
                     <div class="FullContainer">

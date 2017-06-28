@@ -30,6 +30,7 @@ public class SessionController implements Serializable
    private String rep;
    private String visitorID;
    private String device;
+   private int cstmSessionTimeout;
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
@@ -397,21 +398,21 @@ public class SessionController implements Serializable
 
    public int getCustomSessionTimeout()
    {
-      int customSessionTimeout = 10 * 60 * 1000;
+      cstmSessionTimeout = 10 * 60 * 1000;
       try
       {
-         customSessionTimeout = webutil.getWebprofile().getSessionTimeout();
+         cstmSessionTimeout = webutil.getWebprofile().getSessionTimeout();
 
-         customSessionTimeout = customSessionTimeout * 60 * 1000;
-         // System.out.println("SessionController.getCustomSessionTimeout session timeout " + customSessionTimeout);
+         cstmSessionTimeout = cstmSessionTimeout * 60 * 1000;
+          System.out.println("SessionController.getCustomSessionTimeout session timeout " + cstmSessionTimeout);
       }
       catch (Exception e)
       {
-         customSessionTimeout = 10*60*1000;
+         cstmSessionTimeout = 10*60*1000;
          logger.error("SessionController.getCustomSessionTimeout Error " + e);
          e.printStackTrace();
       }
-      return customSessionTimeout;
+      return cstmSessionTimeout;
    }
 
    public int getSessionCountdownTime()
@@ -454,5 +455,15 @@ public class SessionController implements Serializable
          webutil.getWebprofile().setDevice("Mobile");
          setDevice("mobile");
       }
+   }
+
+   public int getCstmSessionTimeout()
+   {
+      return cstmSessionTimeout;
+   }
+
+   public void setCstmSessionTimeout(int cstmSessionTimeout)
+   {
+      this.cstmSessionTimeout = cstmSessionTimeout;
    }
 }

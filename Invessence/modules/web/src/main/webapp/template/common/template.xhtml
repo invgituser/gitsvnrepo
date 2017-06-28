@@ -47,10 +47,10 @@
                  value="#{sessionControl.getSessionCountdownTime()}"/>
     <p:growl id="msg" showDetail="true" sticky="true"/>
 
-    <ui:fragment rendered="#{sessionControl.customSessionTimeout > 0}">
+    <ui:fragment rendered="#{sessionControl.cstmSessionTimeout > 0}">
         <h:outputScript name="js/sessionManagement.js"  library="invessence"/>
 
-        <p:idleMonitor timeout="#{sessionControl.customSessionTimeout}" onidle="idleDialog();"/>
+        <p:idleMonitor timeout="#{sessionControl.cstmSessionTimeout}" onidle="idleDialog();"/>
 
         <div id="idConfirmExt">
             <div class="innercdb">

@@ -232,12 +232,12 @@
 			<p:panel id="finalbuttonArea" styleClass="summaryPageBtn" style="background-color: transparent; border: 0px;">
 				<div class="Container100 Responsive100" style="text-align: center;">
 					<p:commandButton styleClass="prev ResponsiveBtnFS Fleft spWid100" id="tcmpnafprevious"
-									 value="Start Over" update=":ceForm:inputArea" immediate="true"
+									 value="Start Over" update=":ceForm:inputArea" immediate="true" disabled="#{! tcmpb.altrOnChngStrategy}"
 									 actionListener="#{tcmpb.startover}" />
 
 					<p:commandButton id="tcmpnafftbtn" styleClass="fineTuneBtn fineTuneBtnImg spWid100"
                                      value="Change Strategy" disabled="#{! tcmpb.enableChangeStrategy}"
-									 update=":ceForm:workPanel, :ceForm:tcmpnafftbtn"
+									 update=":ceForm:workPanel, :ceForm:tcmpnafftbtn,:ceForm:tcmpnafprevious,:ceForm:tcmpnafopenacct"
 									 actionListener="#{tcmpb.showFTPanel}" >
 					</p:commandButton>
 
@@ -245,7 +245,7 @@
                                      style="margin-right: 0px!important;"
                                      styleClass="Fright ResponsiveBtnFS spWid100"
 									 value="#{tcmpb.fundButtonText}"
-                                     update=":ceForm:inputArea"
+                                     update=":ceForm:inputArea" disabled="#{! tcmpb.altrOnChngStrategy}"
 									 actionListener="#{tcmpb.fundAccount}" />
 				</div>
 

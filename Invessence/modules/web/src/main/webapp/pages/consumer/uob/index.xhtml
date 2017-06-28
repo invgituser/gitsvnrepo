@@ -195,7 +195,7 @@
                                                             <div class="NewDashButtonBlock">
                                                                 <div class="Container100">
                                                                     <p:commandButton id="fundButton"
-                                                                                     disabled="#{investment.canIEditAccount and !investment.hasClientID}"
+                                                                                     disabled="#{investment.canIEditAccount or !investment.hasClientID}"
                                                                                      styleClass="Fs14 GreenButton fundBtn" process="@this"
                                                                                      immediate="true" icon="fa fa-university Fs14 white"
                                                                                      action="#{uobdash.doFundingAction}">

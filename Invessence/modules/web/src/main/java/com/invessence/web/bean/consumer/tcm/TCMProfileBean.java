@@ -64,6 +64,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    private Boolean finalCheck1, finalCheck2, confirmationCheck = false;
    private String projectionChart;
    private String performanceChart;
+   private boolean altrOnChngStrategy;
 
    public PagesImpl getPagemanager()
    {
@@ -435,6 +436,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             // Page management
             setDisplayFTPanel(false);
             setEnableChangeStrategy(true);
+            setAltrOnChngStrategy(true);
             setDoesUserHavaLogonID(false);  //  This is default, but fetchCustomer will set reset it.
 
             pagemanager = new PagesImpl(5);
@@ -489,6 +491,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
             setDisplayFTPanel(false);
             setEnableChangeStrategy(true);
+            setAltrOnChngStrategy(true);
             setDoesUserHavaLogonID(false);  //  This is default, but fetchCustomer will set reset it.
 
             selectedThemeName = "";
@@ -631,6 +634,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
       setDisplayFTPanel(true);
       setEnableChangeStrategy(false);
+      setAltrOnChngStrategy(false);
 
    }
 
@@ -645,6 +649,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void closeFTPanel() {
       setDisplayFTPanel(false);
       setEnableChangeStrategy(true);
+      setAltrOnChngStrategy(true);
 
       // RequestContext context = RequestContext.getCurrentInstance();
       //context.execute("PF('wvfineTunePanel.hide()')");
@@ -1644,6 +1649,14 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       return false;
    }
 
+   public boolean isAltrOnChngStrategy()
+   {
+      return altrOnChngStrategy;
+   }
 
+   public void setAltrOnChngStrategy(boolean altrOnChngStrategy)
+   {
+      this.altrOnChngStrategy = altrOnChngStrategy;
+   }
 }
 

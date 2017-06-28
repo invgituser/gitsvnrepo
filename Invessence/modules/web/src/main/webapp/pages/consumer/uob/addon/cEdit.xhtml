@@ -11,7 +11,7 @@
         <div class="finetuneBtnBlock Fright">
             <p:commandButton id="uobfinetunebtn" styleClass="fineTuneBtn fineTuneBtnImg"
                              icon="ui-icon-image"
-                             update=":ceForm:inputArea"
+                             update=":ceForm:inputArea,ceForm:buttonArea"
                              actionListener="#{uobpb.showFTPanel}">
             </p:commandButton>
             <div class="ftBtnLabel">Fine Tune</div>
@@ -21,7 +21,7 @@
                 <span class="Fs30 mainHeaderUOB">Fine Tune Strategy</span>
                 <div class="Wid10 closeFTBtn Fright">
                     <p:commandButton id="uobftclose"  styleClass="fineTuneBtn" icon="fa fa-times"
-                                     update=":ceForm:inputArea"
+                                     update=":ceForm:inputArea,ceForm:buttonArea"
                                      actionListener="#{uobpb.cancelFTPanel}">
                     </p:commandButton>
 
@@ -136,7 +136,7 @@
 
             </div>
         </ui:fragment>
-        <p:panel id="buttonArea" style="background-color: transparent; border: 0px">
+        <p:panel id="buttonArea" style="background-color: transparent; border: 0px" rendered="#{uobpb.altrOnChngStrategy}">
             <div id="buttondiv" class="Container100 LPBtnPanelBottom" style="margin: 5px 0;">
                 <div class="Wid100">
                     <ui:fragment rendered="#{uobpb.flagforInvestShow}">
