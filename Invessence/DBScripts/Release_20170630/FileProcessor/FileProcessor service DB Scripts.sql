@@ -347,3 +347,13 @@ UPDATE `service`.`file_details` SET `uploadDir`='/eodFiles' WHERE `vendor`='UOB'
 UPDATE `service`.`file_details` SET `uploadDir`='/eodFiles' WHERE `vendor`='UOB' and`fileName`='CLNTSTATUS';
 UPDATE `service`.`file_details` SET `uploadDir`='/eodFiles' WHERE `vendor`='UOB' and`fileName`='CLNTORDEXE';
 UPDATE `service`.`file_details` SET `uploadDir`='/eodFiles' WHERE `vendor`='UOB' and`fileName`='CLNTHOLD';
+
+
+ALTER TABLE `service`.`file_process_rules`
+ADD COLUMN `isRequired` VARCHAR(1) NULL DEFAULT 'N' AFTER `dbColumn`,
+ADD COLUMN `needToEncrypt` VARCHAR(1) NULL DEFAULT 'N' AFTER `isRequired`;
+
+
+ALTER TABLE `service`.`file_details`
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (`vendor`, `fileName`, `processId`);
