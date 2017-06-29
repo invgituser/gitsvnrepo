@@ -8,6 +8,8 @@ import com.invessence.service.bean.*;
 import com.invessence.service.bean.docuSign.*;
 import com.invessence.service.util.*;
 import com.invessence.ws.bean.*;
+import com.invessence.ws.bean.WSCallResult;
+import com.invessence.ws.bean.WSCallStatus;
 import com.invessence.ws.provider.td.bean.*;
 import com.invessence.ws.provider.td.dao.TDDaoLayer;
 import com.invessence.ws.provider.td.docusign.DCUtility;

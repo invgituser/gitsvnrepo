@@ -10,6 +10,8 @@ import com.invessence.service.bean.*;
 import com.invessence.service.util.*;
 import com.invessence.util.*;
 import com.invessence.ws.bean.*;
+import com.invessence.ws.bean.WSCallResult;
+import com.invessence.ws.bean.WSCallStatus;
 import com.invessence.ws.dao.WSCommonDao;
 import com.invessence.ws.provider.td.bean.DCRequest;
 import com.invessence.ws.util.*;
@@ -50,7 +52,7 @@ public class ServiceLayerImpl implements ServiceLayer
       catch (Exception e)
       {
          logger.error(e.getMessage());
-         return new WSCallResult(new WSCallStatus(SysParameters.dcTechIssueCode, SysParameters.dcTechIssueMsg),null);
+         return new WSCallResult(new WSCallStatus(SysParameters.dcTechIssueCode, SysParameters.dcTechIssueMsg), null);
    }
       return wsCallResult;
    }
