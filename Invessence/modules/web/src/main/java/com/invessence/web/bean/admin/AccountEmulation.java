@@ -29,7 +29,7 @@ public class AccountEmulation
       {
          System.out.print("processAccount Account Number " + accountNumber);
          System.out.print("processAccount Amount " + amount);
-         errorMessage=getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_test1", 0);
+         errorMessage=getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step1_openaccount", 0);
          this.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.acctType.requiredMsg",response, null));
       }
       catch (Exception e)
