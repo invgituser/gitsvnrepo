@@ -1,0 +1,173 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{adashbean.preRenderView}"/>
+    </f:metadata>
+    <ui:define name="content">
+        <div class="layout-portlets-box">
+            <!-- Messages/Alerts -->
+            <div class="Container100 Responsive100">
+                <div class="ContainerIndent PaddingTopBottomNone">
+                    <div class="Container100">
+                        <div class="DispInlBlock MarTop20" style="width: 100%;">
+                            <div class="Container5"><i class="fa fa-user Fs40 red Fleft MarRight10"></i></div>
+                            <div class="Container80">
+                                <div class="Fleft">
+                                    <h2 class="black Fs18 FontThemeMedium AdvUserName">#{webutil.lastFirstName}
+                                        <i class="fa fa-angle-double-right" style="margin: 0px 10px" >   </i> User Management</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Seperator Container100"></div>
+
+                </div>
+            </div>
+
+
+
+
+
+            <main class="customtabs">
+
+                <input id="tab1" type="radio" name="tabs" checked="checked" />
+                <label for="tab1">User Info</label>
+
+                <input id="tab2" type="radio" name="tabs" />
+                <label for="tab2">User Credentials</label>
+
+
+
+                <input id="tab4" type="radio" name="tabs" />
+                <label for="tab4">Custody</label>
+
+                <section id="content1">
+
+                    <div class="Container30 Responsive100 FloatNoneOnMobile Fleft">
+                    <p>
+
+                        <p:inputText id="FirstName" styleClass="Wid90">
+                            <p:watermark for="FirstName" value="First Name"/>
+                        </p:inputText>
+                       </p>
+
+
+
+                    <p>
+
+                        <p:inputText id="LastName" styleClass="Wid90">
+                            <p:watermark for="LastName" value="Last Name"/>
+                        </p:inputText>
+                    </p>
+
+                    <p>
+
+                        <p:inputText id="DispName" styleClass="Wid90">
+                            <p:watermark for="DispName" value="Display Name"/>
+                        </p:inputText>
+                    </p>
+
+                    </div>
+
+
+                    <div class="clear Container100"></div>
+
+                    <div class="Container100" style="margin: 10px 0px 20px 0px;">
+
+                        <p:commandButton value="Invite"  styleClass="InviteButton" icon="fa fa-user-plus"  />
+                        <p:commandButton value="Reset"  styleClass="ResetButton" icon="fa fa-undo"  />
+                        <p:commandButton value="Deactivate"  styleClass="DeactButton"  icon="fa fa-user-times" />
+                        <p:commandButton value="Delete"  styleClass="DeleteButton" icon="fa fa-trash" />
+
+
+                    </div>
+
+                </section>
+
+                <section id="content2">
+                    <div class="Container30 Responsive100 FloatNoneOnMobile Fleft">
+                        <p>
+
+                            <p:inputText id="UserID" styleClass="Wid90">
+                                <p:watermark for="UserID" value="User ID"/>
+                            </p:inputText>
+                        </p>
+
+                        <p>
+
+                            <p:inputText id="EmailID" styleClass="Wid90">
+                                <p:watermark for="EmailID" value="Email ID"/>
+                            </p:inputText>
+                        </p>
+
+                        <p>
+
+                            <p:inputText id="pass" styleClass="Wid90">
+                                <p:watermark for="pass" value="Password"/>
+                            </p:inputText>
+                        </p>
+
+
+
+                    </div>
+
+                    <div class="clear Container100"></div>
+
+                    <div class="Container100" style="margin: 10px 0px 20px 0px;">
+
+                        <p:commandButton value="Invite"  styleClass="InviteButton" icon="fa fa-user-plus"  />
+                        <p:commandButton value="Reset"  styleClass="ResetButton" icon="fa fa-undo"  />
+                        <p:commandButton value="Deactivate"  styleClass="DeactButton"  icon="fa fa-user-times" />
+                        <p:commandButton value="Delete"  styleClass="DeleteButton" icon="fa fa-trash" />
+
+
+                    </div>
+                </section>
+
+
+
+                <section id="content4">
+                    <div class="Container30 Responsive100 FloatNoneOnMobile Fleft">
+                        <p>
+
+                            <p:inputText id="AdvCode" styleClass="Wid90">
+                                <p:watermark for="AdvCode" value="Advisor Code"/>
+                            </p:inputText>
+                        </p>
+                        <p>
+                        <p:selectOneMenu id="RepCode" value="Rep Code"
+                                         styleClass="Wid90 selectDD">
+                            <p:watermark for="RepCode" value="Rep Code"/>
+                        </p:selectOneMenu>
+
+                        </p>
+                    </div>
+
+                    <div class="clear Container100"></div>
+
+                    <div class="Container100" style="margin: 10px 0px 20px 0px;">
+
+                        <p:commandButton value="Invite"  styleClass="InviteButton" icon="fa fa-user-plus"  />
+                        <p:commandButton value="Reset"  styleClass="ResetButton" icon="fa fa-undo"  />
+                        <p:commandButton value="Deactivate"  styleClass="DeactButton"  icon="fa fa-user-times" />
+                        <p:commandButton value="Delete"  styleClass="DeleteButton" icon="fa fa-trash" />
+
+
+                    </div>
+                </section>
+
+            </main>
+
+        </div>
+        <!-- BOX END -->
+
+
+
+    </ui:define>
+
+</ui:composition>
