@@ -140,6 +140,16 @@
                     <a href="/pages/advisor/operations/trade.xhtml/advisor/trade.xhtml" id="menutradebtn">Trade</a>
                 </li>
             </ui:fragment>
+            <ui:fragment rendered="#{webutil.hasRole('DEVELOPER')}">
+                <li id="filePrcsMenuHighlight">
+                    <a href="/pages/productadmin/fileProcessEmulation.xhtml" id="menutradebtn">File Processing</a>
+                </li>
+            </ui:fragment>
+            <ui:fragment rendered="#{webutil.hasRole('DEVELOPER')}">
+                <li id="AcctEmulMenuHighlight">
+                    <a href="/pages/productadmin/accountEmulation.xhtml" id="menutradebtn">Account Emulation</a>
+                </li>
+            </ui:fragment>
 
             <ui:fragment rendered="#{webutil.hasRole('DEMO')}">
                 <li id="aggrMenuHighlight">

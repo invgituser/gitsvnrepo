@@ -25,6 +25,18 @@
                         </ui:fragment>
                     </li>
 
+                    <li class="MobileModeOnly">
+                        <ui:fragment rendered="#{webutil.hasRole('DEVELOPER')}">
+                            <!--<a href="/pages/consumer/tcm/cadd.xhtml?app=N" class="Animated05"><i class="fa fa-plus-square"></i> New Account</a>-->
+                            <a href="/pages/productadmin/fileProcessEmulation.xhtml" class="Animated05">File Processing</a>
+                        </ui:fragment>
+                    </li>
+                    <li class="MobileModeOnly">
+                        <ui:fragment rendered="#{webutil.hasRole('DEVELOPER')}">
+                            <!--<a href="/pages/consumer/tcm/cadd.xhtml?app=N" class="Animated05"><i class="fa fa-plus-square"></i> New Account</a>-->
+                            <a href="/pages/productadmin/accountEmulation.xhtml" class="Animated05">Account Emulation</a>
+                        </ui:fragment>
+                    </li>
 
 
                     <!--</li>-->

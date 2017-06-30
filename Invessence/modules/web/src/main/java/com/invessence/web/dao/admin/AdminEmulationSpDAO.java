@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import com.invessence.converter.SQLData;
 import org.springframework.stereotype.Repository;
@@ -21,6 +22,8 @@ import java.sql.SQLException;
 public class AdminEmulationSpDAO
 {
 
+   @Autowired
+   private JdbcTemplate invJdbcTemplate;
    @Autowired
    DataSource dataSource;
 
@@ -73,6 +76,13 @@ public class AdminEmulationSpDAO
       }
       System.out.println("processDCRequest Exception " + response);
       return response;
+   }
+
+   public void updateBusinessDate(String businessdate) throws SQLException
+   {
+
+      String sql = "update invdb.invessence_switch set value='"+businessdate+"' where name='BUSINESS_DATE' ;";
+      invJdbcTemplate.execute(sql);
    }
 
 

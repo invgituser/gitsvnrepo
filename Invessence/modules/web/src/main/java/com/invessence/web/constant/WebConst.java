@@ -37,6 +37,7 @@ public class WebConst
    public final static String ROLE_SUPPORT = "SUPPORT";
    public final static String ROLE_ADVISOR = "ADVISOR";
    public final static String DEVEL_ADVISOR = "DEVELOPER";
+   public final static String ROLE_DEVELOPER = "DEVELOPER";
 
    public final static String ROLE_OWNER = "OWNER";
    public final static String ROLE_USER = "USER";

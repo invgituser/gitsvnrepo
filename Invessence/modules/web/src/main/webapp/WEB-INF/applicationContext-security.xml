@@ -27,7 +27,7 @@
    <http pattern="/forgot.xhtml" security="none"/>
    <http pattern="/signupApproval.xhtml" security="none"/>
    <http pattern="/message.xhtml" security="none"/>
-   <http pattern="/accountEmulation.xhtml" security="none" create-session="never" use-expressions="true"/>
+
 
    <http pattern="/tryus.xhtml" security="none" />
    <http pattern="/backup/ForgotPassword.xhtml" security="none"/>
@@ -60,6 +60,7 @@
       <intercept-url pattern="/pages/consumer/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
       <intercept-url pattern="/pages/common/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
       <intercept-url pattern="/pages/custody/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/pages/productadmin/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
 
       <logout logout-success-url="/index.xhtml"/>
