@@ -94,6 +94,10 @@ public class FileProcessor
                         logger.info("fileExecutionCounter = " + fileExecutionCounter+" : "+fileDetails.getFileName());
                         if(!preInstructionExecuted){
                            fileProcessorUtil.executeInstruction(fileDetails,"PARENTPRE", mailAlertMsg, serviceRequest);
+                           fileProcessorUtil.executeDBProcess(fileDetails, "PARENTPRE", mailAlertMsg);
+                           if(mailAlertMsg.length()>0){
+                              isEmailRaised.append(mailAlertMsg);
+                           }
                            preInstructionExecuted=true;}
                            fileProcessorUtil.executeInstruction(fileDetails,"PRE", isEmailRaised, serviceRequest);
                      System.out.println(isEmailRaised.length()+"isEmailRaised.length()");
