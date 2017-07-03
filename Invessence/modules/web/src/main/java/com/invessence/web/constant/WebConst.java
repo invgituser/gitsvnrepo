@@ -46,9 +46,9 @@ public class WebConst
 
    public final static String WEB_CONSUMER = "User";
    public final static String WEB_ALL = "ALL";
-   public final static String WEB_USER = "USER";
+   public final static String WEB_USER = "User";
    public final static String WEB_ADVISOR = "Advisor";
-   public final static String WEB_ADMIN = "ADMIN";
+   public final static String WEB_ADMIN = "SuperAdmin";
 
    /*
       public final static String HTML_WELCOME = "HTML.WELCOME";
