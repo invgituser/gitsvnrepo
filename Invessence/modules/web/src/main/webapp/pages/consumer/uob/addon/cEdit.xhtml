@@ -191,23 +191,32 @@
                                               draw2dDonut1lyrChart();
                                           }
                                       }
-
-                                      $('.summaryHeader').click(function(){
-                                          $('.summaryPanel').show();
-                                          $('.detailPanel').hide();
-                                      });
-                                      $('.detailHeader').click(function(){
-                                          $('.summaryPanel').hide();
-                                          $('.detailPanel').show();
-                                      });
                                   });
             </script>
 
             <div class="Container100 MarTop20" style="border-bottom: 2px solid #a4332f;">
-                <div class="Fs30 Fleft summaryHeader mainHeaderUOB RPHeadings1 active"
-                     style="cursor: pointer;">Summary</div>
-                <div class="Fs30 Fleft detailHeader mainHeaderUOB RPHeadings2"
-                     style="cursor: pointer;">Details</div>
+                <ui:fragment rendered="#{uobpb.isSummaryActive}">
+                    <div class="Fs30 Fleft summaryHeader mainHeaderUOB RPHeadings1 active"
+                         style="cursor: pointer;">Summary</div>
+                </ui:fragment>
+                <ui:fragment rendered="#{! uobpb.isSummaryActive}">
+                    <p:commandLink actionListener="#{uobpb.setWhichData('Summary')}"
+                                    update=":ceForm:graphArea">
+                            <div class="Fs30 Fleft summaryHeader mainHeaderUOB RPHeadings1"
+                                 style="cursor: pointer;">Summary</div>
+                    </p:commandLink>
+                </ui:fragment>
+                <ui:fragment rendered="#{uobpb.isDetailActive}">
+                    <div class="Fs30 Fleft detailHeader mainHeaderUOB RPHeadings2 active"
+                         style="cursor: pointer;">Details</div>
+                </ui:fragment>
+                <ui:fragment rendered="#{! uobpb.isDetailActive}">
+                    <p:commandLink actionListener="#{uobpb.setWhichData('Detail')}"
+                                   update=":ceForm:graphArea">
+                        <div class="Fs30 Fleft detailHeader mainHeaderUOB RPHeadings2"
+                             style="cursor: pointer;">Details</div>
+                    </p:commandLink>
+                </ui:fragment>
 
                 <div class="Wid40 Fright IRERBlock">
                     <div class="Wid35 Fright ReturnValuePanel">
@@ -236,112 +245,115 @@
 
                 </div>
             </div>
-            <div class="Container100 tabpanel1 summaryPanel" style="">
-                <div class="Container50 donutChartGraph">
-                    <ui:fragment rendered="#{uobpb.typeOfChart == 'HIGHCHART.2DDONUT'}">
-                        <div id="2dDonutChart"></div>
-                        <h:inputHidden value="#{uobpb.resultChart}"
-                                       id="twodDonutValueChart" />
-                        <h:inputHidden value="#{uobpb.typeOfChart}" id="typeOfCharts" />
-                    </ui:fragment>
+            <p:panel id="summaryPanel" style="border: 0px; background: transparent;" rendered="#{uobpb.isSummaryActive}">
+                <div class="Container100 tabpanel1 summaryPanel">
+                    <div class="Container50 donutChartGraph">
+                        <ui:fragment rendered="#{uobpb.typeOfChart == 'HIGHCHART.2DDONUT'}">
+                            <div id="2dDonutChart"></div>
+                            <h:inputHidden value="#{uobpb.resultChart}"
+                                           id="twodDonutValueChart" />
+                            <h:inputHidden value="#{uobpb.typeOfChart}" id="typeOfCharts" />
+                        </ui:fragment>
+                    </div>
+                    <div class="Container50 donutChartTable">
+                        <div class="EmptyBox20 donutChartTableEB"></div>
+                        <p:dataTable styleClass="uob_graphTable" id="uobtablesummary"
+                                     value="#{uobpb.editableAsset}" var="assetList">
+
+                            <p:column
+                                    style="width: 5%; background-color: #{assetList.color}; border:0px!important;">
+                                <h:outputText value=" " />
+                            </p:column>
+
+                            <p:column style="width: 50%" styleClass="Wid50 Fs12 TexAlLeft"
+                                      headerText="Asset">
+                                <h:outputText id="uobtasset" value="#{assetList.asset}" />
+                            </p:column>
+                            <p:column style="width: 30%"
+                                      styleClass="Fs12 num-text-align TexAlRight" headerText="Allocation">
+                                <!-- ROHIT's CHANGE -->
+                                <h:outputText id="uobtalloc" value="#{assetList.userEdit}">
+                                    <f:convertNumber pattern="##0%" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column style="width: 30%"
+                                      styleClass="Fs12 num-text-align TexAlRight" headerText="Value">
+                                <!-- ROHIT's CHANGE -->
+                                <h:outputText id="uobtval" value="#{assetList.value}">
+                                    <f:convertNumber pattern="$##,###,###" />
+                                </h:outputText>
+                            </p:column>
+                            <p:columnGroup type="footer">
+                                <p:row id="uobttablerow">
+                                    <p:column/>
+                                    <p:column colspan="2" styleClass="Fs12 TexAlLeft FontBold"
+                                              footerText="Total">
+                                    </p:column>
+                                    <p:column styleClass="Fs12 TexAlRight FontBold" id="uobttotal"
+                                              footerText="#{dataDisplayConverter.displayAsMoneyRounded(uobpb.totalMoneyAllocated)}">
+                                    </p:column>
+                                </p:row>
+                            </p:columnGroup>
+                        </p:dataTable>
+                    </div>
                 </div>
-                <div class="Container50 donutChartTable">
-                    <div class="EmptyBox20 donutChartTableEB"></div>
-                    <p:dataTable styleClass="uob_graphTable" id="uobtablesummary"
-                                 value="#{uobpb.editableAsset}" var="assetList">
+            </p:panel>
+            <p:panel id="detailPanel" style="border: 0px; background: transparent;" rendered="#{uobpb.isDetailActive}">
+                <div class="Container100 tabpanel2 detailPanel">
+                    <div class="Container100">
+                        <div class="EmptyBox10"></div>
 
-                        <p:column
-                                style="width: 5%; background-color: #{assetList.color}; border:0px!important;">
-                            <h:outputText value=" " />
-                        </p:column>
+                        <p:dataTable styleClass="uob_graphTable" var="ticker" id="uobtabledetails"
+                                     value="#{uobpb.displayPortfolioList}">
 
-                        <p:column style="width: 50%" styleClass="Wid50 Fs12 TexAlLeft"
-                                  headerText="Asset">
-                            <h:outputText id="uobtasset" value="#{assetList.asset}" />
-                        </p:column>
-                        <p:column style="width: 30%"
-                                  styleClass="Fs12 num-text-align TexAlRight" headerText="Allocation">
-                            <!-- ROHIT's CHANGE -->
-                            <h:outputText id="uobtalloc" value="#{assetList.userEdit}">
-                                <f:convertNumber pattern="##0%" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column style="width: 30%"
-                                  styleClass="Fs12 num-text-align TexAlRight" headerText="Value">
-                            <!-- ROHIT's CHANGE -->
-                            <h:outputText id="uobtval" value="#{assetList.value}">
-                                <f:convertNumber pattern="$##,###,###" />
-                            </h:outputText>
-                        </p:column>
-                        <p:columnGroup type="footer">
-                            <p:row id="uobttablerow">
-                                <p:column/>
-                                <p:column colspan="2" styleClass="Fs12 TexAlLeft FontBold"
-                                          footerText="Total">
-                                </p:column>
-                                <p:column styleClass="Fs12 TexAlRight FontBold" id="uobttotal"
-                                          footerText="#{dataDisplayConverter.displayAsMoneyRounded(uobpb.totalMoneyAllocated)}">
-                                </p:column>
-                            </p:row>
-                        </p:columnGroup>
-                    </p:dataTable>
+                            <p:column style="width:5%; background-color: #{ticker.color}">
+                                <h:outputText value=" " />
+                            </p:column>
+
+                            <p:column style="width:60%;" styleClass="Fs12 TexAlLeft">
+                                <f:facet name="header">
+                                    <h:outputText value="Name" />
+                                </f:facet>
+                                <h:outputText id="uobtnam" value="#{ticker.namePlusSymbol}" />
+                            </p:column>
+
+                            <p:column style="width:13%;"
+                                      styleClass="Fs12 num-text-align TexAlRight">
+                                <!-- ROHIT's CHANGE -->
+                                <f:facet name="header">
+                                    <h:outputText value="Allocated" />
+                                </f:facet>
+                                <h:outputText id="uobtalloc2" value="#{ticker.weight}">
+                                    <f:convertNumber pattern="##0%" />
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column style="width:22%;"
+                                      styleClass="Fs12 num-text-align TexAlRight">
+                                <!-- ROHIT's CHANGE -->
+                                <f:facet name="header">
+                                    <h:outputText value="Value" />
+                                </f:facet>
+                                <h:outputText id="uobtval" value="#{ticker.value}">
+                                    <f:convertNumber pattern="$##,###,###" />
+                                </h:outputText>
+                            </p:column>
+
+                            <p:columnGroup type="footer">
+                                <p:row>
+                                    <p:column />
+                                    <p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
+                                              footerText="Total">
+                                    </p:column>
+                                    <p:column styleClass="Fs14 TexAlRight FontBold" id="uobttot2"
+                                              footerText="#{dataDisplayConverter.displayAsMoneyRounded(uobpb.totalMoneyAllocated)}">
+                                    </p:column>
+                                </p:row>
+                            </p:columnGroup>
+                        </p:dataTable>
+                    </div>
                 </div>
-            </div>
-            <div class="Container100 tabpanel2 detailPanel"
-                 style="display: none;">
-                <div class="Container100">
-                    <div class="EmptyBox10"></div>
-
-                    <p:dataTable styleClass="uob_graphTable" var="ticker" id="uobtabledetails"
-                                 value="#{uobpb.displayPortfolioList}">
-
-                        <p:column style="width:5%; background-color: #{ticker.color}">
-                            <h:outputText value=" " />
-                        </p:column>
-
-                        <p:column style="width:60%;" styleClass="Fs12 TexAlLeft">
-                            <f:facet name="header">
-                                <h:outputText value="Name" />
-                            </f:facet>
-                            <h:outputText id="uobtnam" value="#{ticker.namePlusSymbol}" />
-                        </p:column>
-
-                        <p:column style="width:13%;"
-                                  styleClass="Fs12 num-text-align TexAlRight">
-                            <!-- ROHIT's CHANGE -->
-                            <f:facet name="header">
-                                <h:outputText value="Allocated" />
-                            </f:facet>
-                            <h:outputText id="uobtalloc2" value="#{ticker.weight}">
-                                <f:convertNumber pattern="##0%" />
-                            </h:outputText>
-                        </p:column>
-
-                        <p:column style="width:22%;"
-                                  styleClass="Fs12 num-text-align TexAlRight">
-                            <!-- ROHIT's CHANGE -->
-                            <f:facet name="header">
-                                <h:outputText value="Value" />
-                            </f:facet>
-                            <h:outputText id="uobtval" value="#{ticker.value}">
-                                <f:convertNumber pattern="$##,###,###" />
-                            </h:outputText>
-                        </p:column>
-
-                        <p:columnGroup type="footer">
-                            <p:row>
-                                <p:column />
-                                <p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
-                                          footerText="Total">
-                                </p:column>
-                                <p:column styleClass="Fs14 TexAlRight FontBold" id="uobttot2"
-                                          footerText="#{dataDisplayConverter.displayAsMoneyRounded(uobpb.totalMoneyAllocated)}">
-                                </p:column>
-                            </p:row>
-                        </p:columnGroup>
-                    </p:dataTable>
-                </div>
-            </div>
+            </p:panel>
         </p:panel>
     </div>
 

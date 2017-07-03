@@ -42,6 +42,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
    private Boolean welcomeDialog;
    private Boolean flagforInvestShow;
    private Boolean displayGoalGraph, displayGoalText;
+   private String displayWhichDataPanel;
 
    private Boolean fineTunePanel;
    private Integer prefView;
@@ -71,6 +72,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
       flagforInvestShow = false;
       displayGoalGraph = false;
       displayGoalText = false;
+      displayWhichDataPanel="Summary";
+
    }
 
    public Integer getPageNo()
@@ -137,6 +140,23 @@ public class UOBProfileBean extends CustomerData implements Serializable
    public Boolean getDisplayGoalText()
    {
       return displayGoalText;
+   }
+
+   public String getDisplayWhichDataPanel()
+   {
+      return (displayWhichDataPanel == null ? "Summary" : displayWhichDataPanel);
+   }
+
+   public Boolean getIsSummaryActive() {
+      return (getDisplayWhichDataPanel().startsWith("S"));
+   }
+
+   public Boolean getIsDetailActive() {
+      return (getDisplayWhichDataPanel().startsWith("D"));
+   }
+
+   public void setWhichData(String displayWhichDataPanel) {
+      this.displayWhichDataPanel = displayWhichDataPanel;
    }
 
    public Integer getPrefView()
@@ -474,6 +494,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       disabledetailtabs = true;
       displayGoalGraph = false;
       displayGoalText = false;
+      displayWhichDataPanel="Summary";
       rTab=0;
       fineTunePanel=false;
       flagforInvestShow=false;
