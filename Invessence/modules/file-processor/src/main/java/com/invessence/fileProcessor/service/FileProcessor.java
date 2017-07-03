@@ -45,6 +45,7 @@ public class FileProcessor
       logger.info("serviceRequest = [" + serviceRequest + "]");
       WSCallResult wsCallResult=null;
       FileDetails fileDetails=null;
+      mailAlertMsg=new StringBuilder();
       try
       {
          Map<String, DBParameters> dbParamMap = fileProcessorDao.getDBParametres();
@@ -56,7 +57,6 @@ public class FileProcessor
          }
          else
          {
-            mailAlertMsg = new StringBuilder();
             LinkedHashMap<String, LinkedList<FileDetails>> fileMap = (LinkedHashMap<String, LinkedList<FileDetails>>) ServiceDetails.getAdditionalDetails(serviceRequest.getProduct(), Constant.SERVICES.FILE_PROCESS.toString(), serviceRequest.getMode(), Constant.ADDITIONAL_DETAILS.FILE_DETAILS.toString());
 
             fileMap.get(serviceRequest.getProcessId());
