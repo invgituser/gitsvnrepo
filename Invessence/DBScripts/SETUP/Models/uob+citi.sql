@@ -6,8 +6,8 @@ INSERT INTO `invdb`.`user_basket_access` (`advisor`, `theme`, `status`, `display
 VALUES 
 ('CITI', '0.CITI', 'A', 'Grow Wealth', '1', 'Y', 'N', 'O', 'SGD', now(), null),
 ('CITI', 'T.0.CITI', 'A', 'Grow Wealth', '0', 'Y', 'N', 'O', 'SGD', now(), null),
-('UOB', '0.SGWealthSGD', 'I', 'Grow Wealth', '1', 'Y', 'N', 'O', 'SGD', now(), null),
-('UOB', 'T.0.SGWealthSGD', 'I', 'Grow Wealth', '0', 'Y', 'N', 'O', 'SGD', now(), null)
+('UOB', '0.SGWealthSGD', 'A', 'Grow Wealth', '1', 'Y', 'N', 'O', 'SGD', now(), null),
+('UOB', 'T.0.SGWealthSGD', 'A', 'Grow Wealth', '0', 'Y', 'N', 'O', 'SGD', now(), null)
 ;
 
 DELETE FROM `invdb`.`sec_assetclass_group`  
@@ -110,3 +110,9 @@ FROM `invdb`.`sec_prime_asset_group`
 where theme like '%CITI'
 or theme like '%SG%';
 ;
+
+DELETE FROM `invdb`.`sec_asset_mapping`;
+
+CALL `invdb`.`sp_upload_sec_asset_mapping`();
+
+

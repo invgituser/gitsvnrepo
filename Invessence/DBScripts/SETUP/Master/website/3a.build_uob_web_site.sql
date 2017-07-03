@@ -10,8 +10,8 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'CSS.DIR', 'A', 'invessence', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'CUSTODY.SERVICE', 'A', 'URL', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'CUSTODY.URL', 'A', 'https://sguat.uobkayhian.com/robo/uwealth_signup.jsp', 'N', '2017-06-03 13:31:07', null);
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'DEFAULT.ADVISOR', 'A', 'uob', 'N', '2017-06-03 13:31:07', null);
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'DEFAULT.MODEL', 'A', '0.SGWealth', 'N', '2017-06-03 13:31:07', null);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'DEFAULT.ADVISOR', 'A', 'UOB', 'N', '2017-06-03 13:31:07', null);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'DEFAULT.MODEL', 'A', '0.SGWealthSGD', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'DEFAULT.REP', 'A', '', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'DIR.CONSUMER', 'A', 'uob', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'DIR.CUSTODY', 'A', null, 'N', '2017-06-03 13:31:07', null);
