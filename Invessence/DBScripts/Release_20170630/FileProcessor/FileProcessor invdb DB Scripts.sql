@@ -374,3 +374,23 @@ END$$
 
 DELIMITER ;
 
+
+
+USE `invdb`;
+DROP procedure IF EXISTS `parentDBProcedure`;
+
+DELIMITER $$
+USE `invdb`$$
+CREATE PROCEDURE `parentDBProcedure` ()
+  BEGIN
+
+    delete from temp_td_unrealized;
+    delete from tmp_nav_daily;
+    delete from tmp_position;
+    delete from tmp_transaction;
+    delete from tmp_client_data;
+
+  END$$
+
+DELIMITER ;
+

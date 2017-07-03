@@ -88,7 +88,7 @@ public class FileProcessorDaoImpl implements FileProcessorDao
       Map<String, DBParameters> dbParamsMap = null;
       // try {
       logger.info("Fetching DB parameters");
-      String sql = "SELECT name, value, format, description FROM invdb.vw_invessence_switch";
+      String sql = "SELECT name, value, format, description FROM service.vw_invessence_switch";
       dbParamsLst = invJdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(DBParameters.class));
       if (dbParamsLst.size() > 0)
       {

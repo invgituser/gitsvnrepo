@@ -357,3 +357,9 @@ ADD COLUMN `needToEncrypt` VARCHAR(1) NULL DEFAULT 'N' AFTER `isRequired`;
 ALTER TABLE `service`.`file_details`
 DROP PRIMARY KEY,
 ADD PRIMARY KEY (`vendor`, `fileName`, `processId`);
+
+
+UPDATE `service`.`file_details` SET `parentPreDBProcess`='invdb.parentDBProcedure' WHERE `vendor`='UOB' and`fileName`='CLNTBAL' and`processId`='UPLD1';
+UPDATE `service`.`file_details` SET `parentPreDBProcess`='invdb.parentDBProcedure' WHERE `vendor`='UOB' and`fileName`='CLNTHOLD' and`processId`='UPLD1';
+UPDATE `service`.`file_details` SET `parentPreDBProcess`='invdb.parentDBProcedure' WHERE `vendor`='UOB' and`fileName`='CLNTORDEXE' and`processId`='UPLD1';
+UPDATE `service`.`file_details` SET `parentPreDBProcess`='invdb.parentDBProcedure' WHERE `vendor`='UOB' and`fileName`='CLNTSTATUS' and`processId`='UPLD1';
