@@ -5,7 +5,7 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.aggr.bean.*;
-import com.invessence.service.bean.ServiceRequest;
+import com.invessence.service.bean.*;
 import com.invessence.web.service.aggr.*;
 import com.invessence.web.service.fileProcessor.FileProcessWebLayer;
 import com.invessence.web.util.*;
@@ -83,7 +83,7 @@ public class FileProcessorBean
             logonid = webutil.getLogonid();
          }
 
-         boolean  result=fileProcessWebLayer.processFile(new ServiceRequest(product, serviceMode, processId));
+         WSCallResult result=fileProcessWebLayer.processFile(new ServiceRequest(product, serviceMode, processId));
          System.out.println("result = " + result);
 
 //         if(result==true){

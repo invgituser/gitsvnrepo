@@ -1,6 +1,6 @@
 package com.invessence.web.util;
 
-import com.invessence.service.bean.ServiceRequest;
+import com.invessence.service.bean.*;
 import com.invessence.web.service.fileProcessor.FileProcessWebLayer;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.*;
@@ -277,8 +277,14 @@ public class FilesIO
       System.out.println("ServiceMode " + serviceMode);
       System.out.println("ProcessId = " + processId);
       try {
-         boolean  result=fileProcessWebLayer.processFile(new ServiceRequest(product, serviceMode, processId));
-         return(result);
+         WSCallResult result=fileProcessWebLayer.processFile(new ServiceRequest(product, serviceMode, processId));
+         System.out.println("result = " + result);
+         if(result!=null && result.getWSCallStatus()!=null){
+            if(result.getWSCallStatus().getErrorCode()==0){
+               return true;
+            }
+         }
+
 
       } catch (Exception e) {
          e.printStackTrace();

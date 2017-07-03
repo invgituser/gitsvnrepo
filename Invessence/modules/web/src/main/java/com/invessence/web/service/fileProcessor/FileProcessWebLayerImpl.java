@@ -1,7 +1,7 @@
 package com.invessence.web.service.fileProcessor;
 
 import com.invessence.fileProcessor.service.FileProcessor;
-import com.invessence.service.bean.ServiceRequest;
+import com.invessence.service.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +13,9 @@ public class FileProcessWebLayerImpl implements FileProcessWebLayer
 {
    @Autowired
    FileProcessor fileProcessor;
-   public boolean processFile(ServiceRequest serviceRequest){
+   public WSCallResult processFile(ServiceRequest serviceRequest){
 
-      fileProcessor.process(serviceRequest);
-      return false;
+      WSCallResult wsCallResult=fileProcessor.process(serviceRequest);
+      return wsCallResult;
    }
 }
