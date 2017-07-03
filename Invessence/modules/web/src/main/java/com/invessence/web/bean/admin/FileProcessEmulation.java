@@ -38,7 +38,7 @@ public class FileProcessEmulation
          System.out.print("processAccount serviceMode " + serviceMode);
 
 
-         boolean bflag=fileIO.processDownloadFile("DOWD1", product, serviceMode);
+         boolean bflag=fileIO.processDownloadFile(processId, product, serviceMode);
          if(bflag)
          {
             errorMessage="success";
