@@ -24,7 +24,7 @@ public class MainFileProcessor
             System.out.println("serviceRequest = " + serviceRequest);
 
             WSCallResult wsCallResult=fp.process(serviceRequest);
-//            System.out.println("wsCallResult = " + wsCallResult);
+            System.out.println("wsCallResult = " + wsCallResult);
          }else{
             System.out.println("Required parameters are not entered!");
          }

@@ -7,7 +7,7 @@ import java.util.*;
 
 import com.invessence.fileProcessor.bean.DBParameters;
 import com.invessence.fileProcessor.dao.FileProcessorDao;
-import com.invessence.fileProcessor.util.GPGUtil;
+import com.invessence.fileProcessor.util.*;
 import com.invessence.service.bean.ServiceRequest;
 import com.invessence.service.bean.fileProcessor.*;
 import com.invessence.service.util.*;
@@ -29,6 +29,9 @@ public class FileUploader
 
    @Autowired
    FileProcessorDao fileProcessorDao;
+
+   @Autowired
+   FileProcessorUtil fileProcessorUtil;
 
    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
    SimpleDateFormat sdfFileParsing = new SimpleDateFormat("yyyyMMdd");
@@ -59,7 +62,7 @@ public class FileUploader
 
          String a1 = ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.FILE_PROCESS.toString(), serviceRequest.getMode(), "UPLOAD_SFTP_SRC_DIRECTORY")+"/"+fileDetails.getSourcePath();
 
-         Path p= Paths.get(FileProcessor.getFilePath(serviceRequest,fileDetails,"SFTP",businessDate));
+         Path p= Paths.get(fileProcessorUtil.getFilePath(serviceRequest,fileDetails,"SFTP",businessDate));
 
          String fileName = p.getFileName().toString();
          String directory = p.getParent().toString().replaceAll("\\\\","/");
@@ -114,7 +117,7 @@ public class FileUploader
                      InputStream in = channel.get(fileToDownload);
                      // setting local file --
                      localDirectory = new File(ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.FILE_PROCESS.toString(), serviceRequest.getMode(), "UPLOAD_LOCAL_SRC_DIRECTORY")+"/"+fileDetails.getDownloadDir() + "/");
-                     Path p1= Paths.get(FileProcessor.getFilePath(serviceRequest, fileDetails, "LOCAL", businessDate));
+                     Path p1= Paths.get(fileProcessorUtil.getFilePath(serviceRequest, fileDetails, "LOCAL", businessDate));
 
                      String fileName1 = p1.getFileName().toString();
                      String directory1 = p1.getParent().toString().replaceAll("\\\\","/");

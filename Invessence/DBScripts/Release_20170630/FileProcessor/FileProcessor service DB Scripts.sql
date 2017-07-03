@@ -280,14 +280,14 @@ IN p_info varchar(50)
 BEGIN
 if(p_service ='FILE-PROCESS' and p_type='ADDITIONAL_DETAILS' and p_info='FILE_DETAILS')then
 
-	select vendor, fileName, processId, process, fileType, fileExtension, fileId, containsHeader,
+select vendor, fileName, processId, process, fileType, fileExtension, fileId, containsHeader,
     active, seqNo, uploadDir, preDBProcess, postDBProcess, preInstruction, postInstruction, fileNameAppender,
     appenderFormat, available, sourcePath, downloadDir, loadFormat, required, canBeEmpty, keyData, encryptionMethod,
     encColumns, tmpTableName, canBeDups, delimiter, delFlagServerFile, delDayServerFile, delFlagLocalFile,
 	delDayLocalFile, delFlagDecrFile, fileProcessType, parentPreDBProcess, parentPostDBProcess, parentPreInstruction,
     parentPostInstruction, created, lastupdated
 	from service.file_details
-    where vendor= p_product;
+    where vendor= p_product order by processId, seqNo;
 elseif(p_service ='FILE-PROCESS' and p_type='COMMON_DETAILS' and p_info='FILE_RULES')then
 
 	select fcr.fileId, fcr.dataField, fcr.description, fcr.seqNo, fcr.startPos, fcr.endPos, 

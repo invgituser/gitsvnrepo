@@ -298,17 +298,22 @@ public class ServiceDetails
                               {
                                  Map<String, Object> mapObject= (Map<String, Object>)entry4.getValue();
 
-                                 List<FileDetails> scd = (List<FileDetails>) mapObject.get(Constant.ADDITIONAL_DETAILS.FILE_DETAILS.toString());
+                                 LinkedHashMap<String, LinkedList<FileDetails>> scd = (LinkedHashMap<String, LinkedList<FileDetails>>) mapObject.get(Constant.ADDITIONAL_DETAILS.FILE_DETAILS.toString());
                                  if(scd!=null && scd.size()>0)
                                  {
-                                    System.out.println("-------------------------------------------------------------------------------------------------");
-                                    System.out.println("Product = " + entry1.getKey() + "\t Service = " + entry2.getKey() + "\t API = " + entry3.getKey() + "\t" + entry4.getKey() + "\t" + Constant.ADDITIONAL_DETAILS.FILE_DETAILS.toString());
-                                    System.out.println("-------------------------------------------------------------------------------------------------");
-                                    Iterator<FileDetails> entries5 = scd.iterator();
+                                    Iterator<Map.Entry<String, LinkedList<FileDetails>>> entries5 = scd.entrySet().iterator();
                                     while (entries5.hasNext())
                                     {
-                                       FileDetails entry5 = entries5.next();
-                                       System.out.println(entry5);
+                                       Map.Entry<String, LinkedList<FileDetails>>entry5=entries5.next();
+                                       System.out.println("-----------------------------------------------------------------------------------------------------------------------");
+                                       System.out.println("Product = " + entry1.getKey() + "\t Service = " + entry2.getKey() + "\t API = " + entry3.getKey() + "\t" + entry4.getKey() + "\t" + Constant.ADDITIONAL_DETAILS.FILE_DETAILS.toString()+"\t ProcessId = " + entry5.getKey());
+                                       System.out.println("-----------------------------------------------------------------------------------------------------------------------");
+                                       Iterator<FileDetails> entries6 = entry5.getValue().iterator();
+                                       while (entries6.hasNext())
+                                       {
+                                          FileDetails entry6 = entries6.next();
+                                          System.out.println(entry6);
+                                       }
                                     }
                                  }
                               }
@@ -322,9 +327,9 @@ public class ServiceDetails
                                     while (entries5.hasNext())
                                     {
                                        Map.Entry<String, Map<String,DCTemplateDetails>> entry5 = entries5.next();
-                                       System.out.println("-------------------------------------------------------------------------------------------------");
+                                       System.out.println("-----------------------------------------------------------------------------------------------------------------------");
                                        System.out.println("Product = " + entry1.getKey() + "\t Service = " + entry2.getKey() + "\t API = " + entry3.getKey() + "\t " + entry4.getKey() +"\t"+ Constant.ADDITIONAL_DETAILS.TEMPLATE_DETAILS.toString() +"\t Mode = " + entry5.getKey());
-                                       System.out.println("-------------------------------------------------------------------------------------------------");
+                                       System.out.println("-----------------------------------------------------------------------------------------------------------------------");
 
                                        Iterator<Map.Entry<String,DCTemplateDetails>> entries6 = entry5.getValue().entrySet().iterator();
 
@@ -942,7 +947,9 @@ public class ServiceDetails
                      }
                      else if (property.equalsIgnoreCase(Constant.ADDITIONAL_DETAILS.FILE_DETAILS.toString()))
                      {
-                        List<FileDetails> scd = (List<FileDetails>) tmp.get(Constant.ADDITIONAL_DETAILS.FILE_DETAILS.toString());
+                        LinkedHashMap<String, LinkedList<FileDetails>> scd = (LinkedHashMap<String, LinkedList<FileDetails>>) tmp.get(Constant.ADDITIONAL_DETAILS.FILE_DETAILS.toString());
+
+
 
                         return scd; //scd.get(mode);
                      }

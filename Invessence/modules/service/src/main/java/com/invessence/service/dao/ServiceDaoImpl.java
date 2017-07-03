@@ -587,56 +587,38 @@ public class ServiceDaoImpl implements ServiceDao
       return rs;
 
    }
-   private List<FileDetails> getFileDetails(ArrayList<LinkedHashMap<String, Object>> rows){
-      List<FileDetails> rs=null;
-      try
-      {
+   private LinkedHashMap<String, LinkedList<FileDetails>> getFileDetails(ArrayList<LinkedHashMap<String, Object>> rows){
+      LinkedHashMap<String, LinkedList<FileDetails>> rs=null;
+      try{
          Iterator<LinkedHashMap<String, Object>> itr = rows.iterator();
-         rs = new ArrayList<>();
+         rs=new LinkedHashMap<>();
+         LinkedList<FileDetails> tempLst = null;
+         String processId = null;
          while (itr.hasNext())
          {
             LinkedHashMap<String, Object> map = itr.next();
+            if (processId == null)
+            {
+               processId = convert.getStrData(map.get("processId"));
+               tempLst = new LinkedList<>();
+               tempLst.add(getFileDetails(map));
+            }
+            else if (processId.equalsIgnoreCase(convert.getStrData(map.get("processId"))))
+            {
+               tempLst.add(getFileDetails(map));
+            }
+            else if (!processId.equalsIgnoreCase(convert.getStrData(map.get("processId"))))
+            {
+               rs.put(processId, tempLst);
+               processId = convert.getStrData(map.get("processId"));
+               tempLst = new LinkedList<>();
 
-            rs.add(new FileDetails(convert.getStrData(map.get("vendor")),
-                                   convert.getStrData(map.get("fileName")),
-                                   convert.getStrData(map.get("processId")),
-                                   convert.getStrData(map.get("process")),
-                                   convert.getStrData(map.get("fileType")),
-                                   convert.getStrData(map.get("fileExtension")),
-                                   convert.getStrData(map.get("fileId")),
-                                   convert.getStrData(map.get("containsHeader")),
-                                   convert.getStrData(map.get("active")),
-                                   convert.getIntData(map.get("seqNo")),
-                                   convert.getStrData(map.get("uploadDir")),
-                                   convert.getStrData(map.get("preDBProcess")),
-                                   convert.getStrData(map.get("postDBProcess")),
-                                   convert.getStrData(map.get("preInstruction")),
-                                   convert.getStrData(map.get("postInstruction")),
-                                   convert.getStrData(map.get("fileNameAppender")),
-                                   convert.getStrData(map.get("appenderFormat")),
-                                   convert.getStrData(map.get("available")),
-                                   convert.getStrData(map.get("sourcePath")),
-                                   convert.getStrData(map.get("downloadDir")),
-                                   convert.getStrData(map.get("loadFormat")),
-                                   convert.getStrData(map.get("required")),
-                                   convert.getStrData(map.get("canBeEmpty")),
-                                   convert.getIntData(map.get("keyData")),
-                                   convert.getStrData(map.get("encryptionMethod")),
-                                   convert.getStrData(map.get("encColumns")),
-                                   convert.getStrData(map.get("tmpTableName")),
-                                   convert.getStrData(map.get("canBeDups")),
-                                   convert.getStrData(map.get("delimiter")),
-                                   convert.getStrData(map.get("delFlagServerFile")),
-                                   convert.getIntData(map.get("delDayServerFile")),
-                                   convert.getStrData(map.get("delFlagLocalFile")),
-                                   convert.getIntData(map.get("delDayLocalFile")),
-                                   convert.getStrData(map.get("delFlagDecrFile")),
-                                   convert.getStrData(map.get("fileProcessType")),
-                                   convert.getStrData(map.get("parentPreDBProcess")),
-                                   convert.getStrData(map.get("parentPostDBProcess")),
-                                   convert.getStrData(map.get("parentPreInstruction")),
-                                   convert.getStrData(map.get("parentPostInstruction"))
-            ));
+               tempLst.add(getFileDetails(map));
+            }
+         }
+         if (tempLst != null)
+         {
+            rs.put(processId, tempLst);
          }
       }catch(Exception e)
       {
@@ -644,6 +626,58 @@ public class ServiceDaoImpl implements ServiceDao
       }
       return rs;
    }
+
+
+   private FileDetails getFileDetails(LinkedHashMap<String, Object> map) {
+      FileDetails fileDetails=null;
+try{
+   fileDetails= new FileDetails(convert.getStrData(map.get("vendor")),
+                             convert.getStrData(map.get("fileName")),
+                             convert.getStrData(map.get("processId")),
+                             convert.getStrData(map.get("process")),
+                             convert.getStrData(map.get("fileType")),
+                             convert.getStrData(map.get("fileExtension")),
+                             convert.getStrData(map.get("fileId")),
+                             convert.getStrData(map.get("containsHeader")),
+                             convert.getStrData(map.get("active")),
+                             convert.getIntData(map.get("seqNo")),
+                             convert.getStrData(map.get("uploadDir")),
+                             convert.getStrData(map.get("preDBProcess")),
+                             convert.getStrData(map.get("postDBProcess")),
+                             convert.getStrData(map.get("preInstruction")),
+                             convert.getStrData(map.get("postInstruction")),
+                             convert.getStrData(map.get("fileNameAppender")),
+                             convert.getStrData(map.get("appenderFormat")),
+                             convert.getStrData(map.get("available")),
+                             convert.getStrData(map.get("sourcePath")),
+                             convert.getStrData(map.get("downloadDir")),
+                             convert.getStrData(map.get("loadFormat")),
+                             convert.getStrData(map.get("required")),
+                             convert.getStrData(map.get("canBeEmpty")),
+                             convert.getIntData(map.get("keyData")),
+                             convert.getStrData(map.get("encryptionMethod")),
+                             convert.getStrData(map.get("encColumns")),
+                             convert.getStrData(map.get("tmpTableName")),
+                             convert.getStrData(map.get("canBeDups")),
+                             convert.getStrData(map.get("delimiter")),
+                             convert.getStrData(map.get("delFlagServerFile")),
+                             convert.getIntData(map.get("delDayServerFile")),
+                             convert.getStrData(map.get("delFlagLocalFile")),
+                             convert.getIntData(map.get("delDayLocalFile")),
+                             convert.getStrData(map.get("delFlagDecrFile")),
+                             convert.getStrData(map.get("fileProcessType")),
+                             convert.getStrData(map.get("parentPreDBProcess")),
+                             convert.getStrData(map.get("parentPostDBProcess")),
+                             convert.getStrData(map.get("parentPreInstruction")),
+                             convert.getStrData(map.get("parentPostInstruction"))
+      );
+}catch(Exception e)
+{
+   e.printStackTrace();
+}
+      return fileDetails;
+   }
+
 
    private LinkedHashMap<String, LinkedHashMap<String,FileRules>> getFileRules(ArrayList<LinkedHashMap<String, Object>> rows){
       LinkedHashMap<String, LinkedHashMap<String,FileRules>> rs=null;

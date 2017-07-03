@@ -58,6 +58,10 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'WEB.THEME', 'A', 'invessence', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'WEB.THEMELIB', 'A', 'invessence', 'N', '2017-06-03 13:31:07', null);
 
+-- Added By Abhang for File-Processor
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('master', 'SERVICE.PRODUCT', 'A', 'invessence', 'N', '2017-06-13 08:42:58');
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('master', 'SERVICE.FILEPROCESS.MODE', 'A', 'PROD', 'N', '2017-05-30 07:03:12');
+
 
 -- Removed (NO longer used)
 -- INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'PRODUCT.NAME', 'A', 'UOBKH', 'N', '2017-06-03 13:31:07', null);

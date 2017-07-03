@@ -8,6 +8,7 @@ import java.util.*;
 import com.invessence.converter.SQLData;
 import com.invessence.fileProcessor.bean.DBParameters;
 import com.invessence.fileProcessor.dao.FileProcessorDao;
+import com.invessence.fileProcessor.util.FileProcessorUtil;
 import com.invessence.service.bean.ServiceRequest;
 import com.invessence.service.bean.fileProcessor.*;
 import com.invessence.service.util.*;
@@ -26,6 +27,9 @@ public class FileDownloader
    @Autowired
    FileProcessorDao fileProcessorDao;
 
+   @Autowired
+   FileProcessorUtil fileProcessorUtil;
+
    SQLData convert = new SQLData();
 
    public boolean download(ServiceRequest serviceRequest, FileDetails fileDetails, LinkedHashMap<String,FileRules> fileRules, StringBuilder mailAlertMsg, Map<String, DBParameters> dbParamMap){
@@ -33,6 +37,7 @@ public class FileDownloader
       try
       {
          System.out.println("FileDownloader.download");
+         fileProcessorUtil.executeInstruction(fileDetails,"PARENTPRE", mailAlertMsg, serviceRequest);
 
          System.out.println("serviceRequest = [" + serviceRequest + "], fileDetails = [" + fileDetails + "], fileRules = [" + fileRules + "]");
          ArrayList<LinkedHashMap<String, Object>> rows=(ArrayList<LinkedHashMap<String, Object>>)fileProcessorDao.dbCall(serviceRequest.getProduct(), Constant.SERVICES.FILE_PROCESS.toString(),
@@ -136,7 +141,7 @@ public class FileDownloader
       try{
          Iterator<String> fileDataItr=fileData.iterator();
 
-         File file = new File(FileProcessor.getFilePath(serviceRequest,fileDetails,"LOCAL",businessDate));
+         File file = new File(fileProcessorUtil.getFilePath(serviceRequest,fileDetails,"LOCAL",businessDate));
          if (!file.getParentFile().exists())
          {
             try
@@ -205,7 +210,7 @@ public class FileDownloader
 //         System.out.println("*FILE PATH :"+FileProcessor.getFilePath(serviceRequest,fileDetails,"SFTP",businessDate));
 //         System.out.println("serverPath = " + serverPath);
 
-         Path p= Paths.get(FileProcessor.getFilePath(serviceRequest,fileDetails,"SFTP",businessDate));
+         Path p= Paths.get(fileProcessorUtil.getFilePath(serviceRequest,fileDetails,"SFTP",businessDate));
 
          String fileName = p.getFileName().toString();
          String directory = p.getParent().toString().replaceAll("\\\\","/");

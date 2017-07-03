@@ -47,8 +47,9 @@ public class FileDetails
 
    private boolean processStatus;
 
-   public FileDetails(String fileName, String processId, boolean processStatus, String fileProcessType, String downloadDir)
+   public FileDetails(String vendor,String fileName, String processId, boolean processStatus, String fileProcessType, String downloadDir)
    {
+      this.vendor = vendor;
       this.fileName = fileName;
       this.processId = processId;
       this.processStatus = processStatus;
@@ -156,6 +157,25 @@ public class FileDetails
          ", processStatus=" + processStatus +
          '}';
    }
+
+   public String toResultString()
+   {
+      /*this.fileName = fileName;
+      this.processId = processId;
+      this.processStatus = processStatus;
+      this.fileProcessType =fileProcessType;
+      this.downloadDir=downloadDir;8*/
+      return "FileDetails{" +
+         "vendor='" + vendor + '\'' +
+         ", fileName='" + fileName + '\'' +
+         ", processId='" + processId + '\'' +
+         ", process='" + process + '\'' +
+         ", processStatus='" + processStatus + '\'' +
+         ", fileProcessType='" + fileProcessType + '\'' +
+         ", downloadDir='" + downloadDir +
+         '}';
+   }
+
 
    public String getParentPreDBProcess()
    {
