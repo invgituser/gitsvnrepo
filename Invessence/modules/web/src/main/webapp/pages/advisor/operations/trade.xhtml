@@ -34,10 +34,10 @@
             <div class="Container100">
                 <h:form id="tradeForm">
 
-                    <p:panel styleClass="invNBgrid">
-                        <p:outputLabel value="Trade "/>
-                        <p:spacer width="1"/>|<p:spacer width="1"/>
-                        <p:commandLink value="Review" actionListener="#{tradeBean.showTradeUI(2)}"/>
+                    <p:panel styleClass="invNBgrid customtabcontainer">
+                        <p:outputLabel value="Trade " styleClass="activetabetrade"/>
+
+                        <p:commandLink value="Review" styleClass="inactivetabtrade" actionListener="#{tradeBean.showTradeUI(2)}"/>
                     </p:panel>
 
                     <p:growl id="growltrademsg" closable="true" style="top: 25%"/>

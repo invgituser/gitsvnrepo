@@ -33,9 +33,9 @@
                     <p:growl id="growltrademsg" closable="true" style="top: 25%"/>
 
                     <p:panel styleClass="invNBgrid">
-                        <p:commandLink value="Trade" actionListener="#{tradeBean.showTradeUI(1)}"/>
-                        <p:spacer width="1"/>|<p:spacer width="1"/>
-                        <p:outputLabel value="Review "/>
+                        <p:commandLink value="Trade" actionListener="#{tradeBean.showTradeUI(1)}" styleClass="inactivetabreview"/>
+
+                        <p:outputLabel value="Review"  styleClass="activetabereview"/>
                     </p:panel>
 
                     <p:panel id="reviewPanel" styleClass="invNBgrid">
