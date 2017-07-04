@@ -98,7 +98,8 @@ public class FileProcessor
                            if(mailAlertMsg.length()>0){
                               isEmailRaised.append(mailAlertMsg);
                            }
-                           preInstructionExecuted=true;}
+                           preInstructionExecuted=true;
+                        }
                            fileProcessorUtil.executeInstruction(fileDetails,"PRE", isEmailRaised, serviceRequest);
                      System.out.println(isEmailRaised.length()+"isEmailRaised.length()");
                      if(isEmailRaised.length()==0)
