@@ -4823,14 +4823,15 @@ color: #fff;
     border-radius: 0px;
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
-    -moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, .4);
-    -webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, .4);
-    box-shadow: inset 0 3px 8px rgba(0, 0, 0, .24);
+    -moz-box-shadow:  none;
+    -webkit-box-shadow:  none;
+    box-shadow: none;
     -webkit-transition: all 600ms ease;
     -moz-transition: all 600ms ease;
     -ms-transition: all 600ms ease;
     -o-transition: all 600ms ease;
-    transition: all 600ms ease;}
+    transition: all 600ms ease;
+    margin-right: 2px;}
 
 .inactivetabtrade{
     border-radius: 0px;
@@ -4844,3 +4845,37 @@ box-shadow: inset 0 3px 8px rgba(0, 0, 0, .24);
 -ms-transition: all 600ms ease;
 -o-transition: all 600ms ease;
 transition: all 600ms ease;}
+
+
+
+.activetabereview {    padding: 10px;
+    background-color: #009abb;
+    color: #fff;
+    padding-bottom: 20px;
+    height: 50px;
+    line-height: 42px;
+    border-radius: 0px;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    -moz-box-shadow:  none;
+    -webkit-box-shadow:  none;
+    box-shadow: none;
+    -webkit-transition: all 600ms ease;
+    -moz-transition: all 600ms ease;
+    -ms-transition: all 600ms ease;
+    -o-transition: all 600ms ease;
+    transition: all 600ms ease;
+    margin-right: 2px;}
+
+.inactivetabreview{
+    border-radius: 0px;
+    padding: 10px 35px;
+    padding-bottom: 20px;
+    -moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, .4);
+    -webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, .4);
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, .24);
+    -webkit-transition: all 600ms ease;
+    -moz-transition: all 600ms ease;
+    -ms-transition: all 600ms ease;
+    -o-transition: all 600ms ease;
+    transition: all 600ms ease;}
