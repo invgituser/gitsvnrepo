@@ -16,10 +16,10 @@
             <p:menuitem value="New Account" rendered="#{webutil.hasAccess('USER')}"
                         actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?app=N')}"/>
 
-            <p:menuitem value="Account Emulation" style="margin: 0px 20px;" rendered="#{webutil.hasRole('DEVELOPER')}"
+            <p:menuitem value="Account Emulation" style="margin: 0px 20px;" id="menuFlPrcsbtn" rendered="#{webutil.hasRole('DEVELOPER')}"
                         actionListener="#{uiLayout.doMenuAction('productadmin','accountEmulation.xhtml')}"/>
 
-            <p:menuitem value="File Processing" style="margin: 0px 20px;" rendered="#{webutil.hasRole('DEVELOPER')}"
+            <p:menuitem value="File Processing" style="margin: 0px 20px;" id="menuAcctEmulbtn" rendered="#{webutil.hasRole('DEVELOPER')}"
                         actionListener="#{uiLayout.doMenuAction('productadmin','fileProcessEmulation.xhtml')}"/>
 
             <p:menuitem value="Aggregation" style="margin: 0px 20px;" rendered="#{webutil.isAggregatorMenuActive()}"
