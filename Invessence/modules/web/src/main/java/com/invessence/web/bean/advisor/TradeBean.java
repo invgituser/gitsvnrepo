@@ -40,10 +40,14 @@ public class TradeBean extends TradeClientData implements Serializable
    private List<TradeSummary> filteredSummaryList;
    private List<TradeSummary> selectedSummaryList;
    private TradeSummary selectedSummary;
+   private Integer whichScreen;
 
    private List<RebalanceTradeData> rebalancetradedatalist;
+   private Map<String, RebalanceTradeData> assetMap = new HashMap<String, RebalanceTradeData>();
 
    private List<String> tradeFilters;
+   Double sumHoldingValue= 0.0, sumCurValue = 0.0, sumNewValue = 0.0;
+
 
 
    @ManagedProperty("#{filesIO}")
@@ -241,6 +245,85 @@ public class TradeBean extends TradeClientData implements Serializable
       return rebalancetradedatalist;
    }
 
+   public static long getSerialVersionUID()
+   {
+      return serialVersionUID;
+   }
+
+   public Double getSumHoldingValue()
+   {
+      return sumHoldingValue;
+   }
+
+   public Double getSumCurValue()
+   {
+      return sumCurValue;
+   }
+
+   public Double getSumNewValue()
+   {
+      return sumNewValue;
+   }
+
+   public void setAssetMap(RebalanceTradeData data)
+   {
+      String key = data.getAssetclass();
+      if (assetMap.containsKey(key)) {
+         RebalanceTradeData origData = assetMap.get(key);
+         origData.setQty(origData.getQty() + data.getHoldingQty());
+         origData.setMoney(origData.getMoney() + data.getMoney());
+         origData.setHoldingQty(origData.getHoldingQty() + data.getHoldingQty());
+         origData.setHoldingValue(origData.getHoldingValue() + data.getHoldingValue());
+         origData.setNewQty(origData.getNewQty() + data.getNewQty());
+         origData.setNewValue(origData.getNewValue() + data.getNewValue());
+         assetMap.put(key,origData);
+      }
+      else {
+         assetMap.put(key,data);
+      }
+
+   }
+
+   public Double displayWeight(Double value, Double sum) {
+      if (sum == null || sum == 0.0) {
+         return 0.0;
+      }
+
+      if (value == null || value == 0.0) {
+         return 0.0;
+      }
+
+      return webutil.MathAbs(value/sum);
+   }
+
+   public List<RebalanceTradeData> getAssetList()
+   {
+      List<RebalanceTradeData> assetList = new ArrayList<RebalanceTradeData>();
+      sumHoldingValue= 0.0; sumCurValue = 0.0; sumNewValue = 0.0;
+      if (! assetMap.isEmpty()) {
+         for (RebalanceTradeData data : assetMap.values()) {
+            assetList.add(data);
+            sumHoldingValue += data.getHoldingValue();
+            sumCurValue += data.getCurPrice();
+            sumNewValue += data.getNewValue();
+         }
+      }
+      return assetList;
+   }
+
+   public Integer getWhichScreen()
+   {
+      return ( whichScreen == null ? 1 : whichScreen);
+   }
+
+   public Boolean getIsTradeActive() {
+      return (getWhichScreen() == 1);
+   }
+
+   public Boolean getIsReviewActive() {
+      return (getWhichScreen() == 2);
+   }
+
    public void preRender()
    {
       Long logonid;
@@ -251,6 +334,7 @@ public class TradeBean extends TradeClientData implements Serializable
             if (webutil.validatePriviledge(WebConst.ROLE_ADVISOR))
             {
                collectTradeInfo();
+               whichScreen = 1;
             }
          }
       }
@@ -391,7 +475,15 @@ public class TradeBean extends TradeClientData implements Serializable
    {
       try
       {
+         if (assetMap == null) {
+            assetMap = new HashMap<String, RebalanceTradeData>();
+         }
+
+         assetMap.clear();
          rebalancetradedatalist = tradeDAO.loadRebalTrades(acctnum);
+         for (RebalanceTradeData data : rebalancetradedatalist) {
+            setAssetMap(data);
+         }
       }
       catch (Exception ex)
       {
@@ -439,30 +531,56 @@ public class TradeBean extends TradeClientData implements Serializable
 
    }
 
-   public void showTradeUI(Integer whichScreen)
+   public void showRebalDetails(Long acctnum)
    {
-      if (whichScreen == null)
-         whichScreen = 1;
+      try
+      {
+         if (acctnum != null)
+         {
+            collectTradeDetails(acctnum);
+            uiLayout.doMenuAction("advisor", "operations/tradesummary.xhtml");
+         }
+      }
+      catch (Exception ex)
+      {
+         return;
+      }
+
+   }
+
+   public void setTradeUI(String ui)
+   {
+      if (ui == null)
+            whichScreen = 1;
+      else if (ui.startsWith("T"))
+            whichScreen = 1;
+      else if (ui.startsWith("R"))
+            whichScreen = 2;
+      else if (ui.startsWith("S"))
+         whichScreen = 3;
+      else whichScreen = 1;
+
+
 
       switch (whichScreen)
       {
          case 1:
             reloadTradeClient();
-            uiLayout.doMenuAction("advisor", "trade/operations/trade.xhtml");
+            uiLayout.doMenuAction("advisor", "operations/trade.xhtml");
             break;
          case 2:
             reloadTradeSummary();
-            uiLayout.doMenuAction("advisor", "trade/operations/reviewTrades.xhtml");
+            uiLayout.doMenuAction("advisor", "operations/tradereview.xhtml");
             break;
          case 3:
             if (getSelectedSummary() != null)
             {
                collectTradeDetails(getSelectedSummary().getAcctnum());
-               uiLayout.doMenuAction("advisor", "trade/operations/tradesummary.xhtml");
+               uiLayout.doMenuAction("advisor", "operations/tradesummary.xhtml");
             }
             break;
          default:
-            uiLayout.doMenuAction("advisor", "trade/operations/trade.xhtml");
+            uiLayout.doMenuAction("advisor", "operations/trade.xhtml");
       }
    }
 

@@ -16,7 +16,11 @@ BEGIN
 			`trade_process_identifier`.`tradeStatus`,
 			`trade_process_identifier`.`processStatus`,
             `ext_nav`.`total`  as `totalInvestment`,
-			SUM(`rebal`.`curValue`) sumCurValue,
+			SUM(`rebal`.`curQty`) sumCurQty,
+			SUM(`rebal`.`curValue`) as sumCurValue,
+			SUM(`rebal`.`holdingQty`) sumholdingQty,
+			SUM(`rebal`.`holdingValue`) as sumholdingValue,
+			SUM(`rebal`.`newQty`) sumNewQty,
 			SUM(`rebal`.`newValue`) as sumNewValue
 		FROM `trade_process_identifier`
         INNER JOIN `user_trade_profile`

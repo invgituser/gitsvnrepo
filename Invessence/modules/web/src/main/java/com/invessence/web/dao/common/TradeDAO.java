@@ -162,8 +162,8 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
                   convert.getStrData(rs.get("taxable")),
                   convert.getStrData(rs.get("advisor")),
                   convert.getStrData(rs.get("rep")),
-                  convert.getStrData(rs.get("asset")),
-                  convert.getStrData(rs.get("subasset")),
+                  convert.getStrData(rs.get("assetclass")),
+                  convert.getStrData(rs.get("subclass")),
                   convert.getStrData(rs.get("color")),
                   convert.getStrData(rs.get("ticker")),
                   convert.getStrData(rs.get("name")), // Security Name
@@ -245,13 +245,13 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
             data.setProcessStatus(convert.getStrData(rs.get("processStatus")));
             data.setTotalInvestment(convert.getDoubleData(rs.get("totalInvestment")));
 
-            // data.setSumcurQty(convert.getDoubleData(rs.get("sumcurQty")));
+            data.setSumcurQty(convert.getDoubleData(rs.get("sumcurQty")));
             data.setSumcurValue(convert.getDoubleData(rs.get("sumcurValue")));
 
-            // data.setSumholdingQty(convert.getDoubleData(rs.get("holdingQty")));
-            // data.setSumholdingValue(convert.getDoubleData(rs.get("sumholdingValue")));
+            data.setSumholdingQty(convert.getDoubleData(rs.get("sumholdingQty")));
+            data.setSumholdingValue(convert.getDoubleData(rs.get("sumholdingValue")));
 
-            // data.setSumnewQty(convert.getDoubleData(rs.get("sumnewQty")));
+            data.setSumnewQty(convert.getDoubleData(rs.get("sumnewQty")));
             data.setSumnewValue(convert.getDoubleData(rs.get("sumnewValue")));
             listProfiles.add(i, data);
             i++;

@@ -33,9 +33,26 @@
                     <p:growl id="growltrademsg" closable="true" style="top: 25%"/>
 
                     <p:panel styleClass="invNBgrid">
-                        <p:commandLink value="Trade" actionListener="#{tradeBean.showTradeUI(1)}" styleClass="inactivetabreview"/>
-
-                        <p:outputLabel value="Review"  styleClass="activetabereview"/>
+                        <ui:fragment rendered="#{tradeBean.isTradeActive}">
+                            <div class="Fs30 Fleft summaryHeader mainHeaderUOB RPHeadings1 active"
+                                 style="cursor: pointer;">Trade</div>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{! tradeBean.isTradeActive}">
+                            <p:commandLink actionListener="#{tradeBean.setTradeUI('T')}">
+                                <div class="Fs30 Fleft summaryHeader mainHeaderUOB RPHeadings1"
+                                     style="cursor: pointer;">Trade</div>
+                            </p:commandLink>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{tradeBean.isReviewActive}">
+                            <div class="Fs30 Fleft detailHeader mainHeaderUOB RPHeadings2 active"
+                                 style="cursor: pointer;">Review</div>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{! tradeBean.isReviewActive}">
+                            <p:commandLink actionListener="#{tradeBean.setTradeUI('R')}">
+                                <div class="Fs30 Fleft detailHeader mainHeaderUOB RPHeadings2"
+                                     style="cursor: pointer;">Review</div>
+                            </p:commandLink>
+                        </ui:fragment>
                     </p:panel>
 
                     <p:panel id="reviewPanel" styleClass="invNBgrid">
@@ -77,6 +94,7 @@
                                          paginator="true" rows="10"
                                          rowsPerPageTemplate="5,10,15"
                                          paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                         rowKey="#{filteredSummaryData.acctnum}"
                                          selection="#{tradeBean.selectedSummaryList}">
                                 <f:facet name="header" style="text-align: left;">
                                     <div style="width: 100%; text-align: left;" class="centerAlign ForBtnNormal">
@@ -90,13 +108,11 @@
                                           style="width:50px;text-align:center" resizable="true"/>
 
                                 <p:column styleClass="AdvtcmLayoutColumn" resizable="true">
-                                    <p:commandButton id="editButton"
+                                    <p:commandButton id="showDetailButton"
                                                      styleClass="editAdvButtonIcon"
                                                      process="@this" immediate="true"
                                                      icon="fa fa-search"
-                                                     actionListener="#{tradeBean.showTradeUI(3)}">
-                                        <f:setPropertyActionListener value="#{filteredSummaryData}"
-                                                                     target="#{tradeBean.selectedSummary}"/>
+                                                     actionListener="#{tradeBean.showRebalDetails(filteredSummaryData.acctnum)}">
                                     </p:commandButton>
                                 </p:column>
 
@@ -117,8 +133,8 @@
 
 
                                 <p:column headerText="Holding" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
-                                          sortBy="#{filteredSummaryData.totalInvestment}">
-                                    <h:outputText value="#{filteredSummaryData.totalInvestment}">
+                                          sortBy="#{filteredSummaryData.sumholdingValue}">
+                                    <h:outputText value="#{filteredSummaryData.sumholdingValue}">
                                         <f:convertNumber type="currency" currencySymbol="$"/>
                                     </h:outputText>
                                 </p:column>
