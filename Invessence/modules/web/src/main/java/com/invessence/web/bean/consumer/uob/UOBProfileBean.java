@@ -6,7 +6,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.faces.event.*;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 import com.invessence.converter.*;
 import com.invessence.web.bean.consumer.InvessenceCharts;
@@ -518,6 +518,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       try
       {
          resetDataForm();
+         setSaveVisitor(true);
          if (getBeanAcctnum() != null && getBeanAcctnum() > 0L)
          {
             setDoesUserHavaLogonID(true);
@@ -536,11 +537,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
             else {
                // 2 - If user is not registered get the get New customer info.
                // NOTE: getDoesUserHavaLogonID returns false if it is null.
-               if (! getDoesUserHavaLogonID())
-               {
-                  setDoesUserHavaLogonID(false); // If it is null, we are forcing to be false.
-                  loadNewClientData();
-               }
+               setDoesUserHavaLogonID(false); // If it is null, we are forcing to be false.
+               loadNewClientData();
             }
 //            loadNewClientData();
 
@@ -845,6 +843,34 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    }
 
+   private void saveVisitor()
+   {
+
+      try
+      {
+         if (getSaveVisitor())
+         {
+            UserData data = new UserData();
+            data.setIp(webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()));
+            ;
+            data.setAcctnum(getAcctnum());
+            data.setAdvisor(webutil.getWebprofile().getDefaultAdvisor());
+            data.setRep(webutil.getWebprofile().getDefaultRep());
+            data.setEmail(null);
+            if (saveDAO != null)
+            {
+               saveDAO.saveVisitor(data);
+            }
+            setSaveVisitor(false);
+         }
+      }
+      catch (Exception ex)
+      {
+
+      }
+   }
+
+
    public void saveProfile()
    {
       long acctnum;
@@ -858,6 +884,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
             acctnum = saveDAO.saveProfileData(getInstance());
             if (acctnum > 0)
             {
+               saveVisitor();
                setAcctnum(acctnum);
                saveDAO.saveFinancials(getInstance());
                saveDAO.saveRiskProfile(acctnum, riskCalculator);
@@ -1342,9 +1369,10 @@ public class UOBProfileBean extends CustomerData implements Serializable
    public void gotoCustodyInfoForm() {
       if (!getDoesUserHavaLogonID())
       {
-         registerUser();
+         if (registerUser()) {
+            uiLayout.doMenuAction("consumer", "forward.xhtml");
+         }
       }
-         uiLayout.doMenuAction("consumer", "forward.xhtml");
 
    }
 
@@ -1388,6 +1416,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
             }
             userdata.setLogonID(loginID);
             setLogonid(loginID);
+            webutil.sendConfirmation(userdata);
+
             setDoesUserHavaLogonID(true);
             return true;
          }

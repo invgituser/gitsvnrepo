@@ -37,10 +37,10 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'SERVICE.DOCUSIGN.MODE', 'A', 'PROD', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'SERVICE.EMAILER.MODE', 'A', 'PROD', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'SERVICE.PRICING.MODE', 'A', 'PROD', 'N', '2017-06-03 13:31:07', null);
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'SUBJECT.EMAIL.ACTIVATE', 'A', 'Welcome to UOB Kay Hian– Activate Your Account', 'N', '2017-06-03 13:31:07', null);
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'SUBJECT.EMAIL.LOCKED', 'A', 'UOB Kay Hian - Account is locked', 'N', '2017-06-03 13:31:07', null);
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'SUBJECT.EMAIL.RESET', 'A', 'UOB Kay Hian– Reset Your Password', 'N', '2017-06-03 13:31:07', null);
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'SUBJECT.EMAIL.WELCOME', 'A', 'Welcome to UOB Kay Hian– Activate Your Account', 'N', '2017-06-03 13:31:07', null);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'EMAIL.ACTIVATE.SUBJECT', 'A', 'Welcome to UOB Kay Hian– Activate Your Account', 'N', '2017-06-03 13:31:07', null);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'EMAIL.LOCKED.SUBJECT', 'A', 'UOB Kay Hian - Account is locked', 'N', '2017-06-03 13:31:07', null);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'EMAIL.RESET.SUBJECT', 'A', 'UOB Kay Hian– Reset Your Password', 'N', '2017-06-03 13:31:07', null);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'EMAIL.WELCOME.SUBJECT', 'A', 'Welcome to UOB Kay Hian– Activate Your Account', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'URL.MOBILE', 'A', 'https://www.uwealth.com/mobile.xhtml', 'N', '2017-06-03 14:14:13', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'URL.SECURE', 'A', 'https://www.uwealth.com.sg', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'URL.WEBSITE', 'A', 'https://www.uwealth.com.sg', 'N', '2017-06-03 13:31:07', null);
@@ -67,6 +67,7 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 -- INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'PRODUCT.NAME', 'A', 'UOBKH', 'N', '2017-06-03 13:31:07', null);
 -- INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'MENU.AGGREGATOR', 'A', 'N', 'N', '2017-06-03 14:13:52', null);
 -- INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'MENU.AGGREGRATION', 'A', 'User', 'N', '2017-06-03 13:31:07', null);
+
 
 
 update `invdb`.`web_site_info`

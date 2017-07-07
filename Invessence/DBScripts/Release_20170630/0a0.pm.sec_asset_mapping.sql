@@ -16,6 +16,10 @@ CREATE TABLE `invdb`.`sec_asset_mapping` (
   PRIMARY KEY (`theme`,`ticker`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+UPDATE `invdb`.`sec_fixedmodel_asset` SET `sortorder`='9999' WHERE `asset`='Cash';
+UPDATE `invdb`.`sec_fixedmodel_subasset` SET `sortorder`='9999' WHERE `asset`='Cash' and`keyname`='Cash';
+UPDATE `invdb`.`sec_assetclass_group` SET `sortorder`='9999' WHERE `assetclass`='Cash';
+UPDATE `invdb`.`sec_prime_asset_group` SET `sortorder`='9999' WHERE `assetclass`='Cash' and`ticker`='Cash';
 
 INSERT INTO `invdb`.`sec_asset_mapping`
 (`theme`,`ticker`

@@ -961,30 +961,33 @@ public class WebUtil implements Serializable
 
       switch (whichEmail) {
          case 0:
-            subject = getWebprofile().getEmailSubject(WebConst.EMAIL_ACTIVATE_SUBJECT);
-            htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailSubject(WebConst.HTML_ACTIVATED);
-            whichLink=secureUrl + "/activate.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
+            whichLink=secureUrl + "/signup.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
+            if (userdata.getAccess() != null && userdata.getAccess().equalsIgnoreCase("Advisor")) {
+               subject = getWebprofile().getEmailSubject(WebConst.EMAIL_WELCOME_ADV_SUBJECT);
+               htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailTemplate(WebConst.HTML_WELCOME_ADV);
+            }
+            else {
+               subject = getWebprofile().getEmailSubject(WebConst.EMAIL_WELCOME_SUBJECT);
+               htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailTemplate(WebConst.HTML_WELCOME);
+            }
             break;
          case 1:
             subject = getWebprofile().getEmailSubject(WebConst.EMAIL_RESET_SUBJECT);
-            htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailSubject(WebConst.HTML_RESET);
+            htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailTemplate(WebConst.HTML_RESET);
             whichLink=secureUrl + "/setPassword.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
             break;
          case 2:
             subject = getWebprofile().getEmailSubject(WebConst.EMAIL_LOCKED_SUBJECT);
-            htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailSubject(WebConst.HTML_LOCKED);
+            htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailTemplate(WebConst.HTML_LOCKED);
             whichLink=secureUrl + "/setPassword.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
             break;
          case 3:
-            whichLink=secureUrl + "/signup.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
-            if (userdata.getAccess() != null && userdata.getAccess().equalsIgnoreCase("Advisor")) {
-               subject = getWebprofile().getEmailSubject(WebConst.EMAIL_WELCOME_ADV_SUBJECT);
-               htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailSubject(WebConst.HTML_WELCOME_ADV);
-            }
-            else {
-               subject = getWebprofile().getEmailSubject(WebConst.EMAIL_WELCOME_SUBJECT);
-               htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailSubject(WebConst.HTML_WELCOME);
-            }
+            // subject = getWebprofile().getEmailSubject(WebConst.EMAIL_ACTIVATE_SUBJECT);
+            // htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailTemplate(WebConst.HTML_ACTIVATED);
+            // whichLink=secureUrl + "/activate.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
+            subject = getWebprofile().getEmailSubject(WebConst.EMAIL_RESET_SUBJECT);
+            htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailTemplate(WebConst.HTML_RESET);
+            whichLink=secureUrl + "/setPassword.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
             break;
          default:
             return;

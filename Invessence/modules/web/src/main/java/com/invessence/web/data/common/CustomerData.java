@@ -59,6 +59,7 @@ public class CustomerData extends ProfileData
 
    private CustomerData manageGoalinstance;
 
+   private Boolean saveVisitor;
    private Integer numofaccounts;
    private String advisorDisplayName;
    private String userid;
@@ -400,6 +401,16 @@ public class CustomerData extends ProfileData
          value = getProjectionData()[finalyear-1].getTotalCapitalWithGains();
       }
       return value;
+   }
+
+   public Boolean getSaveVisitor()
+   {
+      return saveVisitor;
+   }
+
+   public void setSaveVisitor(Boolean saveVisitor)
+   {
+      this.saveVisitor = saveVisitor;
    }
 
    public Integer getNumofaccounts()

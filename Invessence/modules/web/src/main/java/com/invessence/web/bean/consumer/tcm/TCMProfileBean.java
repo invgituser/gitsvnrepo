@@ -1623,6 +1623,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             }
             userdata.setLogonID(loginID);
             setLogonid(loginID);
+            webutil.sendConfirmation(userdata);
 /*
             if (webutil.getUserInfoData() == null)
             {

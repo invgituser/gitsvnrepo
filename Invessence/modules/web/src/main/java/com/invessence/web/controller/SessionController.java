@@ -404,7 +404,7 @@ public class SessionController implements Serializable
          cstmSessionTimeout = webutil.getWebprofile().getSessionTimeout();
 
          cstmSessionTimeout = cstmSessionTimeout * 60 * 1000;
-          System.out.println("SessionController.getCustomSessionTimeout session timeout " + cstmSessionTimeout);
+         // System.out.println("SessionController.getCustomSessionTimeout session timeout " + cstmSessionTimeout);
       }
       catch (Exception e)
       {

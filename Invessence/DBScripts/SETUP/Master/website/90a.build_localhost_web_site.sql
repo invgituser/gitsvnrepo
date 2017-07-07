@@ -20,3 +20,5 @@ update invdb.web_site_info
 set value = CONCAT('http://',url)
 where (url like 'localhost%' )
 and (name in ('URL.SECURE', 'URL.WEBSITE', 'URL.MOBILE'));
+
+UPDATE `invdb`.`web_site_info` SET `value`='D:/inv/www/invessence/ROOT/template/html/' WHERE `url`='localhost:8080' and`name`='HTML.BASE.PATH';
