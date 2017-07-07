@@ -4802,6 +4802,19 @@ color: #fff;
 
 .roleremovebutton span {background-color: #fc6e52 !important; color: #fff;}
 
+.customtabs .titles {    font-size: 22px;
+    margin-bottom: 15px !important;
+    font-weight: 100;}
+
+.border-bottom-gradient {
+    border-bottom: 2px solid;
+    padding: 10px 0px;
+    margin-bottom: 10px;
+    -moz-border-image: -moz-linear-gradient(left, rgba(92,7,52,1) 0%, rgba(134,29,84,1) 12%, rgba(255,93,177,1) 47%, rgba(83,0,30,1) 100%);
+    -webkit-border-image:  -webkit-gradient(left top, right top, color-stop(0%, rgba(92,7,52,1)), color-stop(12%, rgba(134,29,84,1)), color-stop(47%, rgba(255,93,177,1)), color-stop(100%, rgba(83,0,30,1)));
+    -webkit-border-image:  -webkit-linear-gradient(left, rgba(92,7,52,1) 0%, rgba(134,29,84,1) 12%, rgba(255,93,177,1) 47%, rgba(83,0,30,1) 100%);
+    -o-border-image: -o-linear-gradient(left, rgba(92,7,52,1) 0%, rgba(134,29,84,1) 12%, rgba(255,93,177,1) 47%, rgba(83,0,30,1) 100%); border-image: linear-gradient(to right, rgba(92,7,52,1) 0%, rgba(134,29,84,1) 12%, rgba(255,93,177,1) 47%, rgba(83,0,30,1) 100%);
+}
 
 
 /* End Sagar tabs for adv and user mng */
