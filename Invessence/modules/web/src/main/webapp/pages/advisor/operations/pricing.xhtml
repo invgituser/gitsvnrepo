@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{tradeBean.preRender}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent PaddingTopBottomNone">
+                <div class="Container100">
+                    <div class="DispInlBlock MarTop20" style="width: 100%;">
+                        <div class="Container5"><i class="fa fa-user Fs40 red Fleft MarRight10"></i></div>
+                        <div class="Container80">
+                            <div class="Fleft">
+                                <h2 class="black Fs18 FontThemeMedium AdvUserName">#{webutil.lastFirstName}
+                                    <i class="fa fa-angle-double-right" style="margin: 0px 10px" >   </i> Pricing</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Seperator Container100"></div>
+
+            </div>
+        </div>
+
+        <div class="layout-portlets-box backgroundAdvPortlets">
+            <div class="Container100">
+                <h:form id="tradeForm">
+
+
+
+                    <div style="width: 40%; margin-top: 10px;" class="Wid40 ">
+
+                    <p:selectOneMenu id="selectpricingaction" value="Select Pricing Action"
+                                     styleClass="Wid60 selectDD FloatNoneOnMobile Fleft">
+                        <p:watermark for="selectpricingaction" value="Select Action"/>
+                    </p:selectOneMenu>
+<div class="clear Container100" style="padding: 10px 0px;"></div>
+                    <p:commandButton value="Process"  styleClass="InviteButton Wid30 FloatNoneOnMobile Fleft" icon="fa fa-check"  />
+
+                    </div>
+                </h:form>
+            </div>
+        </div>
+
+
+    </ui:define>
+
+</ui:composition>
