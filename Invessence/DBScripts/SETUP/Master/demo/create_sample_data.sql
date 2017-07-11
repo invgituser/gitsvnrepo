@@ -1,14 +1,6 @@
 USE `invdb`;
 
 DELETE FROM `invdb`.`user_trade_profile` where `acctnum` <= 100;
-DELETE FROM `invdb`.`user_risk_questions` where `acctnum` <= 100;
-DELETE FROM `invdb`.`acct_financial` where `acctnum` <= 100;
-DELETE FROM `invdb`.`ext_nav` where `clientAccountID` in (select `ext_acct_info`.`clientAccountID` FROM `ext_acct_info` where `ext_acct_info`.`acctnum` <= 100);
-DELETE FROM `invdb`.`ext_position` where `acctnum` <= 100;
-DELETE FROM `invdb`.`ext_acct_info` where `acctnum` <= 100;
-DELETE FROM `invdb`.`trade_process_identifier` where `acctnum` <= 100;
-
-
 INSERT INTO `invdb`.`user_trade_profile` 
 (`acctnum`, `advisor`, `rep`, `theme`, `firstname`, `lastname`, `portfolioName`, `goal`, `acctType`, `age`, `horizon`, `initialInvestment`, `recurringInvestment`, `experience`, `longTermGoal`, `stayInvested`, `charitablegoals`, `dependent`, `riskIndex`, `tradePreference`, `keepLiquid`, `taxable`, `calcModel`, `assetIndex`, `portfolioIndex`, `goalAmount`, `email`, `ip`, `created`, `lastUpdated`, `managed`, `clientAccountID`, `status`, `customName`)
  VALUES 
@@ -30,6 +22,8 @@ set firstname = concat('FirstName#',`acctnum`), `lastname` = concat('LastName#',
 where `acctnum` <= 100
 ;
 
+
+DELETE FROM `invdb`.`user_access_role` where `acctnum` <= 100;
 DELETE FROM `invdb`.`user_access_role` where `acctnum` <= 100;
 INSERT INTO `invdb`.`user_access_role`
 (`logonid`,`acctnum`,`role`,`privileges`,`created`)
@@ -45,6 +39,7 @@ AND `user_logon`.`logonid` < 100
 AND UPPER(`user_logon`.`access` = 'USER')
 ;
 
+DELETE FROM `invdb`.`user_risk_questions` where `acctnum` <= 100;
 INSERT INTO `invdb`.`user_risk_questions` 
 (`acctnum`, `investmentgoal`, `age`, `retireage`, `retired`, `horizon`, `ans1`, `ans2`, `ans3`, `ans4`, `ans5`, `ans6`, `ans7`, `ans8`, `ans9`, `ans10`, `ans11`, `ans12`, `ans13`, `ans14`, `ans15`, `formula`, `risk1`, `risk2`, `risk3`, `risk4`, `risk5`, `risk6`, `risk7`, `risk8`, `risk9`, `risk10`, `risk11`, `risk12`, `risk13`, `risk14`, `risk15`, `totalrisk`, `created`, `lastUpdated`) 
 VALUES 
@@ -59,6 +54,8 @@ VALUES
 ,(9, 'retirement', '25', '70', '0', '45', '25', '0', '3', '4', '5', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'C', '120', '0', '10', '5', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '105', '2016-10-10', '2016-10-10')
 ,(10, 'Other', '0', '0', '0', '15', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'C', '120', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2016-10-14', null)
 ;
+
+DELETE FROM `invdb`.`acct_financial` where `acctnum` <= 100;
 
 INSERT INTO `invdb`.`acct_financial` 
 (`acctnum`, `dependent`, `estdDependentExpense`, `householdwages`, `otherincome`, `bonusincome`, `interestincome`, `dividentincome`, `rentalIncome`, `totalIncome`, `totalIncomeAnnulized`, `householdPayment`, `otherPropertiesPayment`, `automobilePayment`, `medicalPayment`, `federaltaxes`, `stateTaxes`, `propertyTax`, `otherPropertyTax`, `homeInsurance`, `lifeInsurance`, `autoInsurance`, `educationPayment`, `creditCardPayment`, `miscExpenses`, `totalExpense`, `totalExpenseAnnulized`, `homeEquity`, `autoValue`, `moneyMarket`, `checkingAcct`, `savingAcct`, `investment`, `equityOtherProperties`, `retirementInvestement`, `miscInvestment`, `totalAsset`, `mortgageLoan`, `autoLoan`, `educationLoan`, `creditCardDebt`, `otherPropertiesLoan`, `medicalDebt`, `otherDebt`, `totalDebt`, `liquidnetworth`, `networth`, `created`, `lastupdated`) 
@@ -75,7 +72,7 @@ VALUES
 ,(10, '1', null, '1000', null, null, null, '1', null, '1001', '12012', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1000', '12000', null, null, null, null, null, '1000', '1000', null, null, '2000', null, null, null, null, null, null, null, '1000', '1000', '3012', '2017-06-12 08:03:50', '2017-06-12 08:18:40')
 ;
 
-
+DELETE FROM `invdb`.`ext_acct_info` where `acctnum` <= 100;
 INSERT INTO `invdb`.`ext_acct_info` 
 (`clientAccountID`, `acctnum`, `status`, `rep`, `email`, `accountType`, `applicantFName`, `applicantMName`, `applicantLName`, `address1`, `address2`, `address3`, `city`, `state`, `zipcode`, `country`, `primaryPhoneNbr`, `secondayPhoneNbr`, `workPhoneNbr`, `faxNbr`, `ssn`, `dob`, `acctType`, `taxable`, `objective`, `dateOpened`, `created`, `lastUpdated`) 
 VALUES 
@@ -96,6 +93,7 @@ set `clientAccountID` = CONCAT('Active#',`acctnum`), `status` = 'O', `email` = C
    , `applicantFName`= CONCAT('FirstName#',`acctnum`), `applicantMName` = null, `applicantLName` = CONCAT('LastName#',`acctnum`)
 where acctnum <= 100;
 
+DELETE FROM `invdb`.`ext_position` where `acctnum` <= 100;
 -- BB client's position
 INSERT INTO `invdb`.`ext_position` 
 (`acctnum`, `clientAccountID`, `currencyPrimary`, `fxRateToBase`, `symbol`, `reportDate`, `purchaseDate`, `side`, `quantity`, `costBasisPrice`, `costBasisMoney`, `markPrice`, `positionValue`, `pnlUnrealized`, `levelOfDetail`, `created`) 
@@ -198,6 +196,7 @@ set `clientAccountID` = CONCAT('Active#',`acctnum`)
   , reportDate = `invdb`.`FUNCT_GET_SWITCH`('BROKER_BDATE')
 WHERE `ext_position`.`acctnum` <= 100;
 
+DELETE FROM `invdb`.`ext_nav` where `clientAccountID` in (select `ext_acct_info`.`clientAccountID` FROM `ext_acct_info` where `ext_acct_info`.`acctnum` <= 100);
 INSERT INTO `invdb`.`ext_nav`
 (`clientAccountID`,`reportDate`,`cash`,`stock`,`funds`,`interestAccrual`,`dividentAccrual`,`total`)
 SELECT 
@@ -234,6 +233,7 @@ where  `ext_acct_info`.`clientAccountID` in (select distinct `ext_nav`.`clientAc
 AND `ext_acct_info`.`acctnum`  <= 100;
 ;
 
+DELETE FROM `invdb`.`trade_process_identifier` where `acctnum` < 100;
 INSERT INTO `invdb`.`trade_process_identifier`
 (`acctnum`,`tradeStatus`,`processStatus`,`reason`,`created`)
 VALUES
@@ -244,4 +244,23 @@ VALUES
 ,(5,'N','N','Funded',now())
 ,(6,'N','N','Funded',now())
 ,(7,'N','N','Funded',now())
+;
+
+DELETE FROM `invdb`.`user_reports` where `acctnum` < 100;
+INSERT INTO `invdb`.`user_reports` 
+(`acctnum`, `reportDate`, `reportName`, `filename`, `created`)
+SELECT 
+`ext_acct_info`.`acctnum`, DATE_FORMAT(now(),'%Y%m%d'), 'Billing', '/reports/Billing.U1288926.20151001.pdf', DATE_FORMAT(now(),'%Y-%m-%d')
+from `invdb`.`ext_acct_info`
+WHERE `ext_acct_info`.`acctnum` < 100
+AND `ext_acct_info`.`status` = 'A'
+;
+
+INSERT INTO `invdb`.`user_reports` 
+(`acctnum`, `reportDate`, `reportName`, `filename`, `created`)
+SELECT 
+`ext_acct_info`.`acctnum`, DATE_FORMAT(now(),'%Y%m%d'), 'Fees_Charged', '/reports/U1261187.Fees_Charged.295342.20151103.html', DATE_FORMAT(now(),'%Y-%m-%d')
+from `invdb`.`ext_acct_info`
+WHERE `ext_acct_info`.`acctnum` < 100
+AND `ext_acct_info`.`status` = 'A'
 ;
