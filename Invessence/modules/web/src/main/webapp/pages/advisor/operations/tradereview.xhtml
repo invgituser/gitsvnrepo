@@ -33,21 +33,21 @@
                     <p:growl id="growltrademsg" closable="true" style="top: 25%"/>
 
                     <p:panel styleClass="invNBgrid">
-                        <ui:fragment rendered="#{tradeBean.isTradeActive}">
+                        <ui:fragment rendered="#{tradeBean.isTradeActive}" id="tradeBtn">
                             <div class="Fs30 Fleft summaryHeader mainHeaderUOB RPHeadings1 active"
                                  style="cursor: pointer;">Trade</div>
                         </ui:fragment>
-                        <ui:fragment rendered="#{! tradeBean.isTradeActive}">
+                        <ui:fragment rendered="#{! tradeBean.isTradeActive}" id="tradeBtn">
                             <p:commandLink actionListener="#{tradeBean.setTradeUI('T')}">
                                 <div class="Fs30 Fleft summaryHeader mainHeaderUOB RPHeadings1"
                                      style="cursor: pointer;">Trade</div>
                             </p:commandLink>
                         </ui:fragment>
-                        <ui:fragment rendered="#{tradeBean.isReviewActive}">
+                        <ui:fragment rendered="#{tradeBean.isReviewActive}" id="reviewBtn">
                             <div class="Fs30 Fleft detailHeader mainHeaderUOB RPHeadings2 active"
                                  style="cursor: pointer;">Review</div>
                         </ui:fragment>
-                        <ui:fragment rendered="#{! tradeBean.isReviewActive}">
+                        <ui:fragment rendered="#{! tradeBean.isReviewActive}" id="reviewBtn">
                             <p:commandLink actionListener="#{tradeBean.setTradeUI('R')}">
                                 <div class="Fs30 Fleft detailHeader mainHeaderUOB RPHeadings2"
                                      style="cursor: pointer;">Review</div>

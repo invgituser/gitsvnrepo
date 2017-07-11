@@ -4,12 +4,9 @@
     <bookmark url="file://$PROJECT_DIR$/modules/broker-webservices/src/main/java/com/invessence/ws/provider/td/docusign/TestClass.java" line="12" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" readonly="true" id="3e625fd0-3140-4479-9b6f-a166e40a7972" name="Default" comment="Abhang 07/04/2017">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_primefaces_extensions_primefaces_extensions_6_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_primefaces_extensions_primefaces_extensions_6_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_primefaces_extensions_resources_codemirror_6_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_primefaces_extensions_resources_codemirror_6_0_0.xml" />
+    <list default="true" readonly="true" id="3e625fd0-3140-4479-9b6f-a166e40a7972" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/parent/pom.xml" afterPath="$PROJECT_DIR$/modules/parent/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/web/web.iml" afterPath="$PROJECT_DIR$/modules/web/web.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/tradereview.xhtml" afterPath="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/tradereview.xhtml" />
     </list>
     <list id="e62eef83-d9e2-40fa-bac3-332936f79c31" name="Failed commit: Default" comment="Fixed few bugs and try to comply with Tablet" />
     <list id="9985637f-cfac-4423-bd84-01c846e49f8e" name="Rejected commit: Default" comment="Advisor Version 1.4" />
@@ -675,31 +672,43 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/parent/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8687259">
-              <caret line="442" column="15" selection-start-line="442" selection-start-column="15" selection-end-line="442" selection-end-column="15" />
+            <state vertical-scroll-proportion="-4.4">
+              <caret line="443" column="21" selection-start-line="443" selection-start-column="21" selection-end-line="443" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="501.pm.sp_upload_position.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DBScripts/Release_20170630/FileProcessor/501.pm.sp_upload_position.sql">
+      <file leaf-file-name="tradeReview.xhtml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/tradeReview.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="14" column="44" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="44" />
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="4" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="502.pm_sp_upload_nav_daily.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DBScripts/Release_20170630/FileProcessor/502.pm_sp_upload_nav_daily.sql">
+      <file leaf-file-name="trade.xhtml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/trade.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+            <state vertical-scroll-proportion="-11.961538">
+              <caret line="46" column="38" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
+              <folding>
+                <marker date="1499422112425" expanded="true" signature="5384:10329" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tradereview.xhtml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/tradereview.xhtml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.42481202">
+              <caret line="39" column="91" selection-start-line="39" selection-start-column="91" selection-end-line="39" selection-end-column="91" />
               <folding />
             </state>
           </provider>
@@ -730,16 +739,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="315" column="20" selection-start-line="315" selection-start-column="20" selection-end-line="315" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="504.pm.sp_upload_trade_process_indetifier.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DBScripts/Release_20170630/FileProcessor/504.pm.sp_upload_trade_process_indetifier.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="9" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -807,13 +806,10 @@
         <option value="$PROJECT_DIR$/DBScripts/SETUP/Master/2b.build_tcm_web_site.sql" />
         <option value="$PROJECT_DIR$/DBScripts/SETUP/Master/2a.build_bb_web_site.sql" />
         <option value="$PROJECT_DIR$/DBScripts/SETUP/Master/90a.build_localhost_web_site.sql" />
-        <option value="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/tradeReview.xhtml" />
         <option value="$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/data/common/TradeSummary.java" />
         <option value="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/reviewtrades.xhtml" />
-        <option value="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/trade.xhtml" />
         <option value="$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/data/common/TradeDetails.java" />
         <option value="$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/advisor/TradeBean.java" />
-        <option value="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/tradereview.xhtml" />
         <option value="$PROJECT_DIR$/modules/file-processor/src/main/java/com/invessence/fileProcessor/service/Temp.java" />
         <option value="$PROJECT_DIR$/modules/broker-webservices/pom.xml" />
         <option value="$PROJECT_DIR$/DBScripts/SETUP/Master/1.build_master_web_site.sql" />
@@ -850,6 +846,9 @@
         <option value="$PROJECT_DIR$/DBScripts/Release_20170630/FileProcessor/500.pm.sp_upload_ext_acct_info.sql" />
         <option value="$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/consumer/citi/WatsonBean.java" />
         <option value="$PROJECT_DIR$/modules/parent/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/tradeReview.xhtml" />
+        <option value="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/trade.xhtml" />
+        <option value="$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/tradereview.xhtml" />
       </list>
     </option>
   </component>
@@ -878,9 +877,12 @@
     </option>
     <option name="enabledProfiles">
       <list>
+        <option value="ZZ DEPLOY" />
+      </list>
+    </option>
+    <option name="disabledProfiles">
+      <list>
         <option value="3A-LOCAL" />
-        <option value="2A-HOST-WIN" />
-        <option value="1A-MODE-DEV" />
       </list>
     </option>
   </component>
@@ -892,6 +894,10 @@
           <option name="myItemId" value="" />
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
         </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="invessence" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
       </PATH>
       <PATH>
         <PATH_ELEMENT>
@@ -899,8 +905,18 @@
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="Profiles" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProfilesNode" />
+          <option name="myItemId" value="invessence" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Lifecycle" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$LifecycleNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
         </PATH_ELEMENT>
       </PATH>
     </treeState>
@@ -1100,60 +1116,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="parent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="invessence" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Invessence" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DBScripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="invessence" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Invessence" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DBScripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Release_20170630" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="invessence" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Invessence" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DBScripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Release_20170630" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FileProcessor" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2207,13 +2169,7 @@
       <workItem from="1499081837862" duration="39757000" />
       <workItem from="1499254257314" duration="23040000" />
       <workItem from="1499425596891" duration="58138000" />
-      <workItem from="1499755250975" duration="949000" />
-    </task>
-    <task id="LOCAL-00140" summary="Introduced UOB">
-      <created>1463617628108</created>
-      <option name="number" value="00140" />
-      <option name="project" value="LOCAL" />
-      <updated>1463617628108</updated>
+      <workItem from="1499755250975" duration="2546000" />
     </task>
     <task id="LOCAL-00141" summary="TCM Version 1.0">
       <created>1463797502218</created>
@@ -2503,11 +2459,17 @@
       <option name="project" value="LOCAL" />
       <updated>1499754730107</updated>
     </task>
-    <option name="localTasksCounter" value="189" />
+    <task id="LOCAL-00189" summary="Abhang 07/04/2017">
+      <created>1499756223107</created>
+      <option name="number" value="00189" />
+      <option name="project" value="LOCAL" />
+      <updated>1499756223108</updated>
+    </task>
+    <option name="localTasksCounter" value="190" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="320215000" />
+    <option name="totallyTimeSpent" value="321812000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2529,16 +2491,17 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29854015" sideWeight="0.61022365" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32102728" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17513268" sideWeight="0.545045" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41638225" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17513268" sideWeight="0.545045" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41638225" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38225257" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="21" y="529" width="1552" height="257" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20857143" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25283876" sideWeight="0.46067417" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39120546" sideWeight="0.545045" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39120546" sideWeight="0.545045" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25283876" sideWeight="0.46067417" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32853898" sideWeight="0.84636873" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4795222" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.67270195" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329296" sideWeight="0.84636873" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15258041" sideWeight="0.52" order="4" side_tool="false" content_ui="tabs" />
@@ -2561,7 +2524,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947233" sideWeight="0.84636873" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4795222" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven-2 Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
     </layout>
@@ -2648,10 +2610,10 @@
     <MESSAGE value="Abhang 06/29/2017 File Processor Scripts" />
     <MESSAGE value="Abhang 07/03/2017 File-Processor &#10;Email Subject Changed, Added 2 master entries in web_site_info, Updated View" />
     <MESSAGE value="Abhang 07/04/2017 File-Processor &#10;File Directory creation Issue" />
-    <MESSAGE value="Abhang 07/04/2017" />
     <MESSAGE value="Abhang 07/11/2017 FIle Processor Enhancements" />
     <MESSAGE value="Abhang 07/11/2017" />
-    <option name="LAST_COMMIT_MESSAGE" value="Abhang 07/11/2017" />
+    <MESSAGE value="Abhang 07/04/2017" />
+    <option name="LAST_COMMIT_MESSAGE" value="Abhang 07/04/2017" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2732,21 +2694,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/custody/BaseTD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8994083">
-          <caret line="486" column="7" selection-start-line="486" selection-start-column="7" selection-end-line="486" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/custody/td/index.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="115" column="83" selection-start-line="115" selection-start-column="83" selection-end-line="115" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/dao/custody/CustodySaveSP.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2994,13 +2941,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/trade.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="68" selection-start-line="9" selection-start-column="68" selection-end-line="9" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/web/bean/advisor/TradeBean.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3224,7 +3164,7 @@
           <caret line="377" column="68" selection-start-line="377" selection-start-column="68" selection-end-line="377" selection-end-column="68" />
           <folding>
             <element signature="e#2742#2911#0" expanded="false" />
-            <element signature="e#3020#3028#0" expanded="true" />
+            <element signature="e#3020#3028#0" expanded="false" />
             <element signature="e#6524#6569#0" expanded="false" />
           </folding>
         </state>
@@ -3327,8 +3267,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/parent/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8687259">
-          <caret line="442" column="15" selection-start-line="442" selection-start-column="15" selection-end-line="442" selection-end-column="15" />
+        <state vertical-scroll-proportion="-4.4">
+          <caret line="443" column="21" selection-start-line="443" selection-start-column="21" selection-end-line="443" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/tradeReview.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="4" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/trade.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.961538">
+          <caret line="46" column="38" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
+          <folding>
+            <marker date="1499422112425" expanded="true" signature="5384:10329" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web/src/main/webapp/pages/advisor/operations/tradereview.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42481202">
+          <caret line="39" column="91" selection-start-line="39" selection-start-column="91" selection-end-line="39" selection-end-column="91" />
           <folding />
         </state>
       </provider>
