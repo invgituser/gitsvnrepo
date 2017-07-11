@@ -59,11 +59,11 @@
   		<property name="dataSource" ref="fileProcessDataSource"></property>
   	</bean>
 
-     <bean id="gpgUtil" class="com.invessence.fileProcessor.util.GPGUtil">
-	  <constructor-arg name="_privateKey" index="0" value="${base.data.dir}/gnupg/secring.gpg" /> <!--/home/abhangp/broker/ D:/Project/Abhang/temp-->
-        <constructor-arg name="_publicKey" index="1" value="${base.data.dir}/gnupg/pubring.gpg" />
-      <constructor-arg name="_password" index="2" value="Inv3ss3nc3" />
-   </bean>
+     <!--<bean id="gpgUtil" class="com.invessence.fileProcessor.util.GPGUtil">-->
+	  <!--<constructor-arg name="_privateKey" index="0" value="${base.data.dir}/gnupg/secring.gpg" /> &lt;!&ndash;/home/abhangp/broker/ D:/Project/Abhang/temp&ndash;&gt;-->
+        <!--<constructor-arg name="_publicKey" index="1" value="${base.data.dir}/gnupg/pubring.gpg" />-->
+      <!--<constructor-arg name="_password" index="2" value="Inv3ss3nc3" />-->
+   <!--</bean>-->
 
 
       <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">

@@ -18,8 +18,10 @@ public class FileRules
    private String delimiter;
    private String justified;
    private String dbColumn;
+   private String isRequired;
+   private String needToEncrypt;
 
-   public FileRules(String fileId, String dataField, String description, Integer seqNo, Integer startPos, Integer endPos, Integer length, String format, Integer decimals, String isDelimited, String delimiter, String justified, String dbColumn)
+   public FileRules(String fileId, String dataField, String description, Integer seqNo, Integer startPos, Integer endPos, Integer length, String format, Integer decimals, String isDelimited, String delimiter, String justified, String dbColumn, String isRequired, String needToEncrypt)
    {
       this.fileId = fileId;
       this.dataField = dataField;
@@ -34,6 +36,8 @@ public class FileRules
       this.delimiter = delimiter;
       this.justified = justified;
       this.dbColumn = dbColumn;
+      this.isRequired = isRequired;
+      this.needToEncrypt = needToEncrypt;
    }
 
    @Override
@@ -53,7 +57,29 @@ public class FileRules
          ", delimiter='" + delimiter + '\'' +
          ", justified='" + justified + '\'' +
          ", dbColumn='" + dbColumn + '\'' +
+         ", isRequired='" + isRequired + '\'' +
+         ", needToEncrypt='" + needToEncrypt + '\'' +
          '}';
+   }
+
+   public String getIsRequired()
+   {
+      return isRequired;
+   }
+
+   public void setIsRequired(String isRequired)
+   {
+      this.isRequired = isRequired;
+   }
+
+   public String getNeedToEncrypt()
+   {
+      return needToEncrypt;
+   }
+
+   public void setNeedToEncrypt(String needToEncrypt)
+   {
+      this.needToEncrypt = needToEncrypt;
    }
 
    public String getFileId()

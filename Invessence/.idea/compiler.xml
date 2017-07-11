@@ -5,6 +5,7 @@
       <file url="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/dao/CustomJdbcDaoImpl.java" />
       <file url="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/dao/SignupFunctionSP.java" />
     </excludeFromCompile>
+    <resourceExtensions />
     <wildcardResourcePatterns>
       <entry name="!?*.java" />
       <entry name="!?*.form" />
@@ -16,32 +17,102 @@
       <entry name="!?*.clj" />
     </wildcardResourcePatterns>
     <annotationProcessing>
-      <profile name="Maven default annotation processors profile" enabled="true">
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
         <module name="aggregate-services" />
-        <module name="aggregator" />
         <module name="broker-services" />
-        <module name="broker-webservices" />
         <module name="brokerservice" />
         <module name="core" />
-        <module name="download-services" />
-        <module name="emailer" />
-        <module name="file-processor" />
-        <module name="invmodel" />
-        <module name="price-processor" />
-        <module name="rbsa-preprocessor" />
-        <module name="reports" />
-        <module name="service" />
         <module name="showcase" />
-        <module name="trading-services" />
         <module name="trading_service" />
         <module name="virtual-trades" />
         <module name="web" />
         <module name="web-internal" />
         <module name="web2" />
         <module name="yodlee-services" />
+      </profile>
+      <profile default="false" name="Annotation profile for file-processor" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="file-processor" />
+      </profile>
+      <profile default="false" name="Annotation profile for price-processor" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="price-processor" />
+      </profile>
+      <profile default="false" name="Annotation profile for broker-webservices" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="broker-webservices" />
+      </profile>
+      <profile default="false" name="Annotation profile for invmodel" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="invmodel" />
+      </profile>
+      <profile default="false" name="Annotation profile for service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="service" />
+      </profile>
+      <profile default="false" name="Annotation profile for reports" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="reports" />
+      </profile>
+      <profile default="false" name="Annotation profile for aggregator" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="aggregator" />
+      </profile>
+      <profile default="false" name="Annotation profile for download-services" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="download-services" />
+      </profile>
+      <profile default="false" name="Annotation profile for rbsa-preprocessor" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="rbsa-preprocessor" />
+      </profile>
+      <profile default="false" name="Annotation profile for trading-services" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="trading-services" />
+      </profile>
+      <profile default="false" name="Annotation profile for emailer" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="emailer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

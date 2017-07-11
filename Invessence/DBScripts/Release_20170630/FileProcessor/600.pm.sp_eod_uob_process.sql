@@ -1,7 +1,7 @@
-DROP PROCEDURE IF EXISTS `invdb`.`sp_eod_uob_process`;
+DROP PROCEDURE IF EXISTS `temp`.`sp_eod_uob_process`;
 
 DELIMITER $$
-CREATE PROCEDURE `invdb`.`sp_eod_uob_process`(
+CREATE PROCEDURE `temp`.`sp_eod_uob_process`(
 )
 BEGIN
 
@@ -11,6 +11,6 @@ BEGIN
 	END;
     
     BEGIN
-    END
+    END;
 END$$
 DELIMITER ;

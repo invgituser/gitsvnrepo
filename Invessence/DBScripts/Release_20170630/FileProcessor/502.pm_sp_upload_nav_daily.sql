@@ -1,7 +1,7 @@
-DROP PROCEDURE IF EXISTS `invdb`.`sp_upload_nav_daily`;
+DROP PROCEDURE IF EXISTS `temp`.`sp_upload_nav_daily`;
 
 DELIMITER $$
-CREATE PROCEDURE `invdb`.`sp_upload_nav_daily`(
+CREATE PROCEDURE `temp`.`sp_upload_nav_daily`(
 )
 BEGIN 
 
@@ -36,7 +36,7 @@ BEGIN
 			`tmp_nav_daily`.`interestAccrual`,
 			`tmp_nav_daily`.`dividentAccrual`,
 			`tmp_nav_daily`.`total`
-		FROM `invdb`.`tmp_nav_daily`;
+		FROM `temp`.`tmp_nav_daily`;
    end;
 
 END$$

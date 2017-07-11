@@ -693,39 +693,11 @@ try{
             {
                fileId = convert.getStrData(map.get("fileId"));
                tempMap = new LinkedHashMap<>();
-               tempMap.put(convert.getStrData(map.get("dataField")),
-                           new FileRules(convert.getStrData(map.get("fileId")),
-                                         convert.getStrData(map.get("dataField")),
-                                         convert.getStrData(map.get("description")),
-                                         convert.getIntData(map.get("seqNo")),
-                                         convert.getIntData(map.get("startPos")),
-                                         convert.getIntData(map.get("endPos")),
-                                         convert.getIntData(map.get("length")),
-                                         convert.getStrData(map.get("format")),
-                                         convert.getIntData(map.get("decimals")),
-                                         convert.getStrData(map.get("isDelimited")),
-                                         convert.getStrData(map.get("delimiter")),
-                                         convert.getStrData(map.get("justified")),
-                                         convert.getStrData(map.get("dbColumn"))
-                           ));
+               tempMap.put(convert.getStrData(map.get("dataField")), getFileRules(map));
             }
             else if (fileId.equalsIgnoreCase(convert.getStrData(map.get("fileId"))))
             {
-               tempMap.put(convert.getStrData(map.get("dataField")),
-                           new FileRules(convert.getStrData(map.get("fileId")),
-                                         convert.getStrData(map.get("dataField")),
-                                         convert.getStrData(map.get("description")),
-                                         convert.getIntData(map.get("seqNo")),
-                                         convert.getIntData(map.get("startPos")),
-                                         convert.getIntData(map.get("endPos")),
-                                         convert.getIntData(map.get("length")),
-                                         convert.getStrData(map.get("format")),
-                                         convert.getIntData(map.get("decimals")),
-                                         convert.getStrData(map.get("isDelimited")),
-                                         convert.getStrData(map.get("delimiter")),
-                                         convert.getStrData(map.get("justified")),
-                                         convert.getStrData(map.get("dbColumn"))
-                           ));
+               tempMap.put(convert.getStrData(map.get("dataField")), getFileRules(map));
             }
             else if (!fileId.equalsIgnoreCase(convert.getStrData(map.get("fileId"))))
             {
@@ -733,34 +705,45 @@ try{
                fileId = convert.getStrData(map.get("fileId"));
                tempMap = new LinkedHashMap<>();
 
-               tempMap.put(convert.getStrData(map.get("dataField")),
-                           new FileRules(convert.getStrData(map.get("fileId")),
-                                         convert.getStrData(map.get("dataField")),
-                                         convert.getStrData(map.get("description")),
-                                         convert.getIntData(map.get("seqNo")),
-                                         convert.getIntData(map.get("startPos")),
-                                         convert.getIntData(map.get("endPos")),
-                                         convert.getIntData(map.get("length")),
-                                         convert.getStrData(map.get("format")),
-                                         convert.getIntData(map.get("decimals")),
-                                         convert.getStrData(map.get("isDelimited")),
-                                         convert.getStrData(map.get("delimiter")),
-                                         convert.getStrData(map.get("justified")),
-                                         convert.getStrData(map.get("dbColumn"))
-                           ));
+               tempMap.put(convert.getStrData(map.get("dataField")), getFileRules(map));
             }
          }
          if (tempMap != null)
          {
             rs.put(fileId, tempMap);
          }
-
-
       }catch(Exception e)
       {
          e.printStackTrace();
       }
       return rs;
+   }
+
+   private FileRules getFileRules(LinkedHashMap<String, Object> map) {
+      // isRequired, needToEncrypt
+      FileRules fileRules=null;
+      try{
+         fileRules= new FileRules(convert.getStrData(map.get("fileId")),
+                                  convert.getStrData(map.get("dataField")),
+                                  convert.getStrData(map.get("description")),
+                                  convert.getIntData(map.get("seqNo")),
+                                  convert.getIntData(map.get("startPos")),
+                                  convert.getIntData(map.get("endPos")),
+                                  convert.getIntData(map.get("length")),
+                                  convert.getStrData(map.get("format")),
+                                  convert.getIntData(map.get("decimals")),
+                                  convert.getStrData(map.get("isDelimited")),
+                                  convert.getStrData(map.get("delimiter")),
+                                  convert.getStrData(map.get("justified")),
+                                  convert.getStrData(map.get("dbColumn")),
+                                  convert.getStrData(map.get("isRequired")),
+                                  convert.getStrData(map.get("needToEncrypt"))
+         );
+      }catch(Exception e)
+      {
+         e.printStackTrace();
+      }
+      return fileRules;
    }
 
    private LinkedHashMap<String,ServiceOperationDetails> getOperationDetails(ArrayList<Map<String, Object>> rows){

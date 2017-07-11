@@ -1,7 +1,7 @@
-DROP PROCEDURE IF EXISTS `invdb`.`sp_upload_position`;
+DROP PROCEDURE IF EXISTS `temp`.`sp_upload_position`;
 
 DELIMITER $$
-CREATE PROCEDURE `invdb`.`sp_upload_position`(
+CREATE PROCEDURE `temp`.`sp_upload_position`(
 )
 BEGIN 
 
@@ -12,7 +12,7 @@ BEGIN
    begin
 		delete from `ext_position`
 		where concat(`clientAccountID`,`symbol`,`reportDate`) in (select concat(`clientAccountID`,`symbol`,IFNULL(`reportDate`,tReportDate))
-																  from `invdb`.`tmp_position`)
+																  from `temp`.`tmp_position`)
 		;
    end;
 
@@ -53,7 +53,7 @@ BEGIN
 			`positionValue`	,
 			`fifoPnlUnrealized`	,
 			`LevelOfDetail`	
-	  from `invdb`.`tmp_position`
+	  from `temp`.`tmp_position`
 	  ;
       
    end;

@@ -28,9 +28,7 @@ public class FileDetails
    private String loadFormat;
    private String required;
    private String canBeEmpty;
-   private int keyData;
    private String encryptionMethod;
-   private String encColumns;
    private String tmpTableName;
    private String canBeDups;
    private String delimiter;
@@ -92,9 +90,7 @@ public class FileDetails
       this.loadFormat = loadFormat;
       this.required = required;
       this.canBeEmpty = canBeEmpty;
-      this.keyData = keyData;
       this.encryptionMethod = encryptionMethod;
-      this.encColumns = encColumns;
       this.tmpTableName = tmpTableName;
       this.canBeDups = canBeDups;
       this.delimiter=        delimiter;
@@ -138,9 +134,7 @@ public class FileDetails
          ", loadFormat='" + loadFormat + '\'' +
          ", required='" + required + '\'' +
          ", canBeEmpty='" + canBeEmpty + '\'' +
-         ", keyData=" + keyData +
          ", encryptionMethod='" + encryptionMethod + '\'' +
-         ", encColumns='" + encColumns + '\'' +
          ", tmpTableName='" + tmpTableName + '\'' +
          ", canBeDups='" + canBeDups + '\'' +
          ", delimiter='" + delimiter + '\'' +
@@ -467,16 +461,6 @@ public class FileDetails
       this.canBeEmpty = canBeEmpty;
    }
 
-   public int getKeyData()
-   {
-      return keyData;
-   }
-
-   public void setKeyData(int keyData)
-   {
-      this.keyData = keyData;
-   }
-
    public String getEncryptionMethod()
    {
       return encryptionMethod;
@@ -485,16 +469,6 @@ public class FileDetails
    public void setEncryptionMethod(String encryptionMethod)
    {
       this.encryptionMethod = encryptionMethod;
-   }
-
-   public String getEncColumns()
-   {
-      return encColumns;
-   }
-
-   public void setEncColumns(String encColumns)
-   {
-      this.encColumns = encColumns;
    }
 
    public String getTmpTableName()

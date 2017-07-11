@@ -44,6 +44,7 @@ public class FileProcessor
       logger.info("FileProcessor.process");
       logger.info("serviceRequest = [" + serviceRequest + "]");
       WSCallResult wsCallResult=null;
+      Boolean processExecutionStatus=false;
       FileDetails fileDetails=null;
       mailAlertMsg=new StringBuilder();
       try
@@ -67,18 +68,15 @@ public class FileProcessor
                if (fileList == null || fileList.size() == 0)
                {
                   mailAlertMsg.append("Files are not available for ProceesId : "+serviceRequest.getProcessId()+"\n");
-                  logger.warn("Files are not available for ProceesId : "+serviceRequest.getProcessId());
+                  logger.info("Files are not available for ProceesId : "+serviceRequest.getProcessId());
                   wsCallResult = new WSCallResult(new WSCallStatus(1,"FAIL"),null);
                }
                else
                {
                   Map<String, Map<String, FileRules>> fileRulesMap = (Map<String, Map<String, FileRules>>) ServiceDetails.getCommonDetails(serviceRequest.getProduct(), Constant.SERVICES.FILE_PROCESS.toString(), Constant.COMMON_DETAILS.FILE_RULES.toString());
-                  logger.info(fileList);
                   LinkedHashMap<String, FileRules> fileRules = null;
                   Iterator<FileDetails> itr = fileList.iterator();
-
                   List<FileDetails> fileProcessStatusList=new ArrayList<FileDetails>();
-                  Boolean processExecutionStatus=true;
                   Boolean preInstructionExecuted=false;
 //                  Boolean preDBProcessExecuted=false;
 
@@ -89,18 +87,23 @@ public class FileProcessor
                      fileDetails = (FileDetails) itr.next();
                      StringBuilder isEmailRaised=new StringBuilder();
                      boolean fileProcessResult=false;
-//                     if (fileDetails.getProcessId().equalsIgnoreCase(serviceRequest.getProcessId()))
-//                     {
-                        logger.info("fileExecutionCounter = " + fileExecutionCounter+" : "+fileDetails.getFileName());
-                        if(!preInstructionExecuted){
-                           fileProcessorUtil.executeInstruction(fileDetails,"PARENTPRE", mailAlertMsg, serviceRequest);
-                           fileProcessorUtil.executeDBProcess(fileDetails, "PARENTPRE", mailAlertMsg);
-                           if(mailAlertMsg.length()>0){
-                              isEmailRaised.append(mailAlertMsg);
-                           }
-                           preInstructionExecuted=true;
+
+                     logger.info("fileExecutionCounter = " + fileExecutionCounter+" : "+fileDetails.getFileName());
+
+                     if(!preInstructionExecuted){
+                        fileProcessorUtil.executeInstruction(fileDetails,"PARENTPRE", mailAlertMsg, serviceRequest);
+                        if(mailAlertMsg.length()>0){
+                           processExecutionStatus=false;
+                           break;
                         }
-                           fileProcessorUtil.executeInstruction(fileDetails,"PRE", isEmailRaised, serviceRequest);
+                        fileProcessorUtil.executeDBProcess(fileDetails, "PARENTPRE", mailAlertMsg);
+                        if(mailAlertMsg.length()>0){
+                           processExecutionStatus=false;
+                           break;
+                        }
+                        preInstructionExecuted=true;
+                     }
+                     fileProcessorUtil.executeInstruction(fileDetails,"PRE", isEmailRaised, serviceRequest);
                      System.out.println(isEmailRaised.length()+"isEmailRaised.length()");
                      if(isEmailRaised.length()==0)
                      {
@@ -135,18 +138,18 @@ public class FileProcessor
                            }
                         }
                         fileProcessorUtil.executeInstruction(fileDetails,"POST", mailAlertMsg, serviceRequest);
+                        fileProcessStatusList.add(new FileDetails(fileDetails.getVendor(),fileDetails.getFileName(),fileDetails.getProcessId(),fileProcessResult, fileDetails.getFileProcessType(),
+                                                                  fileProcessorUtil.getFilePath(serviceRequest,fileDetails,fileDetails.getFileProcessType(),dbParamMap.get("BUSINESS_DATE").getValue().toString())));
+
                      }else{
                         mailAlertMsg.append(isEmailRaised);
                         processExecutionStatus=false;
                      }
-
-                     fileProcessStatusList.add(new FileDetails(fileDetails.getVendor(),fileDetails.getFileName(),fileDetails.getProcessId(),fileProcessResult, fileDetails.getFileProcessType(),
-                                                               fileProcessorUtil.getFilePath(serviceRequest,fileDetails,fileDetails.getFileProcessType(),dbParamMap.get("BUSINESS_DATE").getValue().toString())));
-                     fileExecutionCounter++;
-
+                      fileExecutionCounter++;
                   }
                   if(processExecutionStatus==true){
                      fileProcessorUtil.executeInstruction(fileDetails,"PARENTPOST", mailAlertMsg, serviceRequest);
+                     fileProcessorUtil.executeDBProcess(fileDetails,"PARENTPOST", mailAlertMsg);
                      wsCallResult = new WSCallResult(new WSCallStatus(0,"SUCCESS"),fileProcessStatusList);
                   }else{
                      wsCallResult = new WSCallResult(new WSCallStatus(1,"FAIL"),fileProcessStatusList);
@@ -178,10 +181,6 @@ public class FileProcessor
                logger.error("While email processing \n" + e.getMessage());
                logger.error(e.getStackTrace());
             }
-         }
-         else
-         {
-            if(fileDetails!=null){fileProcessorUtil.executeDBProcess(fileDetails,"PARENTPOST", mailAlertMsg);}
          }
       }
       return wsCallResult;

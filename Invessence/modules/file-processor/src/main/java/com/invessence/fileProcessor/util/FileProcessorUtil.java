@@ -5,6 +5,7 @@ package com.invessence.fileProcessor.util;
  */
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.invessence.fileProcessor.bean.FileProcessAudit;
@@ -23,6 +24,9 @@ public class FileProcessorUtil
 
    @Autowired
    FileProcessorDao fileProcessorDao;
+
+   SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+   SimpleDateFormat sdfFileParsing = new SimpleDateFormat("yyyyMMdd");
 
    public String getFilePath(ServiceRequest serviceRequest, FileDetails fileDetails,
                                     String pathLocation, String date){
@@ -86,105 +90,62 @@ public class FileProcessorUtil
    }
 
    public void executeDBProcess(FileDetails fileDetails, String event, StringBuilder mailAlertMsg){
+      String dbProcess=null;
       try{
          if(event.equalsIgnoreCase("PARENTPRE"))
          {
-            if (fileDetails.getParentPreDBProcess() == null || fileDetails.getParentPreDBProcess().trim() == "")
-            {
-               logger.info("No Parent Pre Processor DB event for execution.\n");
-            }
-            else
-            {
-               logger.info("Calling Parent Pre Processor DB event:" + fileDetails.getParentPreDBProcess() + "\n");
-               executeCommand(fileDetails.getParentPreDBProcess());
-            }
+            dbProcess=fileDetails.getParentPreDBProcess();
          }else if(event.equalsIgnoreCase("PARENTPOST"))
          {
-            if (fileDetails.getParentPostDBProcess() == null || fileDetails.getParentPostDBProcess().trim() == "")
-            {
-               logger.info("No Parent Post Processor DB event for execution.\n");
-            }
-            else
-            {
-               logger.info("Calling Parent Post Processor DB event:" + fileDetails.getParentPostDBProcess() + "\n");
-               executeCommand(fileDetails.getParentPostDBProcess());
-            }
+            dbProcess=fileDetails.getParentPostDBProcess();
          }else if(event.equalsIgnoreCase("PRE"))
          {
-            if (fileDetails.getPreDBProcess() == null || fileDetails.getPreDBProcess().trim() == "")
-            {
-               logger.info("No Pre Processor DB event for execution.\n");
-            }
-            else
-            {
-               logger.info("Calling Pre Processor DB event:" + fileDetails.getPreDBProcess() + "\n");
-               fileProcessorDao.callProcedure(fileDetails.getPreDBProcess());
-            }
+            dbProcess=fileDetails.getPreDBProcess();
          }else if(event.equalsIgnoreCase("POST"))
          {
-            if (fileDetails.getPostDBProcess() == null || fileDetails.getPostDBProcess().trim() == "")
-            {
-               logger.info("No Post Processor DB event for execution.\n");
-            }
-            else
-            {
-               logger.info("Calling Post Processor DB event:" + fileDetails.getPostDBProcess() + "\n");
-               fileProcessorDao.callProcedure(fileDetails.getPostDBProcess());
-            }
-         }}catch(Exception e){
+            dbProcess=fileDetails.getPostDBProcess();
+         }
+         if (dbProcess == null || dbProcess.trim().equals(""))
+         {
+            logger.info("No "+event+" DB Process Script for execution.\n");
+         }
+         else
+         {
+            logger.info("Calling "+event+" DB Process Script:" + dbProcess + "\n");
+            fileProcessorDao.callProcedure(dbProcess);
+         }
+      }catch(Exception e){
          mailAlertMsg.append("FileProcessor.executeDBProcess" +e.getMessage()+"\n");
          logger.error(e.getMessage());
          //e.printStackTrace();
       }
    }
 
-   public static void executeInstruction(FileDetails fileDetails, String event, StringBuilder mailAlertMsg, ServiceRequest serviceRequest){
+   public void executeInstruction(FileDetails fileDetails, String event, StringBuilder mailAlertMsg, ServiceRequest serviceRequest){
+      String instruction=null;
       try{
          if(event.equalsIgnoreCase("PARENTPRE"))
          {
-            if (fileDetails.getParentPreInstruction() == null || fileDetails.getParentPreInstruction().trim() == "")
-            {
-               logger.info("No Parent Pre Processor Script event for execution.\n");
-            }
-            else
-            {
-               logger.info("Calling Parent Pre Processor Script event:" + fileDetails.getParentPreInstruction() + "\n");
-//         executeCommand(fileDetails.getParentPreInstruction());
-               executeCommandOnServer(fileDetails.getParentPreInstruction(), serviceRequest);
-            }
+            instruction=fileDetails.getParentPreInstruction();
          }else if(event.equalsIgnoreCase("PARENTPOST"))
          {
-            if (fileDetails.getParentPostInstruction() == null || fileDetails.getParentPostInstruction().trim() == "")
-            {
-               logger.info("No Parent Post Processor Script event for execution.\n");
-            }
-            else
-            {
-               logger.info("Calling Parent Post Processor Script event:" + fileDetails.getParentPostInstruction() + "\n");
-               executeCommand(fileDetails.getParentPostInstruction());
-            }
+            instruction=fileDetails.getParentPostInstruction();
          }else if(event.equalsIgnoreCase("PRE"))
          {
-            if (fileDetails.getPreInstruction() == null || fileDetails.getPreInstruction().trim() == "")
-            {
-               logger.info("No Pre Processor Script event for execution.\n");
-            }
-            else
-            {
-               logger.info("Calling Pre Processor Script event:" + fileDetails.getPreInstruction() + "\n");
-               executeCommand(fileDetails.getPreInstruction());
-            }
+            instruction=fileDetails.getPreInstruction();
          }else if(event.equalsIgnoreCase("POST"))
          {
-            if (fileDetails.getPostInstruction() == null || fileDetails.getPostInstruction().trim() == "")
-            {
-               logger.info("No Post Processor Script event for execution.\n");
-            }
-            else
-            {
-               logger.info("Calling Post Processor Script event:" + fileDetails.getPostInstruction() + "\n");
-               executeCommand(fileDetails.getPostInstruction());
-            }
+            instruction=fileDetails.getPostInstruction();
+         }
+         if (instruction == null || instruction.trim().equals(""))
+         {
+            logger.info("No "+event+" Instruction Script for execution.\n");
+         }
+         else
+         {
+            logger.info("Calling "+event+" Instruction Script :" + instruction + "\n");
+            executeCommand(instruction);
+//          executeCommandOnServer(fileDetails.getParentPreInstruction(), serviceRequest);
          }
 //   throw new Exception();
       }catch(Exception e){
@@ -194,10 +155,9 @@ public class FileProcessorUtil
       }
    }
 
-   public static String executeCommand(String command) {
+   public String executeCommand(String command) throws Exception {
       StringBuffer output = new StringBuffer();
-      try{
-
+//      try{
          Process p;
 
          p = Runtime.getRuntime().exec(command);
@@ -209,14 +169,14 @@ public class FileProcessorUtil
          while ((line = reader.readLine())!= null) {
             output.append(line + "\n");
          }
-      }catch(Exception e){
-         logger.error(e.getMessage());
-         //   e.printStackTrace();
-      }
+//      }catch(Exception e){
+//         logger.error(e.getMessage());
+//         //   e.printStackTrace();
+//      }
       return output.toString();
    }
 
-   public static String executeCommandOnServer(String command, ServiceRequest serviceRequest) {
+   public String executeCommandOnServer(String command, ServiceRequest serviceRequest) {
       StringBuffer output = new StringBuffer();
       List<String> result = new ArrayList<String>();
       try{
@@ -320,7 +280,6 @@ public class FileProcessorUtil
       return output.toString();
    }
 
-
    public void auditEntry(ServiceRequest serviceRequest, FileDetails fileDetails, String status, String remarks)throws Exception{
 
       try      {
@@ -332,4 +291,225 @@ public class FileProcessorUtil
       }
 
    }
+
+   public List<String> getListOfFiles(String directoryName, final String fileName){
+      List<String> filesToDelete =null;
+      File directory = new File(directoryName);
+      FilenameFilter mp3Filter = new FilenameFilter() {
+         public boolean accept(File file, String name) {
+            if (name.contains(fileName)) {
+               // filters files whose extension is .mp3
+               return true;
+            } else {
+               return false;
+            }
+         }
+      };
+
+      //get all the files from a directory
+
+      File[] fList = directory.listFiles(mp3Filter);
+      filesToDelete =new ArrayList<String>();
+      for (File file : fList){
+         if (file.isFile()){
+            System.out.println(file.getName());
+            filesToDelete.add(file.getName());
+         }
+      }
+      return filesToDelete;
+   }
+
+   public void deleteFilesFromServer(FileDetails fileDetails, List<String> fileNameLst, ChannelSftp channel, String businessDate){
+      try{
+         if(fileDetails.getDelFlagServerFile().equalsIgnoreCase("Y")){
+            if (fileNameLst == null || fileNameLst.size() == 0)
+            {
+               logger.info(fileDetails.getFileName() + " files are not available on server to delete.");
+            }
+            else
+            {
+               if(fileDetails.getDelDayServerFile()>0)
+               {
+                  Calendar calendar = Calendar.getInstance();
+                  calendar.setTime(sdfFileParsing.parse(businessDate));
+                  calendar.add(Calendar.DATE, -fileDetails.getDelDayServerFile());
+                  Date lastDate = calendar.getTime();
+                  List<String> filesToDelete = getFilesToDelete(fileNameLst, lastDate, fileDetails.getFileName(),"Server");
+                  if (filesToDelete == null || filesToDelete.size() == 0)
+                  {
+                     logger.info(fileDetails.getFileName() + " files are not available on server to delete.");
+                  }
+                  else
+                  {
+                     Iterator<String> itr = filesToDelete.iterator();
+                     while (itr.hasNext())
+                     {
+                        String fileToDelete = (String) itr.next();
+                        logger.info("Deleting file :" + fileToDelete);
+                        channel.rm(fileToDelete);
+                     }
+                  }
+               }else{
+                  logger.info(fileDetails.getFileName() + "Number of days :"+fileDetails.getDelDayServerFile()+" are not proper to delete from server.");
+               }
+            }
+         }
+      }
+      catch (Exception e)
+      {
+         logger.error("Checking " + fileDetails.getFileName() + " files to delete from Server for business date :" + businessDate + "\n" + e.getMessage());
+         logger.error(e.getStackTrace());
+      }
+   }
+
+   public void deleteFilesFromLocal(FileDetails fileDetails, List<String> fileNameLst, String businessDate, String localDirectory)
+   {
+      File deleteFileName=null;
+      try{
+         if(fileDetails.getDelFlagLocalFile().equalsIgnoreCase("Y")){
+            if (fileNameLst == null || fileNameLst.size() == 0)
+            {
+               logger.info(fileDetails.getFileName() + " files are not available on Local System to delete.");
+            }
+            else
+            {
+               if(fileDetails.getDelDayLocalFile()>0)
+               {
+                  Calendar calendar = Calendar.getInstance();
+                  calendar.setTime(sdfFileParsing.parse(businessDate));
+                  calendar.add(Calendar.DATE, -fileDetails.getDelDayLocalFile());
+                  Date lastDate = calendar.getTime();
+                  List<String> filesToDelete = getFilesToDelete(fileNameLst, lastDate, fileDetails.getFileName(),"Local");
+                  if (filesToDelete == null || filesToDelete.size() == 0)
+                  {
+                     logger.info(fileDetails.getFileName() + " files are not available on Local System to delete.");
+                  }
+                  else
+                  {
+                     Iterator<String> itr = filesToDelete.iterator();
+                     while (itr.hasNext())
+                     {
+                        String fileToDelete = (String) itr.next();
+                        logger.info("Deleting file :" +localDirectory+"/"+ fileToDelete);
+                        deleteFileName=new File(localDirectory+"/"+fileToDelete);
+                        deleteFileName.delete();
+                     }
+                  }
+               }else{
+                  logger.info(fileDetails.getFileName() + "Number of days :"+fileDetails.getDelDayServerFile()+" are not proper to delete from Local System.");
+               }
+            }
+         }
+      }
+      catch (Exception e)
+      {
+         logger.error("Checking " + fileDetails.getFileName() + " files to delete from Local System for business date :" + businessDate + "\n" + e.getMessage());
+         logger.error(e.getStackTrace());
+      }
+   }
+
+   public List<String> getFilesToLoad(List<String> fileNameLst, String businessDate, FileDetails fileDetails)
+   {
+      List<String> fileLstToLoad = null;
+      logger.info("Checking " + fileDetails.getFileName()+ " files to load into DB for business date :" + businessDate);
+      try
+      {
+         Date inputDate=sdfFileParsing.parse(businessDate);
+         fileLstToLoad = new ArrayList<String>();
+         Iterator<String> itr = fileNameLst.iterator();
+         while (itr.hasNext())
+         {
+            String fileToLoadDB = (String) itr.next();
+            String strDateForCompare=fileToLoadDB.replaceAll(fileDetails.getFileName(),"").replaceAll("_","");
+            try
+            {
+
+//               Date date = sdfFileParsing.parse(fileToDelete.substring(fileToDelete.lastIndexOf("_") + 1, fileToDelete.lastIndexOf(".")));
+               Date date = sdfFileParsing.parse(strDateForCompare.substring(0, strDateForCompare.lastIndexOf(".")));//
+
+//               if (date.before(lastDate) || date.equals(lastDate))
+
+//
+////            String strDate = fileToLoadDB.substring(fileToLoadDB.lastIndexOf("_") + 1, fileToLoadDB.lastIndexOf("."));
+//            try
+//            {
+//
+//               Date date = sdfFileParsing.parse(fileToLoadDB.substring(fileToLoadDB.lastIndexOf("_") + 1, fileToLoadDB.lastIndexOf(".")));
+
+               if (date.equals(inputDate) ) {
+//                if(date.equals(businessDate) || date.after(businessDate)){
+                  StringBuilder fileName= new StringBuilder();
+                  if(fileDetails.getFileNameAppender().equalsIgnoreCase("PREFIX")){
+                     fileName.append(businessDate+"_").append(fileDetails.getFileName()).append("."+fileDetails.getFileExtension());
+                  }else if(fileDetails.getFileNameAppender().equalsIgnoreCase("POSTFIX")){
+                     fileName.append(fileDetails.getFileName()).append("_"+businessDate).append("."+fileDetails.getFileExtension());
+                  }else{
+                     fileName.append(fileDetails.getFileName()).append("."+fileDetails.getFileExtension());
+                  }
+                  if(fileToLoadDB.equalsIgnoreCase(fileName.toString()))
+                  {
+                     fileLstToLoad.add(fileToLoadDB);
+                     logger.info("File to load into DB :" + fileToLoadDB);
+                  }
+               }
+            }
+            catch (Exception e)
+            {
+               logger.error("Date parsing issue \n" + e.getMessage());
+               logger.error(e.getStackTrace());
+            }
+         }
+
+      }
+      catch (Exception e)
+      {
+         logger.error("Checking " + fileDetails.getFileName() + " files to load into DB for business date :" + businessDate + "\n" + e.getMessage());
+         logger.error(e.getStackTrace());
+      }
+      return fileLstToLoad;
+   }
+
+   private List<String> getFilesToDelete(List<String> fileNameLst, Date lastDate, String fileName, String from)
+   {
+      List<String> filesToDelete = null;
+      logger.info("Checking " + fileName + " files to delete from "+from+" system before business date :" + lastDate);
+      try
+      {
+
+         filesToDelete = new ArrayList<String>();
+         Iterator<String> itr = fileNameLst.iterator();
+         while (itr.hasNext())
+         {
+            String fileToDelete = (String) itr.next();
+
+            //String strDate = fileToDelete.substring(fileToDelete.lastIndexOf("_") + 1, fileToDelete.lastIndexOf("."));
+            String strDateForCompare=fileToDelete.replaceAll(fileName,"").replaceAll("_","");
+            try
+            {
+
+//               Date date = sdfFileParsing.parse(fileToDelete.substring(fileToDelete.lastIndexOf("_") + 1, fileToDelete.lastIndexOf(".")));
+               Date date = sdfFileParsing.parse(strDateForCompare.substring(0, strDateForCompare.lastIndexOf(".")));//
+
+               if (date.before(lastDate) || date.equals(lastDate))
+               {
+                  filesToDelete.add(fileToDelete);
+                  logger.info("File to delete :" + fileToDelete);
+               }
+            }
+            catch (Exception e)
+            {
+               logger.error("Date parsing issue");
+               logger.error(e.getStackTrace());
+            }
+         }
+
+      }
+      catch (Exception e)
+      {
+         logger.error("While checking " + fileName + " files to delete from "+from+" system before business date :" + lastDate + "\n" + e.getMessage());
+         logger.error(e.getStackTrace());
+      }
+      return filesToDelete;
+   }
+
 }

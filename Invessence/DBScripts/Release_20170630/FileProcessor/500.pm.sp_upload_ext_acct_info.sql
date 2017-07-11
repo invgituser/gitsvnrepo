@@ -1,11 +1,11 @@
-DROP PROCEDURE IF EXISTS `invdb`.`sp_upload_ext_acct_info`;
+DROP PROCEDURE IF EXISTS `temp`.`sp_upload_ext_acct_info`;
 
 DELIMITER $$
-CREATE PROCEDURE `invdb`.`sp_upload_ext_acct_info`(
+CREATE PROCEDURE `temp`.`sp_upload_ext_acct_info`(
 )
 BEGIN
     
-    UPDATE `invdb`.`ext_acct_info`, `invdb`.`tmp_client_data` as `client_data`
+    UPDATE `invdb`.`ext_acct_info`, `temp`.`tmp_client_data` as `client_data`
     SET
 		`ext_acct_info`.`rep` = `client_data`.`advisorID`,
 		
@@ -31,7 +31,7 @@ BEGIN
         
 		
 		`ext_acct_info`.`lastUpdated` = now()
-	WHERE `clientAccountID` = `client_data`.`clientAccountID`;
+	WHERE `ext_acct_info`.`clientAccountID` = `client_data`.`clientAccountID`;
     
 	
 	INSERT INTO `invdb`.`ext_acct_info`
@@ -99,8 +99,8 @@ BEGIN
 		END as `performanceInceptionDate`, 
 		now(), 
 		null 
-	FROM `invdb`.`tmp_client_data` as `client_data`
-    WHERE `client_data`.`accountNumber` not in (select `clientAccountID` from `invdb`.`ext_acct_info`)
+	FROM `temp`.`tmp_client_data` as `client_data`
+    WHERE `client_data`.`acctnum` not in (select `clientAccountID` from `invdb`.`ext_acct_info`)
     ;
     
     UPDATE `invdb`.`user_trade_profile`, `invdb`.`ext_acct_info`
