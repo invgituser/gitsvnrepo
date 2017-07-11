@@ -21,11 +21,11 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'EMAIL.SUPPORT', 'A', 'support@uobkh.com', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'EMAIL.USER', 'A', 'noreply@uobkh.com', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'HTML.BASE.PATH', 'A', '/inv/www/invessence/ROOT/template/html/', 'N', '2017-06-03 13:31:07', null);
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'HTML.FORGOT', 'A', 'UOBKH-Forgot.htm', 'N', '2017-06-03 13:31:07', null);
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'HTML.LOCKED', 'A', 'UOBKH-Locked.htm', 'N', '2017-06-03 13:31:07', null);
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'HTML.RESET', 'A', 'UOBKH-Reset.htm', 'N', '2017-06-03 13:31:07', null);
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'HTML.WELCOME', 'A', 'UOBKH-Welcome.htm', 'N', '2017-06-03 13:31:07', null);
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'HTML.WELCOME.ADV', 'A', 'UOBKH-Welcome.htm', 'N', '2017-06-03 13:31:07', null);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'HTML.FORGOT', 'A', 'UOBKH-Forgot.html', 'N', '2017-06-03 13:31:07', null);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'HTML.LOCKED', 'A', 'UOBKH-Locked.html', 'N', '2017-06-03 13:31:07', null);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'HTML.RESET', 'A', 'UOBKH-Reset.html', 'N', '2017-06-03 13:31:07', null);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'HTML.WELCOME', 'A', 'UOBKH-Welcome.html', 'N', '2017-06-03 13:31:07', null);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'HTML.WELCOME.ADV', 'A', 'UOBKH-Welcome.html', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'INVESTMENT.MIN1ST', 'A', '2000', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'INVESTMENT.MIN2ND', 'A', '50', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'INVESTMENT.RECURRING1ST', 'A', '50', 'N', '2017-06-03 13:31:07', null);
@@ -56,6 +56,9 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'WEB.SSLSEAL', 'A', null, 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'WEB.THEME', 'A', 'invessence', 'N', '2017-06-03 13:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'WEB.THEMELIB', 'A', 'invessence', 'N', '2017-06-03 13:31:07', null);
+
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'HTML.ACTIVATED', 'A', 'UOBKH-Activated.html', 'N', '2017-07-11 10:31:07', null);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'EMAIL.FORGOT.SUBJECT', 'A', 'UOB Kay Hian – Reset Your Password', 'N', '2017-07-11 10:31:07', null);
 
 -- Using master as source Insert any missing data from saved.
 INSERT INTO `invdb`.`web_site_info`

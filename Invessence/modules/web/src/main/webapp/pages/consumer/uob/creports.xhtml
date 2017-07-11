@@ -44,6 +44,12 @@
                                          reflow="true">
 
                                 <p:column styleClass="Wid20 TexAlLeft"
+                                          sortBy="#{report.clientAccountID}" headerText="Account#"
+                                          resizable="true">
+                                    <h:outputText value="#{report.clientAccountID}"/>
+                                </p:column>
+
+                                <p:column styleClass="Wid20 TexAlLeft"
                                           sortBy="#{report.businessdate}" headerText="Date"
                                           resizable="true">
                                     <h:outputText value="#{report.businessdate}"/>

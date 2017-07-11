@@ -58,6 +58,8 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'CHART.ASSET.ALLOCATION', 'A', 'HIGHCHART.2DDONUT', 'N', '2017-02-21 20:02:19', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'CHART.RECOMMENDED.ASSET.ALLOCATION', 'A', 'PRIMEFACES.BARCHART', 'N', '2017-02-21 20:02:19', null);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'HTML.ACTIVATED', 'A', 'buildingbenjamins-Activated.html', 'N', '2017-07-11 10:31:07', null);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'EMAIL.FORGOT.SUBJECT', 'A', 'Building Benjamins – Reset Your Password', 'N', '2017-07-11 10:31:07', null);
 
 
 -- Using master as source Insert any missing data from saved.

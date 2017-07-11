@@ -16,6 +16,7 @@ import org.primefaces.model.*;
 public class ReportData
 {
    private String acctnum;
+   private String clientAccountID;
    private String source;
    private String reportName;
    private String businessdate;
@@ -38,6 +39,16 @@ public class ReportData
    public void setAcctnum(String acctnum)
    {
       this.acctnum = acctnum;
+   }
+
+   public String getClientAccountID()
+   {
+      return clientAccountID;
+   }
+
+   public void setClientAccountID(String clientAccountID)
+   {
+      this.clientAccountID = clientAccountID;
    }
 
    public String getSource()

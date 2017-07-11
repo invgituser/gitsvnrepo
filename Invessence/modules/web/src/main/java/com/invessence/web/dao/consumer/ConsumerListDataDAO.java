@@ -508,6 +508,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                Map rs = (Map) rows.get(i);
                ReportData rdata = new ReportData();
                rdata.setAcctnum(convert.getStrData(rs.get("acctnum")));
+               rdata.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
                rdata.setBusinessdate(convert.getStrData(rs.get("reportDate")));
                rdata.setReportName(convert.getStrData(rs.get("reportName")));
                rdata.setSource(convert.getStrData(rs.get("src")));
