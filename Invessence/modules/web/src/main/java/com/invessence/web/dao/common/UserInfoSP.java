@@ -68,6 +68,7 @@ public class UserInfoSP extends StoredProcedure
             declareParameter(new SqlParameter("p_answer2", Types.VARCHAR));
             declareParameter(new SqlParameter("p_question3", Types.VARCHAR));
             declareParameter(new SqlParameter("p_answer3", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_logonstatus", Types.VARCHAR));
             break;
          case 4:
             declareParameter(new SqlParameter("p_userid", Types.VARCHAR));
@@ -184,6 +185,7 @@ public class UserInfoSP extends StoredProcedure
       inputMap.put("p_answer2", data.getAns2());
       inputMap.put("p_question3", data.getQ3());
       inputMap.put("p_answer3", data.getAns3());
+      inputMap.put("p_logonstatus", data.getLogonstatus());
       return super.execute(inputMap);
    }
 

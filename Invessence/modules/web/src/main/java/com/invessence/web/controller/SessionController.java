@@ -417,10 +417,11 @@ public class SessionController implements Serializable
 
    public int getSessionCountdownTime()
    {
-      int sessionCountdownTime = 60 ;
+      int sessionCountdownTime;
       try
       {
-         sessionCountdownTime = webutil.getWebprofile().getSessionCountdownTimeout();
+         // If the properties are not loaded, then no timeout.
+         sessionCountdownTime = (webutil.getWebprofile() == null) ? -1: webutil.getWebprofile().getSessionCountdownTimeout();
 
          sessionCountdownTime = sessionCountdownTime * 60 ;
          // System.out.println("SessionController.getSessionCountdownTime session countdown time" + sessionCountdownTime);

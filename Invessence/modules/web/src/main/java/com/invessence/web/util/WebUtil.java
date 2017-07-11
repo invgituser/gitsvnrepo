@@ -56,7 +56,8 @@ public class WebUtil implements Serializable
 
    public WebProfile getWebprofile()
    {
-      return (WebProfile) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.WEB_INFO);
+      WebProfile wp = (WebProfile) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.WEB_INFO);
+      return (wp);
    }
 
    public boolean isWebProdMode()
@@ -921,7 +922,7 @@ public class WebUtil implements Serializable
       return num;
    }
 
-   public void sendConfirmation(UserData userdata) {
+   public void sendConfirmation(UserData userdata, String whichConfirmation) {
       if (userdata.getEmail() == null) {
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Session timed out.  Use Forgot password to get access to your account.", "System timed out"));
       }
@@ -942,20 +943,21 @@ public class WebUtil implements Serializable
       String subject = "No subject";
 
       Integer whichEmail = 0;
-      if (userdata.getLogonstatus() == null) {
+      // Values: W = Welcome, R=Reset, L=Locked, A=Activate, I=Inactive, F=Forgot
+      if (whichConfirmation == null) {
          return; // No email
       }
       else {
-         if (userdata.getLogonstatus().startsWith("A"))
+         if (whichConfirmation.startsWith("W"))
             whichEmail = 0;
-         else if (userdata.getLogonstatus().startsWith("T"))
-            whichEmail = 0;
-         else if (userdata.getLogonstatus().startsWith("R"))
+         else if (whichConfirmation.startsWith("R"))
             whichEmail = 1;
-         else if (userdata.getLogonstatus().startsWith("L"))
+         else if (whichConfirmation.startsWith("L"))
             whichEmail = 2;
-         else  if (userdata.getLogonstatus().startsWith("I"))
+         else  if (whichConfirmation.startsWith("A"))
             whichEmail = 3;
+         else  if (whichConfirmation.startsWith("F"))
+            whichEmail = 4;
          else  whichEmail = 99;
       }
 
@@ -982,11 +984,13 @@ public class WebUtil implements Serializable
             whichLink=secureUrl + "/setPassword.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
             break;
          case 3:
-            // subject = getWebprofile().getEmailSubject(WebConst.EMAIL_ACTIVATE_SUBJECT);
-            // htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailTemplate(WebConst.HTML_ACTIVATED);
-            // whichLink=secureUrl + "/activate.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
-            subject = getWebprofile().getEmailSubject(WebConst.EMAIL_RESET_SUBJECT);
-            htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailTemplate(WebConst.HTML_RESET);
+            subject = getWebprofile().getEmailSubject(WebConst.EMAIL_ACTIVATE_SUBJECT);
+            htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailTemplate(WebConst.HTML_ACTIVATED);
+            whichLink=secureUrl + "/activate.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
+            break;
+         case 4:
+            subject = getWebprofile().getEmailSubject(WebConst.EMAIL_FORGOT_SUBJECT);
+            htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailTemplate(WebConst.HTML_FORGOT);
             whichLink=secureUrl + "/setPassword.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
             break;
          default:

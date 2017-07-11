@@ -1416,7 +1416,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
             }
             userdata.setLogonID(loginID);
             setLogonid(loginID);
-            webutil.sendConfirmation(userdata);
+            webutil.sendConfirmation(userdata,"W");
 
             setDoesUserHavaLogonID(true);
             return true;

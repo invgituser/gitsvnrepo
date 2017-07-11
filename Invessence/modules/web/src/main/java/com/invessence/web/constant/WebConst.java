@@ -65,6 +65,7 @@ public class WebConst
    public final static String EMAIL_WELCOME_ADV = "EMAIL_WELCOME_ADV";
 
    public final static String EMAIL_ACTIVATE_SUBJECT = "EMAIL.ACTIVATE.SUBJECT";
+   public final static String EMAIL_FORGOT_SUBJECT = "EMAIL.FORGOT.SUBJECT";
    public final static String EMAIL_LOCKED_SUBJECT = "EMAIL.LOCKED.SUBJECT";
    public final static String EMAIL_RESET_SUBJECT = "EMAIL.RESET.SUBJECT";
    public final static String EMAIL_WELCOME_SUBJECT = "EMAIL.WELCOME.SUBJECT";
@@ -75,6 +76,7 @@ public class WebConst
    public final static String HTML_WELCOME = "HTML.WELCOME";
    public final static String HTML_LOCKED = "HTML.LOCKED";
    public final static String HTML_RESET = "HTML.RESET";
+   public final static String HTML_FORGOT = "HTML.FORGOT";
    public final static String HTML_WELCOME_ADV = "HTML.WELCOME.ADV";
    public final static String HTML_INVOICE = "HTML.INVOICE";
    public final static String HTML_SURVEY = "HTML.SURVEY";

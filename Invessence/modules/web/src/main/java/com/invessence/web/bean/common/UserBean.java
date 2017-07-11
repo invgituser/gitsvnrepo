@@ -381,9 +381,9 @@ public class UserBean implements Serializable
       if (beanLogonID != null) {
          if (userdata.getLogonID().equals(getLongBeanLogonID())) {
             if (userdata.getLogonstatus() != null) {
-               if (userdata.getLogonstatus().startsWith("I"))
+               if (userdata.getLogonstatus().startsWith("T"))
                   return 1;
-               else if (userdata.getLogonstatus().startsWith("T"))
+               else if (userdata.getLogonstatus().startsWith("I"))
                   return 2;
                else if (userdata.getLogonstatus().startsWith("A"))
                   return 3;
@@ -395,9 +395,9 @@ public class UserBean implements Serializable
             // It there was NO match with LOGONID, then Check that email matches the DB.
             if (userdata.getEmail().equalsIgnoreCase(beanEmail)) {
                if (userdata.getLogonstatus() != null) {
-                  if (userdata.getLogonstatus().startsWith("I"))
+                  if (userdata.getLogonstatus().startsWith("T"))
                      return 1;
-                  else if (userdata.getLogonstatus().startsWith("T"))
+                  else if (userdata.getLogonstatus().startsWith("I"))
                      return 2;
                   else if (userdata.getLogonstatus().startsWith("A"))
                      return 3;
@@ -531,7 +531,6 @@ public class UserBean implements Serializable
             {
                userdata.setLogonID(loginID);
                logger.debug("Info: Saving data UserID/Password, all checks were successful for: " + userdata.getUserID());
-               webutil.sendConfirmation(userdata);
                //uiLayout.doMenuAction("consumer","aftersignup.xhtml?log="+userdata.getLogonID()+"&acct="+userdata.getAcctnum().toString());
                return 0;
             }
@@ -593,7 +592,9 @@ public class UserBean implements Serializable
          logger.debug("Debug: Intial Page of UserID/Password checks were successful for: " + userdata.getUserID());
 
          // If this user data was collected and they already have logonid, then add the userid and change the 'A'
-         String logonStatus = (userdata.getLogonID() == null) ? "T" : "A";
+         //String logonStatus = (userdata.getLogonID() == null) ? "R" : "A";
+         String logonStatus = (newRegistration) ? "R" : "T";
+         userdata.setLogonstatus(logonStatus);
          userdata.setEmail(beanEmail);  // Since, this may be called from General Register, add Email to userdata.
          userdata.setUserID(beanUserID);// Since, this may be called from General Register, add UserID to userdata.
          userdata.setSecCode(pwd1);
@@ -607,7 +608,12 @@ public class UserBean implements Serializable
          long loginID = userInfoDAO.addUserInfo(userdata);
          if (loginID > 0L)
          {
-            webutil.sendConfirmation(userdata);
+            userdata.setLogonID(loginID);
+            // If the Welcome message was already sent, then they not new registration.  No need to send another confirmation email.
+            if (newRegistration)
+            {
+               webutil.sendConfirmation(userdata,"A");
+            }
             webutil.redirect("/signup2.xhtml", null);
          }
          else {
@@ -636,7 +642,9 @@ public class UserBean implements Serializable
          saveQnA();
          // If there is no error with QA save, then redirect to proper page.
 
-         if (userdata.getLogonstatus() != null && getUserdata().getLogonstatus().startsWith("A"))
+         if (userdata.getLogonstatus() != null &&
+            (getUserdata().getLogonstatus().startsWith("T") ||
+               getUserdata().getLogonstatus().startsWith("A")) )
          {
             webutil.redirect("/signup4.xhtml", null);
          }
@@ -718,6 +726,14 @@ public class UserBean implements Serializable
          userdata.setAns1(beanans1);
          userdata.setAns2(beanans2);
          userdata.setAns3(beanans3);
+         if (newRegistration) {
+            // If user is using the register button, then status is set to "R" for reset.
+            userdata.setLogonstatus("R");
+         }
+         else {
+            // If user is activating account from welcome message, then we make them active user.
+            userdata.setLogonstatus("A");
+         }
          userInfoDAO.updateSecurityQuestions(userdata);  // If there is error, then exception is raised
       }
       catch (Exception ex)
@@ -736,7 +752,7 @@ public class UserBean implements Serializable
       {
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email is required", "Email is required"));
       }
-      webutil.sendConfirmation(userdata);
+      webutil.sendConfirmation(userdata,"A");
       webutil.resetSession();
    }
 
@@ -760,7 +776,7 @@ public class UserBean implements Serializable
          userInfoDAO.updResetID(userdata.getLogonID(), myResetID.toString());
          userdata.setLogonstatus("R");
          userdata.setResetID(myResetID.toString());
-         webutil.sendConfirmation(userdata);
+         webutil.sendConfirmation(userdata,"R");
          msgheader = "signup.U110";
          msg = webutil.getMessageText().getDisplayMessage(msgheader, "Reset email sent.", null);
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msgheader));
