@@ -1,0 +1,317 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/common/template.xhtml">
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{investmentmodel.preRenderView}" />
+	</f:metadata>
+	<ui:define name="content">
+		<p:panel id="reviewBlkPanel" rendered="#{investmentmodel.reviewPanel}">
+			<div class="reviewBlock">
+				<div class="titleLabelPanel">
+					<div class="tLabel">Review the models</div>
+					<div class="awbtnBlock centerPanel">
+						<p:commandButton type="button" value="Submit"
+                                         styleClass="awBtn Wid20">
+						</p:commandButton>
+						<p:commandButton type="button" icon="fa fa-close"
+							styleClass="awCloseBtn"
+                            actionListener="#{investmentmodel.setReviewPanel(false)}">
+						</p:commandButton>
+					</div>
+				</div>
+			</div>
+		</p:panel>
+
+		<main class="customtabs">
+
+		<input id="tab1" type="radio" name="tabs" checked="checked" />
+		<label for="tab1">Download</label>
+
+		<input id="tab2" type="radio" name="tabs" />
+		<label for="tab2">Upload</label>
+
+		<input id="tab3" type="radio" name="tabs" />
+		<label for="tab3">Validation Check</label>
+
+		<input id="tab4" type="radio" name="tabs" />
+		<label for="tab4">Review</label>
+
+
+			<label class="rollbackbutton">
+				<p:commandButton type="button" icon="fa fa-undo" value="Rollback"
+								 styleClass="awBtn Wid100"
+								 actionListener="#{investmentmodel.changeDownloadPanel(true)}">
+				</p:commandButton>
+			</label>
+
+		<section id="content1">
+			<div class="Container100 wfMainBlock">
+
+				<p:panel id="dwnlstPanel" rendered="#{investmentmodel.downloadPanel}">
+					<div class="downloadList">
+						<div class="titleLabelPanel">
+							<div class="tLabel">#{investmentmodel.whichModel} Model
+							</div>
+						</div>
+						<div class="contentSecond TexAlCenter">
+							Please select the templates to download.
+							<p:selectManyMenu id="downloadfileID"
+											  value="#{investmentmodel.selecteddownloadfiles}"
+											  showCheckbox="true">
+								<f:selectItems value="#{investmentmodel.downloadlist.entrySet()}"
+											   var="downloadlistvar" itemLabel="#{downloadlistvar.key}"
+											   itemValue="#{downloadlistvar.key}"/>
+							</p:selectManyMenu>
+
+						</div>
+						<div class="awbtnBlocklist">
+							<p:commandButton value="Download"
+											 actionListener="#{investmentmodel.downloadfile()}"
+											 styleClass="awBtn Wid80">
+							</p:commandButton>
+							<p:commandButton type="button" icon="fa fa-close"
+											 styleClass="awCloseBtn"
+											 actionListener="#{investmentmodel.changeDownloadPanel(false)}">
+							</p:commandButton>
+						</div>
+					</div>
+				</p:panel>
+				<div class="Wid100 awBlock">
+					<div class="iconPanel Wid100">
+						<div class="iconCircle">
+							<img
+									src="/javax.faces.resource/images/awdownload.svg.xhtml?ln=invessence"
+									height="40" />
+						</div>
+
+						<div class="tcLabel">Select the template you wish to
+							download.</div>
+
+					</div>
+					<div class="titleContentPanel">
+
+						<div class="contentSecond">
+
+							<p:accordionPanel styleClass="customAcco">
+								<p:tab title="Predefined Allocation Model">
+									<h:panelGrid cellpadding="10">
+
+
+
+
+
+
+
+										<h:form>
+
+
+											<p:commandButton value="Download"  icon="ui-icon-arrowthick-1-s">
+
+											</p:commandButton>
+										</h:form>
+									</h:panelGrid>
+								</p:tab>
+								<p:tab title="Optimmized Allocation Model">
+									<h:panelGrid cellpadding="10">
+
+										<h:form>
+											<p:commandButton value="Download"  icon="ui-icon-arrowthick-1-s">
+
+											</p:commandButton>
+										</h:form>
+									</h:panelGrid>
+								</p:tab>
+								<p:tab title="Skip to upload section">
+									<h:panelGrid cellpadding="10">
+
+										<h:form>
+											<p:commandButton value="Download"  icon="ui-icon-arrowthick-1-s">
+
+											</p:commandButton>
+										</h:form>
+									</h:panelGrid>
+								</p:tab>
+							</p:accordionPanel>
+
+
+
+						</div>
+					</div>
+					<div class="awbtnBlock">
+						<p:commandButton type="button" value="Select"
+										 styleClass="awBtn Wid100"
+										 actionListener="#{investmentmodel.changeDownloadPanel(true)}">
+						</p:commandButton>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="content2">
+			<div class="Container100 wfMainBlock">
+				<div class="Wid100 awBlock">
+					<div class="iconPanel Wid100">
+						<div class="iconCircle">
+							<img
+									src="/javax.faces.resource/images/awupload.svg.xhtml?ln=invessence"
+									height="40" />
+
+
+						</div>
+						<div class="tcLabel">Select the files to upload.</div>
+					</div>
+					<div class="titleContentPanel">
+
+						<div class="contentSecond">
+
+							<p:accordionPanel styleClass="customAcco">
+								<p:tab title="Change Existing File">
+									<h:panelGrid cellpadding="10">
+
+										<p:inputText id="FileSelect" styleClass="Wid90">
+											<p:watermark for="FileSelect" value="Select File"/>
+										</p:inputText>
+
+
+
+										<h:form enctype="multipart/form-data">
+
+
+											<p:fileUpload mode="simple" skinSimple="true"   styleClass="dwnlbut" />
+
+
+										</h:form>
+
+
+									</h:panelGrid>
+								</p:tab>
+								<p:tab title="Upload New File">
+									<h:panelGrid cellpadding="10">
+										<h:form enctype="multipart/form-data">
+											<p:inputText id="FileSelect" styleClass="Wid90">
+												<p:watermark for="FileSelect" value="Select File"/>
+											</p:inputText>
+
+											<p:fileUpload  mode="simple" skinSimple="true"  styleClass="dwnlbut" />
+
+
+										</h:form>
+									</h:panelGrid>
+								</p:tab>
+
+							</p:accordionPanel>
+
+
+							
+
+						</div>
+					</div>
+					<div class="awbtnBlock">
+						<p:commandButton type="button" value="Upload"
+										 styleClass="awBtn Wid100">
+						</p:commandButton>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="content3">
+			<div class="Container100 wfMainBlock">
+				<div class="Wid100 awBlock">
+					<div class="iconPanel Wid100">
+						<div class="iconCircle">
+							<img
+									src="/javax.faces.resource/images/awvcheck.svg.xhtml?ln=invessence"
+									height="40" />
+
+
+							<img style="display: none;"
+								 src="/javax.faces.resource/images/validateLoader.gif.xhtml?ln=invessence"
+								 height="40" />
+						</div>
+						<div class="tcLabel">Validation Check</div>
+					</div>
+					<div class="titleContentPanel">
+						<div class="tcLabel">Files Checked</div>
+						<div class="contentSecond"></div>
+					</div>
+					<div class="awbtnBlock">
+						<p:commandButton type="button" value="Validate"
+										 styleClass="awBtn Wid100">
+						</p:commandButton>
+						<p:commandButton rendered="false" type="button" value="Review"
+										 styleClass="awBtn Wid100">
+						</p:commandButton>
+						<p:commandButton rendered="false" type="button" value="Next"
+										 styleClass="awBtn Wid100">
+						</p:commandButton>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="content4">
+			<div class="Container100 wfMainBlock">
+				<div class="Wid100 awBlock">
+					<div class="iconPanel Wid100">
+						<div class="iconCircle">
+							<img
+									src="/javax.faces.resource/images/awsuccess.svg.xhtml?ln=invessence"
+									height="40" />
+
+
+						</div>
+						<div class="tcLabel">Review</div>
+					</div>
+					<div class="titleContentPanel">
+
+						<div class="contentSecond">
+
+
+							<div class="tcLabel">
+								Thank you for your patience! The files are in order.<br /> Click
+								submit to apply changes.
+							</div>
+
+
+							<p:commandButton type="button" value="Review"
+											 styleClass="awBtn Wid100">
+								<p:effect type="slide" event="click" for="reviewBlkPanel">
+									<f:param name="mode" value="'show'" />
+									<f:param name="direction" value="'down'" />
+								</p:effect>
+							</p:commandButton>
+
+							<p:commandButton type="button" value="Submit"
+											 styleClass="awBtn Wid100">
+							</p:commandButton>
+						</div>
+					</div>
+					<div class="awbtnBlock2">
+
+					</div>
+					<div class="awbtnBlock">
+
+					</div>
+
+
+				</div>
+			</div>
+		</section>
+
+
+
+		</main>
+
+
+
+
+
+
+	</ui:define>
+
+</ui:composition>
