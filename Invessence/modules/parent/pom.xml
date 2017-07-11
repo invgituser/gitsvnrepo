@@ -419,21 +419,28 @@
    <profiles>
       <!-- Mode -->
       <profile>
-         <id>1A-MODE-TEST</id>
+         <id>1A-MODE-DEV</id>
+         <properties>
+             <web.mode>DEV</web.mode>
+             <service.mode>DEV</service.mode>
+         </properties>
+      </profile>
+      <profile>
+         <id>1B-MODE-TEST</id>
          <properties>
              <web.mode>TEST</web.mode>
              <service.mode>TEST</service.mode>
          </properties>
       </profile>
       <profile>
-         <id>1B-MODE-UAT</id>
+         <id>1C-MODE-UAT</id>
          <properties>
             <web.mode>UAT</web.mode>
              <service.mode>UAT</service.mode>
          </properties>
       </profile>
       <profile>
-         <id>1C-MODE-PROD</id>
+         <id>1D-MODE-PROD</id>
          <properties>
             <web.mode>PROD</web.mode>
              <service.mode>PROD</service.mode>
