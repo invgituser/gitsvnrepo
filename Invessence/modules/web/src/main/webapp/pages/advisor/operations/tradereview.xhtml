@@ -32,31 +32,31 @@
 
                     <p:growl id="growltrademsg" closable="true" style="top: 25%"/>
 
-                    <p:panel styleClass="invNBgrid">
+                    <p:panel styleClass="invNBgrid tabborderbottom">
                         <ui:fragment rendered="#{tradeBean.isTradeActive}" id="tradeBtn">
-                            <div class="Fs30 Fleft summaryHeader mainHeaderUOB RPHeadings1 active"
+                            <div class="Fs30 Fleft summaryHeader mainHeaderUOB inactivetabtrade"
                                  style="cursor: pointer;">Trade</div>
                         </ui:fragment>
                         <ui:fragment rendered="#{! tradeBean.isTradeActive}" id="tradeBtn">
                             <p:commandLink actionListener="#{tradeBean.setTradeUI('T')}">
-                                <div class="Fs30 Fleft summaryHeader mainHeaderUOB RPHeadings1"
+                                <div class="Fs30 Fleft summaryHeader mainHeaderUOB inactivetabtrade"
                                      style="cursor: pointer;">Trade</div>
                             </p:commandLink>
                         </ui:fragment>
                         <ui:fragment rendered="#{tradeBean.isReviewActive}" id="reviewBtn">
-                            <div class="Fs30 Fleft detailHeader mainHeaderUOB RPHeadings2 active"
+                            <div class="Fs30 Fleft detailHeader mainHeaderUOB activetabereview"
                                  style="cursor: pointer;">Review</div>
                         </ui:fragment>
                         <ui:fragment rendered="#{! tradeBean.isReviewActive}" id="reviewBtn">
                             <p:commandLink actionListener="#{tradeBean.setTradeUI('R')}">
-                                <div class="Fs30 Fleft detailHeader mainHeaderUOB RPHeadings2"
+                                <div class="Fs30 Fleft detailHeader mainHeaderUOB activetabereview"
                                      style="cursor: pointer;">Review</div>
                             </p:commandLink>
                         </ui:fragment>
                     </p:panel>
 
                     <p:panel id="reviewPanel" styleClass="invNBgrid">
-                        <div class="Container100">
+                        <div class="Container100" style="margin-bottom: 20px;">
                             <div class="Fleft filterMBBlock margintoptrade">
                                 <p:selectCheckboxMenu id="trFilter" label="Filter"
                                                       styleClass="multiSelectionDropdown" panelStyle="width:250px"
