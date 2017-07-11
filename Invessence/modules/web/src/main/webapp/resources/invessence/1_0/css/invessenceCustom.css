@@ -4668,7 +4668,7 @@ line-height: 20px;}
     height: 32px;}
 
 
-.customtabs table {
+.customtabs table.datatable {
     border: 1px solid #ccc;
     border-collapse: collapse;
     margin: 0;
@@ -4677,13 +4677,13 @@ line-height: 20px;}
     table-layout: fixed;
 }
 
-.customtabs table tr {
+.customtabs table.datatable tr {
 
     border: 1px solid #ddd;
     padding:5px;
 }
-.customtabs table th,
-.customtabs table td {
+.customtabs table.datatable th,
+.customtabs table.datatable td {
     padding: 0px 10px;
     text-align: left;
     font-size: 14px;
@@ -4693,25 +4693,25 @@ line-height: 20px;}
 background-color: #5fcf80;
 color: #fff;
 }
-.customtabs table th:first-child {width: 40px !important;
+.customtabs table.datatable th:first-child {width: 40px !important;
     padding: 20px 0px !important;}
 
-.customtabs table th {
+.customtabs table.datatable th {
     font-size: 16px;
     letter-spacing: normal;
     text-transform: capitalize;
     font-weight: 100;
 }
 
-.customtabs table button span {
+.customtabs table.datatable button span {
     font-size: 14px;
     text-align: center;
 }
 
-.customtabs table tr:nth-child(odd) td{
+.customtabs table.datatable tr:nth-child(odd) td{
     background: #fff;
 }
-.customtabs table tr:nth-child(even) td{
+.customtabs table.datatable tr:nth-child(even) td{
     background: #e9e9e9;
 }
 
@@ -4892,3 +4892,26 @@ transition: all 600ms ease;}
     -ms-transition: all 600ms ease;
     -o-transition: all 600ms ease;
     transition: all 600ms ease;}
+
+.rollbackbutton{padding: 0 !important; float: right !important;}
+
+
+.customAcco {border: 0px solid !important;}
+.customAcco h3.ui-accordion-header {background: transparent;
+    background-color: #a9a9a9 !important;
+    color: #666;
+    font-size: 18px !important;}
+
+.customAcco h3.ui-state-active {background: transparent;
+    background-color: #009abb !important;
+    color: #666;
+    font-size: 18px !important;}
+
+.customAcco .ui-accordion-content table {width: 40% !important;}
+
+.dwnlbut span > span {background-color: #009abb !important;
+    border: none !important;
+    height: 20px !important;
+    margin-left: 10px;
+    line-height: 20px !important;
+    overflow: hidden !important;}

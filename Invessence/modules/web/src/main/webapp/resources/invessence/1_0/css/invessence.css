@@ -1400,34 +1400,38 @@ thead > tr > .multipleSelectionChkList > .ui-chkbox > .ui-chkbox-box {
 
 /**Asset**Workflow**/
 .awBlock {
-	height: 500px;
-	box-shadow: 1px 1px 3px grey;
+
 }
 
 .wfMainBlock {
-	padding: 0px 30px;
+	padding: 0px 10px;
 	position: relative;
 	box-sizing: border-box;
-	top: 70px;
+	top:0px;
 }
 
 .iconPanel {
 	text-align: center;
-	padding-top: 30px;
+	padding-top: 5px;
+	overflow: hidden;
+	display: block;
+	clear: both;
 }
 
 .iconCircle {
-	width: 50px;
-	height: 50px;
-	margin: 0 auto;
+	width: 20px;
+	height: 20px;
+	/* margin: 0 auto; */
 	border: 2px solid black;
 	border-radius: 50px;
 	padding: 15px;
+	float: left;
 }
 
 .iconPanel img {
 	position: relative;
-	top: 5px;
+	top: -10px;
+	width: 100%;
 }
 
 .titleLabelPanel {
@@ -1441,24 +1445,26 @@ thead > tr > .multipleSelectionChkList > .ui-chkbox > .ui-chkbox-box {
 }
 
 .titleContentPanel {
-	padding: 20px 15px;
+	padding:5px;
 }
 
 .tcLabel {
-	font-size: 14px;
-	line-height: 20px;
+	font-size: 20px;
+	padding-top: 30px;
+	float: left;
+	text-align: left;
+	margin-left: 15px;
 }
 
+.contentSecond .tcLabel {    float: none;
+	margin-bottom: 30px;}
+
 .contentSecond {
-	margin: 20px 0px;
+	margin: 10px 0px;
 }
 
 .awbtnBlock {
-	margin: 20px 50px;
-	position: absolute;
-	bottom: 0px;
-	right: 0px;
-	left: 0px;
+	margin: 0px 0px 0px 5px;
 }
 
 .awbtnBlock2 {
