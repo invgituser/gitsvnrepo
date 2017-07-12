@@ -40,7 +40,7 @@
                                  style="cursor: pointer;">Trade</div>
                         </ui:fragment>
                         <ui:fragment rendered="#{! tradeBean.isTradeActive}">
-                            <p:commandLink actionListener="#{tradeBean.setTradeUI('T')}">
+                            <p:commandLink actionListener="#{tradeBean.setTradeUI('T')}" id="tradeBtn">
                                 <div class="Fs30 Fleft summaryHeader mainHeaderUOB activetabetrade"
                                      style="cursor: pointer;">Trade</div>
                             </p:commandLink>
@@ -50,7 +50,7 @@
                                  style="cursor: pointer;">Review</div>
                         </ui:fragment>
                         <ui:fragment rendered="#{! tradeBean.isReviewActive}">
-                            <p:commandLink actionListener="#{tradeBean.setTradeUI('R')}">
+                            <p:commandLink actionListener="#{tradeBean.setTradeUI('R')}" id="reviewBtn">
                                 <div class="Fs30 Fleft detailHeader mainHeaderUOB  inactivetabreview"
                                      style="cursor: pointer;">Review</div>
                             </p:commandLink>
