@@ -84,8 +84,7 @@ public class FileDownloader
             }
 
             if(fileData.size()>0){
-               generateFile(fileData, fileDetails, serviceRequest, dbParamMap.get("BUSINESS_DATE").getValue().toString(), mailAlertMsg);
-               returnValue = true;
+               return generateFile(fileData, fileDetails, serviceRequest, dbParamMap.get("BUSINESS_DATE").getValue().toString(), mailAlertMsg);
             }else{
                logger.warn("Data not available for "+fileDetails.getFileName()+" file.");
             }
@@ -135,9 +134,9 @@ public class FileDownloader
       }
       return sb.toString();
    }
-   private void generateFile(List<String> fileData, FileDetails fileDetails, ServiceRequest serviceRequest, String businessDate, StringBuilder mailAlertMsg)throws Exception{
+   private boolean generateFile(List<String> fileData, FileDetails fileDetails, ServiceRequest serviceRequest, String businessDate, StringBuilder mailAlertMsg)throws Exception{
       System.out.println("FileDownloader.generateFile");
-
+      boolean result=false;
       try{
          Iterator<String> fileDataItr=fileData.iterator();
 
@@ -169,8 +168,9 @@ public class FileDownloader
             br.close();
             fr.close();
             if(fileDetails.getFileProcessType()!=null && !fileDetails.getFileProcessType().equals("")&& fileDetails.getFileProcessType().equals("SFTP")){
-               copyFileToSFTPServer(serviceRequest, file, fileDetails, businessDate, mailAlertMsg);
+               return copyFileToSFTPServer(serviceRequest, file, fileDetails, businessDate, mailAlertMsg);
             }
+            result=true;
          } catch (IOException e) {
             mailAlertMsg.append("Issue while creating file " + fileDetails.getFileName() + " to local directory from processId "+fileDetails.getProcessId()+" \n");
             e.printStackTrace();
@@ -186,12 +186,13 @@ public class FileDownloader
       }catch(Exception e){
          e.printStackTrace();
       }
-
+      return result;
    }
 
-   private void copyFileToSFTPServer(ServiceRequest serviceRequest, File f, FileDetails fileDetails, String businessDate, StringBuilder mailAlertMsg){
+   private boolean copyFileToSFTPServer(ServiceRequest serviceRequest, File f, FileDetails fileDetails, String businessDate, StringBuilder mailAlertMsg){
       Session session = null;
 //      Channel channel = null;
+      boolean result=false;
       ChannelSftp channel = null;
       try{
          JSch jsch = new JSch();
@@ -219,7 +220,7 @@ public class FileDownloader
          channel.mkdir(directory);
          channel.cd(directory);
          channel.put(new FileInputStream(f), fileName);
-
+         result=true;
          channel.disconnect();
          session.disconnect();
 
@@ -233,6 +234,7 @@ public class FileDownloader
          session.disconnect();
          System.out.println("Host Session disconnected.");
       }
+      return result;
    }
 
    private String createFileName(FileDetails fileDetails){

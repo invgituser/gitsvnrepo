@@ -51,60 +51,51 @@ CREATE TABLE `service`.`file_details` (
   `fileName` varchar(40) NOT NULL,
   `processId` varchar(40) NOT NULL,
   `process` varchar(40) NOT NULL,
+  `seqNo` int(2) NOT NULL,
+  `fileId` varchar(45) NOT NULL,
   `fileType` varchar(10) DEFAULT NULL,
   `fileExtension` varchar(10) DEFAULT NULL,
-  `fileId` varchar(45) NOT NULL,
   `containsHeader` varchar(1) DEFAULT 'N',
   `active` varchar(1) NOT NULL DEFAULT 'N',
-  `seqNo` int(2) DEFAULT NULL,
-  `uploadDir` varchar(80) DEFAULT NULL,
+  `fileNameAppender` varchar(20) DEFAULT NULL,
+  `appenderFormat` varchar(20) DEFAULT NULL,
+  `available` varchar(7) DEFAULT NULL,
+  `uploadDir` varchar(80) DEFAULT NULL COMMENT 'Local Directory',
+  `sourcePath` varchar(80) DEFAULT NULL COMMENT 'SFTP Server Directory',
+  `downloadDir` varchar(80) DEFAULT NULL,
+  `loadFormat` varchar(10) DEFAULT NULL,
+  `delimiter` varchar(5) DEFAULT NULL,
+  `required` varchar(1) DEFAULT 'N',
+  `canBeEmpty` varchar(1) DEFAULT NULL,
+  `canBeDups` varchar(1) DEFAULT 'N',
+  `encryptionMethod` varchar(10) DEFAULT NULL,
+  `tmpTableName` varchar(45) DEFAULT NULL,
+  `fileProcessType` varchar(45) DEFAULT NULL,
+  `parentPreDBProcess` varchar(80) DEFAULT NULL,
+  `parentPostDBProcess` varchar(80) DEFAULT NULL,
+  `parentPreInstruction` varchar(80) DEFAULT NULL,
+  `parentPostInstruction` varchar(80) DEFAULT NULL,
   `preDBProcess` varchar(80) DEFAULT NULL,
   `postDBProcess` varchar(80) DEFAULT NULL,
   `preInstruction` varchar(80) DEFAULT NULL,
   `postInstruction` varchar(80) DEFAULT NULL,
-  `fileNameAppender` varchar(20) DEFAULT NULL,
-  `appenderFormat` varchar(20) DEFAULT NULL,
-  `available` varchar(7) DEFAULT NULL,
-  `sourcePath` varchar(80) DEFAULT NULL,
-  `downloadDir` varchar(80) DEFAULT NULL,
-  `loadFormat` varchar(10) DEFAULT NULL,
-  `required` varchar(1) DEFAULT 'N',
-  `canBeEmpty` varchar(1) DEFAULT NULL,
-  `keyData` varchar(5) DEFAULT NULL,
-  `encryptionMethod` varchar(10) DEFAULT NULL,
-  `encColumns` varchar(20) DEFAULT NULL,
-  `tmpTableName` varchar(45) DEFAULT NULL,
-  `canBeDups` varchar(1) DEFAULT 'N',
-  `delimiter` varchar(5) DEFAULT NULL,
   `delFlagServerFile` varchar(1) DEFAULT 'N',
   `delDayServerFile` int(3) DEFAULT '30',
   `delFlagLocalFile` varchar(1) DEFAULT 'N',
   `delDayLocalFile` int(3) DEFAULT '0',
   `delFlagDecrFile` varchar(1) DEFAULT 'N',
-  `fileProcessType` varchar(45) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `lastupdated` datetime DEFAULT NULL,
-  PRIMARY KEY (`vendor`,`fileName`)
+  PRIMARY KEY (`vendor`,`fileName`,`processId`,`seqNo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 LOCK TABLES `service`.`file_details` WRITE;
 /*!40000 ALTER TABLE `service`.`file_details` DISABLE KEYS */;
-INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CBL', 'UPLD3', 'UPLOAD', 'TEXT', 'csv', 'BB_CBL', 'N', 'A', '1', '/Abhang/trade files', 'temp.sp_upload_td_unrealized', 'POSTFIX', 'YYYYMMDD', '/tcm/AGWQ/', '/tcm/TEST/', 'DELIMITED', 'Y', 'N', 'temp_td_unrealized', 'N', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CBLCOLON', 'UPLD2', 'UPLOAD', 'TEXT', 'csv', 'BB_CBL', 'N', 'A', '1', '/Abhang/trade files', 'temp.sp_upload_td_unrealized', 'POSTFIX', 'YYYYMMDD', '/tcm/AGWQ/', '/tcm/TEST/', 'DELIMITED', 'Y', 'N', 'temp_td_unrealized', 'N', ':', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CBLDOLLAR', 'UPLD3', 'UPLOAD', 'TEXT', 'csv', 'BB_CBL', 'N', 'A', '1', '/Abhang/trade files', '', 'POSTFIX', 'YYYYMMDD', '/tcm/AGWQ/', '/tcm/TEST/', 'DELIMITED', 'Y', 'N', 'temp_td_unrealized', 'N', '$', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CBLHASH', 'UPLD3', 'UPLOAD', 'TEXT', 'csv', 'BB_CBL', 'N', 'A', '1', '/Abhang/trade files', '', 'POSTFIX', 'YYYYMMDD', '/tcm/AGWQ/', '/tcm/TEST/', 'DELIMITED', 'Y', 'N', 'temp_td_unrealized', 'N', '#', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CBLNEGETION', 'UPLD3', 'UPLOAD', 'TEXT', 'csv', 'BB_CBL', 'N', 'A', '1', '/Abhang/trade files', '', 'POSTFIX', 'YYYYMMDD', '/tcm/AGWQ/', '/tcm/TEST/', 'DELIMITED', 'Y', 'N', 'temp_td_unrealized', 'N', '!', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CBLPIPE', 'UPLD3', 'UPLOAD', 'TEXT', 'csv', 'BB_CBL', 'N', 'A', '1', '/Abhang/trade files', '', 'POSTFIX', 'YYYYMMDD', '/tcm/AGWQ/', '/tcm/TEST/', 'DELIMITED', 'Y', 'N', 'temp_td_unrealized', 'N', '|', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CBLSTAR', 'UPLD3', 'UPLOAD', 'TEXT', 'csv', 'BB_CBL', 'N', 'A', '1', '/Abhang/trade files', '', 'POSTFIX', 'YYYYMMDD', '/tcm/AGWQ/', '/tcm/TEST/', 'DELIMITED', 'Y', 'N', 'temp_td_unrealized', 'N', '*', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `preDBProcess`, `appenderFormat`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `tmpTableName`, `canBeDups`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CLNTBAL', 'UPLD1', 'UPLOAD', 'TEXT', 'dat', 'UOB_CLIENT_ACCT_BALANCE_FILE', 'N', 'A', '2', '/Abhang/tradeFiles', '', 'YYYYMMDD', '/uob/', '/uob/', 'FIXED', 'Y', 'Y', 'tmp_nav_daily', 'N', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `preDBProcess`, `appenderFormat`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `tmpTableName`, `canBeDups`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CLNTHOLD', 'UPLD1', 'UPLOAD', 'TEXT', 'dat', 'UOB_CLIENT_ACCT_HOLDING_FILE', 'N', 'A', '3', '/Abhang/tradeFiles', '', 'YYYYMMDD', '/uob/', '/uob/', 'FIXED', 'Y', 'Y', 'tmp_position', 'N', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `preDBProcess`, `fileNameAppender`, `appenderFormat`, `loadFormat`, `required`, `canBeDups`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CLNTORD', 'DOWD1', 'DOWNLOAD', 'TEXT', 'dat', 'UOB_ORDER_INSTRUCTION_FILE', 'N', 'A', '4', '/Abhang/tradeFiles', 'invdb.sp_trade_process_both', 'PREFIX', 'YYYYMMDD', 'FIXED', 'N', 'N', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `preDBProcess`, `appenderFormat`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `tmpTableName`, `canBeDups`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CLNTORDEXE', 'UPLD1', 'UPLOAD', 'TEXT', 'dat', 'UOB_EOD_ORDER_EXEC_FILE', 'N', 'A', '4', '/Abhang/tradeFiles', '', 'YYYYMMDD', '/uob/', '/uob/', 'FIXED', 'N', 'N', 'tmp_transaction', 'N', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `preDBProcess`, `appenderFormat`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `tmpTableName`, `canBeDups`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CLNTSTATUS', 'UPLD1', 'UPLOAD', 'TEXT', 'dat', 'UOB_CLIENT_STATUS_FILE', 'N', 'A', '1', '/Abhang/tradeFiles', '', 'YYYYMMDD', '/uob/', '/uob/', 'FIXED', 'N', 'N', 'tmp_client_data', 'N', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `preDBProcess`, `fileNameAppender`, `appenderFormat`, `loadFormat`, `canBeDups`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'TRADE_DETAILS', 'DOWD1', 'DOWNLOAD', 'TEXT', 'trd', 'TRADE_FILE', 'N', 'A', '4', '/Abhang/tradeFiles', 'invdb.sp_trade_process_both', 'PREFIX', 'YYYYMMDD', 'FIXED', 'N', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `preDBProcess`, `fileNameAppender`, `appenderFormat`, `loadFormat`, `canBeDups`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`, `fileProcessType`) VALUES ('UOB', 'TRADE_SUMMURY_BUY', 'DOWD1', 'DOWNLOAD', 'TEXT', 'buy', 'TRADE_FILE', 'N', 'A', '5', '/Abhang/tradeFiles', 'invdb.sp_trade_process_buy', 'POSTFIX', 'YYYYMMDD', 'FIXED', 'N', 'N', '30', 'N', '0', 'N', 'SFTP');
-INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `preDBProcess`, `appenderFormat`, `loadFormat`, `canBeDups`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`, `fileProcessType`) VALUES ('UOB', 'TRADE_SUMMURY_SELL', 'DOWD1', 'DOWNLOAD', 'TEXT', 'trd', 'TRADE_FILE_SELL', 'Y', 'A', '6', '/Abhang/tradeFiles', 'invdb.sp_trade_process_sell', 'YYYYMMDD', 'FIXED', 'N', 'N', '30', 'N', '0', 'N', 'DOWNLOAD');
+INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `seqNo`, `fileId`, `fileType`, `fileExtension`, `containsHeader`, `active`, `fileNameAppender`, `appenderFormat`, `uploadDir`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `canBeDups`, `tmpTableName`, `parentPreDBProcess`, `parentPreInstruction`, `postDBProcess`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CLNTBAL', 'UPLD1', 'UPLOAD', '2', 'UOB_CLIENT_ACCT_BALANCE_FILE', 'TEXT', 'dat', 'N', 'A', 'PREFIX', 'YYYYMMDD', '/eodFiles', '/uob/', '/uob/', 'FIXED', 'Y', 'Y', 'N', 'temp.tmp_nav_daily', 'temp.parentDBProcedure', '/data/eodFiles/test.sh', 'temp.sp_upload_nav', 'Y', '5', 'N', '0', 'N');
+INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `seqNo`, `fileId`, `fileType`, `fileExtension`, `containsHeader`, `active`, `fileNameAppender`, `appenderFormat`, `uploadDir`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `canBeDups`, `tmpTableName`, `parentPreDBProcess`, `postDBProcess`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CLNTHOLD', 'UPLD1', 'UPLOAD', '3', 'UOB_CLIENT_ACCT_HOLDING_FILE', 'TEXT', 'dat', 'N', 'A', 'PREFIX', 'YYYYMMDD', '/eodFiles', '/uob/', '/uob/', 'FIXED', 'Y', 'N', 'N', 'temp.tmp_position', 'temp.parentDBProcedure', 'temp.sp_upload_position', 'N', '30', 'N', '0', 'N');
+INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `seqNo`, `fileId`, `fileType`, `fileExtension`, `containsHeader`, `active`, `fileNameAppender`, `appenderFormat`, `uploadDir`, `loadFormat`, `required`, `canBeDups`, `fileProcessType`, `preDBProcess`, `postDBProcess`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CLNTORD', 'DOWD1', 'DOWNLOAD', '1', 'UOB_ORDER_INSTRUCTION_FILE', 'TEXT', 'dat', 'N', 'A', 'PREFIX', 'YYYYMMDD', '/tradeFiles', 'FIXED', 'N', 'N', 'SFTP', 'temp.sp_trade_process_both', 'temp.sp_trade_process_both_update', 'N', '30', 'N', '0', 'N');
+INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `seqNo`, `fileId`, `fileType`, `fileExtension`, `containsHeader`, `active`, `fileNameAppender`, `appenderFormat`, `uploadDir`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `canBeDups`, `tmpTableName`, `parentPreDBProcess`, `postDBProcess`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CLNTORDEXE', 'UPLD1', 'UPLOAD', '4', 'UOB_EOD_ORDER_EXEC_FILE', 'TEXT', 'dat', 'N', 'A', 'POSTFIX', 'YYYYMMDD', '/eodFiles', '/uob/', '/uob/', 'FIXED', 'Y', 'N', 'N', 'temp.tmp_transaction', 'temp.parentDBProcedure', '', 'N', '30', 'N', '0', 'N');
+INSERT INTO `service`.`file_details` (`vendor`, `fileName`, `processId`, `process`, `seqNo`, `fileId`, `fileType`, `fileExtension`, `containsHeader`, `active`, `fileNameAppender`, `appenderFormat`, `uploadDir`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `canBeDups`, `tmpTableName`, `parentPreDBProcess`, `parentPostInstruction`, `postDBProcess`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('UOB', 'CLNTSTATUS', 'UPLD1', 'UPLOAD', '1', 'UOB_CLIENT_STATUS_FILE', 'TEXT', 'dat', 'N', 'A', 'POSTFIX', 'YYYYMMDD', '/eodFiles', '/uob/', '/uob/', 'FIXED', 'N', 'N', 'N', 'temp.tmp_client_data', 'temp.parentDBProcedure', '/data/eodFiles/test.sh', 'temp.sp_upload_ext_acct_info', 'N', '30', 'N', '0', 'N');
 /*!40000 ALTER TABLE `service`.`file_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -291,7 +282,7 @@ select vendor, fileName, processId, process, fileType, fileExtension, fileId, co
 elseif(p_service ='FILE-PROCESS' and p_type='COMMON_DETAILS' and p_info='FILE_RULES')then
 
 	select fcr.fileId, fcr.dataField, fcr.description, fcr.seqNo, fcr.startPos, fcr.endPos, 
-    fcr.length, fcr.format, fcr.decimals, fcr.isDelimited, fcr.delimiter, fcr.justified, , fcr.dbColumn, fcr.isRequired, fcr.needToEncrypt
+    fcr.length, fcr.format, fcr.decimals, fcr.isDelimited, fcr.delimiter, fcr.justified,fcr.dbColumn, fcr.isRequired, fcr.needToEncrypt
 	from service.file_process_rules fcr 
 	where fcr.fileId in(select fileId from service.file_details where vendor= p_product) order by fileId, fcr.seqNo;
 elseif(p_service ='DOCUSIGN-SERVICES' and p_type='COMMON_DETAILS' and p_info='DOCUSIGN_MAPPING')then
@@ -324,45 +315,15 @@ UPDATE `service`.`file_process_rules` SET `dbColumn`='clientAccountID' WHERE `fi
 UPDATE `service`.`file_process_rules` SET `dbColumn`='clientAccountID' WHERE `fileId`='UOB_CLIENT_STATUS_FILE' and`dataField`='ROBOID';
 UPDATE `service`.`file_process_rules` SET `dbColumn`='lastName' WHERE `fileId`='UOB_CLIENT_STATUS_FILE' and`dataField`='NAME';
 
-UPDATE `service`.`file_details` SET `postDBProcess`='invdb.sp_upload_ext_acct_info' WHERE `vendor`='UOB' and`fileName`='CLNTSTATUS';
-UPDATE `service`.`file_details` SET `postDBProcess`='invdb.sp_upload_nav' WHERE `vendor`='UOB' and`fileName`='CLNTBAL';
-UPDATE `service`.`file_details` SET `postDBProcess`='invdb.sp_upload_position' WHERE `vendor`='UOB' and`fileName`='CLNTHOLD';
-UPDATE `service`.`file_details` SET `postDBProcess`='invdb.sp_upload_tranaction' WHERE `vendor`='UOB' and`fileName`='CLNTORDEXE';
 
 UPDATE `service`.`service_config_details` SET `value`='D:/data/tradeFiles' WHERE `mode`='UAT' and`company`='UOB' and`service`='FILE-PROCESS' and`vendor`='VENDOR' and`name`='DOWNLOAD_LOCAL_SRC_DIRECTORY';
 
-
-ALTER TABLE `service`.`file_details`
-ADD COLUMN `parentPreDBProcess` VARCHAR(80) NULL DEFAULT NULL AFTER `fileProcessType`,
-ADD COLUMN `parentPostDBProcess` VARCHAR(80) NULL DEFAULT NULL AFTER `parentPreDBProcess`,
-ADD COLUMN `parentPreInstruction` VARCHAR(80) NULL DEFAULT NULL AFTER `parentPostDBProcess`,
-ADD COLUMN `parentPostInstruction` VARCHAR(80) NULL DEFAULT NULL AFTER `parentPreInstruction`;
-
-UPDATE `service`.`file_details` SET `fileNameAppender`='PREFIX' WHERE `vendor`='UOB' and`fileName`='CLNTBAL';
-UPDATE `service`.`file_details` SET `fileNameAppender`='PREFIX' WHERE `vendor`='UOB' and`fileName`='CLNTHOLD';
-UPDATE `service`.`file_details` SET `fileNameAppender`='POSTFIX' WHERE `vendor`='UOB' and`fileName`='CLNTORDEXE';
-UPDATE `service`.`file_details` SET `fileNameAppender`='POSTFIX' WHERE `vendor`='UOB' and`fileName`='CLNTSTATUS';
-
-UPDATE `service`.`file_details` SET `uploadDir`='/eodFiles' WHERE `vendor`='UOB' and`fileName`='CLNTBAL';
-UPDATE `service`.`file_details` SET `uploadDir`='/eodFiles' WHERE `vendor`='UOB' and`fileName`='CLNTSTATUS';
-UPDATE `service`.`file_details` SET `uploadDir`='/eodFiles' WHERE `vendor`='UOB' and`fileName`='CLNTORDEXE';
-UPDATE `service`.`file_details` SET `uploadDir`='/eodFiles' WHERE `vendor`='UOB' and`fileName`='CLNTHOLD';
 
 
 ALTER TABLE `service`.`file_process_rules`
 ADD COLUMN `isRequired` VARCHAR(1) NULL DEFAULT 'N' AFTER `dbColumn`,
 ADD COLUMN `needToEncrypt` VARCHAR(1) NULL DEFAULT 'N' AFTER `isRequired`;
 
-
-ALTER TABLE `service`.`file_details`
-DROP PRIMARY KEY,
-ADD PRIMARY KEY (`vendor`, `fileName`, `processId`);
-
-
-UPDATE `service`.`file_details` SET `parentPreDBProcess`='invdb.parentDBProcedure' WHERE `vendor`='UOB' and`fileName`='CLNTBAL' and`processId`='UPLD1';
-UPDATE `service`.`file_details` SET `parentPreDBProcess`='invdb.parentDBProcedure' WHERE `vendor`='UOB' and`fileName`='CLNTHOLD' and`processId`='UPLD1';
-UPDATE `service`.`file_details` SET `parentPreDBProcess`='invdb.parentDBProcedure' WHERE `vendor`='UOB' and`fileName`='CLNTORDEXE' and`processId`='UPLD1';
-UPDATE `service`.`file_details` SET `parentPreDBProcess`='invdb.parentDBProcedure' WHERE `vendor`='UOB' and`fileName`='CLNTSTATUS' and`processId`='UPLD1';
 
 
 UPDATE `service`.`service_config_details` SET `value`='sftpuser' WHERE `mode`='UAT' and`company`='UOB' and`service`='FILE-PROCESS' and`vendor`='VENDOR' and`name`='DOWNLOAD_SFTP_USERNAME';
@@ -371,37 +332,7 @@ UPDATE `service`.`service_config_details` SET `value`='y91C9ry0PCOfH2AR' WHERE `
 UPDATE `service`.`service_config_details` SET `value`='y91C9ry0PCOfH2AR' WHERE `mode`='UAT' and`company`='UOB' and`service`='FILE-PROCESS' and`vendor`='VENDOR' and`name`='DOWNLOAD_SFTP_PASSWORD';
 
 
-INSERT INTO `service`.`service_Config_Details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'UOB', 'FILE-PROCESS', 'VENDOR', 'ENCRY_DECRY_KEY', 'aRXDugfr4WQpVrxu', 'N');
-
-
-ALTER TABLE `service`.`file_details`
-CHANGE COLUMN `seqNo` `seqNo` INT(2) NOT NULL ,
-DROP PRIMARY KEY,
-ADD PRIMARY KEY (`vendor`, `fileName`, `processId`, `seqNo`);
-
-
-
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'TRD', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_TRD', 'N', 'Y', '1', '/data/download/tcm/AGWQ', 'sp_upload_td_demographic', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/AGWQ', '/data/eodfiles/tcm/AGWQ', 'csv', 'N', 'Y', '1', 'tmp_td_demographic', 'N', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'SEC', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_SEC', 'N', 'Y', '2', '/data/download/tcm/AGWQ', 'sp_upload_td_sec_master', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/AGWQ', '/data/eodfiles/tcm/AGWQ', 'csv', 'Y', 'N', '1', 'tmp_td_security', 'N', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'PRI', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_PRI', 'N', 'Y', '3', '/data/download/tcm/AGWQ', '', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/AGWQ', '/data/eodfiles/tcm/AGWQ', 'csv', 'Y', 'N', '1', 'tmp_td_price', 'N', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'POS', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_POS', 'N', 'Y', '4', '/data/download/tcm/AGWQ', '', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/AGWQ', '/data/eodfiles/tcm/AGWQ', 'csv', 'N', 'N', '1', 'tmp_td_position', 'N', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'TRN', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_TRN', 'N', 'Y', '5', '/data/download/tcm/AGWQ', '', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/AGWQ', '/data/eodfiles/tcm/AGWQ', 'csv', 'N', 'N', '1', 'tmp_td_transaction', 'N', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'CBL', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_CBL', 'N', 'Y', '6', '/data/download/tcm/AGWQ', 'sp_upload_td_unrealized', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/AGWQ', '/data/eodfiles/tcm/AGWQ', 'csv', 'Y', 'N', '1', 'tmp_td_unrealized', 'N', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'TRD', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_TRD', 'N', 'Y', '7', '/data/download/tcm/ALRG', 'sp_upload_td_demographic', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/ALRG', '/data/eodfiles/tcm/ALRG', 'csv', 'N', 'Y', '1', 'tmp_td_demographic', 'N', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'SEC', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_SEC', 'N', 'Y', '8', '/data/download/tcm/ALRG', 'sp_upload_td_sec_master', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/ALRG', '/data/eodfiles/tcm/ALRG', 'csv', 'Y', 'N', '1', 'tmp_td_security', 'Y', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'PRI', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_PRI', 'N', 'Y', '9', '/data/download/tcm/ALRG', '', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/ALRG', '/data/eodfiles/tcm/ALRG', 'csv', 'Y', 'N', '1', 'tmp_td_price', 'Y', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'POS', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_POS', 'N', 'Y', '10', '/data/download/tcm/ALRG', '', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/ALRG', '/data/eodfiles/tcm/ALRG', 'csv', 'N', 'N', '1', 'tmp_td_position', 'N', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'TRN', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_TRN', 'N', 'Y', '11', '/data/download/tcm/ALRG', '', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/ALRG', '/data/eodfiles/tcm/ALRG', 'csv', 'N', 'N', '1', 'tmp_td_transaction', 'N', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'CBL', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_CBL', 'N', 'Y', '12', '/data/download/tcm/ALRG', 'sp_upload_td_unrealized', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/ALRG', '/data/eodfiles/tcm/ALRG', 'csv', 'Y', 'N', '1', 'tmp_td_unrealized', 'N', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'TRD', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_TRD', 'N', 'Y', '13', '/data/download/tcm/DAFF', 'sp_upload_td_demographic', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/DAFF', '/data/eodfiles/tcm/DAFF', 'csv', 'N', 'Y', '1', 'tmp_td_demographic', 'N', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'SEC', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_SEC', 'N', 'Y', '14', '/data/download/tcm/DAFF', 'sp_upload_td_sec_master', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/DAFF', '/data/eodfiles/tcm/DAFF', 'csv', 'N', 'N', '1', 'tmp_td_security', 'Y', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'PRI', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_PRI', 'N', 'Y', '15', '/data/download/tcm/DAFF', '', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/DAFF', '/data/eodfiles/tcm/DAFF', 'csv', 'N', 'N', '1', 'tmp_td_price', 'Y', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'POS', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_POS', 'N', 'Y', '16', '/data/download/tcm/DAFF', '', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/DAFF', '/data/eodfiles/tcm/DAFF', 'csv', 'N', 'N', '1', 'tmp_td_position', 'N', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'TRN', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_TRN', 'N', 'Y', '17', '/data/download/tcm/DAFF', '', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/DAFF', '/data/eodfiles/tcm/DAFF', 'csv', 'N', 'N', '1', 'tmp_td_transaction', 'N', ',', 'N', '30', 'N', '0', 'N');
-INSERT INTO `service`.`file_Details` (`vendor`, `fileName`, `processId`, `process`, `fileType`, `fileExtension`, `fileId`, `containsHeader`, `active`, `seqNo`, `uploadDir`, `postDBProcess`, `fileNameAppender`, `appenderFormat`, `available`, `sourcePath`, `downloadDir`, `loadFormat`, `required`, `canBeEmpty`, `keyData`, `tmpTableName`, `canBeDups`, `delimiter`, `delFlagServerFile`, `delDayServerFile`, `delFlagLocalFile`, `delDayLocalFile`, `delFlagDecrFile`) VALUES ('TD', 'CBL', 'BBUPLD', 'UPLOAD', 'TEXT', 'csv', 'BB_CBL', 'N', 'Y', '18', '/data/download/tcm/DAFF', 'sp_upload_td_unrealized', 'POSTFIX', 'YYYYMMDD', 'DAILY', '/data/download/tcm/DAFF', '/data/eodfiles/tcm/DAFF', 'csv', 'N', 'N', '1', 'tmp_td_unrealized', 'N', ',', 'N', '30', 'N', '0', 'N');
-
-
-
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'UOB', 'FILE-PROCESS', 'VENDOR', 'ENCRY_DECRY_KEY', 'aRXDugfr4WQpVrxu', 'N');
 
 
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'BROKER-SERVICES', 'TD', 'ENCRY_DECRY_KEY', 'aRXDugfr4WQpVrxu', 'N');
@@ -509,26 +440,3 @@ INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `v
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'UOB', 'FILE-PROCESS', 'VENDOR', 'GPG_PRIVATE_KEY', '/data/gnupg/secring.gpg', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'UOB', 'FILE-PROCESS', 'VENDOR', 'GPG_PUBLIC_KEY', '/data/gnupg/pubring.gpg', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'UOB', 'FILE-PROCESS', 'VENDOR', 'GPG_PASSWORD', 'Inv3ss3nc3', 'N');
-
-
-
-
-
-ALTER TABLE `service`.`file_details`
-DROP COLUMN `encColumns`,
-DROP COLUMN `keyData`,
-CHANGE COLUMN `seqNo` `seqNo` INT(2) NOT NULL AFTER `process`,
-CHANGE COLUMN `fileId` `fileId` VARCHAR(45) NOT NULL AFTER `seqNo`,
-CHANGE COLUMN `uploadDir` `uploadDir` VARCHAR(80) NULL DEFAULT NULL COMMENT 'Local Directory' AFTER `available`,
-CHANGE COLUMN `delimiter` `delimiter` VARCHAR(5) NULL DEFAULT NULL AFTER `loadFormat`,
-CHANGE COLUMN `canBeDups` `canBeDups` VARCHAR(1) NULL DEFAULT 'N' AFTER `canBeEmpty`,
-CHANGE COLUMN `fileProcessType` `fileProcessType` VARCHAR(45) NULL DEFAULT NULL AFTER `tmpTableName`,
-CHANGE COLUMN `parentPreDBProcess` `parentPreDBProcess` VARCHAR(80) NULL DEFAULT NULL AFTER `fileProcessType`,
-CHANGE COLUMN `parentPostDBProcess` `parentPostDBProcess` VARCHAR(80) NULL DEFAULT NULL AFTER `parentPreDBProcess`,
-CHANGE COLUMN `parentPreInstruction` `parentPreInstruction` VARCHAR(80) NULL DEFAULT NULL AFTER `parentPostDBProcess`,
-CHANGE COLUMN `parentPostInstruction` `parentPostInstruction` VARCHAR(80) NULL DEFAULT NULL AFTER `parentPreInstruction`,
-CHANGE COLUMN `preDBProcess` `preDBProcess` VARCHAR(80) NULL DEFAULT NULL AFTER `parentPostInstruction`,
-CHANGE COLUMN `postDBProcess` `postDBProcess` VARCHAR(80) NULL DEFAULT NULL AFTER `preDBProcess`,
-CHANGE COLUMN `preInstruction` `preInstruction` VARCHAR(80) NULL DEFAULT NULL AFTER `postDBProcess`,
-CHANGE COLUMN `postInstruction` `postInstruction` VARCHAR(80) NULL DEFAULT NULL AFTER `preInstruction`,
-CHANGE COLUMN `sourcePath` `sourcePath` VARCHAR(80) NULL DEFAULT NULL COMMENT 'SFTP Server Directory' ;

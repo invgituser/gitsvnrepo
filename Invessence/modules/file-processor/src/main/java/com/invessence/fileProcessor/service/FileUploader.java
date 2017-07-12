@@ -34,8 +34,6 @@ public class FileUploader
       ChannelSftp channel = null;
       Session session = null;
       boolean returnValue=false;
-
-
       try{
 
          String businessDate=dbParamMap.get("BUSINESS_DATE").getValue().toString();

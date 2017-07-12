@@ -10,7 +10,7 @@ CREATE TABLE `trade_process_identifier` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `trade_execution_audit` (
+CREATE TABLE `file_process_audit` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `product` varchar(45) NOT NULL,
   `mode` varchar(45) NOT NULL,
@@ -44,7 +44,7 @@ in p_opt varchar(20),
 out op_msgCode int(3),out op_msg varchar(20))
 BEGIN
 
-	Insert into invdb.trade_execution_audit(
+	Insert into invdb.file_process_audit(
 product,
 mode,
 process,
@@ -63,7 +63,7 @@ p_remarks,
 now());
 
     
-	SELECT 'MSG', max(id) INTO op_msg , op_msgCode from invdb.trade_execution_audit;
+	SELECT 'MSG', max(id) INTO op_msg , op_msgCode from invdb.file_process_audit;
 
 END$$
 

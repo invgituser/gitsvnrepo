@@ -123,6 +123,7 @@ public class FileProcessorUtil
 
    public void executeInstruction(FileDetails fileDetails, String event, StringBuilder mailAlertMsg, ServiceRequest serviceRequest){
       String instruction=null;
+      mailAlertMsg=new StringBuilder();
       try{
          if(event.equalsIgnoreCase("PARENTPRE"))
          {
@@ -280,12 +281,12 @@ public class FileProcessorUtil
       return output.toString();
    }
 
-   public void auditEntry(ServiceRequest serviceRequest, FileDetails fileDetails, String status, String remarks)throws Exception{
+   public void auditEntry(ServiceRequest serviceRequest, FileDetails fileDetails, String status, String remarks, String processIdentifier)throws Exception{
 
       try      {
          fileProcessorDao.dbCallAudit(new FileProcessAudit(null, serviceRequest.getProduct(),
                                                            serviceRequest.getMode(), fileDetails.getProcess(),
-                                                           fileDetails.getProcessId(), fileDetails.getFileName(), status, remarks, null, null));
+                                                           fileDetails.getProcessId(), processIdentifier==null?fileDetails.getFileName():processIdentifier, status, remarks, null, null));
       }catch(Exception e){
          logger.error(e.getMessage());
       }

@@ -192,6 +192,11 @@ WHERE
 	    AND utl.action='BUY'
 ORDER BY acctnum;
 
+update invdb.user_trade_log utl
+set utl.tradeStatus='I'
+WHERE utl.tradeStatus = 'P'
+AND utl.action='BUY';
+
 
 END$$
 
@@ -245,6 +250,11 @@ WHERE
 	    AND utl.action='SELL'
 ORDER BY acctnum;
 
+update invdb.user_trade_log utl
+set utl.tradeStatus='I'
+WHERE utl.tradeStatus = 'P'
+AND utl.action='SELL';
+
 
 END$$
 
@@ -296,6 +306,10 @@ WHERE
         and utl.qty<>0
         AND utl.investmentamount<>0
 	ORDER BY acctnum;
+	update invdb.user_trade_log utl
+  set utl.tradeStatus='I'
+  WHERE utl.tradeStatus = 'P';
+
 END$$
 
 DELIMITER ;
@@ -319,4 +333,60 @@ CREATE PROCEDURE `parentDBProcedure` ()
   END$$
 
 DELIMITER ;
+
+
+USE `temp`;
+DROP procedure IF EXISTS `sp_trade_process_buy_update`;
+
+DELIMITER $$
+USE `temp`$$
+CREATE PROCEDURE `sp_trade_process_buy_update`()
+BEGIN
+
+update invdb.user_trade_log utl
+set utl.tradeStatus='S'
+WHERE utl.tradeStatus = 'I'
+AND utl.action='BUY';
+
+END$$
+
+DELIMITER ;
+
+
+
+USE `temp`;
+DROP procedure IF EXISTS `sp_trade_process_both_update`;
+
+DELIMITER $$
+USE `temp`$$
+CREATE PROCEDURE `sp_trade_process_both_update`()
+BEGIN
+
+update invdb.user_trade_log utl
+set utl.tradeStatus='S'
+WHERE utl.tradeStatus = 'I';
+
+END$$
+
+DELIMITER ;
+
+
+
+USE `temp`;
+DROP procedure IF EXISTS `sp_trade_process_sell_update`;
+
+DELIMITER $$
+USE `temp`$$
+CREATE PROCEDURE `sp_trade_process_sell_update`()
+BEGIN
+
+update invdb.user_trade_log utl
+set utl.tradeStatus='S'
+WHERE utl.tradeStatus = 'I'
+AND utl.action='SELL';
+
+END$$
+
+DELIMITER ;
+
 
