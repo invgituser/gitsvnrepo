@@ -1373,6 +1373,9 @@ public class UOBProfileBean extends CustomerData implements Serializable
             uiLayout.doMenuAction("consumer", "forward.xhtml");
          }
       }
+      else {
+         uiLayout.doMenuAction("consumer", "forward.xhtml");
+      }
 
    }
 
