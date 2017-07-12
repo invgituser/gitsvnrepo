@@ -334,7 +334,7 @@ public class UILayout implements Serializable
          return;
       }
 
-      if (access.equalsIgnoreCase("admin"))
+      if (access.equalsIgnoreCase("superadmin"))
       {
          doMenuAction("advisor", pageinfo);
          return;
