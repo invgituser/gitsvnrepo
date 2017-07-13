@@ -178,23 +178,24 @@ SELECT
     utl.firmAccount,
     utl.created,
     utl.lastupdated,
-    daod.emailAddress email
+    daod.email
 FROM
     invdb.user_trade_log utl,
-    invdb.dc_acct_owners_details daod
+    invdb.ext_acct_info daod
 WHERE
     utl.acctnum = daod.acctnum
         AND utl.tradeStatus = 'P'
         AND daod.acctnum = daod.acctnum
-        AND daod.ownership = 'AOPRIMARY'
         and utl.qty<>0
         AND utl.investmentamount<>0
 	    AND utl.action='BUY'
 ORDER BY acctnum;
 
-update invdb.user_trade_log utl
-set utl.tradeStatus='I'
-WHERE utl.tradeStatus = 'P'
+	update invdb.user_trade_log utl
+  set utl.tradeStatus='I'
+  WHERE utl.tradeStatus = 'P'
+  and utl.qty<>0
+  AND utl.investmentamount<>0
 AND utl.action='BUY';
 
 
@@ -236,23 +237,24 @@ SELECT
     utl.firmAccount,
     utl.created,
     utl.lastupdated,
-    daod.emailAddress email
+    daod.email
 FROM
     invdb.user_trade_log utl,
-    invdb.dc_acct_owners_details daod
+    invdb.ext_acct_info daod
 WHERE
     utl.acctnum = daod.acctnum
         AND utl.tradeStatus = 'P'
         AND daod.acctnum = daod.acctnum
-        AND daod.ownership = 'AOPRIMARY'
         and utl.qty<>0
         AND utl.investmentamount<>0
 	    AND utl.action='SELL'
 ORDER BY acctnum;
 
-update invdb.user_trade_log utl
-set utl.tradeStatus='I'
-WHERE utl.tradeStatus = 'P'
+	update invdb.user_trade_log utl
+  set utl.tradeStatus='I'
+  WHERE utl.tradeStatus = 'P'
+  and utl.qty<>0
+  AND utl.investmentamount<>0
 AND utl.action='SELL';
 
 
@@ -294,21 +296,22 @@ SELECT
     utl.firmAccount,
     utl.created,
     utl.lastupdated,
-    daod.emailAddress email
+    daod.email
 FROM
     invdb.user_trade_log utl,
-    invdb.dc_acct_owners_details daod
+    invdb.ext_acct_info daod
 WHERE
     utl.acctnum = daod.acctnum
         AND utl.tradeStatus = 'P'
         AND daod.acctnum = daod.acctnum
-        AND daod.ownership = 'AOPRIMARY'
         and utl.qty<>0
         AND utl.investmentamount<>0
 	ORDER BY acctnum;
 	update invdb.user_trade_log utl
   set utl.tradeStatus='I'
-  WHERE utl.tradeStatus = 'P';
+  WHERE utl.tradeStatus = 'P'
+  and utl.qty<>0
+  AND utl.investmentamount<>0;
 
 END$$
 

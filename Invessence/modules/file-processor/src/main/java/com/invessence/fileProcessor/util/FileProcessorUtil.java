@@ -320,7 +320,7 @@ public class FileProcessorUtil
       return filesToDelete;
    }
 
-   public void deleteFilesFromServer(FileDetails fileDetails, List<String> fileNameLst, ChannelSftp channel, String businessDate){
+   public void deleteFilesFromServer(FileDetails fileDetails, List<String> fileNameLst, ChannelSftp channel, String businessDate, StringBuilder mailAlertMsg){
       try{
          if(fileDetails.getDelFlagServerFile().equalsIgnoreCase("Y")){
             if (fileNameLst == null || fileNameLst.size() == 0)
@@ -358,12 +358,13 @@ public class FileProcessorUtil
       }
       catch (Exception e)
       {
+         mailAlertMsg.append("Checking " + fileDetails.getFileName() + " files to delete from Server for business date :" + businessDate + "\n" + e.getMessage());
          logger.error("Checking " + fileDetails.getFileName() + " files to delete from Server for business date :" + businessDate + "\n" + e.getMessage());
          logger.error(e.getStackTrace());
       }
    }
 
-   public void deleteFilesFromLocal(FileDetails fileDetails, List<String> fileNameLst, String businessDate, String localDirectory)
+   public void deleteFilesFromLocal(FileDetails fileDetails, List<String> fileNameLst, String businessDate, String localDirectory, StringBuilder mailAlertMsg)
    {
       File deleteFileName=null;
       try{
@@ -404,6 +405,7 @@ public class FileProcessorUtil
       }
       catch (Exception e)
       {
+         mailAlertMsg.append("Checking " + fileDetails.getFileName() + " files to delete from Local System for business date :" + businessDate + "\n" + e.getMessage());
          logger.error("Checking " + fileDetails.getFileName() + " files to delete from Local System for business date :" + businessDate + "\n" + e.getMessage());
          logger.error(e.getStackTrace());
       }

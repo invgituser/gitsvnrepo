@@ -190,6 +190,7 @@ public class FileDownloader
    }
 
    private boolean copyFileToSFTPServer(ServiceRequest serviceRequest, File f, FileDetails fileDetails, String businessDate, StringBuilder mailAlertMsg){
+      logger.info("FileDownloader.copyFileToSFTPServer");
       Session session = null;
 //      Channel channel = null;
       boolean result=false;
@@ -217,7 +218,7 @@ public class FileDownloader
          String directory = p.getParent().toString().replaceAll("\\\\","/");
          System.out.println("directory = " + directory+ " fileName = " + fileName);
 
-         channel.mkdir(directory);
+         //channel.mkdir(directory);
          channel.cd(directory);
          channel.put(new FileInputStream(f), fileName);
          result=true;

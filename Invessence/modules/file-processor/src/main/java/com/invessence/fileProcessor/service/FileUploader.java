@@ -222,8 +222,8 @@ public class FileUploader
                               e.printStackTrace();
                            }
                         }
-                        fileProcessorUtil.deleteFilesFromServer(fileDetails,fileNameLst,channel,businessDate);
-                        fileProcessorUtil.deleteFilesFromLocal(fileDetails,fileProcessorUtil.getListOfFiles(localUploadFile.getParent(),fileDetails.getFileName()),businessDate, localUploadFile.getParent());
+                        fileProcessorUtil.deleteFilesFromServer(fileDetails,fileNameLst,channel,businessDate, mailAlertMsg);
+                        fileProcessorUtil.deleteFilesFromLocal(fileDetails,fileProcessorUtil.getListOfFiles(localUploadFile.getParent(),fileDetails.getFileName()),businessDate, localUploadFile.getParent(), mailAlertMsg);
                      }
                      catch (Exception e)
                      {
