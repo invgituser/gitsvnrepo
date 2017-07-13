@@ -275,7 +275,6 @@ public class SessionController implements Serializable
       if(webutil.isUserLoggedIn())
       {
          Map<String, String> webMap=commonDAO.getWebMenuDetails(url, webutil.getAccess());
-         System.out.println("webMap lenngth"+webMap.size());
          FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.WEB_MENU);
          FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.WEB_MENU, webMap);
       }
