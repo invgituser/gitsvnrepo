@@ -9,10 +9,12 @@
     <script type="text/javascript">
 
 
-       $(document).ready(function ()
-
-
+        $(document).ready(function ()
                           {
+
+                              $('.submenuOperContent').fadeOut();
+                              $('.submenuAdminContent').fadeOut();
+                              $('.submenuSAContent').fadeOut();
                               $('.MobileButton').click(function ()
                                                        {
                                                            if ($(window).width() &lt; 700)
@@ -22,21 +24,50 @@
                                                        });
 
                               $('.submenuBtn1').click(function ()
-                                                       {
-                                                           $('.submenuContent1').fadeIn();
-                                                       });
-                              $('.submenuContent1').mouseleave(function ()
                                                       {
-                                                          $('.submenuContent1').fadeOut();
+                                                          $('.submenuContent1').fadeIn();
                                                       });
-
-                              $('.displaymobMenuView').mouseleave(function ()
-                                                            {
-                                                                if ($(window).width() &lt; 700)
+                              $('.submenuContent1').mouseleave(function ()
+                                                               {
+                                                                   $('.submenuContent1').fadeOut();
+                                                               });
+                              $('.submenuSABtn').click(function ()
+                                                       {
+                                                           $('.submenuSAContent').fadeIn();
+                                                           $('.submenuOperContent').fadeOut();
+                                                           $('.submenuAdminContent').fadeOut();
+                                                       });
+                              $('.submenuSAContent').mouseleave(function ()
                                                                 {
-                                                                    $('.displaymobMenuView').fadeOut();
-                                                                }
-                                                            });
+                                                                    $('.submenuSAContent').fadeOut();
+                                                                });
+                              $('.submenuAdminBtn').click(function ()
+                                                          {
+                                                              $('.submenuAdminContent').fadeIn();
+                                                              $('.submenuOperContent').fadeOut();
+                                                              $('.submenuSAContent').fadeOut();
+                                                          });
+                              $('.submenuAdminContent').mouseleave(function ()
+                                                                   {
+                                                                       $('.submenuAdminContent').fadeOut();
+                                                                   });
+                              $('.submenuOperBtn').click(function ()
+                                                         {
+                                                             $('.submenuOperContent').fadeIn();
+                                                             $('.submenuAdminContent').fadeOut();
+                                                             $('.submenuSAContent').fadeOut();
+                                                         });
+                              $('.submenuOperContent').mouseleave(function ()
+                                                                  {
+                                                                      $('.submenuOperContent').fadeOut();
+                                                                  });
+                              $('.displaymobMenuView').mouseleave(function ()
+                                                                  {
+                                                                      if ($(window).width() &lt; 700)
+                                                                      {
+                                                                          $('.displaymobMenuView').fadeOut();
+                                                                      }
+                                                                  });
                           });
 
 
@@ -77,6 +108,7 @@
                                                         $(this).removeClass('mbSelected');
                                                     }
                                                 });
+
               $('#tradeMenuHighlight').each(function ()
                                             {
                                                 if (($page == 'trade.xhtml'))
@@ -114,8 +146,6 @@
           });
 
 
-
-
     </script>
     <div class="Wid60 Fright menuButtons">
         <ul class="MobileButton">
@@ -135,20 +165,71 @@
                     </p:commandLink>
                 </li>
             </ui:fragment>
-            <ui:fragment rendered="#{webutil.hasAccess('ADVISOR')}">
-                <li id="tradeMenuHighlight">
-                    <a href="/pages/advisor/operations/trade.xhtml" id="menutradebtn">Trade</a>
+
+            <ui:fragment rendered="#{(webutil.hasAccess('Advisor') and webutil.hasRole('Operations')) or webutil.hasAccess('SuperAdmin') }">
+                <li id="OperationMenuHighlight">
+                    <a href="#" class="submenuOperBtn" id="menuOperbtn">Operations</a>
                 </li>
+                <div class="subMenuBlk submenuOperContent">
+                    <ul>
+                        <ui:fragment rendered="#{webutil.hasMenu('Trade','Operations')}">
+                            <li id="tradeMenuHighlight">
+                                <a href="/pages/advisor/operations/trade.xhtml" id="menutradebtn">Trade</a>
+                            </li>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{webutil.hasMenu('Model','Operations')}">
+                            <div class="menuSeperator"></div>
+                            <li id="modelMenuHighlight">
+                                <a href="/pages/advisor/assetworkflow.xhtml" id="menutradebtn">Model</a>
+                            </li>
+                        </ui:fragment>
+                    </ul>
+                </div>
             </ui:fragment>
-            <ui:fragment rendered="#{webutil.hasRole('DEVELOPER')}">
-                <li id="filePrcsMenuHighlight">
-                    <a href="/pages/productadmin/fileProcessEmulation.xhtml" id="menuFlPrcsbtn">File Processing</a>
+            <ui:fragment rendered="#{(webutil.hasAccess('Advisor') and webutil.hasRole('Admin') or webutil.hasAccess('SuperAdmin'))}">
+                <li id="adminMenuHighlight">
+                    <a href="#" class="submenuAdminBtn" id="menuAdminbtn">Admin</a>
                 </li>
+                <div class="subMenuBlk submenuAdminContent">
+                    <ul>
+                        <ui:fragment rendered="#{webutil.hasMenu('Login Management','Admin')}">
+                            <li id="AcctEmulMenuHighlight">
+                                <a href="/pages/advisor/user_mng.xhtml" id="menuLoginMgmtbtn">Login Management</a>
+                            </li>
+                        </ui:fragment>
+
+                        <ui:fragment rendered="#{webutil.hasMenu('Advisor Management','Admin')}">
+                            <div class="menuSeperator"></div>
+                            <li id="AcctEmulMenuHighlight">
+                                <a href="/pages/productadmin/adv.xhtml" id="menuAdvMgmtbtn">Advisor Management</a>
+                            </li>
+                        </ui:fragment>
+
+                        <ui:fragment rendered="#{webutil.hasMenu('Email Logs','Admin')}">
+                            <div class="menuSeperator"></div>
+                            <li id="AcctEmulMenuHighlight">
+                                <a href="/pages/productadmin/email_logs.xhtml" id="menuEmailLogbtn">Email Logs</a>
+                            </li>
+                        </ui:fragment>
+                    </ul>
+                </div>
             </ui:fragment>
-            <ui:fragment rendered="#{webutil.hasRole('DEVELOPER')}">
-                <li id="AcctEmulMenuHighlight">
-                    <a href="/pages/productadmin/accountEmulation.xhtml" id="menuAcctEmulbtn">Account Emulation</a>
+
+            <ui:fragment rendered="#{webutil.hasAccess('SuperAdmin')}">
+                <li id="superAdminMenuHighlight">
+                    <a href="#" class="submenuSABtn" id="menuSuperAdminbtn">Product Admin</a>
                 </li>
+                <div class="subMenuBlk submenuSAContent">
+                    <ul>
+                        <li id="filePrcsMenuHighlight">
+                            <a href="/pages/productadmin/fileProcessEmulation.xhtml" id="menuFlPrcsbtn">File Processing</a>
+                        </li>
+                        <div class="menuSeperator"></div>
+                        <li id="AcctEmulMenuHighlight">
+                            <a href="/pages/productadmin/accountEmulation.xhtml" id="menuAcctEmulbtn">Account Emulation</a>
+                        </li>
+                    </ul>
+                </div>
             </ui:fragment>
 
             <ui:fragment rendered="#{webutil.hasRole('DEMO')}">
@@ -161,18 +242,12 @@
             </ui:fragment>
 
             <ui:fragment rendered="#{webutil.hasRole('DEMO')}">
-                <li id="modelMenuHighlight">
-                    <a href="/pages/advisor/assetworkflow.xhtml" id="menutradebtn">Model</a>
+                <li id="newaccountMenuHighlight">
+                    <p:commandLink rendered="true" id="menureportsbtn"
+                                   actionListener="#{uiLayout.doMenuAction('consumer', 'creports.xhtml')}">
+                        <h:outputText value="Reports"/>
+                    </p:commandLink>
                 </li>
-            </ui:fragment>
-
-            <ui:fragment rendered="#{webutil.hasRole('DEMO')}">
-            <li id="newaccountMenuHighlight">
-                <p:commandLink rendered="true" id="menureportsbtn"
-                               actionListener="#{uiLayout.doMenuAction('consumer', 'creports.xhtml')}">
-                    <h:outputText value="Reports"/>
-                </p:commandLink>
-            </li>
             </ui:fragment>
 
             <li id="myprofileMenuHighlight">
@@ -185,7 +260,7 @@
                     <li>My Advisors</li>
                     <div class="menuSeperator"></div>
                     <li>
-                        <h:form >
+                        <h:form>
                             <h:commandLink id="menulogoutBtn" actionListener="#{sessionControl.logout}" styleClass="idLogoutCommon">
                                 <h:outputText value="Logout"/>
                             </h:commandLink>
@@ -194,9 +269,6 @@
                 </ul>
             </div>
         </ul>
-
     </div>
-
-
 </ui:composition>
 

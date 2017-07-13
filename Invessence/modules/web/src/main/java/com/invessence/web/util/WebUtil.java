@@ -388,9 +388,6 @@ public class WebUtil implements Serializable
    }
 
 
-
-
-
    public String getMode()
    {
       return ("Prod");
@@ -672,6 +669,50 @@ public class WebUtil implements Serializable
          {
             return false;
          }
+      }
+      return false;
+   }
+
+   public boolean hasMenu(String Access, String role)
+   {
+      try
+      {
+         if (getAccess().equalsIgnoreCase(WebConst.WEB_ADMIN))
+         {
+            return true;
+         }
+         Map<String, String> webMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.WEB_MENU);
+         if (webMap != null && webMap.get(Access).length() > 0)
+         {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            if (principal instanceof UserInfoData)
+            {
+               Collection<GrantedAuthority> roleCollection = ((UserInfoData) principal).getAuthorities();
+
+               if (roleCollection != null)
+               {
+                  for (GrantedAuthority auth : roleCollection)
+                  {
+                     if (auth.getAuthority().equalsIgnoreCase(role))
+                     {
+                        return true;
+                     }
+                     if (auth.getAuthority().equalsIgnoreCase(WebConst.ROLE_ADMIN))
+                     {
+                        if (role.contains(WebConst.ROLE_SALES) || role.contains(WebConst.ROLE_SUPPORT))
+                        {
+                           return true;
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+      catch (Exception ex)
+      {
+         return false;
       }
       return false;
    }

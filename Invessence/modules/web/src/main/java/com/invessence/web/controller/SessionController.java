@@ -137,6 +137,7 @@ public class SessionController implements Serializable
                // On logon, if the Advisor and rep is defined to the user, then use that instead.  Removed this check on May 17th, 2017
                // resetUserCIDByAdvisor(webutil.getUserInfoData().getAdvisor());  // Since user is loging on, use the User's Advisor's Setup
                resetCIDByURL(null);  // Use the URL Mapping (May 17th, 2017)
+               loadWebMenu(webutil.getWebprofile().getUrl());
                if (webutil.getUserInfoData().getAdvisor() != null)
                {
                   webutil.getWebprofile().setDefaultAdvisor(webutil.getUserInfoData().getAdvisor());
@@ -267,6 +268,19 @@ public class SessionController implements Serializable
          }
       }
    }
+
+   private void loadWebMenu(String url)
+   {
+      // logger.info("Load WEB property for:" + url);
+      if(webutil.isUserLoggedIn())
+      {
+         Map<String, String> webMap=commonDAO.getWebMenuDetails(url, webutil.getAccess());
+         System.out.println("webMap lenngth"+webMap.size());
+         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.WEB_MENU);
+         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.WEB_MENU, webMap);
+      }
+   }
+
 
    private void loadAdvisorProfile(String advisor)
    {

@@ -232,6 +232,38 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
       }
    }
 
+   public Map<String, String> getWebMenuDetails(String url,String access)
+   {
+      try
+      {
+         DataSource ds = getDataSource();
+         CommonSP sp = new CommonSP(ds, "sel_web_mnu_detail", 6);
+         Map outMap = sp.getWebMenuInfo(url,access);
+         Map<String, String> webMap = new LinkedHashMap<String, String>();
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows;
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)
+            {
+               Integer i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
+                  webMap.put(convert.getStrData(rs.get("label")),
+                             convert.getStrData(rs.get("permission")));
+                  i++;
+               }
+            }
+         }
+         return webMap;
 
+      }
+      catch (Exception ex)
+      {
+         return null;
+
+      }
+   }
 
 }
