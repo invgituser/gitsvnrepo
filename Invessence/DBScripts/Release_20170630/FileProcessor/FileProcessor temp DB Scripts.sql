@@ -327,11 +327,17 @@ USE `temp`$$
 CREATE PROCEDURE `parentDBProcedure` ()
   BEGIN
 
-    delete from tmp_td_unrealized;
-    delete from tmp_nav_daily;
-    delete from tmp_position;
-    delete from tmp_transaction;
-    delete from tmp_client_data;
+    delete from temp.tmp_nav_daily;
+    delete from temp.tmp_position;
+    delete from temp.tmp_transaction;
+    delete from temp.tmp_client_data;
+
+    delete from temp.tmp_td_unrealized;
+    delete from temp.tmp_td_position;
+    delete from temp.tmp_td_price;
+    delete from temp.tmp_td_security;
+    delete from temp.tmp_td_demographic;
+    delete from temp.tmp_td_transaction;
 
   END$$
 
