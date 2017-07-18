@@ -3412,8 +3412,10 @@ input {
 }
 
 .mbSelected {
-    background: #666666;
-    color: #ffffff;
+
+    color: #000;
+    font-weight: 700;
+    text-decoration: underline;
 }
 
 .Sitelogo {
@@ -4981,6 +4983,9 @@ main.customtabs {
     background: #666;
     padding: 10px 15px;
     color: #fff;
+    float: right;
+    margin-right: 20px;
+    margin-top: 5px;
 }
 
 .nav {
@@ -5007,8 +5012,21 @@ main.customtabs {
 }
 
 .nav a {
-    padding: 0px 15px;
-    color: #000;
+    padding: 0px 10px 0px 23px;
+    color: #454545;
+    text-align: left;
+}
+
+.nav a:hover {
+
+    color: #1d1d1d;
+    text-decoration:underline ;
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -ms-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+
 }
 
 .nav li {
@@ -5074,8 +5092,18 @@ main.customtabs {
         display: block;
     }
 
+    .nav {    width: 100%;
+        position: absolute;
+        background-color: rgb(255, 255, 255);
+        left: 0px;
+        top: 69px;
+        padding-top: 0px;
+        z-index: 11;}
+
     .nav > li {
         float: none;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
     }
 
     .nav > li > .parent {
@@ -5095,6 +5123,9 @@ main.customtabs {
 
     .nav > li.hover > ul, .nav li li.hover ul {
         position: static;
+        width: 100%;
+        top: 20px;
+        margin-top: 15px;
     }
 
 }
