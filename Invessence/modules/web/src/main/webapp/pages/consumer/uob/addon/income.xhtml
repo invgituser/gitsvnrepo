@@ -26,8 +26,6 @@
         <p:inputNumber value="#{uobpb.accountFinancials.householdwages}" id="uobinputannsal"
                        styleClass="Wid100 uob_number_field" maxlength="15" placeholder="$"
                        decimalPlaces="0" symbol="$">
-            <p:ajax listener="#{uobpb.onChangeValue}"
-                    update=":ceForm:graphArea"/>
         </p:inputNumber>
 
         <div class="EmptyBox10"></div>
@@ -38,8 +36,6 @@
         <p:inputNumber value="#{uobpb.accountFinancials.liquidnetworth}" placeholder="$" id="uobinputlasset"
                        styleClass="Wid100 uob_number_field" maxlength="15"
                        decimalPlaces="0" symbol="$">
-            <p:ajax listener="#{uobpb.onChangeValue}"
-                    update=":ceForm:graphArea"/>
         </p:inputNumber>
         <!-- <h:outputText/>
     <h:outputText/> -->
@@ -51,8 +47,6 @@
         <p:inputNumber value="#{uobpb.accountFinancials.investment}" placeholder="$" id="uobinputothrinvest"
                        styleClass="Wid100 uob_number_field" maxlength="15"
                        decimalPlaces="0" symbol="$">
-            <p:ajax listener="#{uobpb.onChangeValue}"
-                    update=":ceForm:graphArea, :ceForm:buttonArea"/>
         </p:inputNumber>
 
         <div class="EmptyBox10"></div>
@@ -63,8 +57,6 @@
         <p:inputNumber value="#{uobpb.accountFinancials.equityOtherProperties}" placeholder="$" id="uobinputinvestprop"
                        styleClass="Wid100 uob_number_field" maxlength="15"
                        decimalPlaces="0" symbol="$">
-            <p:ajax listener="#{uobpb.onChangeValue}"
-                    update=":ceForm:graphArea, :ceForm:buttonArea"/>
         </p:inputNumber>
 
     </div>

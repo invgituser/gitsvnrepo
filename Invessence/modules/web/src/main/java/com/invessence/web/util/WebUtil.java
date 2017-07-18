@@ -717,6 +717,30 @@ public class WebUtil implements Serializable
       return false;
    }
 
+   public boolean hasSubMenu(String menu)
+   {
+      try
+      {
+         Map<String, String> webMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.WEB_MENU);
+         if(webMap!=null && webMap.size()>0)
+         {
+            Iterator it = webMap.entrySet().iterator();
+            while (it.hasNext())
+            {
+               Map.Entry pair = (Map.Entry) it.next();
+               if(pair.getValue().toString().equalsIgnoreCase(menu)){
+                  return true;
+               }
+            }
+         }
+      }
+      catch (Exception ex)
+      {
+         return false;
+      }
+      return false;
+   }
+
    public Long getLogonid()
    {
 

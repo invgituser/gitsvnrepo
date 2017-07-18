@@ -36,36 +36,33 @@
                     </h2>
 
                     <div class="EmptyBox30"></div>
-
-
-                    <p:inputText id="e1" label="Account Number"
+                    <h:outputText value="Account Number"/>
+                    <br/>
+                    <p:inputText id="acctNum" label="Account Number"
                                  value="#{acctEmulBean.accountNumber}"
                                  styleClass="Wid40">
-                        <p:watermark for="e1" value="Account Number"/>
                     </p:inputText>
                     <div class="EmptyBox10"></div>
-                    <p:inputNumber id="e2" label="Investment Amount"
+                    <h:outputText value="Investment Amount"/>
+                    <br />
+                    <p:inputNumber id="invtAmt" label="Investment Amount"
                                    value="#{acctEmulBean.amount}"
                                    symbol="$"
                                    styleClass="Wid40" style="width: 40%;">
-                        <p:watermark for="e2" value="Investment Amount"/>
                     </p:inputNumber>
                     <div class="EmptyBox10"></div>
                     <p:commandButton value="Process Account" ajax="true" styleClass="add_account_button"
                                      actionListener="#{acctEmulBean.processAccount}" update="@form"
                     />
                     <p:commandButton value="Open Account (O)" ajax="true" styleClass="add_account_button"
-                                     actionListener="#{acctEmulBean.openAccount}" style="margin-left: 10px;"
+                                     actionListener="#{acctEmulBean.openAccount}" style="margin-left: 10px;" update="@form"
                     />
                     <p:commandButton value="Active Account (A)" ajax="true" styleClass="add_account_button"
-                                     actionListener="#{acctEmulBean.activeAccount}" style="margin-left: 10px;"
+                                     actionListener="#{acctEmulBean.activeAccount}" style="margin-left: 10px;" update="@form"
                     />
                     <div class="EmptyBox10"></div>
 
-                    <p:commandButton value="Fund Account" ajax="true" styleClass="" actionListener="#{acctEmulBean.fundAccount}"
-                    />
-                    <p:commandButton value="Create Position" ajax="true" styleClass="" actionListener="#{acctEmulBean.createAccountPosition}"
-                                     style="margin-left: 30px;"
+                    <p:commandButton value="Fund Account" ajax="true" styleClass="" actionListener="#{acctEmulBean.fundAccount}" update="@form"
                     />
 
 
@@ -74,9 +71,9 @@
 
                     <p:panel rendered="#{acctEmulBean.getErrorMessage() != null}"
                              style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError">
-                        <h:outputText styleClass="errorText"
-                                      value="#{acctEmulBean.getErrorMessage()}" escape="false"/>
+                        <p:growl id="messages" showDetail="true" />
                     </p:panel>
+
 
                 </h:form>
             </div>

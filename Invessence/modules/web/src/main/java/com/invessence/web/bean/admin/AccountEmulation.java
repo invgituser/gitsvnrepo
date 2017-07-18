@@ -1,7 +1,9 @@
 package com.invessence.web.bean.admin;
 
 import java.io.IOException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
+import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 
 import com.invessence.web.dao.admin.AdminEmulationSpDAO;
@@ -22,21 +24,22 @@ public class AccountEmulation
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
 
-   public String processAccount() throws ServletException, IOException
+   public void processAccount() throws ServletException, IOException
    {
-      String response="";
+      String response = "";
       try
       {
          System.out.print("processAccount Account Number " + accountNumber);
          System.out.print("processAccount Amount " + amount);
-         errorMessage=getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step1_openaccount", 0);
-         this.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.acctType.requiredMsg",response, null));
+         errorMessage = getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step1_process_account", 0);
+         FacesMessage message = new FacesMessage("", errorMessage);
+         FacesContext.getCurrentInstance().addMessage(null, message);
       }
       catch (Exception e)
       {
          System.out.println("Error e");
+         e.printStackTrace();
       }
-      return "failed";
    }
 
    public void openAccount() throws ServletException, IOException
@@ -45,7 +48,9 @@ public class AccountEmulation
       {
          System.out.print("openAccount Account Number " + accountNumber);
          System.out.print("openAccount Amount " + amount);
-         getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step2_openaccount", 0);
+         errorMessage=getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step2_openaccount", 0);
+         FacesMessage message = new FacesMessage("", errorMessage);
+         FacesContext.getCurrentInstance().addMessage(null, message);
       }
       catch (Exception e)
       {
@@ -59,7 +64,9 @@ public class AccountEmulation
       {
          System.out.print("activeAccount Account Number " + accountNumber);
          System.out.print("activeAccount Amount " + amount);
-         getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step3_activateaccount", 1);
+         errorMessage=getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step3_activateaccount", 1);
+         FacesMessage message = new FacesMessage("", errorMessage);
+         FacesContext.getCurrentInstance().addMessage(null, message);
       }
       catch (Exception e)
       {
@@ -73,7 +80,9 @@ public class AccountEmulation
       {
          System.out.print("fundAccount Account Number " + accountNumber);
          System.out.print("fundAccount Amount " + amount);
-         getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step4_funding", 1);
+         errorMessage=getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step4_funding", 1);
+         FacesMessage message = new FacesMessage("", errorMessage);
+         FacesContext.getCurrentInstance().addMessage(null, message);
       }
       catch (Exception e)
       {

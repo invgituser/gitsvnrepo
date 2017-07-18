@@ -29,24 +29,24 @@ public class AdminEmulationSpDAO
 
    private JdbcTemplate jdbcTemplate;
 
-   public String processAccountRequest(Long acctnum, Double amount, String procedure, int mode) throws SQLException
+   public String processAccountRequest(Long acctnum, Double amount, String procedure, int mode)
    {
       SQLData convert = new SQLData();
       String response = null;
       jdbcTemplate = new JdbcTemplate(dataSource);
       AdminEmulationSp extInfoSP = new AdminEmulationSp(jdbcTemplate, procedure, mode);
       Map outMap = null;
-      if (mode == 0)
-      {
-         outMap = extInfoSP.execute(acctnum);
-      }
-      else
-      {
-         outMap = extInfoSP.execute(acctnum, amount);
-      }
-      System.out.println("dbResponse = [" + outMap.toString() + "]");
       try
       {
+         if (mode == 0)
+         {
+            outMap = extInfoSP.execute(acctnum);
+         }
+         else
+         {
+            outMap = extInfoSP.execute(acctnum, amount);
+         }
+         System.out.println("dbResponse = [" + outMap.toString() + "]");
          if (outMap != null)
          {
             ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
@@ -73,6 +73,7 @@ public class AdminEmulationSpDAO
       {
 
          System.out.println("processDCRequest Exception " + e);
+         response ="Error occurred while execution";
       }
       System.out.println("processDCRequest Exception " + response);
       return response;
@@ -81,7 +82,7 @@ public class AdminEmulationSpDAO
    public void updateBusinessDate(String businessdate) throws SQLException
    {
 
-      String sql = "update invdb.invessence_switch set value='"+businessdate+"' where name='BUSINESS_DATE' ;";
+      String sql = "update invdb.invessence_switch set value='" + businessdate + "' where name='BUSINESS_DATE' ;";
       invJdbcTemplate.execute(sql);
    }
 

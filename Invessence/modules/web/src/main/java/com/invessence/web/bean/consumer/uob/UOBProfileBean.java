@@ -627,7 +627,10 @@ public class UOBProfileBean extends CustomerData implements Serializable
       formEdit = true;
       createAssetPortfolio(1);
       setSliderAllocationIndex(getAllocationIndex());
-      setFlagforInvestShow(true);
+//      if(isAllDataEntered())
+//      {
+         setFlagforInvestShow(true);
+//      }
    }
 
    public void onPortfolioSlider(SlideEndEvent event)
@@ -638,7 +641,10 @@ public class UOBProfileBean extends CustomerData implements Serializable
       formEdit = true;
       createAssetPortfolio(1);
       // createPortfolio(1);    // Due to fixed allocaton, we have to do both (asset and portfolio)
-      setFlagforInvestShow(true);
+//      if(isAllDataEntered())
+//      {
+         setFlagforInvestShow(true);
+//      }
    }
 
    public void doAllocReset()
@@ -1169,16 +1175,23 @@ public class UOBProfileBean extends CustomerData implements Serializable
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.wages.required", "Salary/Wages are required", null));
             }
-            if (getAccountFinancials().getLiquidnetworth() == null)
+            if (getAccountFinancials().getLiquidnetworth() == null ||getAccountFinancials().getLiquidnetworth() == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.liquid.asset.required", "Liquid Assets are required", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.liquid.asset.required", "Liquid assets are required", null));
             }
-            if (getAccountFinancials().getInvestment() == null)
+            if (getAccountFinancials().getInvestment() == null || getAccountFinancials().getInvestment() == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.other.investments.required", "Other Investments are required.", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.other.investments.required", "Other investments are required.", null));
             }
+            if (getAccountFinancials().getEquityOtherProperties() == null || getAccountFinancials().getEquityOtherProperties() == 0)
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.other.investmentsProp.required", "Investment properties are required.", null));
+            }
+
+
             break;
          case 2:
             if (getAccountFinancials().getTotalExpense() == null || getAccountFinancials().getTotalExpense() == 0)
@@ -1186,7 +1199,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.total.expenses.required", "Total expenses are required.", null));
             }
-            if (getAccountFinancials().getTotalDebt() == null)
+            if (getAccountFinancials().getTotalDebt() == null || getAccountFinancials().getTotalDebt() == 0)
             {
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.total.debt.required", "Total debt is required.", null));
@@ -1217,7 +1230,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
             if (this.riskCalculator.getAnswerValue(pagenum) == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.level.investment.required", "level of investment is required.", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.level.investment.required", "Level of investment is required.", null));
             }
             break;
          case 7:
@@ -1238,7 +1251,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
             if (this.riskCalculator.getAnswerValue(pagenum) == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.long-term.investment.required", "long-term investment is required.", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.long-term.investment.required", "Long-term investment is required.", null));
             }
             break;
       }

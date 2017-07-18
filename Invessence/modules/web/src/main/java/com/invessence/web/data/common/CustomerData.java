@@ -628,6 +628,7 @@ public class CustomerData extends ProfileData
          setUserAssetOverride(false);
          setName(null);
          setUserAssetOverride(false);
+         setPhone(null);
 
          if (displayPortfolioList != null)
             displayPortfolioList.clear();
