@@ -168,8 +168,10 @@ public class FileDownloader
             br.close();
             fr.close();
             if(fileDetails.getFileProcessType()!=null && !fileDetails.getFileProcessType().equals("")&& fileDetails.getFileProcessType().equals("SFTP")){
-               return copyFileToSFTPServer(serviceRequest, file, fileDetails, businessDate, mailAlertMsg);
+               copyFileToSFTPServer(serviceRequest, file, fileDetails, businessDate, mailAlertMsg);
             }
+            fileProcessorUtil.deleteFilesFromLocal(fileDetails, fileProcessorUtil.getListOfFiles(file.getParent(), fileDetails.getFileName()), businessDate, file.getParent(), mailAlertMsg);
+
             result=true;
          } catch (IOException e) {
             mailAlertMsg.append("Issue while creating file " + fileDetails.getFileName() + " to local directory from processId "+fileDetails.getProcessId()+" \n");
@@ -221,6 +223,37 @@ public class FileDownloader
          //channel.mkdir(directory);
          channel.cd(directory);
          channel.put(new FileInputStream(f), fileName);
+
+         List<String> fileNameLst = new ArrayList<String>();
+         StringBuilder searchString=new StringBuilder();
+         if(fileDetails.getFileNameAppender().equalsIgnoreCase("PREFIX")){
+            searchString.append("*_").append(fileDetails.getFileName()).append("."+fileDetails.getFileExtension());
+         }else if(fileDetails.getFileNameAppender().equalsIgnoreCase("POSTFIX")){
+            searchString.append(fileDetails.getFileName()).append("_*").append("."+fileDetails.getFileExtension());
+         }else{
+            searchString.append(fileDetails.getFileName()).append("."+fileDetails.getFileExtension());
+         }
+         System.out.println("SearchString = " + searchString +" to fetch files from Server.");
+         Vector v = channel.ls(searchString.toString());
+
+         logger.info("Fetching list of " + searchString.toString() + " files from server" + v.size());
+         ChannelSftp.LsEntry entry = null;
+         for (int i = 0; i < v.size(); i++)
+         {
+            entry = (ChannelSftp.LsEntry) v.get(i);
+            fileNameLst.add(entry.getFilename());
+         }
+         logger.info("Fetching list of " + fileDetails.getFileName() + " files from server" + v.size());
+         if (fileNameLst == null || fileNameLst.size() == 0)
+         {
+            logger.info(fileDetails.getFileName() + " files are not available on server for delete, for Advisor " + fileDetails.getVendor() + "\n");
+         }
+         else
+         {
+            Collections.sort(fileNameLst);
+            fileProcessorUtil.deleteFilesFromServer(fileDetails, fileNameLst, channel, businessDate, mailAlertMsg);
+         }
+
          result=true;
          channel.disconnect();
          session.disconnect();
