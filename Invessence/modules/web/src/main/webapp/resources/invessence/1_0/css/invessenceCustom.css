@@ -4572,7 +4572,7 @@ main.customtabs {
 
 .customtabs button span:last-child:before {
     content: "";
-    content: "";
+
     position: absolute;
     z-index: -1;
     left: 0;
@@ -4992,8 +4992,10 @@ main.customtabs {
     list-style: none;
     *zoom: 1;
     font-size: 13px;
-    padding-top: 20px;
+    padding-top: 15px;
     padding-left: 0px;
+    float: right;
+    margin-right: 15px;
 }
 
 .nav:before,
@@ -5053,7 +5055,7 @@ main.customtabs {
     padding: 0px;
     background-color: #fff;
     box-shadow: 0px 1px 2px #000;
-    top: 18px;
+    top: 23px;
     width: 180px;
 }
 
@@ -5062,7 +5064,7 @@ main.customtabs {
 }
 
 .nav > li.hover:last-child > ul {
-    left: -110px;
+    left: -90px;
 }
 
 .nav li li.hover ul {
@@ -5129,3 +5131,16 @@ main.customtabs {
     }
 
 }
+
+.uobsagbutton span {
+    background-color: #009abb !important;
+    border: none !important;
+    overflow: hidden !important;}
+.uobbtn .ui-fieldset-legend {
+    background-color: #009abb !important;
+    border: none !important;
+    overflow: hidden !important;}
+
+.ui-datatable .ui-datagrid-header, .ui-datatable .ui-datatable-header, .ui-datatable .ui-datatable-subtable-header, .ui-datatable .ui-datatable-summaryrow
+{ background-color: #009abb !important;}
+
