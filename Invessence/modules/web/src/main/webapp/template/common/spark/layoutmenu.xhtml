@@ -5,8 +5,8 @@
         xmlns:ps="http://primefaces.org/spark"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:p="http://primefaces.org/ui">
-
     <h:form id="menutopbar">
+
         <ps:menu>
             <f:facet name="options">
                 <p:commandButton value="Dashboard" icon="fa fa-home" styleClass="Fs14 BlueButton"
@@ -16,10 +16,10 @@
             <p:menuitem value="New Account" rendered="#{webutil.hasAccess('USER')}"
                         actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?app=N')}"/>
 
-            <p:menuitem value="Account Emulation" style="margin: 0px 20px;" id="menuFlPrcsbtn" rendered="#{webutil.hasRole('DEVELOPER')}"
+            <p:menuitem value="Account Emulation" style="margin: 0px 20px;" id="menuFlPrcsbtn" rendered="#{webutil.hasAccess('SuperAdmin')}"
                         actionListener="#{uiLayout.doMenuAction('productadmin','accountEmulation.xhtml')}"/>
 
-            <p:menuitem value="File Processing" style="margin: 0px 20px;" id="menuAcctEmulbtn" rendered="#{webutil.hasRole('DEVELOPER')}"
+            <p:menuitem value="File Processing" style="margin: 0px 20px;" id="menuAcctEmulbtn" rendered="#{webutil.hasAccess('SuperAdmin')}"
                         actionListener="#{uiLayout.doMenuAction('productadmin','fileProcessEmulation.xhtml')}"/>
 
             <p:menuitem value="Aggregation" style="margin: 0px 20px;" rendered="#{webutil.isAggregatorMenuActive()}"

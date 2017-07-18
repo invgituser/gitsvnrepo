@@ -26,13 +26,13 @@
                     </li>
 
                     <li class="MobileModeOnly">
-                        <ui:fragment rendered="#{webutil.hasRole('DEVELOPER')}">
+                        <ui:fragment rendered="#{webutil.hasAccess('SuperAdmin')}">
                             <!--<a href="/pages/consumer/tcm/cadd.xhtml?app=N" class="Animated05"><i class="fa fa-plus-square"></i> New Account</a>-->
                             <a href="/pages/productadmin/fileProcessEmulation.xhtml" id="menuFlPrcsbtn" class="Animated05">File Processing</a>
                         </ui:fragment>
                     </li>
                     <li class="MobileModeOnly">
-                        <ui:fragment rendered="#{webutil.hasRole('DEVELOPER')}">
+                        <ui:fragment rendered="#{webutil.hasAccess('SuperAdmin')}">
                             <!--<a href="/pages/consumer/tcm/cadd.xhtml?app=N" class="Animated05"><i class="fa fa-plus-square"></i> New Account</a>-->
                             <a href="/pages/productadmin/accountEmulation.xhtml" id="menuAcctEmulbtn" class="Animated05">Account Emulation</a>
                         </ui:fragment>
