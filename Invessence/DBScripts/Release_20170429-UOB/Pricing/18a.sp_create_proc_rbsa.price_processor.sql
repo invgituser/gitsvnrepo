@@ -8,7 +8,7 @@ CREATE PROCEDURE price_processor(in p_process varchar(20),in p_businessDate varc
 BEGIN
 
 if p_process='DAILY' THEN
-call daily_price_processor(p_businessDate,dailymsg);
+call daily_price_processor(p_businessDate,dailymsg,p_dest_currency);
 SELECT 'DAILY' INTO msg;
 end if;
 if p_process='MONTHLY' THEN
