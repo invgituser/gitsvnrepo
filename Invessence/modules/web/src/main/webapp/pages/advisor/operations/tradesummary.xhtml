@@ -24,14 +24,14 @@
                         </div>
                         <div class="Container50 Fright TexAlRight">
                             <p:commandButton value="Close"
-                                             actionListener="#{tradeBean.setTradeUI('R')}"/>
+                                             actionListener="#{tradeBean.setTradeUI('R')}" styleClass="uobsagbutton"/>
                         </div>
 
                         <div class="Container100 Responsive">
                             <p:separator/>
                         </div>
                         <div class="Container100 Responsive">
-                            <p:fieldset legend="Overview" collapsed="false" toggleable="true" toggleSpeed="500">
+                            <p:fieldset legend="Overview" collapsed="false" toggleable="true" toggleSpeed="500" styleClass="uobbtn">
                                 <p:panel style="border: 0px">
                                     <p:dataTable id="editAlloc" styleClass="invAllocTable"
                                                  value="#{tradeBean.assetList}"
@@ -105,7 +105,7 @@
                                 </p:panel>
                             </p:fieldset>
                             <p:fieldset legend="Detail" collapsed="false" toggleable="true" toggleSpeed="500"
-                                        style="padding-left: 0px; padding-right: 0px">
+                                        style="margin-top: 20px;"  styleClass="uobbtn">
                                 <p:dataTable id="dataTable" var="tradedata"
                                              value="#{tradeBean.rebalancetradedatalist}"
                                              styleClass="invDataTable Fs10">
@@ -216,7 +216,7 @@
                         </div>
 
                     <f:facet name="footer">
-                        <p:commandButton value="Close"
+                        <p:commandButton value="Close" styleClass="uobsagbutton"
                                          actionListener="#{tradeBean.setTradeUI('R')}"/>
                     </f:facet>
 
