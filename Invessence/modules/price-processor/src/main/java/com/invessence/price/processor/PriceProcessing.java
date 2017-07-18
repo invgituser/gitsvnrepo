@@ -161,7 +161,7 @@ public class PriceProcessing
                   {
                      logger.info("PriceProcessor.dailyProcess() Daily Process Price Value Missing for Ticker:" + secLst.get(i1).getTicker_source_name() + ",generated holiday data");
 //            Call holiday data generation Procedure
-                     priceDataDao.GetDailyMissingData(businessDate, secLst.get(i1).getTicker_source_name());
+                     priceDataDao.GetDailyMissingData(businessDate, secLst.get(i1).getTicker_source_name(),secLst.get(i1).getDest_currency());
                      mailWaringAlertMsg.append("Daily Process Price Value Missing for Ticker:" + secLst.get(i1).getTicker_source_name() + ",generated holiday data\n");
                      if (secLst.get(i1).getExchange_required().equalsIgnoreCase("Y"))
                      {
@@ -303,7 +303,7 @@ public class PriceProcessing
                      {
                         try
                         {
-                           priceDataDao.GetDailyMissingData(businessdate, secMaster.getTicker_source_name());
+                           priceDataDao.GetDailyMissingData(businessdate, secMaster.getTicker_source_name(),secMaster.getDest_currency());
                            mailWaringAlertMsg.append("Price not available for ticker:" + secMaster.getTicker_source_name() + " for businessdate :" + businessdate + "\n");
                            logger.info("PriceProcessor.monthlyProcess() Price not available for ticker:" + secMaster.getTicker_source_name() + " for businessdate :" + businessdate);
                         }
@@ -441,7 +441,7 @@ public class PriceProcessing
                   {
                      try
                      {
-                        priceDataDao.GetDailyMissingData(businessDate, secMaster.getTicker_source_name());
+                        priceDataDao.GetDailyMissingData(businessDate, secMaster.getTicker_source_name(),secMaster.getDest_currency());
                         mailWaringAlertMsg.append("Price not available for ticker:" + secMaster.getTicker_source_name() + " for businessdate :" + businessDate + ",generated holiday data\n");
                         logger.info("PriceProcessor.onDemandProcessing() Price not available for ticker:" + secMaster.getTicker_source_name() + " for businessdate :" + businessDate + ",generated holiday data\n");
                      }

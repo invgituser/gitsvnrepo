@@ -201,7 +201,7 @@ public class PriceDataDAOImpl implements PriceDataDao
 
    }
 
-   public void GetDailyMissingData(String startDate, String ticker) throws SQLException
+   public void GetDailyMissingData(String startDate, String ticker,String destcurrency) throws SQLException
    {
       System.out.println("GetDailyMissingData startDate "+startDate+" ticker "+ticker);
       //rbsaJdbcTemplate = new JdbcTemplate(dataSource);
@@ -210,6 +210,7 @@ public class PriceDataDAOImpl implements PriceDataDao
       Map<String, Object> inParamMap = new HashMap<String, Object>();
       inParamMap.put("p_startdt", startDate);
       inParamMap.put("p_ticker", ticker);
+      inParamMap.put("p_dest_currency", destcurrency);
       SqlParameterSource in = new MapSqlParameterSource(inParamMap);
       Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
       System.out.println(simpleJdbcCallResult);

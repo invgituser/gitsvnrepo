@@ -16,7 +16,7 @@ public interface PriceDataDao {
 	public String callProcedure(String process, String businessDate, String ticker,String dest_currency)throws SQLException;
 	public void callEodProcedure(String process, String businessDate)throws SQLException;
 	public void callHolidayProcedure(String startDate, String endDate) throws SQLException;
-	public void GetDailyMissingData(String startDate, String ticker) throws SQLException;
+	public void GetDailyMissingData(String startDate, String ticker,String destcurrency) throws SQLException;
 	public void GetExchangePriceData(String ticker,String destcurrency)throws SQLException;
 
 }
