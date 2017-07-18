@@ -138,14 +138,16 @@
                     event.stopPropagation();
                     $(this).toggleClass('hover').siblings().removeClass('hover');
                 });
+                $('body').click(function() {
+                    // do something here
+                    $(".nav li").removeClass('hover');
+                });
+
             }
         }
 
 
-        $('body').click(function() {
-            // do something here
-            $(".nav li").removeClass('hover');
-        });
+
 
 
 
