@@ -133,9 +133,9 @@
                 $(".nav").show();
                 $(".nav li").removeClass("hover");
                 $(".nav li a").unbind('click');
-                $(".nav li").unbind('mouseenter mouseleave').bind('mouseenter mouseleave', function() {
+                $(".nav li").unbind('click').bind('click', function() {
                     // must be attached to li so that mouseleave is not triggered when hover over submenu
-                    $(this).toggleClass('hover');
+                    $(this).toggleClass('hover').siblings().removeClass('hover');
                 });
             }
         }
