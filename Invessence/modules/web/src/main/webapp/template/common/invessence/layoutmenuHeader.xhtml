@@ -135,24 +135,15 @@
                 $(".nav li a").unbind('click');
                 $(".nav li").unbind('click').bind('click', function() {
                     // must be attached to li so that mouseleave is not triggered when hover over submenu
-                    event.stopPropagation();
+
                     $(this).toggleClass('hover').siblings().removeClass('hover');
+
                 });
-                $('body').click(function() {
-                    // do something here
-                    $(".nav li").removeClass('hover');
-                });
+
 
             }
         }
-
-
-
-
-
-
-
-    </script>
+</script>
 
 
 
