@@ -15,24 +15,20 @@ INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `v
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_SUCCESS_EMAIL', 'operations@dot.com', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'UPLOAD_ISSUE_EMAIL', 'support@dot.com', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_SFTP_USERNAME', 'sftpuser', 'N');
-INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_SFTP_SRC_DIRECTORY', '/data/download/', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_SFTP_PASSWORD', 'y91C9ry0PCOfH2AR', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_SFTP_HOST', 'uat.invessence.com', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_POST_DB_PROCESS', '', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_POST_INSTRUCTION', '', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_PRE_DB_PROCESS', '', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_PRE_INSTRUCTION', '', 'N');
-INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_LOCAL_SRC_DIRECTORY', '/data/download/tcm/eodFiles', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_ISSUE_EMAIL', 'support@dot.com', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_ISSUE_EMAIL', 'support@dot.com', 'N');
-INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_LOCAL_SRC_DIRECTORY', 'D:/data/download/tcm/tradeFiles', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_POST_DB_PROCESS', '', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_POST_INSTRUCTION', '', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_PRE_DB_PROCESS', '', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_PRE_INSTRUCTION', '', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_SFTP_HOST', 'uat.invessence.com', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_SFTP_PASSWORD', 'T35t123', 'N');
-INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_SFTP_SRC_DIRECTORY', '/data/download/', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_SFTP_USERNAME', 'abhangp', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_SUCCESS_EMAIL', 'operations@dot.com', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'ENCRY_DECRY_KEY', 'aRXDugfr4WQpVrxu', 'N');
@@ -53,6 +49,11 @@ INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `v
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'GPG_PRIVATE_KEY', '/data/gnupg/secring.gpg', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'GPG_PUBLIC_KEY', '/data/gnupg/pubring.gpg', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'GPG_PASSWORD', 'Inv3ss3nc3', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_LOCAL_SRC_DIRECTORY', '/data/download', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_SFTP_SRC_DIRECTORY', '/data/download', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'UPLOAD_LOCAL_SRC_DIRECTORY', '/data/upload', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'UPLOAD_SFTP_SRC_DIRECTORY', '/data/download', 'N');
+
 
 
 

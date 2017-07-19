@@ -91,12 +91,14 @@ public class FileProcessor
                      logger.info("fileExecutionCounter = " + fileExecutionCounter+" : "+fileDetails.getFileName());
 
                      if(!preInstructionExecuted){
+                        isProcessMailRaised = new StringBuilder();
                         fileProcessorUtil.executeInstruction(fileDetails,"PARENTPRE", isProcessMailRaised, serviceRequest);
                         if(isProcessMailRaised.length()>0){ // Checking Parent Pre Instruction Process Result
                            mailAlertMsg.append(isProcessMailRaised);
                            fileProcessorUtil.auditEntry(serviceRequest, fileDetails, "F", isProcessMailRaised.toString(), "PARENT PRE INSTRUCTION");
                            break;
                         }
+                        isProcessMailRaised = new StringBuilder();
                         fileProcessorUtil.executeDBProcess(fileDetails, "PARENTPRE", isProcessMailRaised);
                         if(isProcessMailRaised.length()>0){ // Checking Parent Pre DB Process Result
                            mailAlertMsg.append(isProcessMailRaised);

@@ -123,7 +123,6 @@ public class FileProcessorUtil
 
    public void executeInstruction(FileDetails fileDetails, String event, StringBuilder mailAlertMsg, ServiceRequest serviceRequest){
       String instruction=null;
-      mailAlertMsg=new StringBuilder();
       try{
          if(event.equalsIgnoreCase("PARENTPRE"))
          {
