@@ -5057,6 +5057,7 @@ main.customtabs {
     box-shadow: 0px 1px 2px #000;
     top: 23px;
     width: 180px;
+    z-index: 99999;
 }
 
 .nav > li.hover > ul {
