@@ -185,7 +185,7 @@ public class FileUploader
                         }
                         else
                         {
-                           String decryptedFileName = localUploadFile + "/" + fileToDownload.replace(fileDetails.getFileExtension(), fileDetails.getLoadFormat());
+                           String decryptedFileName = localUploadFile + "/" + fileToDownload.replace(fileDetails.getFileExtension(), fileDetails.getDecrFileExtension());
                            try
                            {
                               if (fileDetails.getEncryptionMethod().equalsIgnoreCase("pgp"))

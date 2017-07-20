@@ -29,6 +29,7 @@ public class FileDetails
    private String required;
    private String canBeEmpty;
    private String encryptionMethod;
+   private String decrFileExtension;
    private String tmpTableName;
    private String canBeDups;
    private String delimiter;
@@ -42,7 +43,6 @@ public class FileDetails
    private String parentPostDBProcess;
    private String parentPreInstruction;
    private String parentPostInstruction;
-
    private boolean processStatus;
 
    public FileDetails(String vendor,String fileName, String processId, boolean processStatus, String fileProcessType, String downloadDir)
@@ -55,7 +55,9 @@ public class FileDetails
       this.downloadDir=downloadDir;
    }
 
-   public FileDetails(String vendor, String fileName, String processId, String process, String fileType, String fileExtension, String fileId, String containsHeader, String active, Integer seqNo, String uploadDir, String preDBProcess, String postDBProcess, String preInstruction, String postInstruction, String fileNameAppender, String appenderFormat, String available, String sourcePath, String downloadDir, String loadFormat, String required, String canBeEmpty, int keyData, String encryptionMethod, String encColumns, String tmpTableName, String canBeDups, String delimiter,
+   public FileDetails(String vendor, String fileName, String processId, String process, String fileType, String fileExtension, String fileId, String containsHeader, String active, Integer seqNo, String uploadDir, String preDBProcess, String postDBProcess, String preInstruction, String postInstruction, String fileNameAppender, String appenderFormat, String available, String sourcePath, String downloadDir, String loadFormat, String required, String canBeEmpty, int keyData,
+                      String encryptionMethod ,
+                      String decrFileExtension, String encColumns, String tmpTableName, String canBeDups, String delimiter,
                       String delFlagServerFile,
                       int delDayServerFile,
                       String delFlagLocalFile,
@@ -91,6 +93,7 @@ public class FileDetails
       this.required = required;
       this.canBeEmpty = canBeEmpty;
       this.encryptionMethod = encryptionMethod;
+      this.decrFileExtension=decrFileExtension;
       this.tmpTableName = tmpTableName;
       this.canBeDups = canBeDups;
       this.delimiter=        delimiter;
@@ -106,70 +109,15 @@ public class FileDetails
          this.parentPostInstruction=parentPostInstruction;
    }
 
-
-   @Override
-   public String toString()
+   public String getDecrFileExtension()
    {
-      return "FileDetails{" +
-         "vendor='" + vendor + '\'' +
-         ", fileName='" + fileName + '\'' +
-         ", processId='" + processId + '\'' +
-         ", process='" + process + '\'' +
-         ", fileType='" + fileType + '\'' +
-         ", fileExtension='" + fileExtension + '\'' +
-         ", fileId='" + fileId + '\'' +
-         ", containsHeader='" + containsHeader + '\'' +
-         ", active='" + active + '\'' +
-         ", seqNo=" + seqNo +
-         ", uploadDir='" + uploadDir + '\'' +
-         ", preDBProcess='" + preDBProcess + '\'' +
-         ", postDBProcess='" + postDBProcess + '\'' +
-         ", preInstruction='" + preInstruction + '\'' +
-         ", postInstruction='" + postInstruction + '\'' +
-         ", fileNameAppender='" + fileNameAppender + '\'' +
-         ", appenderFormat='" + appenderFormat + '\'' +
-         ", available='" + available + '\'' +
-         ", sourcePath='" + sourcePath + '\'' +
-         ", downloadDir='" + downloadDir + '\'' +
-         ", loadFormat='" + loadFormat + '\'' +
-         ", required='" + required + '\'' +
-         ", canBeEmpty='" + canBeEmpty + '\'' +
-         ", encryptionMethod='" + encryptionMethod + '\'' +
-         ", tmpTableName='" + tmpTableName + '\'' +
-         ", canBeDups='" + canBeDups + '\'' +
-         ", delimiter='" + delimiter + '\'' +
-         ", delFlagServerFile='" + delFlagServerFile + '\'' +
-         ", delDayServerFile=" + delDayServerFile +
-         ", delFlagLocalFile='" + delFlagLocalFile + '\'' +
-         ", delDayLocalFile=" + delDayLocalFile +
-         ", delFlagDecrFile='" + delFlagDecrFile + '\'' +
-         ", fileProcessType='" + fileProcessType + '\'' +
-         ", parentPreDBProcess='" + parentPreDBProcess + '\'' +
-         ", parentPostDBProcess='" + parentPostDBProcess + '\'' +
-         ", parentPreInstruction='" + parentPreInstruction + '\'' +
-         ", parentPostInstruction='" + parentPostInstruction + '\'' +
-         ", processStatus=" + processStatus +
-         '}';
+      return decrFileExtension;
    }
 
-   public String toResultString()
+   public void setDecrFileExtension(String decrFileExtension)
    {
-      /*this.fileName = fileName;
-      this.processId = processId;
-      this.processStatus = processStatus;
-      this.fileProcessType =fileProcessType;
-      this.downloadDir=downloadDir;8*/
-      return "FileDetails{" +
-         "vendor='" + vendor + '\'' +
-         ", fileName='" + fileName + '\'' +
-         ", processId='" + processId + '\'' +
-         ", process='" + process + '\'' +
-         ", processStatus='" + processStatus + '\'' +
-         ", fileProcessType='" + fileProcessType + '\'' +
-         ", downloadDir='" + downloadDir +
-         '}';
+      this.decrFileExtension = decrFileExtension;
    }
-
 
    public String getParentPreDBProcess()
    {

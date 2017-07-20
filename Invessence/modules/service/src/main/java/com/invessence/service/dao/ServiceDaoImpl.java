@@ -656,6 +656,7 @@ try{
                              convert.getStrData(map.get("canBeEmpty")),
                              convert.getIntData(map.get("keyData")),
                              convert.getStrData(map.get("encryptionMethod")),
+                             convert.getStrData(map.get("decrFileExtension")),
                              convert.getStrData(map.get("encColumns")),
                              convert.getStrData(map.get("tmpTableName")),
                              convert.getStrData(map.get("canBeDups")),
