@@ -158,6 +158,10 @@ UNLOCK TABLES;
 
 
 
+ALTER TABLE `service`.`file_details`
+ADD COLUMN `decrFileExtension` VARCHAR(10) NULL DEFAULT NULL AFTER `encryptionMethod`;
+
+
 USE `service`;
 DROP procedure IF EXISTS `sel_service_details`;
 
@@ -174,7 +178,7 @@ if(p_service ='FILE-PROCESS' and p_type='ADDITIONAL_DETAILS' and p_info='FILE_DE
 
 select vendor, fileName, processId, process, fileType, fileExtension, fileId, containsHeader,
     active, seqNo, uploadDir, preDBProcess, postDBProcess, preInstruction, postInstruction, fileNameAppender,
-    appenderFormat, available, sourcePath, downloadDir, loadFormat, required, canBeEmpty, encryptionMethod,
+    appenderFormat, available, sourcePath, downloadDir, loadFormat, required, canBeEmpty, encryptionMethod, decrFileExtension,
     tmpTableName, canBeDups, delimiter, delFlagServerFile, delDayServerFile, delFlagLocalFile,
 	delDayLocalFile, delFlagDecrFile, fileProcessType, parentPreDBProcess, parentPostDBProcess, parentPreInstruction,
     parentPostInstruction
@@ -182,9 +186,9 @@ select vendor, fileName, processId, process, fileType, fileExtension, fileId, co
     where vendor= p_product order by processId, seqNo;
 elseif(p_service ='FILE-PROCESS' and p_type='COMMON_DETAILS' and p_info='FILE_RULES')then
 
-	select fcr.fileId, fcr.dataField, fcr.description, fcr.seqNo, fcr.startPos, fcr.endPos, 
+	select fcr.fileId, fcr.dataField, fcr.description, fcr.seqNo, fcr.startPos, fcr.endPos,
     fcr.length, fcr.format, fcr.decimals, fcr.isDelimited, fcr.delimiter, fcr.justified,fcr.dbColumn, fcr.isRequired, fcr.needToEncrypt
-	from service.file_process_rules fcr 
+	from service.file_process_rules fcr
 	where fcr.fileId in(select fileId from service.file_details where vendor= p_product) order by fileId, fcr.seqNo;
 elseif(p_service ='DOCUSIGN-SERVICES' and p_type='COMMON_DETAILS' and p_info='DOCUSIGN_MAPPING')then
 
@@ -207,6 +211,7 @@ end if;
 END$$
 
 DELIMITER ;
+
 
 UPDATE `service`.`service_config_details` SET `value`='sftpuser' WHERE `mode`='UAT' and`company`='UOB' and`service`='FILE-PROCESS' and`vendor`='VENDOR' and`name`='DOWNLOAD_SFTP_USERNAME';
 UPDATE `service`.`service_config_details` SET `value`='sftpuser' WHERE `mode`='UAT' and`company`='UOB' and`service`='FILE-PROCESS' and`vendor`='VENDOR' and`name`='UPLOAD_SFTP_USERNAME';
