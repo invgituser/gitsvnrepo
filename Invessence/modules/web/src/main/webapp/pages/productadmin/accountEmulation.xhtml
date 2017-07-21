@@ -35,7 +35,16 @@
                         <h:outputText value="Account Emulation Process" styleClass="Wid90"/>
                     </h2>
 
+
                     <div class="EmptyBox30"></div>
+
+                    <p:panel rendered="#{acctEmulBean.getErrorMessage() != null}"
+                             style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError">
+                        <h:outputText styleClass="errorText"
+                                      value="#{acctEmulBean.getErrorMessage()}" escape="false"/>
+                        <div class="EmptyBox30"></div>
+                    </p:panel>
+
                     <h:outputText value="Account Number"/>
                     <br/>
                     <p:inputText id="acctNum" label="Account Number"
@@ -69,10 +78,7 @@
                     <div class="EmptyBox20"></div>
 
 
-                    <p:panel rendered="#{acctEmulBean.getErrorMessage() != null}"
-                             style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError">
-                        <p:growl id="messages" showDetail="true" />
-                    </p:panel>
+
 
 
                 </h:form>

@@ -134,6 +134,8 @@ public class SessionController implements Serializable
          {
             if (webutil.getUserInfoData() != null)
             {
+
+               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.USERLOGON_ATTEMPTS, 0);
                // On logon, if the Advisor and rep is defined to the user, then use that instead.  Removed this check on May 17th, 2017
                // resetUserCIDByAdvisor(webutil.getUserInfoData().getAdvisor());  // Since user is loging on, use the User's Advisor's Setup
                resetCIDByURL(null);  // Use the URL Mapping (May 17th, 2017)

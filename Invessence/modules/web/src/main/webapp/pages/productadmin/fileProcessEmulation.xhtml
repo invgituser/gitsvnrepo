@@ -30,12 +30,18 @@
                 <h:form id="emulationForm" prependId="false" styleClass="formPage">
 
 
-
                     <h2>
                         <h:outputText value="File Processing" styleClass="Wid90"/>
                     </h2>
 
                     <div class="EmptyBox30"></div>
+
+                    <p:panel rendered="#{filePrcsEmul.getErrorMessage() != null}"
+                             style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError">
+                        <h:outputText styleClass="errorText"
+                                      value="#{filePrcsEmul.getErrorMessage()}" escape="false"/>
+                        <div class="EmptyBox30"></div>
+                    </p:panel>
 
 
                     <p:inputText id="e1" label="Business Date"
@@ -58,11 +64,6 @@
 
 
 
-                    <p:panel rendered="#{filePrcsEmul.getErrorMessage() != null}"
-                             style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError">
-                        <h:outputText styleClass="errorText"
-                                      value="#{filePrcsEmul.getErrorMessage()}" escape="false"/>
-                    </p:panel>
 
                 </h:form>
             </div>

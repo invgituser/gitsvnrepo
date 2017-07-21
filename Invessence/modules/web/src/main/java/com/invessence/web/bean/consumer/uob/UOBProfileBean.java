@@ -54,6 +54,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
    private HighChartsController highChartsController;
    private UOBRiskCalculator riskCalculator;
    private boolean altrOnChngStrategy;
+   private boolean allAnsSbmt;
 
    public UOBProfileBean()
    {
@@ -73,6 +74,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
       displayGoalGraph = false;
       displayGoalText = false;
       displayWhichDataPanel="Summary";
+
+      setAllAnsSbmt(false);
 
    }
 
@@ -1178,7 +1181,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
             if (getAccountFinancials().getLiquidnetworth() == null ||getAccountFinancials().getLiquidnetworth() == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.liquid.asset.required", "Liquid assets are required", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.liquid.asset.required", "Liquid asset is required", null));
             }
             if (getAccountFinancials().getInvestment() == null || getAccountFinancials().getInvestment() == 0)
             {
@@ -1271,6 +1274,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       }
       setFlagforInvestShow(checkAns);
       setEnableChangeStrategy(checkAns);
+      setAllAnsSbmt(checkAns);
       return checkAns;
    }
 
@@ -1458,5 +1462,29 @@ public class UOBProfileBean extends CustomerData implements Serializable
       this.altrOnChngStrategy = altrOnChngStrategy;
    }
 
+   public boolean isAllAnsSbmt()
+   {
+      allAnsSbmt = true;
+      for (Integer question = 1; question <= riskCalculator.getNumberofQuestions(); question++)
+      {
+         if (this.riskCalculator.getAnswerValue(question) == 0)
+         {
+            allAnsSbmt = false;
+            break;
+         }
+      }
+//      if(!allAnsSbmt){
+//         if(pagemanager.getPage()==riskCalculator.getNumberofQuestions()){
+//            allAnsSbmt=true;
+//         }
+//      }
+      System.out.println("allAnsSbmt~~>["+allAnsSbmt+"]");
+      return allAnsSbmt;
+   }
+
+   public void setAllAnsSbmt(boolean allAnsSbmt)
+   {
+      this.allAnsSbmt = allAnsSbmt;
+   }
 }
 
