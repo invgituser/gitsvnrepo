@@ -7,6 +7,7 @@
                 template="/template/common/template.xhtml">
     <f:metadata>
         <f:viewParam name="app" value="#{uobpb.newapp}"/>
+        <f:viewParam name="src" value="#{uobpb.backURL}"/>
         <f:viewParam name="acct" value="#{uobpb.beanAcctnum}"/>
         <f:event type="preRenderView" listener="#{uobpb.preRenderView}"/>
     </f:metadata>

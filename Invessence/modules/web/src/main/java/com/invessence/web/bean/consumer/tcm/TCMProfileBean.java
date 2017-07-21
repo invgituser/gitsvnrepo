@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.invessence.converter.*;
 import com.invessence.web.constant.WebConst;
 import com.invessence.web.data.common.*;
+import com.invessence.web.data.consumer.RiskCalculator;
 import com.invessence.web.data.consumer.tcm.*;
 import com.invessence.web.util.Impl.PagesImpl;
 import com.invmodel.inputData.ProfileData;
@@ -566,7 +567,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void onChangeValue()
    {
       formEdit = true;
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
    }
 
    public void onGoalChangeValue()
@@ -603,7 +605,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          formEdit = true;
          getGoalData().setTerm(getHorizon().doubleValue());
-         createAssetPortfolio(1);
+         Double riskIndex = riskCalculator.calculateRisk();
+         createAssetPortfolio(1, riskIndex);
       }
    }
 
@@ -611,7 +614,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    {
       formEdit = true;
       loadBaskets();
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
    }
 
    public void selectedActionBasket()
@@ -622,7 +626,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          setGoal(getAdvisorBasket().get(getBasket())); // Key is the Themename, value is display
          setTheme(getBasket());                        // Set theme to the Key.  (We assigned this during selection)
       }
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
    }
 
    public void showFTPanel() {
@@ -639,7 +644,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    }
 
    public void saveFTPanel() {
-      saveProfile();
+      saveProfile(getRiskCalculator());
       setSavedRiskFormula(getRiskCalcMethod());
       setSavedAllocSliderIndex(getAllocationIndex());
       setSliderAllocationIndex(getAllocationIndex());
@@ -661,7 +666,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       setSliderAllocationIndex(getSavedAllocSliderIndex());
       // riskCalculator.setRiskFormula(savedRiskFormula);
       setAllocationIndex(getSavedAllocSliderIndex());
-      createAssetPortfolio(1); // Build default chart for the page...
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
       if (getFixedModelName() != null)
          newLongDesc = fmDataMap.get(getFixedModelName()).getDescription();
       doPerformanceFinalpage();
@@ -684,7 +690,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       loadBasketInfo();
    }
 
-   private void loadNewClientData()
+   @Override
+   public void loadNewClientData()
    {
 
       try
@@ -695,7 +702,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             setLogonid(uid.getLogonID());
          }
          setDefaults();
-         listDAO.getNewClientProfileData((CustomerData) this.getInstance());
+         super.loadNewClientData();
       }
       catch (Exception ex)
       {
@@ -703,46 +710,29 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
    }
 
-   private void loadProfileData(Long acctnum)
+   @Override
+   public void loadProfileData(Long acctnum, RiskCalculator riskCalculator)
    {
 
       try
       {
-         if (webutil.isUserLoggedIn())
+         super.loadProfileData(acctnum, riskCalculator);
+
+         setFixedModelPortfolioList(getInstance().getTheme());
+         setFmDataLinkedHashMap(getInstance().getTheme());
+         origCustomerData = new CustomerData();
+         origCustomerData.copyData(getInstance());  // Need a way to do clean copy.
+         fmDataArrayList = getFixedModelPortfolioList();
+         fmDataMap = getFmDataLinkedHashMap();
+         if (origCustomerData.getPortfolioName() != null)
          {
-            UserInfoData uid = webutil.getUserInfoData();
-            if (uid != null)
+            if (fmDataMap.containsKey(origCustomerData.getPortfolioName()))
             {
-               setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
-               setRep(uid.getRep()); // Portfolio solves the null issue, or blank issue.
-               setLogonid(uid.getLogonID());
+               longDes = fmDataMap.get(origCustomerData.getPortfolioName()).getDescription();
             }
-            else {
-               setAdvisor(webutil.getWebprofile().getDefaultAdvisor()); // Portfolio solves the null issue, or blank issue.
-               setRep(webutil.getWebprofile().getDefaultRep()); // Portfolio solves the null issue, or blank issue.
-               setLogonid(getBeanLogonID());
-
-            }
-            setAcctnum(acctnum);
-            listDAO.getProfileData(getInstance());
-            loadRiskData(acctnum);
-
-            setFixedModelPortfolioList(getInstance().getTheme());
-            setFmDataLinkedHashMap(getInstance().getTheme());
-            origCustomerData = new CustomerData();
-            origCustomerData.copyData(getInstance());  // Need a way to do clean copy.
-            fmDataArrayList = getFixedModelPortfolioList();
-            fmDataMap = getFmDataLinkedHashMap();
-            if (origCustomerData.getPortfolioName() != null)
+            else
             {
-               if (fmDataMap.containsKey(origCustomerData.getPortfolioName()))
-               {
-                  longDes = fmDataMap.get(origCustomerData.getPortfolioName()).getDescription();
-               }
-               else
-               {
-                  longDes = origCustomerData.getPortfolioName();
-               }
+               longDes = origCustomerData.getPortfolioName();
             }
          }
          formEdit = false;
@@ -771,21 +761,11 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       // setAge(event.getValue());
 
       setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
+      Double riskIndex = riskCalculator.calculateRisk();
       setAllocationIndex(event.getValue());
-      createAssetPortfolio(1);
+      createAssetPortfolio(1, riskIndex);
       if (getFixedModelName() != null)
          newLongDesc = fmDataMap.get(getFixedModelName()).getDescription();
-      doPerformanceFinalpage();
-      formEdit = true;
-   }
-
-   public void onPortfolioSlider(SlideEndEvent event)
-   {
-      //setDefaultRiskIndex(event.getValue());
-      setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
-      setPortfolioIndex(event.getValue());
-      createAssetPortfolio(1);
-      // createPortfolio(1);    // Due to fixed allocaton, we have to do both (asset and portfolio)
       doPerformanceFinalpage();
       formEdit = true;
    }
@@ -793,46 +773,35 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void doAllocReset()
    {
       setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
-      createAssetPortfolio(1); // Build default chart for the page...
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex); // Build default chart for the page...
       setSliderAllocationIndex(getAllocationIndex());
       doPerformanceFinalpage();
 
    }
 
-   public void doPortfolioReset()
-   {
-      createPortfolio(1); // Build default chart for the page...
-   }
-
    public void refresh()
    {
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
    }
 
    public void consumerRefresh()
    {
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
       formEdit = true;
    }
 
-
-   private void createAssetPortfolio(Integer noOfYears)
+   @Override
+   public void createAssetPortfolio(Integer noOfYears, Double riskIndex)
    {
 
       try
       {
-/*
-         if (getTheme() == null || getTheme().isEmpty())
-         {
-            setTheme(InvConst.DEFAULT_THEME);
-         }
-*/
+         setRiskIndex(riskIndex);
+         super.createAssetPortfolio(noOfYears, riskIndex);
 
-         setRiskIndex(riskCalculator.calculateRisk());
-         setNumOfAllocation(noOfYears);
-         setNumOfPortfolio(noOfYears);
-         buildAssetClass();
-         buildPortfolio();
          setFixedModelPortfolioList(getInstance().getTheme());
          setFmDataLinkedHashMap(getInstance().getTheme());
          fmDataArrayList = getFixedModelPortfolioList();
@@ -852,20 +821,17 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
    }
 
+
    private void editAssetPortfolio(Integer noOfYears)
    {
 
       try
       {
          setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
-         riskCalculator.setTotalRisk(fmDataMap.get(selectedThemeName).getHighRisk());
+         Double riskIndex = fmDataMap.get(selectedThemeName).getHighRisk();
+         riskCalculator.setTotalRisk(riskIndex);
          setRiskIndex(riskCalculator.calculateRisk());
-         setNumOfAllocation(noOfYears);
-         setNumOfPortfolio(noOfYears);
-         buildAssetClass();
-         buildPortfolio();
-
-         createCharts();
+         createAssetPortfolio(1,riskIndex);
       }
       catch (Exception ex)
       {
@@ -873,21 +839,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
    }
 
-   private void createPortfolio(Integer noOfYears)
-   {
-
-      try
-      {
-         setNumOfPortfolio(noOfYears);
-         buildPortfolio();
-
-         createCharts();
-      }
-      catch (Exception ex)
-      {
-         ex.printStackTrace();
-      }
-   }
 
    public void riskChartSelected(ItemSelectEvent event)
    {
@@ -945,68 +896,12 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
    }
 
-   private void setDefaults()
+   @Override
+   public void saveProfile(RiskCalculator riskCalculator)
    {
-      if (getAge() == null)
-      {
-         setAge(30);
-      }
-      if (getInitialInvestment() == null)
-      {
-         setInitialInvestment(100000);
-      }
-      if (getHorizon() == null)
-      {
-         setHorizon(20);
-      }
-   }
-
-   public void saveProfile()
-   {
-      long acctnum;
-      Boolean validate = false;
       try
       {
-         // setDefaults();
-         acctnum = saveDAO.saveProfileData(getInstance());
-         if (acctnum > 0)
-         {
-            setAcctnum(acctnum);
-            saveDAO.saveRiskProfile(acctnum, getRiskCalculator());
-            saveDAO.saveFinancials(getInstance());
-            saveDAO.saveAllocation(getInstance());
-            saveDAO.savePortfolio(getInstance());
-         }
-         // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Saved", "Data Saved"));
-         formEdit = false;
-      }
-      catch (Exception ex)
-      {
-         String stackTrace = ex.getMessage();
-         webutil.alertSupport("ConsumerEdit.saveprofile", "Error:ConsumerEdit.SaveProfile",
-                              "error.saveprofile", stackTrace);
-      }
-
-   }
-
-
-   public void savePortfolio()
-   {
-      long acctnum;
-      Boolean validate = false;
-      try
-      {
-         // setDefaults();
-         acctnum = saveDAO.editProfileData(getInstance());
-         if (acctnum > 0)
-         {
-            setAcctnum(acctnum);
-            saveDAO.saveFinancials(getInstance());
-            saveDAO.saveRiskProfile(acctnum, getRiskCalculator());
-            saveDAO.saveAllocation(getInstance());
-            saveDAO.savePortfolio(getInstance());
-         }
-         // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Saved", "Data Saved"));
+         super.saveProfile(riskCalculator);
          formEdit = false;
       }
       catch (Exception ex)
@@ -1055,17 +950,23 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       try
       {
          resetDataForm();
+         setSaveVisitor(false);
          if (getBeanAcctnum() != null && getBeanAcctnum() > 0L)
          {
             setDoesUserHavaLogonID(true);
-            loadProfileData(getBeanAcctnum());
+            loadProfileData(getBeanAcctnum(), getRiskCalculator());
             riskCalculator.setInvestmentobjective(getGoal());  // Goal needs to be restored to use the proper calculator
             displayGoalText = true;
-            createAssetPortfolio(1);
+            Double riskIndex = riskCalculator.calculateRisk();
+            createAssetPortfolio(1, riskIndex);
             if (getFixedModelName() != null)
             {
                newLongDesc = fmDataMap.get(getFixedModelName()).getDescription();
             }
+            if (getManaged()) {
+               setCanSaveData(false);
+            }
+
          }
          else
          {
@@ -1080,6 +981,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                if (! getDoesUserHavaLogonID())
                {
                   setDoesUserHavaLogonID(false); // If it is null, we are forcing to be false.
+                  setSaveVisitor(true);
                   loadNewClientData();
                }
             }
@@ -1099,14 +1001,15 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void savePrefProfile(ActionEvent event)
    {
-      createAssetPortfolio(1);
-      saveProfile();
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
+      saveProfile(getRiskCalculator());
       formEdit = false;
    }
 
    public void savePanelProfile()
    {
-      saveProfile();
+      saveProfile(getRiskCalculator());
       formEdit = false;
       // RequestContext.getCurrentInstance().openDialog("/pages/consumer/fundingDialog.xhtml");
    }
@@ -1215,8 +1118,9 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void retiredNext()
    {
       customErrorText = null;
-      saveProfile();
-      createAssetPortfolio(1);
+      saveProfile(getRiskCalculator());
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
       pagemanager.nextPage();
    }
 
@@ -1366,7 +1270,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void processTransfer()
    {
       // setPortfolioName(selectedThemeName);
-      saveProfile();
+      saveDAO.archiveAllProfileData(getAcctnum());
+      saveProfile(getRiskCalculator());
       // savePortfolio();
       uiLayout.goToStartPage();
    }
@@ -1413,17 +1318,19 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          if (currentpage == 0)
          {
-            createAssetPortfolio(1); // Since we are refreshing on real-time, we don't need to do it during next.
+            Double riskIndex = riskCalculator.calculateRisk();
+            createAssetPortfolio(1, riskIndex);
+            // Since we are refreshing on real-time, we don't need to do it during next.
          }
 
          // User is in EDIT mode, then they must be logged, therefore, they are not visitor anymore.
          if (!formPortfolioEdit)
          {
-            saveProfile();
+            saveProfile(getRiskCalculator());
             if (currentpage == 0)
             {  // This is before moving to next page. ONLY for FIRST PAGE
                // We need to record the account number...  SP: If data was already saved, then it skips
-               saveVisitor();
+               saveVisitor(null);
             }
          }
 
@@ -1457,35 +1364,13 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
    }
 
-   private void saveVisitor()
-   {
-
-      try
-      {
-         UserData data = new UserData();
-         data.setIp(webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()));
-         ;
-         data.setAcctnum(getAcctnum());
-         data.setAdvisor(webutil.getWebprofile().getDefaultAdvisor());
-         data.setRep(webutil.getWebprofile().getDefaultRep());
-         data.setEmail(null);
-         if (saveDAO != null)
-         {
-            saveDAO.saveVisitor(data);
-         }
-      }
-      catch (Exception ex)
-      {
-
-      }
-   }
-
 
    public void riskSelected(Integer value)
    {
       riskCalculator.setAns4(value.toString());
       formEdit = true;
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
    }
 
    public String getRiskGraphic(Integer value)
@@ -1553,7 +1438,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
       }
       formEdit = true;
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
    }
 
    public void doPerformanceFinalpage()
@@ -1573,7 +1459,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       if (registerUser())
       {
          setDoesUserHavaLogonID(true);
-         createAssetPortfolio(1); // Build default chart for the page...
+         Double riskIndex = riskCalculator.calculateRisk();
+         createAssetPortfolio(1, riskIndex);
          doPerformanceFinalpage();
          prevPage();
       }

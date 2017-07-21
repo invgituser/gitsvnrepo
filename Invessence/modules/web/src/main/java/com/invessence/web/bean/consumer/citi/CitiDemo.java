@@ -244,41 +244,18 @@ public class CitiDemo extends CustomerData implements Serializable
       loadBasketInfo();
    }
 
-   private void loadNewClientData()
+   public void loadNewClientData()
    {
 
       try
       {
-         UserInfoData uid = webutil.getUserInfoData();
-         if (uid != null)
-         {
-            setLogonid(uid.getLogonID());
-         }
-         setDefaults();
-         listDAO.getNewClientProfileData(getInstance());
+         super.loadNewClientData();
       }
       catch (Exception ex)
       {
          ex.printStackTrace();
       }
    }
-
-   private void setDefaults()
-   {
-      if (getAge() == null)
-      {
-         setAge(30);
-      }
-      if (getInitialInvestment() == null)
-      {
-         setInitialInvestment(100000);
-      }
-      if (getHorizon() == null)
-      {
-         setHorizon(20);
-      }
-   }
-
 
 
    public void selectPortolio(Integer portfolioNum) {
@@ -310,27 +287,7 @@ public class CitiDemo extends CustomerData implements Serializable
 
       try
       {
-         String tTheme = getTheme();
-         if (getAccountTaxable())
-         {
-            if (!tTheme.startsWith("T."))
-            {
-               setTheme("T." + tTheme);
-            }
-         }
-         else
-         {
-            if (tTheme.startsWith("T."))
-            {
-               setTheme(tTheme.substring(2));
-            }
-         }
-         setRiskIndex(riskScore);
-         setNumOfAllocation(1);
-         setNumOfPortfolio(1);
-         buildAssetClass();
-         buildPortfolio();
-
+         super.createAssetPortfolio(1,riskScore);
          createCharts();
       }
       catch (Exception ex)

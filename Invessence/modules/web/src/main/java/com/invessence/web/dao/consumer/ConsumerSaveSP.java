@@ -240,6 +240,9 @@ public class ConsumerSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_source", Types.VARCHAR));
             declareParameter(new SqlParameter("p_data", Types.VARCHAR));
             break;
+         case 13: // save_user_trade_profile_audit
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
          default:
       }
       compile();
@@ -651,4 +654,14 @@ public class ConsumerSaveSP extends StoredProcedure
       inputMap.put("p_data", data.getEmail());
       return super.execute(inputMap);
    }
+
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public void archiveAllProfileData(Long acctnum)
+   {
+      Map inputMap = new HashMap();
+
+      inputMap.put("p_acctnum", acctnum);
+      super.execute(inputMap);
+   }
+
 }

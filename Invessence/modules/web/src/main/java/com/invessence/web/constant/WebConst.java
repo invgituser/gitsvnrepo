@@ -82,4 +82,12 @@ public class WebConst
    public final static String HTML_INVOICE = "HTML.INVOICE";
    public final static String HTML_SURVEY = "HTML.SURVEY";
 
+   public final static String TRADE_PROCESS_RECON="R";
+   public final static String TRADE_PROCESS_NEW="N";
+   public final static String TRADE_PROCESS_ALLOC="A";
+   public final static String TRADE_PROCESS_DATE="D";
+
+   public final static String TRADE_PROCESS_STAT_NEW="N";
+   public final static String TRADE_PROCESS_STAT_REVIEW="R";
+   public final static String TRADE_PROCESS_STAT_PROCESSED="P";
 }

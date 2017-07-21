@@ -228,8 +228,8 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
    {
       formEdit = true;
       riskCalculator.setRiskFormula("C");
-      setRiskIndex(riskCalculator.calculateRisk());
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
    }
 
    public void calculateGoal()
@@ -238,12 +238,9 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
       {
          formEdit = true;
          getGoalData().setTerm(getHorizon().doubleValue());
+         Double riskIndex = riskCalculator.calculateRisk();
+         createAssetPortfolio(1, riskIndex);
          riskCalculator.setRiskFormula("C");
-         setRiskIndex(riskCalculator.calculateRisk());
-         createAssetPortfolio(1);
-         //if (getPortfolioData() != null) {
-         //charts.createGoalChart(getProjectionData(), getGoalData());
-         //}
          saveProfile();
       }
    }
@@ -253,9 +250,9 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
       formEdit = true;
       setAccountType();
       riskCalculator.setRiskFormula("C");
-      setRiskIndex(riskCalculator.calculateRisk());
       loadBasketInfo();
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
    }
 
    public void selectedGoalType(Integer item)
@@ -288,7 +285,8 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
       }
 
       loadBasketInfo();
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
    }
 
    public void selectedGoal()
@@ -322,7 +320,8 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
          }
       }
       loadBasketInfo();
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
    }
 
    public void handleFileUpload(FileUploadEvent event)
@@ -344,7 +343,8 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
          setGoal(getAdvisorBasket().get(getBasket())); // Key is the Themename, value is display
          setTheme(getBasket());                        // Set theme to the Key.  (We assigned this during selection)
       }
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
    }
 
    public void selectFirstBasket()
@@ -401,23 +401,17 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
       }
    }
 
-   private void loadNewClientData()
+   @Override
+   public void loadNewClientData()
    {
 
       resetDataForm();
       try
       {
-         UserInfoData uid = webutil.getUserInfoData();
-         if (uid != null)
-         {
-            setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
-            setLogonid(uid.getLogonID());
-         }
-         listDAO.getNewClientProfileData((CustomerData) this.getInstance());
-         setDefaults();
+         super.loadNewClientData();
          loadBasketInfo();
          selectFirstBasket();
-         createAssetPortfolio(1); // Build default chart for the page...
+         super.createAssetPortfolio(1, getRiskCalculator().getTotalRisk()); // Build default chart for the page...
          // RequestContext.getCurrentInstance().execute("custProfileDialog.show()");
       }
       catch (Exception ex)
@@ -449,7 +443,8 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
                loadBasketInfo();
             }
          }
-         createAssetPortfolio(1);
+         Double riskIndex = riskCalculator.calculateRisk();
+         createAssetPortfolio(1, riskIndex);
          formEdit = false;
       }
       catch (Exception ex)
@@ -486,7 +481,8 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
       // setAge(event.getValue());
       setRiskCalcMethod("A");
       setAllocationIndex(event.getValue());
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
       formEdit = true;
    }
 
@@ -495,7 +491,8 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
       //setDefaultRiskIndex(event.getValue());
       setRiskCalcMethod("A");
       setPortfolioIndex(event.getValue());
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
       // createPortfolio(1);    // Due to fixed allocaton, we have to do both (asset and portfolio)
       formEdit = true;
    }
@@ -503,7 +500,8 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
    public void doAllocReset()
    {
       // resetAllocationIndex();
-      createAssetPortfolio(1); // Build default chart for the page...
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
    }
 
    public void doPortfolioReset()
@@ -514,53 +512,25 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
 
    public void refresh()
    {
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
    }
 
    public void consumerRefresh()
    {
       setRiskCalcMethod("C");
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
       formEdit = true;
    }
 
-
-   private void createAssetPortfolio(Integer noOfYears)
+   @Override
+   public void createAssetPortfolio(Integer noOfYears, Double riskIndex)
    {
 
       try
       {
-/*
-         if (getGoal().toUpperCase().contains("INCOME"))
-            setTheme("0.Income");
-         else if (getGoal().toUpperCase().contains("SAFETY"))
-            setTheme("0.Safety");
-         else
-            setTheme("0.Core");
-*/
-
-         if (getTheme() == null || getTheme().isEmpty())
-         {
-            setTheme(InvConst.DEFAULT_THEME);
-         }
-
-         String tTheme = getTheme();
-         if (getAccountTaxable()) {
-            if (! tTheme.startsWith("T.")) {
-               setTheme("T." + tTheme);
-            }
-         }
-         else {
-            if (tTheme.startsWith("T.")) {
-               setTheme(tTheme.substring(2));
-            }
-         }
-
-         setNumOfAllocation(noOfYears);
-         setNumOfPortfolio(noOfYears);
-         buildAssetClass();
-         buildPortfolio();
-
+         super.createAssetPortfolio(noOfYears, riskIndex);
          createCharts();
       }
       catch (Exception ex)
@@ -569,13 +539,13 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
       }
    }
 
-   private void createPortfolio(Integer noOfYears)
+   @Override
+   public void createPortfolio(Integer noOfYears)
    {
 
       try
       {
-         setNumOfPortfolio(noOfYears);
-         buildPortfolio();
+         super.createPortfolio(noOfYears);
 
          createCharts();
       }
@@ -688,59 +658,6 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
       return true;
    }
 
-   private void setAccountType()
-   {
-      if (getAccountTaxable())
-      {
-         setAccountType("Taxable");
-      }
-      else
-      {
-         setAccountType("Non-Taxable");
-      }
-
-   }
-
-   private void setDefaults()
-   {
-
-      if (getPortfolioName() == null)
-      {
-         setPortfolioName(getLastname() + "-" + getGoal());
-      }
-      if (getAge() == null)
-      {
-         setAge(30);
-      }
-      if (getInitialInvestment() == null)
-      {
-         setInitialInvestment(100000);
-      }
-      if (getHorizon() == null)
-      {
-         setHorizon(20);
-      }
-      if (getGoal() == null)
-      {
-         setGoal("Growth");
-      }
-
-      if (getAccountType() == null)
-      {
-         setAccountTaxable(false);
-         setAccountType();
-      }
-
-/*
-      if (getRiskCalcMethod() == null || getRiskCalcMethod().toUpperCase().startsWith("C"))
-      {
-         resetAllocationIndex();
-         resetPortfolioIndex();
-      }
-*/
-
-   }
-
    public void tryProceed()
    {
       Boolean validate = false;
@@ -782,33 +699,16 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
       Boolean validate = false;
       try
       {
-         if (formEdit == null)
-         {
-            validate = validateProfile(); // Redirect to logon window.
-         }
-         else
-         {
             if (formEdit)
             {
                validate = validateProfile(); // Check if session is still valid.  If not, redirect to logon
 
                if (validate)
                {
-                  // setDefaults();
-                  acctnum = saveDAO.saveProfileData(getInstance());
-                  if (acctnum > 0)
-                  {
-                     setAcctnum(acctnum);
-                     saveDAO.saveFinancials(getInstance());
-                     saveDAO.saveRiskProfile(acctnum, riskCalculator);
-                     saveDAO.saveAllocation(getInstance());
-                     saveDAO.savePortfolio(getInstance());
-                  }
-                  // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Saved", "Data Saved"));
+                  super.saveProfile(getRiskCalculator());
                   formEdit = false;
                }
             }
-         }
       }
       catch (Exception ex)
       {
@@ -873,7 +773,8 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
 
    public void savePrefProfile(ActionEvent event)
    {
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
       saveProfile();
       formEdit = false;
    }

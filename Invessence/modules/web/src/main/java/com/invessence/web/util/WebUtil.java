@@ -264,6 +264,12 @@ public class WebUtil implements Serializable
 
    }
 
+   public String getClientIpAddr() {
+      HttpServletRequest request;
+      request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+      return getClientIpAddr(request);
+   }
+
    public String getClientIpAddr(HttpServletRequest request)
    {
       String ip = request.getHeader("X-Forwarded-For");

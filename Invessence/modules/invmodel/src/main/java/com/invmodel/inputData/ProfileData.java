@@ -788,7 +788,7 @@ public class
 
    public boolean getAccountTaxable()
    {
-      return accountTaxable;
+      return (accountTaxable);
    }
 
    public void setAccountTaxable(boolean accountTaxable)

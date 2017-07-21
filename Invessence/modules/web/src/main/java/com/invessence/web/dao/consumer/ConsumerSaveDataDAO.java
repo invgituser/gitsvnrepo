@@ -122,4 +122,17 @@ public class ConsumerSaveDataDAO extends JdbcDaoSupport implements Serializable
       ConsumerSaveSP sp = new ConsumerSaveSP(ds, "save_visitor",12);
       sp.saveVisitor(data);
    }
+
+   public void archiveAllProfileData( Long acctnum)
+   {
+      try {
+         DataSource ds = getDataSource();
+         ConsumerSaveSP sp = new ConsumerSaveSP(ds, "save_user_trade_profile_audit",13);
+         sp.archiveAllProfileData(acctnum);
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+   }
+
 }

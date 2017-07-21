@@ -5,13 +5,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.converter.JavaUtil;
 import com.invessence.emailer.data.MsgData;
 import com.invessence.web.constant.*;
-import com.invessence.web.dao.common.UserInfoDAO;
+import com.invessence.web.dao.common.*;
 import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.*;
+import com.invessence.web.data.consumer.RiskCalculator;
 import com.invessence.web.util.*;
 import com.invmodel.Const.InvConst;
 import com.invmodel.asset.data.*;
@@ -49,6 +52,9 @@ public class CustomerData extends ProfileData
 
    @ManagedProperty("#{consumerSaveDataDAO}")
    public ConsumerSaveDataDAO saveDAO;
+
+   @ManagedProperty("#{tradeDAO}")
+   public TradeDAO tradeDAO;
 
    @ManagedProperty("#{webMessage}")
    public WebMessage messageText;
@@ -98,7 +104,7 @@ public class CustomerData extends ProfileData
    public List<PortfolioSubclass> excludedSubAsset = new ArrayList<PortfolioSubclass>();
 
    public Map<String, String> advisorBasket;
-   private Boolean managed, editable, isUnopened;
+   private Boolean managed, editable, isUnopened, canSaveData;
    public String managedFlag, currentStatus;
    private Integer sliderAllocationIndex, sliderPortfolioIndex;
 
@@ -137,6 +143,11 @@ public class CustomerData extends ProfileData
    public void setSaveDAO(ConsumerSaveDataDAO saveDAO)
    {
       this.saveDAO = saveDAO;
+   }
+
+   public void setTradeDAO(TradeDAO tradeDAO)
+   {
+      this.tradeDAO = tradeDAO;
    }
 
    public void setMessageText(WebMessage messageText)
@@ -333,12 +344,22 @@ public class CustomerData extends ProfileData
 
    public Boolean getDisplayFTPanel()
    {
-      return displayFTPanel;
+      return (displayFTPanel == null) ? false : displayFTPanel;
    }
 
    public void setDisplayFTPanel(Boolean displayFTPanel)
    {
       this.displayFTPanel = displayFTPanel;
+   }
+
+   public Boolean getCanSaveData()
+   {
+      return (canSaveData == null) ? true : canSaveData;
+   }
+
+   public void setCanSaveData(Boolean canSaveData)
+   {
+      this.canSaveData = canSaveData;
    }
 
    public void setSavedRiskFormula(String savedRiskFormula)
@@ -664,6 +685,8 @@ public class CustomerData extends ProfileData
          setSavedAllocSliderIndex(null);
 
          accountFinancials = new AccountFinancials();
+         setDisplayFTPanel(false);
+         setCanSaveData(true);
          resetAdvisor();  // Reset Advisor
       }
 
@@ -1246,7 +1269,214 @@ public class CustomerData extends ProfileData
       }
    }
 
+   public void saveVisitor(String message)
+   {
 
+      try
+      {
+         if (getSaveVisitor())
+         {
+            UserData data = new UserData();
+            data.setAcctnum(getAcctnum());
+            data.setAdvisor(webutil.getWebprofile().getDefaultAdvisor());
+            data.setRep(webutil.getWebprofile().getDefaultRep());
+            data.setEmail(null);
+            data.setMessage(message);
+            if (saveDAO != null)
+            {
+               saveDAO.saveVisitor(data);
+            }
+            setSaveVisitor(false);
+         }
+      }
+      catch (Exception ex)
+      {
+
+      }
+   }
+
+   public void setAccountType()
+   {
+      if (getAccountTaxable())
+      {
+         setAccountType("Taxable");
+      }
+      else
+      {
+         setAccountType("Non-Taxable");
+      }
+
+   }
+
+   public void setDefaults()
+   {
+      setPortfolioName(null);
+      if (getAge() == null)
+      {
+         setAge(30);
+      }
+      if (getInitialInvestment() == null)
+      {
+         setInitialInvestment(100000);
+      }
+      if (getHorizon() == null)
+      {
+         setHorizon(20);
+      }
+      if (getGoal() == null)
+      {
+         setGoal("Growth");
+      }
+
+      if (getAccountType() == null)
+      {
+         setAccountTaxable(false);
+         setAccountType();
+      }
+   }
+
+
+   public void loadNewClientData()
+   {
+
+      try
+      {
+         UserInfoData uid = webutil.getUserInfoData();
+         if (uid != null)
+         {
+            setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
+            setRep(uid.getRep()); // Portfolio solves the null issue, or blank issue.
+            setLogonid(uid.getLogonID());
+         }
+         setDefaults();
+         listDAO.getNewClientProfileData((CustomerData) this.getInstance());
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
+
+   public void loadProfileData(Long acctnum, RiskCalculator riskCalculator)
+   {
+
+      try
+      {
+
+         if (webutil.isUserLoggedIn())
+         {
+            UserInfoData uid = webutil.getUserInfoData();
+            if (uid != null)
+            {
+               setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
+               setRep(uid.getRep()); // Portfolio solves the null issue, or blank issue.
+               setLogonid(uid.getLogonID());
+            }
+            else
+            {
+               setAdvisor(webutil.getWebprofile().getDefaultAdvisor()); // Portfolio solves the null issue, or blank issue.
+               setRep(webutil.getWebprofile().getDefaultRep()); // Portfolio solves the null issue, or blank issue.
+               // setLogonid(null);
+            }
+            setAcctnum(acctnum);
+            listDAO.getProfileData(getInstance());
+            loadRiskData(acctnum, riskCalculator);
+         }
+
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
+   public void loadRiskData(Long acctnum, RiskCalculator riskCalculator)
+   {
+      try
+      {
+         listDAO.getRiskProfileData(acctnum, riskCalculator);
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
+
+   public void saveProfile(RiskCalculator riskcalculator)
+   {
+      Long acctnum;
+      try
+      {
+         // setDefaults();
+         acctnum = saveDAO.saveProfileData(getInstance());
+         if (acctnum > 0)
+         {
+            saveVisitor(null);
+            setAcctnum(acctnum);
+            saveDAO.saveRiskProfile(acctnum, riskcalculator);
+            saveDAO.saveFinancials(getInstance());
+            saveDAO.saveAllocation(getInstance());
+            saveDAO.savePortfolio(getInstance());
+         }
+         // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Saved", "Data Saved"));
+      }
+      catch (Exception ex)
+      {
+         String stackTrace = ex.getMessage();
+         webutil.alertSupport("CustomerData.saveprofile", "Error:CustomerData.SaveProfile",
+                              "error.saveprofile", stackTrace);
+      }
+
+   }
+
+   public void createAssetPortfolio(Integer noOfYears, Double riskIndex)
+   {
+
+      try
+      {
+         String tTheme = getTheme();
+         if (isAccountTaxable())
+         {
+            if (!tTheme.startsWith("T."))
+            {
+               setTheme("T." + tTheme);
+            }
+         }
+         else
+         {
+            if (tTheme.startsWith("T."))
+            {
+               setTheme(tTheme.substring(2));
+            }
+         }
+
+         setRiskIndex(riskIndex);
+         setNumOfAllocation(noOfYears);
+         setNumOfPortfolio(noOfYears);
+         buildAssetClass();
+         buildPortfolio();
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
+   public void createPortfolio(Integer noOfYears)
+   {
+
+      try
+      {
+         setNumOfPortfolio(noOfYears);
+         buildPortfolio();
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
 
 
 

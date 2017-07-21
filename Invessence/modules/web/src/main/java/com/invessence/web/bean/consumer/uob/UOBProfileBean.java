@@ -13,6 +13,7 @@ import com.invessence.web.bean.consumer.InvessenceCharts;
 import com.invessence.web.constant.*;
 import com.invessence.web.controller.HighChartsController;
 import com.invessence.web.data.common.*;
+import com.invessence.web.data.consumer.RiskCalculator;
 import com.invessence.web.data.consumer.uob.UOBRiskCalculator;
 import com.invessence.web.util.Impl.PagesImpl;
 import com.invmodel.Const.InvConst;
@@ -34,6 +35,7 @@ import org.primefaces.event.*;
 public class UOBProfileBean extends CustomerData implements Serializable
 {
    private Long beanAcctnum;
+   private String backURL;
    private String newapp;
    private Boolean formEdit = false;
    private Boolean disablegraphtabs, disabledetailtabs, disablesaveButton;
@@ -44,7 +46,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
    private Boolean displayGoalGraph, displayGoalText;
    private String displayWhichDataPanel;
 
-   private Boolean fineTunePanel;
+   private CustomerData origCustomerData;
+
    private Integer prefView;
    private String whichChart;
    private Integer pageNo;
@@ -56,6 +59,9 @@ public class UOBProfileBean extends CustomerData implements Serializable
    private boolean altrOnChngStrategy;
    private boolean allAnsSbmt;
 
+   private Boolean finalCheck1, finalCheck2, confirmationCheck = false;
+
+
    public UOBProfileBean()
    {
       super();
@@ -63,7 +69,6 @@ public class UOBProfileBean extends CustomerData implements Serializable
       highChartsController = new HighChartsController();
       charts = new InvessenceCharts();
       jutil = new JavaUtil();
-      fineTunePanel = false;
       formEdit = false;
       disablegraphtabs = true;
       disabledetailtabs = true;
@@ -108,6 +113,16 @@ public class UOBProfileBean extends CustomerData implements Serializable
    {
       SQLData converter = new SQLData();
       this.beanAcctnum = converter.getLongData(beanAcctnum);
+   }
+
+   public String getBackURL()
+   {
+      return backURL;
+   }
+
+   public void setBackURL(String backURL)
+   {
+      this.backURL = backURL;
    }
 
    public String getNewapp()
@@ -246,6 +261,46 @@ public class UOBProfileBean extends CustomerData implements Serializable
       this.masterpagemanager = masterpagemanager;
    }
 
+   public Boolean getFormEdit()
+   {
+      return formEdit;
+   }
+
+   public void setFormEdit(Boolean formEdit)
+   {
+      this.formEdit = formEdit;
+   }
+
+   public Boolean getFinalCheck1()
+   {
+      return finalCheck1;
+   }
+
+   public void setFinalCheck1(Boolean finalCheck1)
+   {
+      this.finalCheck1 = finalCheck1;
+   }
+
+   public Boolean getFinalCheck2()
+   {
+      return finalCheck2;
+   }
+
+   public void setFinalCheck2(Boolean finalCheck2)
+   {
+      this.finalCheck2 = finalCheck2;
+   }
+
+   public Boolean getConfirmationCheck()
+   {
+      return confirmationCheck;
+   }
+
+   public void setConfirmationCheck(Boolean confirmationCheck)
+   {
+      this.confirmationCheck = confirmationCheck;
+   }
+
    @Override
    public void setAge(Integer age)
    {
@@ -279,6 +334,11 @@ public class UOBProfileBean extends CustomerData implements Serializable
                return "selectedRiskBar";
             }
       return "";
+   }
+
+   public CustomerData getOrigCustomerData()
+   {
+      return origCustomerData;
    }
 
    public void preRenderView()
@@ -375,7 +435,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
       String selectedgoal;
       selectedgoal = (getGoal() == null || getGoal().isEmpty()) ? "Other" : getGoal();
       riskCalculator.setInvestmentobjective(selectedgoal);
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
       isAllDataEntered();
    }
 
@@ -384,7 +445,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
    {
       formEdit = true;
       setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
       isAllDataEntered();
    }
 
@@ -395,11 +457,12 @@ public class UOBProfileBean extends CustomerData implements Serializable
          formEdit = true;
          getGoalData().setTerm(getHorizon().doubleValue());
          setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
-         createAssetPortfolio(1);
+         Double riskIndex = riskCalculator.calculateRisk();
+         createAssetPortfolio(1, riskIndex);
          // if (getPortfolioData() != null) {
          // charts.createGoalChart(getProjectionData(), getGoalData());
          // }
-         saveProfile();
+         saveProfile(getRiskCalculator());
       }
    }
 
@@ -408,7 +471,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
       formEdit = true;
       setAccountType();
       loadBaskets();
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
    }
 
    public void selectedGoal()
@@ -444,7 +508,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
          setTheme(getBasket());                        // Set theme to the Key.  (We assigned this during selection)
          selectedGoal();
       }
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
    }
 
    public void selectFirstBasket()
@@ -499,7 +564,6 @@ public class UOBProfileBean extends CustomerData implements Serializable
       displayGoalText = false;
       displayWhichDataPanel="Summary";
       rTab=0;
-      fineTunePanel=false;
       flagforInvestShow=false;
       riskCalculator.resetAllData();
       resetCustomerData();
@@ -521,13 +585,15 @@ public class UOBProfileBean extends CustomerData implements Serializable
       try
       {
          resetDataForm();
-         setSaveVisitor(true);
+         setSaveVisitor(false);
          if (getBeanAcctnum() != null && getBeanAcctnum() > 0L)
          {
             setDoesUserHavaLogonID(true);
-            loadProfileData(getBeanAcctnum());
-            loadRiskData(getBeanAcctnum());
+            loadProfileData(getBeanAcctnum(), getRiskCalculator());
+            loadRiskData(getBeanAcctnum(), getRiskCalculator());
             riskCalculator.setInvestmentobjective(getGoal());  // Goal needs to be restored to use the proper calculator
+            origCustomerData = new CustomerData();
+            origCustomerData.copyData(getInstance());  // Need a way to do clean copy.
             displayGoalText = true;
          }
          else
@@ -541,13 +607,18 @@ public class UOBProfileBean extends CustomerData implements Serializable
                // 2 - If user is not registered get the get New customer info.
                // NOTE: getDoesUserHavaLogonID returns false if it is null.
                setDoesUserHavaLogonID(false); // If it is null, we are forcing to be false.
+               setSaveVisitor(true);
                loadNewClientData();
             }
 //            loadNewClientData();
 
          }
+         if (getManaged()) {
+            setCanSaveData(false);
+         }
          loadBaskets(); // Once we know about advisor, then use that info
-         createAssetPortfolio(1);
+         Double riskIndex = riskCalculator.calculateRisk();
+         createAssetPortfolio(1, riskIndex);
       }
       catch (Exception ex)
       {
@@ -559,49 +630,15 @@ public class UOBProfileBean extends CustomerData implements Serializable
    }
 
 
-   private void loadNewClientData()
-   {
-
-      // resetDataForm();
-      try
-      {
-         UserInfoData uid = webutil.getUserInfoData();
-         if (uid != null)
-         {
-            setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
-            setRep(uid.getRep()); // Portfolio solves the null issue, or blank issue.
-            setLogonid(uid.getLogonID());
-         }
-         listDAO.getNewClientProfileData((CustomerData) this.getInstance());
-         setDefaults();
-         // loadBaskets();
-         // selectFirstBasket();
-         // createAssetPortfolio(1); // Build default chart for the page...
-         // RequestContext.getCurrentInstance().execute("custProfileDialog.show()");
-      }
-      catch (Exception ex)
-      {
-         ex.printStackTrace();
-      }
-   }
-
-   private void loadProfileData(Long acctnum)
+   @Override
+   public void loadProfileData(Long acctnum, RiskCalculator riskCalculator)
    {
 
       try
       {
-         if (webutil.isUserLoggedIn())
-         {
-            UserInfoData uid = webutil.getUserInfoData();
-            if (uid != null)
-            {
-               setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
-               setLogonid(uid.getLogonID());
-            }
-            setAcctnum(acctnum);
-            listDAO.getProfileData(getInstance());
-         }
-         createAssetPortfolio(1);
+         super.loadProfileData(acctnum, riskCalculator);
+         Double riskIndex = getRiskCalculator().calculateRisk();
+         createAssetPortfolio(1, riskIndex);
          formEdit = false;
       }
       catch (Exception ex)
@@ -610,17 +647,6 @@ public class UOBProfileBean extends CustomerData implements Serializable
       }
    }
 
-   private void loadRiskData(Long acctnum)
-   {
-      try
-      {
-         listDAO.getRiskProfileData(acctnum, riskCalculator);
-      }
-      catch (Exception ex)
-      {
-         ex.printStackTrace();
-      }
-   }
 
    public void onAllocSlider(SlideEndEvent event)
    {
@@ -628,12 +654,10 @@ public class UOBProfileBean extends CustomerData implements Serializable
       setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
       setAllocationIndex(event.getValue());
       formEdit = true;
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
       setSliderAllocationIndex(getAllocationIndex());
-//      if(isAllDataEntered())
-//      {
-         setFlagforInvestShow(true);
-//      }
+      setFlagforInvestShow(true);
    }
 
    public void onPortfolioSlider(SlideEndEvent event)
@@ -642,18 +666,17 @@ public class UOBProfileBean extends CustomerData implements Serializable
       setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
       setPortfolioIndex(event.getValue());
       formEdit = true;
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
       // createPortfolio(1);    // Due to fixed allocaton, we have to do both (asset and portfolio)
-//      if(isAllDataEntered())
-//      {
-         setFlagforInvestShow(true);
-//      }
+      setFlagforInvestShow(true);
    }
 
    public void doAllocReset()
    {
       setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
-      createAssetPortfolio(1); // Build default chart for the page...
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
       setSliderAllocationIndex(getAllocationIndex());
    }
 
@@ -665,44 +688,26 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public void refresh()
    {
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
    }
 
    public void consumerRefresh()
    {
       setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
-      createAssetPortfolio(1);
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
       formEdit = true;
       isAllDataEntered();
    }
 
-
-   private void createAssetPortfolio(Integer noOfYears)
+   @Override
+   public void createAssetPortfolio(Integer noOfYears, Double riskIndex)
    {
 
       try
       {
-         String tTheme = getTheme();
-         if (getAccountTaxable())
-         {
-            if (!tTheme.startsWith("T."))
-            {
-               setTheme("T." + tTheme);
-            }
-         }
-         else
-         {
-            if (tTheme.startsWith("T."))
-            {
-               setTheme(tTheme.substring(2));
-            }
-         }
-         setRiskIndex(riskCalculator.calculateRisk());
-         setNumOfAllocation(1);
-         setNumOfPortfolio(1);
-         buildAssetClass();
-         buildPortfolio();
-
+         super.createAssetPortfolio(noOfYears, riskIndex);
          createCharts();
       }
       catch (Exception ex)
@@ -711,14 +716,13 @@ public class UOBProfileBean extends CustomerData implements Serializable
       }
    }
 
-   private void createPortfolio(Integer noOfYears)
+   @Override
+   public void createPortfolio(Integer noOfYears)
    {
 
       try
       {
-         setNumOfPortfolio(noOfYears);
-         buildPortfolio();
-
+         super.createPortfolio(noOfYears);
          createCharts();
       }
       catch (Exception ex)
@@ -729,15 +733,11 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public void refreshChart()
    {
-      if (whichChart.toLowerCase().equals("pie"))
+      if (getAssetData() != null)
       {
          charts.createPieModel(getAssetData(), 0);
-      }
-      else if (whichChart.toLowerCase().equals("bar"))
-      {
          charts.createBarChart(getAssetData(), 0);
       }
-
    }
 
    private void createCharts()
@@ -801,107 +801,20 @@ public class UOBProfileBean extends CustomerData implements Serializable
       }
    }
 
-
-   private void setAccountType()
-   {
-      if (getAccountTaxable())
-      {
-         setAccountType("Taxable");
-      }
-      else
-      {
-         setAccountType("Non-Taxable");
-      }
-
-   }
-
-   private void setDefaults()
-   {
-
-      setPortfolioName(null);
-      if (getAge() == null)
-      {
-         setAge(30);
-      }
-      if (getInitialInvestment() == null)
-      {
-         setInitialInvestment(100000);
-      }
-      if (getHorizon() == null)
-      {
-         setHorizon(20);
-      }
-      if (getGoal() == null)
-      {
-         setGoal("Growth");
-      }
-
-      if (getAccountType() == null)
-      {
-         setAccountTaxable(false);
-         setAccountType();
-      }
-
-/*
-      if (getRiskCalcMethod() == null || getRiskCalcMethod().toUpperCase().startsWith(WebConst.CONSUMER_RISK_FORMULA))
-      {
-         resetAllocationIndex();
-         resetPortfolioIndex();
-      }
-*/
-
-   }
-
-   private void saveVisitor()
-   {
-
-      try
-      {
-         if (getSaveVisitor())
-         {
-            UserData data = new UserData();
-            data.setIp(webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()));
-            ;
-            data.setAcctnum(getAcctnum());
-            data.setAdvisor(webutil.getWebprofile().getDefaultAdvisor());
-            data.setRep(webutil.getWebprofile().getDefaultRep());
-            data.setEmail(null);
-            if (saveDAO != null)
-            {
-               saveDAO.saveVisitor(data);
-            }
-            setSaveVisitor(false);
-         }
-      }
-      catch (Exception ex)
-      {
-
-      }
-   }
-
-
-   public void saveProfile()
+   @Override
+   public void saveProfile(RiskCalculator riskCalculator)
    {
       long acctnum;
       Boolean validate = false;
       try
       {
-         if (formEdit)
+         if (getCanSaveData())
          {
-            // isAllDataEntered();  // Used to determine if we should turn on The InvestNow button
-            // setDefaults();
-            acctnum = saveDAO.saveProfileData(getInstance());
-            if (acctnum > 0)
+            if (formEdit)
             {
-               saveVisitor();
-               setAcctnum(acctnum);
-               saveDAO.saveFinancials(getInstance());
-               saveDAO.saveRiskProfile(acctnum, riskCalculator);
-               saveDAO.saveAllocation(getInstance());
-               saveDAO.savePortfolio(getInstance());
+               super.saveProfile(riskCalculator);
+               formEdit = false;
             }
-            // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Saved", "Data Saved"));
-            formEdit = false;
          }
       }
       catch (Exception ex)
@@ -916,14 +829,15 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public void savePrefProfile(ActionEvent event)
    {
-      createAssetPortfolio(1);
-      saveProfile();
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
+      saveProfile(getRiskCalculator());
       formEdit = false;
    }
 
    public void savePanelProfile()
    {
-      saveProfile();
+      saveProfile(getRiskCalculator());
       formEdit = false;
       // RequestContext.getCurrentInstance().openDialog("/pages/consumer/fundingDialog.xhtml");
    }
@@ -1055,7 +969,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
          rTab = 6;
       }
       pagemanager.setPage( 3 + rTab);
-      saveProfile();
+      saveProfile(getRiskCalculator());
 
    }
 
@@ -1090,7 +1004,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
             rTab--;
             break;
       }
-      saveProfile();
+      saveProfile(getRiskCalculator());
    }
 
 
@@ -1110,7 +1024,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
          {
             rTab++;
          }
-         saveProfile();
+         saveProfile(getRiskCalculator());
       }
    }
 
@@ -1254,7 +1168,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
             if (this.riskCalculator.getAnswerValue(pagenum) == 0)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.long-term.investment.required", "Long-term investment is required.", null));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.long-term.investment.required", "long-term investment is required.", null));
             }
             break;
       }
@@ -1283,16 +1197,9 @@ public class UOBProfileBean extends CustomerData implements Serializable
       long acctnum;
       try
       {
-         saveProfile();
+         saveProfile(getRiskCalculator());
 
-         if (getDoesUserHavaLogonID())
-         {
-            gotoCustodyInfoForm(); // If user is already looged in then redirect to opne account page.
-         }
-         else
-         {
-            masterpagemanager.nextPage();
-         }
+         gotoCustodyInfoForm(); // If user is already looged in then redirect to opne account page.
       }
       catch (Exception ex)
       {
@@ -1309,7 +1216,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       long acctnum;
       try
       {
-         saveProfile();
+         saveProfile(getRiskCalculator());
 
          if (webutil.isUserLoggedIn())
          {
@@ -1368,7 +1275,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
       setSliderAllocationIndex(getSavedAllocSliderIndex());
       // riskCalculator.setRiskFormula(savedRiskFormula);
       setAllocationIndex(getSavedAllocSliderIndex());
-      createAssetPortfolio(1); // Build default chart for the page...
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
       closeFTPanel();
    }
 
@@ -1377,7 +1285,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
       {
          savePanelProfile();
          setDoesUserHavaLogonID(true);
-         createAssetPortfolio(1); // Build default chart for the page...
+         Double riskIndex = riskCalculator.calculateRisk();
+         createAssetPortfolio(1, riskIndex);
          if (! masterpagemanager.isFirstPage())
             masterpagemanager.prevPage();
       }
@@ -1386,12 +1295,23 @@ public class UOBProfileBean extends CustomerData implements Serializable
    public void gotoCustodyInfoForm() {
       if (!getDoesUserHavaLogonID())
       {
+         // Call Register User.  If he is not registered.  If Registration fails, then stay on the same page.
          if (registerUser()) {
             uiLayout.doMenuAction("consumer", "forward.xhtml");
          }
       }
       else {
-         uiLayout.doMenuAction("consumer", "forward.xhtml");
+         if (getCanSaveData())
+         {
+            // If in Edit mode, then don't save till final changes are accounted for.
+            // Need to keep the original data.
+            uiLayout.doMenuAction("consumer", "forward.xhtml");
+         }
+         else {
+            uiLayout.doMenuAction("consumer", "addon/editReview.xhtml");
+            // uiLayout.doMenuAction("consumer", "editReview.xhtml");
+
+         }
       }
 
    }
@@ -1462,6 +1382,18 @@ public class UOBProfileBean extends CustomerData implements Serializable
       this.altrOnChngStrategy = altrOnChngStrategy;
    }
 
+   public void confirmationCheckClick()
+   {
+      if (finalCheck1 && finalCheck2)
+      {
+         confirmationCheck = true;
+      }
+      else
+      {
+         confirmationCheck = false;
+      }
+   }
+
    public boolean isAllAnsSbmt()
    {
       allAnsSbmt = true;
@@ -1485,6 +1417,33 @@ public class UOBProfileBean extends CustomerData implements Serializable
    public void setAllAnsSbmt(boolean allAnsSbmt)
    {
       this.allAnsSbmt = allAnsSbmt;
+   }
+
+   public void goBack() {
+      if (backURL == null ) {
+         uiLayout.defaultHome();
+      }
+      else {
+         String[] location = backURL.split("\\.",2);
+         if (! location[1].isEmpty()) {
+            uiLayout.doMenuAction(location[0], location[1]);
+         }
+         else {
+            uiLayout.doMenuAction(location[0]);
+         }
+
+      }
+   }
+
+   public void processTransfer() {
+      tradeDAO.saveTradeProcessIdentifier(getAcctnum(),
+                                          WebConst.TRADE_PROCESS_ALLOC,
+                                          WebConst.TRADE_PROCESS_STAT_NEW,
+                                          "Changed Strategy");
+      setCanSaveData(true);
+      saveProfile(getRiskCalculator());
+
+      goBack();
    }
 }
 
