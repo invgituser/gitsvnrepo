@@ -1,9 +1,12 @@
 package com.invessence.web.bean.admin;
 
 import java.io.IOException;
+import java.util.List;
 import javax.faces.bean.*;
 import javax.servlet.ServletException;
 
+import com.invessence.service.bean.WSCallResult;
+import com.invessence.service.bean.fileProcessor.FileDetails;
 import com.invessence.web.dao.admin.AdminEmulationSpDAO;
 import com.invessence.web.util.*;
 
@@ -38,15 +41,38 @@ public class FileProcessEmulation
          System.out.print("processAccount serviceMode " + serviceMode);
 
 
-         boolean bflag=fileIO.processDownloadFile(processId, product, serviceMode);
-         if(bflag)
-         {
-            errorMessage="success";
-            this.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.fileProcessing.status.done", "successfully", null));
+         WSCallResult wsCallResult = fileIO.processDownloadFile(processId, product, serviceMode);
+         System.out.println("result = " + wsCallResult);
+         if(wsCallResult!=null && wsCallResult.getWSCallStatus()!=null){
+            if(wsCallResult.getWSCallStatus().getErrorCode()==0){
+               errorMessage="success";
+               this.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.fileProcessing.status.done", "successfully", null));
+            }else{
+               errorMessage="failed";
+               this.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.fileProcessing.status.failed", "failed", null));
+            }
+//
+//            if(wsCallResult.getGenericObject()==null || ((List<FileDetails>)wsCallResult.getGenericObject()).size()==0){
+//               System.out.println("List is empty");
+//            }else{
+//               List<FileDetails> fileList =(List<FileDetails>)wsCallResult.getGenericObject();
+//               System.out.println("fileList = " + fileList);
+//            }
          }else{
             errorMessage="failed";
             this.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.fileProcessing.status.failed", "failed", null));
          }
+
+//
+//         boolean bflag=fileIO.processDownloadFile(processId, product, serviceMode);
+//         if(bflag)
+//         {
+//            errorMessage="success";
+//            this.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.fileProcessing.status.done", "successfully", null));
+//         }else{
+//            errorMessage="failed";
+//            this.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.fileProcessing.status.failed", "failed", null));
+//         }
       }
       catch (Exception e)
       {

@@ -156,6 +156,7 @@ INSERT INTO `service`.`file_process_rules` (`fileId`, `dataField`, `description`
 /*!40000 ALTER TABLE `service`.`file_process_rules` ENABLE KEYS */;
 UNLOCK TABLES;
 
+select * from service.file_process_rules
 
 
 ALTER TABLE `service`.`file_details`

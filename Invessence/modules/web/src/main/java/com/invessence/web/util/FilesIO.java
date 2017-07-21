@@ -1,6 +1,7 @@
 package com.invessence.web.util;
 
 import com.invessence.service.bean.*;
+import com.invessence.service.bean.fileProcessor.FileDetails;
 import com.invessence.web.service.fileProcessor.FileProcessWebLayer;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.*;
@@ -284,6 +285,22 @@ public class FilesIO
                return true;
             }
          }
+
+
+//         if(wsCallResult!=null && wsCallResult.getWSCallStatus()!=null){
+//            if(wsCallResult.getWSCallStatus().getErrorCode()==0){
+//            }
+//            if(wsCallResult.getGenericObject()==null || ((List<FileDetails>)wsCallResult.getGenericObject()).size()==0){
+//               System.out.println("List is empty");
+//            }else{
+//               List<FileDetails> fileList =(List<FileDetails>)wsCallResult.getGenericObject();
+//               System.out.println("fileList = " + fileList);
+//               if(fileList.get(0).getFileProcessType().equalsIgnoreCase("DOWNLOAD"))
+//               {
+//                  fileIO.downloadFile(fileList.get(0).getSourcePath());
+//               }
+//            }
+//         }
 
 
       } catch (Exception e) {
