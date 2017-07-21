@@ -37,7 +37,7 @@ BEGIN
 	IF (tfilterType = 'O')
 		THEN
 			select
-				 IFNULL(`sec_asset_master`.`sortorder`,9999) as `sortorder`
+				 IFNULL(`sec_asset_mapping`.`subclasssortorder`,9999) as `sortorder`
 				,`ext_position`.`clientAccountID`
 				,`ext_position`.`symbol`
 				,`ext_position`.`reportDate`
@@ -55,9 +55,10 @@ BEGIN
 				,`ext_acct_info`.`rep`
 				,`ext_acct_info`.`dateOpened`
 				,`sec_master`.`name` as `description`
-				,IFNULL(`sec_asset_master`.`assetName`,`sec_master`.`assetclass`) as `assetclass`
+				,IFNULL(`sec_asset_mapping`.`assetName`,`sec_master`.`assetclass`) as `assetclass`
+				,IFNULL(`sec_asset_mapping`.`assetName`,`sec_master`.`assetclass`) as `assetclass`
 				,`sec_master`.`subclass`
-                ,IFNULL(`sec_asset_master`.`assetcolor`,'#ffffff') as `color`
+                ,IFNULL(`sec_asset_mapping`.`assetcolor`,'#ffffff') as `color`
                 ,`user_trade_profile`.`theme`
 				,`user_trade_profile`.`portfolioName` as `accountAlias`
 			FROM `ext_position`
@@ -72,14 +73,14 @@ BEGIN
 				 ON (`user_access_role`.`logonid` = `user_logon`.`logonid`)
 				 LEFT JOIN `sec_master`
 				 ON (`ext_position`.`symbol`= `sec_master`.`ticker`)
-				 LEFT JOIN `sec_asset_master`
-				 ON (`sec_master`.`assetclass`= `sec_asset_master`.`assetclass`
-				 AND `sec_asset_master`.`theme` = `user_trade_profile`.`theme`)
+				 LEFT JOIN `sec_asset_mapping`
+				 ON (`sec_master`.`ticker`= `sec_asset_mapping`.`ticker`
+				 AND `sec_asset_mapping`.`theme` = `user_trade_profile`.`theme`)
 			WHERE `ext_acct_info`.`acctnum` = p_acctnum
 			AND   `user_logon`.`logonid`    = p_logonid
 			AND   `ext_position`.`reportDate` = ( select max(`pos`.`reportDate`) from `ext_position` `pos`)
             GROUP BY
-				 IFNULL(`sec_asset_master`.`sortorder`,9999)
+				 IFNULL(`sec_asset_mapping`.`subclasssortorder`,9999)
 				,`ext_position`.`clientAccountID`
 				,`ext_position`.`symbol`
 				,`ext_position`.`reportDate`
@@ -90,16 +91,17 @@ BEGIN
 				,`ext_acct_info`.`rep`
 				,`ext_acct_info`.`dateOpened`
 				,`sec_master`.`name`
-				,`sec_master`.`assetclass`
+				,IFNULL(`sec_asset_mapping`.`assetName`,`sec_master`.`assetclass`)
+				,IFNULL(`sec_asset_mapping`.`assetName`,`sec_master`.`assetclass`)
 				,`sec_master`.`subclass`
-                ,`sec_asset_master`.`assetcolor`
+                ,IFNULL(`sec_asset_mapping`.`assetcolor`,'#ffffff')
                 ,`user_trade_profile`.`theme`
 				,`user_trade_profile`.`portfolioName`
 			ORDER BY 1, `sec_master`.`assetclass`, `ext_position`.`symbol`
 			;
         ELSE
 			select
-				 IFNULL(`sec_asset_master`.`sortorder`,9999) as `sortorder`
+				 IFNULL(`sec_asset_mapping`.`subclasssortorder`,9999) as `sortorder`
 				,`ext_position`.`clientAccountID`
 				,`ext_position`.`symbol`
 				,`ext_position`.`reportDate`
@@ -117,9 +119,10 @@ BEGIN
 				,`ext_acct_info`.`rep`
 				,`ext_acct_info`.`dateOpened`
 				,`sec_master`.`name` as `description`
-				,IFNULL(`sec_asset_master`.`assetName`,`sec_master`.`assetclass`) as `assetclass`
+				,IFNULL(`sec_asset_mapping`.`assetName`,`sec_master`.`assetclass`) as `assetclass`
+				,IFNULL(`sec_asset_mapping`.`assetName`,`sec_master`.`assetclass`) as `assetclass`
 				,`sec_master`.`subclass`
-                ,IFNULL(`sec_asset_master`.`assetcolor`,'#ffffff') as `color`
+                ,IFNULL(`sec_asset_mapping`.`assetcolor`,'#ffffff') as `color`
                 ,`user_trade_profile`.`theme`
 				,`user_trade_profile`.`portfolioName` as `accountAlias`
 		FROM `ext_position`
@@ -134,14 +137,14 @@ BEGIN
 				 ON (`user_access_role`.`logonid` = `user_logon`.`logonid`)
 				 LEFT JOIN `sec_master`
 				 ON (`ext_position`.`symbol`= `sec_master`.`ticker`)
-				 LEFT JOIN `sec_asset_master`
-				 ON (`sec_master`.`assetclass`= `sec_asset_master`.`assetclass`
-				 AND `sec_asset_master`.`theme` = `user_trade_profile`.`theme`)
+				 LEFT JOIN `sec_asset_mapping`
+				 ON (`sec_master`.`ticker`= `sec_asset_mapping`.`ticker`
+				 AND `sec_asset_mapping`.`theme` = `user_trade_profile`.`theme`)
 			WHERE `ext_acct_info`.`acctnum` = p_acctnum
 			AND   IFNULL(`user_trade_profile`.`advisor`,'Invessence') like tAdvisorAccess
 			AND   `ext_position`.`reportDate` = ( select max(`pos`.`reportDate`) from `ext_position` `pos`)
             GROUP BY
-				 IFNULL(`sec_asset_master`.`sortorder`,9999)
+				 IFNULL(`sec_asset_mapping`.`subclasssortorder`,9999)
 				,`ext_position`.`clientAccountID`
 				,`ext_position`.`symbol`
 				,`ext_position`.`reportDate`
@@ -152,9 +155,10 @@ BEGIN
 				,`ext_acct_info`.`rep`
 				,`ext_acct_info`.`dateOpened`
 				,`sec_master`.`name`
-				,`sec_master`.`assetclass`
+				,IFNULL(`sec_asset_mapping`.`assetName`,`sec_master`.`assetclass`)
+				,IFNULL(`sec_asset_mapping`.`assetName`,`sec_master`.`assetclass`)
 				,`sec_master`.`subclass`
-                ,`sec_asset_master`.`assetcolor`
+                ,IFNULL(`sec_asset_mapping`.`assetcolor`,'#ffffff')
                 ,`user_trade_profile`.`theme`
 				,`user_trade_profile`.`portfolioName`
 			ORDER BY 1, `sec_master`.`assetclass`, `ext_position`.`symbol`
