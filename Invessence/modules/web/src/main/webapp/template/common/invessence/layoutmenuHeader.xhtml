@@ -160,7 +160,7 @@
 
                 </li>
 
-                <ui:fragment rendered="#{webutil.hasAccess('USER')}">
+                <ui:fragment rendered="#{(webutil.hasSubMenu('User')) and webutil.hasAccess('User')}">
                 <li  id="newaccountMenuHighlight">
                     <p:commandLink rendered="true" id="menunewacctbtn"
                                    actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?app=N')}">
@@ -268,7 +268,6 @@
                         </li>
                     </ul>
                 </li>
-
 
             </ul>
 
