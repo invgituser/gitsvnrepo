@@ -160,7 +160,7 @@
 
                 </li>
 
-                <ui:fragment rendered="#{(webutil.hasSubMenu('User')) and webutil.hasAccess('User')}">
+                <ui:fragment rendered="#{webutil.hasMenu('Account') and webutil.hasAccess('User')}">
                 <li  id="newaccountMenuHighlight">
                     <p:commandLink rendered="true" id="menunewacctbtn"
                                    actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?app=N')}">
@@ -232,7 +232,7 @@
                 </ui:fragment>
 
 
-                <ui:fragment rendered="#{webutil.hasRole('DEMO')}">
+                <ui:fragment rendered="#{webutil.hasMenu('Aggregation') and webutil.hasAccess('User')}">
                 <li  class="">
                     <p:commandLink rendered="true" id="menuaggrbtn"
                                    actionListener="#{aggrBean.startup('D')}">
@@ -242,7 +242,7 @@
                 </li>
                 </ui:fragment>
 
-                <ui:fragment rendered="#{webutil.hasRole('DEMO')}">
+                <ui:fragment rendered="#{webutil.hasMenu('Reports') and webutil.hasAccess('User')}">
                 <li>
                     <p:commandLink rendered="true" id="menureportsbtn"
                                    actionListener="#{uiLayout.doMenuAction('consumer', 'creports.xhtml')}">
