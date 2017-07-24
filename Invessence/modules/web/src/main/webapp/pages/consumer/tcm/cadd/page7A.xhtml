@@ -77,15 +77,23 @@
                                     </div>
 
                                     <div class="EmptyBox5"></div>
-                                    <div class="Container100" style="text-align: center;">
-                                        <p:commandButton id="scsavebtn3" value="Save" styleClass=""
-                                                         update=":ceForm:workArea"
-                                                         actionListener="#{tcmpb.saveFTPanel}">
-                                        </p:commandButton>
-                                        <p:commandButton id="sccancelbtn4" value="Cancel" styleClass=""
+                                    <div class="Container100" style="text-align: center;    position: absolute;
+    bottom: 20px;
+    margin-bottom: 0px;">
+
+                                        <p:commandButton id="sccancelbtn4" value="Cancel" styleClass="" style="float: left;
+    margin-left: 20px;"
                                                          update=":ceForm:workArea"
                                                          actionListener="#{tcmpb.cancelFTPanel}">
                                         </p:commandButton>
+
+
+                                        <p:commandButton id="scsavebtn3" value="Save" styleClass="" style="    float: right;
+    margin-right: 20px;"
+                                                         update=":ceForm:workArea"
+                                                         actionListener="#{tcmpb.saveFTPanel}">
+                                        </p:commandButton>
+
                                     </div>
                                 </p:panel>
                             </p:panel>
