@@ -3513,7 +3513,7 @@ a {
 }
 
 .backButtonLP, .RPHeadings1, .RiskValuePanel {
-    border-right: 0px solid #666666;
+    border-right: 1px solid #666666;
 }
 
 .nextButtonLP, .RPHeadings1 {
