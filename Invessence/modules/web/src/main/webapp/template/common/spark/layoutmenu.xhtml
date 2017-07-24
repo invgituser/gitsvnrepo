@@ -72,7 +72,7 @@
 
                 </li>
 
-                <ui:fragment rendered="#{webutil.hasAccess('USER')}">
+                <ui:fragment rendered="#{(webutil.hasSubMenu('User')) and webutil.hasAccess('User')}">
                     <li  id="newaccountMenuHighlight">
                         <p:commandLink rendered="true" id="menunewacctbtn"
                                        actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?app=N')}">
@@ -163,23 +163,7 @@
                     </li>
                 </ui:fragment>
 
-                <li id="">
-                    <a href="#" class="" id="">My Profile</a>
 
-                    <ul>
-                        <li><a href="/pages/common/myprofile.xhtml">Setting</a></li>
-                        <div class="menuSeperator"></div>
-                        <li><a href="">My Advisors</a></li>
-                        <div class="menuSeperator"></div>
-                        <li>
-                            <h:form>
-                                <h:commandLink id="menulogoutBtn" actionListener="#{sessionControl.logout}" styleClass="idLogoutCommon">
-                                    <h:outputText value="Logout"/>
-                                </h:commandLink>
-                            </h:form>
-                        </li>
-                    </ul>
-                </li>
 
 
             </ul>
