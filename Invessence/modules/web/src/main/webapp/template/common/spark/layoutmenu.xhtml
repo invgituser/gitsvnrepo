@@ -67,10 +67,7 @@
         <a class="toggleMenu" href="#">Menu</a>
 
             <ul class="nav" id="menuMainNavigation" >
-                <li  class="test" id="dashboardMenuHighlight">
-                    <a href="#{uiLayout.defaultHome}" id="menudashboardbtn">Dashboard</a>
 
-                </li>
 
                 <ui:fragment rendered="#{webutil.hasMenu('Account') and webutil.hasAccess('User')}">
                     <li  id="newaccountMenuHighlight">
@@ -164,6 +161,11 @@
                 </ui:fragment>
 
 
+
+                <li  class="test" id="dashboardMenuHighlight" style="float: right;">
+                    <i class="fa fa-home"></i> <a href="#{uiLayout.defaultHome}" id="menudashboardbtn">Dashboard</a>
+
+                </li>
 
 
             </ul>
