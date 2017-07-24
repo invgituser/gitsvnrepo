@@ -507,7 +507,13 @@ box-shadow: 0px 1px 0px 0px rgba(70,145,91,0.8);}
 .nav > li {
 
 	float: left;
-	padding-top: 16px;
+	padding-top: 17px;
+}
+
+.nav li i  {
+
+	float: left;
+	color: #fff;
 }
 
 .nav > li > .parent {
