@@ -253,7 +253,7 @@ box-shadow: 0px 1px 0px 0px rgba(70,145,91,0.8);}
 	.BigTopic{font-size:22px !important;}
 	
 	#layout-topbar{min-height:66px; margin-bottom:8px;}
-		#mobile-menu-button, #mobile-menu-button-gray{padding: 8px 12px; font-size:14px; margin-top:17px;}
+		#mobile-menu-button, #mobile-menu-button-gray{padding: 8px 12px; font-size:14px; margin-top:17px; display: none !important;}
 		
 		/* topbar menu*/
 		#layout-topbar-menu{position:absolute; width:40%; background-color:#F1F6F9; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; overflow:hidden; right:4%; top:40px;
@@ -310,7 +310,7 @@ box-shadow: 0px 1px 0px 0px rgba(70,145,91,0.8);}
 	.BigTopic{font-size:21px !important;} 
 	
 	#layout-topbar{min-height:60px; margin-bottom:5px;}
-		#mobile-menu-button, #mobile-menu-button-gray{padding: 8px 12px; font-size:14px; margin-top:14px;}
+		#mobile-menu-button, #mobile-menu-button-gray{padding: 8px 12px; font-size:14px; margin-top:14px; display: none;}
 								  
 	/* topbar menu*/
 		#layout-topbar-menu{position:absolute; width:50%; background-color:#F1F6F9; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; overflow:hidden; right:4%; top:34px;
@@ -430,5 +430,203 @@ box-shadow: 0px 1px 0px 0px rgba(70,145,91,0.8);}
 #layout-portlets-cover:after,
 .Card:after {
     clear: both;
+}
+
+
+
+.toggleMenu {
+	display: none;
+	background: #009abb;
+	padding: 10px 15px;
+	color: #fff;
+
+	position: absolute;
+	top: 5px;
+	z-index: 999999999;
+	right: 20px;
+}
+
+.nav {
+	list-style: none;
+	margin-right: 15px;
+	width: 89%;
+	min-height: 50px;
+	background-color: #009ABB;
+	margin: -25px auto 8px auto;
+	padding: 0px 1.5%;
+	-webkit-border-radius: 3px;
+	-webkit-box-shadow: 0px 1px 0px 0px rgba(70,145,91,0.8);
+	-moz-box-shadow: 0px 1px 0px 0px rgba(70,145,91,0.8);
+	box-shadow: 0px 1px 0px 0px rgba(70,145,91,0.8);
+
+}
+
+.nav:before,
+.nav:after {
+	content: " ";
+	display: table;
+}
+
+.nav:after {
+	clear: both;
+}
+
+.nav ul {
+	list-style: none;
+	width: 9em;
+}
+
+.nav a {
+	padding: 0px 10px 0px 30px;
+	text-align: left;
+	color: #fff !important;
+	text-decoration: none;
+}
+
+.nav > ul > li:first-child a {
+	padding: 0px 10px 0px 00px;
+
+}
+
+.nav a:hover {
+
+	color: #1d1d1d !important;
+	text-decoration:none ;
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
+
+}
+
+.nav li {
+	position: relative;
+}
+
+.nav > li {
+
+	float: left;
+	padding-top: 16px;
+}
+
+.nav > li > .parent {
+	background-image: url("https://raw.githubusercontent.com/tessalt/dropdowns/master/images/downArrow.png");
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+.nav > li > a {
+	display: block;
+}
+
+.nav li ul {
+	position: absolute;
+	left: -9999px;
+	padding: 0px;
+	background-color: #009abb;
+	box-shadow: 0px 1px 2px #000;
+	top: 50px;
+	width: 180px;
+	z-index: 99999;
+}
+
+.nav > li.hover > ul {
+	left: 0;
+}
+
+
+
+.nav li li.hover ul {
+	left: 0;
+	padding-top: 0px;
+	top: 50px;
+}
+
+.nav li li a {
+	display: block;
+	padding: 10px;
+	position: relative;
+	z-index: 100;-webkit-transition: all 600ms ease;
+	-moz-transition: all 600ms ease;
+	-ms-transition: all 600ms ease;
+	-o-transition: all 600ms ease;
+	transition: all 600ms ease;
+
+}
+
+.nav > li > ul > li {padding: 0px !important;-webkit-transition: all 600ms ease;
+	-moz-transition: all 600ms ease;
+	-ms-transition: all 600ms ease;
+	-o-transition: all 600ms ease;
+	transition: all 600ms ease;}
+
+.nav > li > ul > li:hover {padding: 0px !important; background-color: #fff;-webkit-transition: all 600ms ease;
+	-moz-transition: all 600ms ease;
+	-ms-transition: all 600ms ease;
+	-o-transition: all 600ms ease;
+	transition: all 600ms ease;}
+
+.nav > li > ul > li:hover a {color:#000;-webkit-transition: all 600ms ease;
+	-moz-transition: all 600ms ease;
+	-ms-transition: all 600ms ease;
+	-o-transition: all 600ms ease;
+	transition: all 600ms ease;}
+
+.nav li li li a {
+	background: #249578;
+	z-index: 200;
+	border-top: 1px solid #1d7a62;
+}
+
+@media screen and (max-width: 768px) {
+	.active {
+		display: block;
+	}
+
+	.nav {    width: 97%;
+		position: absolute;
+		background-color: rgb(255, 255, 255);
+		left: 0px;
+		top: 69px;
+		padding-top: 0px;
+		z-index: 11;}
+
+	.nav > li {
+		float: none;
+		padding: 10px;
+		border-bottom: 1px solid #ccc;
+	}
+
+	.nav > li > .parent {
+		background-position: 95% 50%;
+	}
+
+	.nav li li .parent {
+		background-image: url("https://raw.githubusercontent.com/tessalt/dropdowns/master/images/downArrow.png");
+		background-repeat: no-repeat;
+		background-position: 95% 50%;
+	}
+
+	.nav ul {
+		display: block;
+		width: 100%;
+	}
+
+	.nav > li.hover > ul, .nav li li.hover ul {
+		position: static;
+		width: 100%;
+		top: 20px;
+		margin-top: 15px;
+	}
+
+	.nav a {
+
+		color: #009abb !important;
+
+	}
+
+	.nav li ul {background-color: #ffffff;}
+
 }
 
