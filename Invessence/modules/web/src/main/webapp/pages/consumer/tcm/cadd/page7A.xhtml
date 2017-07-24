@@ -51,7 +51,7 @@
                                             <p:slider id="allocSlider" for="allocValue" minValue="0"
                                                       maxValue="#{tcmpb.maxAssetAllocatonPoints}" step="1">
                                                 <p:ajax event="slideEnd"
-                                                        update=":ceForm:graphArea, :ceForm:tcmFinal, :ceForm:modelnamelbl, :ceForm:modeldescrlbl, :ceForm:tcmp7anext, :ceForm:tcmp7aportfoliolist"
+                                                        update=":ceForm:graphArea, :ceForm:tcmFinal, :ceForm:modelnamelbl, :ceForm:modeldescrlbl, :ceForm:tcmp7aportfoliolist"
                                                         listener="#{tcmpb.onAllocSlider}"/>
                                             </p:slider>
                                         </div>
@@ -212,7 +212,7 @@
                                                          styleClass="fineTuneBtn fineTuneBtnImg spWid100"
                                                          value="Change Strategy"
                                                          disabled="#{! tcmpb.enableChangeStrategy}"
-                                                         update=":ceForm:reviewArea, :ceForm:tcmp7achngstrategy2"
+                                                         update=":ceForm:reviewArea, :ceForm:tcmp7achngstrategy2,:ceForm:tcmp7astartover,:ceForm:tcmp7anext"
                                                          actionListener="#{tcmpb.showFTPanel}">
                                         </p:commandButton>
                                     </div>
@@ -274,6 +274,7 @@
                     </div>
                     <div id="chngstBtnBock" class="Container100 Responsive100 summaryPageBtn" style="text-align: center;">
                         <p:commandButton styleClass="prev ResponsiveBtnFS Fleft spWid100" id="tcmp7astartover"
+                                         disabled="#{! tcmpb.enableChangeStrategy}"
                                          value="Start Over" update=":ceForm:inputArea" immediate="true"
                                          actionListener="#{tcmpb.startover}"/>
 
@@ -289,7 +290,7 @@
                                          value="Next"
                                          rendered="#{tcmpb.pagemanager.nextButtonStat}"
                                          update=":ceForm:inputArea"
-                                         disabled="#{tcmpb.sameStrategy}"
+                                         disabled="#{! tcmpb.altrOnChngStrategy}"
                                          actionListener="#{tcmpb.nextPage}"/>
 
                     </div>
