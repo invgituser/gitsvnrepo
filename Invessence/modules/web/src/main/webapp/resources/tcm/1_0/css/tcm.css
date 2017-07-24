@@ -789,7 +789,7 @@ img.riskImage:hover {
         float: right;
         font-size: 13px!important;
         text-align: right;
-        padding-top: 0px!important;
+        padding-top: 10px!important;
         padding-bottom: 5px;
     }
 }
@@ -1675,6 +1675,7 @@ display: none;
     font-size: 14px;
     padding-top: 20px;
     margin-right: 5%;
+    margin-top: 10px;
 }
 
 .GraphPanel > .ui-panel-content {
@@ -4090,4 +4091,25 @@ font-weight: bold;
 
 .Container48 {
     width:48%;
+}
+
+
+
+
+
+
+#mobile-menu-button, #mobile-menu-button-gray {display: none !important;}
+
+
+@media (min-width: 768px) and (max-width: 1023px)   {
+    /* For portrait layouts only */
+
+    .submenuCustom {
+        width: 40%;
+        float: right;
+        text-align: right;
+        font-size: 14px;
+        padding-top: 15px;
+        margin-right: 11%;
+    }
 }
