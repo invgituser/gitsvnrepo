@@ -714,6 +714,28 @@ public class WebUtil implements Serializable
                   }
                }
             }
+
+         }
+      }
+      catch (Exception ex)
+      {
+         return false;
+      }
+      return false;
+   }
+
+   public boolean hasMenu(String menu)
+   {
+      try
+      {
+         if (getAccess().equalsIgnoreCase(WebConst.WEB_ADMIN))
+         {
+            return true;
+         }
+         Map<String, String> webMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.WEB_MENU);
+         if (webMap != null && webMap.get(menu).length() > 0)
+         {
+            return true;
          }
       }
       catch (Exception ex)
