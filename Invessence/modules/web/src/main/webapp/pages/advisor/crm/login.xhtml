@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/template.xhtml">
+
+<f:metadata>
+    <f:event type="preRenderView" listener="#{adashbean.preRenderView}"/>
+</f:metadata>
+<ui:define name="content">
+    <div class="layout-portlets-box">
+        <!-- Messages/Alerts -->
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent PaddingTopBottomNone">
+
+                <form>
+                    <div class="box">
+                        <h1>Login </h1>
+
+                        <p:inputText styleClass="email" id="loginID" />
+                        <p:watermark for="loginID" value="Your Login ID" id="watermark" />
+
+                        <p:password  styleClass="email" id="password"/>
+                        <p:watermark for="password" value="Your Password" id="watermark1" />
+
+                        <div class="btn"><p:commandButton value="Login"  icon="fa fa-sign-in" iconPos="right" /></div>
+
+
+
+
+
+
+
+                    </div> <!-- End Box -->
+
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- BOX END -->
+
+
+
+</ui:define>
+
+</ui:composition>
