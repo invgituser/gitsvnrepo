@@ -98,6 +98,16 @@
                     </li>
                 </ui:fragment>
 
+                <li  class="">
+                    <a href="#" class="submenuSABtn">CRM</a>
+                    <ul>
+                        <li>
+                            <a>Login</a>
+                        </li>
+
+                    </ul>
+                </li>
+
                 <ui:fragment rendered="#{(webutil.hasSubMenu('Admin')) and ((webutil.hasAccess('Advisor') and webutil.hasRole('Admin')) or webutil.hasAccess('SuperAdmin'))}">
                     <li  class="">
                         <a href="#" class="submenuAdminBtn" id="menuAdminbtn">Admin</a>
