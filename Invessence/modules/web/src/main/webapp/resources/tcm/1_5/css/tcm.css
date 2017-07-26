@@ -4521,3 +4521,8 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
     .customwidthbutton {width: 140px;
         margin: 5px;}
 }
+
+.ui-widget-content a {
+    color: #ffffff !important;
+
+}
