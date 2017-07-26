@@ -4514,3 +4514,10 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
 
     padding: 0px !important;
 }
+
+.customwidthbutton {width: 140px; margin: 0 5px;}
+
+@media screen and (max-width:600px) and (min-width:320px) {
+    .customwidthbutton {width: 140px;
+        margin: 5px;}
+}
