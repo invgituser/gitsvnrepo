@@ -6,7 +6,7 @@ import com.invmodel.Const.InvConst;
 import com.invmodel.asset.data.*;
 import com.invmodel.dao.data.*;
 import com.invmodel.dao.invdb.*;
-import com.invmodel.dao.rbsa.HolisticModelOptimizer;
+import com.invmodel.dao.rbsa.*;
 import com.invmodel.inputData.ProfileData;
 import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.model.fixedmodel.FixedModelOptimizer;
@@ -19,6 +19,7 @@ public class PortfolioModel
    //private SecurityDBCollection securityDao;
    private static  PortfolioModel instance;
    private SecurityCollection secCollection;
+   private HistoricalReportsReturns historicalReportsReturns;
    private PortfolioOptimizer portfolioOptimizer;
    private FixedModelOptimizer fixedOptimizer;
 
@@ -37,6 +38,7 @@ public class PortfolioModel
       portfolioOptimizer = PortfolioOptimizer.getInstance();
       fixedOptimizer = FixedModelOptimizer.getInstance();
       secCollection = new SecurityCollection();
+      historicalReportsReturns = null;
    }
 
    public void setPortfolioOptimizer(PortfolioOptimizer portfolioOptimizer)
@@ -129,17 +131,6 @@ public class PortfolioModel
             reinvestment = profileData.getRecurringInvestment().doubleValue();
          }
 
-         // Now collect all securities for this theme;
-         if (secCollection == null)
-         {
-            secCollection = new SecurityCollection();
-         }
-         // if security of this theme is already loaded, then don't reload.
-         // NOTE: If they individual choose the non-taxable, but is taxable, then load the taxable strategy.
-         if (!secCollection.getThemeLoaded().equalsIgnoreCase(theme))
-         {
-            secCollection.loadDataFromDB(advisor, theme);
-         }
 
          if (fixedOptimizer != null)
          {
@@ -166,6 +157,26 @@ public class PortfolioModel
          {
             advisor = InvConst.INVESSENCE_ADVISOR;
          }
+
+         // Now collect all securities for this theme;
+         if (secCollection == null)
+         {
+            secCollection = new SecurityCollection();
+         }
+         // if security of this theme is already loaded, then don't reload.
+         // NOTE: If they individual choose the non-taxable, but is taxable, then load the taxable strategy.
+         if (!secCollection.getThemeLoaded().equalsIgnoreCase(theme))
+         {
+            secCollection.loadDataFromDB(advisor, theme);
+         }
+
+         if (historicalReportsReturns == null) {
+            historicalReportsReturns = HistoricalReportsReturns.getInstance(theme);
+         }
+         else if ( ! historicalReportsReturns.getThisTheme().equalsIgnoreCase(theme)) {
+               historicalReportsReturns.refreshDataFromDB(theme);
+         }
+
          profileData.setMaxPortfolioAllocationPoints(InvConst.PORTFOLIO_INTERPOLATION - 1);
          if (profileData.getRiskCalcMethod() == null || profileData.getRiskCalcMethod().startsWith(InvConst.CONSUMER_RISK_FORMULA))
          {

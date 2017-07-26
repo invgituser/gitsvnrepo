@@ -1,4 +1,4 @@
-DROP PROCEDURE `invdb`.`sp_eod_notification`;
+DROP PROCEDURE IF EXISTS `invdb`.`sp_eod_notification`;
 
 
 DELIMITER $$

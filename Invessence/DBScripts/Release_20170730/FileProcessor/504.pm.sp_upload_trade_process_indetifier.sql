@@ -1,4 +1,4 @@
-DROP PROCEDURE `invdb`.`sp_upload_trade_process_indetifier`;
+DROP PROCEDURE IF EXISTS `invdb`.`sp_upload_trade_process_indetifier`;
 
 
 DELIMITER $$

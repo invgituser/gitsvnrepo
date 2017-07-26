@@ -1,5 +1,5 @@
 
-delete from invdb.web_site_info where name='URL.MOBILE' and url =('buildingbenjamins','traditionadvisers','uatbb','uattcm','prebb','pretcm');
+delete from invdb.web_site_info where name='URL.MOBILE' and url in ('buildingbenjamins','traditionadvisers','uatbb','uattcm','prebb','pretcm');
 
 INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created)values('buildingbenjamins','URL.MOBILE','A','https://BuildingBenjamins.com/mobile.xhtml','N',now());
 INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created)values('traditionadvisers','URL.MOBILE','A','https://traditionadvisers.net/mobilelogin.xhtml','N',now());

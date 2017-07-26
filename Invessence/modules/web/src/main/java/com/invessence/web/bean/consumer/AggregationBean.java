@@ -96,7 +96,7 @@ public class AggregationBean
 //               System.out.println("Go for MX Registration");
 //            }else if (userAcctDetails.getAggrStatus().equals("A")){
 //               System.out.println("Go for widget window");
-//               uiLayout.doMenuAction("consumer", "aggr/widget.xhtml");
+//               uiLayout.doMenuAction("common", "aggr/widget.xhtml");
 //            }
 //         }
 //
@@ -107,8 +107,8 @@ public class AggregationBean
 
    public void startup(String mode){
       System.out.println("AggregationBean.startup");
-      String product = getWebutil().getWebprofile().getWebInfo().get("SERVICE.CUSTODY").toString();
-      String serviceMode = getWebutil().getWebprofile().getWebInfo().get("SERVICE.DOCUSIGN.MODE").toString();
+      String product = getWebutil().getWebprofile().getWebInfo().get("SERVICE.PRODUCT").toString();
+      String serviceMode = getWebutil().getWebprofile().getWebInfo().get("SERVICE.AGGREGATION.MODE").toString();
       System.out.println("Product " + product);
       System.out.println("ServiceMode " + serviceMode);
       System.out.println("mode = [" + mode + "]");
@@ -124,10 +124,10 @@ public class AggregationBean
          }else{
             if(userAcctDetails.getAggrUserId()==null || userAcctDetails.getAggrUserId().equals("")){
                System.out.println("Go for MX Registration");
-               uiLayout.doMenuAction("consumer", "aggr/register.xhtml");
+               uiLayout.doMenuAction("common", "aggr/register.xhtml");
             }else if (userAcctDetails.getAggrStatus().equals("A")){
                System.out.println("Go for widget window");
-               uiLayout.doMenuAction("consumer", "aggr/widget.xhtml");
+               uiLayout.doMenuAction("common", "aggr/widget.xhtml");
             }
          }
 
@@ -154,9 +154,9 @@ public class AggregationBean
            UserProfile userProfile= aggregationService.userRegistration(userAcctDetails);
             if(userProfile==null || userProfile.getErrorStatus()==null || userProfile.getErrorStatus().getErrorCode()!=0){
                System.out.println("Service end issue!");
-               webutil.redirecttoMessagePage("ERROR", "MX Service", userProfile.getErrorStatus().getErrorMessage(), "/pages/consumer/" + webutil.getWebprofile().getConsumerdir() + "/aggr/errorMessage.xhtml","");
+               webutil.redirecttoMessagePage("ERROR", "MX Service", userProfile.getErrorStatus().getErrorMessage(), "/pages/common/aggr/errorMessage.xhtml","");
             }else if(userProfile.getErrorStatus().getErrorCode()==0){
-               uiLayout.doMenuAction("consumer", "aggr/widget.xhtml");
+               uiLayout.doMenuAction("common", "aggr/widget.xhtml");
             }
          }
       } catch (Exception e) {
@@ -195,7 +195,7 @@ public class AggregationBean
                processAggrRegistraion();
             }else
             {
-               webutil.redirecttoMessagePage("ERROR", "MX Service", result.getErrorStatus().getErrorMessage(), "/pages/consumer/" + webutil.getWebprofile().getConsumerdir() + "/aggr/errorMessage.xhtml","");
+               webutil.redirecttoMessagePage("ERROR", "MX Service", result.getErrorStatus().getErrorMessage(), "/pages/common/aggr/errorMessage.xhtml","");
             }
       }}
       catch (Exception e)
@@ -221,7 +221,7 @@ public class AggregationBean
 ////         //return result;
 ////         System.out.println("openWidget('" + result.getUrl() + "')");
 //         //requestContext.execute("confirmDelete('"+i+"');");
-//         webutil.redirect("/pages/consumer/tcm/aggr/widget.xhtml", null);
+//         webutil.redirect("/pages/common/aggr/widget.xhtml", null);
 //      } catch (Exception e) {
 //         e.printStackTrace();
 //      }

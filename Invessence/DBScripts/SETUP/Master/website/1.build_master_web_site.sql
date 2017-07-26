@@ -63,6 +63,7 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('master', 'SERVICE.FILEPROCESS.MODE', 'A', 'PROD', 'N', '2017-05-30 07:03:12');
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'HTML.ACTIVATED', 'A', 'INV-Activate.htm', 'N', '2017-07-11 10:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'EMAIL.FORGOT.SUBJECT', 'A', 'Invessence– Reset Your Password', 'N', '2017-07-11 10:31:07', null);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('master', 'SERVICE.AGGREGATION.MODE', 'A', 'PROD', 'N', '2017-07-16 08:42:58');
 
 
 -- Removed (NO longer used)
@@ -70,11 +71,10 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 -- INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'MENU.AGGREGATOR', 'A', 'N', 'N', '2017-06-03 14:13:52', null);
 -- INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'MENU.AGGREGRATION', 'A', 'User', 'N', '2017-06-03 13:31:07', null);
 
-
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'VERSION', 'A', '1.0', 'N', now(), null);
 
 update `invdb`.`web_site_info`
 set value = null, status = 'I'
 where url = 'master';
 
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('master', 'VERSION', 'A', '1.0', 'N', now(), null);
 

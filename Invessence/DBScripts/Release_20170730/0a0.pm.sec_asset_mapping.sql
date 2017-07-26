@@ -26,6 +26,7 @@ ON (`subclass`.`theme` = `assetclass`.`theme`
 WHERE CONCAT(`subclass`.`theme`, `subclass`.`level`, `subclass`.`keyname`) in 
 	(SELECT DISTINCT CONCAT(`mastersub`.`theme`, `mastersub`.`level`, `mastersub`.`keyname`) 
 	 FROM `invdb`.`sec_fixedmodel_subasset` as `mastersub`)
+AND `subclass`.`theme` not like ('%CORE%')
 AND `subclass`.`status` in ('A')
 AND  `assetclass`.`status` in ('A')
 GROUP BY 
