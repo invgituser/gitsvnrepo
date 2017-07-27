@@ -41,6 +41,7 @@ public class TradeBean extends TradeClientData implements Serializable
    private List<TradeSummary> selectedSummaryList;
    private TradeSummary selectedSummary;
    private Integer whichScreen;
+   private Boolean displayReviewPanel;
 
    private List<RebalanceTradeData> rebalancetradedatalist;
    private Map<String, RebalanceTradeData> assetMap = new HashMap<String, RebalanceTradeData>();
@@ -316,6 +317,16 @@ public class TradeBean extends TradeClientData implements Serializable
       return ( whichScreen == null ? 1 : whichScreen);
    }
 
+   public Boolean getDisplayReviewPanel()
+   {
+      return displayReviewPanel;
+   }
+
+   public void setDisplayReviewPanel(Boolean displayReviewPanel)
+   {
+      this.displayReviewPanel = displayReviewPanel;
+   }
+
    public Boolean getIsTradeActive() {
       return (getWhichScreen() == 1);
    }
@@ -538,13 +549,21 @@ public class TradeBean extends TradeClientData implements Serializable
          if (acctnum != null)
          {
             collectTradeDetails(acctnum);
-            uiLayout.doMenuAction("advisor", "operations/tradesummary.xhtml");
+            // uiLayout.doMenuAction("advisor", "operations/tradesummary.xhtml");
+            displayReviewPanel=true;
          }
       }
       catch (Exception ex)
       {
          return;
       }
+
+   }
+
+   public void hideRebalDetails()
+   {
+
+      displayReviewPanel=false;
 
    }
 
