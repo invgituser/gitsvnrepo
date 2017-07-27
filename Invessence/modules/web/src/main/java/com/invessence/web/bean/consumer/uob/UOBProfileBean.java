@@ -1199,7 +1199,15 @@ public class UOBProfileBean extends CustomerData implements Serializable
       {
          saveProfile(getRiskCalculator());
 
-         gotoCustodyInfoForm(); // If user is already looged in then redirect to opne account page.
+         if (getDoesUserHavaLogonID())
+         {
+            gotoCustodyInfoForm(); // If user is already looged in then redirect to opne account page.
+         }
+         else
+         {
+            masterpagemanager.nextPage();
+         }
+
       }
       catch (Exception ex)
       {
@@ -1405,12 +1413,6 @@ public class UOBProfileBean extends CustomerData implements Serializable
             break;
          }
       }
-//      if(!allAnsSbmt){
-//         if(pagemanager.getPage()==riskCalculator.getNumberofQuestions()){
-//            allAnsSbmt=true;
-//         }
-//      }
-      System.out.println("allAnsSbmt~~>["+allAnsSbmt+"]");
       return allAnsSbmt;
    }
 
