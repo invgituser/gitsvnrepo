@@ -1326,7 +1326,7 @@ border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px;}
     .ui-megamenu-vertical .ui-menu-list .ui-menuitem{font-size:14px; width:100%; display: table;}
     .ui-menu .ui-menu-list .ui-menuitem .ui-state-hover, .ui-menu .ui-menu-list .ui-state-hover{background-color:#E8EEF2; color:#27AAE1; border-radius:2px;}
     .ui-menu .ui-state-hover .ui-menuitem-link{color:#27aae1 !important;}
-    .ui-menu .ui-menuitem .ui-menuitem-link{color:#9EADB5; width:94% !important; font-family:'ralewaymedium';}
+    .ui-menu .ui-menuitem .ui-menuitem-link{color:#9EADB5 !important; width:94% !important; font-family:'ralewaymedium';}
         .ui-menu .ui-menuitem .ui-menuitem-link .ui-icon-triangle-1-e{background-image:url("#{resource['primefaces-spark:images/rightarrow-gray.svg']}"); background-position: center !important; 
                          background-repeat: no-repeat; background-size: 100%;}
         .ui-menu .ui-menuitem .ui-menuitem-link .ui-icon-triangle-1-s{background-image:url("#{resource['primefaces-spark:images/downarrow-gray.svg']}"); background-position: center !important; 
