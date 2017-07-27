@@ -98,15 +98,6 @@
                     </li>
                 </ui:fragment>
 
-                <li  class="">
-                    <a href="#" class="submenuSABtn">CRM</a>
-                    <ul>
-                        <li>
-                            <a>Login</a>
-                        </li>
-
-                    </ul>
-                </li>
 
                 <ui:fragment rendered="#{(webutil.hasSubMenu('Admin')) and ((webutil.hasAccess('Advisor') and webutil.hasRole('Admin')) or webutil.hasAccess('SuperAdmin'))}">
                     <li  class="">
@@ -176,20 +167,24 @@
 
                 <li  class="test mobileonly" id="dashboardMenuHighlight">
                     <i class="fa fa-cog"></i> <a> Setting</a>
-
                     <ul>
-                        <li><i class="fa fa-dashboard"></i> <a> My Profile</a></li>
+                        <li><i class="fa fa-dashboard"></i> <a  href="/pages/common/myprofile.xhtml"> My Profile</a></li>
                     </ul>
-
                 </li>
 
                 <li  class="test mobileonly" id="dashboardMenuHighlight">
-                    <i class="fa fa-sign-out"></i> <a> Logout</a>
+
+                    <h:form styleClass="logoutBtnFrm">
+                        <h:commandLink actionListener="#{sessionControl.logout}" style="" styleClass="idLogoutCommon">
+                           Logout
+                        </h:commandLink>
+                    </h:form>
 
                 </li>
 
                 <li  class="test" id="dashboardMenuHighlight">
                     <i class="fa fa-home"></i> <a href="#{uiLayout.defaultHome}" id="menudashboardbtn"> Dashboard</a>
+
 
                 </li>
 
