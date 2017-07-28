@@ -164,6 +164,9 @@
 
 
 
+                <li  class="test" id="dashboardMenuHighlight">
+                    <i class="fa fa-home"></i> <a href="#{uiLayout.defaultHome}" id="menudashboardbtn"> Dashboard</a>
+                </li>
 
                 <li  class="test mobileonly" id="dashboardMenuHighlight">
                     <i class="fa fa-cog"></i> <a> Setting</a>
@@ -173,25 +176,12 @@
                 </li>
 
                 <li  class="test mobileonly" id="dashboardMenuHighlight">
-
-                    <h:form styleClass="logoutBtnFrm">
-                        <h:commandLink actionListener="#{sessionControl.logout}" style="" styleClass="idLogoutCommon">
-                           Logout
-                        </h:commandLink>
-                    </h:form>
-
-                </li>
-
-                <li  class="test" id="dashboardMenuHighlight">
-                    <i class="fa fa-home"></i> <a href="#{uiLayout.defaultHome}" id="menudashboardbtn"> Dashboard</a>
-
-
+                    <i class="fa fa-sign-out"></i>
+                    <h:commandLink actionListener="#{sessionControl.logout}" style="" >Logout</h:commandLink>
                 </li>
 
 
             </ul>
-
-
 
 
 
