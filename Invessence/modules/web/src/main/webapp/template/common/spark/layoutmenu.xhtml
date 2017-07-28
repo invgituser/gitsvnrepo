@@ -172,19 +172,18 @@
                     </ul>
                 </li>
 
-                <li  class="test mobileonly" id="dashboardMenuHighlight">
 
-                    <h:form styleClass="logoutBtnFrm">
-                        <h:commandLink actionListener="#{sessionControl.logout}" style="" styleClass="idLogoutCommon">
-                           Logout
-                        </h:commandLink>
-                    </h:form>
-
-                </li>
 
                 <li  class="test" id="dashboardMenuHighlight">
                     <i class="fa fa-home"></i> <a href="#{uiLayout.defaultHome}" id="menudashboardbtn"> Dashboard</a>
 
+
+                </li>
+                <li  class="test mobileonly" id="dashboardMenuHighlight" style="float: right">
+
+                    <h:commandLink actionListener="#{sessionControl.logout}" style="" styleClass="">
+                        Logout
+                    </h:commandLink>
 
                 </li>
 
