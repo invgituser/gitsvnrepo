@@ -14,8 +14,11 @@ VALUES
 (6,'ey.advisor','c39680887e67fa9860fd197f1279805d','A','UOB','Advisor','ey.advisor@invessence.com','NJ','EY','','HTML','advisor',now()),
 (10,'tcmintrep.advisor','c39680887e67fa9860fd197f1279805d','A','TCMIntRep100','Advisor','tcmintrep.advisor@invessence.com','NJ','BB-TCM','100','HTML','advisor',now()),
 (11,'tcmextrep.advisor','c39680887e67fa9860fd197f1279805d','A','TCMExtRep200','Advisor','tcmextrep.advisor@invessence.com','NJ','BB-TCM','200','HTML','advisor',now()),
-(12,'csi.advisor','c39680887e67fa9860fd197f1279805d','A','CSI','Advisor','csi.advisor@invessence.com','NJ','UOB','','HTML','advisor',now())
-;
+(12,'csi.advisor','c39680887e67fa9860fd197f1279805d','A','CSI','Advisor','csi.advisor@invessence.com','NJ','UOB','','HTML','advisor',now()),
+(13,'bb.superadmin','c39680887e67fa9860fd197f1279805d','A','BBDemo','SuperAdmin','bb.superadmin@invessence.com','NJ','BB','','HTML','SuperAdmin',now()),
+(14,'tcm.superadmin','c39680887e67fa9860fd197f1279805d','A','TCMDemo','SuperAdmin','tcm.superadmin@invessence.com','NJ','BB-TCM','','HTML','SuperAdmin',now()),
+(15,'uob.superadmin','c39680887e67fa9860fd197f1279805d','A','UOB','SuperAdmin','uob.superadmin@invessence.com','NJ','UOB','','HTML','SuperAdmin',now());
+
 
 INSERT INTO `invdb`.`user_advisor_info` (`logonid`, `advisor`, `rep`, `accttype`, `companyname`, `displayName`, `created`)
 VALUES
@@ -27,8 +30,10 @@ VALUES
 ('6', 'EY', 'CATCHALL', 'REP', 'Ernst and Young', 'Ernst and Young', now()),
 ('10', 'BB-TCM', '100', 'REP', 'Tradition Adviseres', 'TCMIntRep100 Advisor', now()),
 ('11', 'BB-TCM', '200', 'REP', 'Tradition Adviseres', 'TCMExtRep200 Advisor', now()),
-('12', 'UOB', 'DEMO', 'REP', 'CSI', 'CSI Advisor', now())
-;
+('12', 'UOB', 'DEMO', 'REP', 'CSI', 'CSI Advisor', now()),
+('13', 'BB', 'CATCHALL', 'REP', 'Building Benjamins', 'BBDemo Advisor', now()),
+('14', 'BB-TCM', 'CATCHALL', 'REP', 'Tradition Advisors', 'Tradition Advisor', now()),
+('15', 'UOB', 'CATCHALL', 'REP', 'UOB Kay Hain', 'UOB Kay Hain', now());
 
 
 INSERT INTO `invdb`.`user_advisor_access` (`logonid`, `advisor`, `rep`, `privileges`, `created`)
@@ -41,7 +46,10 @@ VALUES
 ('6', 'EY', '%', 'V', now()),
 ('10', 'BB-TCM', '100', 'V', now()),
 ('11', 'BB-TCM', '200', 'V', now()),
-('12', '%', '%', 'V', now());
+('12', '%', '%', 'V', now()),
+('13', 'BB%', '%', 'V', now()),
+('14', 'BB-TCM', '%', 'V', now()),
+('15', 'UOB', '%', 'V', now());
 
 
 
@@ -75,3 +83,4 @@ SELECT
 from invdb.user_logon
 where logonid < 100;
 
+insert into invdb.role(logonid,role,status)select logonid,'Operations','A' from invdb.user_logon where userid='uob.advisor';
