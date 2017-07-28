@@ -3517,7 +3517,7 @@ a {
 }
 
 .nextButtonLP, .RPHeadings1 {
-    color: #A4332F;
+    color: #A4332F !important;
 }
 
 span > input {
@@ -3577,7 +3577,7 @@ span > input {
 
 .LPBtnPanelBottom {
     padding: 10px 0;
-    background: #fbfbfb;
+    background: transparent;
 }
 
 .NBwidget .ContainerIndent {
@@ -4455,7 +4455,7 @@ span > input {
 
 .RPHeadings1.active, .RPHeadings2.active {
     background-color: #a4332f;
-    color: #fff;
+    color: #fff !important;
     -webkit-transition: all 600ms ease;
     -moz-transition: all 600ms ease;
     -ms-transition: all 600ms ease;
@@ -4892,6 +4892,7 @@ main.customtabs {
 .inactivetabtrade {
     border-radius: 0px;
     padding: 10px 30px;
+    color: #009abb !important;
     font-size: 18px !important;
     -moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, .4);
     -webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, .4);
@@ -4925,6 +4926,7 @@ main.customtabs {
 .inactivetabreview {
     border-radius: 0px;
     padding: 10px 30px;
+    color: #009abb !important;
     font-size: 18px !important;
     -moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, .4);
     -webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, .4);
