@@ -9,6 +9,7 @@
         <f:event type="preRenderView" listener="#{adashbean.preRenderView}"/>
     </f:metadata>
     <ui:define name="content">
+
         <div class="layout-portlets-box">
             <!-- Messages/Alerts -->
             <div class="Container100 Responsive100">
@@ -19,7 +20,7 @@
                             <div class="Container80">
                                 <div class="Fleft">
                                     <h2 class="black Fs18 FontThemeMedium AdvUserName">#{webutil.lastFirstName}
-                                        <i class="fa fa-angle-double-right" style="margin: 0px 10px" >   </i> User Management</h2>
+                                        <i class="fa fa-angle-double-right" style="margin: 0px 10px"> </i> User Management</h2>
                                 </div>
                             </div>
                         </div>
@@ -30,62 +31,50 @@
             </div>
 
 
-
-
-
             <main class="customtabs">
 
-                <input id="tab1" type="radio" name="tabs" checked="checked" />
+                <input id="tab1" type="radio" name="tabs" checked="checked"/>
                 <label for="tab1">User Info</label>
 
-                <input id="tab2" type="radio" name="tabs" />
+                <input id="tab2" type="radio" name="tabs"/>
                 <label for="tab2">User Credentials</label>
 
-
-
-                <input id="tab4" type="radio" name="tabs" />
-                <label for="tab4">Custody</label>
-
                 <section id="content1">
+                    <h:form id="inviteUserForm" prependId="false" styleClass="formPage">
+                        <div class="Container30 Responsive100 FloatNoneOnMobile Fleft">
+                            <p:panel rendered="#{usrMgmtBean.getMsgheader() != null}"
+                                     style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError">
+                                <h:outputText styleClass="errorText"
+                                              value="#{usrMgmtBean.getMsg()}" escape="false"/>
+                            </p:panel>
+                            <p>
+                                <p:inputText id="FirstName" styleClass="Wid90" value="#{usrMgmtBean.firstname}">
+                                    <p:watermark for="FirstName" value="First Name"/>
+                                </p:inputText>
+                            </p>
+                            <p>
+                                <p:inputText id="LastName" styleClass="Wid90" value="#{usrMgmtBean.lastname}">
+                                    <p:watermark for="LastName" value="Last Name"/>
+                                </p:inputText>
+                            </p>
+                            <p>
+                                <p:inputText id="email" styleClass="Wid100 FS14 CustomWidthFA2"
+                                             value="#{usrMgmtBean.email}" placeholder="Email"
+                                             required="true" requiredMessage="Please enter Email."
+                                             validatorMessage="Email format is not correct.">
+                                    <p:watermark for="email" value="Email Address"/>
+                                    <f:validator validatorId="EmailValidator"/>
+                                </p:inputText>
+                            </p>
+                        </div>
 
-                    <div class="Container30 Responsive100 FloatNoneOnMobile Fleft">
-                    <p>
+                        <div class="clear Container100"></div>
+                        <div class="Container100" style="margin: 10px 0px 20px 0px;">
+                            <p:commandButton value="Invite" styleClass="InviteButton" icon="fa fa-user-plus" type="submit" id="inviteUser"
+                                             actionListener="#{usrMgmtBean.gotoCustody}" update="@form"/>
 
-                        <p:inputText id="FirstName" styleClass="Wid90">
-                            <p:watermark for="FirstName" value="First Name"/>
-                        </p:inputText>
-                       </p>
-
-
-
-                    <p>
-
-                        <p:inputText id="LastName" styleClass="Wid90">
-                            <p:watermark for="LastName" value="Last Name"/>
-                        </p:inputText>
-                    </p>
-
-                    <p>
-
-                        <p:inputText id="DispName" styleClass="Wid90">
-                            <p:watermark for="DispName" value="Display Name"/>
-                        </p:inputText>
-                    </p>
-
-                    </div>
-
-
-                    <div class="clear Container100"></div>
-
-                    <div class="Container100" style="margin: 10px 0px 20px 0px;">
-
-                        <p:commandButton value="Invite"  styleClass="InviteButton" icon="fa fa-user-plus"  />
-                        <p:commandButton value="Reset"  styleClass="ResetButton" icon="fa fa-undo"  />
-                        <p:commandButton value="Deactivate"  styleClass="DeactButton"  icon="fa fa-user-times" />
-                        <p:commandButton value="Delete"  styleClass="DeleteButton" icon="fa fa-trash" />
-
-
-                    </div>
+                        </div>
+                    </h:form>
 
                 </section>
 
@@ -113,61 +102,26 @@
                         </p>
 
 
-
                     </div>
 
                     <div class="clear Container100"></div>
 
                     <div class="Container100" style="margin: 10px 0px 20px 0px;">
 
-                        <p:commandButton value="Invite"  styleClass="InviteButton" icon="fa fa-user-plus"  />
-                        <p:commandButton value="Reset"  styleClass="ResetButton" icon="fa fa-undo"  />
-                        <p:commandButton value="Deactivate"  styleClass="DeactButton"  icon="fa fa-user-times" />
-                        <p:commandButton value="Delete"  styleClass="DeleteButton" icon="fa fa-trash" />
+                        <p:commandButton value="Reset Password" styleClass="ResetButton" icon="fa fa-undo"/>
+                        <p:commandButton value="Activate" styleClass="DeactButton" icon="fa fa-user-times"/>
+                        <p:commandButton value="Deactivate" styleClass="DeactButton" icon="fa fa-user-times"/>
+                        <p:commandButton value="Delete" styleClass="DeleteButton" icon="fa fa-trash"/>
 
 
                     </div>
                 </section>
 
-
-
-                <section id="content4">
-                    <div class="Container30 Responsive100 FloatNoneOnMobile Fleft">
-                        <p>
-
-                            <p:inputText id="AdvCode" styleClass="Wid90">
-                                <p:watermark for="AdvCode" value="Advisor Code"/>
-                            </p:inputText>
-                        </p>
-                        <p>
-                        <p:selectOneMenu id="RepCode" value="Rep Code"
-                                         styleClass="Wid90 selectDD">
-                            <p:watermark for="RepCode" value="Rep Code"/>
-                        </p:selectOneMenu>
-
-                        </p>
-                    </div>
-
-                    <div class="clear Container100"></div>
-
-                    <div class="Container100" style="margin: 10px 0px 20px 0px;">
-
-                        <p:commandButton value="Invite"  styleClass="InviteButton" icon="fa fa-user-plus"  />
-                        <p:commandButton value="Reset"  styleClass="ResetButton" icon="fa fa-undo"  />
-                        <p:commandButton value="Deactivate"  styleClass="DeactButton"  icon="fa fa-user-times" />
-                        <p:commandButton value="Delete"  styleClass="DeleteButton" icon="fa fa-trash" />
-
-
-                    </div>
-                </section>
 
             </main>
 
         </div>
         <!-- BOX END -->
-
-
-
     </ui:define>
 
 </ui:composition>

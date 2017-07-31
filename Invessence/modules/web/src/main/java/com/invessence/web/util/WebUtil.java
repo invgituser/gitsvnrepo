@@ -728,10 +728,6 @@ public class WebUtil implements Serializable
    {
       try
       {
-         if (getAccess().equalsIgnoreCase(WebConst.WEB_ADMIN))
-         {
-            return true;
-         }
          Map<String, String> webMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.WEB_MENU);
          if (webMap != null && webMap.get(menu).length() > 0)
          {

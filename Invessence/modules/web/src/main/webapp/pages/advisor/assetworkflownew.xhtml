@@ -99,19 +99,33 @@
 							<p:accordionPanel styleClass="customAcco">
 								<p:tab title="Predefined Allocation Model">
 									<h:panelGrid cellpadding="10">
-
-
-
-
-
-
-
 										<h:form>
+											<div>
+												<p:commandButton value="Security" ajax="false"  icon="ui-icon-arrowthick-1-s">
+													<p:fileDownload value="#{AssetManagement.getFile('fixed','security')}" />
+												</p:commandButton>
+											</div>
+											<div>
+												<p:commandButton value="Asset" ajax="false"  icon="ui-icon-arrowthick-1-s">
+													<p:fileDownload value="#{AssetManagement.getFile('fixed','asset')}" />
+												</p:commandButton>
+											</div>
+											<div>
+												<p:commandButton value="Subasset" ajax="false"  icon="ui-icon-arrowthick-1-s">
+													<p:fileDownload value="#{AssetManagement.getFile('fixed','subasset')}" />
+												</p:commandButton>
+											</div>
+											<div>
+												<p:commandButton value="Projection" ajax="false"  icon="ui-icon-arrowthick-1-s">
+													<p:fileDownload value="#{AssetManagement.getFile('fixed','projection')}" />
+												</p:commandButton>
+											</div>
+											<div>
+												<p:commandButton value="Performance" ajax="false"  icon="ui-icon-arrowthick-1-s">
+													<p:fileDownload value="#{AssetManagement.getFile('fixed','performance')}" />
+												</p:commandButton>
+											</div>
 
-
-											<p:commandButton value="Download"  icon="ui-icon-arrowthick-1-s">
-
-											</p:commandButton>
 										</h:form>
 									</h:panelGrid>
 								</p:tab>
@@ -169,51 +183,78 @@
 						<div class="contentSecond">
 
 							<p:accordionPanel styleClass="customAcco">
-								<p:tab title="Change Existing File">
+								<p:tab title="Change Existing Template">
 									<h:panelGrid cellpadding="10">
+										<h:form id="updExtForm">
+											<p:outputLabel for="model" value="Model Name : " >
+												<p:selectOneMenu id="model" value="#{AssetManagementUpd.modelID}" style="width:150px">
+													<p:ajax listener="#{AssetManagementUpd.onModelChange}" update="templst" event="change"/>
+													<f:selectItem itemLabel="Select Model" itemValue="0" noSelectionOption="true" />
+													<f:selectItem itemLabel="Predefined" itemValue="Predefined"  />
+													<f:selectItem itemLabel="Optimized" itemValue="Optimized" />
+												</p:selectOneMenu>
+											</p:outputLabel>
+											<p:outputLabel for="templst" value="Tempalte Name : " >
+											<p:selectOneMenu id="templst" value="#{AssetManagementUpd.templateID}" style="width:150px">
+												<p:ajax listener="#{AssetManagementUpd.onTemplateChange}" update="updExtForm:tableArea" event="change"/>
+												<f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true" />
+												<f:selectItems value="#{AssetManagementUpd.lstTempList}"  var="temp" itemLabel="#{temp.templatename}" itemValue="#{temp.templatename}"/>
 
-										<p:inputText id="FileSelect" styleClass="Wid90">
-											<p:watermark for="FileSelect" value="Select File"/>
-										</p:inputText>
+											</p:selectOneMenu>
+											</p:outputLabel>
 
 
+											<p:fileUpload fileUploadListener="#{AssetManagementUpd.handleExistingFileUpload}" mode="advanced" dragDropSupport="false"
+														  update="messages,updExtForm:tableArea" sizeLimit="100000" fileLimit="10" allowTypes="/(\.|\/)(csv)$/" />
 
-										<h:form enctype="multipart/form-data">
+											<p:growl id="messages" showDetail="true" />
 
-
-											<p:fileUpload mode="simple" skinSimple="true"   styleClass="dwnlbut" />
-
-
+											<p:dataTable var="filelst" value="#{AssetManagementUpd.lstExtFileList}" id="tableArea" style="width:100%;">
+												<p:column headerText="File Name">
+													<h:outputText value="#{filelst.fileName}" />
+												</p:column>
+												<p:column headerText="File Type">
+													<h:outputText value="#{filelst.fileType}" />
+												</p:column>
+												<p:column headerText="File Status">
+													<h:outputText value="#{filelst.validation}" />
+												</p:column>
+											</p:dataTable>
 										</h:form>
-
-
 									</h:panelGrid>
 								</p:tab>
-								<p:tab title="Upload New File">
+								<p:tab title="Upload New Template">
 									<h:panelGrid cellpadding="10">
-										<h:form enctype="multipart/form-data">
-											<p:inputText id="FileSelect" styleClass="Wid90">
-												<p:watermark for="FileSelect" value="Select File"/>
+										<h:form id="updNewForm">
+											<p:outputLabel value="Tempalte Name : ">
+											<p:inputText value="#{AssetManagementUpd.templateName}">
+												<f:ajax event="blur"/>
 											</p:inputText>
+											</p:outputLabel>
 
-											<p:fileUpload  mode="simple" skinSimple="true"  styleClass="dwnlbut" />
 
+											<p:fileUpload fileUploadListener="#{AssetManagementUpd.handleFileUpload}" mode="advanced" dragDropSupport="false"
+														  update="messages,updNewForm:tableArea" sizeLimit="100000" fileLimit="10" allowTypes="/(\.|\/)(csv)$/" />
 
+											<p:growl id="messages" showDetail="true" />
+
+											<p:dataTable var="filelst" value="#{AssetManagementUpd.lstFileList}" id="tableArea">
+												<p:column headerText="File Name">
+													<h:outputText value="#{filelst.fileName}" />
+												</p:column>
+												<p:column headerText="File Type">
+													<h:outputText value="#{filelst.fileType}" />
+												</p:column>
+												<p:column headerText="File Status">
+													<h:outputText value="#{filelst.validation}" />
+												</p:column>
+
+											</p:dataTable>
 										</h:form>
 									</h:panelGrid>
 								</p:tab>
-
 							</p:accordionPanel>
-
-
-							
-
 						</div>
-					</div>
-					<div class="awbtnBlock">
-						<p:commandButton type="button" value="Upload"
-										 styleClass="awBtn Wid100">
-						</p:commandButton>
 					</div>
 				</div>
 			</div>

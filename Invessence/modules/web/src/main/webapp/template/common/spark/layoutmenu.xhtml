@@ -19,6 +19,7 @@
                     e.preventDefault();
                     $(this).toggleClass("active");
                     $(".nav").toggle();
+                    $(".navoverlay").toggle();
                 });
                 adjustMenu();
             })
@@ -34,8 +35,10 @@
                     $(".toggleMenu").css("display", "inline-block");
                     if (!$(".toggleMenu").hasClass("active")) {
                         $(".nav").hide();
+                        $(".navoverlay").hide();
                     } else {
                         $(".nav").show();
+                        $(".navoverlay").show();
                     }
 
                     $(".nav li").unbind('mouseenter mouseleave click');
@@ -64,8 +67,8 @@
 
 
 
-        <a class="toggleMenu" href="#">Menu</a>
-
+        <a class="toggleMenu"  href="#" style="display: none;">Menu</a>
+        <div class="navoverlay" style="display: none;"></div>
             <ul class="nav" id="menuMainNavigation" >
 
 
@@ -174,12 +177,10 @@
 
 
 
-                <li  class="test" id="dashboardMenuHighlight">
+                <li  class="test" id="dashboardMenuHighlight" style="float: right">
                     <i class="fa fa-home"></i> <a href="#{uiLayout.defaultHome}" id="menudashboardbtn"> Dashboard</a>
-
-
                 </li>
-                <li  class="test mobileonly" id="dashboardMenuHighlight" style="float: right">
+                <li  class="test mobileonly" id="dashboardMenuHighlight" >
 
                     <h:commandLink actionListener="#{sessionControl.logout}" style="" styleClass="">
                         Logout

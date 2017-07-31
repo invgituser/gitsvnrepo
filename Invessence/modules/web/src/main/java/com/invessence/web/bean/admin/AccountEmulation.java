@@ -29,9 +29,16 @@ public class AccountEmulation
       String response = "";
       try
       {
-         System.out.print("processAccount Account Number " + accountNumber);
-         System.out.print("processAccount Amount " + amount);
-         errorMessage = getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step1_process_account", 0);
+         if (accountNumber > 0)
+         {
+            System.out.print("processAccount Account Number " + accountNumber);
+            System.out.print("processAccount Amount " + amount);
+            errorMessage = getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step1_process_account", 0);
+         }
+         else
+         {
+            errorMessage = "Account number is required";
+         }
       }
       catch (Exception e)
       {
@@ -44,9 +51,16 @@ public class AccountEmulation
    {
       try
       {
-         System.out.print("openAccount Account Number " + accountNumber);
-         System.out.print("openAccount Amount " + amount);
-         errorMessage=getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step2_openaccount", 0);
+         if (accountNumber > 0)
+         {
+            System.out.print("openAccount Account Number " + accountNumber);
+            System.out.print("openAccount Amount " + amount);
+            errorMessage = getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step2_openaccount", 0);
+         }
+         else
+         {
+            errorMessage = "Account number is required";
+         }
       }
       catch (Exception e)
       {
@@ -58,9 +72,20 @@ public class AccountEmulation
    {
       try
       {
-         System.out.print("activeAccount Account Number " + accountNumber);
-         System.out.print("activeAccount Amount " + amount);
-         errorMessage=getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step3_activateaccount", 1);
+         if (accountNumber == 0l)
+         {
+            errorMessage = "Account number is required";
+         }
+         else if (amount == 0l)
+         {
+            errorMessage = "Amount is required";
+         }
+         else
+         {
+            System.out.print("activeAccount Account Number " + accountNumber);
+            System.out.print("activeAccount Amount " + amount);
+            errorMessage = getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step3_activateaccount", 1);
+         }
       }
       catch (Exception e)
       {
@@ -72,9 +97,21 @@ public class AccountEmulation
    {
       try
       {
-         System.out.print("fundAccount Account Number " + accountNumber);
-         System.out.print("fundAccount Amount " + amount);
-         errorMessage=getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step4_funding", 1);
+         if (accountNumber == 0l)
+         {
+            errorMessage = "Account number is required";
+         }
+         else if (amount == 0l)
+         {
+
+            errorMessage = "Amount is required";
+         }
+         else
+         {
+            System.out.print("fundAccount Account Number " + accountNumber);
+            System.out.print("fundAccount Amount " + amount);
+            errorMessage = getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step4_funding", 1);
+         }
       }
       catch (Exception e)
       {
