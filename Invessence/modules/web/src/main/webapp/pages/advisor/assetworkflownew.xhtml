@@ -1,358 +1,392 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	template="/template/common/template.xhtml">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/template.xhtml">
 
-	<f:metadata>
-		<f:event type="preRenderView" listener="#{investmentmodel.preRenderView}" />
-	</f:metadata>
-	<ui:define name="content">
-		<p:panel id="reviewBlkPanel" rendered="#{investmentmodel.reviewPanel}">
-			<div class="reviewBlock">
-				<div class="titleLabelPanel">
-					<div class="tLabel">Review the models</div>
-					<div class="awbtnBlock centerPanel">
-						<p:commandButton type="button" value="Submit"
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{investmentmodel.preRenderView}"/>
+    </f:metadata>
+    <ui:define name="content">
+        <p:panel id="reviewBlkPanel" rendered="#{investmentmodel.reviewPanel}">
+            <div class="reviewBlock">
+                <div class="titleLabelPanel">
+                    <div class="tLabel">Review the models</div>
+                    <div class="awbtnBlock centerPanel">
+                        <p:commandButton type="button" value="Submit"
                                          styleClass="awBtn Wid20">
-						</p:commandButton>
-						<p:commandButton type="button" icon="fa fa-close"
-							styleClass="awCloseBtn"
-                            actionListener="#{investmentmodel.setReviewPanel(false)}">
-						</p:commandButton>
-					</div>
-				</div>
-			</div>
-		</p:panel>
+                        </p:commandButton>
+                        <p:commandButton type="button" icon="fa fa-close"
+                                         styleClass="awCloseBtn"
+                                         actionListener="#{investmentmodel.setReviewPanel(false)}">
+                        </p:commandButton>
+                    </div>
+                </div>
+            </div>
+        </p:panel>
 
-		<main class="customtabs">
+        <main class="customtabs">
 
-		<input id="tab1" type="radio" name="tabs" checked="checked" />
-		<label for="tab1">Download</label>
+            <input id="tab1" type="radio" name="tabs" checked="checked"/>
+            <label for="tab1">Download</label>
 
-		<input id="tab2" type="radio" name="tabs" />
-		<label for="tab2">Upload</label>
+            <input id="tab2" type="radio" name="tabs"/>
+            <label for="tab2">Upload</label>
 
-		<input id="tab3" type="radio" name="tabs" />
-		<label for="tab3">Validation Check</label>
+            <input id="tab3" type="radio" name="tabs"/>
+            <label for="tab3">Validation Check</label>
 
-		<input id="tab4" type="radio" name="tabs" />
-		<label for="tab4">Review</label>
-
-
-			<label class="rollbackbutton">
-				<p:commandButton type="button" icon="fa fa-undo" value="Rollback"
-								 styleClass="awBtn Wid100"
-								 actionListener="#{investmentmodel.changeDownloadPanel(true)}">
-				</p:commandButton>
-			</label>
-
-		<section id="content1">
-			<div class="Container100 wfMainBlock">
-
-				<p:panel id="dwnlstPanel" rendered="#{investmentmodel.downloadPanel}">
-					<div class="downloadList">
-						<div class="titleLabelPanel">
-							<div class="tLabel">#{investmentmodel.whichModel} Model
-							</div>
-						</div>
-						<div class="contentSecond TexAlCenter">
-							Please select the templates to download.
-							<p:selectManyMenu id="downloadfileID"
-											  value="#{investmentmodel.selecteddownloadfiles}"
-											  showCheckbox="true">
-								<f:selectItems value="#{investmentmodel.downloadlist.entrySet()}"
-											   var="downloadlistvar" itemLabel="#{downloadlistvar.key}"
-											   itemValue="#{downloadlistvar.key}"/>
-							</p:selectManyMenu>
-
-						</div>
-						<div class="awbtnBlocklist">
-							<p:commandButton value="Download"
-											 actionListener="#{investmentmodel.downloadfile()}"
-											 styleClass="awBtn Wid80">
-							</p:commandButton>
-							<p:commandButton type="button" icon="fa fa-close"
-											 styleClass="awCloseBtn"
-											 actionListener="#{investmentmodel.changeDownloadPanel(false)}">
-							</p:commandButton>
-						</div>
-					</div>
-				</p:panel>
-				<div class="Wid100 awBlock">
-					<div class="iconPanel Wid100">
-						<div class="iconCircle">
-							<img
-									src="/javax.faces.resource/images/awdownload.svg.xhtml?ln=invessence"
-									height="40" />
-						</div>
-
-						<div class="tcLabel">Select the template you wish to
-							download.</div>
-
-					</div>
-					<div class="titleContentPanel">
-
-						<div class="contentSecond">
-
-							<p:accordionPanel styleClass="customAcco">
-								<p:tab title="Predefined Allocation Model">
-									<h:panelGrid cellpadding="10">
-										<h:form>
-											<div>
-												<p:commandButton value="Security" ajax="false"  icon="ui-icon-arrowthick-1-s">
-													<p:fileDownload value="#{AssetManagement.getFile('fixed','security')}" />
-												</p:commandButton>
-											</div>
-											<div>
-												<p:commandButton value="Asset" ajax="false"  icon="ui-icon-arrowthick-1-s">
-													<p:fileDownload value="#{AssetManagement.getFile('fixed','asset')}" />
-												</p:commandButton>
-											</div>
-											<div>
-												<p:commandButton value="Subasset" ajax="false"  icon="ui-icon-arrowthick-1-s">
-													<p:fileDownload value="#{AssetManagement.getFile('fixed','subasset')}" />
-												</p:commandButton>
-											</div>
-											<div>
-												<p:commandButton value="Projection" ajax="false"  icon="ui-icon-arrowthick-1-s">
-													<p:fileDownload value="#{AssetManagement.getFile('fixed','projection')}" />
-												</p:commandButton>
-											</div>
-											<div>
-												<p:commandButton value="Performance" ajax="false"  icon="ui-icon-arrowthick-1-s">
-													<p:fileDownload value="#{AssetManagement.getFile('fixed','performance')}" />
-												</p:commandButton>
-											</div>
-
-										</h:form>
-									</h:panelGrid>
-								</p:tab>
-								<p:tab title="Optimmized Allocation Model">
-									<h:panelGrid cellpadding="10">
-
-										<h:form>
-											<p:commandButton value="Download"  icon="ui-icon-arrowthick-1-s">
-
-											</p:commandButton>
-										</h:form>
-									</h:panelGrid>
-								</p:tab>
-								<p:tab title="Skip to upload section">
-									<h:panelGrid cellpadding="10">
-
-										<h:form>
-											<p:commandButton value="Download"  icon="ui-icon-arrowthick-1-s">
-
-											</p:commandButton>
-										</h:form>
-									</h:panelGrid>
-								</p:tab>
-							</p:accordionPanel>
+            <input id="tab4" type="radio" name="tabs"/>
+            <label for="tab4">Review</label>
 
 
+            <label class="rollbackbutton">
+                <p:commandButton type="button" icon="fa fa-undo" value="Rollback"
+                                 styleClass="awBtn Wid100"
+                                 actionListener="#{investmentmodel.changeDownloadPanel(true)}">
+                </p:commandButton>
+            </label>
 
-						</div>
-					</div>
-					<div class="awbtnBlock">
-						<p:commandButton type="button" value="Select"
-										 styleClass="awBtn Wid100"
-										 actionListener="#{investmentmodel.changeDownloadPanel(true)}">
-						</p:commandButton>
-					</div>
-				</div>
-			</div>
-		</section>
+            <section id="content1">
+                <div class="Container100 wfMainBlock">
 
-		<section id="content2">
-			<div class="Container100 wfMainBlock">
-				<div class="Wid100 awBlock">
-					<div class="iconPanel Wid100">
-						<div class="iconCircle">
-							<img
-									src="/javax.faces.resource/images/awupload.svg.xhtml?ln=invessence"
-									height="40" />
+                    <p:panel id="dwnlstPanel" rendered="#{investmentmodel.downloadPanel}">
+                        <div class="downloadList">
+                            <div class="titleLabelPanel">
+                                <div class="tLabel">#{investmentmodel.whichModel} Model
+                                </div>
+                            </div>
+                            <div class="contentSecond TexAlCenter">
+                                Please select the templates to download.
+                                <p:selectManyMenu id="downloadfileID"
+                                                  value="#{investmentmodel.selecteddownloadfiles}"
+                                                  showCheckbox="true">
+                                    <f:selectItems value="#{investmentmodel.downloadlist.entrySet()}"
+                                                   var="downloadlistvar" itemLabel="#{downloadlistvar.key}"
+                                                   itemValue="#{downloadlistvar.key}"/>
+                                </p:selectManyMenu>
 
+                            </div>
+                            <div class="awbtnBlocklist">
+                                <p:commandButton value="Download"
+                                                 actionListener="#{investmentmodel.downloadfile()}"
+                                                 styleClass="awBtn Wid80">
+                                </p:commandButton>
+                                <p:commandButton type="button" icon="fa fa-close"
+                                                 styleClass="awCloseBtn"
+                                                 actionListener="#{investmentmodel.changeDownloadPanel(false)}">
+                                </p:commandButton>
+                            </div>
+                        </div>
+                    </p:panel>
+                    <div class="Wid100 awBlock">
+                        <div class="iconPanel Wid100">
+                            <div class="iconCircle">
+                                <img
+                                        src="/javax.faces.resource/images/awdownload.svg.xhtml?ln=invessence"
+                                        height="40"/>
+                            </div>
 
-						</div>
-						<div class="tcLabel">Select the files to upload.</div>
-					</div>
-					<div class="titleContentPanel">
+                            <div class="tcLabel">Select the template you wish to
+                                download.
+                            </div>
 
-						<div class="contentSecond">
+                        </div>
+                        <div class="titleContentPanel">
 
-							<p:accordionPanel styleClass="customAcco">
-								<p:tab title="Change Existing Template">
-									<h:panelGrid cellpadding="10">
-										<h:form id="updExtForm">
-											<p:outputLabel for="model" value="Model Name : " >
-												<p:selectOneMenu id="model" value="#{AssetManagementUpd.modelID}" style="width:150px">
-													<p:ajax listener="#{AssetManagementUpd.onModelChange}" update="templst" event="change"/>
-													<f:selectItem itemLabel="Select Model" itemValue="0" noSelectionOption="true" />
-													<f:selectItem itemLabel="Predefined" itemValue="Predefined"  />
-													<f:selectItem itemLabel="Optimized" itemValue="Optimized" />
-												</p:selectOneMenu>
-											</p:outputLabel>
-											<p:outputLabel for="templst" value="Tempalte Name : " >
-											<p:selectOneMenu id="templst" value="#{AssetManagementUpd.templateID}" style="width:150px">
-												<p:ajax listener="#{AssetManagementUpd.onTemplateChange}" update="updExtForm:tableArea" event="change"/>
-												<f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true" />
-												<f:selectItems value="#{AssetManagementUpd.lstTempList}"  var="temp" itemLabel="#{temp.templatename}" itemValue="#{temp.templatename}"/>
+                            <div class="contentSecond">
 
-											</p:selectOneMenu>
-											</p:outputLabel>
+                                <p:accordionPanel styleClass="customAcco">
+                                    <p:tab title="Predefined Allocation Model">
+                                        <h:panelGrid cellpadding="10">
+                                            <h:form>
+                                                <div>
+                                                    <p:commandButton value="Security" ajax="false" icon="ui-icon-arrowthick-1-s">
+                                                        <p:fileDownload value="#{AssetManagement.getFile('fixed','security')}"/>
+                                                    </p:commandButton>
+                                                </div>
+                                                <div>
+                                                    <p:commandButton value="Asset" ajax="false" icon="ui-icon-arrowthick-1-s">
+                                                        <p:fileDownload value="#{AssetManagement.getFile('fixed','asset')}"/>
+                                                    </p:commandButton>
+                                                </div>
+                                                <div>
+                                                    <p:commandButton value="Subasset" ajax="false" icon="ui-icon-arrowthick-1-s">
+                                                        <p:fileDownload value="#{AssetManagement.getFile('fixed','subasset')}"/>
+                                                    </p:commandButton>
+                                                </div>
+                                                <div>
+                                                    <p:commandButton value="Projection" ajax="false" icon="ui-icon-arrowthick-1-s">
+                                                        <p:fileDownload value="#{AssetManagement.getFile('fixed','projection')}"/>
+                                                    </p:commandButton>
+                                                </div>
+                                                <div>
+                                                    <p:commandButton value="Performance" ajax="false" icon="ui-icon-arrowthick-1-s">
+                                                        <p:fileDownload value="#{AssetManagement.getFile('fixed','performance')}"/>
+                                                    </p:commandButton>
+                                                </div>
 
+                                            </h:form>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                    <p:tab title="Optimmized Allocation Model">
+                                        <h:panelGrid cellpadding="10">
 
-											<p:fileUpload fileUploadListener="#{AssetManagementUpd.handleExistingFileUpload}" mode="advanced" dragDropSupport="false"
-														  update="messages,updExtForm:tableArea" sizeLimit="100000" fileLimit="10" allowTypes="/(\.|\/)(csv)$/" />
+                                            <h:form>
+                                                <p:commandButton value="Download" icon="ui-icon-arrowthick-1-s">
 
-											<p:growl id="messages" showDetail="true" />
+                                                </p:commandButton>
+                                            </h:form>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                    <p:tab title="Skip to upload section">
+                                        <h:panelGrid cellpadding="10">
 
-											<p:dataTable var="filelst" value="#{AssetManagementUpd.lstExtFileList}" id="tableArea" style="width:100%;">
-												<p:column headerText="File Name">
-													<h:outputText value="#{filelst.fileName}" />
-												</p:column>
-												<p:column headerText="File Type">
-													<h:outputText value="#{filelst.fileType}" />
-												</p:column>
-												<p:column headerText="File Status">
-													<h:outputText value="#{filelst.validation}" />
-												</p:column>
-											</p:dataTable>
-										</h:form>
-									</h:panelGrid>
-								</p:tab>
-								<p:tab title="Upload New Template">
-									<h:panelGrid cellpadding="10">
-										<h:form id="updNewForm">
-											<p:outputLabel value="Tempalte Name : ">
-											<p:inputText value="#{AssetManagementUpd.templateName}">
-												<f:ajax event="blur"/>
-											</p:inputText>
-											</p:outputLabel>
+                                            <h:form>
+                                                <p:commandButton value="Download" icon="ui-icon-arrowthick-1-s">
 
-
-											<p:fileUpload fileUploadListener="#{AssetManagementUpd.handleFileUpload}" mode="advanced" dragDropSupport="false"
-														  update="messages,updNewForm:tableArea" sizeLimit="100000" fileLimit="10" allowTypes="/(\.|\/)(csv)$/" />
-
-											<p:growl id="messages" showDetail="true" />
-
-											<p:dataTable var="filelst" value="#{AssetManagementUpd.lstFileList}" id="tableArea">
-												<p:column headerText="File Name">
-													<h:outputText value="#{filelst.fileName}" />
-												</p:column>
-												<p:column headerText="File Type">
-													<h:outputText value="#{filelst.fileType}" />
-												</p:column>
-												<p:column headerText="File Status">
-													<h:outputText value="#{filelst.validation}" />
-												</p:column>
-
-											</p:dataTable>
-										</h:form>
-									</h:panelGrid>
-								</p:tab>
-							</p:accordionPanel>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<section id="content3">
-			<div class="Container100 wfMainBlock">
-				<div class="Wid100 awBlock">
-					<div class="iconPanel Wid100">
-						<div class="iconCircle">
-							<img
-									src="/javax.faces.resource/images/awvcheck.svg.xhtml?ln=invessence"
-									height="40" />
+                                                </p:commandButton>
+                                            </h:form>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                </p:accordionPanel>
 
 
-							<img style="display: none;"
-								 src="/javax.faces.resource/images/validateLoader.gif.xhtml?ln=invessence"
-								 height="40" />
-						</div>
-						<div class="tcLabel">Validation Check</div>
-					</div>
-					<div class="titleContentPanel">
-						<div class="tcLabel">Files Checked</div>
-						<div class="contentSecond"></div>
-					</div>
-					<div class="awbtnBlock">
-						<p:commandButton type="button" value="Validate"
-										 styleClass="awBtn Wid100">
-						</p:commandButton>
-						<p:commandButton rendered="false" type="button" value="Review"
-										 styleClass="awBtn Wid100">
-						</p:commandButton>
-						<p:commandButton rendered="false" type="button" value="Next"
-										 styleClass="awBtn Wid100">
-						</p:commandButton>
-					</div>
-				</div>
-			</div>
-		</section>
+                            </div>
+                        </div>
+                        <div class="awbtnBlock">
+                            <p:commandButton type="button" value="Select"
+                                             styleClass="awBtn Wid100"
+                                             actionListener="#{investmentmodel.changeDownloadPanel(true)}">
+                            </p:commandButton>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-		<section id="content4">
-			<div class="Container100 wfMainBlock">
-				<div class="Wid100 awBlock">
-					<div class="iconPanel Wid100">
-						<div class="iconCircle">
-							<img
-									src="/javax.faces.resource/images/awsuccess.svg.xhtml?ln=invessence"
-									height="40" />
+            <section id="content2">
+                <div class="Container100 wfMainBlock">
+                    <div class="Wid100 awBlock">
+                        <div class="iconPanel Wid100">
+                            <div class="iconCircle">
+                                <img
+                                        src="/javax.faces.resource/images/awupload.svg.xhtml?ln=invessence"
+                                        height="40"/>
 
 
-						</div>
-						<div class="tcLabel">Review</div>
-					</div>
-					<div class="titleContentPanel">
+                            </div>
+                            <div class="tcLabel">Select the files to upload.</div>
+                        </div>
+                        <div class="titleContentPanel">
 
-						<div class="contentSecond">
+                            <div class="contentSecond">
 
+                                <p:accordionPanel styleClass="customAcco">
+                                    <p:tab title="Change Existing Template">
+                                        <h:panelGrid cellpadding="10">
+                                            <h:form id="updExtForm">
+                                                <p:outputLabel for="model" value="Model Name : ">
+                                                    <p:selectOneMenu id="model" value="#{AssetManagementUpd.modelID}" style="width:150px">
+                                                        <p:ajax listener="#{AssetManagementUpd.onModelChange}" update="templst" event="change"/>
+                                                        <f:selectItem itemLabel="Select Model" itemValue="0" noSelectionOption="true"/>
+                                                        <f:selectItem itemLabel="Predefined" itemValue="Predefined"/>
+                                                        <f:selectItem itemLabel="Optimized" itemValue="Optimized"/>
+                                                    </p:selectOneMenu>
+                                                </p:outputLabel>
+                                                <p:outputLabel for="templst" value="Tempalte Name : ">
+                                                    <p:selectOneMenu id="templst" value="#{AssetManagementUpd.templateID}" style="width:150px">
+                                                        <p:ajax listener="#{AssetManagementUpd.onTemplateChange}" update="updExtForm:tableArea"
+                                                                event="change"/>
+                                                        <f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true"/>
+                                                        <f:selectItems value="#{AssetManagementUpd.lstTempList}" var="temp"
+                                                                       itemLabel="#{temp.templatename}" itemValue="#{temp.templatename}"/>
 
-							<div class="tcLabel">
-								Thank you for your patience! The files are in order.<br /> Click
-								submit to apply changes.
-							</div>
-
-
-							<p:commandButton type="button" value="Review"
-											 styleClass="awBtn Wid100">
-								<p:effect type="slide" event="click" for="reviewBlkPanel">
-									<f:param name="mode" value="'show'" />
-									<f:param name="direction" value="'down'" />
-								</p:effect>
-							</p:commandButton>
-
-							<p:commandButton type="button" value="Submit"
-											 styleClass="awBtn Wid100">
-							</p:commandButton>
-						</div>
-					</div>
-					<div class="awbtnBlock2">
-
-					</div>
-					<div class="awbtnBlock">
-
-					</div>
+                                                    </p:selectOneMenu>
+                                                </p:outputLabel>
 
 
-				</div>
-			</div>
-		</section>
+                                                <p:fileUpload fileUploadListener="#{AssetManagementUpd.handleExistingFileUpload}" mode="advanced"
+                                                              dragDropSupport="false"
+                                                              update="messages,updExtForm:tableArea" sizeLimit="100000" fileLimit="10"
+                                                              allowTypes="/(\.|\/)(csv)$/"/>
+
+                                                <p:growl id="messages" showDetail="true"/>
+
+                                                <p:dataTable var="filelst" value="#{AssetManagementUpd.lstExtFileList}" id="tableArea"
+                                                             style="width:100%;">
+                                                    <p:column headerText="File Name">
+                                                        <h:outputText value="#{filelst.fileName}"/>
+                                                    </p:column>
+                                                    <p:column headerText="File Type">
+                                                        <h:outputText value="#{filelst.fileType}"/>
+                                                    </p:column>
+                                                    <p:column headerText="File Status">
+                                                        <h:outputText value="#{filelst.validation}"/>
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </h:form>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                    <p:tab title="Upload New Template">
+                                        <h:panelGrid cellpadding="10">
+                                            <h:form id="updNewForm">
+                                                <p:outputLabel value="Tempalte Name : ">
+                                                    <p:inputText value="#{AssetManagementUpd.templateName}">
+                                                        <f:ajax event="blur"/>
+                                                    </p:inputText>
+                                                </p:outputLabel>
 
 
+                                                <p:fileUpload fileUploadListener="#{AssetManagementUpd.handleFileUpload}" mode="advanced"
+                                                              dragDropSupport="false"
+                                                              update="messages,updNewForm:tableArea" sizeLimit="100000" fileLimit="10"
+                                                              allowTypes="/(\.|\/)(csv)$/"/>
 
-		</main>
+                                                <p:growl id="messages" showDetail="true"/>
+
+                                                <p:dataTable var="filelst" value="#{AssetManagementUpd.lstFileList}" id="tableArea">
+                                                    <p:column headerText="File Name">
+                                                        <h:outputText value="#{filelst.fileName}"/>
+                                                    </p:column>
+                                                    <p:column headerText="File Type">
+                                                        <h:outputText value="#{filelst.fileType}"/>
+                                                    </p:column>
+                                                    <p:column headerText="File Status">
+                                                        <h:outputText value="#{filelst.validation}"/>
+                                                    </p:column>
+
+                                                </p:dataTable>
+                                            </h:form>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                </p:accordionPanel>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="content3">
+                <div class="Container100 wfMainBlock">
+                    <div class="Wid100 awBlock">
+                        <div class="iconPanel Wid100">
+                            <div class="iconCircle">
+                                <img
+                                        src="/javax.faces.resource/images/awvcheck.svg.xhtml?ln=invessence"
+                                        height="40"/>
 
 
+                                <img style="display: none;"
+                                     src="/javax.faces.resource/images/validateLoader.gif.xhtml?ln=invessence"
+                                     height="40"/>
+                            </div>
+                            <div class="tcLabel">Validation Check</div>
+                        </div>
+                        <div class="titleContentPanel">
+                            <div class="tcLabel">Files Checked</div>
+                            <div class="contentSecond"></div>
+                        </div>
+                        <div class="awbtnBlock">
+                            <p:commandButton type="button" value="Validate"
+                                             styleClass="awBtn Wid100">
+                            </p:commandButton>
+                            <p:commandButton rendered="false" type="button" value="Review"
+                                             styleClass="awBtn Wid100">
+                            </p:commandButton>
+                            <p:commandButton rendered="false" type="button" value="Next"
+                                             styleClass="awBtn Wid100">
+                            </p:commandButton>
+                        </div>
+                        <div>
+                            <h:form id="validateForm">
+                            <p:outputLabel for="model_validate" value="Model Name : ">
+                                <p:selectOneMenu id="model_validate" value="#{AssetManagementUpd.modelID}" style="width:150px">
+                                    <p:ajax listener="#{AssetManagementUpd.onModelChange}" update="templst_validate" event="change"/>
+                                    <f:selectItem itemLabel="Select Model" itemValue="0" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="Predefined" itemValue="Predefined"/>
+                                    <f:selectItem itemLabel="Optimized" itemValue="Optimized"/>
+                                </p:selectOneMenu>
+                            </p:outputLabel>
+                            <p:outputLabel for="templst_validate" value="Tempalte Name : ">
+                                <p:selectOneMenu id="templst_validate" value="#{AssetManagementUpd.templateID}" style="width:150px">
+                                    <p:ajax listener="#{AssetManagementUpd.onTemplateChange}" update="validateForm:tableArea_validate" event="change"/>
+                                    <f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true"/>
+                                    <f:selectItems value="#{AssetManagementUpd.lstTempList}" var="temp" itemLabel="#{temp.templatename}"
+                                                   itemValue="#{temp.templatename}"/>
+
+                                </p:selectOneMenu>
+                            </p:outputLabel>
+                            <p:dataTable var="filelst_validate" value="#{AssetManagementUpd.lstExtFileList}" id="tableArea_validate" style="width:100%;">
+                                <p:column headerText="File Name">
+                                    <h:outputText value="#{filelst_validate.fileName}"/>
+                                </p:column>
+                                <p:column headerText="File Type">
+                                    <h:outputText value="#{filelst_validate.fileType}"/>
+                                </p:column>
+                                <p:column headerText="File Status">
+                                    <h:outputText value="#{filelst_validate.validation}"/>
+                                </p:column>
+                            </p:dataTable>
+                           </h:form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="content4">
+                <div class="Container100 wfMainBlock">
+                    <div class="Wid100 awBlock">
+                        <div class="iconPanel Wid100">
+                            <div class="iconCircle">
+                                <img
+                                        src="/javax.faces.resource/images/awsuccess.svg.xhtml?ln=invessence"
+                                        height="40"/>
 
 
+                            </div>
+                            <div class="tcLabel">Review</div>
+                        </div>
+                        <div class="titleContentPanel">
+
+                            <div class="contentSecond">
 
 
-	</ui:define>
+                                <div class="tcLabel">
+                                    Thank you for your patience! The files are in order.<br/> Click
+                                    submit to apply changes.
+                                </div>
+
+
+                                <p:commandButton type="button" value="Review"
+                                                 styleClass="awBtn Wid100">
+                                    <p:effect type="slide" event="click" for="reviewBlkPanel">
+                                        <f:param name="mode" value="'show'"/>
+                                        <f:param name="direction" value="'down'"/>
+                                    </p:effect>
+                                </p:commandButton>
+
+                                <p:commandButton type="button" value="Submit"
+                                                 styleClass="awBtn Wid100">
+                                </p:commandButton>
+                            </div>
+                        </div>
+                        <div class="awbtnBlock2">
+
+                        </div>
+                        <div class="awbtnBlock">
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </section>
+
+
+        </main>
+
+
+    </ui:define>
 
 </ui:composition>
