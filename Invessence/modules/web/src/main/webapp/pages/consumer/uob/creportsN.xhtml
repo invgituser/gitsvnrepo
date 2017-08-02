@@ -1,0 +1,93 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{reportBean.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+            <!-- BOX START -->
+            <div class="layout-portlets-box">
+                <div class="Container100 Responsive100">
+                    <div class="Container100">
+                        <div class="Container50">
+                            <div class="ContainerIndent">
+                                <div class="DispInlBlock">
+                                    <div class="Container100">
+                                        <div class="Fleft">
+                                            <h2 class="black Fs24 FontThemeMedium">Reports</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Container100">
+                        <div class="Container100 Fleft">
+                            <div class="Seperator"></div>
+                        </div>
+                    </div>
+                </div>
+                <h:form id="crform">
+                <div class="Container100 Responsive100">
+
+                    <div class="Container100">
+
+                        <p:selectOneMenu id="applyFilter" style="width: 300px; display: block; margin-bottom: 10px;">
+                            <f:selectItem itemLabel="Apply Filter" itemValue="" />
+                            <f:selectItem itemLabel="Account No" itemValue="Account No" />
+                            <f:selectItem itemLabel="Report" itemValue="Report" />
+                            <f:selectItem itemLabel="Type" itemValue="Type" />
+                            <f:selectItem itemLabel="Date" itemValue="Date" />
+                        </p:selectOneMenu>
+
+
+                        <p:commandButton value="Filter" icon="ui-icon-check" styleClass="uobsagbutton"/>
+
+                    </div>
+                    <div class="Container100">
+                        <h:form>
+                            <p:dataTable  value="" rows="10"
+                                          paginator="true"
+                                          reflow="true"
+                                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15" styleClass="customTable_reports">
+                                <p:column headerText="Account No">
+                                    <h:outputText value="1234567890" />
+
+                                </p:column>
+
+                                <p:column headerText="Report">
+                                    <h:outputText value="Name of the Report" />
+                                </p:column>
+
+                                <p:column headerText="Type">
+                                    <h:outputText value="Report Type" />
+                                </p:column>
+
+                                <p:column headerText="Date">
+                                    <h:outputText value="22-22-22" />
+                                </p:column>
+
+                                <p:column headerText="Action">
+                                    <h:outputText value="Download" />
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+
+
+                    </div>
+
+                </div>
+                </h:form>
+            </div>
+            <!-- BOX END -->
+
+    </ui:define>
+
+</ui:composition>
