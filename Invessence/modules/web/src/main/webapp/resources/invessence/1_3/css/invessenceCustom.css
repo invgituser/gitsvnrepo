@@ -4681,9 +4681,11 @@ main.customtabs {
 }
 
 .customtabs .ui-selectonemenu .ui-selectonemenu-trigger {
+
     width: 25px !important;
-    top: 1px;
-    height: 32px;
+    top: 0px;
+    height: 29px;
+    padding-left: 14px !important;
 }
 
 .customtabs table.datatable {
@@ -5149,4 +5151,92 @@ main.customtabs {
 { background-color: #009abb !important;}
 
 .backButtonLP {color: #A4332F !important;}
+
+.Custom_review_panel {
+    border: 0px;
+    margin: 0px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 1111;
+    width: 100% !important;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    height: 100%;}
+
+
+.Custom_review_panel > .ui-panel-content {
+    position: absolute;
+    width: 90% !important;
+    top: 0;
+    margin: 0 auto;
+    left: 4%;
+    background-color: #fff;
+    z-index: 11111111;
+    top: 13%;
+    height: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 20px !important;
+    box-shadow: -1px -1px 14px #ccc;
+}
+
+.Custom_review_panel > .ui-panel-content::-webkit-scrollbar {
+    width: 8px;
+}
+.Custom_review_panel > .ui-panel-content::-webkit-scrollbar-track {
+    background: #cccccc;
+    border-radius: 5px;
+}
+.Custom_review_panel > .ui-panel-content::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: gray;
+}
+
+button.closebuttonSag {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    background-color: #009abb;
+    text-align: center;}
+
+button.closebuttonSag > span.ui-button-icon-left {
+    color: #fff;
+    font-size: 16px;
+    width: 100%;
+    height: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
+    position: relative;
+    line-height:30px;
+    text-align: center;
+    display: block;
+    left: 0px;
+    top: 4px;
+    font-weight: normal;
+}
+
+button.closebuttonSag > span.ui-button-text {display: none;}
+
+.customAcco .ui-accordion-content table {width: 100% !important;}
+
+.customAcco .ui-datatable {border:0px solid #ccc !important;}
+
+.clear, .clearfix {clear: both;}
+
+.customTable_reports {border:0px !important;
+    border-color: transparent !important;
+background-color: transparent !important;
+   }
+
+.customTable_reports th {    text-align: left !important;
+    background-color: #377786 !important;
+    color: #fff !important;
+    font-weight: 100;
+    font-size: 16px !important;
+    border-bottom: 1px solid #0c4c5a !important;
+    border-collapse: collapse;}
+
+.customTable_reports td {padding: 10px !important;}
 
