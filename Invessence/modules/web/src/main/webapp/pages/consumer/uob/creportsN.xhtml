@@ -38,7 +38,23 @@
 
                     <div class="Container100">
 
-                        <p:selectOneMenu id="applyFilter" style="width: 300px; display: block; margin-bottom: 10px;">
+                        <p:selectOneMenu id="applyFilter" style="width: 300px; display: inline-block; margin: 0 10px 10px 0px;">
+                            <f:selectItem itemLabel="Apply Filter" itemValue="" />
+                            <f:selectItem itemLabel="Account No" itemValue="Account No" />
+                            <f:selectItem itemLabel="Report" itemValue="Report" />
+                            <f:selectItem itemLabel="Type" itemValue="Type" />
+                            <f:selectItem itemLabel="Date" itemValue="Date" />
+                        </p:selectOneMenu>
+
+                        <p:selectOneMenu id="applyFilter1" style="width: 300px; display:  inline-block; margin: 0 10px 10px 0px;">
+                            <f:selectItem itemLabel="Apply Filter" itemValue="" />
+                            <f:selectItem itemLabel="Account No" itemValue="Account No" />
+                            <f:selectItem itemLabel="Report" itemValue="Report" />
+                            <f:selectItem itemLabel="Type" itemValue="Type" />
+                            <f:selectItem itemLabel="Date" itemValue="Date" />
+                        </p:selectOneMenu>
+
+                        <p:selectOneMenu id="applyFilter2" style="width: 300px; display:  inline-block; margin: 0 10px 10px 0px;">
                             <f:selectItem itemLabel="Apply Filter" itemValue="" />
                             <f:selectItem itemLabel="Account No" itemValue="Account No" />
                             <f:selectItem itemLabel="Report" itemValue="Report" />
@@ -47,7 +63,7 @@
                         </p:selectOneMenu>
 
 
-                        <p:commandButton value="Filter" icon="ui-icon-check" styleClass="uobsagbutton"/>
+                        <p:commandButton value="Filter" icon="ui-icon-check" styleClass="uobsagbutton" style="clear: both; display: block;"/>
 
                     </div>
                     <div class="Container100">
