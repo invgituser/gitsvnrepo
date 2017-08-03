@@ -37,7 +37,7 @@ public class FileDownloader
       try
       {
          System.out.println("FileDownloader.download");
-         fileProcessorUtil.executeInstruction(fileDetails,"PARENTPRE", mailAlertMsg, serviceRequest);
+//         fileProcessorUtil.executeInstruction(fileDetails,"PARENTPRE", mailAlertMsg, serviceRequest);
 
          System.out.println("serviceRequest = [" + serviceRequest + "], fileDetails = [" + fileDetails + "], fileRules = [" + fileRules + "]");
          ArrayList<LinkedHashMap<String, Object>> rows=(ArrayList<LinkedHashMap<String, Object>>)fileProcessorDao.dbCall(serviceRequest.getProduct(), Constant.SERVICES.FILE_PROCESS.toString(),

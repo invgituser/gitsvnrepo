@@ -120,7 +120,13 @@ public class FileProcessor
                         }
                         else if (fileDetails.getProcess().equalsIgnoreCase("UPLOAD"))
                         {
-                           fileProcessResult = fileUploader.upload(serviceRequest, fileDetails, fileRules, isProcessMailRaised, dbParamMap);
+                           isProcessMailRaised = new StringBuilder();
+                           fileProcessorUtil.executeDBProcess(fileDetails, "PRE", isProcessMailRaised);
+                           if (isProcessMailRaised.length() == 0) // Checking Process Result
+                           {
+                              isProcessMailRaised = new StringBuilder();
+                              fileProcessResult = fileUploader.upload(serviceRequest, fileDetails, fileRules, isProcessMailRaised, dbParamMap);
+                           }
                         }
 
                         if (isProcessMailRaised.length() == 0) // Checking Process Result

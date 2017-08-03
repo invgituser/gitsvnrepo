@@ -312,3 +312,50 @@ INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `v
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'UOB', 'FILE-PROCESS', 'VENDOR', 'GPG_PRIVATE_KEY', '/data/gnupg/secring.gpg', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'UOB', 'FILE-PROCESS', 'VENDOR', 'GPG_PUBLIC_KEY', '/data/gnupg/pubring.gpg', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'UOB', 'FILE-PROCESS', 'VENDOR', 'GPG_PASSWORD', 'Inv3ss3nc3', 'N');
+
+
+
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_ISSUE_EMAIL', 'support@dot.com', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_LOCAL_SRC_DIRECTORY', '/data/download', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_SFTP_HOST', 'uat.invessence.com', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_SFTP_PASSWORD', 'y91C9ry0PCOfH2AR', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_SFTP_SRC_DIRECTORY', '/data/download', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_SFTP_USERNAME', 'sftpuser', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'DOWNLOAD_SUCCESS_EMAIL', 'operations@dot.com', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'ENCRY_DECRY_KEY', 'aRXDugfr4WQpVrxu', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'GPG_PASSWORD', 'Inv3ss3nc3', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'GPG_PRIVATE_KEY', '/data/gnupg/secring.gpg', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'GPG_PUBLIC_KEY', '/data/gnupg/pubring.gpg', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'UPLOAD_ISSUE_EMAIL', 'support@dot.com', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'UPLOAD_LOCAL_SRC_DIRECTORY', '/data/upload', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'UPLOAD_SFTP_HOST', 'uat.invessence.com', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'UPLOAD_SFTP_PASSWORD', 'y91C9ry0PCOfH2AR', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'UPLOAD_SFTP_SRC_DIRECTORY', '/data/download', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'UPLOAD_SFTP_USERNAME', 'sftpuser', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'FILE-PROCESS', 'TD', 'UPLOAD_SUCCESS_EMAIL', 'operations@dot.com', 'N');
+
+UPDATE `service`.`service_config_details` SET `value`='demo.invessence.com' WHERE `mode`='PROD' and`company`='BUILDINGBENJAMINS' and`service`='FILE-PROCESS' and`vendor`='TD' and`name`='DOWNLOAD_SFTP_HOST';
+UPDATE `service`.`service_config_details` SET `value`='demo.invessence.com' WHERE `mode`='PROD' and`company`='BUILDINGBENJAMINS' and`service`='FILE-PROCESS' and`vendor`='TD' and`name`='UPLOAD_SFTP_HOST';
+
+UPDATE `service`.`file_details` SET `canBeDups`='Y' WHERE `vendor`='BUILDINGBENJAMINS' and`fileName`='SEC' and`processId`='BBUPLD' and`seqNo`='14';
+UPDATE `service`.`file_details` SET `canBeDups`='Y' WHERE `vendor`='BUILDINGBENJAMINS' and`fileName`='SEC' and`processId`='BBUPLD' and`seqNo`='8';
+UPDATE `service`.`file_details` SET `canBeDups`='Y' WHERE `vendor`='BUILDINGBENJAMINS' and`fileName`='PRI' and`processId`='BBUPLD' and`seqNo`='15';
+UPDATE `service`.`file_details` SET `canBeDups`='Y' WHERE `vendor`='BUILDINGBENJAMINS' and`fileName`='PRI' and`processId`='BBUPLD' and`seqNo`='9';
+
+UPDATE `service`.`file_process_rules` SET `dbColumn`='businessDate' WHERE `fileId`='BB_CBL' and`dataField`='BUSINESSDATE';
+
+
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'FILE-PROCESS', 'VENDOR', 'DOWNLOAD_ISSUE_EMAIL', 'support@dot.com', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'FILE-PROCESS', 'VENDOR', 'DOWNLOAD_SFTP_HOST', 'demo.invessence.com', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'FILE-PROCESS', 'VENDOR', 'DOWNLOAD_SFTP_PASSWORD', 'y91C9ry0PCOfH2AR', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'FILE-PROCESS', 'VENDOR', 'DOWNLOAD_SFTP_USERNAME', 'sftpuser', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'FILE-PROCESS', 'VENDOR', 'DOWNLOAD_SUCCESS_EMAIL', 'operations@dot.com', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'FILE-PROCESS', 'VENDOR', 'UPLOAD_ISSUE_EMAIL', 'support@dot.com', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'FILE-PROCESS', 'VENDOR', 'UPLOAD_SFTP_HOST', 'uat.invessence.com', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'FILE-PROCESS', 'VENDOR', 'UPLOAD_SFTP_PASSWORD', 'y91C9ry0PCOfH2AR', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'FILE-PROCESS', 'VENDOR', 'UPLOAD_SFTP_USERNAME', 'sftpuser', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'FILE-PROCESS', 'VENDOR', 'UPLOAD_SUCCESS_EMAIL', 'operations@dot.com', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'FILE-PROCESS', 'VENDOR', 'DOWNLOAD_LOCAL_SRC_DIRECTORY', '/data/download/uob/eodFiles', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'FILE-PROCESS', 'VENDOR', 'DOWNLOAD_SFTP_SRC_DIRECTORY', '/data/download/', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'FILE-PROCESS', 'VENDOR', 'UPLOAD_LOCAL_SRC_DIRECTORY', '/data/upload/uob/tradeFiles', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'FILE-PROCESS', 'VENDOR', 'UPLOAD_SFTP_SRC_DIRECTORY', '/data/eodfiles/', 'N');

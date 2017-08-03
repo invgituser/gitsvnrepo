@@ -498,4 +498,50 @@ public class FileDetails
    {
       this.delFlagDecrFile = delFlagDecrFile;
    }
+
+   @Override
+   public String toString()
+   {
+      return "FileDetails{" +
+         "vendor='" + vendor + '\'' +
+         ", fileName='" + fileName + '\'' +
+         ", processId='" + processId + '\'' +
+         ", process='" + process + '\'' +
+         ", fileType='" + fileType + '\'' +
+         ", fileExtension='" + fileExtension + '\'' +
+         ", fileId='" + fileId + '\'' +
+         ", containsHeader='" + containsHeader + '\'' +
+         ", active='" + active + '\'' +
+         ", seqNo=" + seqNo +
+         ", uploadDir='" + uploadDir + '\'' +
+         ", preDBProcess='" + preDBProcess + '\'' +
+         ", postDBProcess='" + postDBProcess + '\'' +
+         ", preInstruction='" + preInstruction + '\'' +
+         ", postInstruction='" + postInstruction + '\'' +
+         ", fileNameAppender='" + fileNameAppender + '\'' +
+         ", appenderFormat='" + appenderFormat + '\'' +
+         ", available='" + available + '\'' +
+         ", sourcePath='" + sourcePath + '\'' +
+         ", downloadDir='" + downloadDir + '\'' +
+         ", loadFormat='" + loadFormat + '\'' +
+         ", required='" + required + '\'' +
+         ", canBeEmpty='" + canBeEmpty + '\'' +
+         ", encryptionMethod='" + encryptionMethod + '\'' +
+         ", decrFileExtension='" + decrFileExtension + '\'' +
+         ", tmpTableName='" + tmpTableName + '\'' +
+         ", canBeDups='" + canBeDups + '\'' +
+         ", delimiter='" + delimiter + '\'' +
+         ", delFlagServerFile='" + delFlagServerFile + '\'' +
+         ", delDayServerFile=" + delDayServerFile +
+         ", delFlagLocalFile='" + delFlagLocalFile + '\'' +
+         ", delDayLocalFile=" + delDayLocalFile +
+         ", delFlagDecrFile='" + delFlagDecrFile + '\'' +
+         ", fileProcessType='" + fileProcessType + '\'' +
+         ", parentPreDBProcess='" + parentPreDBProcess + '\'' +
+         ", parentPostDBProcess='" + parentPostDBProcess + '\'' +
+         ", parentPreInstruction='" + parentPreInstruction + '\'' +
+         ", parentPostInstruction='" + parentPostInstruction + '\'' +
+         ", processStatus=" + processStatus +
+         '}';
+   }
 }
