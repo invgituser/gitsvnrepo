@@ -34,38 +34,71 @@
                     </div>
                 </div>
                 <h:form id="crform">
-                <div class="Container100 Responsive100">
 
-                    <div class="Container100">
+                    <div class="Container100 Responsive100">
 
-                        <p:selectOneMenu id="applyFilter" style="width: 300px; display: inline-block; margin: 0 10px 10px 0px;">
-                            <f:selectItem itemLabel="Apply Filter" itemValue="" />
-                            <f:selectItem itemLabel="Account No" itemValue="Account No" />
-                            <f:selectItem itemLabel="Report" itemValue="Report" />
-                            <f:selectItem itemLabel="Type" itemValue="Type" />
-                            <f:selectItem itemLabel="Date" itemValue="Date" />
-                        </p:selectOneMenu>
+                        <div class="Container50">
 
-                        <p:selectOneMenu id="applyFilter1" style="width: 300px; display:  inline-block; margin: 0 10px 10px 0px;">
-                            <f:selectItem itemLabel="Apply Filter" itemValue="" />
-                            <f:selectItem itemLabel="Account No" itemValue="Account No" />
-                            <f:selectItem itemLabel="Report" itemValue="Report" />
-                            <f:selectItem itemLabel="Type" itemValue="Type" />
-                            <f:selectItem itemLabel="Date" itemValue="Date" />
-                        </p:selectOneMenu>
+                            <p class="Fleft">Filter by Account no.</p>
+                            <p:inputText style="    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 250px;"/>
 
-                        <p:selectOneMenu id="applyFilter2" style="width: 300px; display:  inline-block; margin: 0 10px 10px 0px;">
-                            <f:selectItem itemLabel="Apply Filter" itemValue="" />
-                            <f:selectItem itemLabel="Account No" itemValue="Account No" />
-                            <f:selectItem itemLabel="Report" itemValue="Report" />
-                            <f:selectItem itemLabel="Type" itemValue="Type" />
-                            <f:selectItem itemLabel="Date" itemValue="Date" />
-                        </p:selectOneMenu>
+                        </div>
 
+                        <div class="Container50">
+                            <p class="Fleft">Filter by Account Type.</p>
+                            <p:selectOneMenu id="applyFilter1" style="    width: 300px;
+    display: inline-block;
+    margin: 10px 10px 0px 10px;
+    min-width: 105px;">
+                                <f:selectItem itemLabel="Apply Filter" itemValue="" />
+                                <f:selectItem itemLabel="Account Type" itemValue="Account Type" />
+
+                            </p:selectOneMenu>
+
+
+                        </div>
+
+
+                        <div class="Container100">
+
+                            <p>Filter by Date.</p>
+                            <p:selectOneRadio id="console">
+                                <f:selectItem itemLabel="By Frequency" itemValue="By Frequency" />
+                                <f:selectItem itemLabel="By Date Range" itemValue="By Date Range" />
+
+                            </p:selectOneRadio>
+
+
+
+                            <p:selectOneMenu id="applyFilter" style="    width: 300px;
+    display: inline-block;
+    margin: 10px 10px 0px 10px;
+    min-width: 105px;">
+                                <f:selectItem itemLabel="Apply Filter" itemValue="" />
+                                <f:selectItem itemLabel="Account Type" itemValue="Account Type" />
+
+                            </p:selectOneMenu>
+
+                            <p:inputText style="    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 200px;" />
+
+                            <p:inputText style="    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 200px;" />
+
+
+                        </div>
 
                         <p:commandButton value="Filter" icon="ui-icon-check" styleClass="uobsagbutton" style="clear: both; display: block;"/>
 
                     </div>
+
                     <div class="Container100">
                         <h:form>
                             <p:dataTable  value="" rows="10"
@@ -99,7 +132,7 @@
 
                     </div>
 
-                </div>
+
                 </h:form>
             </div>
             <!-- BOX END -->
