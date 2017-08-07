@@ -65,7 +65,14 @@ public class WebProfile
       {
          if (webInfo.containsKey(key))
          {
-            return webInfo.get(key);
+            if (webInfo.get(key) == null)
+            {
+               return "";
+            }
+            else
+            {
+               return webInfo.get(key);
+            }
          }
       }
       return null;
@@ -359,7 +366,7 @@ public class WebProfile
       if (webInfo.containsKey("WEB.SSLSEAL") && !webInfo.get("WEB.SSLSEAL").isEmpty())
          return getInfo("WEB.SSLSEAL");
       else
-         return null;
+         return "";
    }
 
    public String getEmailTemplate (String key){

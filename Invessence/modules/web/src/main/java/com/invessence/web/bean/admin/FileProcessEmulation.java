@@ -34,21 +34,32 @@ public class FileProcessEmulation
          System.out.print("processAccount processId " + processId);
          String product = webutil.getWebprofile().getWebInfo().get("SERVICE.PRODUCT");
          String serviceMode = webutil.getWebprofile().getWebInfo().get("SERVICE.FILEPROCESS.MODE");
-         getAdminEmulationSpDAO().updateBusinessDate(businessDate);
-         System.out.print("processAccount product" + product);
-         System.out.print("processAccount serviceMode " + serviceMode);
-
-
-         boolean bflag=fileIO.processDownloadFile(processId, product, serviceMode);
-         if(bflag)
+         if(businessDate!=null && !businessDate.equalsIgnoreCase(""))
          {
-            errorMessage="success";
-            this.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.fileProcessing.status.done", "successfully", null));
-         }else{
-            errorMessage="failed";
-            this.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.fileProcessing.status.failed", "failed", null));
-         }
+            if(processId!=null && !processId.equalsIgnoreCase(""))
+            {
+               getAdminEmulationSpDAO().updateBusinessDate(businessDate);
+               System.out.print("processAccount product" + product);
+               System.out.print("processAccount serviceMode " + serviceMode);
 
+
+               boolean bflag = fileIO.processDownloadFile(processId, product, serviceMode);
+               if (bflag)
+               {
+                  errorMessage = "success";
+                  this.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.fileProcessing.status.done", "successfully", null));
+               }
+               else
+               {
+                  errorMessage = "failed";
+                  this.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.fileProcessing.status.failed", "failed", null));
+               }
+            }else{
+               errorMessage = "Process id is required.";
+            }
+         }else{
+            errorMessage = "Business date is required.";
+         }
 
 //         WSCallResult wsCallResult = fileIO.processDownloadFile(processId, product, serviceMode);
 //         System.out.println("result = " + wsCallResult);
