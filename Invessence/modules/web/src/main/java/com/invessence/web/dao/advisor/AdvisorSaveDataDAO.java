@@ -7,7 +7,7 @@ import javax.sql.DataSource;
 
 import com.invessence.web.dao.common.CommonSP;
 import com.invessence.web.data.advisor.*;
-import com.invessence.web.data.common.NotificationData;
+import com.invessence.web.data.common.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "advisorSaveDataDAO")
@@ -81,5 +81,12 @@ public class AdvisorSaveDataDAO extends JdbcDaoSupport implements Serializable
       AdvisorSaveSP sp = new AdvisorSaveSP(ds, "sav_notification_advisor",10);
       sp.saveAdvisorNotice(data);
    }
+
+   public void saveUpdFileDtls(AssetFileUploadList data) {
+      DataSource ds = getDataSource();
+      AdvisorSaveSP sp = new AdvisorSaveSP(ds, "temp.get_model_file_insert",11);
+      sp.saveUpdFileDtls(data);
+   }
+
 
 }

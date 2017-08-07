@@ -6,7 +6,7 @@ import java.util.*;
 import javax.sql.DataSource;
 
 import com.invessence.web.data.advisor.*;
-import com.invessence.web.data.common.NotificationData;
+import com.invessence.web.data.common.*;
 import com.invmodel.asset.data.Asset;
 import com.invmodel.portfolio.data.*;
 import org.springframework.jdbc.core.*;
@@ -116,6 +116,16 @@ public class AdvisorSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_alertdatetime", Types.VARCHAR));
             declareParameter(new SqlParameter("p_message", Types.VARCHAR));
             declareParameter(new SqlParameter("p_link", Types.VARCHAR));
+            break;
+         case 11:  // sav_notification_advisor
+            declareParameter(new SqlParameter("p_templatename", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_fileName", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_modelName", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_fileType", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_advisorid", Types.BIGINT));
+            break;
+         case 12:
+            break;
          default:
       }
       compile();
@@ -308,5 +318,15 @@ public class AdvisorSaveSP extends StoredProcedure
       super.execute(inputMap);
    }
 
+   public void saveUpdFileDtls(AssetFileUploadList data)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_templatename", data.getTemplatename());
+      inputMap.put("p_fileName", data.getFileName());
+      inputMap.put("p_modelName", data.getModelName());
+      inputMap.put("p_fileType", data.getFileType());
+      inputMap.put("p_advisorid", data.getAdvisorid());
+      super.execute(inputMap);
+   }
 
 }

@@ -9,7 +9,7 @@ import org.springframework.jdbc.object.StoredProcedure;
 /**
  * Created by sagar on 6/15/2017.
  */
-public class AdminEmulationSp extends StoredProcedure
+public class AdminEmulationSp extends  StoredProcedure
 {
 
    public AdminEmulationSp(JdbcTemplate datasource, String sp_name, Integer mode)

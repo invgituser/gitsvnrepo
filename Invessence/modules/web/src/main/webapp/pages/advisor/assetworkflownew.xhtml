@@ -188,7 +188,7 @@
                                             <h:form id="updExtForm">
                                                 <p:outputLabel for="model" value="Model Name : ">
                                                     <p:selectOneMenu id="model" value="#{AssetManagementUpd.modelID}" style="width:150px">
-                                                        <p:ajax listener="#{AssetManagementUpd.onModelChange}" update="templst" event="change"/>
+                                                        <p:ajax listener="#{AssetManagementUpd.onModelChange}" update="templst,filDtls" event="change"/>
                                                         <f:selectItem itemLabel="Select Model" itemValue="0" noSelectionOption="true"/>
                                                         <f:selectItem itemLabel="Predefined" itemValue="Predefined"/>
                                                         <f:selectItem itemLabel="Optimized" itemValue="Optimized"/>
@@ -201,6 +201,15 @@
                                                         <f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true"/>
                                                         <f:selectItems value="#{AssetManagementUpd.lstTempList}" var="temp"
                                                                        itemLabel="#{temp.templatename}" itemValue="#{temp.templatename}"/>
+
+                                                    </p:selectOneMenu>
+                                                </p:outputLabel>
+                                                <p:outputLabel for="filDtls" value="File Type : ">
+                                                    <p:selectOneMenu id="filDtls" value="#{AssetManagementUpd.fileDtl}" style="width:150px">
+                                                        <p:ajax listener="#{AssetManagementUpd.onModelChange}" event="change"/>
+                                                        <f:selectItem itemLabel="Select File Type" itemValue="0" noSelectionOption="true"/>
+                                                        <f:selectItems value="#{AssetManagementUpd.lstFileDtlList}" var="temp2"
+                                                                       itemLabel="#{temp2.fileType}" itemValue="#{temp2.fileDtl}"/>
 
                                                     </p:selectOneMenu>
                                                 </p:outputLabel>
@@ -231,6 +240,23 @@
                                     <p:tab title="Upload New Template">
                                         <h:panelGrid cellpadding="10">
                                             <h:form id="updNewForm">
+                                                <p:outputLabel for="model_new" value="Model Name : ">
+                                                    <p:selectOneMenu id="model_new" value="#{AssetManagementUpd.modelID}" style="width:150px">
+                                                        <p:ajax listener="#{AssetManagementUpd.onModelChange}" update="filDtls_new" event="change"/>
+                                                        <f:selectItem itemLabel="Select Model" itemValue="0" noSelectionOption="true"/>
+                                                        <f:selectItem itemLabel="Predefined" itemValue="Predefined"/>
+                                                        <f:selectItem itemLabel="Optimized" itemValue="Optimized"/>
+                                                    </p:selectOneMenu>
+                                                </p:outputLabel>
+                                                <p:outputLabel for="filDtls_new" value="File Type : ">
+                                                    <p:selectOneMenu id="filDtls_new" value="#{AssetManagementUpd.fileDtl}" style="width:150px">
+                                                        <p:ajax listener="#{AssetManagementUpd.onModelChange}" event="change"/>
+                                                        <f:selectItem itemLabel="Select File Type" itemValue="0" noSelectionOption="true"/>
+                                                        <f:selectItems value="#{AssetManagementUpd.lstFileDtlList}" var="temp2"
+                                                                       itemLabel="#{temp2.fileType}" itemValue="#{temp2.fileDtl}"/>
+
+                                                    </p:selectOneMenu>
+                                                </p:outputLabel>
                                                 <p:outputLabel value="Tempalte Name : ">
                                                     <p:inputText value="#{AssetManagementUpd.templateName}">
                                                         <f:ajax event="blur"/>
@@ -245,7 +271,7 @@
 
                                                 <p:growl id="messages" showDetail="true"/>
 
-                                                <p:dataTable var="filelst" value="#{AssetManagementUpd.lstFileList}" id="tableArea">
+                                                <p:dataTable var="filDtls_new" value="#{AssetManagementUpd.lstFileList}" id="tableArea">
                                                     <p:column headerText="File Name">
                                                         <h:outputText value="#{filelst.fileName}"/>
                                                     </p:column>
@@ -275,8 +301,6 @@
                                 <img
                                         src="/javax.faces.resource/images/awvcheck.svg.xhtml?ln=invessence"
                                         height="40"/>
-
-
                                 <img style="display: none;"
                                      src="/javax.faces.resource/images/validateLoader.gif.xhtml?ln=invessence"
                                      height="40"/>
@@ -284,13 +308,9 @@
                             <div class="tcLabel">Validation Check</div>
                         </div>
                         <div class="titleContentPanel">
-                            <div class="tcLabel">Files Checked</div>
                             <div class="contentSecond"></div>
                         </div>
                         <div class="awbtnBlock">
-                            <p:commandButton type="button" value="Validate"
-                                             styleClass="awBtn Wid100">
-                            </p:commandButton>
                             <p:commandButton rendered="false" type="button" value="Review"
                                              styleClass="awBtn Wid100">
                             </p:commandButton>
@@ -300,6 +320,12 @@
                         </div>
                         <div>
                             <h:form id="validateForm">
+                                <p:panel rendered="#{AssetManagementUpd.validationStatus}"
+                                         style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError" id="idValidateError">
+                                    <h:outputText styleClass="errorText"
+                                                  value="#{AssetManagementUpd.validationError}" escape="false"/>
+                                    <div class="EmptyBox30"></div>
+                                </p:panel>
                             <p:outputLabel for="model_validate" value="Model Name : ">
                                 <p:selectOneMenu id="model_validate" value="#{AssetManagementUpd.modelID}" style="width:150px">
                                     <p:ajax listener="#{AssetManagementUpd.onModelChange}" update="templst_validate" event="change"/>
@@ -317,15 +343,15 @@
 
                                 </p:selectOneMenu>
                             </p:outputLabel>
-                            <p:dataTable var="filelst_validate" value="#{AssetManagementUpd.lstExtFileList}" id="tableArea_validate" style="width:100%;">
+                                <p:commandButton value="Validate"
+                                                 styleClass="awBtn Wid100"  ajax="true"   actionListener="#{AssetManagementUpd.onValidate}" update="@form">
+                                </p:commandButton>
+                                <p:dataTable var="filelst_validate" value="#{AssetManagementUpd.lstExtFileList}" id="tableArea_validate" style="width:100%;">
                                 <p:column headerText="File Name">
                                     <h:outputText value="#{filelst_validate.fileName}"/>
                                 </p:column>
                                 <p:column headerText="File Type">
                                     <h:outputText value="#{filelst_validate.fileType}"/>
-                                </p:column>
-                                <p:column headerText="File Status">
-                                    <h:outputText value="#{filelst_validate.validation}"/>
                                 </p:column>
                             </p:dataTable>
                            </h:form>

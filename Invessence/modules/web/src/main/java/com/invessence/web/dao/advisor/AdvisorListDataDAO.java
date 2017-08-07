@@ -6,6 +6,7 @@ import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
+import com.invessence.service.bean.fileProcessor.FileRules;
 import com.invessence.web.data.advisor.*;
 import com.invessence.web.data.common.*;
 import com.invmodel.asset.data.*;
@@ -467,4 +468,227 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
          }
          return filelist;
    }
+
+   public List<String> getAssetAllocFile(String model, String file, String theme)
+   {
+      List<String> fileData = new ArrayList<String>();
+      try
+      {
+
+         DataSource ds = getDataSource();
+         AdvisorListSP sp = new AdvisorListSP(ds, "sp_asset_alloc_download_dtl", 10);
+         Map outMap = sp.getAssetAllocFile(model, file, theme);
+         String strFields = null;
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows;
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)
+            {
+               Integer i = 0;
+               for (Map<String, Object> rs : rows)
+               {
+                  if (i == 0)
+                  {
+                     strFields = rs.keySet().toString();
+                     strFields = strFields.replace("[", "");
+                     strFields = strFields.replace("]", "");
+//                     System.out.println("Rs Header~~>" + strFields);
+                     fileData.add(strFields);
+                     strFields = null;
+                  }
+
+                  strFields = rs.values().toString();
+                  strFields = strFields.replace("[", "");
+                  strFields = strFields.replace("]", "");
+//                  System.out.println("Rs val1==>" + strFields);
+                  fileData.add(strFields);
+                  strFields = null;
+//                  filelist.put(convert.getStrData(rs.get("name")),
+//                               convert.getStrData(rs.get("template")));
+                  i++;
+               }
+            }
+         }
+//         System.out.println("File Size==>" + fileData.size());
+//         System.out.println("File data==>" + fileData.toString());
+      }
+      catch (Exception e)
+      {
+         System.out.println("Error " + e);
+      }
+      return fileData;
+   }
+
+
+   public List<AssetFileUploadList> collectUploadedAssetFileList(String model, String tempaltename, int advisorId)
+   {
+      List<AssetFileUploadList> fileData = new ArrayList<AssetFileUploadList>();
+      try
+      {
+
+         DataSource ds = getDataSource();
+         AdvisorListSP sp = new AdvisorListSP(ds, "temp.get_model_file_template_list", 11);
+         Map outMap = sp.getAssetAllocUpdFile(model, tempaltename, advisorId);
+         String strFields = null;
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows;
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)
+            {
+               int i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
+                  AssetFileUploadList ndata = new AssetFileUploadList(
+                     convert.getStrData(rs.get("templatename")),
+                     convert.getStrData(rs.get("fileName")),
+                     convert.getStrData(rs.get("modelName")),
+                     convert.getStrData(rs.get("fileType")),
+                     convert.getLongData(rs.get("advisorid")),
+                     convert.getStrData(rs.get("validation")),"",""
+                  );
+                  fileData.add(ndata);
+                  i++;
+               }
+            }
+         }
+//         System.out.println("File Size==>" + fileData.size());
+//         System.out.println("File data==>" + fileData.toString());
+      }
+      catch (Exception e)
+      {
+         System.out.println("Error in collectUploadedAssetFileList " + e);
+      }
+      return fileData;
+   }
+   public List<AssetFileUploadList> collectUploadedAssetTemplateList(String model)
+   {
+      List<AssetFileUploadList> fileData = new ArrayList<AssetFileUploadList>();
+      try
+      {
+
+         DataSource ds = getDataSource();
+         AdvisorListSP sp = new AdvisorListSP(ds, "temp.get_model_assoc_template_list", 12);
+//         get_modelwise_file_list
+         Map outMap = sp.getAssetUpdTempFile(model);
+         String strFields = null;
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows;
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)
+            {
+               int i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
+                  AssetFileUploadList ndata = new AssetFileUploadList(
+                     convert.getStrData(rs.get("templatename")),
+                     convert.getStrData(rs.get("fileName")),"",
+                     "",
+                     0l,"","",""
+                  );
+                  fileData.add(ndata);
+                  i++;
+               }
+            }
+         }
+//         System.out.println("File Size==>" + fileData.size());
+//         System.out.println("File data==>" + fileData.toString());
+      }
+      catch (Exception e)
+      {
+         System.out.println("Error in collectUploadedAssetFileList " + e);
+      }
+      return fileData;
+   }
+
+   public List<AssetFileUploadList> collectFileTypeList(String model)
+   {
+      List<AssetFileUploadList> fileData = new ArrayList<AssetFileUploadList>();
+      try
+      {
+
+         DataSource ds = getDataSource();
+         AdvisorListSP sp = new AdvisorListSP(ds, "temp.get_model_file_type_list", 13);
+//         get_modelwise_file_list
+         Map outMap = sp.getFileLst(model);
+         String strFields = null;
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows;
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)
+            {
+               int i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
+                  AssetFileUploadList ndata = new AssetFileUploadList(
+                     "",
+                     "","",
+                     convert.getStrData(rs.get("fileName")),
+                     0l,"",convert.getStrData(rs.get("tableName")),convert.getStrData(rs.get("fileName"))+"~"+convert.getStrData(rs.get("tableName"))
+                  );
+                  fileData.add(ndata);
+                  i++;
+               }
+            }
+         }
+//         System.out.println("File Size==>" + fileData.size());
+//         System.out.println("File data==>" + fileData.toString());
+      }
+      catch (Exception e)
+      {
+         System.out.println("Error in collectUploadedAssetFileList " + e);
+      }
+      return fileData;
+   }
+
+   public String validateAssetData(String themeNew,String themeCrnt)
+   {
+      List<AssetFileUploadList> fileData = new ArrayList<AssetFileUploadList>();
+      StringBuilder sb =new StringBuilder();
+      try
+      {
+
+         DataSource ds = getDataSource();
+         AdvisorListSP sp = new AdvisorListSP(ds, "temp.sp_upload_sec_fixedmodel_validate_by_theme", 14);
+//         get_modelwise_file_list
+         Map outMap = sp.validateAssetData(themeNew,themeCrnt);
+         String strFields = null;
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows;
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)
+            {
+               int i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
+
+                  if (sb.length()==0)
+                  {
+                     sb.append(convert.getStrData(rs.get("validate")));
+                  }else{
+                     sb.append("\n").append(convert.getStrData(rs.get("validate")));
+                  }
+
+                  i++;
+               }
+            }
+         }
+//         System.out.println("File Size==>" + fileData.size());
+//         System.out.println("File data==>" + fileData.toString());
+      }
+      catch (Exception e)
+      {
+         System.out.println("Error in collectUploadedAssetFileList " + e);
+      }
+      return sb.toString();
+   }
+
 }

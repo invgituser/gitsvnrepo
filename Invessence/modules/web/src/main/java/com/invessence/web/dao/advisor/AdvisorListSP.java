@@ -16,7 +16,8 @@ public class AdvisorListSP extends StoredProcedure
    public AdvisorListSP(DataSource datasource, String sp_name, Integer mode)
    {
       super(datasource, sp_name);
-      switch (mode) {
+      switch (mode)
+      {
          case 0: // sel_ClientProfileData
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_filter", Types.VARCHAR));
@@ -53,6 +54,26 @@ public class AdvisorListSP extends StoredProcedure
          case 9: // sel_notification_advisor
             declareParameter(new SqlParameter("p_modeltype", Types.VARCHAR));
             break;
+         case 10: // sel_notification_advisor
+            declareParameter(new SqlParameter("vModel", Types.VARCHAR));
+            declareParameter(new SqlParameter("vFile", Types.VARCHAR));
+            declareParameter(new SqlParameter("vTheme", Types.VARCHAR));
+            break;
+         case 11: // sel_notification_advisor
+            declareParameter(new SqlParameter("modelnm", Types.VARCHAR));
+            declareParameter(new SqlParameter("templatenm", Types.VARCHAR));
+            declareParameter(new SqlParameter("advisorid", Types.BIGINT));
+            break;
+         case 12: // sel_notification_advisor
+            declareParameter(new SqlParameter("modelnm", Types.VARCHAR));
+            break;
+         case 13: // sel_notification_advisor
+            declareParameter(new SqlParameter("modelnm", Types.VARCHAR));
+            break;
+         case 14:
+            declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_crnt_theme", Types.VARCHAR));
+            break;
          default:
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             break;
@@ -60,7 +81,7 @@ public class AdvisorListSP extends StoredProcedure
       compile();
    }
 
-   public Map getListOfAccounts(Long logonid, String filter, Integer days,String filterByAmount)
+   public Map getListOfAccounts(Long logonid, String filter, Integer days, String filterByAmount)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", logonid);
@@ -140,6 +161,43 @@ public class AdvisorListSP extends StoredProcedure
    {
       Map inputMap = new HashMap();
       inputMap.put("p_modeltype", modeltype);
+      return super.execute(inputMap);
+   }
+
+   public Map getAssetAllocFile(String model, String file, String theme)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("vModel", model);
+      inputMap.put("vFile", file);
+      inputMap.put("vTheme", theme);
+      return super.execute(inputMap);
+   }
+   public Map getAssetAllocUpdFile(String model, String templateName, int advisorId)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("modelnm", model);
+      inputMap.put("templatenm", templateName);
+      inputMap.put("advisorid", advisorId);
+      return super.execute(inputMap);
+   }
+   public Map getAssetUpdTempFile(String model)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("modelnm", model);
+      return super.execute(inputMap);
+   }
+   public Map getFileLst(String model)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("modelnm", model);
+      return super.execute(inputMap);
+   }
+
+   public Map validateAssetData(String themeNew,String themeCrnt)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_theme", themeNew);
+      inputMap.put("p_crnt_theme", themeCrnt);
       return super.execute(inputMap);
    }
 }
