@@ -5,7 +5,7 @@ import java.util.List;
 import com.invessence.aggr.model.MXAudit;
 import com.invessence.aggr.util.AggrHibernateUtil;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class MXAuditsDAOImpl implements MXAuditsDAO {
 
-	@Autowired
+	@Autowired @Qualifier("aggrSessionFactory")
 	private SessionFactory aggrSessionFactory;
+
 	@Autowired
 	AggrHibernateUtil hibernateutil;
 

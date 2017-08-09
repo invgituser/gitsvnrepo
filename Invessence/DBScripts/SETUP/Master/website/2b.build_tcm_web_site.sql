@@ -61,8 +61,8 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'HTML.ACTIVATED', 'A', 'traditionadvisers-Activated.html', 'N', '2017-07-11 10:31:07', null);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('tmp', 'EMAIL.FORGOT.SUBJECT', 'A', 'Tradition Advisers - Reset Your Password', 'N', '2017-07-11 10:31:07', null);
 
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('tmp', 'SERVICE.PRODUCT', 'A', 'BUILDINGBENJAMINS', 'N', '2017-06-13 08:42:58');
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('tmp', 'SERVICE.FILEPROCESS.MODE', 'A', 'PROD', 'N', '2017-05-30 07:03:12');
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('tmp', 'SERVICE.PRODUCT', 'A', 'TCM', 'N', '2017-06-13 08:42:58');
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('tmp', 'SERVICE.FILEPROCESS.MODE', 'I', '', 'N', '2017-05-30 07:03:12');
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('tmp', 'SERVICE.AGGREGATION.MODE', 'A', 'PROD', 'N', '2017-07-16 08:42:58');
 
 -- Using master as source Insert any missing data from saved.

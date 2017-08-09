@@ -100,6 +100,27 @@
                         </ul>
                     </li>
                 </ui:fragment>
+                <ui:fragment rendered="#{(webutil.hasSubMenu('CRM')) and ((webutil.hasAccess('Advisor') and webutil.hasRole('CRM')) or webutil.hasAccess('SuperAdmin'))}">
+                    <li  class="">
+                        <a href="#" class="submenuCRMBtn" id="menuCRMbtn">CRM</a>
+                        <ul>
+                            <ui:fragment rendered="#{webutil.hasMenu('RedTail','CRM')}">
+                                <li id="redTailMenu">
+                                    <p:commandLink rendered="true" id="menucrmRedTailbtn"
+                                                   actionListener="#{crmBean.startup()}">
+                                        <h:outputText value="RedTail"/>
+                                    </p:commandLink>
+                                </li>
+                            </ui:fragment>
+                            <ui:fragment rendered="#{webutil.hasMenu('SalesFource','CRM')}">
+                                <div class="menuSeperator"></div>
+                                <li id="modelMenuHighlight">
+                                    <a href="/pages/advisor/assetworkflownew.xhtml" id="menutradebtn">SalesFource</a>
+                                </li>
+                            </ui:fragment>
+                        </ul>
+                    </li>
+                </ui:fragment>
 
 
                 <ui:fragment rendered="#{(webutil.hasSubMenu('Admin')) and ((webutil.hasAccess('Advisor') and webutil.hasRole('Admin')) or webutil.hasAccess('SuperAdmin'))}">

@@ -11,10 +11,33 @@ public class Constant
       PRICING("PRICING"), DOWNLOAD_SERVICES("DOWNLOAD-SERVICES"),
       BROKER_WEBSERVICES("BROKER-WEBSERVICES"), DOCUSIGN_SERVICES("DOCUSIGN-SERVICES"),
       EMAIL_SERVICE("EMAIL-SERVICE"), AGGREGATION_SERVICES("AGGREGATION-SERVICES"),
-      FILE_PROCESS("FILE-PROCESS");
+      FILE_PROCESS("FILE-PROCESS"),
+      CRM_SERVICES("CRM-SERVICES");
       private String value;
 
       private SERVICES(String value)
+      {
+         this.value = value;
+      }
+
+      private String getValue()
+      {
+         return value;
+      }
+
+      @Override
+      public String toString()
+      {
+         return this.getValue();
+      }
+   }
+
+   public enum CRM_SERVICES
+   {
+      REDTAIL("REDTAIL"), SALESFORCE("SALESFORCE");
+      private String value;
+
+      private CRM_SERVICES(String value)
       {
          this.value = value;
       }

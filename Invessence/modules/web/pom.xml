@@ -46,6 +46,12 @@
          <version>${invessence.version}</version>
       </dependency>
 
+       <dependency>
+         <groupId>com.invessence</groupId>
+         <artifactId>crm</artifactId>
+         <version>${invessence.version}</version>
+      </dependency>
+
       <dependency>
           <groupId>webcab</groupId>
           <artifactId>portfolioJ2SE</artifactId>

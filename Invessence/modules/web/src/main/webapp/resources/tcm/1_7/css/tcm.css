@@ -4524,3 +4524,9 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
         margin: 5px;}
 }
 
+#redTailWidgetDiv iframe{
+width: 100%;
+height: 120vh;
+box-shadow: none;
+border: none;
+margin-top: 20px;}

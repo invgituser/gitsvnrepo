@@ -221,7 +221,7 @@
 					</archive>
 
 					<!--<finalName>broker-services/broker-services</finalName>-->
-					<finalName>aggregator/${artifactId}-${version}</finalName>
+					<!--<finalName>aggregator/${artifactId}-${version}</finalName>-->
 				</configuration>
 			</plugin>
 		</plugins>

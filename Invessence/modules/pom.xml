@@ -23,7 +23,6 @@
       <module>broker-webservices</module>
       <module>download-services</module>
       <module>aggregate-services</module>
-      <module>web</module>
       <module>trading-services</module>
       <module>emailer</module>
       <module>reports</module>
@@ -31,5 +30,7 @@
       <module>rbsa-preprocessor</module>
       <module>aggregator</module>
       <module>file-processor</module>
+      <module>crm</module>
+      <module>web</module>
    </modules>
 </project>

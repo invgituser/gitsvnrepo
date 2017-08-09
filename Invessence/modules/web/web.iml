@@ -30,6 +30,7 @@
       <configuration>
         <datasource-map>
           <unit-entry name="aggrSessionFactory" value="aggregatorDataSource" />
+          <unit-entry name="crmSessionFactory" value="crmDataSource" />
           <unit-entry name="sessionFactory" value="dataSource" />
         </datasource-map>
         <naming-strategy-map />
@@ -48,8 +49,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="org.primefaces.extensions:resources-codemirror:6.0.0" level="project" />
-    <orderEntry type="library" name="org.primefaces.extensions:primefaces-extensions:6.0.0" level="project" />
     <orderEntry type="module" module-name="core" />
     <orderEntry type="module" module-name="broker-webservices" />
     <orderEntry type="module" module-name="service" />
@@ -100,6 +99,7 @@
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.2.4" level="project" />
     <orderEntry type="library" name="Maven: commons-httpclient:commons-httpclient:3.1" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.7.2" level="project" />
+    <orderEntry type="library" name="Maven: com.invessence:crm:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: webcab:portfolioJ2SE:5.0" level="project" />
     <orderEntry type="module" module-name="aggregate-services" />
     <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.0" level="project" />
@@ -185,6 +185,7 @@
     <orderEntry type="library" name="Maven: com.lowagie:itext:2.1.7" level="project" />
     <orderEntry type="module" module-name="file-processor" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-core:2.11.0" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-impl:2.2.6" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-spring:2.11.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-sql:2.11.0" level="project" />
     <orderEntry type="library" name="Maven: com.jcraft:jsch:0.1.49" level="project" />

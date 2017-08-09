@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/template.xhtml">
+
+<ui:define name="content">
+    <div class="layout-portlets-box">
+        <!-- Messages/Alerts -->
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent PaddingTopBottomNone">
+
+                <h:form>
+                    <div class="box">
+                        <h1>RedTail Login </h1>
+                        <div class="EmptyBox30"></div>
+
+                        <p:panel rendered="#{crmBean.getErrorMessage() != null}"
+                                 style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError">
+                            <h:outputText styleClass="errorText"
+                                          value="#{crmBean.getErrorMessage()}" escape="false"/>
+                            <div class="EmptyBox30"></div>
+                        </p:panel>
+                        <p:inputText styleClass="email" id="userId" value="#{crmBean.userId}" autocomplete="fa"/>
+                        <p:watermark for="userId" value="RedTail User ID" id="watermark" />
+
+                        <p:password  styleClass="email" id="password"  value="#{crmBean.password}"/>
+                        <p:watermark for="password" value="RedTail Password" id="watermark1" />
+
+                        <div class="btn">
+                            <p:commandButton value="Login to RedTail"  icon="fa fa-sign-in" iconPos="right"
+                                                          actionListener="#{crmBean.processCRMRegistration}" ajax="false"/></div>
+                    </div> <!-- End Box -->
+
+              </h:form>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- BOX END -->
+
+
+
+</ui:define>
+
+</ui:composition>
