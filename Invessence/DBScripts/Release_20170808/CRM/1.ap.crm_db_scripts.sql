@@ -126,3 +126,10 @@ END$$
 
 DELIMITER ;
 
+
+
+
+INSERT INTO `invdb`.`web_menu` (`url`, `access`, `permission`, `label`, `level`, `sublevel`, `seq`, `status`, `availOnMobile`, `destdir`, `htmlpage`, `created`) VALUES ('master', 'Advisor', 'CRM', 'RedTail', '0', '0', '7', 'A', 'N', 'advisor', 'assetworkflow.xhtml', '2017-08-04 04:01:55');
+INSERT INTO `invdb`.`web_menu` (`url`, `access`, `permission`, `label`, `level`, `sublevel`, `seq`, `status`, `availOnMobile`, `destdir`, `htmlpage`, `created`) VALUES ('master', 'Advisor', 'CRM', 'SalesFource', '0', '0', '3', 'N', 'N', 'advisor/operations', 'trade.xhtml', '2017-08-04 04:01:55');
+
+
