@@ -48,5 +48,32 @@ public class EncryDecryAES
       return key;
    }
 
+        public static void main(String args[]){
+
+    	new EncryDecryAES().testEncrDecr("aRXDugfr4WQpVrxu");
+    	new EncryDecryAES().testEncrDecr("9");
+    }
+
+   private void testEncrDecr(String keyValue){
+
+    	 try {
+
+     		String s1=encrypt("Invessence@2017",keyValue);
+     		String s2=encrypt("Just4fun",keyValue);
+
+     		System.out.println("encrypt String : " + s1);
+ 			System.out.println("encrypt String : " + s2);
+
+
+ 			System.out.println("decrypt String : " + decrypt(s1,keyValue));
+ 			System.out.println("decrypt String : " + decrypt(s2,keyValue));
+
+
+ 		} catch (Exception e) {
+ 			System.out.println("errrr:  " + e.getMessage());
+
+ 		}
+     }
+
 }
 

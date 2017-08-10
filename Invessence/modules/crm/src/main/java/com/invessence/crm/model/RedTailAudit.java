@@ -12,6 +12,9 @@ import javax.persistence.*;
 public class RedTailAudit implements Serializable
 {
    private Integer id;
+   private String product;
+   private String mode;
+   private String processId;
    private String reqObj;
    private String reqFor;
    private String resObj;
@@ -49,9 +52,42 @@ public class RedTailAudit implements Serializable
       this.resStatusCode = resStatusCode;
    }
 
-   public RedTailAudit(Integer id, String reqFor, String reqObj, String resObj, String status, String remarks, Date reqTime, Date resTime, Integer resStatusCode)
+   public String getProduct()
+   {
+      return product;
+   }
+
+   public void setProduct(String product)
+   {
+      this.product = product;
+   }
+
+   public String getMode()
+   {
+      return mode;
+   }
+
+   public void setMode(String mode)
+   {
+      this.mode = mode;
+   }
+
+   public String getProcessId()
+   {
+      return processId;
+   }
+
+   public void setProcessId(String processId)
+   {
+      this.processId = processId;
+   }
+
+   public RedTailAudit(Integer id, String product, String mode, String processId, String reqFor, String reqObj, String resObj, String status, String remarks, Date reqTime, Date resTime, Integer resStatusCode)
    {
       this.id = id;
+      this.product = product;
+      this.mode = mode;
+      this.processId = processId;
       this.reqFor = reqFor;
       this.reqObj = reqObj;
       this.resObj = resObj;
@@ -67,11 +103,15 @@ public class RedTailAudit implements Serializable
    {
       return "RedTailAudit{" +
          "id=" + id +
+         ", product='" + product + '\'' +
+         ", mode='" + mode + '\'' +
+         ", processId='" + processId + '\'' +
          ", reqObj='" + reqObj + '\'' +
          ", reqFor='" + reqFor + '\'' +
          ", resObj='" + resObj + '\'' +
          ", status='" + status + '\'' +
          ", remarks='" + remarks + '\'' +
+         ", resStatusCode=" + resStatusCode +
          ", reqTime=" + reqTime +
          ", resTime=" + resTime +
          '}';

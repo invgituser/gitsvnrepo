@@ -2,41 +2,50 @@ INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `v
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'CRM-SERVICES', 'REDTAIL', 'BASE_URL', 'http://dev.api2.redtailtechnology.com/crm/v1/rest', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'CRM-SERVICES', 'REDTAIL', 'AUTHENTICATION_URL', '/authentication', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'CRM-SERVICES', 'REDTAIL', 'SSO_URL', '/sso?ep=dashboard', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'BUILDINGBENJAMINS', 'CRM-SERVICES', 'REDTAIL', 'ENCRY_DECRY_KEY', 'aRXDugfr4WQpVrxu', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'CRM-SERVICES', 'REDTAIL', 'API_KEY', '16E6A8B3-4515-4BF0-AEFC-05D5B33A7EEB', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'CRM-SERVICES', 'REDTAIL', 'BASE_URL', 'http://dev.api2.redtailtechnology.com/crm/v1/rest', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'CRM-SERVICES', 'REDTAIL', 'AUTHENTICATION_URL', '/authentication', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'CRM-SERVICES', 'REDTAIL', 'SSO_URL', '/sso?ep=dashboard', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'CRM-SERVICES', 'REDTAIL', 'ENCRY_DECRY_KEY', 'aRXDugfr4WQpVrxu', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'CRM-SERVICES', 'REDTAIL', 'API_KEY', 'E877C2A5-B51D-4651-8BE1-89BAEF4B3F99', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'CRM-SERVICES', 'REDTAIL', 'BASE_URL', 'https://api2.redtailtechnology.com/crm/v1/rest', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'CRM-SERVICES', 'REDTAIL', 'AUTHENTICATION_URL', '/authentication', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'CRM-SERVICES', 'REDTAIL', 'SSO_URL', '/sso?ep=dashboard', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'CRM-SERVICES', 'REDTAIL', 'ENCRY_DECRY_KEY', 'aRXDugfr4WQpVrxu', 'N');
 
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'TCM', 'CRM-SERVICES', 'REDTAIL', 'API_KEY', '16E6A8B3-4515-4BF0-AEFC-05D5B33A7EEB', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'TCM', 'CRM-SERVICES', 'REDTAIL', 'BASE_URL', 'http://dev.api2.redtailtechnology.com/crm/v1/rest', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'TCM', 'CRM-SERVICES', 'REDTAIL', 'AUTHENTICATION_URL', '/authentication', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'TCM', 'CRM-SERVICES', 'REDTAIL', 'SSO_URL', '/sso?ep=dashboard', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'TCM', 'CRM-SERVICES', 'REDTAIL', 'ENCRY_DECRY_KEY', 'aRXDugfr4WQpVrxu', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'CRM-SERVICES', 'REDTAIL', 'API_KEY', '16E6A8B3-4515-4BF0-AEFC-05D5B33A7EEB', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'CRM-SERVICES', 'REDTAIL', 'BASE_URL', 'http://dev.api2.redtailtechnology.com/crm/v1/rest', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'CRM-SERVICES', 'REDTAIL', 'AUTHENTICATION_URL', '/authentication', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'CRM-SERVICES', 'REDTAIL', 'SSO_URL', '/sso?ep=dashboard', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'CRM-SERVICES', 'REDTAIL', 'ENCRY_DECRY_KEY', 'aRXDugfr4WQpVrxu', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'CRM-SERVICES', 'REDTAIL', 'API_KEY', 'E877C2A5-B51D-4651-8BE1-89BAEF4B3F99', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'CRM-SERVICES', 'REDTAIL', 'BASE_URL', 'https://api2.redtailtechnology.com/crm/v1/rest', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'CRM-SERVICES', 'REDTAIL', 'AUTHENTICATION_URL', '/authentication', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'CRM-SERVICES', 'REDTAIL', 'SSO_URL', '/sso?ep=dashboard', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'CRM-SERVICES', 'REDTAIL', 'ENCRY_DECRY_KEY', 'aRXDugfr4WQpVrxu', 'N');
 
 
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'UOB', 'CRM-SERVICES', 'REDTAIL', 'API_KEY', '16E6A8B3-4515-4BF0-AEFC-05D5B33A7EEB', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'UOB', 'CRM-SERVICES', 'REDTAIL', 'BASE_URL', 'http://dev.api2.redtailtechnology.com/crm/v1/rest', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'UOB', 'CRM-SERVICES', 'REDTAIL', 'AUTHENTICATION_URL', '/authentication', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'UOB', 'CRM-SERVICES', 'REDTAIL', 'SSO_URL', '/sso?ep=dashboard', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('DEV', 'UOB', 'CRM-SERVICES', 'REDTAIL', 'ENCRY_DECRY_KEY', 'aRXDugfr4WQpVrxu', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'UOB', 'CRM-SERVICES', 'REDTAIL', 'API_KEY', '16E6A8B3-4515-4BF0-AEFC-05D5B33A7EEB', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'UOB', 'CRM-SERVICES', 'REDTAIL', 'BASE_URL', 'http://dev.api2.redtailtechnology.com/crm/v1/rest', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'UOB', 'CRM-SERVICES', 'REDTAIL', 'AUTHENTICATION_URL', '/authentication', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'UOB', 'CRM-SERVICES', 'REDTAIL', 'SSO_URL', '/sso?ep=dashboard', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'UOB', 'CRM-SERVICES', 'REDTAIL', 'ENCRY_DECRY_KEY', 'aRXDugfr4WQpVrxu', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'CRM-SERVICES', 'REDTAIL', 'API_KEY', 'E877C2A5-B51D-4651-8BE1-89BAEF4B3F99', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'CRM-SERVICES', 'REDTAIL', 'BASE_URL', 'https://api2.redtailtechnology.com/crm/v1/rest', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'CRM-SERVICES', 'REDTAIL', 'AUTHENTICATION_URL', '/authentication', 'N');
 INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'CRM-SERVICES', 'REDTAIL', 'SSO_URL', '/sso?ep=dashboard', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'UOB', 'CRM-SERVICES', 'REDTAIL', 'ENCRY_DECRY_KEY', 'aRXDugfr4WQpVrxu', 'N');
 
 
 
@@ -45,12 +54,10 @@ INSERT INTO `service`.`service_master` (`company`, `service`, `status`, `vendor`
 INSERT INTO `service`.`service_master` (`company`, `service`, `status`, `vendor`) VALUES ('TCM', 'CRM-SERVICES', 'A', 'REDTAIL');
 
 
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('localhost:8098', 'SERVICE.CRM.MODE', 'A', 'UAT', 'N', '2017-08-03 19:56:55');
-
 CREATE TABLE `invdb`.`crm_user_logon` (
   `logonid` bigint(20) NOT NULL,
   `userid` varchar(100) NOT NULL,
-  `pwd` varchar(50) NOT NULL,
+  `pwd` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `userKey` varchar(100) NOT NULL,
   `status` varchar(10) DEFAULT NULL,
@@ -128,8 +135,27 @@ DELIMITER ;
 
 
 
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('demo', 'SERVICE.CRM.MODE', 'A', 'UAT', 'N', '2017-08-03 19:56:55');
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('demobb', 'SERVICE.CRM.MODE', 'A', 'UAT', 'N', '2017-08-03 19:56:55');
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('demociti', 'SERVICE.CRM.MODE', 'A', 'UAT', 'N', '2017-08-03 19:56:55');
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('demotcm', 'SERVICE.CRM.MODE', 'A', 'UAT', 'N', '2017-08-03 19:56:55');
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('demouob', 'SERVICE.CRM.MODE', 'A', 'UAT', 'N', '2017-08-03 19:56:55');
 
+
+
+
+INSERT INTO `invdb`.`web_menu` (`url`, `access`, `permission`, `label`, `level`, `sublevel`, `seq`, `status`, `availOnMobile`, `destdir`, `htmlpage`, `created`) VALUES ('demo', 'Advisor', 'CRM', 'RedTail', '0', '0', '7', 'A', 'N', 'advisor', 'assetworkflow.xhtml', '2017-08-04 04:01:55');
+INSERT INTO `invdb`.`web_menu` (`url`, `access`, `permission`, `label`, `level`, `sublevel`, `seq`, `status`, `availOnMobile`, `destdir`, `htmlpage`, `created`) VALUES ('demo', 'Advisor', 'CRM', 'SalesFource', '0', '0', '3', 'N', 'N', 'advisor/operations', 'trade.xhtml', '2017-08-04 04:01:55');
+INSERT INTO `invdb`.`web_menu` (`url`, `access`, `permission`, `label`, `level`, `sublevel`, `seq`, `status`, `availOnMobile`, `destdir`, `htmlpage`, `created`) VALUES ('demobb', 'Advisor', 'CRM', 'RedTail', '0', '0', '7', 'A', 'N', 'advisor', 'assetworkflow.xhtml', '2017-08-04 04:01:55');
+INSERT INTO `invdb`.`web_menu` (`url`, `access`, `permission`, `label`, `level`, `sublevel`, `seq`, `status`, `availOnMobile`, `destdir`, `htmlpage`, `created`) VALUES ('demobb', 'Advisor', 'CRM', 'SalesFource', '0', '0', '3', 'N', 'N', 'advisor/operations', 'trade.xhtml', '2017-08-04 04:01:55');
+INSERT INTO `invdb`.`web_menu` (`url`, `access`, `permission`, `label`, `level`, `sublevel`, `seq`, `status`, `availOnMobile`, `destdir`, `htmlpage`, `created`) VALUES ('demociti', 'Advisor', 'CRM', 'RedTail', '0', '0', '7', 'A', 'N', 'advisor', 'assetworkflow.xhtml', '2017-08-04 04:01:55');
+INSERT INTO `invdb`.`web_menu` (`url`, `access`, `permission`, `label`, `level`, `sublevel`, `seq`, `status`, `availOnMobile`, `destdir`, `htmlpage`, `created`) VALUES ('demociti', 'Advisor', 'CRM', 'SalesFource', '0', '0', '3', 'N', 'N', 'advisor/operations', 'trade.xhtml', '2017-08-04 04:01:55');
+INSERT INTO `invdb`.`web_menu` (`url`, `access`, `permission`, `label`, `level`, `sublevel`, `seq`, `status`, `availOnMobile`, `destdir`, `htmlpage`, `created`) VALUES ('demotcm', 'Advisor', 'CRM', 'RedTail', '0', '0', '7', 'A', 'N', 'advisor', 'assetworkflow.xhtml', '2017-08-04 04:01:55');
+INSERT INTO `invdb`.`web_menu` (`url`, `access`, `permission`, `label`, `level`, `sublevel`, `seq`, `status`, `availOnMobile`, `destdir`, `htmlpage`, `created`) VALUES ('demotcm', 'Advisor', 'CRM', 'SalesFource', '0', '0', '3', 'N', 'N', 'advisor/operations', 'trade.xhtml', '2017-08-04 04:01:55');
+INSERT INTO `invdb`.`web_menu` (`url`, `access`, `permission`, `label`, `level`, `sublevel`, `seq`, `status`, `availOnMobile`, `destdir`, `htmlpage`, `created`) VALUES ('demouob', 'Advisor', 'CRM', 'RedTail', '0', '0', '7', 'A', 'N', 'advisor', 'assetworkflow.xhtml', '2017-08-04 04:01:55');
+INSERT INTO `invdb`.`web_menu` (`url`, `access`, `permission`, `label`, `level`, `sublevel`, `seq`, `status`, `availOnMobile`, `destdir`, `htmlpage`, `created`) VALUES ('demouob', 'Advisor', 'CRM', 'SalesFource', '0', '0', '3', 'N', 'N', 'advisor/operations', 'trade.xhtml', '2017-08-04 04:01:55');
 INSERT INTO `invdb`.`web_menu` (`url`, `access`, `permission`, `label`, `level`, `sublevel`, `seq`, `status`, `availOnMobile`, `destdir`, `htmlpage`, `created`) VALUES ('master', 'Advisor', 'CRM', 'RedTail', '0', '0', '7', 'A', 'N', 'advisor', 'assetworkflow.xhtml', '2017-08-04 04:01:55');
 INSERT INTO `invdb`.`web_menu` (`url`, `access`, `permission`, `label`, `level`, `sublevel`, `seq`, `status`, `availOnMobile`, `destdir`, `htmlpage`, `created`) VALUES ('master', 'Advisor', 'CRM', 'SalesFource', '0', '0', '3', 'N', 'N', 'advisor/operations', 'trade.xhtml', '2017-08-04 04:01:55');
+
 
 

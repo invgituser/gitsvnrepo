@@ -61,7 +61,7 @@ public class RedTailAPIRepository<T>
 
 			ObjectMapper objectMapper=new ObjectMapper();
 			objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-			authResponse=objectMapper.readValue(executeRedTailRequest(getMethod, null,"AUTHENTICATION",requestUrl),AuthResponse.class);
+			authResponse=objectMapper.readValue(executeRedTailRequest(getMethod, null,"AUTHENTICATION",requestUrl,serviceRequest),AuthResponse.class);
 			System.out.println("authResponse = " + authResponse);
 
 
@@ -117,7 +117,7 @@ public class RedTailAPIRepository<T>
 
 			ObjectMapper objectMapper=new ObjectMapper();
 			objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-			authResponse=objectMapper.readValue(executeRedTailRequest(getMethod, null,"SSO",requestUrl),AuthResponse.class);
+			authResponse=objectMapper.readValue(executeRedTailRequest(getMethod, null,"SSO",requestUrl, serviceRequest),AuthResponse.class);
 			System.out.println("authResponse = " + authResponse);
 		} catch (JsonGenerationException e) {
 			e.printStackTrace();
@@ -135,8 +135,11 @@ public class RedTailAPIRepository<T>
 		return authResponse;
 	}
 
-		public String executeRedTailRequest(GetMethod getMethod, PostMethod postMethod, String reqFor, String url)
+	public String executeRedTailRequest(GetMethod getMethod, PostMethod postMethod, String reqFor, String url, ServiceRequest serviceRequest)
 	{
+		logger.info("RedTailAPIRepository.executeRedTailRequest");
+		logger.info("reqFor = [" + reqFor + "], url = [" + url + "]");
+
 		String responseJSON=null;
 		RedTailAudit redTailAudit = null;
 		HttpClient httpClient=null;
@@ -152,7 +155,7 @@ public class RedTailAPIRepository<T>
 					stringBuilder.append(headerNames[i]).append("");
 				}
 
-				redTailAudit = new RedTailAudit(null, reqFor,  getMethod.getPath() + (stringBuilder.length() <= 0 ? "" : stringBuilder.toString()),null, "I", null, new Date(), null, null);
+				redTailAudit = new RedTailAudit(null, serviceRequest.getProduct(), serviceRequest.getMode(), serviceRequest.getProcessId(), reqFor,  url + (stringBuilder.length() <= 0 ? "" : stringBuilder.toString()),null, "I", null, new Date(), null, null);
 				redTailAuditsDAO.insertRedTailAudits(redTailAudit);
 				httpClient.executeMethod(getMethod);
 				responseJSON=getMethod.getResponseBodyAsString().trim();
@@ -165,7 +168,7 @@ public class RedTailAPIRepository<T>
 					stringBuilder.append(headerNames[i]).append("");
 				}
 
-				redTailAudit = new RedTailAudit(null, reqFor,  postMethod.getPath() + (stringBuilder.length() <= 0 ? "" : stringBuilder.toString()),null, "I", null, new Date(), null, null);
+				redTailAudit = new RedTailAudit(null, serviceRequest.getProduct(), serviceRequest.getMode(), serviceRequest.getProcessId(), reqFor, url + (stringBuilder.length() <= 0 ? "" : stringBuilder.toString()),null, "I", null, new Date(), null, null);
 				redTailAuditsDAO.insertRedTailAudits(redTailAudit);
 				httpClient.executeMethod(postMethod);
 				responseJSON=postMethod.getResponseBodyAsString().trim();

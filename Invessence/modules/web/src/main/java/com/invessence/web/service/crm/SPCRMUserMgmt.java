@@ -3,6 +3,8 @@ package com.invessence.web.service.crm;
 import java.sql.Types;
 import java.util.*;
 
+import com.invessence.service.util.*;
+import com.invessence.util.EncryDecryAES;
 import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.object.StoredProcedure;
 
@@ -30,19 +32,30 @@ public class SPCRMUserMgmt extends StoredProcedure
       compile();
       }
       public DBResponse execute(CRMUserDetails userAcctExt){
-         Map inputs = new HashMap();
-         inputs.put("p_logonid", userAcctExt.getLogonid());
-         inputs.put("p_userid", userAcctExt.getCrmUserId());
-         inputs.put("p_pwd", userAcctExt.getCrmPwd());
-         inputs.put("p_email",userAcctExt.getEmail());
-         inputs.put("p_userKey",userAcctExt.getCrmUserKey());
-         inputs.put("p_status", userAcctExt.getCrmStatus());
-         inputs.put("p_created", new Date());
-         inputs.put("p_createdBy", userAcctExt.getLogonid());
-         inputs.put("p_opt", userAcctExt.getOpt());
+         DBResponse dbRes=null;
+         try
+         {
+            String encryptedPwd= EncryDecryAES.encrypt(userAcctExt.getCrmPwd(), ServiceParameters.getConfigProperty(Constant.SERVICES.CRM_SERVICES.toString(), Constant.CRM_SERVICES.REDTAIL.toString(), "ENCRY_DECRY_KEY"));
+            System.out.println("encryptedPwd = " + encryptedPwd);
 
-         Map<String,Object> results = super.execute(inputs);
-         DBResponse dbRes= new DBResponse((int)results.get("op_msgCode"), results.get("op_msg").toString());
+               Map inputs = new HashMap();
+               inputs.put("p_logonid", userAcctExt.getLogonid());
+               inputs.put("p_userid", userAcctExt.getCrmUserId());
+               inputs.put("p_pwd", encryptedPwd);
+               inputs.put("p_email",userAcctExt.getEmail());
+               inputs.put("p_userKey",userAcctExt.getCrmUserKey());
+               inputs.put("p_status", userAcctExt.getCrmStatus());
+               inputs.put("p_created", new Date());
+               inputs.put("p_createdBy", userAcctExt.getLogonid());
+               inputs.put("p_opt", userAcctExt.getOpt());
+
+               Map<String,Object> results = super.execute(inputs);
+               dbRes= new DBResponse((int)results.get("op_msgCode"), results.get("op_msg").toString());
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
          return dbRes; //reading output of stored procedure using out parameters
     }
 
