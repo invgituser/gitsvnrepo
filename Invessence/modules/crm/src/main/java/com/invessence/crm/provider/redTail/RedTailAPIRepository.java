@@ -59,25 +59,10 @@ public class RedTailAPIRepository<T>
 
 			getMethod.addRequestHeader("Authorization", "Basic "+ new String(encoded));
 
-			HttpClient hc = new HttpClient();
-			hc.executeMethod(getMethod);
 			ObjectMapper objectMapper=new ObjectMapper();
 			objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-			String response=getMethod.getResponseBodyAsString().trim();
-			System.out.println("str = " + response);
-			authResponse=objectMapper.readValue(response,AuthResponse.class);
+			authResponse=objectMapper.readValue(executeRedTailRequest(getMethod, null,"AUTHENTICATION",requestUrl),AuthResponse.class);
 			System.out.println("authResponse = " + authResponse);
-
-			Header[] headerNames = getMethod.getRequestHeaders();
-			StringBuilder stringBuilder=new StringBuilder();
-			for(int i=0; i<headerNames.length; i++) {
-				stringBuilder.append(headerNames[i]).append("");
-			}
-
-			RedTailAudit redTailAudit = new RedTailAudit(null, "AUTHENTICATION",
-																		requestUrl + (stringBuilder.length()<=0?"":stringBuilder.toString()),
-																		null, "I", null, new Date(), null, null);
-			redTailAuditsDAO.insertRedTailAudits(redTailAudit);
 
 
 		} catch (JsonGenerationException e) {
@@ -129,26 +114,11 @@ public class RedTailAPIRepository<T>
 
 			getMethod.addRequestHeader("Authorization", "Userkeyauth  "+ new String(encoded));
 
-			HttpClient hc = new HttpClient();
-			hc.executeMethod(getMethod);
+
 			ObjectMapper objectMapper=new ObjectMapper();
 			objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-			String response=getMethod.getResponseBodyAsString().trim();
-			System.out.println("str = " + response);
-			authResponse=objectMapper.readValue(response,AuthResponse.class);
+			authResponse=objectMapper.readValue(executeRedTailRequest(getMethod, null,"SSO",requestUrl),AuthResponse.class);
 			System.out.println("authResponse = " + authResponse);
-
-			Header[] headerNames = getMethod.getRequestHeaders();
-			StringBuilder stringBuilder=new StringBuilder();
-			for(int i=0; i<headerNames.length; i++) {
-				stringBuilder.append(headerNames[i]).append("");
-			}
-
-			RedTailAudit redTailAudit = new RedTailAudit(null, "SSO",
-																		requestUrl + (stringBuilder.length()<=0?"":stringBuilder.toString()),
-																		null, "I", null, new Date(), null, null);
-			redTailAuditsDAO.insertRedTailAudits(redTailAudit);
-
 		} catch (JsonGenerationException e) {
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
@@ -164,6 +134,70 @@ public class RedTailAPIRepository<T>
 		logger.info("Out RedTailAPIRepository.registerUser()");
 		return authResponse;
 	}
+
+		public String executeRedTailRequest(GetMethod getMethod, PostMethod postMethod, String reqFor, String url)
+	{
+		String responseJSON=null;
+		RedTailAudit redTailAudit = null;
+		HttpClient httpClient=null;
+		try
+		{
+			httpClient = new HttpClient();
+			if(getMethod!=null)
+			{
+				Header[] headerNames = getMethod.getRequestHeaders();
+				StringBuilder stringBuilder = new StringBuilder();
+				for (int i = 0; i < headerNames.length; i++)
+				{
+					stringBuilder.append(headerNames[i]).append("");
+				}
+
+				redTailAudit = new RedTailAudit(null, reqFor,  getMethod.getPath() + (stringBuilder.length() <= 0 ? "" : stringBuilder.toString()),null, "I", null, new Date(), null, null);
+				redTailAuditsDAO.insertRedTailAudits(redTailAudit);
+				httpClient.executeMethod(getMethod);
+				responseJSON=getMethod.getResponseBodyAsString().trim();
+			}else if(postMethod!=null)
+			{
+				Header[] headerNames = postMethod.getRequestHeaders();
+				StringBuilder stringBuilder = new StringBuilder();
+				for (int i = 0; i < headerNames.length; i++)
+				{
+					stringBuilder.append(headerNames[i]).append("");
+				}
+
+				redTailAudit = new RedTailAudit(null, reqFor,  postMethod.getPath() + (stringBuilder.length() <= 0 ? "" : stringBuilder.toString()),null, "I", null, new Date(), null, null);
+				redTailAuditsDAO.insertRedTailAudits(redTailAudit);
+				httpClient.executeMethod(postMethod);
+				responseJSON=postMethod.getResponseBodyAsString().trim();
+			}
+
+			System.out.println("responseJSON = " + responseJSON);
+
+			redTailAudit.setResObj(responseJSON);
+			redTailAudit.setResTime(new Date());
+			redTailAudit.setStatus("S");
+			redTailAuditsDAO.updateRedTailAudits(redTailAudit);
+		}catch (Exception e)
+		{
+			System.out.println("e.getMessage() = " + e.getMessage());
+			redTailAudit.setResObj(e.getMessage());
+			redTailAudit.setResTime(new Date());
+			redTailAudit.setStatus("E");
+			redTailAuditsDAO.updateRedTailAudits(redTailAudit);
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(getMethod!=null) {
+				getMethod.releaseConnection();
+			}
+			else if(postMethod!=null) {
+				postMethod.releaseConnection();
+			}
+		}
+		return responseJSON;
+	}
+
 
 //	public UserProfile registerUser(UserProfile userProfile)
 //	{

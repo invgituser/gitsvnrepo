@@ -47,7 +47,7 @@
    <bean id="crmSessionFactory"
          class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         <property name="dataSource" ref="crmDataSource" />
-		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+		<property name="configLocation" value="classpath:hibernate.crm.cfg.xml" />
    </bean>
 
     <tx:annotation-driven />

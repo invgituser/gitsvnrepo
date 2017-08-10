@@ -742,10 +742,15 @@ a.ui-commandlink{text-decoration: none !important; margin-right: 5px;}
 
 
 #redTailWidgetDiv iframe{
-	width: 100%;
+	width: 102%;
 	height: 120vh;
+	margin-left: -1%;
 	box-shadow: none;
 	border: none;
 	margin-top: 20px;}
+
+#redTailWidgetDiv iframe .navbar-brand img {display: none !important;}
+
+#redTailWidgetDiv .navbar-brand>img  {display: none !important;}
 
 

@@ -22,7 +22,14 @@ function openCRMWidget(finalUrl){
     //$('#cboxContent').css('position','relative');
     //$('#cboxContent').append(cover);
     document.getElementById("redTailWidgetDiv").appendChild(ifrm);
+    $('.navbar-brand').addClass('hiddenall');
+    $('.navbar-brand').css("display", "none");
 }
+$(document).ready(function(){
+    $('.navbar-brand').addClass('hiddenall');
+    $('.navbar-brand').css("display", "none");
+
+});
 
 
 

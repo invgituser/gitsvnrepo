@@ -4524,9 +4524,15 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
         margin: 5px;}
 }
 
+
 #redTailWidgetDiv iframe{
-width: 100%;
-height: 120vh;
-box-shadow: none;
-border: none;
-margin-top: 20px;}
+    width: 102%;
+    height: 120vh;
+    margin-left: -1%;
+    box-shadow: none;
+    border: none;
+    margin-top: 20px;}
+
+#redTailWidgetDiv iframe .navbar-brand img {display: none !important; height: 0px !important;}
+
+#redTailWidgetDiv .navbar-brand>img, #redTailWidgetDiv .navbar-brand, .navbar-brand,.hiddenall  {display: none !important; height: 0px !important; width: 0px !important;}

@@ -47,7 +47,7 @@
    <bean id="aggrSessionFactory"
          class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         <property name="dataSource" ref="aggregatorDataSource" />
-		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+		<property name="configLocation" value="classpath:hibernate.aggr.cfg.xml" />
    </bean>
 
     <tx:annotation-driven />
