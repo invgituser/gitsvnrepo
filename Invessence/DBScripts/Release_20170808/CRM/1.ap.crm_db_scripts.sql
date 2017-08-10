@@ -45,7 +45,7 @@ INSERT INTO `service`.`service_master` (`company`, `service`, `status`, `vendor`
 INSERT INTO `service`.`service_master` (`company`, `service`, `status`, `vendor`) VALUES ('TCM', 'CRM-SERVICES', 'A', 'REDTAIL');
 
 
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('localhost:8084', 'SERVICE.CRM.MODE', 'A', 'UAT', 'N', '2017-08-03 19:56:55');
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`) VALUES ('localhost:8098', 'SERVICE.CRM.MODE', 'A', 'UAT', 'N', '2017-08-03 19:56:55');
 
 CREATE TABLE `invdb`.`crm_user_logon` (
   `logonid` bigint(20) NOT NULL,

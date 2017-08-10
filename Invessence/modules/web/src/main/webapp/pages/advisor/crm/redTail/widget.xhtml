@@ -30,4 +30,15 @@
 
     </ui:define>
 
+    <script>
+
+        $(document).ready(function(){
+            $('.navbar-brand').addClass('hiddenall');
+            $('.navbar-brand').css("display", "none !important");
+            $("iframe").contents().find('.navbar-brand').addClass('hiddenall')
+
+        });
+
+    </script>
+
 </ui:composition>

@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Created by abhangp on 12/9/2016.
  */
 @Entity
-@Table(name = "crm_redtail_audit", catalog = "invdbaudit")
+@Table(name = "crm_redtail_audit", catalog = "invdb")
 public class RedTailAudit implements Serializable
 {
    private Integer id;
