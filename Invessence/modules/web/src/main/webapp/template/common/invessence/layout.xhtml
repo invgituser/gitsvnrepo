@@ -34,38 +34,45 @@
         </ui:insert>
 
 
-        <div class="layout-portlets-box footerContext">
+        <div class="layout-portlets-box footerContext" style="background-color: #4c4c4c !important; border-top: 2px solid #bfbfc0;">
             <div class="Container100 Responsive100">
-                <div class="ContainerIndent">
+                <div class="ContainerIndent" style="padding: 0px;">
                     <div id="ceForm:j_idt277" class="ui-outputpanel ui-widget">
-                    <p style="font-style: italic; font-size: .8em;">
-                        This portfolio is designed for illustration purposes only. The cumulative value of the portfolio
-                        (net of fees) is based on the historical performance of the underlying securities and adjusted for changes in the asset allocation over time.
-                        It does not take in affect any tax withholdings or distributions.
-                        Past performance is no guarantee of future results. Any historical returns,
-                        expected returns, or probability projections may not reflect actual future
-                        performance. All securities involve risk and may result in loss. Not an offer,
-                        solicitation of an offer, or advice to buy or sell securities in jurisdictions
-                        where Invessence is not registered
+                        <ul class="footerlinks">
+                            <li><a>FAQ</a></li>
+                            <li><a>Demo</a></li>
+                            <li><a>Support &#38; Feedback</a></li>
+                            <li><a>Disclaimer</a></li>
+                        </ul>
 
-                    </p>
+                        <!--<p style="font-style: italic; font-size: .8em;">
+                           Sagar This portfolio is designed for illustration purposes only. The cumulative value of the portfolio
+                            (net of fees) is based on the historical performance of the underlying securities and adjusted for changes in the asset allocation over time.
+                            It does not take in affect any tax withholdings or distributions.
+                            Past performance is no guarantee of future results. Any historical returns,
+                            expected returns, or probability projections may not reflect actual future
+                            performance. All securities involve risk and may result in loss. Not an offer,
+                            solicitation of an offer, or advice to buy or sell securities in jurisdictions
+                            where Invessence is not registered
+
+                        </p> -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="layout-portlets-box footerContext">
-        <div class="Container100 Responsive100">
-            <ui:fragment rendered="#{webutil.hasSSL}">
-                    <div class="ShowOnDesktopTablet">
-                        <script type="text/javascript"
-                                src="#{webutil.webprofile.sslseal}">
-                        </script>
-                    </div>
-            </ui:fragment>
-            Powered by Invessence<sup class="Fs9">SM</sup><br/>
-            <!--#{webutil.webprofile.companyname}<sup class="Fs9">TM</sup> - All rights reserved.-->
+        <div class="layout-portlets-box footerContext">
+            <div class="Container100 Responsive100">
+                <ui:fragment rendered="#{webutil.hasSSL}">
+                        <div class="ShowOnDesktopTablet">
+                            <script type="text/javascript"
+                                    src="#{webutil.webprofile.sslseal}">
+                            </script>
+                        </div>
+                </ui:fragment>
+                Powered by Invessence<sup class="Fs9">SM</sup><br/>
+                <!--#{webutil.webprofile.companyname}<sup class="Fs9">TM</sup> - All rights reserved.-->
            <!-- <script type="text/javascript" src="https://integratedchat.teamviewer.com/widget"></script>-->
             <!--Start of Zendesk Chat Script-->
             <ui:fragment rendered="#{webutil.hasRole('DEMO')}">
