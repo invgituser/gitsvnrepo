@@ -11,14 +11,7 @@
                 <div id="buttondiv2" class="" style="margin: 5px 0;">
                     <div class="Wid100">
                         <ui:fragment rendered="#{uobpb.allAnsSbmt}">
-                            <div class="finetuneBtnBlock Fright">
-                                <p:commandButton id="uobfinetunebtn" styleClass="fineTuneBtn fineTuneBtnImg"
-                                                 icon="ui-icon-image"
-                                                 update=":ceForm:inputArea,ceForm:buttonArea"
-                                                 actionListener="#{uobpb.showFTPanel}">
-                                </p:commandButton>
-                                <div class="ftBtnLabel">Fine Tune</div>
-                            </div>
+
                         </ui:fragment>
                     </div>
                 </div>
@@ -85,6 +78,10 @@
                                              update=":ceForm:workArea"
                                              actionListener="#{uobpb.saveFTPanel}">
                             </p:commandButton>
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -107,7 +104,24 @@
                 </div>
             </ui:fragment>
             <ui:fragment rendered="#{uobpb.pagemanager.page >= 3}">
+
+
+
                 <div class="step4 fixedHeightLP">
+
+                    <div class="container100 progressbarsag">
+
+                        <div class="loadPgNm">
+                            <span class="done"> Goal </span>
+                            <span class="done"> Assets </span>
+                            <span class="done"> Liabilities </span>
+                            <span class="active"> Risk </span>
+                        </div>
+
+
+                    </div>
+
+
                     <div class="Container100">
                         <span class="Fs30 mainHeaderUOB">Risk</span>
                     </div>
@@ -153,6 +167,16 @@
                                            styleClass="investNowBtn Fleft"
                                            update=":ceForm:workArea"
                                            actionListener="#{uobpb.saveAccount}"/>
+                            <div class="finetuneBtnBlock Fright">
+                                <p:commandButton id="uobfinetunebtn" styleClass="fineTuneBtn fineTuneBtnImg"
+                                                 icon="ui-icon-image"
+                                                 update=":ceForm:inputArea,ceForm:buttonArea"
+                                                 actionListener="#{uobpb.showFTPanel}">
+                                </p:commandButton>
+                                <div class="ftBtnLabel">Fine Tune</div>
+                            </div>
+
+
                         </ui:fragment>
                         <ui:fragment rendered="#{uobpb.pagemanager.page >= 0 and uobpb.rTab != 6}">
                             <p:commandLink id="nextBtn" value="Next"
@@ -162,6 +186,10 @@
                                            update=":ceForm:workArea, :ceForm:graphArea"
                                            actionListener="#{uobpb.gotoNextPage}"/>
                         </ui:fragment>
+
+
+
+
                         <ui:fragment rendered="#{uobpb.rTab == 6}">
                             <p:commandLink id="startBtn" value="Start Over"
                                            styleClass="nextButtonLP Fright"
