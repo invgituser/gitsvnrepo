@@ -434,3 +434,38 @@ box-shadow: 0px 1px 0px 0px rgba(70,145,91,0.8);}
 
 .Wid40 input {width: 40% !important;}
 
+.footerContext {    background-color: #262626;
+	border-radius: 0px;
+	color: #fff;
+	padding: 5px 0px;
+	text-align: right;
+	/* padding-right: 20px; */
+	width: 100%;
+margin: 0 !important; box-shadow: none !important;;}
+
+.footerContext > div {
+	color: #fff;
+
+	text-align: right;
+	/* padding-right: 20px; */
+	width: 99%;}
+
+.footerlinks {padding: 0;
+	margin: 0;
+	display: block;
+	overflow: auto;}
+
+.footerlinks li {list-style: none; width: 24%; font-size: 0px;
+	float: left; display: inline-block; text-align: center; border-right: 1px solid #fff;}
+
+.footerlinks li:last-child {border-right: 0px solid #fff;}
+
+.footerlinks li a {    color: #fff;
+	text-decoration: none;
+	font-size: 13px;
+	padding-top: 0px;
+	margin-top: 7px;
+	display: block;
+	margin-bottom: 5px;
+	padding-bottom: 0px;}
+
