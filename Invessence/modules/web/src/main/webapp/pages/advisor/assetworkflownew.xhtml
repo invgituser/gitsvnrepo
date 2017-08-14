@@ -407,6 +407,8 @@
                                                 <p:outputPanel id="workArea">
                                                     <p:outputPanel id="reviewArea">
                                                         <div class="Container100 Responsive100">
+
+                                                            <div class="reviewbarContainer">
                                                             <div class="Container25 TexAlRight Fs14 uobSliderLabel firstLabel">
                                                                 Conservative
                                                             </div>
@@ -422,18 +424,23 @@
                                                             <div class="Container25 TexAlLeft Fs14 uobSliderLabel lastLabel">
                                                                 Aggressive
                                                             </div>
+                                                            </div>
+
+                                                            <div class="Container100 Fleft TexAlCenter"
+                                                                 style="padding: 0px 20px; box-sizing: border-box;">
+                                                                Based on the responses that you have given, we have selected the
+                                                                <strong>#{asstMgmtRvw.fixedModelName}</strong>
+                                                                strategy for you.
+                                                            </div>
+
+
                                                             <p:panel id="workPanel" styleClass="Container50 Responsive100 Fleft summaryLBlock"
                                                                      style="border: 0px; background: transparent;">
 
 
                                                                 <p:panel id="tcmFinal" style="border: 0px; background: transparent;">
-                                                                    <div class="Container100 Fleft TexAlCenter"
-                                                                         style="padding: 0px 20px; box-sizing: border-box;">
-                                                                        Based on the responses that you have given, we have selected the
-                                                                        <strong>#{asstMgmtRvw.fixedModelName}</strong>
-                                                                        strategy for you.
-                                                                    </div>
-                                                                    <div class="EmptyBox10 ResEmptyBox10"></div>
+
+                                                                    <div class="EmptyBox10 ResEmptyBox10 clearfix"></div>
                                                                     <div class="Container100 Responsive100">
                                                                         <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth UI-tcm">
                                                                             <div class="ContainerIndent">
@@ -449,7 +456,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Wid10 Fright" style="height:1px;"></div>
-                                                                        <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth UI-tcm">
+                                                                        <div class="Wid45 BorderedBox Fleft TexAlCenter responsiveFullwidth UI-tcm" style="margin-left: 20px;">
                                                                             <div class="ContainerIndent">
                                                                                 <div class="EmptyBox5"></div>
                                                                                 <span class="Fs14 DispBlock gray">Expected Return</span>
@@ -517,6 +524,7 @@
                                                             <div id="projectChartArea"
                                                                  class="Container50 Responsive100 FrightForced performanceChartBlock">
                                                                 <p:outputPanel id="graphArea" style="border: 0px; background: transparent;">
+                                                                    <div class="EmptyBox10 ResEmptyBox10 clearfix"></div>
                                                                     <script type="text/javascript">
                                                                         $(document).ready(function ()
                                                                                           {
