@@ -45,6 +45,18 @@ public class ConsumerListSP extends StoredProcedure
          case 6:   // SP: sel_risk_questions
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
+         case 7:   // SP: sel_Client_active_account
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            break;
+         case 8:   // SP: sel_reportType
+            break;
+         case 9:
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_rprtType", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_DateFactor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_fromDate", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_toDate", Types.VARCHAR));
+            break;
          default:
       }
       compile();
@@ -109,4 +121,26 @@ public class ConsumerListSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
+   public Map getClientActiveAcctList(Long logonid)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", logonid);
+      return super.execute(inputMap);
+   }
+
+   public Map getReportTypeList()
+   {
+      return super.execute();
+   }
+
+   public Map getClientReportData(Long acctnum,String reportType,String dateFactor,String fromDate,String toDate)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_acctnum", acctnum);
+      inputMap.put("p_rprtType", reportType);
+      inputMap.put("p_DateFactor", dateFactor);
+      inputMap.put("p_fromDate", fromDate);
+      inputMap.put("p_toDate", toDate);
+      return super.execute(inputMap);
+   }
 }

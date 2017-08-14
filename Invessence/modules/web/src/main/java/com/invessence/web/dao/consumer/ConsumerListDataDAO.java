@@ -611,4 +611,81 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       }
       return info;
    }
+
+   public ArrayList<CustomerData> getClientActiveAcctList(Long logonid) {
+      DataSource ds = getDataSource();
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientActiveAcctData",7);
+      ArrayList<CustomerData> listActiveAcct = new ArrayList<CustomerData>();
+      Map outMap = sp.getClientActiveAcctList(logonid);
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         int i = 0;
+         for (Map<String, Object> map : rows)
+         {
+            Map rs = (Map) rows.get(i);
+            CustomerData data = new CustomerData();
+
+            data.setAcctnum(convert.getLongData(rs.get("acctnum")));
+            data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
+
+            listActiveAcct.add(i, data);
+            i++;
+         }
+         return listActiveAcct;
+      }
+      return null;
+   }
+
+   public ArrayList<ReportData> getClientReportTypeList() {
+      DataSource ds = getDataSource();
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ReportTypeLst",8);
+      ArrayList<ReportData> listReportType = new ArrayList<ReportData>();
+      Map outMap = sp.getReportTypeList();
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         int i = 0;
+         for (Map<String, Object> map : rows)
+         {
+            Map rs = (Map) rows.get(i);
+            ReportData data = new ReportData();
+
+            data.setReportName(convert.getStrData(rs.get("reportName")));
+
+            listReportType.add(i, data);
+            i++;
+         }
+         return listReportType;
+      }
+      return null;
+   }
+
+   public ArrayList<ReportData> getClientReportData(Long acctnum,String reportType,String dateFactor,String fromDate,String toDate) {
+      DataSource ds = getDataSource();
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ReportDataLst",9);
+      ArrayList<ReportData> listReportType = new ArrayList<ReportData>();
+      Map outMap = sp.getClientReportData( acctnum, reportType, dateFactor, fromDate, toDate);
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         int i = 0;
+         for (Map<String, Object> map : rows)
+         {
+            Map rs = (Map) rows.get(i);
+            ReportData data = new ReportData();
+
+            data.setAcctnum(convert.getStrData(rs.get("acctnum")));
+            data.setBusinessdate(convert.getStrData(rs.get("reportDate")));
+            data.setReportName(convert.getStrData(rs.get("reportName")));
+            data.setFilename(convert.getStrData(rs.get("filename")));
+//            data.setAcctnum(convert.getStrData(rs.get("created")));
+
+            listReportType.add(i, data);
+            i++;
+         }
+         return listReportType;
+      }
+      return null;
+   }
 }

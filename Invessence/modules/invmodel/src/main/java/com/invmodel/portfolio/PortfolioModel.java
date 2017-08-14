@@ -170,12 +170,12 @@ public class PortfolioModel
             secCollection.loadDataFromDB(advisor, theme);
          }
 
-         if (historicalReportsReturns == null) {
-            historicalReportsReturns = HistoricalReportsReturns.getInstance(theme);
-         }
-         else if ( ! historicalReportsReturns.getThisTheme().equalsIgnoreCase(theme)) {
-               historicalReportsReturns.refreshDataFromDB(theme);
-         }
+//         if (historicalReportsReturns == null) {
+//            historicalReportsReturns = HistoricalReportsReturns.getInstance(theme);
+//         }
+//         else if ( ! historicalReportsReturns.getThisTheme().equalsIgnoreCase(theme)) {
+//               historicalReportsReturns.refreshDataFromDB(theme);
+//         }
 
          profileData.setMaxPortfolioAllocationPoints(InvConst.PORTFOLIO_INTERPOLATION - 1);
          if (profileData.getRiskCalcMethod() == null || profileData.getRiskCalcMethod().startsWith(InvConst.CONSUMER_RISK_FORMULA))

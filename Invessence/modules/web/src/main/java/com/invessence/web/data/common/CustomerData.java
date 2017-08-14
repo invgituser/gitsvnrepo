@@ -1463,6 +1463,26 @@ public class CustomerData extends ProfileData
          ex.printStackTrace();
       }
    }
+   public void createDynaAssetPortfolio(Integer noOfYears, Double riskIndex,String Theme)
+   {
+
+      try
+      {
+
+               setTheme(Theme);
+
+
+         setRiskIndex(riskIndex);
+         setNumOfAllocation(noOfYears);
+         setNumOfPortfolio(noOfYears);
+         buildAssetClass();
+         buildPortfolio();
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
 
    public void createPortfolio(Integer noOfYears)
    {
