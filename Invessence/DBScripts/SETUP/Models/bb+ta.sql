@@ -2088,10 +2088,10 @@ or theme like '%TA%';
 
 INSERT INTO `invdb`.`user_basket_access` (`advisor`, `theme`, `status`, `displayname`, `sortorder`, `primary`, `taxable`, `model`, `baseCurrency`, `created`, `lastupdated`)
 VALUES 
-('BB', '0.BB', 'A', 'Grow Wealth', '1', 'Y', 'N', 'O', 'USD', now(), null),
-('BB', 'T.0.BB', 'A', 'Grow Wealth', '0', 'Y', 'N', 'O', 'USD', now(), null),
-('BB-TCM', '0.TA', 'A', 'Grow Wealth', '1', 'Y', 'N', 'O', 'USD', now(), null),
-('BB-TCM', 'T.0.TA', 'A', 'Grow Wealth', '0', 'Y', 'N', 'O', 'USD', now(), null)
+('BB', '0.BB', 'A', 'Grow Wealth', '1', 'Y', 'N', 'F', 'USD', now(), null),
+('BB', 'T.0.BB', 'A', 'Grow Wealth', '0', 'Y', 'N', 'F', 'USD', now(), null),
+('BB-TCM', '0.TA', 'A', 'Grow Wealth', '1', 'Y', 'N', 'F', 'USD', now(), null),
+('BB-TCM', 'T.0.TA', 'A', 'Grow Wealth', '0', 'Y', 'N', 'F', 'USD', now(), null)
 ;
 
 CALL `temp`.`sp_upload_sec_fixedmodel`();

@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
 import com.invmodel.dao.*;
+import com.invmodel.performance.data.*;
 
 public class HistoricalReportsReturns
 {
@@ -15,7 +16,7 @@ public class HistoricalReportsReturns
 
    private int MAX_HISTORY = 300;  // Max number of monthly returns = 20 years.
    private String thisTheme;
-   private Map<String, Map<String, ArrayList<Double>>> monthlyReturnsArray = new HashMap<String, Map<String, ArrayList<Double>>>();
+   private Map<String, OptPerformanceMasterData> monthlyReturnsArray = new HashMap<String, OptPerformanceMasterData>();
 
    private final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
    private final Lock read = readWriteLock.readLock();
@@ -25,16 +26,8 @@ public class HistoricalReportsReturns
    private SQLData convert;
    private DataSource ds;
 
-   public static synchronized HistoricalReportsReturns getInstance(String theme)
+   public HistoricalReportsReturns()
    {
-      if (instance == null)
-      {
-         instance = new HistoricalReportsReturns();
-      }
-      return instance;
-   }
-
-   public HistoricalReportsReturns() {
       thisTheme = null;
    }
 
@@ -66,41 +59,35 @@ public class HistoricalReportsReturns
       }
    }
 
-   private void putMonthlyReturnsArray(String name, String ticker, double value)
+   private void putMonthlyReturnsArray(String ticker,
+                                       String name,
+                                       String color,
+                                       String currency,
+                                       String businesdate,
+                                       Double returns)
    {
       try
       {
          if (monthlyReturnsArray.containsKey(name))
          {
-            if (monthlyReturnsArray.get(name).containsKey(ticker))
-            {
-               // Both displayname and ticker are available.
-               if (monthlyReturnsArray.get(name).get(ticker).size() < MAX_HISTORY)
-                  monthlyReturnsArray.get(name).get(ticker).add(value);
-            }
-            else
-            {
-               // displayName exists but ticker does not.
-               ArrayList<Double> histReturn;
-               histReturn = new ArrayList<Double>();
-               histReturn.add(value);
-               monthlyReturnsArray.get(name).put(ticker, histReturn);
-            }
+            // displayName exists then add to list
+            monthlyReturnsArray.get(name).addPerformanceHistDataArrayList(ticker, name, businesdate, returns);
          }
-         else {
-            // displayName exists but ticker does not.
-            ArrayList<Double> histReturn;
-            histReturn = new ArrayList<Double>();
-            histReturn.add(value);
-            Map <String, ArrayList<Double>> tickerMap = new HashMap<String, ArrayList<Double>>();
-            tickerMap.put(ticker,histReturn);
-            monthlyReturnsArray.put(name, tickerMap);
+         else
+         {
+            // displayName does exists
+            OptPerformanceMasterData histReturn = new OptPerformanceMasterData(ticker, name, color, currency);
+            histReturn.addPerformanceHistDataArrayList(ticker, name, businesdate, returns);;
+            monthlyReturnsArray.put(name, histReturn);
          }
       }
-      catch (Exception e)
+      catch (
+         Exception e)
+
       {
          logger.severe(e.getMessage());
       }
+
    }
 
    private void loadMonthlyReturnsfromDB(String theme)
@@ -111,31 +98,53 @@ public class HistoricalReportsReturns
       try
       {
          String storedProcName = "invdb.report_historical_data";
-         InvModelSP sp = new InvModelSP(ds, storedProcName,6, 99);
+         InvModelSP sp = new InvModelSP(ds, storedProcName, 6, 99);
          monthlyReturnsArray.clear();
 
          Map outMap = sp.reportloadMonthlyHistoricalData(theme);
          if (outMap != null)
          {
             ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
-            if (rows != null) {
+            if (rows != null)
+            {
                int i = 0;
                for (Map<String, Object> map : rows)
                {
                   Map rs = (Map) rows.get(i);
                   String ticker = convert.getStrData(rs.get("ticker"));
                   String displayName = convert.getStrData(rs.get("displayName"));
-                  Double value =  convert.getDoubleData(rs.get("monthly_return"));
-                  putMonthlyReturnsArray(displayName, ticker, value);
+                  String color = convert.getStrData(rs.get("color"));
+                  String currency = convert.getStrData(rs.get("baseCurrency"));
+                  String businessdate = convert.getStrData(rs.get("businessdate"));
+                  Double monthlyReturn = convert.getDoubleData(rs.get("daily_returns"));
+                  putMonthlyReturnsArray(displayName, ticker, color, currency, businessdate, monthlyReturn);
                   i++;
                }
             }
          }
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
       }
       finally
       {
+      }
+   }
+
+   public void fetchHistoricalReportsReturns(String theme)
+   {
+      if (theme == null)
+      {
+         return;
+      }
+
+      if (monthlyReturnsArray == null)
+      {
+         loadMonthlyReturnsfromDB(theme);
+      }
+      else if (!theme.equalsIgnoreCase(getThisTheme()))
+      {
+         loadMonthlyReturnsfromDB(theme);
       }
    }
 
@@ -144,9 +153,10 @@ public class HistoricalReportsReturns
       return thisTheme;
    }
 
-   public Map<String, Map<String, ArrayList<Double>>> getMonthlyReturnsArrayforCharting(String name)
+   public Map<String, OptPerformanceMasterData> getMonthlyReturnsArrayforCharting(String name)
    {
-         return monthlyReturnsArray;
+
+      return monthlyReturnsArray;
    }
 
 }

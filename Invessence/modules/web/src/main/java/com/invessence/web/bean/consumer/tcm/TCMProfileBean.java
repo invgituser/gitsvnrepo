@@ -1477,66 +1477,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          uiLayout.doCustody(getLogonid(), getAcctnum());
    }
 
-   private Boolean registerUser() {
-      try {
-         UserData userdata = new UserData();
-         userdata.setFirstName(getFirstname());
-         userdata.setLastName(getLastname());
-         userdata.setEmail(getEmail());
-         userdata.setUserID(getEmail());
-         userdata.setAcctnum(getAcctnum());
-         String msgheader, msg;
-
-         if (userInfoDAO.validateUserID(userdata))
-         {
-            logger.debug("LOG: Validate UserID failed: " + getEmail());
-            msgheader = "signup.U100";
-            msg = webutil.getMessageText().getDisplayMessage(msgheader, "This Email is already registered!", null);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
-         }
-         else
-         {
-            Integer myResetID = webutil.randomGenerator(0, 347896);
-            userdata.setUserInfo(WebConst.ROLE_USER, getAdvisor(), getRep(), myResetID);
-            long loginID = userInfoDAO.addUserInfo(userdata);
-
-            if (loginID <= 0L)
-            {
-               logger.debug("ERROR: Had issue with this userid when attempting to save: " + loginID);
-               msgheader = "signup.U106";
-               msg = webutil.getMessageText().getDisplayMessage(msgheader, "There was some error when attempting to save this userid.  Please reach out to support desk.", null);
-               webutil.redirecttoMessagePage("ERROR", msg, "Failed Signup" + msgheader);
-               webutil.alertSupport("Userbean.saveUser", "Save -" + getEmail(), "Save Registration Error", null);
-            }
-            userdata.setLogonID(loginID);
-            setLogonid(loginID);
-            webutil.sendConfirmation(userdata,"W");
-/*
-            if (webutil.getUserInfoData() == null)
-            {
-               Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-               authorities.add(new SimpleGrantedAuthority(WebConst.WEB_USER));
-               webutil.setUserInfoData(loginID, getEmail(),userdata.getPassword(),
-                                       getAdvisor(),getRep(),authorities);
-            }
-            setBeanAcctnum(getAcctnum());
-            setBeanLogonID(getLogonid();
-            }
-*/
-            setDoesUserHavaLogonID(true);
-            return true;
-         }
-         return false;
-      }
-      catch (Exception ex) {
-         String msgheader = "signup.EX.100";
-         String msg = webutil.getMessageText().getDisplayMessage(msgheader, "Exception: Create UserID/Pwd, problem attempting to create simpleuser", null);
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
-         ex.printStackTrace();
-      }
-      return false;
-   }
-
    public boolean isAltrOnChngStrategy()
    {
       return altrOnChngStrategy;

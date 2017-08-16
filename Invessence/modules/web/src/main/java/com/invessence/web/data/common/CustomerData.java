@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import com.invmodel.Const.InvConst;
 import com.invmodel.asset.data.*;
 import com.invmodel.inputData.ProfileData;
 import com.invmodel.model.ModelUtil;
+import com.invmodel.performance.OptHistoricalReport;
 import com.invmodel.performance.data.ProjectionData;
 import com.invmodel.portfolio.data.*;
 import org.apache.commons.logging.*;
@@ -1281,6 +1283,7 @@ public class CustomerData extends ProfileData
             data.setAdvisor(webutil.getWebprofile().getDefaultAdvisor());
             data.setRep(webutil.getWebprofile().getDefaultRep());
             data.setEmail(null);
+            data.setIp(webutil.getClientIpAddr());
             data.setMessage(message);
             if (saveDAO != null)
             {
@@ -1293,6 +1296,56 @@ public class CustomerData extends ProfileData
       {
 
       }
+   }
+
+   public Boolean registerUser() {
+      try {
+         UserData userdata = new UserData();
+         userdata.setFirstName(getFirstname());
+         userdata.setLastName(getLastname());
+         userdata.setEmail(getEmail());
+         userdata.setUserID(getEmail());
+         userdata.setIp(webutil.getClientIpAddr());
+         userdata.setAcctnum(getAcctnum());
+         String msgheader, msg;
+
+         if (userInfoDAO.validateUserID(userdata))
+         {
+            logger.debug("LOG: Validate UserID failed: " + getEmail());
+            msgheader = "signup.U100";
+            msg= webutil.getMessageText().getDisplayMessage(msgheader, "This Email is already registered!", null);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
+         }
+         else
+         {
+            Integer myResetID = webutil.randomGenerator(0, 347896);
+            userdata.setUserInfo(WebConst.ROLE_USER, getAdvisor(), getRep(), myResetID);
+            long loginID = userInfoDAO.addUserInfo(userdata);
+
+            if (loginID <= 0L)
+            {
+               logger.debug("ERROR: Had issue with this userid when attempting to save: " + loginID);
+               msgheader = "signup.U106";
+               msg = webutil.getMessageText().getDisplayMessage(msgheader, "There was some error when attempting to save this userid.  Please reach out to support desk.", null);
+               webutil.redirecttoMessagePage("ERROR", msg, "Failed Signup" + msgheader);
+               webutil.alertSupport("Userbean.saveUser", "Save -" + getEmail(), "Save Registration Error", null);
+            }
+            userdata.setLogonID(loginID);
+            setLogonid(loginID);
+            webutil.sendConfirmation(userdata,"W");
+
+            setDoesUserHavaLogonID(true);
+            return true;
+         }
+         return false;
+      }
+      catch (Exception ex) {
+         String msgheader = "signup.EX.100";
+         String msg= webutil.getMessageText().getDisplayMessage(msgheader, "Exception: Create UserID/Pwd, problem attempting to create simpleuser", null);
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
+         ex.printStackTrace();
+      }
+      return false;
    }
 
    public void setAccountType()
@@ -1457,6 +1510,7 @@ public class CustomerData extends ProfileData
          setNumOfPortfolio(noOfYears);
          buildAssetClass();
          buildPortfolio();
+         buildHistoricalReturns();
       }
       catch (Exception ex)
       {
@@ -1498,6 +1552,11 @@ public class CustomerData extends ProfileData
       }
    }
 
+   public void buildHistoricalReturns() {
+      OptHistoricalReport optHistoricalReport = new OptHistoricalReport();
+      optHistoricalReport.calcuatePerformance(getTheme(), getPortfolioData());
+
+   }
 
 
 }
