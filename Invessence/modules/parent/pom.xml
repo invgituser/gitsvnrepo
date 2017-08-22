@@ -624,7 +624,7 @@
          </properties>
       </profile>
             <profile>
-         <id>ZZ DEPLOY</id>
+         <id>ZZ-DEPLOY</id>
          <properties>
             <!-- Mode PROD -->
             <web.mode>PROD</web.mode>
