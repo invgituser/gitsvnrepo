@@ -26,7 +26,7 @@ public class UserMgmtBean extends TCMCustomer implements Serializable
       }
    }
 
-   private boolean registerUser()
+   public Boolean registerUser()
    {
       try
       {
