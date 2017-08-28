@@ -19,7 +19,14 @@
   <maven.compiler.target>1.7</maven.compiler.target>
    </properties>
 
-   <repositories>
+   <distributionManagement>
+<snapshotRepository>
+   <id>Nexus</id>
+   <url>http://192.168.100.122:8081/nexus/content/repositories/Nexus/</url>
+</snapshotRepository>
+      </distributionManagement>
+
+     <repositories>
       <repository>
          <id>Local Maven Repository</id>
          <url>file://${basedir}/../maven-repository</url>
@@ -658,3 +665,4 @@
       </profile>
    </profiles>
 </project>
+
