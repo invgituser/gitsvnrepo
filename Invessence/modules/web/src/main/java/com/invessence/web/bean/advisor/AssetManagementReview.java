@@ -87,7 +87,7 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
 //         createDynaPerformanceAssetPortfolio(1, riskIndex, "T_2108");
             createDynaPerformanceAssetPortfolio(1, riskIndex, selApprovTheme);
          doPerformanceFinalpage();
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.ASSET,"Hi");
+//            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.ASSET,"Hi");
 //         }
       }
       catch (Exception e)
