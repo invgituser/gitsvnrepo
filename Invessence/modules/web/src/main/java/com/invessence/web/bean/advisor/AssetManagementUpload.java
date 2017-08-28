@@ -212,6 +212,8 @@ public class AssetManagementUpload implements Serializable
    public void onUpdModelChange(){
 
       System.out.println("onUpdModelChange " +getModelID());
+      lstTempList=advisorListDataDAO.collectUploadedAssetTemplateList(getModelID());
+      System.out.println("onModelChange " +lstTempList.size());
       lstFileDtlList=advisorListDataDAO.collectFileTypeList(getModelID());
       System.out.println("onUpdModelChange " +lstFileDtlList.size());
       listValidateTemplate=advisorListDataDAO.collectUpdatedThemeList("Predefined","Validate Success");
