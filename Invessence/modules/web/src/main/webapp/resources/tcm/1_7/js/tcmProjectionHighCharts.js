@@ -14,10 +14,9 @@ $(function ()
         }else if(pageInfo == 'final2'){
             chartValue = document.getElementById('ceForm:performanceChart').value;
         }else if(pageInfo == 'assetReviewPrfm'){
-            chartValue = document.getElementById('idRvwAccord:revwProjForm:projectionChart1').value;
+            chartValue = document.getElementById('rvwMainFrm:idRvwAccord:projectionChart1').value;
         }else if(pageInfo == 'asstRvwPrfm'){
-            chartValue = document.getElementById('idRvwAccord:revwPrfmForm:performanceChart').value;
-
+            chartValue = document.getElementById('rvwMainFrm:idRvwAccord:performanceChart').value;
         }
 
 

@@ -74,6 +74,27 @@ public class AdvisorListSP extends StoredProcedure
             declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
             declareParameter(new SqlParameter("p_crnt_theme", Types.VARCHAR));
             break;
+         case 15:
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            break;
+         case 16:
+            declareParameter(new SqlParameter("p_modelName", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_status", Types.VARCHAR));
+            break;
+         case 17:
+            declareParameter(new SqlParameter("p_modelName", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_templateName", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_operation", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_status", Types.VARCHAR));
+            break;
+         case 18:
+            declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_operation", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_themeRpl", Types.VARCHAR));
+            break;
+         case 19:
+            declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
+            break;
          default:
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             break;
@@ -200,4 +221,51 @@ public class AdvisorListSP extends StoredProcedure
       inputMap.put("p_crnt_theme", themeCrnt);
       return super.execute(inputMap);
    }
+
+   public Map collectTheme(String advisor)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_advisor", advisor);
+      return super.execute(inputMap);
+   }
+
+
+   public Map collectUpdatedTempDtls(String modelName,String status)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_modelName", modelName);
+      inputMap.put("p_status", status);
+
+      return super.execute(inputMap);
+   }
+   public Map updateTemplateStatus(String modelName,String templateName,String operation,String status)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_modelName", modelName);
+      inputMap.put("p_templateName", templateName);
+      inputMap.put("p_operation", operation);
+      inputMap.put("p_status", status);
+      return super.execute(inputMap);
+   }
+
+   public Map assetMgmtDataMove(String theme,String operation,String themeRpl)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_theme", theme);
+      inputMap.put("p_operation", operation);
+      inputMap.put("p_themeRpl", themeRpl);
+
+      return super.execute(inputMap);
+   }
+
+
+   public Map updateTemplateStatus(String theme)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_theme", theme);
+
+      return super.execute(inputMap);
+   }
+
+
 }

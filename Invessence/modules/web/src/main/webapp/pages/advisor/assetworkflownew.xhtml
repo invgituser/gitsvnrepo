@@ -7,7 +7,6 @@
 
     <f:metadata>
         <f:event type="preRenderView" listener="#{investmentmodel.preRenderView}"/>
-        <f:event type="preRenderView" listener="#{asstMgmtRvw.preRenderView}"/>
 
     </f:metadata>
     <ui:define name="content">
@@ -20,6 +19,28 @@
         <h:outputScript name="js/exporting.js" library="tcm"/>
         <h:outputScript name="js/drilldown.js" library="tcm"/>
         <h:outputScript name="js/data.js" library="tcm"/>
+        <script type="text/javascript">
+            function navToUpload()
+            {
+                $('#tab2').click();
+            }
+//            function fnGetRadvalue(v1)
+//            {
+////                alert('Hi');
+////                alert("v1" + v1);
+//                alert("v12" + v1.value);
+//                if(v1.value=='New'){
+//                    $('#updExtForm:templst').hide();
+//                    $('#updExtForm:tempTxt').show();
+//                    alert("11");
+//                }else if(v1.value!='New'){
+//                    $('#updExtForm:templst').show();
+//                    $('#updExtForm:tempTxt').hide();
+//                    alert("22");
+//                }
+//            }
+
+        </script>
         <p:panel id="reviewBlkPanel" rendered="#{investmentmodel.reviewPanel}">
             <div class="reviewBlock">
                 <div class="titleLabelPanel">
@@ -40,7 +61,7 @@
         <main class="customtabs">
 
             <input id="tab1" type="radio" name="tabs" checked="checked"/>
-            <label for="tab1">Download</label>
+            <label for="tab1">Start</label>
 
             <input id="tab2" type="radio" name="tabs"/>
             <label for="tab2">Upload</label>
@@ -51,17 +72,12 @@
             <input id="tab4" type="radio" name="tabs"/>
             <label for="tab4">Review</label>
 
+            <input id="tab5" type="radio" name="tabs"/>
+            <label for="tab5">Approve</label>
 
-            <label class="rollbackbutton">
-                <p:commandButton type="button" icon="fa fa-undo" value="Rollback"
-                                 styleClass="awBtn Wid100"
-                                 actionListener="#{investmentmodel.changeDownloadPanel(true)}">
-                </p:commandButton>
-            </label>
 
             <section id="content1">
                 <div class="Container100 wfMainBlock">
-
                     <p:panel id="dwnlstPanel" rendered="#{investmentmodel.downloadPanel}">
                         <div class="downloadList">
                             <div class="titleLabelPanel">
@@ -77,7 +93,6 @@
                                                    var="downloadlistvar" itemLabel="#{downloadlistvar.key}"
                                                    itemValue="#{downloadlistvar.key}"/>
                                 </p:selectManyMenu>
-
                             </div>
                             <div class="awbtnBlocklist">
                                 <p:commandButton value="Download"
@@ -92,47 +107,25 @@
                         </div>
                     </p:panel>
                     <div class="Wid100 awBlock">
-                        <div class="iconPanel Wid100">
-                            <div class="iconCircle">
-                                <img
-                                        src="/javax.faces.resource/images/awdownload.svg.xhtml?ln=invessence"
-                                        height="40"/>
-                            </div>
-
-                            <div class="tcLabel">Select the template you wish to
-                                download.
-                            </div>
-
-                        </div>
                         <div class="titleContentPanel">
-
                             <div class="contentSecond">
-
                                 <p:accordionPanel styleClass="customAcco">
-                                    <p:tab title="Predefined Allocation Model">
+                                    <p:tab title="Download Predefined Allocation Model">
                                         <h:panelGrid cellpadding="10">
                                             <h:form>
                                                 <div>
-                                                    <p:commandButton value="Security" ajax="false" icon="ui-icon-arrowthick-1-s">
-                                                        <p:fileDownload value="#{AssetManagement.getFile('fixed','security')}"/>
+                                                    <p:commandButton value="Model" ajax="false" icon="ui-icon-arrowthick-1-s">
+                                                        <p:fileDownload value="#{AssetManagement.getFile('fixed','model')}"/>
                                                     </p:commandButton>
-                                                </div>
-                                                <div>
                                                     <p:commandButton value="Asset" ajax="false" icon="ui-icon-arrowthick-1-s">
                                                         <p:fileDownload value="#{AssetManagement.getFile('fixed','asset')}"/>
                                                     </p:commandButton>
-                                                </div>
-                                                <div>
                                                     <p:commandButton value="Subasset" ajax="false" icon="ui-icon-arrowthick-1-s">
                                                         <p:fileDownload value="#{AssetManagement.getFile('fixed','subasset')}"/>
                                                     </p:commandButton>
-                                                </div>
-                                                <div>
                                                     <p:commandButton value="Projection" ajax="false" icon="ui-icon-arrowthick-1-s">
                                                         <p:fileDownload value="#{AssetManagement.getFile('fixed','projection')}"/>
                                                     </p:commandButton>
-                                                </div>
-                                                <div>
                                                     <p:commandButton value="Performance" ajax="false" icon="ui-icon-arrowthick-1-s">
                                                         <p:fileDownload value="#{AssetManagement.getFile('fixed','performance')}"/>
                                                     </p:commandButton>
@@ -141,9 +134,8 @@
                                             </h:form>
                                         </h:panelGrid>
                                     </p:tab>
-                                    <p:tab title="Optimmized Allocation Model">
+                                    <p:tab title="Download Optimized Allocation Model">
                                         <h:panelGrid cellpadding="10">
-
                                             <h:form>
                                                 <p:commandButton value="Download" icon="ui-icon-arrowthick-1-s">
 
@@ -151,25 +143,26 @@
                                             </h:form>
                                         </h:panelGrid>
                                     </p:tab>
-                                    <p:tab title="Skip to upload section">
+                                    <p:tab title="Rollback Model">
                                         <h:panelGrid cellpadding="10">
-
                                             <h:form>
-                                                <p:commandButton value="Download" icon="ui-icon-arrowthick-1-s">
+                                                Drop Down for Template and button for initiate the changes
 
-                                                </p:commandButton>
+                                                <label class="rollbackbutton">
+                                                    <p:commandButton type="button" icon="fa fa-undo" value="Rollback"
+                                                                     styleClass="awBtn Wid100"
+                                                                     actionListener="#{investmentmodel.changeDownloadPanel(true)}">
+                                                    </p:commandButton>
+                                                </label>
                                             </h:form>
                                         </h:panelGrid>
                                     </p:tab>
                                 </p:accordionPanel>
-
-
                             </div>
                         </div>
                         <div class="awbtnBlock">
-                            <p:commandButton type="button" value="Select"
-                                             styleClass="awBtn Wid100"
-                                             actionListener="#{investmentmodel.changeDownloadPanel(true)}">
+                            <p:commandButton type="button" value="Navigate to Upload Section"
+                                             styleClass="awBtn Wid100" onclick="navToUpload()">
                             </p:commandButton>
                         </div>
                     </div>
@@ -193,19 +186,37 @@
 
                             <div class="contentSecond">
 
-                                <p:accordionPanel styleClass="customAcco">
-                                    <p:tab title="Change Existing Template">
-                                        <h:panelGrid cellpadding="10">
-                                            <h:form id="updExtForm">
-                                                <p:outputLabel for="model" value="Model Name : ">
-                                                    <p:selectOneMenu id="model" value="#{AssetManagementUpd.modelID}" style="width:150px">
-                                                        <p:ajax listener="#{AssetManagementUpd.onModelChange}" update="templst,filDtls"
-                                                                event="change"/>
-                                                        <f:selectItem itemLabel="Select Model" itemValue="0" noSelectionOption="true"/>
-                                                        <f:selectItem itemLabel="Predefined" itemValue="Predefined"/>
-                                                        <f:selectItem itemLabel="Optimized" itemValue="Optimized"/>
-                                                    </p:selectOneMenu>
-                                                </p:outputLabel>
+                                <h:panelGrid cellpadding="10">
+                                    <h:form id="updExtForm">
+                                        <div>
+                                            <p:outputLabel for="model" value="Model Name : ">
+                                                <p:selectOneMenu id="model" value="#{AssetManagementUpd.modelID}" style="width:150px">
+                                                    <p:ajax listener="#{AssetManagementUpd.onUpdModelChange}" update="templst,filDtls,rvwMainFrm:model_review"
+                                                            event="change"/>
+                                                    <f:selectItem itemLabel="Select Model" itemValue="0" noSelectionOption="true"/>
+                                                    <f:selectItem itemLabel="Predefined" itemValue="Predefined"/>
+                                                    <f:selectItem itemLabel="Optimized" itemValue="Optimized"/>
+                                                </p:selectOneMenu>
+                                            </p:outputLabel>
+                                            <p:outputLabel for="filDtls" value="File Type : ">
+                                                <p:selectOneMenu id="filDtls" value="#{AssetManagementUpd.fileDtl}" style="width:150px">
+                                                    <p:ajax listener="#{AssetManagementUpd.onUpdModelChange}" event="change"/>
+                                                    <f:selectItem itemLabel="Select File Type" itemValue="0" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{AssetManagementUpd.lstFileDtlList}" var="tmpFlDtl"
+                                                                   itemLabel="#{tmpFlDtl.fileType}" itemValue="#{tmpFlDtl.fileDtl}"/>
+                                                </p:selectOneMenu>
+                                            </p:outputLabel>
+                                        </div>
+                                        <div>
+                                            <p:selectOneRadio id="console" value="#{AssetManagementUpd.templateType}">
+                                                <p:ajax listener="#{AssetManagementUpd.onTemplateTypeChange}" event="change"
+                                                        update=":updExtForm:idTempDdPanel,idTempTxtPanel"/>
+                                                <f:selectItem itemLabel="Existing" itemValue="Existing"/>
+                                                <f:selectItem itemLabel="New" itemValue="New"/>
+                                            </p:selectOneRadio>
+
+                                            <p:outputPanel rendered="#{AssetManagementUpd.displayTempDD}"
+                                                           id="idTempDdPanel">
                                                 <p:outputLabel for="templst" value="Tempalte Name : ">
                                                     <p:selectOneMenu id="templst" value="#{AssetManagementUpd.templateID}" style="width:150px">
                                                         <p:ajax listener="#{AssetManagementUpd.onTemplateChange}" update="updExtForm:tableArea"
@@ -213,92 +224,39 @@
                                                         <f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true"/>
                                                         <f:selectItems value="#{AssetManagementUpd.lstTempList}" var="temp"
                                                                        itemLabel="#{temp.templatename}" itemValue="#{temp.templatename}"/>
-
                                                     </p:selectOneMenu>
                                                 </p:outputLabel>
-                                                <p:outputLabel for="filDtls" value="File Type : ">
-                                                    <p:selectOneMenu id="filDtls" value="#{AssetManagementUpd.fileDtl}" style="width:150px">
-                                                        <p:ajax listener="#{AssetManagementUpd.onModelChange}" event="change"/>
-                                                        <f:selectItem itemLabel="Select File Type" itemValue="0" noSelectionOption="true"/>
-                                                        <f:selectItems value="#{AssetManagementUpd.lstFileDtlList}" var="temp2"
-                                                                       itemLabel="#{temp2.fileType}" itemValue="#{temp2.fileDtl}"/>
-
-                                                    </p:selectOneMenu>
-                                                </p:outputLabel>
-
-
-                                                <p:fileUpload fileUploadListener="#{AssetManagementUpd.handleExistingFileUpload}" mode="advanced"
-                                                              dragDropSupport="false"
-                                                              update="messages,updExtForm:tableArea" sizeLimit="100000" fileLimit="10"
-                                                              allowTypes="/(\.|\/)(csv)$/"/>
-
-                                                <p:growl id="messages" showDetail="true"/>
-
-                                                <p:dataTable var="filelst" value="#{AssetManagementUpd.lstExtFileList}" id="tableArea"
-                                                             style="width:100%;">
-                                                    <p:column headerText="File Name">
-                                                        <h:outputText value="#{filelst.fileName}"/>
-                                                    </p:column>
-                                                    <p:column headerText="File Type">
-                                                        <h:outputText value="#{filelst.fileType}"/>
-                                                    </p:column>
-                                                    <p:column headerText="File Status">
-                                                        <h:outputText value="#{filelst.validation}"/>
-                                                    </p:column>
-                                                </p:dataTable>
-                                            </h:form>
-                                        </h:panelGrid>
-                                    </p:tab>
-                                    <p:tab title="Upload New Template">
-                                        <h:panelGrid cellpadding="10">
-                                            <h:form id="updNewForm">
-                                                <p:outputLabel for="model_new" value="Model Name : ">
-                                                    <p:selectOneMenu id="model_new" value="#{AssetManagementUpd.modelID}" style="width:150px">
-                                                        <p:ajax listener="#{AssetManagementUpd.onModelChange}" update="filDtls_new" event="change"/>
-                                                        <f:selectItem itemLabel="Select Model" itemValue="0" noSelectionOption="true"/>
-                                                        <f:selectItem itemLabel="Predefined" itemValue="Predefined"/>
-                                                        <f:selectItem itemLabel="Optimized" itemValue="Optimized"/>
-                                                    </p:selectOneMenu>
-                                                </p:outputLabel>
-                                                <p:outputLabel for="filDtls_new" value="File Type : ">
-                                                    <p:selectOneMenu id="filDtls_new" value="#{AssetManagementUpd.fileDtl}" style="width:150px">
-                                                        <p:ajax listener="#{AssetManagementUpd.onModelChange}" event="change"/>
-                                                        <f:selectItem itemLabel="Select File Type" itemValue="0" noSelectionOption="true"/>
-                                                        <f:selectItems value="#{AssetManagementUpd.lstFileDtlList}" var="temp2"
-                                                                       itemLabel="#{temp2.fileType}" itemValue="#{temp2.fileDtl}"/>
-
-                                                    </p:selectOneMenu>
-                                                </p:outputLabel>
-                                                <p:outputLabel value="Tempalte Name : ">
-                                                    <p:inputText value="#{AssetManagementUpd.templateName}">
+                                            </p:outputPanel>
+                                            <p:outputPanel rendered="#{AssetManagementUpd.displayTempTxt}"
+                                                           id="idTempTxtPanel">
+                                                <p:outputLabel for="tempTxt" value="Tempalte Name : ">
+                                                    <p:inputText value="#{AssetManagementUpd.templateName}" id="tempTxt">
                                                         <f:ajax event="blur"/>
                                                     </p:inputText>
                                                 </p:outputLabel>
+                                            </p:outputPanel>
+                                        </div>
+                                        <p:fileUpload fileUploadListener="#{AssetManagementUpd.handleExistingFileUpload}" mode="advanced"
+                                                      dragDropSupport="false"
+                                                      update="messages,updExtForm:tableArea" sizeLimit="100000" fileLimit="10"
+                                                      allowTypes="/(\.|\/)(csv)$/"/>
 
+                                        <p:growl id="messages" showDetail="true"/>
 
-                                                <p:fileUpload fileUploadListener="#{AssetManagementUpd.handleFileUpload}" mode="advanced"
-                                                              dragDropSupport="false"
-                                                              update="messages,updNewForm:tableArea" sizeLimit="100000" fileLimit="10"
-                                                              allowTypes="/(\.|\/)(csv)$/"/>
-
-                                                <p:growl id="messages" showDetail="true"/>
-
-                                                <p:dataTable var="filDtls_new" value="#{AssetManagementUpd.lstFileList}" id="tableArea">
-                                                    <p:column headerText="File Name">
-                                                        <h:outputText value="#{filelst.fileName}"/>
-                                                    </p:column>
-                                                    <p:column headerText="File Type">
-                                                        <h:outputText value="#{filelst.fileType}"/>
-                                                    </p:column>
-                                                    <p:column headerText="File Status">
-                                                        <h:outputText value="#{filelst.validation}"/>
-                                                    </p:column>
-
-                                                </p:dataTable>
-                                            </h:form>
-                                        </h:panelGrid>
-                                    </p:tab>
-                                </p:accordionPanel>
+                                        <p:dataTable var="filelst" value="#{AssetManagementUpd.lstExtFileList}" id="tableArea"
+                                                     style="width:100%;">
+                                            <p:column headerText="File Name">
+                                                <h:outputText value="#{filelst.fileName}"/>
+                                            </p:column>
+                                            <p:column headerText="File Type">
+                                                <h:outputText value="#{filelst.fileType}"/>
+                                            </p:column>
+                                            <p:column headerText="File Status">
+                                                <h:outputText value="#{filelst.validation}"/>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </h:form>
+                                </h:panelGrid>
                             </div>
                         </div>
                     </div>
@@ -322,14 +280,6 @@
                         <div class="titleContentPanel">
                             <div class="contentSecond"></div>
                         </div>
-                        <div class="awbtnBlock">
-                            <p:commandButton rendered="false" type="button" value="Review"
-                                             styleClass="awBtn Wid100">
-                            </p:commandButton>
-                            <p:commandButton rendered="false" type="button" value="Next"
-                                             styleClass="awBtn Wid100">
-                            </p:commandButton>
-                        </div>
                         <div>
                             <h:form id="validateForm">
                                 <p:panel rendered="#{AssetManagementUpd.validationStatus}"
@@ -341,7 +291,7 @@
                                 </p:panel>
                                 <p:outputLabel for="model_validate" value="Model Name : ">
                                     <p:selectOneMenu id="model_validate" value="#{AssetManagementUpd.modelID}" style="width:150px">
-                                        <p:ajax listener="#{AssetManagementUpd.onModelChange}" update="templst_validate" event="change"/>
+                                        <p:ajax listener="#{AssetManagementUpd.onModelChange}" update="templst_validate,rvwMainFrm:model_review" event="change"/>
                                         <f:selectItem itemLabel="Select Model" itemValue="0" noSelectionOption="true"/>
                                         <f:selectItem itemLabel="Predefined" itemValue="Predefined"/>
                                         <f:selectItem itemLabel="Optimized" itemValue="Optimized"/>
@@ -352,14 +302,14 @@
                                         <p:ajax listener="#{AssetManagementUpd.onTemplateChange}" update="validateForm:tableArea_validate"
                                                 event="change"/>
                                         <f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true"/>
-                                        <f:selectItems value="#{AssetManagementUpd.lstTempList}" var="temp" itemLabel="#{temp.templatename}"
-                                                       itemValue="#{temp.templatename}"/>
+                                        <f:selectItems value="#{AssetManagementUpd.lstTempList}" var="tmpVldLst" itemLabel="#{tmpVldLst.templatename}"
+                                                       itemValue="#{tmpVldLst.templatename}"/>
 
                                     </p:selectOneMenu>
                                 </p:outputLabel>
                                 <p:commandButton value="Validate"
                                                  styleClass="awBtn Wid100" ajax="true" actionListener="#{AssetManagementUpd.onValidate}"
-                                                 update="@form">
+                                                 update="@form,rvwMainFrm:model_review">
                                 </p:commandButton>
                                 <p:dataTable var="filelst_validate" value="#{AssetManagementUpd.lstExtFileList}" id="tableArea_validate"
                                              style="width:100%;">
@@ -389,464 +339,27 @@
                             </div>
                             <div class="tcLabel">Review</div>
                         </div>
-                        <div class="titleContentPanel">
 
-                            <div class="contentSecond">
+                                <h:form id="rvwMainFrm">
+                                    <p:outputPanel id="rwDynaDD">
+                                    <p:outputLabel for="model_review" value="Template Name : " rendered="true" >
+                                        <p:selectOneMenu id="model_review" value="#{asstMgmtRvw.selApprovTheme}" style="width:150px">
+                                            <p:ajax listener="#{asstMgmtRvw.onRevTempChange}" update="rvwMainFrm:rwDynaPanel"
+                                                    event="change"/>
+                                            <f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true"/>
+                                            <f:selectItems value="#{AssetManagementUpd.listValidateTemplate}" var="tmpRvwLst"
+                                                           itemLabel="#{tmpRvwLst.templatename}"
+                                                           itemValue="#{tmpRvwLst.templatename}"/>
 
-
-                                <div class="tcLabel">
-                                    Thank you for your patience! The files are in order.<br/> Click
-                                    submit to apply changes.
-                                </div>
-                                <p:accordionPanel styleClass="customAcco" id="idRvwAccord">
-                                    <p:tab title="Model Performance">
-                                        <h:panelGrid cellpadding="10">
-
-                                            <h:form id="revwPrfmForm">
-
-                                                <p:outputPanel id="workArea">
-                                                    <p:outputPanel id="reviewArea">
-                                                        <div class="Container100 Responsive100">
-
-                                                            <div class="reviewbarContainer">
-                                                            <div class="Container25 TexAlRight Fs14 uobSliderLabel firstLabel">
-                                                                Conservative
-                                                            </div>
-                                                            <div class="Container50 TexAlCenter Fs20">
-                                                                <h:inputHidden id="allocValue" value="#{asstMgmtRvw.sliderAllocationIndex}"/>
-                                                                <p:slider id="allocSlider" for="allocValue" minValue="0"
-                                                                          maxValue="#{asstMgmtRvw.maxAssetAllocatonPoints}" step="1">
-                                                                    <p:ajax event="slideEnd"
-                                                                            update="@form"
-                                                                            listener="#{asstMgmtRvw.onAllocSlider}"/>
-                                                                </p:slider>
-                                                            </div>
-                                                            <div class="Container25 TexAlLeft Fs14 uobSliderLabel lastLabel">
-                                                                Aggressive
-                                                            </div>
-                                                            </div>
-
-                                                            <div class="Container100 Fleft TexAlCenter"
-                                                                 style="padding: 0px 20px; box-sizing: border-box;">
-                                                                Based on the responses that you have given, we have selected the
-                                                                <strong>#{asstMgmtRvw.fixedModelName}</strong>
-                                                                strategy for you.
-                                                            </div>
-
-
-                                                            <p:panel id="workPanel" styleClass="Container50 Responsive100 Fleft summaryLBlock"
-                                                                     style="border: 0px; background: transparent;">
-
-
-                                                                <p:panel id="tcmFinal" style="border: 0px; background: transparent;">
-
-                                                                    <div class="EmptyBox10 ResEmptyBox10 clearfix"></div>
-                                                                    <div class="Container100 Responsive100">
-                                                                        <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth UI-tcm">
-                                                                            <div class="ContainerIndent">
-                                                                                <div class="EmptyBox5"></div>
-                                                                                <span class="Fs14 DispBlock gray">Investment Risk</span>
-                                    <span class="Fs24 DispBlock red">
-                                    <h:outputText value="#{asstMgmtRvw.totalRisk}">
-                                        <f:convertNumber pattern="##0.00%"/>
-                                    </h:outputText>
-                                   </span>
-
-                                                                                <div class="EmptyBox5"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="Wid10 Fright" style="height:1px;"></div>
-                                                                        <div class="Wid45 BorderedBox Fleft TexAlCenter responsiveFullwidth UI-tcm" style="margin-left: 20px;">
-                                                                            <div class="ContainerIndent">
-                                                                                <div class="EmptyBox5"></div>
-                                                                                <span class="Fs14 DispBlock gray">Expected Return</span>
-                                    <span class="Fs24 DispBlock invessenceblue">
-                                      <h:outputText value="#{asstMgmtRvw.totalExpectedReturns}">
-                                          <f:convertNumber pattern="##0.00%"/>
-                                      </h:outputText>
-                                     </span>
-
-                                                                                <div class="EmptyBox5"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="Container100">
-                                                                        <p:outputPanel deferred="true">
-                                                                            <div class="Container50 Fleft spResPieBlock">
-                                                                                <p:chart id="tcmpnafpiechart" type="pie"
-                                                                                         model="#{asstMgmtRvw.charts.pieChart}"
-                                                                                         style="height: 100%; width: 100%;"
-                                                                                         rendered="#{asstMgmtRvw.charts.pieChart != null}"
-                                                                                         responsive="true"/>
-                                                                            </div>
-                                                                            <div class="Container40 Fright assetAllocationTableMobView spResPieTableBlock">
-                                                                                <p:dataTable id="tcmpnafassettable" styleClass="invAllocTable"
-                                                                                             value="#{asstMgmtRvw.editableAsset}" var="assetList">
-
-                                                                                    <p:column
-                                                                                            style="width: 1%; background-color: #{assetList.color};">
-                                                                                        <h:outputText value=" "/>
-                                                                                    </p:column>
-
-                                                                                    <p:column styleClass="Fs12 TexAlLeft" headerText="Class">
-                                                                                        <h:outputText value="#{assetList.asset}"/>
-                                                                                    </p:column>
-                                                                                    <!--  <p:column priority="3"
-                                                                                                  styleClass="Wid15 Fs14 num-text-align TexAlRight"
-                                                                                                  headerText="Weight">
-                                                                                            <h:outputText value="#{assetList.userEdit}">
-                                                                                                <f:convertNumber pattern="##0%"/>
-                                                                                            </h:outputText>
-                                                                                        </p:column> -->
-                                                                                    <p:column styleClass="Fs12 num-text-align TexAlRight"
-                                                                                              headerText="Value">
-                                                                                        <h:outputText value="#{assetList.value}">
-                                                                                            <f:convertNumber pattern="$#,###,###"/>
-                                                                                        </h:outputText>
-                                                                                    </p:column>
-                                                                                    <p:columnGroup type="footer">
-                                                                                        <p:row>
-                                                                                            <p:column/>
-                                                                                            <p:column styleClass="Fs12 TexAlLeft FontBold"
-                                                                                                      footerText="Total">
-                                                                                            </p:column>
-                                                                                            <p:column styleClass="Fs12 TexAlRight FontBold"
-                                                                                                      footerText="#{dataDisplayConverter.displayAsMoneyRounded(asstMgmtRvw.totalMoneyAllocated)}">
-                                                                                            </p:column>
-                                                                                        </p:row>
-                                                                                    </p:columnGroup>
-                                                                                </p:dataTable>
-                                                                            </div>
-                                                                        </p:outputPanel>
-                                                                    </div>
-                                                                </p:panel>
-                                                            </p:panel>
-                                                            <div id="projectChartArea"
-                                                                 class="Container50 Responsive100 FrightForced performanceChartBlock">
-                                                                <p:outputPanel id="graphArea" style="border: 0px; background: transparent;">
-                                                                    <div class="EmptyBox10 ResEmptyBox10 clearfix"></div>
-                                                                    <script type="text/javascript">
-                                                                        $(document).ready(function ()
-                                                                                          {
-                                                                                              drawProjectionChart("asstRvwPrfm");//pass page info for reuse js method
-                                                                                          });
-                                                                    </script>
-
-                                                                    <div class="Container100">
-                                                                        <div class="Container45 Res100MP TexAlCenter Fleft UI-tcm">
-                                                                            <div class="ContainerIndent">
-                                                                                <div class="EmptyBox5"></div>
-								<span class="Fs14 DispBlock gray">Average Market
-									Performance</span>
-
-                                                                                <div class="EmptyBox5"></div>
-								<span class="Fs17 DispBlock BBGreen"> <h:outputText id="tcmpnafavgperformance"
-                                                                                    value="#{asstMgmtRvw.charts.chartdata.getIntChartData('AvgPerformance')}">
-                                    <f:convertNumber pattern="$#,###,###,##0"/>
-                                </h:outputText>
-								</span>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div
-                                                                                class="Container45 Res100MP FrightForced TexAlCenter UI-tcm MarTopRes">
-                                                                            <div class="ContainerIndent">
-                                                                                <div class="EmptyBox5"></div>
-                                                                                <span class="Fs14 DispBlock gray">Poor Market Performance</span>
-
-                                                                                <div class="EmptyBox5"></div>
-								<span class="Fs17 DispBlock BBGreen"> <h:outputText id="tcmpnafpoorperformance"
-                                                                                    value="#{asstMgmtRvw.charts.chartdata.getIntChartData('PoorPerformance')}">
-                                    <f:convertNumber pattern="$#,###,###,##0"/>
-                                </h:outputText>
-								</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="EmptyBox10"></div>
-
-                                                                    <h:inputHidden value="#{asstMgmtRvw.charts.chartdata.highChartresultSet}"
-                                                                                   id="performanceChart"/>
-
-                                                                    <div id="progressChart1" class="Fright Wid100">
-                                                                        <!-- Performance Chart Zone -->
-                                                                    </div>
-                                                                </p:outputPanel>
-                                                            </div>
-
-                                                        </div>
-                                                    </p:outputPanel>
-
-                                                    <div class="EmptyBox10"></div>
-                                                    <p:fieldset legend="Detail" toggleable="true" toggleSpeed="500">
-                                                        <div class="Container100 Responsive100">
-                                                            <div class="ContainerIndent">
-                                                                <div class="Wid100 Responsive100 Fleft">
-                                                                    <h2 class="Fs20">Portfolio Details</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="Container100">
-                                                            <p:dataTable id="tcmpnafportfoliodetails" var="ticker"
-                                                                         value="#{asstMgmtRvw.displayPortfolioList}">
-
-                                                                <p:column style="width:1%; background-color: #{ticker.color}">
-                                                                    <h:outputText value=" "/>
-                                                                </p:column>
-
-                                                                <p:column priority="4" style="width:14%;"
-                                                                          styleClass="Fs12 TexAlLeft">
-                                                                    <f:facet name="header">
-                                                                        <h:outputText value="Class"/>
-                                                                    </f:facet>
-                                                                    <h:outputText value="#{ticker.assetType}"/>
-                                                                </p:column>
-
-                                                                <p:column style="width:17%;" styleClass="Fs12 TexAlLeft">
-                                                                    <f:facet name="header">
-                                                                        <h:outputText value="Asset"/>
-                                                                    </f:facet>
-                                                                    <h:outputText value="#{ticker.subclass}"/>
-                                                                </p:column>
-
-                                                                <p:column priority="2" style="width:15%;"
-                                                                          styleClass="Fs12 num-text-align TexAlRight">
-                                                                    <f:facet name="header">
-                                                                        <h:outputText value="Allocated"/>
-                                                                    </f:facet>
-                                                                    <h:outputText value="#{ticker.weight}">
-                                                                        <f:convertNumber pattern="##0.00%"/>
-                                                                    </h:outputText>
-                                                                </p:column>
-
-                                                                <p:column style="width:15%;" styleClass="Fs12 TexAlLeft">
-                                                                    <f:facet name="header">
-                                                                        <h:outputText value="Ticker"/>
-                                                                    </f:facet>
-                                                                    <h:outputText value="#{ticker.symbol}"/>
-                                                                </p:column>
-
-                                                                <p:column priority="3" style="width:25%;"
-                                                                          styleClass="Fs12 TexAlLeft">
-                                                                    <f:facet name="header">
-                                                                        <h:outputText value="Name"/>
-                                                                    </f:facet>
-                                                                    <h:outputText value="#{ticker.name}"/>
-                                                                </p:column>
-
-                                                                <p:column style="width:18%;"
-                                                                          styleClass="Fs12 num-text-align TexAlRight">
-                                                                    <f:facet name="header">
-                                                                        <h:outputText value="Value"/>
-                                                                    </f:facet>
-                                                                    <h:outputText value="#{ticker.value}">
-                                                                        <f:convertNumber pattern="$#,###,###"/>
-                                                                    </h:outputText>
-                                                                </p:column>
-
-                                                                <p:columnGroup type="footer">
-                                                                    <p:row>
-                                                                        <p:column/>
-                                                                        <p:column priority="4"/>
-                                                                        <p:column priority="3"/>
-                                                                        <p:column priority="2"/>
-                                                                        <p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
-                                                                                  footerText="Total">
-                                                                        </p:column>
-                                                                        <p:column styleClass="Fs14 TexAlRight FontBold"
-                                                                                  footerText="#{dataDisplayConverter.displayAsMoneyRounded(asstMgmtRvw.totalMoneyAllocated)}">
-                                                                        </p:column>
-                                                                    </p:row>
-                                                                </p:columnGroup>
-                                                            </p:dataTable>
-
-                                                        </div>
-                                                    </p:fieldset>
-
-                                                </p:outputPanel>
-                                            </h:form>
-                                        </h:panelGrid>
-                                    </p:tab>
-                                    <p:tab title="Model Projetion ">
-                                        <h:panelGrid cellpadding="10">
-                                            <h:form id="revwProjForm">
-                                                <div class="Container100 TextAlCenter customRadioBlock">
-
-                                                    <script type="text/javascript">
-                                                        $(document).ready(function ()
-                                                                          {
-                                                                              drawProjectionChart("assetReviewPrfm");//passing page info for reuse js
-                                                                          });
-
-                                                    </script>
-
-                                                    <h3 class="StepsQuestionsFS" style="text-align: justify;">
-                                                        This simulation shows a range of possible outcomes of <b>hypothetical portfolios</b>
-                                                        over your selected time horizon. You can see projected outcomes of five hypothetical
-                                                        portfolios by selecting differing risk levels. <b>Please select a hypothetical portfolio
-                                                        that matches your risk tolerance over time.</b>
-
-                                                    </h3>
-
-                                                    <div class="EmptyBox5"></div>
-
-                                                    <!-- Projection Slab  -->
-                                                    <h:inputHidden id="tcmp5hidden1" value="#{asstMgmtRvw.riskCalculator.ans5}"/>
-
-                                                    <div class="ContainerDropDownSizing">
-                                                        <div class="ContainerPSlab-tcmUI MarAuto Fnone EnableDrodownProjection">
-                                                            <p:selectOneMenu id="tcmp5ddriskcalc" styleClass="formpageDropdown FundAccountDropdownUI"
-                                                                             value="#{asstMgmtRvw.riskCalculator.ans5}" style="width: 100%;">
-                                                                <p:ajax listener="#{asstMgmtRvw.doProjectionChart}" update="@form"
-                                                                />
-                                                                <f:selectItem id="tcmp5selectone" itemLabel="Select One" itemValue=""
-                                                                              noSelectionOption="true"/>
-                                                                <f:selectItem id="tcmp5aggressive" itemLabel="Aggressive (Higher Risk)"
-                                                                              itemValue="5"/>
-                                                                <f:selectItem id="tcmp5maggressive" itemLabel="Moderately Aggressive" itemValue="4"/>
-                                                                <f:selectItem id="tcmp5moderate" itemLabel="Moderate" itemValue="3"/>
-                                                                <f:selectItem id="tcmp5mconservative" itemLabel="Moderately Conservative"
-                                                                              itemValue="2"/>
-                                                                <f:selectItem id="tcmp5conservative" itemLabel="Conservative (Lower Risk)"
-                                                                              itemValue="1"/>
-                                                            </p:selectOneMenu>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="Container70-tcmUI FrightForced">
-                                                        <div class="EmptyBox20"></div>
-                                                        <div class="Container100">
-                                                            <div class="Container45 Res100MP TexAlCenter Fleft UI-tcm">
-                                                                <div class="ContainerIndent">
-                                                                    <div class="EmptyBox5"></div>
-						<span class="Fs14 DispBlock gray">Average Market
-							Performance</span>
-
-                                                                    <div class="EmptyBox5"></div>
-						<span class="Fs17 DispBlock BBGreen"> <h:outputText id="tcmp5avgperformance"
-                                                                            value="#{asstMgmtRvw.charts.chartdata.getIntChartData('AvgPerformance')}">
-                            <f:convertNumber pattern="$#,###,###,##0"/>
-                        </h:outputText>
-						</span>
-                                                                </div>
-                                                            </div>
-
-                                                            <div
-                                                                    class="Container45 Res100MP FrightForced TexAlCenter UI-tcm MarTopRes">
-                                                                <div class="ContainerIndent">
-                                                                    <div class="EmptyBox5"></div>
-                                                                    <span class="Fs14 DispBlock gray">Poor Market Performance</span>
-
-                                                                    <div class="EmptyBox5"></div>
-						<span class="Fs17 DispBlock BBDarkGray"> <h:outputText id="tcmp5poorperformance"
-                                                                               value="#{asstMgmtRvw.charts.chartdata.getIntChartData('PoorPerformance')}">
-                            <f:convertNumber pattern="$#,###,###,##0"/>
-                        </h:outputText>
-						</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="EmptyBox5"></div>
-                                                        <h:inputHidden value="#{asstMgmtRvw.charts.chartdata.highChartresultSet}"
-                                                                       id="projectionChart1"/>
-
-                                                        <div id="progressChart" class="Container100 Fright"></div>
-                                                    </div>
-
-                                                    <div class="Container30-tcmUI Fleft PSlabPadding EnableProjectionSlab">
-                                                        <div class="Container30 Fleft VerticalLine">
-                                                            <div class="FS15">Higher Risk</div>
-                                                            <div class="VerticalTriangleTop MarAuto"></div>
-                                                            <div class="PLine MarAuto"></div>
-                                                            <div class="VerticalTriangleBottom MarAuto"></div>
-                                                            <div class="FS15">Lower Risk</div>
-                                                        </div>
-                                                        <div class="Container70">
-                                                            <div class="EmptyBox5"></div>
-                                                            <p:commandLink id="tcmp5aggbtn" actionListener="#{asstMgmtRvw.setAnswer5(5)}"
-                                                                           process="@this" styleClass="PSlabLink"
-                                                                           update="@form">
-                                                                <p:panel id="tcmp5aggbtnlabel" styleClass="PojectionSlabPanel">
-                                                                    <div class="#{asstMgmtRvw.getAns5Tag2(5)}">
-                                                                        <span class="PSlabLabel">Aggressive</span>
-                                                                    </div>
-                                                                    <div class="#{asstMgmtRvw.getAns5Tag1(5)}"></div>
-                                                                </p:panel>
-                                                            </p:commandLink>
-
-                                                            <div class="EmptyBox5"></div>
-                                                            <p:commandLink id="tcmp5maggbtn" actionListener="#{asstMgmtRvw.setAnswer5(4)}"
-                                                                           process="@this" styleClass="PSlabLink"
-                                                                           update="@form">
-                                                                <p:panel id="tcmp5maggbtnlabel" styleClass="PojectionSlabPanel">
-
-                                                                    <div class="#{asstMgmtRvw.getAns5Tag2(4)}">
-                                                                        <span class="PSlabLabel">Moderately Aggressive</span>
-                                                                    </div>
-                                                                    <div class="#{asstMgmtRvw.getAns5Tag1(4)}"></div>
-                                                                </p:panel>
-                                                            </p:commandLink>
-
-                                                            <div class="EmptyBox5"></div>
-                                                            <p:commandLink id="tcmp5modbtn" actionListener="#{asstMgmtRvw.setAnswer5(3)}"
-                                                                           process="@this" styleClass="PSlabLink"
-                                                                           update="@form">
-                                                                <p:panel id="tcmp5modbtnlabel" styleClass="PojectionSlabPanel">
-
-                                                                    <div class="#{asstMgmtRvw.getAns5Tag2(3)}">
-                                                                        <span class="PSlabLabel">Moderate</span>
-                                                                    </div>
-                                                                    <div class="#{asstMgmtRvw.getAns5Tag1(3)}"></div>
-                                                                </p:panel>
-                                                            </p:commandLink>
-
-                                                            <div class="EmptyBox5"></div>
-                                                            <p:commandLink id="tcmp5mconbtn" actionListener="#{asstMgmtRvw.setAnswer5(2)}"
-                                                                           process="@this" styleClass="PSlabLink"
-                                                                           update="@form">
-                                                                <p:panel id="tcmp5mconbtnlabel" styleClass="PojectionSlabPanel">
-
-                                                                    <div class="#{asstMgmtRvw.getAns5Tag2(2)}">
-                                                                        <span class="PSlabLabel">Moderately Conservative</span>
-                                                                    </div>
-                                                                    <div class="#{asstMgmtRvw.getAns5Tag1(2)}"></div>
-                                                                </p:panel>
-                                                            </p:commandLink>
-
-                                                            <div class="EmptyBox5"></div>
-                                                            <p:commandLink id="tcmp5conbtn" actionListener="#{asstMgmtRvw.setAnswer5(1)}"
-                                                                           process="@this" styleClass="PSlabLink"
-                                                                           update="@form">
-                                                                <p:panel id="tcmp5conbtnlabel" styleClass="PojectionSlabPanel">
-
-                                                                    <div class="#{asstMgmtRvw.getAns5Tag2(1)}">
-                                                                        <span class="PSlabLabel">Conservative</span>
-                                                                    </div>
-                                                                    <div class="#{asstMgmtRvw.getAns5Tag1(1)}"></div>
-                                                                </p:panel>
-                                                            </p:commandLink>
-                                                        </div>
-                                                    </div>
-                                                    <h3 class="StepsQuestionsFS" style="text-align: justify;">
-                                                        A key item to note is your range of outcomes over time and specifically
-                                                        the lower part of the 95% probability range shown as Poor Market Performance.
-                                                        You may also note that with a long enough time horizon, a more aggressive strategy
-                                                        may provide you with better probable outcomes even at the low end of the range
-                                                        (as shown by the Poor Market Performance) than selecting the most conservative strategy. This is because,
-                                                        over longer time periods, the higher expected returns may outpace lower returns even if
-                                                        those higher returns come with more risk.
-                                                    </h3>
-                                                </div>
-                                            </h:form>
-                                        </h:panelGrid>
-                                    </p:tab>
-
-                                </p:accordionPanel>
-
-
-                            </div>
-                        </div>
+                                        </p:selectOneMenu>
+                                    </p:outputLabel>
+                                    </p:outputPanel>
+                                    <p:outputPanel id="rwDynaPanel">
+                                        <ui:fragment rendered="#{asstMgmtRvw.showReviewPan}">
+                                            <ui:include src="/pages/advisor/assetworkflowRew.xhtml"/>
+                                        </ui:fragment>
+                                    </p:outputPanel>
+                                </h:form>
                         <div class="awbtnBlock2">
 
                         </div>
@@ -855,6 +368,53 @@
                         </div>
 
 
+                    </div>
+                </div>
+            </section>
+            <section id="content5">
+                <div class="Container100 wfMainBlock">
+                    <div class="Wid100 awBlock">
+                        <div class="iconPanel Wid100">
+                            <div class="iconCircle">
+                                <img
+                                        src="/javax.faces.resource/images/awvcheck.svg.xhtml?ln=invessence"
+                                        height="40"/>
+                                <img style="display: none;"
+                                     src="/javax.faces.resource/images/validateLoader.gif.xhtml?ln=invessence"
+                                     height="40"/>
+                            </div>
+                            <div class="tcLabel">Approve Check</div>
+
+                        </div>
+                        <div class="titleContentPanel">
+                            <div class="contentSecond"></div>
+                        </div>
+                        <div>
+                            <h:form id="approveForm">
+
+                                <p:outputPanel id="approveArea">
+                                <p:outputLabel for="model_verified" value="Template Name : " rendered="#{!asstMgmtRvw.showApproveTempDD}">
+                                    <p:selectOneMenu id="model_verified" value="#{AssetManagementAppr.apprvTempId}" style="width:150px">
+                                        <f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true"/>
+                                        <f:selectItems value="#{asstMgmtRvw.listApproveTemplate}" var="temp" itemLabel="#{temp.templatename}"
+                                                       itemValue="#{temp.templatename}"/>
+
+                                    </p:selectOneMenu>
+                                </p:outputLabel>
+                                <p:outputLabel for="model_associate" value="Theme Name : ">
+                                    <p:selectOneMenu id="model_associate" value="#{AssetManagementAppr.assocTempId}" style="width:150px">
+                                        <f:selectItem itemLabel="Select Theme" itemValue="0" noSelectionOption="true"/>
+                                        <f:selectItems value="#{asstMgmtRvw.listBasket}" var="basket" itemLabel="#{basket.basket}"
+                                                       itemValue="#{basket.theme}"/>
+                                    </p:selectOneMenu>
+                                </p:outputLabel>
+                                <p:commandButton value="Approve"
+                                                 styleClass="awBtn Wid100" ajax="true" actionListener="#{AssetManagementAppr.onApprove}"
+                                                 update="@form">
+                                </p:commandButton>
+                                </p:outputPanel>
+                            </h:form>
+                        </div>
                     </div>
                 </div>
             </section>

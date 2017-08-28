@@ -13,6 +13,8 @@ public class AssetFileUploadList
    private String validation;
    private String tableName;
    private String fileDtl;
+   private String projApproved;
+   private String perfApproved;
 
 
    public AssetFileUploadList(String templatename,
@@ -21,7 +23,10 @@ public class AssetFileUploadList
                               String fileType,
                               Long advisorid,
                               String validation,
-                              String tableName,String fileDtl)
+                              String tableName,
+                              String fileDtl,
+                              String projApproved,
+                              String perfApproved)
    {
       this.templatename = templatename;
       this.fileName = fileName;
@@ -31,6 +36,8 @@ public class AssetFileUploadList
       this.validation = validation;
       this.tableName=tableName;
       this.fileDtl=fileDtl;
+      this.projApproved=projApproved;
+      this.perfApproved=perfApproved;
    }
 
 
@@ -113,5 +120,25 @@ public class AssetFileUploadList
    public void setFileDtl(String fileDtl)
    {
       this.fileDtl = fileDtl;
+   }
+
+   public String getProjApproved()
+   {
+      return projApproved;
+   }
+
+   public void setProjApproved(String projApproved)
+   {
+      this.projApproved = projApproved;
+   }
+
+   public String getPerfApproved()
+   {
+      return perfApproved;
+   }
+
+   public void setPerfApproved(String perfApproved)
+   {
+      this.perfApproved = perfApproved;
    }
 }

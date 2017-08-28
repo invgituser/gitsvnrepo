@@ -38,6 +38,12 @@ public class AssetManagementUpload implements Serializable
    private AdvisorSaveQuery advisorSaveQuery;
    private boolean validationStatus;
    private String validationError;
+   private String templateType;
+   private boolean displayTempTxt;
+   private boolean displayTempDD;
+   private boolean displayReviewPanel;
+
+   private List<AssetFileUploadList> listValidateTemplate;
 
 
    public void handleFileUpload(FileUploadEvent event)
@@ -83,7 +89,7 @@ public class AssetManagementUpload implements Serializable
          System.out.println("Query String[" + query + "]");
 //Close the input stream
          br.close();
-         data = new AssetFileUploadList(getTemplateName(), getTemplateName(), "predefined", tmp_fileDtl[0], 4l, "","","");
+         data = new AssetFileUploadList(getTemplateName(), getTemplateName(), "predefined", tmp_fileDtl[0], 4l, "","","","","");
          advisorSaveDataDAO.saveUpdFileDtls(data);
          advisorSaveQuery.saveFileData(query);
          lstFileList = advisorListDataDAO.collectUploadedAssetFileList("predefined", getTemplateName(), 4);
@@ -123,9 +129,15 @@ public class AssetManagementUpload implements Serializable
       StringBuilder sb = null;
       AssetFileUploadList data = null;
       String tmp_fileDtl[]=null;
+      String temNm=null;
       try
       {
          System.out.println("File NAme " + event.getFile().getFileName() + " template name " + getTemplateName() + " tempalete id " + getTemplateID());
+            if(getTemplateID()== null ){
+               temNm=getTemplateName();
+            }else{
+               temNm=getTemplateID();
+            }
          tmp_fileDtl=getFileDtl().split("~");
          is = event.getFile().getInputstream();
          br = new BufferedReader(new InputStreamReader(is));
@@ -152,16 +164,16 @@ public class AssetManagementUpload implements Serializable
             i++;
          }
          query = sb.toString() + "]";
-         query = query.replaceAll(strName, getTemplateID());
+         query = query.replaceAll(strName, temNm);
          query = query.replaceAll(",]", ";");
          query = query.replaceAll("' ", "'");
          System.out.println("Query String[" + query + "]");
 //Close the input stream
          br.close();
-         data = new AssetFileUploadList(getTemplateID(),event.getFile().getFileName(), "predefined", tmp_fileDtl[0], 4l, "","","");
+         data = new AssetFileUploadList(temNm,event.getFile().getFileName(), "predefined", tmp_fileDtl[0], 4l, "","","","","");
          advisorSaveDataDAO.saveUpdFileDtls(data);
          advisorSaveQuery.saveFileData(query);
-         lstExtFileList = advisorListDataDAO.collectUploadedAssetFileList("predefined", getTemplateID(), 4);
+         lstExtFileList = advisorListDataDAO.collectUploadedAssetFileList("predefined", temNm, 4);
          FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
          FacesContext.getCurrentInstance().addMessage(null, message);
       }
@@ -190,11 +202,34 @@ public class AssetManagementUpload implements Serializable
    }
    public void onModelChange(){
 
-      System.out.println("Model NAme " +getModelID());
+      System.out.println("onModelChange " +getModelID());
       lstTempList=advisorListDataDAO.collectUploadedAssetTemplateList(getModelID());
-      lstFileDtlList=advisorListDataDAO.collectFileTypeList(getModelID());
-      System.out.println("Model NAme " +lstTempList.size());
+      System.out.println("onModelChange " +lstTempList.size());
+      listValidateTemplate=advisorListDataDAO.collectUpdatedThemeList("Predefined","Validate Success");
+      System.out.println("onModelChange  listValidateTemplate " +listValidateTemplate.size());
 
+   }
+   public void onUpdModelChange(){
+
+      System.out.println("onUpdModelChange " +getModelID());
+      lstFileDtlList=advisorListDataDAO.collectFileTypeList(getModelID());
+      System.out.println("onUpdModelChange " +lstFileDtlList.size());
+      listValidateTemplate=advisorListDataDAO.collectUpdatedThemeList("Predefined","Validate Success");
+      System.out.println("onModelChange  listValidateTemplate " +listValidateTemplate.size());
+
+   }
+   public void onTemplateTypeChange(){
+
+      System.out.println("templateType "+templateType);
+      if(templateType.equalsIgnoreCase("new")){
+         displayTempDD=false;
+         displayTempTxt=true;
+      }else{
+         displayTempDD=true;
+         displayTempTxt=false;
+      }
+      System.out.println("displayTempDD "+displayTempDD);
+      System.out.println("displayTempTxt "+displayTempTxt);
    }
 
    public void onTemplateChange(){
@@ -212,11 +247,16 @@ public class AssetManagementUpload implements Serializable
    public void onValidate(){
 
       System.out.println("Template Id " +getTemplateID());
-       validationError=advisorListDataDAO.validateAssetData("Sagar_212","0.bb");
+       validationError=advisorListDataDAO.validateAssetData(getTemplateID(),"0.bb");
       if(validationError.length()>0){
          validationStatus=true;
       }else{
          validationStatus=true;
+         advisorListDataDAO.copyDataOnValidate(getTemplateID());
+      }
+      listValidateTemplate=advisorListDataDAO.collectUpdatedThemeList("Predefined","Validate Success");
+      if(listValidateTemplate!=null && listValidateTemplate.size()>0){
+         displayReviewPanel=true;
       }
       System.out.println("Model NAme " +lstExtFileList.size());
    }
@@ -350,5 +390,55 @@ public class AssetManagementUpload implements Serializable
    public void setValidationError(String validationError)
    {
       this.validationError = validationError;
+   }
+
+   public String getTemplateType()
+   {
+      return templateType;
+   }
+
+   public void setTemplateType(String templateType)
+   {
+      this.templateType = templateType;
+   }
+
+   public boolean isDisplayTempTxt()
+   {
+      return displayTempTxt;
+   }
+
+   public void setDisplayTempTxt(boolean displayTempTxt)
+   {
+      this.displayTempTxt = displayTempTxt;
+   }
+
+   public boolean isDisplayTempDD()
+   {
+      return displayTempDD;
+   }
+
+   public void setDisplayTempDD(boolean displayTempDD)
+   {
+      this.displayTempDD = displayTempDD;
+   }
+
+   public List<AssetFileUploadList> getListValidateTemplate()
+   {
+      return listValidateTemplate;
+   }
+
+   public void setListValidateTemplate(List<AssetFileUploadList> listValidateTemplate)
+   {
+      this.listValidateTemplate = listValidateTemplate;
+   }
+
+   public boolean isDisplayReviewPanel()
+   {
+      return displayReviewPanel;
+   }
+
+   public void setDisplayReviewPanel(boolean displayReviewPanel)
+   {
+      this.displayReviewPanel = displayReviewPanel;
    }
 }

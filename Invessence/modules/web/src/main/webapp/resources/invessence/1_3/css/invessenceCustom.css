@@ -4528,7 +4528,8 @@ main.customtabs {
 .customtabs #tab1:checked ~ #content1,
 .customtabs #tab2:checked ~ #content2,
 .customtabs #tab3:checked ~ #content3,
-.customtabs #tab4:checked ~ #content4 {
+.customtabs #tab4:checked ~ #content4,
+.customtabs #tab5:checked ~ #content5{
     display: block;
 }
 

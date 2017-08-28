@@ -1522,15 +1522,13 @@ public class CustomerData extends ProfileData
 
       try
       {
-
-               setTheme(Theme);
-
-
+         setTheme(Theme);
          setRiskIndex(riskIndex);
          setNumOfAllocation(noOfYears);
          setNumOfPortfolio(noOfYears);
          buildAssetClass();
          buildPortfolio();
+         buildHistoricalReturns(Theme);
       }
       catch (Exception ex)
       {
@@ -1557,6 +1555,10 @@ public class CustomerData extends ProfileData
       optHistoricalReport.calcuatePerformance(getTheme(), getPortfolioData());
 
    }
+   public void buildHistoricalReturns(String theme) {
+      OptHistoricalReport optHistoricalReport = new OptHistoricalReport();
+      optHistoricalReport.calcuatePerformance(theme, getPortfolioData());
 
+   }
 
 }

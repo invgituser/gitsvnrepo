@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.*;
 
 import javax.faces.bean.*;
+import javax.faces.context.FacesContext;
 
 import com.invessence.web.bean.consumer.tcm.TCMCharts;
 import com.invessence.web.constant.WebConst;
+import com.invessence.web.dao.advisor.AdvisorListDataDAO;
+import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.tcm.TCMCustomer;
 import com.invmodel.inputData.ProfileData;
 import com.invmodel.model.fixedmodel.data.FMData;
@@ -19,7 +22,7 @@ import org.primefaces.event.SlideEndEvent;
 
 @ManagedBean(name = "asstMgmtRvw")
 @SessionScoped
-public class AssetManagementReview  extends TCMCustomer implements Serializable
+public class AssetManagementReview extends TCMCustomer implements Serializable
 {
 
    private TCMCharts charts = new TCMCharts();
@@ -27,6 +30,15 @@ public class AssetManagementReview  extends TCMCustomer implements Serializable
    LinkedHashMap<String, FMData> fmDataMap;
    String newLongDesc;
    private String performanceChart;
+   @ManagedProperty("#{advisorListDataDAO}")
+   private AdvisorListDataDAO advisorListDataDAO;
+   private List<AdvisorBasket> listBasket;
+   private List<AssetFileUploadList> listApproveTemplate,listValidateTemplate;
+   private boolean performanceAproved,showApproveTempDD,projectionAproved;
+   private String selApprovTheme;
+   private boolean showReviewPan;
+
+
    public void preRenderView()
    {
 
@@ -36,7 +48,18 @@ public class AssetManagementReview  extends TCMCustomer implements Serializable
 //         {
 //         }
 
-         riskCalculator.setNumberofQuestions(5);
+         listBasket=advisorListDataDAO.getAdvisorTheme("BB");
+         listValidateTemplate=advisorListDataDAO.collectUpdatedThemeList("Predefined","Validate Success");
+//         selApprovTheme="0.BB";
+//         if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.ASSET)==null ){
+            showReviewPan=true;
+//            if(listValidateTemplate!=null && listValidateTemplate.size()>0)
+//            {
+//               selApprovTheme =listValidateTemplate.get(0).getTemplatename();
+//            }else{
+//               selApprovTheme="0.BB";
+//            }
+            riskCalculator.setNumberofQuestions(3);
 //         whichChart = "pie";
 //         disablegraphtabs = true;
 //         disabledetailtabs = true;
@@ -47,21 +70,25 @@ public class AssetManagementReview  extends TCMCustomer implements Serializable
          resetAdvisor();
          loadBasketInfo();
          riskCalculator.setRiskFormula("C");
-         initialInvestment=100000;
+         initialInvestment = 100000;
 
          onGoalChangeValue("Other");
-         riskCalculator.setRiskAge(20);
+         riskCalculator.setRiskAge(30);
 
 //         riskCalculator.setInvestmentobjective("Retirement");
-         setHorizon(20);
+         setHorizon(30);
          Double riskIndex = riskCalculator.calculateRisk();
-         createDynaAssetPortfolio(20, riskIndex,"0.BB");
+//         createDynaAssetPortfolio(1, riskIndex, "T_2108");
+            createDynaAssetPortfolio(1, riskIndex, selApprovTheme);
          calcProjectionChart();
          doProjectionChart();
 
 
-         createDynaPerformanceAssetPortfolio(20, riskIndex,"0.BB");
+//         createDynaPerformanceAssetPortfolio(1, riskIndex, "T_2108");
+            createDynaPerformanceAssetPortfolio(1, riskIndex, selApprovTheme);
          doPerformanceFinalpage();
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.ASSET,"Hi");
+//         }
       }
       catch (Exception e)
       {
@@ -69,13 +96,27 @@ public class AssetManagementReview  extends TCMCustomer implements Serializable
       }
    }
 
-   public void createDynaPerformanceAssetPortfolio(Integer noOfYears, Double riskIndex,String strTheme)
+   public void onRevTempChange()
+   {
+      if(selApprovTheme!=null && !selApprovTheme.equalsIgnoreCase("0"))
+      {
+         showReviewPan = true;
+         preRenderView();
+      }else{
+         showReviewPan = true;
+      }
+   }
+
+   public void createDynaPerformanceAssetPortfolio(Integer noOfYears, Double riskIndex, String strTheme)
    {
 
       try
       {
          setRiskIndex(riskIndex);
-         super.createAssetPortfolio(noOfYears, riskIndex);
+//         super.createAssetPortfolio(noOfYears, riskIndex);
+         createDynaAssetPortfolio(1, riskIndex, selApprovTheme);
+//         createDynaAssetPortfolio(1, riskIndex, "T_2108");
+
 
          setFixedModelPortfolioList(strTheme);
          setFmDataLinkedHashMap(strTheme);
@@ -95,6 +136,7 @@ public class AssetManagementReview  extends TCMCustomer implements Serializable
          ex.printStackTrace();
       }
    }
+
    private void createCharts()
    {
 
@@ -119,12 +161,13 @@ public class AssetManagementReview  extends TCMCustomer implements Serializable
 
    public void onGoalChangeValue(String strGoal)
    {
-         riskCalculator.setRiskAge(null);
-         riskCalculator.setRetireAge(null);
-         riskCalculator.setRiskHorizon(20);
+      riskCalculator.setRiskAge(null);
+      riskCalculator.setRetireAge(null);
+      riskCalculator.setRiskHorizon(30);
       riskCalculator.setInvestmentobjective(strGoal);
-      setHorizon(20);
+      setHorizon(30);
    }
+
    public void doPerformanceFinalpage()
    {
       if (getFixedModel())
@@ -137,6 +180,7 @@ public class AssetManagementReview  extends TCMCustomer implements Serializable
                                           null);
       }
    }
+
    public void doProjectionChart()
    {
       String event = riskCalculator.getAns5();
@@ -178,8 +222,37 @@ public class AssetManagementReview  extends TCMCustomer implements Serializable
 
       }
       Double riskIndex = riskCalculator.calculateRisk();
-      createDynaAssetPortfolio(20, riskIndex,"0.BB");
+      createDynaAssetPortfolio(1, riskIndex, selApprovTheme);
+//      createProjectionAssetPortfolio(1, riskIndex, "T_2108");
    }
+
+   public void createProjectionAssetPortfolio(Integer noOfYears, Double riskIndex,String Theme)
+   {
+
+      try
+      {
+         setRiskIndex(riskIndex);
+         super.createDynaAssetPortfolio(noOfYears, riskIndex,Theme);
+
+         setFixedModelPortfolioList(Theme);
+         setFmDataLinkedHashMap(Theme);
+         fmDataArrayList = getFixedModelPortfolioList();
+         fmDataMap = getFmDataLinkedHashMap();
+
+         if (getFixedModelName() != null)
+         {
+            setPortfolioName(getFixedModelName());
+            newLongDesc = fmDataMap.get(getPortfolioName()).getDescription();
+
+         }
+         createCharts();
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
 
    public String getAns5Tag1(Integer which)
    {
@@ -202,6 +275,7 @@ public class AssetManagementReview  extends TCMCustomer implements Serializable
          doProjectionChart();
       }
    }
+
    public String getAns5Tag2(Integer which)
    {
       if (which != null)
@@ -222,17 +296,42 @@ public class AssetManagementReview  extends TCMCustomer implements Serializable
       Double riskIndex = riskCalculator.calculateRisk();
       setAllocationIndex(event.getValue());
 //      createAssetPortfolio(1, riskIndex);
-      createDynaPerformanceAssetPortfolio(20, riskIndex,"0.BB");
+      createDynaPerformanceAssetPortfolio(1, riskIndex, selApprovTheme);
+//      createDynaPerformanceAssetPortfolio(1, riskIndex, "T_2108");
+
       if (getFixedModelName() != null)
+      {
          newLongDesc = fmDataMap.get(getFixedModelName()).getDescription();
+      }
       doPerformanceFinalpage();
+   }
+   public void showTemplateForApprove(){
+      System.out.println("In checkbox ");
+      showApproveTempDD=false;
+      System.out.println("performanceAproved "+performanceAproved);
+      System.out.println("projectionAproved "+projectionAproved);
+      System.out.println("Out checkbox ");
+      if(performanceAproved){
+         advisorListDataDAO.updateTemplateStatus("Predefined",selApprovTheme,"projection","Y");
+      }else{
+         advisorListDataDAO.updateTemplateStatus("Predefined",selApprovTheme,"projection","N");
+      }
+
+      if(projectionAproved){
+         advisorListDataDAO.updateTemplateStatus("Predefined",selApprovTheme,"perormance","Y");
+      }else{
+         advisorListDataDAO.updateTemplateStatus("Predefined",selApprovTheme,"perormance","N");
+      }
+
+      listApproveTemplate=advisorListDataDAO.collectUpdatedThemeList("Predefined","Verified");
    }
 
    public void doAllocReset()
    {
       setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
       Double riskIndex = riskCalculator.calculateRisk();
-      createDynaPerformanceAssetPortfolio(20, riskIndex,"0.BB"); // Build default chart for the page...
+      createDynaPerformanceAssetPortfolio(1, riskIndex, selApprovTheme); // Build default chart for the page...
+//      createDynaPerformanceAssetPortfolio(1, riskIndex, "0.BB"); // Build default chart for the page...
       setSliderAllocationIndex(getAllocationIndex());
       doPerformanceFinalpage();
 
@@ -286,5 +385,95 @@ public class AssetManagementReview  extends TCMCustomer implements Serializable
    public void setPerformanceChart(String performanceChart)
    {
       this.performanceChart = performanceChart;
+   }
+
+   public AdvisorListDataDAO getAdvisorListDataDAO()
+   {
+      return advisorListDataDAO;
+   }
+
+   public void setAdvisorListDataDAO(AdvisorListDataDAO advisorListDataDAO)
+   {
+      this.advisorListDataDAO = advisorListDataDAO;
+   }
+
+   public List<AdvisorBasket> getListBasket()
+   {
+      return listBasket;
+   }
+
+   public void setListBasket(List<AdvisorBasket> listBasket)
+   {
+      this.listBasket = listBasket;
+   }
+
+   public boolean isPerformanceAproved()
+   {
+      return performanceAproved;
+   }
+
+   public void setPerformanceAproved(boolean performanceAproved)
+   {
+      this.performanceAproved = performanceAproved;
+   }
+
+   public boolean isShowApproveTempDD()
+   {
+      return showApproveTempDD;
+   }
+
+   public void setShowApproveTempDD(boolean showApproveTempDD)
+   {
+      this.showApproveTempDD = showApproveTempDD;
+   }
+
+   public boolean isProjectionAproved()
+   {
+      return projectionAproved;
+   }
+
+   public void setProjectionAproved(boolean projectionAproved)
+   {
+      this.projectionAproved = projectionAproved;
+   }
+
+   public List<AssetFileUploadList> getListApproveTemplate()
+   {
+      return listApproveTemplate;
+   }
+
+   public void setListApproveTemplate(List<AssetFileUploadList> listApproveTemplate)
+   {
+      this.listApproveTemplate = listApproveTemplate;
+   }
+
+   public List<AssetFileUploadList> getListValidateTemplate()
+   {
+      return listValidateTemplate;
+   }
+
+   public void setListValidateTemplate(List<AssetFileUploadList> listValidateTemplate)
+   {
+      this.listValidateTemplate = listValidateTemplate;
+   }
+
+   public String getSelApprovTheme()
+   {
+      return selApprovTheme;
+   }
+
+   public void setSelApprovTheme(String selApprovTheme)
+   {
+      this.selApprovTheme = selApprovTheme;
+   }
+
+   public boolean isShowReviewPan()
+   {
+      return showReviewPan;
+   }
+
+   public void setShowReviewPan(boolean showReviewPan)
+   {
+      this.showReviewPan = showReviewPan;
    }
 }
