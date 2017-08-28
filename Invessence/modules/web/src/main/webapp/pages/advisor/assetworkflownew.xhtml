@@ -24,21 +24,10 @@
             {
                 $('#tab2').click();
             }
-//            function fnGetRadvalue(v1)
-//            {
-////                alert('Hi');
-////                alert("v1" + v1);
-//                alert("v12" + v1.value);
-//                if(v1.value=='New'){
-//                    $('#updExtForm:templst').hide();
-//                    $('#updExtForm:tempTxt').show();
-//                    alert("11");
-//                }else if(v1.value!='New'){
-//                    $('#updExtForm:templst').show();
-//                    $('#updExtForm:tempTxt').hide();
-//                    alert("22");
-//                }
-//            }
+
+            $(document).ready(function () {
+                  $('.ui-fileupload-cancel').hide();
+          });
 
         </script>
         <p:panel id="reviewBlkPanel" rendered="#{investmentmodel.reviewPanel}">
@@ -191,7 +180,7 @@
                                         <div>
                                             <p:outputLabel for="model" value="Model Name : ">
                                                 <p:selectOneMenu id="model" value="#{AssetManagementUpd.modelID}" style="width:150px">
-                                                    <p:ajax listener="#{AssetManagementUpd.onUpdModelChange}" update="templst,filDtls,rvwMainFrm:model_review"
+                                                    <p:ajax listener="#{AssetManagementUpd.onUpdModelChange}" update="templst,updExtForm:filDtls,rvwMainFrm:model_review"
                                                             event="change"/>
                                                     <f:selectItem itemLabel="Select Model" itemValue="0" noSelectionOption="true"/>
                                                     <f:selectItem itemLabel="Predefined" itemValue="Predefined"/>
@@ -207,17 +196,18 @@
                                                 </p:selectOneMenu>
                                             </p:outputLabel>
                                         </div>
-                                        <div>
-                                            <p:selectOneRadio id="console" value="#{AssetManagementUpd.templateType}">
-                                                <p:ajax listener="#{AssetManagementUpd.onTemplateTypeChange}" event="change"
-                                                        update=":updExtForm:idTempDdPanel,idTempTxtPanel"/>
-                                                <f:selectItem itemLabel="Existing" itemValue="Existing"/>
-                                                <f:selectItem itemLabel="New" itemValue="New"/>
-                                            </p:selectOneRadio>
 
-                                            <p:outputPanel rendered="#{AssetManagementUpd.displayTempDD}"
-                                                           id="idTempDdPanel">
-                                                <p:outputLabel for="templst" value="Tempalte Name : ">
+                                        <div>
+                                            <p:outputLabel for="idTempTypRad" value="Tempalte Type : ">
+                                            <p:selectOneRadio id="idTempTypRad" value="#{AssetManagementUpd.templateType}">
+                                                <p:ajax listener="#{AssetManagementUpd.onTemplateTypeChange}" event="change"
+                                                        update="@form"/>
+                                                <f:selectItem itemLabel="Existing Template" itemValue="Existing"/>
+                                                <f:selectItem itemLabel="New Template" itemValue="New"/>
+                                            </p:selectOneRadio>
+                                            </p:outputLabel>
+
+                                                <p:outputLabel for="templst" value="Tempalte Name : " id="templstDD" rendered="#{AssetManagementUpd.displayTempDD}">
                                                     <p:selectOneMenu id="templst" value="#{AssetManagementUpd.templateID}" style="width:150px">
                                                         <p:ajax listener="#{AssetManagementUpd.onTemplateChange}" update="updExtForm:tableArea"
                                                                 event="change"/>
@@ -226,15 +216,11 @@
                                                                        itemLabel="#{temp.templatename}" itemValue="#{temp.templatename}"/>
                                                     </p:selectOneMenu>
                                                 </p:outputLabel>
-                                            </p:outputPanel>
-                                            <p:outputPanel rendered="#{AssetManagementUpd.displayTempTxt}"
-                                                           id="idTempTxtPanel">
-                                                <p:outputLabel for="tempTxt" value="Tempalte Name : ">
-                                                    <p:inputText value="#{AssetManagementUpd.templateName}" id="tempTxt">
-                                                        <f:ajax event="blur"/>
-                                                    </p:inputText>
-                                                </p:outputLabel>
-                                            </p:outputPanel>
+                                            <p:outputLabel for="tempTxt" value="Tempalte Name : " rendered="#{AssetManagementUpd.displayTempTxt}" id="templstTxt">
+                                                <p:inputText value="#{AssetManagementUpd.templateName}" id="tempTxt">
+                                                    <f:ajax event="blur"/>
+                                                </p:inputText>
+                                            </p:outputLabel>
                                         </div>
                                         <p:fileUpload fileUploadListener="#{AssetManagementUpd.handleExistingFileUpload}" mode="advanced"
                                                       dragDropSupport="false"
