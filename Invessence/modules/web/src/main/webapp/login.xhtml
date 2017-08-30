@@ -53,11 +53,16 @@
                         <div class="EmptyBox10"></div>
                         <div class="Seperator"></div>
                         <div class="EmptyBox10"></div>
+
                         <p:button  value="Forgot Password ?" styleClass="Fs16 RedButton FgtPwdBtn" href="/forgot.xhtml"></p:button>
+
+                        <ui:fragment rendered="#{sessionControl.allowVisitorReg}">
                         <p:button  value="Register"
                                    styleClass="Fs16 OrangeButton uob_button"
                                    href="/signup.xhtml?a=Y"></p:button>
+                        </ui:fragment>
                         <div class="EmptyBox50"></div>
+
                     </h:form>
                 </div>
             </div>

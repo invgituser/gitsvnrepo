@@ -31,6 +31,7 @@ public class SessionController implements Serializable
    private String visitorID;
    private String device;
    private int cstmSessionTimeout;
+   private boolean allowVisitorReg;
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
@@ -481,5 +482,25 @@ public class SessionController implements Serializable
    public void setCstmSessionTimeout(int cstmSessionTimeout)
    {
       this.cstmSessionTimeout = cstmSessionTimeout;
+   }
+
+   public boolean isAllowVisitorReg()
+   {
+      allowVisitorReg = false;
+      if (webutil.getWebprofile().getWebInfo().get("ALLOW_VISITOR_REGISTER") != null)
+      {
+         String allowVisitorRegFlag = webutil.getWebprofile().getWebInfo().get("ALLOW_VISITOR_REGISTER").toString();
+         if (allowVisitorRegFlag.equalsIgnoreCase("Y"))
+         {
+            allowVisitorReg = true;
+         }
+      }
+      System.out.println("allowVisitorReg ~~>" + allowVisitorReg);
+      return allowVisitorReg;
+   }
+
+   public void setAllowVisitorReg(boolean allowVisitorReg)
+   {
+      this.allowVisitorReg = allowVisitorReg;
    }
 }
