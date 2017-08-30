@@ -3439,6 +3439,10 @@ a {
     color: inherit;
 }
 
+.ui-widget-content a{
+    color: #0076c0;
+}
+
 .FullContainer {
     margin: 10px 0px;
 }
@@ -4469,6 +4473,7 @@ span > input {
     line-height: 30px;
     text-align: center;
     margin: 0 auto;
+    color: #0076c0;
 }
 
 .CompBlock p {
