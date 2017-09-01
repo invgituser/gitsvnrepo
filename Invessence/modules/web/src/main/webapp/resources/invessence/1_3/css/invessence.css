@@ -11,6 +11,8 @@
 	color: white;
 	font-size: 14px!important;
 	letter-spacing: 1px;
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
 }
 .selectClientInv {
 	padding: 10px;
