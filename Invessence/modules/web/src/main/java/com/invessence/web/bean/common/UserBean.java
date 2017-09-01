@@ -647,11 +647,12 @@ public class UserBean implements Serializable
                getUserdata().getLogonstatus().startsWith("A")) )
          {
             webutil.redirect("/signup4.xhtml", null);
+            return;
          }
          else
          {
             webutil.redirect("/signup3.xhtml", null);
-         }
+          }
          beanEmail = null;
          beanLogonID = null;
          beanUserID = null;

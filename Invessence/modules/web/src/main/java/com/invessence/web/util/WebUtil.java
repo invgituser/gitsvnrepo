@@ -858,6 +858,7 @@ public class WebUtil implements Serializable
       }
       catch (Exception ex)
       {
+         ex.printStackTrace();
       }
    }
 

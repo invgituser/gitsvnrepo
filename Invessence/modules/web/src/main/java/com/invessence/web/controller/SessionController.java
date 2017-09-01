@@ -395,7 +395,7 @@ public class SessionController implements Serializable
             // System.out.println("Load WEB property for: " + uri);
             loadWebProfile(uri);
             loadAdvisorProfile(webutil.getWebprofile().getDefaultAdvisor());
-            webutil.getWebprofile().finalConfig();
+//            webutil.getWebprofile().finalConfig();
          }
       }
    }
