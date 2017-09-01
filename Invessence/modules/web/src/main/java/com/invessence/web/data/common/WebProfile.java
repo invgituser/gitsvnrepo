@@ -14,7 +14,7 @@ public class WebProfile
    Map<String, String> webInfo;
    Map<String, WebMenu> webmenu;
 
-   String supportInfo;
+   String supportInfo,supportEmailInfo,supportPhoneInfo;
 
 
    public WebProfile()
@@ -409,9 +409,12 @@ public class WebProfile
       String output = null;
       if (supportPhone != null && ! supportPhone.isEmpty()) {
          output = supportPhone;
+         this.supportPhoneInfo=supportPhone;
       }
 
+
       if (supportEmail != null && ! supportEmail.isEmpty()) {
+         this.supportEmailInfo=supportEmail;
          if (output == null) {
             output = supportEmail;
          }
@@ -463,4 +466,23 @@ public class WebProfile
          return 60;
    }
 
+   public String getSupportEmailInfo()
+   {
+      return supportEmailInfo;
+   }
+
+   public void setSupportEmailInfo(String supportEmailInfo)
+   {
+      this.supportEmailInfo = supportEmailInfo;
+   }
+
+   public String getSupportPhoneInfo()
+   {
+      return supportPhoneInfo;
+   }
+
+   public void setSupportPhoneInfo(String supportPhoneInfo)
+   {
+      this.supportPhoneInfo = supportPhoneInfo;
+   }
 }
