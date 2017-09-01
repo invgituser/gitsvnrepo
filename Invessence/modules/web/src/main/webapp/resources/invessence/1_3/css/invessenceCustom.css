@@ -1310,17 +1310,17 @@ Panel-UI > div {
 }
 
 .ui-accordion-header {
-    background-color: #005936 !important;
+    background-color: #a4332f !important;
     text-transform: uppercase !important;
 }
 
 .tcmAccordionPanel-UI > .ui-accordion .ui-state-hover, .ui-accordion .ui-state-active {
-    background-color: #05AF6C !important;
+    background-color: #a4332f !important;
     color: #FFFFFF !important;
 }
 
 .ui-tabs-top .ui-tabs-nav {
-    background: transparent !important;
+    background: #a4332f !important;
 }
 
 .ui-accordion .ui-accordion-header .ui-icon {
@@ -1330,7 +1330,7 @@ Panel-UI > div {
 
 .ui-accordion-content {
     margin-bottom: 15px !important;
-    border-bottom: 1px solid #49B669 !important;
+    border-bottom: 1px solid #D0525D !important;
 }
 
 .MarCenter {
@@ -1444,7 +1444,10 @@ Panel-UI > div {
 
 body {
     background-image: none !important;
-    height: 100vh;
+    min-height:100vh;
+    height:100%;
+    padding-bottom:60px;
+
     /*background: linear-gradient(141deg, rgb(91, 216, 204) 0%, rgb(52, 179, 167) 51%, rgb(53, 119, 113) 75%) !important;*/
     background: #fff !important;
 }
@@ -1526,6 +1529,28 @@ h3 {
 .ResponsiveMarginTop {
     margin-top: 10px;
 }
+
+/**** Setting Page ********/
+.whiteBG >.ui-tabs-nav{
+    background: transparent !important;
+}
+
+
+.closeFTBtn > .fineTuneBtn {left:-23px !important;}
+.ui-tabs-top .ui-tabs-nav li.ui-tabs-selected, .ui-tabs-top .ui-tabs-nav li.ui-tabs-active, .ui-tabs-top .ui-tabs-nav li.ui-state-hover{
+    background-color: #d0d0d0 !important;
+}
+.ui-tabs-top .ui-tabs-nav li a{
+    color:#ffffff !important;
+}
+.ui-tabs-top .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs-top .ui-tabs-nav li.ui-tabs-active a, .ui-tabs-top .ui-tabs-nav li.ui-state-hover a{
+    color:#a4332f !important;
+}
+.whiteBG > .ui-tabs-nav li.ui-tabs-selected a,
+.whiteBG > .ui-tabs-nav li.ui-tabs-active a,
+.whiteBG > .ui-tabs-nav li.ui-state-hover a
+{
+    color: #ffffff !important;}
 
 @media (min-width: 320px) and (max-width: 950px) {
     .Responsive100-tcmUI {
@@ -3116,7 +3141,7 @@ input {
     width: 100%;
     background: #FAFAFA;
     padding: 0px !important;
-    border-left: 4px solid #26a69a !important;
+    border-left: 4px solid #D0525D !important;
     border: 0;
     border-radius: 0;
     box-shadow: 1px 1px 1px rgba(123, 116, 116, 0.14);
@@ -3146,7 +3171,7 @@ input {
 
 .tableCustomSeperater > td {
     height: 2px !important;
-    background: linear-gradient(to right, #307a5d 0%, transparent 98%);
+    background: linear-gradient(to right, #D0525D 0%, transparent 98%);
 }
 
 .acctOverviewLabel {
@@ -3564,7 +3589,7 @@ span > input {
 
 .investNowBtn {
     border: 2px solid #a4332f;
-    margin: -7px 5px;
+    margin: 0px 5px;
     border-radius: 4px;
     padding: 5px 10px;
     background: #a4332f;
@@ -3588,9 +3613,10 @@ span > input {
 }
 
 .finetuneBtnBlock {
-    margin-top: -7px;
-    position: absolute;
-    left: 9%;
+    margin-top: 0px;
+    position: relative;
+    left: 0;
+    float:left !important;
 }
 
 .fineTuneBlock {
@@ -3664,7 +3690,8 @@ span > input {
 .ftBtnLabel {
     font-size: 12px;
     position: relative;
-    left: -23px;
+    left: 0px;
+    text-align:center;
 }
 
 /*risk bar_uob*/
@@ -3873,7 +3900,8 @@ span > input {
 @media (max-width: 1000px) {
     .ftBtnLabel {
         position: relative;
-        left: -9px;
+        left: 0px;
+        text-align: center;
     }
 
     .finetuneBtnBlock > button {
@@ -4168,7 +4196,7 @@ span > input {
 
 .fineTuneBtn {
     width: 60px;
-    left: -25px;
+    left: 0px;
 }
 
 .fineTuneBtn .ui-button-text {
@@ -5594,6 +5622,30 @@ margin-left: 15%;
 
 .reviewbarContainer {padding: 20px 0px; display: block; margin-bottom: 20px;}
 
+
+
+.customtabs label {
+    display: inline-block;
+    margin: 0 0 -1px;
+    padding: 15px 26px 15px 35px;
+    font-weight: 600;
+    text-align: center;
+    color: #bbb;
+    border: 1px solid transparent;
+    position: relative;
+}
+
+input#tab2 + label:after, input#tab3 + label:after, input#tab4 + label:after {
+    position: absolute;
+    content: "";
+    width: 20px;
+    height: 20px;
+    background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Upload_alt_font_awesome.svg/100px-Upload_alt_font_awesome.svg.png);
+    left: 8px;
+    top: 30%;
+    background-position: center center;
+    background-size: contain;
+}
 
 
 
