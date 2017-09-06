@@ -10,9 +10,8 @@
         <div class="contentSecond">
 
 
-            <div class="tcLabel">
-                Thank you for your patience! The files are in order.<br/> Click
-                submit to apply changes.Dyna <h:outputLabel value="#{asstMgmtRvw.selApprovTheme}"/>
+            <div class="tcLabel">Dyna <h:outputLabel value="#{asstMgmtRvw.selApprovTheme}"/>
+
             </div>
             <p:accordionPanel styleClass="customAcco" id="idRvwAccord">
                 <p:tab title="Model Performance">
@@ -43,6 +42,7 @@
                                         <div class="Container25 TexAlLeft Fs14 uobSliderLabel lastLabel">
                                             Aggressive
                                         </div>
+
                                     </div>
 
                                     <div class="Container100 Fleft TexAlCenter"
@@ -339,6 +339,7 @@
                                 </div>
 
 
+
                                 <div class="Container70-tcmUI FrightForced">
                                     <div class="EmptyBox20"></div>
                                     <div class="Container100">
@@ -383,75 +384,19 @@
                                     <div class="Container30 Fleft VerticalLine">
                                         <div class="FS15">Higher Risk</div>
                                         <div class="VerticalTriangleTop MarAuto"></div>
-                                        <div class="PLine MarAuto"></div>
+                                        <div class="PLine MarAuto">
+                                            <h:inputHidden id="allocValue_2" value="#{asstMgmtRvw.sliderPerfAllocIdx}"/>
+                                            <p:slider id="allocSlider_2" for="allocValue_2" minValue="1"
+                                                      maxValue="#{asstMgmtRvw.sliderProjAllocIdx}" step="1" type="vertical">
+                                                <p:ajax event="slideEnd"
+                                                        update="rvwMainFrm:idRvwAccord:prjGraphArea"
+                                                        listener="#{asstMgmtRvw.setPerformAnsw}"/>
+                                            </p:slider>
+                                        </div>
                                         <div class="VerticalTriangleBottom MarAuto"></div>
                                         <div class="FS15">Lower Risk</div>
                                     </div>
-                                    <div class="Container70">
-                                        <div class="EmptyBox5"></div>
-                                        <p:commandLink id="tcmp5aggbtn" actionListener="#{asstMgmtRvw.setAnswer5(5)}"
-                                                       process="@this" styleClass="PSlabLink"
-                                                       update="rvwMainFrm:idRvwAccord:prjGraphArea">
-                                            <p:panel id="tcmp5aggbtnlabel" styleClass="PojectionSlabPanel">
-                                                <div class="#{asstMgmtRvw.getAns5Tag2(5)}">
-                                                    <span class="PSlabLabel">Aggressive</span>
-                                                </div>
-                                                <div class="#{asstMgmtRvw.getAns5Tag1(5)}"></div>
-                                            </p:panel>
-                                        </p:commandLink>
 
-                                        <div class="EmptyBox5"></div>
-                                        <p:commandLink id="tcmp5maggbtn" actionListener="#{asstMgmtRvw.setAnswer5(4)}"
-                                                       process="@this" styleClass="PSlabLink"
-                                                       update="rvwMainFrm:idRvwAccord:prjGraphArea">
-                                            <p:panel id="tcmp5maggbtnlabel" styleClass="PojectionSlabPanel">
-
-                                                <div class="#{asstMgmtRvw.getAns5Tag2(4)}">
-                                                    <span class="PSlabLabel">Moderately Aggressive</span>
-                                                </div>
-                                                <div class="#{asstMgmtRvw.getAns5Tag1(4)}"></div>
-                                            </p:panel>
-                                        </p:commandLink>
-
-                                        <div class="EmptyBox5"></div>
-                                        <p:commandLink id="tcmp5modbtn" actionListener="#{asstMgmtRvw.setAnswer5(3)}"
-                                                       process="@this" styleClass="PSlabLink"
-                                                       update="rvwMainFrm:idRvwAccord:prjGraphArea">
-                                            <p:panel id="tcmp5modbtnlabel" styleClass="PojectionSlabPanel">
-
-                                                <div class="#{asstMgmtRvw.getAns5Tag2(3)}">
-                                                    <span class="PSlabLabel">Moderate</span>
-                                                </div>
-                                                <div class="#{asstMgmtRvw.getAns5Tag1(3)}"></div>
-                                            </p:panel>
-                                        </p:commandLink>
-
-                                        <div class="EmptyBox5"></div>
-                                        <p:commandLink id="tcmp5mconbtn" actionListener="#{asstMgmtRvw.setAnswer5(2)}"
-                                                       process="@this" styleClass="PSlabLink"
-                                                       update="rvwMainFrm:idRvwAccord:prjGraphArea">
-                                            <p:panel id="tcmp5mconbtnlabel" styleClass="PojectionSlabPanel">
-
-                                                <div class="#{asstMgmtRvw.getAns5Tag2(2)}">
-                                                    <span class="PSlabLabel">Moderately Conservative</span>
-                                                </div>
-                                                <div class="#{asstMgmtRvw.getAns5Tag1(2)}"></div>
-                                            </p:panel>
-                                        </p:commandLink>
-
-                                        <div class="EmptyBox5"></div>
-                                        <p:commandLink id="tcmp5conbtn" actionListener="#{asstMgmtRvw.setAnswer5(1)}"
-                                                       process="@this" styleClass="PSlabLink"
-                                                       update="rvwMainFrm:idRvwAccord:prjGraphArea">
-                                            <p:panel id="tcmp5conbtnlabel" styleClass="PojectionSlabPanel">
-
-                                                <div class="#{asstMgmtRvw.getAns5Tag2(1)}">
-                                                    <span class="PSlabLabel">Conservative</span>
-                                                </div>
-                                                <div class="#{asstMgmtRvw.getAns5Tag1(1)}"></div>
-                                            </p:panel>
-                                        </p:commandLink>
-                                    </div>
                                 </div>
                                 <h3 class="StepsQuestionsFS" style="text-align: justify;">
                                     A key item to note is your range of outcomes over time and specifically

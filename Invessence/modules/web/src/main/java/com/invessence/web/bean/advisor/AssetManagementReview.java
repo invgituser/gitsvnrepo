@@ -37,6 +37,8 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
    private boolean performanceAproved,showApproveTempDD,projectionAproved;
    private String selApprovTheme;
    private boolean showReviewPan;
+   private Integer sliderPerfAllocIdx;
+   private Integer sliderProjAllocIdx;
 
 
    public void preRenderView()
@@ -47,6 +49,8 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
 //         if (!FacesContext.getCurrentInstance().isPostback())
 //         {
 //         }
+
+         sliderPerfAllocIdx=0;
 
          listBasket=advisorListDataDAO.getAdvisorTheme("BB");
          listValidateTemplate=advisorListDataDAO.collectUpdatedThemeList("Predefined","Validate Success");
@@ -59,34 +63,52 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
 //            }else{
 //               selApprovTheme="0.BB";
 //            }
-            riskCalculator.setNumberofQuestions(3);
+         System.out.println("riskCalculator.numberofQuestions Start "+riskCalculator.numberofQuestions);
+
 //         whichChart = "pie";
 //         disablegraphtabs = true;
 //         disabledetailtabs = true;
 //         setNewapp("N");
 //         beanAcctnum = null;
-         setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
+         setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
 //         riskCalculator.setInvestmentobjective("Retirement");
+
          resetAdvisor();
-         loadBasketInfo();
+
+//         loadBasketInfo();
+
          riskCalculator.setRiskFormula("C");
+
          initialInvestment = 100000;
 
          onGoalChangeValue("Other");
+
          riskCalculator.setRiskAge(30);
+
 
 //         riskCalculator.setInvestmentobjective("Retirement");
          setHorizon(30);
+
          Double riskIndex = riskCalculator.calculateRisk();
+
 //         createDynaAssetPortfolio(1, riskIndex, "T_2108");
-            createDynaAssetPortfolio(1, riskIndex, selApprovTheme);
+         createDynaAssetPortfolio(1, riskIndex, selApprovTheme);
+
          calcProjectionChart();
-         doProjectionChart();
+         System.out.println("After "+getProjectionDatas().size());
+         sliderProjAllocIdx=getProjectionDatas().size();
+         riskCalculator.setNumberofQuestions(sliderProjAllocIdx);
+
+         setAnswer5(1);
+
+
 
 
 //         createDynaPerformanceAssetPortfolio(1, riskIndex, "T_2108");
             createDynaPerformanceAssetPortfolio(1, riskIndex, selApprovTheme);
+
          doPerformanceFinalpage();
+
 //            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.ASSET,"Hi");
 //         }
       }
@@ -106,6 +128,12 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
          showReviewPan = true;
       }
    }
+
+   public void setPerformAnsw(SlideEndEvent event){
+      setSliderPerfAllocIdx(event.getValue());
+      setAnswer5(getSliderPerfAllocIdx());
+   }
+
 
    public void createDynaPerformanceAssetPortfolio(Integer noOfYears, Double riskIndex, String strTheme)
    {
@@ -328,7 +356,7 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
 
    public void doAllocReset()
    {
-      setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
+      setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
       Double riskIndex = riskCalculator.calculateRisk();
       createDynaPerformanceAssetPortfolio(1, riskIndex, selApprovTheme); // Build default chart for the page...
 //      createDynaPerformanceAssetPortfolio(1, riskIndex, "0.BB"); // Build default chart for the page...
@@ -475,5 +503,25 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
    public void setShowReviewPan(boolean showReviewPan)
    {
       this.showReviewPan = showReviewPan;
+   }
+
+   public Integer getSliderPerfAllocIdx()
+   {
+      return sliderPerfAllocIdx;
+   }
+
+   public void setSliderPerfAllocIdx(Integer sliderPerfAllocIdx)
+   {
+      this.sliderPerfAllocIdx = sliderPerfAllocIdx;
+   }
+
+   public Integer getSliderProjAllocIdx()
+   {
+      return sliderProjAllocIdx;
+   }
+
+   public void setSliderProjAllocIdx(Integer sliderProjAllocIdx)
+   {
+      this.sliderProjAllocIdx = sliderProjAllocIdx;
    }
 }

@@ -10,6 +10,7 @@ import com.invessence.web.dao.advisor.AdvisorListDataDAO;
 import com.invessence.web.dao.advisor.AdvisorSaveDataDAO;
 import com.invessence.web.dao.advisor.AdvisorSaveQuery;
 import com.invessence.web.data.common.AssetFileUploadList;
+import com.invmodel.model.ModelUtil;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -24,7 +25,7 @@ public class AssetManagementUpload implements Serializable
 {
    private String templateName;
    private String templateID;
-   private String modelID;
+   private String modelID,rvwModelId;
    private String fileDtl;
    @ManagedProperty("#{advisorListDataDAO}")
    private AdvisorListDataDAO advisorListDataDAO;
@@ -209,6 +210,17 @@ public class AssetManagementUpload implements Serializable
       System.out.println("onModelChange  listValidateTemplate " +listValidateTemplate.size());
 
    }
+
+   public void onRvwModelChange(){
+
+      System.out.println("onRvwModelChange " +getModelID());
+      lstTempList=advisorListDataDAO.collectUploadedAssetTemplateList(getModelID());
+      System.out.println("onRvwModelChange " +lstTempList.size());
+      listValidateTemplate=advisorListDataDAO.collectUpdatedThemeList("Predefined","Validate Success");
+      System.out.println("onRvwModelChange  listValidateTemplate " +listValidateTemplate.size());
+
+   }
+
    public void onUpdModelChange(){
 
       System.out.println("onUpdModelChange " +getModelID());
@@ -259,6 +271,8 @@ public class AssetManagementUpload implements Serializable
       listValidateTemplate=advisorListDataDAO.collectUpdatedThemeList("Predefined","Validate Success");
       if(listValidateTemplate!=null && listValidateTemplate.size()>0){
          displayReviewPanel=true;
+         ModelUtil objModelUtil=new ModelUtil();
+         objModelUtil.refreshData();
       }
       System.out.println("Model NAme " +lstExtFileList.size());
    }
@@ -442,5 +456,15 @@ public class AssetManagementUpload implements Serializable
    public void setDisplayReviewPanel(boolean displayReviewPanel)
    {
       this.displayReviewPanel = displayReviewPanel;
+   }
+
+   public String getRvwModelId()
+   {
+      return rvwModelId;
+   }
+
+   public void setRvwModelId(String rvwModelId)
+   {
+      this.rvwModelId = rvwModelId;
    }
 }

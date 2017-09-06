@@ -28,6 +28,7 @@
             $(document).ready(function () {
                   $('.ui-fileupload-cancel').hide();
           });
+            $('.ui-fileupload-upload').onclick
 
         </script>
         <p:panel id="reviewBlkPanel" rendered="#{investmentmodel.reviewPanel}">
@@ -67,34 +68,6 @@
 
             <section id="content1">
                 <div class="Container100 wfMainBlock">
-                    <p:panel id="dwnlstPanel" rendered="#{investmentmodel.downloadPanel}">
-                        <div class="downloadList">
-                            <div class="titleLabelPanel">
-                                <div class="tLabel">#{investmentmodel.whichModel} Model
-                                </div>
-                            </div>
-                            <div class="contentSecond TexAlCenter">
-                                Please select the templates to download.
-                                <p:selectManyMenu id="downloadfileID"
-                                                  value="#{investmentmodel.selecteddownloadfiles}"
-                                                  showCheckbox="true">
-                                    <f:selectItems value="#{investmentmodel.downloadlist.entrySet()}"
-                                                   var="downloadlistvar" itemLabel="#{downloadlistvar.key}"
-                                                   itemValue="#{downloadlistvar.key}"/>
-                                </p:selectManyMenu>
-                            </div>
-                            <div class="awbtnBlocklist">
-                                <p:commandButton value="Download"
-                                                 actionListener="#{investmentmodel.downloadfile()}"
-                                                 styleClass="awBtn Wid80">
-                                </p:commandButton>
-                                <p:commandButton type="button" icon="fa fa-close"
-                                                 styleClass="awCloseBtn"
-                                                 actionListener="#{investmentmodel.changeDownloadPanel(false)}">
-                                </p:commandButton>
-                            </div>
-                        </div>
-                    </p:panel>
                     <div class="Wid100 awBlock">
                         <div class="titleContentPanel">
                             <div class="contentSecond">
@@ -119,15 +92,13 @@
                                                         <p:fileDownload value="#{AssetManagement.getFile('fixed','performance')}"/>
                                                     </p:commandButton>
                                                 </div>
-
                                             </h:form>
                                         </h:panelGrid>
                                     </p:tab>
                                     <p:tab title="Download Optimized Allocation Model">
                                         <h:panelGrid cellpadding="10">
                                             <h:form>
-                                                <p:commandButton value="Download" icon="ui-icon-arrowthick-1-s">
-
+                                                <p:commandButton value="Download" icon="ui-icon-arrowthick-1-s" type="button" styleClass="awBtn Wid100">
                                                 </p:commandButton>
                                             </h:form>
                                         </h:panelGrid>
@@ -135,8 +106,21 @@
                                     <p:tab title="Rollback Model">
                                         <h:panelGrid cellpadding="10">
                                             <h:form>
-                                                Drop Down for Template and button for initiate the changes
+                                                <p:outputLabel for="rbk_temp" value="Template Name : " rendered="#{!asstMgmtRvw.showApproveTempDD}">
+                                                    <p:selectOneMenu id="rbk_temp" value="#{AssetManagementAppr.apprvTempId}" style="width:150px">
+                                                        <f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true"/>
+                                                        <f:selectItems value="#{asstMgmtRvw.listApproveTemplate}" var="temp" itemLabel="#{temp.templatename}"
+                                                                       itemValue="#{temp.templatename}"/>
 
+                                                    </p:selectOneMenu>
+                                                </p:outputLabel>
+                                                <p:outputLabel for="rbk_model" value="Theme Name : ">
+                                                    <p:selectOneMenu id="rbk_model" value="#{AssetManagementAppr.assocTempId}" style="width:150px">
+                                                        <f:selectItem itemLabel="Select Theme" itemValue="0" noSelectionOption="true"/>
+                                                        <f:selectItems value="#{asstMgmtRvw.listBasket}" var="basket" itemLabel="#{basket.basket}"
+                                                                       itemValue="#{basket.theme}"/>
+                                                    </p:selectOneMenu>
+                                                </p:outputLabel>
                                                 <label class="rollbackbutton">
                                                     <p:commandButton type="button" icon="fa fa-undo" value="Rollback"
                                                                      styleClass="awBtn Wid100"
@@ -150,7 +134,7 @@
                             </div>
                         </div>
                         <div class="awbtnBlock">
-                            <p:commandButton type="button" value="Navigate to Upload Section"
+                            <p:commandButton type="button" value="Next"
                                              styleClass="awBtn Wid100" onclick="navToUpload()">
                             </p:commandButton>
                         </div>
@@ -161,16 +145,6 @@
             <section id="content2">
                 <div class="Container100 wfMainBlock">
                     <div class="Wid100 awBlock">
-                        <div class="iconPanel Wid100">
-                            <div class="iconCircle">
-                                <img
-                                        src="/javax.faces.resource/images/awupload.svg.xhtml?ln=invessence"
-                                        height="40"/>
-
-
-                            </div>
-                            <div class="tcLabel">Select the files to upload.</div>
-                        </div>
                         <div class="titleContentPanel">
 
                             <div class="contentSecond">
@@ -237,9 +211,6 @@
                                             <p:column headerText="File Type">
                                                 <h:outputText value="#{filelst.fileType}"/>
                                             </p:column>
-                                            <p:column headerText="File Status">
-                                                <h:outputText value="#{filelst.validation}"/>
-                                            </p:column>
                                         </p:dataTable>
                                     </h:form>
                                 </h:panelGrid>
@@ -252,20 +223,6 @@
             <section id="content3">
                 <div class="Container100 wfMainBlock">
                     <div class="Wid100 awBlock">
-                        <div class="iconPanel Wid100">
-                            <div class="iconCircle">
-                                <img
-                                        src="/javax.faces.resource/images/awvcheck.svg.xhtml?ln=invessence"
-                                        height="40"/>
-                                <img style="display: none;"
-                                     src="/javax.faces.resource/images/validateLoader.gif.xhtml?ln=invessence"
-                                     height="40"/>
-                            </div>
-                            <div class="tcLabel">Validation Check</div>
-                        </div>
-                        <div class="titleContentPanel">
-                            <div class="contentSecond"></div>
-                        </div>
                         <div>
                             <h:form id="validateForm">
                                 <p:panel rendered="#{AssetManagementUpd.validationStatus}"
@@ -315,19 +272,17 @@
             <section id="content4">
                 <div class="Container100 wfMainBlock">
                     <div class="Wid100 awBlock">
-                        <div class="iconPanel Wid100">
-                            <div class="iconCircle">
-                                <img
-                                        src="/javax.faces.resource/images/awsuccess.svg.xhtml?ln=invessence"
-                                        height="40"/>
-
-
-                            </div>
-                            <div class="tcLabel">Review</div>
-                        </div>
 
                                 <h:form id="rvwMainFrm">
                                     <p:outputPanel id="rwDynaDD">
+                                        <p:outputLabel for="rvw_modelTyp" value="Model Name : ">
+                                            <p:selectOneMenu id="rvw_modelTyp" value="#{AssetManagementUpd.rvwModelId}" style="width:150px">
+                                                <p:ajax listener="#{AssetManagementUpd.onRvwModelChange}" update="model_review" event="change"/>
+                                                <f:selectItem itemLabel="Select Model" itemValue="0" noSelectionOption="true"/>
+                                                <f:selectItem itemLabel="Predefined" itemValue="Predefined"/>
+                                                <f:selectItem itemLabel="Optimized" itemValue="Optimized"/>
+                                            </p:selectOneMenu>
+                                        </p:outputLabel>
                                     <p:outputLabel for="model_review" value="Template Name : " rendered="true" >
                                         <p:selectOneMenu id="model_review" value="#{asstMgmtRvw.selApprovTheme}" style="width:150px">
                                             <p:ajax listener="#{asstMgmtRvw.onRevTempChange}" update="rvwMainFrm:rwDynaPanel"
@@ -360,21 +315,6 @@
             <section id="content5">
                 <div class="Container100 wfMainBlock">
                     <div class="Wid100 awBlock">
-                        <div class="iconPanel Wid100">
-                            <div class="iconCircle">
-                                <img
-                                        src="/javax.faces.resource/images/awvcheck.svg.xhtml?ln=invessence"
-                                        height="40"/>
-                                <img style="display: none;"
-                                     src="/javax.faces.resource/images/validateLoader.gif.xhtml?ln=invessence"
-                                     height="40"/>
-                            </div>
-                            <div class="tcLabel">Approve Check</div>
-
-                        </div>
-                        <div class="titleContentPanel">
-                            <div class="contentSecond"></div>
-                        </div>
                         <div>
                             <h:form id="approveForm">
 
