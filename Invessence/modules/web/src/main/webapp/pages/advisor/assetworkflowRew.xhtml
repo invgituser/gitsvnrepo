@@ -24,8 +24,14 @@
                                             itemLabel="Performance Data Approved">
                                         <p:ajax
                                                 update="approveForm:approveArea"
-                                                listener="${asstMgmtRvw.showTemplateForApprove}"/>
+                                                listener="${asstMgmtRvw.getApproveStatus}"/>
                                     </p:selectBooleanCheckbox>
+                                    <label class="rollbackbutton">
+                                        <p:commandButton type="button" icon="fa fa-undo" value="Approve"
+                                                         styleClass="awBtn Wid100"
+                                                         actionListener="#{asstMgmtRvw.showTemplateForApprove}">
+                                        </p:commandButton>
+                                    </label>
                                     <div class="reviewbarContainer">
                                         <div class="Container25 TexAlRight Fs14 uobSliderLabel firstLabel">
                                             Conservative
@@ -293,8 +299,15 @@
                                     itemLabel="Performance Data Approved">
                                 <p:ajax
                                         update="approveForm:approveArea"
-                                        listener="${asstMgmtRvw.showTemplateForApprove}"/>
+                                        listener="${asstMgmtRvw.getApproveStatus}"/>
                             </p:selectBooleanCheckbox>
+
+                            <label class="rollbackbutton">
+                                <p:commandButton type="button" icon="fa fa-undo" value="Approve"
+                                                 styleClass="awBtn Wid100"
+                                                 actionListener="#{asstMgmtRvw.showTemplateForApprove}">
+                                </p:commandButton>
+                            </label>
                             <div class="Container100 TextAlCenter customRadioBlock">
 
                                 <script type="text/javascript">
