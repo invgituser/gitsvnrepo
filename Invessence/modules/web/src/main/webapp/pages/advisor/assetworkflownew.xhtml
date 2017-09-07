@@ -67,7 +67,7 @@
 
 
             <section id="content1">
-                <div class="Container100 wfMainBlock">
+                <div class="Container100 wfMainBlock bgcontain">
                     <div class="Wid100 awBlock">
                         <div class="titleContentPanel">
                             <div class="contentSecond">
@@ -107,7 +107,7 @@
                                         <h:panelGrid cellpadding="10">
                                             <h:form>
                                                 <p:outputLabel for="rbk_temp" value="Template Name : " rendered="#{!asstMgmtRvw.showApproveTempDD}">
-                                                    <p:selectOneMenu id="rbk_temp" value="#{AssetManagementAppr.apprvTempId}" style="width:150px">
+                                                    <p:selectOneMenu id="rbk_temp" value="#{AssetManagementAppr.apprvTempId}" >
                                                         <f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true"/>
                                                         <f:selectItems value="#{asstMgmtRvw.listApproveTemplate}" var="temp" itemLabel="#{temp.templatename}"
                                                                        itemValue="#{temp.templatename}"/>
@@ -134,22 +134,24 @@
                             </div>
                         </div>
                         <div class="awbtnBlock">
-                            <p:commandButton type="button" value="Next"
-                                             styleClass="awBtn Wid100" onclick="navToUpload()">
-                            </p:commandButton>
+                            <label class="rollbackbutton">
+                                <p:commandButton type="button" value="Next"
+                                                 styleClass="awBtn Wid100" onclick="navToUpload()">
+                                </p:commandButton>
+                            </label>
                         </div>
                     </div>
                 </div>
             </section>
 
             <section id="content2">
-                <div class="Container100 wfMainBlock">
+                <div class="Container100 wfMainBlock bgcontain">
                     <div class="Wid100 awBlock">
                         <div class="titleContentPanel">
 
                             <div class="contentSecond">
 
-                                <h:panelGrid cellpadding="10">
+                                <h:panelGrid cellpadding="10" style="width:100%">
                                     <h:form id="updExtForm">
                                         <div>
                                             <p:outputLabel for="model" value="Model Name : ">
@@ -171,7 +173,7 @@
                                             </p:outputLabel>
                                         </div>
 
-                                        <div>
+                                        <div class="uploadradiobutton">
                                             <p:outputLabel for="idTempTypRad" value="Tempalte Type : ">
                                             <p:selectOneRadio id="idTempTypRad" value="#{AssetManagementUpd.templateType}">
                                                 <p:ajax listener="#{AssetManagementUpd.onTemplateTypeChange}" event="change"
@@ -196,15 +198,15 @@
                                                 </p:inputText>
                                             </p:outputLabel>
                                         </div>
+                                        <div class="uploadbuttons">
                                         <p:fileUpload fileUploadListener="#{AssetManagementUpd.handleExistingFileUpload}" mode="advanced"
                                                       dragDropSupport="false"
                                                       update="messages,updExtForm:tableArea" sizeLimit="100000" fileLimit="10"
-                                                      allowTypes="/(\.|\/)(csv)$/"/>
-
+                                                      allowTypes="/(\.|\/)(csv)$/" />
+                                        </div>
                                         <p:growl id="messages" showDetail="true"/>
-
-                                        <p:dataTable var="filelst" value="#{AssetManagementUpd.lstExtFileList}" id="tableArea"
-                                                     style="width:100%;">
+                                        <div class="uploadtable">
+                                        <p:dataTable var="filelst" value="#{AssetManagementUpd.lstExtFileList}" id="tableArea">
                                             <p:column headerText="File Name">
                                                 <h:outputText value="#{filelst.fileName}"/>
                                             </p:column>
@@ -212,6 +214,7 @@
                                                 <h:outputText value="#{filelst.fileType}"/>
                                             </p:column>
                                         </p:dataTable>
+                                        </div>
                                     </h:form>
                                 </h:panelGrid>
                             </div>
@@ -221,7 +224,7 @@
             </section>
 
             <section id="content3">
-                <div class="Container100 wfMainBlock">
+                <div class="Container100 wfMainBlock bgcontain">
                     <div class="Wid100 awBlock">
                         <div>
                             <h:form id="validateForm">
@@ -250,12 +253,15 @@
 
                                     </p:selectOneMenu>
                                 </p:outputLabel>
-                                <p:commandButton value="Validate"
-                                                 styleClass="awBtn Wid100" ajax="true" actionListener="#{AssetManagementUpd.onValidate}"
-                                                 update="@form,rvwMainFrm:model_review">
-                                </p:commandButton>
-                                <p:dataTable var="filelst_validate" value="#{AssetManagementUpd.lstExtFileList}" id="tableArea_validate"
-                                             style="width:100%;">
+
+                                <label class="rollbackbutton">
+                                    <p:commandButton value="Validate"
+                                                     styleClass="awBtn Wid100" ajax="true" actionListener="#{AssetManagementUpd.onValidate}"
+                                                     update="@form,rvwMainFrm:model_review">
+                                    </p:commandButton>
+                                </label>
+                                <div class="validtable">
+                                <p:dataTable var="filelst_validate" value="#{AssetManagementUpd.lstExtFileList}" id="tableArea_validate">
                                     <p:column headerText="File Name">
                                         <h:outputText value="#{filelst_validate.fileName}"/>
                                     </p:column>
@@ -263,6 +269,7 @@
                                         <h:outputText value="#{filelst_validate.fileType}"/>
                                     </p:column>
                                 </p:dataTable>
+                                </div>
                             </h:form>
                         </div>
                     </div>
@@ -270,7 +277,7 @@
             </section>
 
             <section id="content4">
-                <div class="Container100 wfMainBlock">
+                <div class="Container100 wfMainBlock bgcontain">
                     <div class="Wid100 awBlock">
 
                                 <h:form id="rvwMainFrm">
@@ -313,7 +320,7 @@
                 </div>
             </section>
             <section id="content5">
-                <div class="Container100 wfMainBlock">
+                <div class="Container100 wfMainBlock bgcontain">
                     <div class="Wid100 awBlock">
                         <div>
                             <h:form id="approveForm">
@@ -334,10 +341,13 @@
                                                        itemValue="#{basket.theme}"/>
                                     </p:selectOneMenu>
                                 </p:outputLabel>
+
+                                    <label class="rollbackbutton">
                                 <p:commandButton value="Approve"
                                                  styleClass="awBtn Wid100" ajax="true" actionListener="#{AssetManagementAppr.onApprove}"
                                                  update="@form">
                                 </p:commandButton>
+                                    </label>
                                 </p:outputPanel>
                             </h:form>
                         </div>
