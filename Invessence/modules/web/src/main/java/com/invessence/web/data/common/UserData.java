@@ -575,8 +575,8 @@ public class UserData
          setResetID(newresetID.toString());
       }
 
-      setIp(null);
-      setCid(null);
+//      setIp(null);
+//      setCid(null);
       setAdvisor(advisor);
       setRep(rep);
    }
