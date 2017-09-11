@@ -1644,3 +1644,127 @@ thead > tr > .multipleSelectionChkList > .ui-chkbox > .ui-chkbox-box {
 .innercdb  .ui-dialog-titlebar-icon {
 	display:none;
 }
+
+main.customtabs {
+	min-width: 320px;
+	max-width: 100%;
+	padding: 50px 0px;
+	/* margin: 0 auto; */
+	background: #fff;
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+.customtabs section {
+	display: none;
+	padding: 20px 0 0;
+	border-top: 1px solid #ddd;
+}
+
+.customtabs input {
+	display: none;
+}
+
+.customtabs label {
+	display: inline-block;
+	margin: 0 0 -1px;
+	padding: 15px 25px;
+	font-weight: 600;
+	text-align: center;
+	color: #bbb;
+	border: 1px solid transparent;
+}
+
+.customtabs label:before {
+	font-family: fontawesome;
+	font-weight: normal;
+	margin-right: 10px;
+}
+
+/*.customtabs label[for*='1']:before { content: '\f1cb'; }
+.customtabs label[for*='2']:before { content: '\f17d'; }
+.customtabs label[for*='3']:before { content: '\f16b'; }
+.customtabs label[for*='4']:before { content: '\f1a9'; }*/
+
+.customtabs label:hover {
+	color: #888;
+	cursor: pointer;
+}
+
+.customtabs input:checked + label {
+	color: #555;
+	border: 1px solid #ddd;
+	border-top: 2px solid #d0525d;
+	border-bottom: 1px solid #fff;
+}
+
+
+.customtabs #tab1:checked ~ #content1,
+.customtabs #tab2:checked ~ #content2,
+.customtabs #tab3:checked ~ #content3,
+.customtabs #tab4:checked ~ #content4,
+.customtabs #tab5:checked ~ #content5{
+	display: block;
+}
+
+.bgcontain{
+	padding:10px 10px 10px 10px !important;
+}
+
+
+
+.ui-selectonemenu {
+	float:right !important;
+	margin-top:-6px !important;
+	width:170px !important;
+	margin-left:5px !important;
+}
+
+.ui-selectoneradio{
+	float:right !important;
+	margin: -17px 0 0 5px !important;
+}
+
+.uploadbuttons .ui-fileupload .ui-fileupload-buttonbar button.ui-fileupload-cancel{
+	display: none !important;
+}
+.uploadtable, .validtable{
+	width:100% !important;
+	position: relative !important;
+	text-align: center !important;
+	margin: 0 auto !important;
+	float: left !important;
+	display: block !important;
+}
+.uploadtable .ui-datatable, .validtable .ui-datatable{
+	width:100% !important;
+	margin: 0 auto !important;
+	max-width: 900px !important;
+}
+
+.uploadradiobutton .ui-outputlabel table.ui-selectoneradio tbody tr td label{
+	padding:15px 26px 15px 0px !important;
+}
+
+.uploadradiobutton label input{
+	float:right;
+	margin-top: -7px !important;
+}
+
+.ui-slider-vertical{
+	height:94% !important;
+	margin-top:0px !important;
+}
+
+.ui-slider-vertical .ui-slider-handle{
+	left:-13px !important;
+}
+
+.ui-slider-vertical{
+	background: none !important;
+}
+.rollbackbutton {
+	padding: 0 !important;
+	float: right !important;
+}

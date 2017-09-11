@@ -4612,6 +4612,41 @@ width:100% !important;
     height:94% !important;
     margin-top:0px !important;
 }
+
+.ui-slider-vertical .ui-slider-handle{
+    left:-13px !important;
+}
+
+.ui-slider-vertical{
+    background: none !important;
+}
+
+.goalselectinvest {
+    width: 100% !important;
+    position: relative !important;
+    float: left !important;
+    margin:0 !important;
+}
+/*#ceForm:rTabView:uobddrcalc,#ceForm:rTabView:uobddsoi{
+    margin: 0 !important;
+    float: left !important;
+}
+
+#uobddrcalc,#uobddsoi{
+    margin: 0 !important;
+    float: left !important;
+}*/
+
+.Wid100{
+    position:relative;
+    float: left;
+
+}
+
+.Goalchoose,.dependentsradio{
+    margin: 0 !important;
+    float: left !important;
+}
 @media screen and (max-width: 650px) {
     .customtabs label {
         font-size: 0;
