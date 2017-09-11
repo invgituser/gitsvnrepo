@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.faces.bean.*;
 
 import com.invessence.web.dao.advisor.AdvisorListDataDAO;
+import com.invmodel.model.ModelUtil;
 
 /**
  * Created by sagar on 8/22/2017.
@@ -16,6 +17,7 @@ public class AssetManagementApprove implements Serializable
    private String assocTempId;
    @ManagedProperty("#{advisorListDataDAO}")
    private AdvisorListDataDAO advisorListDataDAO;
+   private String outputMsg;
 
    public void onApprove()
    {
@@ -24,10 +26,15 @@ public class AssetManagementApprove implements Serializable
 
       System.out.println("assocTempId " + assocTempId);
 
-      String Output=advisorListDataDAO.assetMgmtDataMove(assocTempId,"invdbtoaudit",apprvTempId);
-      System.out.println("Approve "+Output);
-      if(Output.equalsIgnoreCase("success")){
+      outputMsg=advisorListDataDAO.assetMgmtDataMove(assocTempId,"invdbtoaudit",apprvTempId,4l);
+      System.out.println("Approve "+outputMsg);
+      if(outputMsg.equalsIgnoreCase("success")){
          advisorListDataDAO.updateTemplateStatus("Predefined",apprvTempId,"validation","Approved");
+         ModelUtil objModelUtil=new ModelUtil();
+         objModelUtil.refreshData();
+         outputMsg="Theme "+assocTempId+" updated succefully";
+      }else{
+         outputMsg="Ttheme "+assocTempId+" updation failed ";
       }
    }
 
@@ -60,5 +67,15 @@ public class AssetManagementApprove implements Serializable
    public void setAdvisorListDataDAO(AdvisorListDataDAO advisorListDataDAO)
    {
       this.advisorListDataDAO = advisorListDataDAO;
+   }
+
+   public String getOutputMsg()
+   {
+      return outputMsg;
+   }
+
+   public void setOutputMsg(String outputMsg)
+   {
+      this.outputMsg = outputMsg;
    }
 }

@@ -24,8 +24,8 @@ import javax.faces.bean.ManagedBean;
 public class AssetManagementUpload implements Serializable
 {
    private String templateName;
-   private String templateID;
-   private String modelID,rvwModelId;
+   private String templateID,rollbackId;
+   private String modelID,rvwModelId,updModelId;
    private String fileDtl;
    @ManagedProperty("#{advisorListDataDAO}")
    private AdvisorListDataDAO advisorListDataDAO;
@@ -33,18 +33,51 @@ public class AssetManagementUpload implements Serializable
    private List<AssetFileUploadList> lstExtFileList;
    private List<AssetFileUploadList> lstTempList;
    private List<AssetFileUploadList> lstFileDtlList;
+   private List<AssetFileUploadList> lstVldfileDtl;
+   private List<AssetFileUploadList> lstRlbkfileDtl;
    @ManagedProperty("#{advisorSaveDataDAO}")
    private AdvisorSaveDataDAO advisorSaveDataDAO;
    @ManagedProperty("#{advisorSaveQuery}")
    private AdvisorSaveQuery advisorSaveQuery;
-   private boolean validationStatus;
+   private boolean vldSuccessStatus;
+   private boolean vldFailureStatus;
    private String validationError;
    private String templateType;
    private boolean displayTempTxt;
    private boolean displayTempDD;
    private boolean displayReviewPanel;
+   private boolean displayValidateBtn;
 
    private List<AssetFileUploadList> listValidateTemplate;
+
+   public void prerender(){
+      lstRlbkfileDtl=advisorListDataDAO.collectRollbackList("BB");
+   }
+   public void onRollBack()
+   {
+
+      System.out.println("rollbackId " + rollbackId);
+      if(lstRlbkfileDtl!=null){
+         for (int i=0;i<lstRlbkfileDtl.size();i++){
+            if(lstRlbkfileDtl.get(i).getSavedTemplateName().equalsIgnoreCase(rollbackId)){
+
+            }
+         }
+      }
+
+//      System.out.println("assocTempId " + assocTempId);
+//
+//      outputMsg=advisorListDataDAO.assetMgmtDataMove(assocTempId,"invdbtoaudit",apprvTempId,4l);
+//      System.out.println("Approve "+outputMsg);
+//      if(outputMsg.equalsIgnoreCase("success")){
+//         advisorListDataDAO.updateTemplateStatus("Predefined",apprvTempId,"validation","Approved");
+//         ModelUtil objModelUtil=new ModelUtil();
+//         objModelUtil.refreshData();
+//         outputMsg="Theme "+assocTempId+" updated succefully";
+//      }else{
+//         outputMsg="Ttheme "+assocTempId+" updation failed ";
+//      }
+   }
 
 
    public void handleFileUpload(FileUploadEvent event)
@@ -134,11 +167,11 @@ public class AssetManagementUpload implements Serializable
       try
       {
          System.out.println("File NAme " + event.getFile().getFileName() + " template name " + getTemplateName() + " tempalete id " + getTemplateID());
-            if(getTemplateID()== null ){
-               temNm=getTemplateName();
-            }else{
-               temNm=getTemplateID();
-            }
+         if(getTemplateID()== null ){
+            temNm=getTemplateName();
+         }else{
+            temNm=getTemplateID();
+         }
          tmp_fileDtl=getFileDtl().split("~");
          is = event.getFile().getInputstream();
          br = new BufferedReader(new InputStreamReader(is));
@@ -172,11 +205,33 @@ public class AssetManagementUpload implements Serializable
 //Close the input stream
          br.close();
          data = new AssetFileUploadList(temNm,event.getFile().getFileName(), "predefined", tmp_fileDtl[0], 4l, "","","","","");
+         boolean bMsgFlag=false;
+         if(lstExtFileList!=null)
+         {
+            for (int i1 = 0; i1 < lstExtFileList.size(); i1++)
+            {
+               if (lstExtFileList.get(i1).getFileType().equalsIgnoreCase(tmp_fileDtl[0]))
+               {
+                  bMsgFlag = true;
+                  break;
+               }
+            }
+         }
+         if(bMsgFlag)
+         {
+            advisorSaveDataDAO.deleteUpdFileDtls(data);
+         }
          advisorSaveDataDAO.saveUpdFileDtls(data);
          advisorSaveQuery.saveFileData(query);
          lstExtFileList = advisorListDataDAO.collectUploadedAssetFileList("predefined", temNm, 4);
-         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
-         FacesContext.getCurrentInstance().addMessage(null, message);
+         if(bMsgFlag){
+            FacesMessage message = new FacesMessage("Succesful","File of type "+tmp_fileDtl[0]+ " is overrided.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+         }else
+         {
+            FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+         }
       }
       catch (Exception e)
       {
@@ -203,9 +258,11 @@ public class AssetManagementUpload implements Serializable
    }
    public void onModelChange(){
 
-      System.out.println("onModelChange " +getModelID());
-      lstTempList=advisorListDataDAO.collectUploadedAssetTemplateList(getModelID());
+      System.out.println("onModelChange " +getUpdModelId());
+      lstTempList=advisorListDataDAO.collectUpdatedThemeList(getUpdModelId(),"Uploaded");
+      // .collectUploadedAssetTemplateList(getUpdModelId());
       System.out.println("onModelChange " +lstTempList.size());
+      lstVldfileDtl=advisorListDataDAO.collectFileTypeList(getUpdModelId());
       listValidateTemplate=advisorListDataDAO.collectUpdatedThemeList("Predefined","Validate Success");
       System.out.println("onModelChange  listValidateTemplate " +listValidateTemplate.size());
 
@@ -224,7 +281,8 @@ public class AssetManagementUpload implements Serializable
    public void onUpdModelChange(){
 
       System.out.println("onUpdModelChange " +getModelID());
-      lstTempList=advisorListDataDAO.collectUploadedAssetTemplateList(getModelID());
+      lstTempList=advisorListDataDAO.collectUpdatedThemeList("Predefined","Uploaded");
+//      .collectUploadedAssetTemplateList(getModelID());
       System.out.println("onModelChange " +lstTempList.size());
       lstFileDtlList=advisorListDataDAO.collectFileTypeList(getModelID());
       System.out.println("onUpdModelChange " +lstFileDtlList.size());
@@ -249,8 +307,14 @@ public class AssetManagementUpload implements Serializable
    public void onTemplateChange(){
 
       System.out.println("Template Id " +getTemplateID());
-      lstExtFileList = advisorListDataDAO.collectUploadedAssetFileList("predefined", getTemplateID(), 4);
+      System.out.println("getUpdModelId Id " +getUpdModelId());
+      lstExtFileList = advisorListDataDAO.collectUploadedAssetFileList(getUpdModelId(), getTemplateID(), 4);
       System.out.println("Model NAme " +lstExtFileList.size());
+      if(lstVldfileDtl.size()==lstExtFileList.size()){
+         displayValidateBtn=true;
+      }else{
+         displayValidateBtn=false;
+      }
 
    }
    public void onFileTypeChange(){
@@ -261,15 +325,17 @@ public class AssetManagementUpload implements Serializable
    public void onValidate(){
 
       System.out.println("Template Id " +getTemplateID());
-       validationError=advisorListDataDAO.validateAssetData(getTemplateID(),"0.bb");
+      validationError=advisorListDataDAO.validateAssetData(getTemplateID(),"0.bb");
       if(validationError.length()>0){
-         validationStatus=true;
+         vldSuccessStatus=false;
+         vldFailureStatus=true;
       }else{
-         validationStatus=true;
+         vldSuccessStatus=true;
+         vldFailureStatus=false;
          advisorListDataDAO.copyDataOnValidate(getTemplateID());
       }
-      listValidateTemplate=advisorListDataDAO.collectUpdatedThemeList("Predefined","Validate Success");
-      if(listValidateTemplate!=null && listValidateTemplate.size()>0){
+      listValidateTemplate=advisorListDataDAO.collectUpdatedThemeList(getUpdModelId(),"Validate Success");
+      if(validationError!=null && vldSuccessStatus){
          displayReviewPanel=true;
          ModelUtil objModelUtil=new ModelUtil();
          objModelUtil.refreshData();
@@ -388,16 +454,6 @@ public class AssetManagementUpload implements Serializable
       this.lstFileDtlList = lstFileDtlList;
    }
 
-   public boolean isValidationStatus()
-   {
-      return validationStatus;
-   }
-
-   public void setValidationStatus(boolean validationStatus)
-   {
-      this.validationStatus = validationStatus;
-   }
-
    public String getValidationError()
    {
       return validationError;
@@ -466,5 +522,75 @@ public class AssetManagementUpload implements Serializable
    public void setRvwModelId(String rvwModelId)
    {
       this.rvwModelId = rvwModelId;
+   }
+
+   public boolean isDisplayValidateBtn()
+   {
+      return displayValidateBtn;
+   }
+
+   public void setDisplayValidateBtn(boolean displayValidateBtn)
+   {
+      this.displayValidateBtn = displayValidateBtn;
+   }
+
+   public String getUpdModelId()
+   {
+      return updModelId;
+   }
+
+   public void setUpdModelId(String updModelId)
+   {
+      this.updModelId = updModelId;
+   }
+
+   public List<AssetFileUploadList> getLstVldfileDtl()
+   {
+      return lstVldfileDtl;
+   }
+
+   public void setLstVldfileDtl(List<AssetFileUploadList> lstVldfileDtl)
+   {
+      this.lstVldfileDtl = lstVldfileDtl;
+   }
+
+   public boolean isVldSuccessStatus()
+   {
+      return vldSuccessStatus;
+   }
+
+   public void setVldSuccessStatus(boolean vldSuccessStatus)
+   {
+      this.vldSuccessStatus = vldSuccessStatus;
+   }
+
+   public boolean isVldFailureStatus()
+   {
+      return vldFailureStatus;
+   }
+
+   public void setVldFailureStatus(boolean vldFailureStatus)
+   {
+      this.vldFailureStatus = vldFailureStatus;
+   }
+
+   public List<AssetFileUploadList> getLstRlbkfileDtl()
+   {
+      return lstRlbkfileDtl;
+   }
+
+   public void setLstRlbkfileDtl(List<AssetFileUploadList> lstRlbkfileDtl)
+   {
+      this.lstRlbkfileDtl = lstRlbkfileDtl;
+   }
+
+   public String getRollbackId()
+   {
+      return rollbackId;
+   }
+
+   public void setRollbackId(String rollbackId)
+   {
+      this.rollbackId = rollbackId;
    }
 }

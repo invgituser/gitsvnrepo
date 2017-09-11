@@ -43,7 +43,6 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
 
    public void preRenderView()
    {
-
       try
       {
 //         if (!FacesContext.getCurrentInstance().isPostback())
@@ -333,12 +332,19 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
       }
       doPerformanceFinalpage();
    }
-   public void showTemplateForApprove(){
+   public void getApproveStatus(){
       System.out.println("In checkbox ");
       showApproveTempDD=false;
       System.out.println("performanceAproved "+performanceAproved);
       System.out.println("projectionAproved "+projectionAproved);
       System.out.println("Out checkbox ");
+   }
+
+   public void showTemplateForApprove(){
+      System.out.println("In checkbox ");
+      showApproveTempDD=false;
+      System.out.println("performanceAproved "+performanceAproved);
+      System.out.println("projectionAproved "+projectionAproved);
       if(performanceAproved){
          advisorListDataDAO.updateTemplateStatus("Predefined",selApprovTheme,"projection","Y");
       }else{

@@ -88,5 +88,11 @@ public class AdvisorSaveDataDAO extends JdbcDaoSupport implements Serializable
       sp.saveUpdFileDtls(data);
    }
 
+   public void deleteUpdFileDtls(AssetFileUploadList data) {
+      DataSource ds = getDataSource();
+      AdvisorSaveSP sp = new AdvisorSaveSP(ds, "temp.tmp_model_file_delete",12);
+      sp.deleteUpdFileDtls(data);
+   }
+
 
 }

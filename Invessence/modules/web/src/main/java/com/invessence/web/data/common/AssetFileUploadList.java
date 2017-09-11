@@ -15,6 +15,19 @@ public class AssetFileUploadList
    private String fileDtl;
    private String projApproved;
    private String perfApproved;
+   private String prodTemplateName;
+   private String savedTemplateName;
+
+   public AssetFileUploadList(String modelName,
+                              String templatename,
+                              String prodTemplateName,
+                              String savedTemplateName)
+   {
+      this.modelName = modelName;
+      this.templatename = templatename;
+      this.prodTemplateName = prodTemplateName;
+      this.savedTemplateName = savedTemplateName;
+   }
 
 
    public AssetFileUploadList(String templatename,
@@ -140,5 +153,25 @@ public class AssetFileUploadList
    public void setPerfApproved(String perfApproved)
    {
       this.perfApproved = perfApproved;
+   }
+
+   public String getSavedTemplateName()
+   {
+      return savedTemplateName;
+   }
+
+   public void setSavedTemplateName(String savedTemplateName)
+   {
+      this.savedTemplateName = savedTemplateName;
+   }
+
+   public String getProdTemplateName()
+   {
+      return prodTemplateName;
+   }
+
+   public void setProdTemplateName(String prodTemplateName)
+   {
+      this.prodTemplateName = prodTemplateName;
    }
 }

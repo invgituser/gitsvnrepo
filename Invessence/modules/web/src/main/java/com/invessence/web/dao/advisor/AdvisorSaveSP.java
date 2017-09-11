@@ -125,6 +125,11 @@ public class AdvisorSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_advisorid", Types.BIGINT));
             break;
          case 12:
+            declareParameter(new SqlParameter("p_templatename", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_fileName", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_modelName", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_fileType", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_advisorid", Types.BIGINT));
             break;
          default:
       }
@@ -328,5 +333,14 @@ public class AdvisorSaveSP extends StoredProcedure
       inputMap.put("p_advisorid", data.getAdvisorid());
       super.execute(inputMap);
    }
-
+   public void deleteUpdFileDtls(AssetFileUploadList data)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_templatename", data.getTemplatename());
+      inputMap.put("p_fileName", data.getFileName());
+      inputMap.put("p_modelName", data.getModelName());
+      inputMap.put("p_fileType", data.getFileType());
+      inputMap.put("p_advisorid", data.getAdvisorid());
+      super.execute(inputMap);
+   }
 }

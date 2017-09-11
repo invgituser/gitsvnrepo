@@ -91,9 +91,13 @@ public class AdvisorListSP extends StoredProcedure
             declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
             declareParameter(new SqlParameter("p_operation", Types.VARCHAR));
             declareParameter(new SqlParameter("p_themeRpl", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_approvedBy", Types.BIGINT));
             break;
          case 19:
             declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
+            break;
+         case 20:
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
             break;
          default:
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
@@ -248,12 +252,14 @@ public class AdvisorListSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map assetMgmtDataMove(String theme,String operation,String themeRpl)
+   public Map assetMgmtDataMove(String theme,String operation,String themeRpl,long approvedBy)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_theme", theme);
       inputMap.put("p_operation", operation);
       inputMap.put("p_themeRpl", themeRpl);
+      inputMap.put("p_approvedBy", approvedBy);
+
 
       return super.execute(inputMap);
    }
@@ -267,5 +273,11 @@ public class AdvisorListSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
+   public Map collectRollbackList(String advisor)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_advisor", advisor);
+      return super.execute(inputMap);
+   }
 
 }
