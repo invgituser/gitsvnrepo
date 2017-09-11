@@ -47,6 +47,7 @@ public class AssetManagementUpload implements Serializable
    private boolean displayTempDD;
    private boolean displayReviewPanel;
    private boolean displayValidateBtn;
+   private String rollbackMsg;
 
    private List<AssetFileUploadList> listValidateTemplate;
 
@@ -55,14 +56,30 @@ public class AssetManagementUpload implements Serializable
    }
    public void onRollBack()
    {
-
+      String theme=null,themeRpl=null;
       System.out.println("rollbackId " + rollbackId);
       if(lstRlbkfileDtl!=null){
          for (int i=0;i<lstRlbkfileDtl.size();i++){
             if(lstRlbkfileDtl.get(i).getSavedTemplateName().equalsIgnoreCase(rollbackId)){
+               themeRpl=lstRlbkfileDtl.get(i).getProdTemplateName();
+               theme=lstRlbkfileDtl.get(i).getTemplatename();
 
             }
          }
+      }
+      if(theme!=null)
+      {
+         rollbackMsg = advisorListDataDAO.assetMgmtDataMove(rollbackId, "audittoinvdb", themeRpl, 4l);
+      }
+
+      System.out.println("Rollback "+rollbackMsg);
+      if(rollbackMsg.equalsIgnoreCase("success")){
+         advisorListDataDAO.updateTemplateStatus("Predefined",theme,"validation","Rollbacked");
+         ModelUtil objModelUtil=new ModelUtil();
+         objModelUtil.refreshData();
+         rollbackMsg="Theme "+themeRpl+" rollbacked succefully";
+      }else{
+         rollbackMsg="Ttheme "+themeRpl+" rollback failed ";
       }
 
 //      System.out.println("assocTempId " + assocTempId);
@@ -592,5 +609,15 @@ public class AssetManagementUpload implements Serializable
    public void setRollbackId(String rollbackId)
    {
       this.rollbackId = rollbackId;
+   }
+
+   public String getRollbackMsg()
+   {
+      return rollbackMsg;
+   }
+
+   public void setRollbackMsg(String rollbackMsg)
+   {
+      this.rollbackMsg = rollbackMsg;
    }
 }

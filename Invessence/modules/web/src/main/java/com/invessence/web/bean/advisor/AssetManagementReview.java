@@ -39,6 +39,7 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
    private boolean showReviewPan;
    private Integer sliderPerfAllocIdx;
    private Integer sliderProjAllocIdx;
+   private String apprModelId;
 
 
    public void preRenderView()
@@ -360,6 +361,16 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
       listApproveTemplate=advisorListDataDAO.collectUpdatedThemeList("Predefined","Verified");
    }
 
+   public void onApprModelChange(){
+
+      System.out.println("onApprModelChange " +getApprModelId());
+      listApproveTemplate=advisorListDataDAO.collectUpdatedThemeList(getApprModelId(),"Verified");
+      System.out.println("onApprModelChange listApproveTemplate " +listApproveTemplate.size());
+      listBasket=advisorListDataDAO.getAdvisorTheme("BB");
+      System.out.println("onApprModelChange listBasket " +listBasket.size());
+
+   }
+
    public void doAllocReset()
    {
       setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
@@ -529,5 +540,15 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
    public void setSliderProjAllocIdx(Integer sliderProjAllocIdx)
    {
       this.sliderProjAllocIdx = sliderProjAllocIdx;
+   }
+
+   public String getApprModelId()
+   {
+      return apprModelId;
+   }
+
+   public void setApprModelId(String apprModelId)
+   {
+      this.apprModelId = apprModelId;
    }
 }

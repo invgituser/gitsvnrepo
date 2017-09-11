@@ -39,6 +39,7 @@ public class AssetManagementApprove implements Serializable
    }
 
 
+
    public String getApprvTempId()
    {
       return apprvTempId;
@@ -78,4 +79,5 @@ public class AssetManagementApprove implements Serializable
    {
       this.outputMsg = outputMsg;
    }
+
 }
