@@ -109,7 +109,7 @@
                                     <p:tab title="Rollback Model">
                                         <h:panelGrid cellpadding="10">
                                             <h:form>
-                                                <p:outputLabel for="rbk_temp" value="Template Name : " rendered="#{!asstMgmtRvw.showApproveTempDD}">
+                                                <p:outputLabel for="rbk_temp" value="Template Name : " rendered="#{!asstMgmtRvw.showApproveTempDD}" >
                                                     <p:selectOneMenu id="rbk_temp" value="#{AssetManagementAppr.apprvTempId}" >
                                                         <f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true"/>
                                                         <f:selectItems value="#{asstMgmtRvw.listApproveTemplate}" var="temp" itemLabel="#{temp.templatename}"
@@ -305,7 +305,7 @@
                                         </p:selectOneMenu>
                                     </p:outputLabel>
                                     </p:outputPanel>
-                                    <p:outputPanel id="rwDynaPanel">
+                                    <p:outputPanel id="rwDynaPanel" styleClass="ReviewGraph">
                                         <ui:fragment rendered="#{asstMgmtRvw.showReviewPan}">
                                             <ui:include src="/pages/advisor/assetworkflowRew.xhtml"/>
                                         </ui:fragment>
