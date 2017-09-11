@@ -120,10 +120,16 @@
                                                                        itemLabel="#{tempRbk.savedTemplateName}" itemValue="#{tempRbk.savedTemplateName}"/>
                                                     </p:selectOneMenu>
                                                 </p:outputLabel>
+                                                <p:panel rendered="#{AssetManagementUpd.getRollbackMsg() != null}"
+                                                         style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError">
+                                                    <h:outputText styleClass="errorText"
+                                                                  value="#{AssetManagementUpd.getRollbackMsg()}" escape="false"/>
+                                                    <div class="EmptyBox30"></div>
+                                                </p:panel>
                                                 <label class="rollbackbutton">
                                                     <p:commandButton value="Rollback" id="strtRbk" icon="fa fa-undo"
                                                                      styleClass="awBtn Wid100" ajax="true" actionListener="#{AssetManagementUpd.onRollBack}"
-                                                                     update="approveForm:approveArea">
+                                                                     update="@form">
                                                     </p:commandButton>
                                                 </label>
                                             </h:form>
@@ -344,6 +350,16 @@
                             <h:form id="approveForm">
 
                                 <p:outputPanel id="approveArea">
+                                    <p:outputLabel for="model" value="Model Name : ">
+                                        <p:selectOneMenu id="model" value="#{asstMgmtRvw.apprModelId}" style="width:150px">
+                                            <p:ajax listener="#{asstMgmtRvw.onApprModelChange}"
+                                                    update="@form"
+                                                    event="change"/>
+                                            <f:selectItem itemLabel="Select Model" itemValue="0" noSelectionOption="true"/>
+                                            <f:selectItem itemLabel="Predefined" itemValue="Predefined"/>
+                                            <f:selectItem itemLabel="Optimized" itemValue="Optimized"/>
+                                        </p:selectOneMenu>
+                                    </p:outputLabel>
                                     <p:outputLabel for="model_verified" value="Template Name : " rendered="#{!asstMgmtRvw.showApproveTempDD}">
                                         <p:selectOneMenu id="model_verified" value="#{AssetManagementAppr.apprvTempId}" style="width:150px">
                                             <f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true"/>
