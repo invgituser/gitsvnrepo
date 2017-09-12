@@ -55,21 +55,21 @@
         </p:panel>
 
         <main class="customtabs">
-
+            <div class="tabspad">
             <input id="tab1" type="radio" name="tabs" checked="checked"/>
-            <label for="tab1">Start</label>
+            <label for="tab1" class="tabsui">Start</label>
 
             <input id="tab2" type="radio" name="tabs"/>
-            <label for="tab2">Upload</label>
+            <label for="tab2" class="tabsui">Upload</label>
 
             <input id="tab3" type="radio" name="tabs"/>
-            <label for="tab3">Validation Check</label>
+            <label for="tab3" class="tabsui">Validation Check</label>
 
             <input id="tab4" type="radio" name="tabs"/>
-            <label for="tab4">Review</label>
+            <label for="tab4" class="tabsui">Review</label>
 
             <input id="tab5" type="radio" name="tabs"/>
-            <label for="tab5">Approve</label>
+            <label for="tab5" class="tabsui">Approve</label>
 
 
             <section id="content1">
@@ -111,7 +111,7 @@
                                         </h:panelGrid>
                                     </p:tab>
                                     <p:tab title="Rollback Model">
-                                        <h:panelGrid cellpadding="10">
+                                        <h:panelGrid cellpadding="10" style="width:100%;">
                                             <h:form>
                                                 <p:outputLabel for="rbkTheme" value="Theme Name : ">
                                                     <p:selectOneMenu id="rbkTheme" value="#{AssetManagementUpd.rollbackId}" style="width:150px">
@@ -398,7 +398,7 @@
                 </div>
             </section>
 
-
+            </div>
         </main>
 
 
