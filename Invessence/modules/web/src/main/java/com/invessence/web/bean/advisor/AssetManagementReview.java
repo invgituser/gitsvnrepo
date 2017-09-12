@@ -40,6 +40,7 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
    private Integer sliderPerfAllocIdx;
    private Integer sliderProjAllocIdx;
    private String apprModelId;
+   private String defaultAdvisor;
 
 
    public void preRenderView()
@@ -51,9 +52,9 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
 //         }
 
          sliderPerfAllocIdx=0;
-
-         listBasket=advisorListDataDAO.getAdvisorTheme("BB");
-         listValidateTemplate=advisorListDataDAO.collectUpdatedThemeList("Predefined","Validate Success");
+         defaultAdvisor= getWebutil().getWebprofile().getWebInfo().get("DEFAULT.ADVISOR").toString();
+         listBasket=advisorListDataDAO.getAdvisorTheme(defaultAdvisor);
+         listValidateTemplate=advisorListDataDAO.collectUpdatedThemeList(WebConst.PREDEFINED,WebConst.VALIDATION_SUCCESS);
 //         selApprovTheme="0.BB";
 //         if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.ASSET)==null ){
             showReviewPan=true;
@@ -63,7 +64,7 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
 //            }else{
 //               selApprovTheme="0.BB";
 //            }
-         System.out.println("riskCalculator.numberofQuestions Start "+riskCalculator.numberofQuestions);
+//         System.out.println("riskCalculator.numberofQuestions Start "+riskCalculator.numberofQuestions);
 
 //         whichChart = "pie";
 //         disablegraphtabs = true;
@@ -95,7 +96,7 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
          createDynaAssetPortfolio(1, riskIndex, selApprovTheme);
 
          calcProjectionChart();
-         System.out.println("After "+getProjectionDatas().size());
+//         System.out.println("After "+getProjectionDatas().size());
          sliderProjAllocIdx=getProjectionDatas().size();
          riskCalculator.setNumberofQuestions(sliderProjAllocIdx);
 
@@ -347,26 +348,27 @@ public class AssetManagementReview extends TCMCustomer implements Serializable
       System.out.println("performanceAproved "+performanceAproved);
       System.out.println("projectionAproved "+projectionAproved);
       if(performanceAproved){
-         advisorListDataDAO.updateTemplateStatus("Predefined",selApprovTheme,"projection","Y");
+         advisorListDataDAO.updateTemplateStatus(WebConst.PREDEFINED,selApprovTheme,WebConst.PROJECTION,"Y");
       }else{
-         advisorListDataDAO.updateTemplateStatus("Predefined",selApprovTheme,"projection","N");
+         advisorListDataDAO.updateTemplateStatus(WebConst.PREDEFINED,selApprovTheme,WebConst.PROJECTION,"N");
       }
 
       if(projectionAproved){
-         advisorListDataDAO.updateTemplateStatus("Predefined",selApprovTheme,"perormance","Y");
+         advisorListDataDAO.updateTemplateStatus(WebConst.PREDEFINED,selApprovTheme,WebConst.PERFORMANCE,"Y");
       }else{
-         advisorListDataDAO.updateTemplateStatus("Predefined",selApprovTheme,"perormance","N");
+         advisorListDataDAO.updateTemplateStatus(WebConst.PREDEFINED,selApprovTheme,WebConst.PERFORMANCE,"N");
       }
 
-      listApproveTemplate=advisorListDataDAO.collectUpdatedThemeList("Predefined","Verified");
+      listApproveTemplate=advisorListDataDAO.collectUpdatedThemeList(WebConst.PREDEFINED,WebConst.VERIFIED);
    }
 
    public void onApprModelChange(){
 
       System.out.println("onApprModelChange " +getApprModelId());
-      listApproveTemplate=advisorListDataDAO.collectUpdatedThemeList(getApprModelId(),"Verified");
+      listApproveTemplate=advisorListDataDAO.collectUpdatedThemeList(getApprModelId(),WebConst.VERIFIED);
       System.out.println("onApprModelChange listApproveTemplate " +listApproveTemplate.size());
-      listBasket=advisorListDataDAO.getAdvisorTheme("BB");
+      defaultAdvisor= getWebutil().getWebprofile().getWebInfo().get("DEFAULT.ADVISOR").toString();
+      listBasket=advisorListDataDAO.getAdvisorTheme(defaultAdvisor);
       System.out.println("onApprModelChange listBasket " +listBasket.size());
 
    }

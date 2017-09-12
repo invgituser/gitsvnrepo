@@ -2,8 +2,11 @@ package com.invessence.web.bean.advisor;
 
 import java.io.Serializable;
 import javax.faces.bean.*;
+import javax.faces.context.FacesContext;
 
+import com.invessence.web.constant.WebConst;
 import com.invessence.web.dao.advisor.AdvisorListDataDAO;
+import com.invessence.web.data.common.UserInfoData;
 import com.invmodel.model.ModelUtil;
 
 /**
@@ -18,23 +21,28 @@ public class AssetManagementApprove implements Serializable
    @ManagedProperty("#{advisorListDataDAO}")
    private AdvisorListDataDAO advisorListDataDAO;
    private String outputMsg;
+   private long logonId;
 
    public void onApprove()
    {
-
       System.out.println("apprvTempId " + apprvTempId);
-
       System.out.println("assocTempId " + assocTempId);
-
-      outputMsg=advisorListDataDAO.assetMgmtDataMove(assocTempId,"invdbtoaudit",apprvTempId,4l);
+      if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USER_INFO)!=null)
+      {
+         UserInfoData userInfo = (UserInfoData) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USER_INFO);
+         logonId=userInfo.getLogonID();
+      }else{
+         logonId=0l;
+      }
+      outputMsg=advisorListDataDAO.assetMgmtDataMove(assocTempId, WebConst.INVDB_TO_AUDIT, apprvTempId, logonId);
       System.out.println("Approve "+outputMsg);
-      if(outputMsg.equalsIgnoreCase("success")){
-         advisorListDataDAO.updateTemplateStatus("Predefined",apprvTempId,"validation","Approved");
+      if(outputMsg.equalsIgnoreCase(WebConst.SUCCESS)){
+         advisorListDataDAO.updateTemplateStatus(WebConst.PREDEFINED,apprvTempId,WebConst.VALIDATION,WebConst.APPROVED);
          ModelUtil objModelUtil=new ModelUtil();
          objModelUtil.refreshData();
          outputMsg="Theme "+assocTempId+" updated succefully";
       }else{
-         outputMsg="Ttheme "+assocTempId+" updation failed ";
+         outputMsg="Theme "+assocTempId+" updation failed ";
       }
    }
 
