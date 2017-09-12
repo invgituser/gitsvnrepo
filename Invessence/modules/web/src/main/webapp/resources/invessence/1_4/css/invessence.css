@@ -1406,7 +1406,7 @@ thead > tr > .multipleSelectionChkList > .ui-chkbox > .ui-chkbox-box {
 }
 
 .wfMainBlock {
-	padding: 0px 10px;
+	padding: 0px 00px;
 	position: relative;
 	box-sizing: border-box;
 	top:0px;
@@ -1491,7 +1491,7 @@ thead > tr > .multipleSelectionChkList > .ui-chkbox > .ui-chkbox-box {
 .awBtn > span,
 .awBtn.ui-state-hover > span,
 .awBtn.ui-state-focus > span {
-	background: #009abb!important;
+	/*background: #009abb!important;*/
 	border-radius: 0px;
 }
 
@@ -1659,13 +1659,12 @@ main.customtabs {
 .customtabs section {
 	display: none;
 	padding: 20px 0 0;
-	border-top: 1px solid #ddd;
+	border-top: 1px solid #009abb ;
 }
 
 .customtabs input {
 	display: none;
 }
-
 .customtabs label {
 	display: inline-block;
 	margin: 0 0 -1px;
@@ -1674,6 +1673,29 @@ main.customtabs {
 	text-align: center;
 	color: #bbb;
 	border: 1px solid transparent;
+}
+.customtabs label.tabsui {
+	display: inline-block;
+	margin: 0 -2px -1px;
+	padding: 15px 25px;
+	font-weight: 600;
+	text-align: center;
+	color: #bbb;
+	border: 1px solid transparent;
+
+
+	border-radius: 0px;
+	padding: 10px 30px;
+	color: #009abb !important;
+	font-size: 18px !important;
+	-moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, .4);
+	-webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, .4);
+	box-shadow: inset 0 3px 8px rgba(0, 0, 0, .24);
+	-webkit-transition: all 600ms ease;
+	-moz-transition: all 600ms ease;
+	-ms-transition: all 600ms ease;
+	-o-transition: all 600ms ease;
+	transition: all 600ms ease;
 }
 
 .customtabs label:before {
@@ -1691,12 +1713,33 @@ main.customtabs {
 	color: #888;
 	cursor: pointer;
 }
-
 .customtabs input:checked + label {
 	color: #555;
 	border: 1px solid #ddd;
 	border-top: 2px solid #d0525d;
 	border-bottom: 1px solid #fff;
+}
+.customtabs input:checked + label.tabsui {
+
+	border: 1px solid #ddd;
+
+	border-bottom: 1px solid #fff;
+
+
+	background-color: #009abb !important;
+	color: #fff !important;
+	padding: 10px 30px;
+	border-radius: 0px;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	-webkit-transition: all 600ms ease;
+	-moz-transition: all 600ms ease;
+	-ms-transition: all 600ms ease;
+	-o-transition: all 600ms ease;
+	transition: all 600ms ease;
+	margin-right: 2px;
+	font-size: 18px !important;
 }
 
 
@@ -1706,13 +1749,19 @@ main.customtabs {
 .customtabs #tab4:checked ~ #content4,
 .customtabs #tab5:checked ~ #content5{
 	display: block;
+	position: relative;
+
 }
 
 .bgcontain{
-	padding:10px 10px 10px 10px !important;
+	padding:10px 00px 10px 00px !important;
 }
 
+.tabspad{
+	position: relative;
+	padding: 0 20px;
 
+}
 
 .ui-selectonemenu {
 	float:right !important;
