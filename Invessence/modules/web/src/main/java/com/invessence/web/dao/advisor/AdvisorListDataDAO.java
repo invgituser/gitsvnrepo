@@ -524,7 +524,7 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
    }
 
 
-   public List<AssetFileUploadList> collectUploadedAssetFileList(String model, String tempaltename, int advisorId)
+   public List<AssetFileUploadList> collectUploadedAssetFileList(String model, String tempaltename, long advisorId)
    {
       List<AssetFileUploadList> fileData = new ArrayList<AssetFileUploadList>();
       try

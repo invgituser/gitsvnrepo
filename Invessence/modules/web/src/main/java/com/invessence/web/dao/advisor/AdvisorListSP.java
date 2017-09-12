@@ -197,7 +197,7 @@ public class AdvisorListSP extends StoredProcedure
       inputMap.put("vTheme", theme);
       return super.execute(inputMap);
    }
-   public Map getAssetAllocUpdFile(String model, String templateName, int advisorId)
+   public Map getAssetAllocUpdFile(String model, String templateName, long advisorId)
    {
       Map inputMap = new HashMap();
       inputMap.put("modelnm", model);

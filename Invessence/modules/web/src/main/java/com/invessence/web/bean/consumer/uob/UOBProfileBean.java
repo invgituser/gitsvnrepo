@@ -341,6 +341,35 @@ public class UOBProfileBean extends CustomerData implements Serializable
       return origCustomerData;
    }
 
+   public void dbpreRenderView()
+   {
+
+      try
+      {
+         if (!FacesContext.getCurrentInstance().isPostback())
+         {
+            setDisplayFTPanel(false);
+            setEnableChangeStrategy(true);
+            setAltrOnChngStrategy(true);
+            setDoesUserHavaLogonID(false);  //  This is default, but fetchCustomer will set reset it.
+            flagforInvestShow = false;
+
+
+            whichChart = "pie";
+
+            setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
+
+            disablegraphtabs = true;
+            disabledetailtabs = true;
+            fetchClientData();
+
+         }
+      }
+      catch (Exception e)
+      {
+         resetDataForm();
+      }
+   }
    public void preRenderView()
    {
 
@@ -1398,5 +1427,19 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
       goBack();
    }
+
+   public void loadDynaDbGraphs(){
+      if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.SEL_ACCOUNT)!=null)
+      {
+         newapp = "E";
+         beanAcctnum=(Long)(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.SEL_ACCOUNT));
+//         beanAcctnum = 3l;
+         riskCalculator.setNumberofQuestions(9);
+         whichChart = "pie";
+         setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
+         fetchClientData();
+      }
+   }
+
 }
 

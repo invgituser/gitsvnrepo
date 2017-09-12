@@ -90,4 +90,20 @@ public class WebConst
    public final static String TRADE_PROCESS_STAT_NEW="N";
    public final static String TRADE_PROCESS_STAT_REVIEW="R";
    public final static String TRADE_PROCESS_STAT_PROCESSED="P";
+
+   public final static String INVDB_TO_AUDIT="invdbtoaudit";
+   public final static String PREDEFINED="Predefined";
+   public final static String SUCCESS="success";
+   public final static String VALIDATION="validation";
+   public final static String APPROVED="Approved";
+   public final static String VALIDATION_SUCCESS="Validate Success";
+   public final static String PROJECTION="projection";
+   public final static String PERFORMANCE="perormance";
+   public final static String VERIFIED="Verified";
+   public final static String AUDIT_TO_INVDB="audittoinvdb";
+   public final static String ROLLBACKED="Rollbacked";
+   public final static String UPLOADED="Uploaded";
+
+   public final static String SEL_ACCOUNT="account";
+
 }

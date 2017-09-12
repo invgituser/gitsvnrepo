@@ -8,6 +8,7 @@ import javax.faces.context.FacesContext;
 import com.invessence.web.constant.*;
 import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.common.CustomerData;
+import com.invessence.web.data.consumer.uob.UOBRiskCalculator;
 import com.invessence.web.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @ManagedBean(name = "uobdash")
 @SessionScoped
-public class ConsumerDashBean implements Serializable
+public class ConsumerDashBean extends CustomerData implements Serializable
 {
    private static final long serialVersionUID = 1001L;
 
@@ -47,8 +48,14 @@ public class ConsumerDashBean implements Serializable
    }
 
    private ArrayList<CustomerData> manageAccountList;
+   private ArrayList<CustomerData> selAccountList;
 
    private CustomerData selectedAccount;
+   private long selAcctNum,accoutListZize;
+//   private UOBRiskCalculator riskCalculator;
+//   private String whichChart;
+//   public String riskCalcMethod = "C";
+//   private Integer prefView;
 
 
    public void preRenderView()
@@ -66,6 +73,11 @@ public class ConsumerDashBean implements Serializable
                if (logonid != null)
                   collectData(logonid);
             }
+         }
+         if(selAccountList!=null && selAccountList.size()>0){
+            accoutListZize=selAccountList.size();
+         }else{
+            accoutListZize=0;
          }
       }
       catch (Exception e)
@@ -113,6 +125,8 @@ public class ConsumerDashBean implements Serializable
 
       return ("success");
    }
+
+
 
    public String doEditAction()
    {
@@ -182,5 +196,110 @@ public class ConsumerDashBean implements Serializable
 
       return ("success");
    }
+
+
+   public void showSelAcctDtls()
+   {
+
+      System.out.println("selectedAccount.getAcctnum().toString()");
+      try
+      {
+         selAccountList = listDAO.getClientProfileList(webutil.getLogonid(),selAcctNum, null);
+//         CustomerData ob=selAccountList.get(0);
+//         ob.buildAssetClass();
+
+//         UOBRiskCalculator riskCalculator =new UOBRiskCalculator();
+
+//         riskCalculator.setNumberofQuestions(9);
+//         whichChart = "pie";
+//         setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
+//         super.loadProfileData(selAcctNum, riskCalculator);
+//         Double riskIndex = riskCalculator.calculateRisk();
+//         createDynaAssetPortfolio(1, riskIndex,selAccountList.get(0).getTheme());
+         accoutListZize=selAccountList.size();
+         if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.SEL_ACCOUNT)!=null){
+
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.SEL_ACCOUNT);
+         }
+         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.SEL_ACCOUNT,selAcctNum);
+//         setDisplayFTPanel(false);
+//         setEnableChangeStrategy(true);
+//         setAltrOnChngStrategy(true);
+//         setDoesUserHavaLogonID(false);  //  This is default, but fetchCustomer will set reset it.
+//         flagforInvestShow = false;
+//
+//         masterpagemanager = new PagesImpl(3);
+//         masterpagemanager.setPage(0);
+//         pagemanager = new PagesImpl(9);
+//         if (newapp != null && newapp.startsWith("N"))
+//         {
+//            beanAcctnum = null;
+//         }
+//         else
+//         {
+//            if (!webutil.isUserLoggedIn())
+//            {
+//               webutil.redirect("/login.xhtml", null);
+//               return;
+//            }
+//         }
+//         riskCalculator.setNumberofQuestions(9);
+//         whichChart = "pie";
+//
+//         setPrefView(0);
+//         setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
+//
+//         disablegraphtabs = true;
+//         disabledetailtabs = true;
+//         fetchClientData();
+//
+//         canOpenAccount = initCanOpenAccount();
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+
+   }
+
+   public ArrayList<CustomerData> getSelAccountList()
+   {
+      return selAccountList;
+   }
+
+   public void setSelAccountList(ArrayList<CustomerData> selAccountList)
+   {
+      this.selAccountList = selAccountList;
+   }
+
+   public long getSelAcctNum()
+   {
+      return selAcctNum;
+   }
+
+   public void setSelAcctNum(long selAcctNum)
+   {
+      this.selAcctNum = selAcctNum;
+   }
+
+   public long getAccoutListZize()
+   {
+      return accoutListZize;
+   }
+
+   public void setAccoutListZize(long accoutListZize)
+   {
+      this.accoutListZize = accoutListZize;
+   }
+//
+//   public String getWhichChart()
+//   {
+//      return whichChart;
+//   }
+//
+//   public void setWhichChart(String whichChart)
+//   {
+//      this.whichChart = whichChart;
+//   }
 
 }

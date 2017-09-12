@@ -125,7 +125,15 @@ public class AccountEmulation
       {
          System.out.print("createAccountPosition Account Number " + accountNumber);
          System.out.print("createAccountPosition Amount " + amount);
-         getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_test1", 0);
+
+         if (accountNumber == 0l)
+         {
+            errorMessage = "Account number is required";
+         }
+         else
+         {
+            errorMessage = getAdminEmulationSpDAO().processAccountRequest(accountNumber, amount, "testing.sp_emulate_step5_position", 0);
+         }
       }
       catch (Exception e)
       {
