@@ -462,8 +462,9 @@ margin: 0 !important; box-shadow: none !important;}
 	display: block;
 	overflow: auto;}
 
-.footerlinks li {list-style: none; width: 24%; font-size: 0px;
+.footerlinks li {list-style: none; width: 33%; font-size: 0px;
 	float: left; display: inline-block; text-align: center; border-right: 1px solid #fff;}
+	.footerlinks li:nth-child(2) {display: none;}/*remove one option from footer*/
 
 .footerlinks li:last-child {border-right: 0px solid #fff;}
 

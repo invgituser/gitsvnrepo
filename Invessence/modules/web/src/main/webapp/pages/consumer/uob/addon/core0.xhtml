@@ -60,10 +60,10 @@
                     update=":ceForm:graphArea, :ceForm:buttonArea"/>
         </p:inputNumber>
 
-        <div class="Wid100 uobCoreLabel">Initial investment</div>
+        <div class="Wid100 uobCoreLabel">Initial investment (SGD)</div>
         <p:inputNumber styleClass="Wid100 uob_investAmount" id="uobinoutinitialinvest"
                        value="#{uobpb.initialInvestment}" maxlength="11"
-                       decimalPlaces="0" symbol="$">
+                       decimalPlaces="0" >
             <p:ajax listener="#{uobpb.onChangeValue}"
                     update=":ceForm:graphArea, :ceForm:buttonArea"/>
         </p:inputNumber>

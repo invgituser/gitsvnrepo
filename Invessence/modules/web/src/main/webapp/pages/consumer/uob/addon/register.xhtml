@@ -24,34 +24,71 @@
 
                                     <div class="EmptyBox10"></div>
                                     <div class="Container100" style="text-align: center;">
-                                        <p:inputText id="firstName" styleClass="FS14 InputMergeRight CustomWidthFA3"
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="styled-input wide-input">
+										      <p:inputText placeholder="Full Nmae" id="firstName" value="#{uobpb.firstname}" required="true" requiredMessage="Please enter Given Name.">
+                                        </p:inputText>
+										      <label>Full Name</label>
+										      <span></span> 
+									      </div>
+                                    
+                                        <!-- <p:inputText id="firstName" styleClass="FS14 InputMergeRight CustomWidthFA3"
                                                      value="#{uobpb.firstname}" placeholder="Given Name"
                                                      required="true" requiredMessage="Please enter Given Name.">
-                                        </p:inputText>
-
-                                        <p:inputText id="lastName" styleClass="FS14 InputMergeLeft CustomWidthFA3"
+                                        </p:inputText> -->
+										
+                                       <!--  <p:inputText id="lastName" styleClass="FS14 InputMergeLeft CustomWidthFA3"
                                                      value="#{uobpb.lastname}" placeholder="Last Name"
                                                      required="true" requiredMessage="Please enter Family Name.">
                                             <p:watermark for="lastName" value="Family Name"/>
+                                        </p:inputText> -->
+										<!-- <div class="styled-input f-name">
+										     <p:inputText id="lastName" value="#{uobpb.lastname}"  required="true" requiredMessage="Please enter Family Name.">
+                                            <p:watermark for="lastName" value=""/>
                                         </p:inputText>
-
+										      <label>Family Name</label>
+										      <span></span> 
+									      </div> -->
                                         <div class="EmptyBox10"></div>
-
-                                        <p:inputText id="phone" styleClass="Wid100 FS14 CustomWidthFA2"
+										
+										<div class="styled-input wide-input">
+										     <p:inputText placeholder="Phone Number" id="phone" value="#{uobpb.phone}" required="true" requiredMessage="Please enter Phone NUmber.">
+                                            	<!-- <p:watermark for="phone" value=""/> -->
+                                        	</p:inputText>
+										      <label>Phone Number</label>
+										      <span></span> 
+									      </div>
+									      
+                                        <!-- <p:inputText id="phone" styleClass="Wid100 FS14 CustomWidthFA2"
                                                      value="#{uobpb.phone}" placeholder="Phone"
                                                      required="true" requiredMessage="Please enter Phone NUmber.">
                                             <p:watermark for="phone" value="Phone Number"/>
-                                        </p:inputText>
-
+                                        </p:inputText> -->
+ 
                                         <div class="EmptyBox10"></div>
-
-                                        <p:inputText id="email" styleClass="Wid100 FS14 CustomWidthFA2"
+										
+										
+										
+                                        <!-- <p:inputText id="email" styleClass="Wid100 FS14 CustomWidthFA2"
                                                      value="#{uobpb.email}" placeholder="Email"
                                                      required="true" requiredMessage="Please enter Email."
                                                      validatorMessage="Email format is not correct.">
                                             <p:watermark for="email" value="Email Address"/>
                                             <f:validator validatorId="EmailValidator"/>
+                                        </p:inputText> -->
+                                        
+                                        <div class="styled-input wide-input">
+										     <p:inputText placeholder="Email" id="email"  value="#{uobpb.email}"  required="true" requiredMessage="Please enter Email."
+                                                     validatorMessage="Email format is not correct.">
+                                            <!-- <p:watermark for="email" value=""/> -->
+                                            <f:validator validatorId="EmailValidator"/>
                                         </p:inputText>
+										      <label>Email</label>
+										      <span></span> 
+									      </div>
                                     </div>
 
                                 </div>
@@ -59,7 +96,7 @@
                             </p:panel>
 
                             <f:facet name="footer">
-                                <div class="Container100" style="text-align: center;">
+                                <div class="Container100 register_btn" style="text-align: center;">
                                     <p:commandButton value="Review"
                                                      update=":ceForm:workArea"
                                                      actionListener="#{uobpb.gotoReview}"/>
@@ -78,3 +115,4 @@
         <div class="EmptyBox50"></div>
 
 </ui:composition>
+

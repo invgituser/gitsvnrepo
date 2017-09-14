@@ -11,7 +11,7 @@
 
 
     <ui:define name="content">
-
+		
         <h:outputScript name="js/invCharts.js"
                         library="#{uiLayout.webProfile.cssdir}"/>
         <h:outputScript name="js/uobHighCharts.js"
@@ -30,6 +30,7 @@
                         library="#{uiLayout.webProfile.cssdir}"/>
         <h:outputScript name="js/data.js"
                         library="#{uiLayout.webProfile.cssdir}"/>
+        
         <h:form id="uobIndxform">
             <!-- BOX START -->
 
@@ -41,14 +42,14 @@
                     </h3>
                     <div class="supportAdvBlock">
                         <div class="sAdvLabel Fs14">
-                            <span>My Advisor</span>
+                            <span>Sales Res Info </span>
                         </div>
                         <div class="sAdvName Fs12">
-									<span>Patil, Abhang <i class="fa fa-hand-o-left"
+                           <span>Patil, Abhang <i class="fa fa-hand-o-left"
                                                            aria-hidden="true"></i></span>
                         </div>
                         <div class="sAdvLabelMail Fs12">
-									<span>support@invessence.com <i
+                           <span>support@invessence.com <i
                                             class="fa fa-hand-o-left" aria-hidden="true"></i></span>
                         </div>
                     </div>
@@ -57,9 +58,12 @@
 
             </div>
             <div class="Container100">
-                <div class="Wid100  v3dMainTitle">
-                    Account Overview
-                    <p:outputLabel for="acctDtls" value="Accounts : ">
+                <div class="Wid100  v3dMainTitle left_side_title">
+                    Account Overview<button class="acc_detl_btn ui-selectonemenu-trigger ui-state-default ui-corner-right"> <span style="margin-top: 3px !important; " class="ui-icon ui-icon-triangle-1-s ui-c"></span></button> 
+                   <div class="acc_dtl_overview" style="display:none;">
+                   	account details 
+                   </div>
+                    <p:outputLabel for="acctDtls" value="">                    
                         <p:selectOneMenu id="acctDtls" value="#{uobdash.selAcctNum}" style="width:150px">
                             <p:ajax listener="#{uobdash.showSelAcctDtls}" event="change" update="uobIndxform:accountDtlArea"/>
                             <f:selectItem itemLabel="Select Account" itemValue="0" noSelectionOption="true"/>
@@ -67,6 +71,7 @@
                                            itemLabel="#{acctDtl.displayActiveAcctNum}" itemValue="#{acctDtl.acctnum}"/>
                         </p:selectOneMenu>
                     </p:outputLabel>
+                   
                 </div>
             </div>
 
@@ -74,31 +79,37 @@
 
                 <p:outputPanel id="accountDtlArea">
                     <ui:fragment rendered="#{uobdash.accoutListZize >0}">
-                        <div class="Wid30 Fleft LeftPanel">
+                        <div class="Wid30 Fleft LeftPanel acc_block_left">
 
                             <div class="Wid100 userPanelv3d">
                                 <div class="Wid100 advLabelBlockv3d">
 
                                 </div>
-                                <div class="Wid100 userNameBlockv3d">
+                                <div class="Wid100 userNameBlockv3d acc_overview_block">
 
                                     <div class="Wid100 table">
 
-                                        <h1 class="userHeadingUobDash">#{uobdash.selAccountList.get(0).firstname} #{uobdash.selAccountList.get(0).lastname}</h1>
-                                        <div class="rowBlock">
+                                        <!-- <h1 class="userHeadingUobDash">#{uobdash.selAccountList.get(0).firstname} #{uobdash.selAccountList.get(0).lastname}</h1> -->
+                                        <h1 class="userHeadingUobDash"><span>Goal -</span> #{uobdash.selAccountList.get(0).goal}</h1>
+                                        
+                                        <!-- <div class="rowBlock">
                                             <div class="Wid50 cellBlock">Goal</div>
                                             <div class="Wid50 cellBlock">#{uobdash.selAccountList.get(0).goal}</div>
-                                        </div>
-                                        <div class="rowBlock">
+                                        </div> -->
+                                        <!-- <div class="rowBlock">
                                             <div class="Wid50 cellBlock">Strategy</div>
                                             <div class="Wid50 cellBlock">#{uobdash.selAccountList.get(0).portfolioName}</div>
-                                        </div>
+                                        </div> -->
+                                        <!-- <div class="rowBlock">
+                                            <div class="Wid50 cellBlock">Date Opened</div>
+                                            <div class="Wid50 cellBlock">Date Opened</div>
+                                        </div> -->
                                         <div class="rowBlock">
                                             <div class="Wid50 cellBlock">Invested Amount</div>
                                             <div class="Wid50 cellBlock">#{uobdash.selAccountList.get(0).actualInvestment}</div>
                                         </div>
                                         <div class="rowBlock">
-                                            <div class="Wid50 cellBlock">Account Number</div>
+                                            <div class="Wid50 cellBlock">Account Status</div>
                                             <div class="Wid50 cellBlock">#{uobdash.selAccountList.get(0).displayActiveAcctNum}</div>
                                         </div>
                                         <div class="rowBlock">
@@ -106,15 +117,15 @@
                                             <div class="Wid50 cellBlock">#{uobdash.selAccountList.get(0).accountType}</div>
                                         </div>
                                         <div class="rowBlock">
-                                            <div class="Wid50 cellBlock">Date</div>
+                                            <div class="Wid50 cellBlock">Date Opened</div>
                                             <div class="Wid50 cellBlock">#{uobdash.selAccountList.get(0).displayDateOpened}</div>
                                         </div>
                                     </div>
 
-                                    <div class="Wid100">
+                                    <div class="Wid100 acc_button_block">
                                         <div class="Container30 firstBtnBlck Fleft">
                                             <div class="boxBtn">
-                                                <i class="fa fa-file-text" aria-hidden="true"></i> <label>Overview</label>
+                                                <i class="fa fa-file-text" aria-hidden="true"></i> <label>Holding</label>
                                             </div>
                                         </div>
                                         <div class="Container30 centerRelCenter Fleft">
@@ -205,7 +216,8 @@
                             </div>
                         </div>
 
-                        <div class="Wid66 Fleft RightPanel">
+                        <div class="Wid66 Fleft RightPanel dashboard_right_panel">
+                        <h1 class="userHeadingUobDash">Asset Overview</h1>
                             <p:panel id="graphArea" style="border: 0px; background: white;">
                                 <script>
                                     $(document).ready(function ()

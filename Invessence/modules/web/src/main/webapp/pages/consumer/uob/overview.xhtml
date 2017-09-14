@@ -19,7 +19,7 @@
                 <div class="Container100 Responsive100">
                     <div class="ContainerIndent">
                         <div class="DispInlBlock">
-                            <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10" style="padding-top:15px;"></i></div>
+                            <!-- <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10" style="padding-top:15px;"></i></div> -->
                             <div class="Container80 UsernameDashboard">
                                 <h2 class="Fs18 black head FontThemeMedium DispBlock">Account#: #{uobpos.clientAccountID}
                                 </h2>
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <p:accordionPanel multiple="true" styleClass="marginZero">
-                            <p:tab title="Summary">
+                            <p:tab title="Current Holding">
                                 <div class="Container100">
                                     <div class="Container50 Responsive50 tp20">
                                         <!-- ROHIT's CHANGE -->
@@ -91,7 +91,7 @@
                                 </div>
                             </p:tab>
 
-                            <p:tab title="Detail">
+                            <p:tab title="Trade Executed, Pending Settlement">
                                 <div class="Container100 Responsive100">
                                     <div class="ContainerIndent">
                                         <p:dataTable id="dataTable" var="position" value="#{uobpos.displayPositionList}"
