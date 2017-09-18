@@ -4560,73 +4560,74 @@ main.customtabs {
 .customtabs #tab5:checked ~ #content5{
     display: block;
 }
+/*Commented By Sagar*/
+/*.bgcontain{*/
+    /*background: #f7f7f7 !important;*/
+    /*padding:10px 10px 10px 10px !important;*/
+/*}*/
 
-.bgcontain{
-    background: #f7f7f7 !important;
-    padding:10px 10px 10px 10px !important;
-}
+/*.bgcontain .awBlock .titleContentPanel .contentSecond .ui-accordion{*/
+    /*background: #f7f7f7 !important;*/
+/*}*/
 
-.bgcontain .awBlock .titleContentPanel .contentSecond .ui-accordion{
-    background: #f7f7f7 !important;
-}
+/*.ui-selectonemenu {*/
+    /*float:right !important;*/
+    /*margin-top:-6px !important;*/
+    /*width:170px !important;*/
+    /*margin-left:5px !important;*/
+/*}*/
 
-.ui-selectonemenu {
-    float:right !important;
-    margin-top:-6px !important;
-    width:170px !important;
-    margin-left:5px !important;
-}
+/*.ui-selectoneradio{*/
+    /*float:right !important;*/
+    /*margin: -17px 0 0 5px !important;*/
+/*}*/
 
-.ui-selectoneradio{
-    float:right !important;
-    margin: -17px 0 0 5px !important;
-}
+/*.uploadbuttons .ui-fileupload .ui-fileupload-buttonbar button.ui-fileupload-cancel{*/
+    /*display: none !important;*/
+/*}*/
+/*.uploadtable, .validtable{*/
+    /*width:100% !important;*/
+    /*position: relative !important;*/
+    /*text-align: center !important;*/
+    /*margin: 0 auto !important;*/
+    /*float: left !important;*/
+    /*display: block !important;*/
+/*}*/
+/*.uploadtable .ui-datatable, .validtable .ui-datatable{*/
+/*width:100% !important;*/
+    /*margin: 0 auto !important;*/
+    /*max-width: 900px !important;*/
+/*}*/
 
-.uploadbuttons .ui-fileupload .ui-fileupload-buttonbar button.ui-fileupload-cancel{
-    display: none !important;
-}
-.uploadtable, .validtable{
-    width:100% !important;
-    position: relative !important;
-    text-align: center !important;
-    margin: 0 auto !important;
-    float: left !important;
-    display: block !important;
-}
-.uploadtable .ui-datatable, .validtable .ui-datatable{
-width:100% !important;
-    margin: 0 auto !important;
-    max-width: 900px !important;
-}
+/*.uploadradiobutton .ui-outputlabel table.ui-selectoneradio tbody tr td label{*/
+    /*padding:15px 26px 15px 0px !important;*/
+/*}*/
 
-.uploadradiobutton .ui-outputlabel table.ui-selectoneradio tbody tr td label{
-    padding:15px 26px 15px 0px !important;
-}
+/*.uploadradiobutton label input{*/
+    /*float:right;*/
+    /*margin-top: -7px !important;*/
+/*}*/
 
-.uploadradiobutton label input{
-    float:right;
-    margin-top: -7px !important;
-}
+/*.ui-slider-vertical{*/
+    /*height:94% !important;*/
+    /*margin-top:0px !important;*/
+/*}*/
+/*Commented By Sagar*/
 
-.ui-slider-vertical{
-    height:94% !important;
-    margin-top:0px !important;
-}
+/*.ui-slider-vertical .ui-slider-handle{*/
+    /*left:-13px !important;*/
+/*}*/
 
-.ui-slider-vertical .ui-slider-handle{
-    left:-13px !important;
-}
+/*.ui-slider-vertical{*/
+    /*background: none !important;*/
+/*}*/
 
-.ui-slider-vertical{
-    background: none !important;
-}
-
-.goalselectinvest {
-    width: 100% !important;
-    position: relative !important;
-    float: left !important;
-    margin:0 !important;
-}
+/*.goalselectinvest {*/
+    /*width: 100% !important;*/
+    /*position: relative !important;*/
+    /*float: left !important;*/
+    /*margin:0 !important;*/
+/*}*/
 /*#ceForm:rTabView:uobddrcalc,#ceForm:rTabView:uobddsoi{
     margin: 0 !important;
     float: left !important;
@@ -4637,16 +4638,16 @@ width:100% !important;
     float: left !important;
 }*/
 
-.Wid100{
-    position:relative;
-    float: left;
+/*.Wid100{*/
+    /*position:relative;*/
+    /*float: left;*/
 
-}
+/*}*/
 
-.Goalchoose,.dependentsradio{
-    margin: 0 !important;
-    float: left !important;
-}
+/*.Goalchoose,.dependentsradio{*/
+    /*margin: 0 !important;*/
+    /*float: left !important;*/
+/*}*//*Commented By Sagar*/
 @media screen and (max-width: 650px) {
     .customtabs label {
         font-size: 0;
