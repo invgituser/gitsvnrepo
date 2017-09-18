@@ -159,7 +159,25 @@
                     <a href="#{uiLayout.defaultHome}" id="menudashboardbtn">Dashboard</a>
 
                 </li>
-
+                <li  class="test" id="dashboardMenuHighlight">
+                     <div class="shake shake-constant">
+                     	<p:graphicImage name="images/alert-bell.png" library="#{uiLayout.webProfile.cssdir}"/>                     	
+                     </div>
+                     <span class="alert_count">10</span>					
+					  <h:form class="alert_menu">          
+					    <p:commandButton id="imageBtn" value="Alert" type="button" />
+					    <p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade" class="alert_overlay_panel">
+					    	<div class="outer_panel_block">
+						    	<div class="panel_block">Cross button block <span>X</span></div>
+						    	<div class="panel_block">Without Cross button block <span>X</span></div>
+						    	<div class="panel_block">Cross button block <span>X</span></div>
+						    	<div class="panel_block">without Cross button block <span>X</span></div>
+						    </div>
+					    	<div class="bottom_block">View all alerts <a href="">click here</a></div>
+					    </p:overlayPanel>
+					    </h:form>
+                </li>
+				
                 <ui:fragment rendered="#{webutil.hasMenu('Account') and webutil.hasAccess('User')}">
                 <li  id="newaccountMenuHighlight">
                     <p:commandLink rendered="true" id="menunewacctbtn"
