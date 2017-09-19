@@ -140,6 +140,24 @@ img.riskImage:hover {
     .BenBttonBlock {
         width: 108% !important;
     }
+    
+    
+     /** 19/9/2017**/
+    li .alert_menu button{margin: 0 20px;}
+    li .shake.shake-constant{top:10px;right:10px;}
+    li .alert_count{right:0;top:-5px;}
+    li .alert_overlay_panel{width: 99%;left: 2px !important;  top: 42px !important;}
+    li .alert_overlay_panel:before{left: 49.4%;}
+    li .alert_overlay_panel:after{left:50%;}
+    .Container100 .acc_overview_dtl { width: 100%;margin-bottom:20px;}
+    .Container100 .acc_overview_label{width: 100%;  text-align: left;}
+    .acc_overview_block{width:92%;}
+    .leftAccountInfoBlock {    display: none;}
+    .Container100 .dashboard_right_panel { width: 93% !important;}
+    .acc_block_left .userPanelv3d {  height: 100%;}
+    .strategy_dtl .outer_stategy_block{ width: 85%;}
+    
+    
 }
 
 /*Prakash - Advisor Page*/
@@ -197,6 +215,23 @@ img.riskImage:hover {
     .MiddleInitialWidth, .MiddleInitialWidthB {
         width: 20% !important;
     }
+    
+    
+         /** 19/9/2017**/
+    li .alert_menu button{margin: 0 20px;}
+    li .shake.shake-constant{top:10px;right:10px;}
+    li .alert_count{right:0;top:-5px;}
+    li .alert_overlay_panel{width: 99%;left: 2px !important;  top: 42px !important;}
+    li .alert_overlay_panel:before{left: 49.4%;}
+    li .alert_overlay_panel:after{left:50%;}
+    .Container100 .left_side_title {margin-top: 60px;}
+    .acc_overview_block{width:96%;}
+    .leftAccountInfoBlock {    display: none;}
+    .Container100 .dashboard_right_panel { width: 97% !important;}
+    .acc_block_left .userPanelv3d {  height: 100%;}
+    
+    
+    
 }
 
 @media (min-width: 900px) and (max-width: 1100px) {
@@ -387,6 +422,8 @@ img.riskImage:hover {
     .tcmPanel-UI > .ui-panel-content {
         margin-top: 0px !important;
     }
+   
+    
 }
 
 /**/
@@ -5082,7 +5119,7 @@ main.customtabs {
 
 .customAcco h3.ui-state-active {
     background: transparent;
-    background-color: #009abb !important;
+   /*  background-color: #009abb !important; */
     color: #666;
     font-size: 18px !important;
 }
@@ -5819,12 +5856,14 @@ font-size: 0.75em;
 .acc_button_block{margin: 25px 10px;float:left;}
 .left_side_title{border:none;margin-top:20px;position: relative}
 button.acc_detl_btn {
-    border: none;
+   border: none;
     margin: 5px;
     position: absolute;
-    top: 4px;   
+    top: 4px;
     padding: 0px 3px;
     cursor: pointer;
+    
+    z-index: 0;
 }
 .acc_overview_block .cellBlock:nth-child(2) {
     font-weight: normal;
@@ -5878,8 +5917,10 @@ button.acc_detl_btn {
 }
 
 /** 18-9-17 **/
-.left_side_title label {
+.acc_overview_label {
     float: right;
+    width: 48%;
+    text-align: right;
 }
 .alert_count {
     position: absolute;
@@ -5987,17 +6028,90 @@ button.acc_detl_btn {
     color: #a4332f;
     text-decoration: underline;
 }
+.outer_stategy_block {
+    width: 90%;
+    margin: 10px 5%;
+    /* background: #fbafa7; */
+    padding: 10px;
+    box-shadow: 2px 2px 5px 1px #fbafa7;
+    border-radius: 4px;
+    float:left;
+}
+p.top_line {
+    width: 100%;
+    text-align: center;
+        font-weight: 600;
+}
+.strategy_contain {
+    width: 98%;
+    margin: 20px 10px;
+    line-height: 1.48;
+        float: left;
+}
+li.strategy_list {
+    list-style: disc;
+    margin: 10px 0;
+    float: left;
+}
+.strategy_select {
+    width: 97%;
+    float: left;
+    margin: 10px 20px;
+}
+.strategy_select table{margin:10px;}
+.strategy_btn {
+    width: 96%;
+    float: left;
+    margin: 20px;
+}
+.continue_btn {
+    float: right;
+}
+.strategy-progressbar {
+    position: relative;
+    margin: 20px auto;
+}
+.acc_overview_dtl span.ui-button-text.ui-c {
+    display: none;
+}
+.acc_overview_dtl {
+    width: 48%;
+    float: left;
+}
+.left_side_title .acc_overview_dtl.ui-selectonemenu-trigger {
+    background-color: transparent !important;
+}
+.acc_overview_dtl button {
+    background-color: #a4332f;
+    /* padding: 8px; */
+    height: 20px;
+    width: 20px;
+}
+.left_side_title .ui-selectonemenu-trigger.ui-state-default.ui-corner-right {
+    z-index: 0;
+}
 
+/** alert notification page **/
+.uob_user_alert_notification .AdvBtnTcmGrp > .ui-state-active > span {
+    background: #e03826 !important;
+    border-color: #721311;
+    color:#fff;
+}
+.uob_user_alert_notification .AdvBtnTcmGrp > div > span {
+    border-color: #721311;
+    color: #e03826;
+}
+.uob_user_alert_notification .ui-datatable .ui-paginator .ui-paginator-rpp-options {
+    background-color: #e03826 !important;
+}
 
-
-
-
-
-
-
-
-
-
+.uob_user_alert_notification .ui-datatable .ui-paginator .ui-paginator-first,
+.uob_user_alert_notification .ui-datatable .ui-paginator .ui-paginator-prev,
+.uob_user_alert_notification .ui-datatable .ui-paginator .ui-paginator-pages .ui-paginator-page,
+.uob_user_alert_notification .ui-datatable .ui-paginator .ui-paginator-next,
+.uob_user_alert_notification .ui-datatable .ui-paginator .ui-paginator-last,
+.uob_user_alert_notification .ui-datatable .ui-paginator .ui-paginator-rpp-options
+{background-color: #e03826 !important;}
 
 
 

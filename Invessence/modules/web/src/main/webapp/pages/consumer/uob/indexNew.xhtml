@@ -59,11 +59,19 @@
             </div>
             <div class="Container100">
                 <div class="Wid100  v3dMainTitle left_side_title">
-                    Account Overview<button class="acc_detl_btn ui-selectonemenu-trigger ui-state-default ui-corner-right"> <span style="margin-top: 3px !important; " class="ui-icon ui-icon-triangle-1-s ui-c"></span></button> 
-                   <div class="acc_dtl_overview" style="display:none;">
-                   	account details 
-                   </div>
-                    <p:outputLabel for="acctDtls" value="">                    
+                
+                <div class="acc_overview_dtl ui-selectonemenu-trigger">
+                Account Overview 
+                <h:form class="alert_menu ">          
+					    <p:commandButton id="imageBtn" value="" type="button"  class="ui-icon ui-icon-triangle-1-s ui-c"/>
+					    
+					    <p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade" class="acc_overview_panel">
+					    	Account Details
+					    </p:overlayPanel>
+					    </h:form>
+                </div>
+                    
+                    <p:outputLabel for="acctDtls" value="" class="acc_overview_label">                    
                         <p:selectOneMenu id="acctDtls" value="#{uobdash.selAcctNum}" style="width:150px">
                             <p:ajax listener="#{uobdash.showSelAcctDtls}" event="change" update="uobIndxform:accountDtlArea"/>
                             <f:selectItem itemLabel="Select Account" itemValue="0" noSelectionOption="true"/>
