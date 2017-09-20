@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/template.xhtml">
+    <f:metadata>
+        <f:viewParam name="Action" value="#{notificationBean.filterNotice}"/>
+        <f:viewParam name="Type" value="#{notificationBean.notificationType}"/>
+        <f:event type="preRenderView" listener="#{notificationBean.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <!-- BOX START -->
+        <h:form id="form">
+            <div class="layout-portlets-box">
+                <div class="Container90 Responsive100">
+                    <div class="ContainerIndent">
+                        <div class="Container100">
+
+                            <p:growl id="noticeGrowl" showDetail="true" sticky="true" escape="true"/>
+
+                            <div class="Wid100 Fleft">
+                                <h3 class="BigTopic"><h:outputText value="#{notificationBean.messageHeader}"/></h3>
+                            </div>
+
+                            <div class="Container100 MarTop5">
+                                <p:dataTable id="messageDT" var="msg" value="#{notificationBean.notificationDataList}"
+                                             widgetVar="messageWidget"
+                                             emptyMessage="No Messages were created."
+                                             reflow="true">
+
+                                    <p:column style="width: 1%; background-color: #{msg.color};">
+                                        <h:outputText value=" "/>
+                                    </p:column>
+
+                                    <p:column style="width: 7%;" styleClass="TextAlLeft">
+                                        <p:commandButton id="markButton" rendered="#{msg.status == 'N'}"
+                                                         styleClass="Fs16 BlueButton" title="Archive"
+                                                         process="@this" immediate="true"
+                                                         icon="fa fa-check Fs14 white"
+                                                         actionListener="#{notificationBean.markRead}"
+                                                         update="@form">
+                                            <f:setPropertyActionListener value="#{msg}"
+                                                                         target="#{notificationBean.selectedMessage}"/>
+                                        </p:commandButton>
+                                    </p:column>
+
+                                    <p:column style="width: 10%;" styleClass="Fs14 TexAlLeft"
+                                              headerText="Created">
+                                        <h:outputText value="#{msg.businessdate}"/>
+                                    </p:column>
+
+                                    <p:column styleClass="Fs14 TexAlLeft"
+                                              headerText="Message">
+                                        <h:outputText value="#{msg.message}" escape="false">
+                                        </h:outputText>
+                                    </p:column>
+
+                                </p:dataTable>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Can add another element here... -->
+            </div>
+            <!-- BOX END -->
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

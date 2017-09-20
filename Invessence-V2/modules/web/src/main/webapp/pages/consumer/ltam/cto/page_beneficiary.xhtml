@@ -1,0 +1,145 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <p:panel id="benefitInfo" style="border: 0px; background: transparent">
+    <div class="Container50">
+    <div class="Container100">
+            <p:commandButton value="Add Beneficiary"/>
+            <div class="ContainerIndent">
+                <div class="Container100">
+                    <h4>Beneficiary Info</h4>
+                </div>
+                <div class="Container100 MarTop5">
+                        <div class="Container20">
+                        <div class="ContainerIndent">
+                            <p:selectOneMenu style="width: 60px">
+                                <f:selectItem itemLabel="Choose" itemValue=""/>
+                                <f:selectItem itemLabel="Dr." itemValue="Dr"/>
+                                <f:selectItem itemLabel="Mr." itemValue="Mr"/>
+                                <f:selectItem itemLabel="Mrs." itemValue="Mrs"/>
+                                <f:selectItem itemLabel="Miss" itemValue="Miss"/>
+                            </p:selectOneMenu>
+                        </div>
+                        </div>
+                    <div class="Container70">
+                        <div class="Container50">
+                        <div class="ContainerIndent">
+                            <p:inputText styleClass="Wid90" placeholder="First Name">
+                            </p:inputText>
+                        </div>
+                        </div>
+                        <div class="Container50">
+                        <div class="ContainerIndent">
+                           <p:inputText styleClass="Wid90" placeholder="Last Name">
+                           </p:inputText>
+                        </div>
+                        </div>
+                    </div>
+          </div>
+   </div>
+
+
+    <div class="Container100">
+            <div class="ContainerIndent">
+                        <div class="Container100">
+                            <h4>Legal Address</h4>
+                        </div>
+                        <div class="Container100 MarTop5">
+                            <p:inputText styleClass="Wid90" placeholder="Address1">
+                            </p:inputText>
+                        </div>
+                        <div class="Container100 MarTop5">
+                            <p:inputText styleClass="Wid90" placeholder="Address2">
+                            </p:inputText>
+                        </div>
+                        <div class="Container100 MarTop5">
+                            <div class="Container40 Responsive100">
+                                <p:inputText styleClass="Wid90" placeholder="City">
+                                </p:inputText>
+                            </div>
+                            <div class="Container50 Responsive100">
+                            <div class="Container50">
+                                <p:inputText styleClass="Wid80" placeholder="State">
+                                </p:inputText>
+                            </div>
+                            <div class="Container50">
+                                <p:inputText styleClass="Wid100" placeholder="Zip">
+                                </p:inputText>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="Container100 MarTop5">
+                            <div class="Container50">
+                                <p:inputText styleClass="Wid90" placeholder="Country">
+                                </p:inputText>
+                            </div>
+                        </div>
+                     </div>
+
+    </div>
+
+                <div class="Container100 MarTop5">
+                <div class="ContainerIndent">
+                    <div class="Container20">
+                        Allocation %
+                        <p:inputText style="width: 100px">
+                        </p:inputText>
+                    </div>
+                    <div class="Container40">
+                        Social Security
+                            <p:inputMask mask="999-99-9999"/>
+                    </div>
+                </div>
+                </div>
+
+   </div>
+
+
+                <div class="Container50">
+                <div class="Container100">
+                    <p:dataTable id="benefitList" var="beneficiary"
+                                 value="#{ctobean.beneficiary}"
+                                 rendered="#{not empty ctobean.beneficiary}">
+
+                        <p:column style="width:5%">
+                            <p:commandButton id="editAsset"
+                                             styleClass="Fs16 BlueButton"
+                                             icon="fa fa-pencil Fs14 white"
+                                             update="ctoForm:benefitInfo">
+                                <p:tooltip id="editTipFade" for="editAsset" value="Edit"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column style="width:5%">
+                            <p:commandButton id="menuDelete"
+                                             styleClass="Fs16 RedButton"
+                                             process="@this" immediate="true"
+                                             icon="fa fa-trash Fs14 white"
+                                             update="benefitList">
+                                <p:confirm header="Delete This Beneficiary" message="Are you sure?" icon="ui-icon-alert"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column sortBy="#{beneficiary.name}"
+                                  headerText="Name"
+                                  style="width:50%; text-align: left"
+                                  resizable="true">
+                            <h:outputText value="#{beneficiary.name}"/>
+                        </p:column>
+
+                        <p:column sortBy="#{beneficiary.allocation}"
+                                  headerText="Allocated"
+                                  style="width:8%; text-align: left"
+                                  resizable="true">
+                            <h:outputText value="#{beneficiary.allocation}"/>
+                        </p:column>
+                    </p:dataTable>
+
+                </div>
+                </div>
+    </div>
+            </p:panel>
+
+</ui:composition>

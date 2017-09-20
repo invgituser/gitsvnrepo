@@ -1,0 +1,88 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/simple.xhtml">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{watsonBean.preRenderLinkedInCallBack}" />
+        <f:event type="preRenderView" listener="#{citidemo.preRender}"/>
+    </f:metadata>
+
+
+    <ui:define name="content">
+        <div class="blue_banner_header">
+            <div class="maxWidth">
+                <!-- LOGO -->
+                <a id="headerLogoLink" class="default"><img alt="CITI logo"
+                                                            src="https://online.citi.com/GFC/branding/img/Citi-Enterprise-White.png"/> </a>
+
+
+            </div>
+        </div>
+        <div style="width: 100%; height: 100%; background: #e9e9e9; display: table;">
+            <h:outputScript name="js/invCharts.js"
+                            library="#{uiLayout.webProfile.cssdir}"/>
+            <h:outputScript name="js/uobHighCharts.js"
+                            library="#{uiLayout.webProfile.cssdir}"/>
+
+            <!-- HighChart .js plugin Start -->
+            <h:outputScript name="js/highcharts.js"
+                            library="#{uiLayout.webProfile.cssdir}"/>
+            <h:outputScript name="js/highcharts-3d.js"
+                            library="#{uiLayout.webProfile.cssdir}"/>
+            <h:outputScript name="js/highcharts-more.js"
+                            library="#{uiLayout.webProfile.cssdir}"/>
+            <h:outputScript name="js/exporting.js"
+                            library="#{uiLayout.webProfile.cssdir}"/>
+            <h:outputScript name="js/drilldown.js"
+                            library="#{uiLayout.webProfile.cssdir}"/>
+            <h:outputScript name="js/data.js"
+                            library="#{uiLayout.webProfile.cssdir}"/>
+
+
+            <h:form id="ceForm">
+            <div class="EmptyBox40"></div>
+
+                <p:panel id="progressArea"
+                         style="border: 0px; background: transparent; height: auto">
+                    <div class="loadPgNm">
+                        <span class="#{citidemo.getActivePage(0)}"> Goal </span>
+                        <span class="#{citidemo.getActivePage(1)}">  Investment </span>
+                        <span class="#{citidemo.getActivePage(2)}"> Review </span>
+                    </div>
+                </p:panel>
+
+
+            <div class="EmptyBox10"></div>
+                <p:panel id="inputArea"
+                         style="border: 0px; background: transparent; height: auto">
+                    <ui:fragment rendered="#{citidemo.pagemanager.page == 0}">
+                        <div class="step1 fixedHeightLP" style="">
+                            <ui:include src="/pages/consumer/citi/demo/p1.xhtml"/>
+                        </div>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{citidemo.pagemanager.page == 1}">
+                        <div class="step2 fixedHeightLP">
+                            <ui:include src="/pages/consumer/citi/demo/p2.xhtml"/>
+                        </div>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{citidemo.pagemanager.page == 2}">
+                        <div class="step3 fixedHeightLP">
+                            <ui:include src="/pages/consumer/citi/demo/p3.xhtml"/>
+                        </div>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{citidemo.pagemanager.page == 3}">
+                        <div class="step3 fixedHeightLP" style="height:440px !important;">
+                            <ui:include src="/pages/consumer/citi/demo/security.xhtml"/>
+                        </div>
+                    </ui:fragment>
+                </p:panel>
+
+            </h:form>
+        </div>
+
+</ui:define>
+
+        </ui:composition>

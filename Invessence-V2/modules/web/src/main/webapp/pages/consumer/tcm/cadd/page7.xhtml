@@ -1,0 +1,169 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <script type="text/javascript">
+        $(document).ready(function ()
+                          {
+                              drawProjectionChart("page7");//passing page info for reuse js
+                          });
+
+    </script>
+
+    <div class="Container100  Responsive100">
+        <div class="ContainerIndent">
+
+
+            <div class="Container100 Responsive100">
+                <div class="Container10" style="height:1px;"></div>
+                <div class="Container80 Responsive100">
+                    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent">
+                            <p:panel style="height: 60%; width: 100%; background: #ffffff;">
+                                <div class="EmptyBox5"></div>
+                                <div class="Fs17 textAlign">Your currently selected strategy for this portfolio is
+                                    <strong>#{tcmpb.origCustomerData.portfolioName}</strong>
+                                </div>
+
+
+                                <div class="EmptyBox5"></div>
+                            </p:panel>
+                        </div>
+                    </div>
+                    <div class="ContainerIndent">
+                        <p:panel id="reviewPanel" style="height: 60%; width: 100%; background: #ffffff;">
+                            <div class="EmptyBox10"></div>
+
+                            <ui:fragment rendered="#{tcmpb.formula == 'Q'}">
+                                <div class="Fs17 textAlign">
+                                    After reviewing your risk though the
+                                    questionnaire, your new portfolio recommendation is <strong>#{tcmpb.fixedModelName}</strong>
+                                </div>
+                            </ui:fragment>
+                            <ui:fragment rendered="#{tcmpb.formula != 'Q'}">
+                                <div class="Fs17 textAlign">
+                                    Rather than having a strategy recommended to me based on my time horizon and risk tolerance, I would rather directly choose my investment strategy and am familiar with the associated risks.The strategy I choose is:
+                                </div>
+                            </ui:fragment>
+
+                            <div class="EmptyBox10"></div>
+                            <ui:fragment rendered="#{(tcmpb.origCustomerData.portfolioName==tcmpb.fixedModelName) and tcmpb.formula=='Q'}">
+                                <div class="fs17 textAlign">
+                                    Your current and revised portfolio is same, you can not do further processing.
+                                </div>
+                                <div class="EmptyBox10"></div>
+                            </ui:fragment>
+
+                            <ui:fragment rendered="#{(tcmpb.origCustomerData.portfolioName!=tcmpb.fixedModelName) or tcmpb.formula=='D'}">
+                                <div style="border:0px !important; background:none;" class="Container50 FormContent">
+                                    <div class="container100"><p:messages styleClass="errorText" showDetail="false" autoUpdate="true"
+                                                                          closable="true"/></div>
+                                    <div class="container100 ReviewRadioBtnP" style="margin:auto;" id="abc">
+                                        <p:selectOneRadio value="#{tcmpb.selectedThemeName}" layout="pageDirection"
+                                                          required="true" requiredMessage="Please choose one of these choices">
+                                            <p:ajax listener="#{tcmpb.selectedTheme}"
+                                                    update=":ceForm:inputArea,:ceForm:summary"/>
+                                            <f:selectItems style="font-size:14px;" itemLabel="#{c.displayname}" itemValue="#{c.displayname}" var="c"
+                                                           value="#{tcmpb.fmDataArrayList}"/>
+                                        </p:selectOneRadio>
+                                    </div>
+                                </div>
+                                <div class="Container40">
+
+                                    <h:inputHidden value="#{tcmpb.charts.chartdata.highChartresultSet}"
+                                                   id="projectionChart"/>
+
+                                    <div id="progressChart" class="Container100 Fright"></div>
+                                </div>
+                                <div class="EmptyBox10"></div>
+                                <div class="Container100 Responsive100 TextAlCenter">
+
+
+                                    <p:fieldset id="summary" legend="#{tcmpb.selectedThemeName}" toggleable="true" styleClass="summaryConfirm"
+                                                toggleSpeed="500">
+                                        <div class="Container100 Responsive100">
+                                            <div class="EmptyBox10"></div>
+
+                                            <div class="fs17 textAlign">#{tcmpb.newLongDesc}</div>
+                                            <div class="EmptyBox20"></div>
+                                            <div class="Container50 Responsive50 Fleft">
+
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Container100">
+                                                    <p:outputPanel deferred="true">
+                                                        <p:chart type="pie" model="#{tcmpb.charts.pieChart}" style="height: 200px; width: 100%;"
+                                                                 rendered="#{tcmpb.charts.pieChart != null}"
+                                                                 responsive="true"/>
+                                                    </p:outputPanel>
+                                                </div>
+                                            </div>
+                                            <div class="Container50 Responsive50 Fleft assetAllocationTableMobView">
+                                                <p:dataTable styleClass="invAllocTable"
+                                                             value="#{tcmpb.editableAsset}"
+                                                             var="assetList">
+
+                                                    <p:column style="width: 1%; background-color: #{assetList.color};">
+                                                        <h:outputText value=" "/>
+                                                    </p:column>
+
+                                                    <p:column styleClass="Wid30 Fs14 TexAlLeft"
+                                                              headerText="Class">
+                                                        <h:outputText value="#{assetList.asset}"/>
+                                                    </p:column>
+                                                    <p:column styleClass="Wid20 Fs14 num-text-align TexAlRight"
+                                                              headerText="Weight"><!-- ROHIT's CHANGE -->
+                                                        <h:outputText value="#{assetList.userEdit}">
+                                                            <f:convertNumber pattern="##0.00%"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                    <p:column styleClass="Wid30 Fs14 num-text-align TexAlRight"
+                                                              headerText="Value"><!-- ROHIT's CHANGE -->
+                                                        <h:outputText value="#{assetList.value}">
+                                                            <f:convertNumber pattern="$#,###,###"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                    <p:columnGroup type="footer">
+                                                        <p:row>
+                                                            <p:column colspan="3" styleClass="Fs14 TexAlLeft FontBold"
+                                                                      footerText="Total">
+                                                            </p:column>
+                                                            <p:column styleClass="Fs14 TexAlRight FontBold"
+                                                                      footerText="#{dataDisplayConverter.displayAsMoneyRounded(tcmpb.totalMoneyAllocated)}">
+                                                            </p:column>
+                                                        </p:row>
+                                                    </p:columnGroup>
+                                                </p:dataTable>
+                                            </div>
+                                            <div class="EmptyBox20"></div>
+                                        </div>
+                                    </p:fieldset>
+
+
+                                </div>
+                            </ui:fragment>
+                            <div class="EmptyBox5"></div>
+                        </p:panel>
+
+                        <div class="EmptyBox20"></div>
+                        <p:commandButton styleClass="Fleft" value="Start Over"
+                                         update=":ceForm:inputArea"
+                                         immediate="true"
+                                         actionListener="#{tcmpb.startover}"/>
+                        <p:commandButton styleClass="Fright" value="Next" rendered="#{tcmpb.pagemanager.nextButtonStat}"
+                                         update=":ceForm:inputArea" disabled="#{tcmpb.sameStrategy}"
+                                         actionListener="#{tcmpb.nextPage}"/>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+</ui:composition>

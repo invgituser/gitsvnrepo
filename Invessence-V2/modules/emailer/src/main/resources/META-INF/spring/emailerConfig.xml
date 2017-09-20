@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+   <import resource="classpath*:serviceConfig.xml"/>
+   <bean id="configPropLoader" class="com.invessence.service.util.ServiceParameters">
+      <constructor-arg>
+      <list>
+         <value type="java.lang.String">EMAIL-SERVICE</value>
+      </list>
+   </constructor-arg><!--ALL-->
+   <constructor-arg type="java.lang.String" value=""/>
+   <constructor-arg type="com.invessence.service.dao.ServiceDao" ref="wsCommonDao"/>
+</bean>
+
+     <bean id="emailerMessageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>emailmessages</value>
+                <value>emailerror</value>
+            </list>
+        </property>
+     </bean>
+
+   <bean id="emailerDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <bean id="msgDAO" class="com.invessence.emailer.dao.MsgDAO">
+        <property name="dataSource" ref="emailerDataSource"/>
+    </bean>
+
+    <bean id="emailCreator" class="com.invessence.emailer.util.EmailCreator">
+        <property name="msgDAO" ref="msgDAO"/>
+        <property name="messageSource" ref="emailerMessageSource"/>
+    </bean>
+   <bean id="emailUtil" class="com.invessence.emailer.util.EmailUtil"></bean>
+
+
+</beans>

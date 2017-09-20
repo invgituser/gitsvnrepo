@@ -1,0 +1,121 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/common/simple.xhtml">
+
+	<ui:define name="content">
+
+		<div id="layout-portlets-cover">
+			<div class="EmptyBox20"></div>
+			<div
+				class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter BlueModena">
+				<div class="Container100 Fnone MarAuto TexAlLeft">
+
+
+					<h:form id="signup2Form" styleClass="formPage">
+						<div class="Container100">
+							<p:messages id="sign2msg" showDetail="false" sticky="true"
+								escape="true" closable="true" />
+							<p:panel styleClass="SignupBlock2"
+								style="border: 0px; background: transparent;">
+								<div class="Container100 TexAlCenter">
+									<h:graphicImage id="logo" name="#{uiLayout.webProfile.logo}"
+										styleClass="" library="invessence" class="MarAuto"
+										style="height: 50px" />
+								</div>
+								<div class="ContainerIndent TexAlCenter">
+									<h3>You registration process is almost complete.</h3>
+								</div>
+								<div class="Container100 Fs14 textAlign">
+
+									<h:outputText
+										value="Please choose security questions and type your answers below." />
+								</div>
+								<div class="EmptyBox20"></div>
+								<label class="sigupLabel">Security Question 1</label>
+								<div class="Container100">
+
+									<p:selectOneMenu id="q1" value="#{userBean.beanq1}"
+										styleClass="selectBG formpageDropdown FundAccountDropdownUI"
+										required="true" requiredMessage="Please choose Question #1">
+										<f:selectItem itemLabel="Select One" itemValue="" />
+										<f:selectItems
+											value="#{userBean.userdata.getQuestion(0).entrySet()}"
+											var="q1" itemLabel="#{q1.value}" itemValue="#{q1.value}" />
+									</p:selectOneMenu>
+								</div>
+								<div class="EmptyBox5"></div>
+								<div class="Container100">
+									<p:inputText id="a1" value="#{userBean.beanans1}"
+										styleClass="Wid100" label="Answer" placeholder="Answer#1"
+										required="true"
+										requiredMessage="For Question 1: Answer is required.">
+									</p:inputText>
+
+								</div>
+								<div class="EmptyBox20"></div>
+<label class="sigupLabel">Security Question 2</label>
+								<div class="Container100">
+									<p:selectOneMenu id="q2" value="#{userBean.beanq2}"
+										styleClass="selectBG formpageDropdown FundAccountDropdownUI"
+										required="true" requiredMessage="Please choose Question #2">
+										<f:selectItem itemLabel="Choose Favorite" itemValue="" />
+										<f:selectItems
+											value="#{userBean.userdata.getQuestion(1).entrySet()}"
+											var="q2" itemLabel="#{q2.value}" itemValue="#{q2.value}" />
+									</p:selectOneMenu>
+								</div>
+								<div class="EmptyBox5"></div>
+								<div class="Container100">
+									<p:inputText id="a2" value="#{userBean.beanans2}"
+										styleClass="Wid100" label="Answer" placeholder="Answer#2"
+										required="true"
+										requiredMessage="For Question 2: Answer is required.">
+									</p:inputText>
+								</div>
+
+								<div class="EmptyBox20"></div>
+								<label class="sigupLabel">Security Question 3</label>
+								<div class="Container100">
+
+									<p:selectOneMenu
+										styleClass="selectBG formpageDropdown FundAccountDropdownUI"
+										id="q3" value="#{userBean.beanq3}" required="true"
+										requiredMessage="Please choose Question #3">
+										<f:selectItem itemLabel="Select One" itemValue="" />
+										<f:selectItems
+											value="#{userBean.userdata.getQuestion(2).entrySet()}"
+											var="q3" itemLabel="#{q3.value}" itemValue="#{q3.value}" />
+									</p:selectOneMenu>
+								</div>
+								<div class="EmptyBox5"></div>
+								<div class="Container100">
+									<p:inputText id="a3" value="#{userBean.beanans3}"
+										styleClass="Wid100" label="Answer" placeholder="Answer#3"
+										required="true"
+										requiredMessage="For Question 3: Answer is required.">
+									</p:inputText>
+								</div>
+
+								<div class="EmptyBox20" />
+								<p:separator />
+								<div class="EmptyBox5" />
+
+								<div class="Container100 TexAlCenter">
+									<p:commandButton value="Next" ajax="true"
+										update=":signup2Form:sign2msg"
+										actionListener="#{userBean.acceptQA}" />
+								</div>
+							</p:panel>
+						</div>
+<div class="EmptyBox10"></div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+
+
+	</ui:define>
+</ui:composition>

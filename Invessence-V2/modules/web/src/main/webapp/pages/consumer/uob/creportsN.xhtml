@@ -1,0 +1,120 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/template.xhtml">
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{reportBean.preRenderView}"/>
+    </f:metadata>
+    <ui:define name="content">
+        <div class="layout-portlets-box">
+            <!-- Messages/Alerts -->
+            <div class="Container100 Responsive100">
+                <div class="Container100">
+                    <div class="Container50">
+                        <div class="ContainerIndent">
+                            <div class="DispInlBlock">
+                                <div class="Container100">
+                                    <div class="Fleft">
+                                        <h2 class="black Fs24 FontThemeMedium">Reports</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Container100">
+                    <div class="Container100 Fleft">
+                        <div class="Seperator"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="Container100 Responsive50">
+                <h:form id="rptform">
+                    <div class="Container100 Responsive100">
+                        <div class="Container50">
+                            <p class="Fleft"> Account No:</p>
+                            <p:selectOneMenu id="rpt_acctId" value="#{reportBean.accountId}" style="width:150px">
+                                <f:selectItem itemLabel="All" itemValue="0" noSelectionOption="true"/>
+                                <f:selectItems value="#{reportBean.lstActvAcct}" var="temp"
+                                               itemLabel="#{temp.clientAccountID}" itemValue="#{temp.acctnum}"/>
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="Container50">
+                            <p class="Fleft"> Account Type:</p>
+                            <p:selectOneMenu id="rpt_TypeId" value="#{reportBean.reportName}" style="width:150px">
+                                <f:selectItem itemLabel="All" itemValue="All" noSelectionOption="true"/>
+                                <f:selectItems value="#{reportBean.reportType}" var="temp2"
+                                               itemLabel="#{temp2.reportName}" itemValue="#{temp2.reportName}"/>
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
+                    <div class="Container100">
+                        <p>Filter by Date.</p>
+                        <p:selectOneRadio id="console">
+                            <f:selectItem itemLabel="By Frequency" itemValue="By Frequency"/>
+                            <f:selectItem itemLabel="By Date Range" itemValue="By Date Range"/>
+                        </p:selectOneRadio>
+                        <p:selectOneMenu id="applyFilter" style=" width: 300px; display: inline-block; float: left;
+                        margin: 10px 10px 0px 0px; min-width: 105px;">
+                            <f:selectItem itemLabel="Select Frequency" itemValue="0" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Last 15 Days" itemValue="0"/>
+                            <f:selectItem itemLabel="Last Month" itemValue="30"/>
+                        </p:selectOneMenu>
+
+                        <p:inputText style=" float: left; margin-top: 10px; width: 200px;"/>
+                        <p:inputText style=" float: left; margin-top: 10px; margin-left: 20px; width: 200px;"/>
+                        <p:commandButton value="Process Request" ajax="true" styleClass="add_account_button"
+                                         actionListener="#{reportBean.processReportRequest}" update="rptform:tableArea"/>
+
+                        <p:commandButton value="Filter" icon="ui-icon-check" styleClass="uobsagbutton" style="clear: both; margin-top: 20px;"
+                                         actionListener="#{reportBean.processReportRequest}" update="rptform:tableArea" ajax="true"/>
+                    </div>
+                    <div class="Container100">
+                        <p:dataTable var="rprtlst" value="#{reportBean.reportDataLst}" id="tableArea" rows="10"
+                                     paginator="true"
+                                     reflow="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15" styleClass="customTable_reports">
+                            <p:column headerText="Account No">
+                                <h:outputText value="#{rprtlst.acctnum}"/>
+                            </p:column>
+
+                            <p:column headerText="Report">
+                                <h:outputText value="#{rprtlst.reportName}"/>
+                            </p:column>
+
+                            <p:column headerText="Type">
+                                <h:outputText value="#{rprtlst.reportName}"/>
+                            </p:column>
+
+                            <p:column headerText="Date">
+                                <h:outputText value="#{rprtlst.businessdate}"/>
+                            </p:column>
+
+                            <p:column headerText="Action">
+                                <h:outputText value="Download"/>
+
+
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </h:form>
+            </div>
+            <!-- Visitors/Stat -->
+        </div>
+        <div>
+            <object type="application/pdf" data="C:/Users/sagar/Desktop/Tt1/guide.pdf?pfdrid_c=true" height="300px" width="100%">
+                Your browser can't display pdf, <a href="C:/Users/sagar/Desktop/Tt1/guide.pdf">click</a> to download pdf instead.
+            </object>
+        </div>
+
+        <div>
+            <p:media value="#{reportBean.streamedContent}" width="700px" height="700px" player="pdf" />
+        </div>
+        <!-- BOX END -->
+        <!-- BOX START -->
+        <!-- BOX END -->
+    </ui:define>
+</ui:composition>

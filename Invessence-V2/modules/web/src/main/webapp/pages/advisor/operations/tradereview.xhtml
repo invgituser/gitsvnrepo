@@ -1,0 +1,390 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+    <ui:define name="content">
+
+
+        <script type="text/javascript">
+            $(document).on('click', '.multipleSelectionChkList', function ()
+            {
+                if ($('.ui-chkbox-box').find('.ui-icon-check').length == 0)
+                {
+                    $('.ui-datatable-header').fadeOut();
+                }
+                else if ($('.ui-chkbox-box').find('.ui-icon-check').length > 0)
+                {
+                    $('.ui-datatable-header').fadeIn();
+
+                }
+            });
+            //            });
+
+        </script>
+
+        <div class="layout-portlets-box backgroundAdvPortlets">
+            <div class="Container100">
+                <h:form id="tradeForm">
+
+                    <p:growl id="growltrademsg" closable="true" style="top: 25%"/>
+
+                    <p:panel styleClass="invNBgrid tabborderbottom">
+                        <ui:fragment rendered="#{tradeBean.isTradeActive}">
+                            <div class="Fs30 Fleft summaryHeader mainHeaderUOB inactivetabtrade"
+                                 style="cursor: pointer;">Trade</div>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{! tradeBean.isTradeActive}">
+                            <p:commandLink actionListener="#{tradeBean.setTradeUI('T')}" id="tradeBtn">
+                                <div class="Fs30 Fleft summaryHeader mainHeaderUOB inactivetabtrade"
+                                     style="cursor: pointer;">Trade</div>
+                            </p:commandLink>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{tradeBean.isReviewActive}">
+                            <div class="Fs30 Fleft detailHeader mainHeaderUOB activetabereview"
+                                 style="cursor: pointer;">Review</div>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{! tradeBean.isReviewActive}">
+                            <p:commandLink actionListener="#{tradeBean.setTradeUI('R')}" id="reviewBtn">
+                                <div class="Fs30 Fleft detailHeader mainHeaderUOB activetabereview"
+                                     style="cursor: pointer;">Review</div>
+                            </p:commandLink>
+                        </ui:fragment>
+                    </p:panel>
+
+                    <p:panel id="reviewPanel" styleClass="invNBgrid">
+                        <div class="Container100" style="margin-bottom: 20px;">
+                            <div class="Fleft filterMBBlock margintoptrade">
+                                <p:selectCheckboxMenu id="trFilter" label="Filter"
+                                                      styleClass="multiSelectionDropdown" panelStyle="width:250px"
+                                                      value="#{tradeBean.selectedReviewFilterOptions}">
+                                    <f:selectItems value="#{tradeBean.tradeFilters}"/>
+                                </p:selectCheckboxMenu>
+
+                                <p:commandButton styleClass="advButton" value="Reload"
+                                                 process="@form" update="reviewPanel"
+                                                 actionListener="#{tradeBean.reloadTradeSummary}"/>
+
+
+                            </div>
+                            <div class="Fright" style="margin-top: 9px;">
+
+                                <p:menuButton value="Download" styleClass="InfoNewDash customMenuButtonDashboard"
+                                              style="margin-top: 10px;">
+
+                                    <p:menuitem value="Individual" itemValue="V"
+                                                process="@form" update="@form"
+                                                actionListener="#{tradeBean.generateTrades('I')}"/>
+                                    <p:menuitem value="All" itemValue="D"
+                                                process="@form" update="@form"
+                                                actionListener="#{tradeBean.generateTrades('A')}"/>
+                                </p:menuButton>
+                            </div>
+                        </div>
+
+
+                        <div class="Container100" style="margin-top: 20px !important;">
+                            <p:dataTable id="tradeReviewDT" var="filteredSummaryData" value="#{tradeBean.filteredSummaryList}"
+                                         border="1" styleClass="AdvisorGridtcmLayout"
+                                         sortMode="multiple"
+                                         reflow="true"
+                                         paginator="true" rows="10"
+                                         rowsPerPageTemplate="5,10,15"
+                                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                         rowKey="#{filteredSummaryData.acctnum}"
+                                         selection="#{tradeBean.selectedSummaryList}">
+                                <f:facet name="header" style="text-align: left;">
+                                    <div style="width: 100%; text-align: left;" class="centerAlign ForBtnNormal">
+                                        <p:commandButton styleClass="advButton" value="Undo"
+                                        />
+                                    </div>
+                                </f:facet>
+
+
+                                <p:column selectionMode="multiple" styleClass="multipleSelectionChkList"
+                                          style="width:50px;text-align:center" resizable="true"/>
+
+                                <p:column styleClass="AdvtcmLayoutColumn" resizable="true">
+                                    <p:commandButton id="showDetailButton"
+                                                     styleClass="editAdvButtonIcon"
+                                                     process="@this" immediate="true"
+                                                     icon="fa fa-search"
+                                                     update="@form"
+                                                     actionListener="#{tradeBean.showRebalDetails(filteredSummaryData.acctnum)}">
+                                    </p:commandButton>
+                                </p:column>
+
+                                <p:column headerText="Account No." styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                          sortBy="#{filteredSummaryData.clientAccountID}">
+                                    #{filteredSummaryData.clientAccountID}
+                                </p:column>
+
+                                <p:column headerText="Name" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                          sortBy="#{filteredSummaryData.name}">
+                                    #{filteredSummaryData.name}
+                                </p:column>
+
+                                <p:column headerText="Break" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                          sortBy="#{filteredSummaryData.tradeDisplayStatus}">
+                                    #{filteredSummaryData.tradeDisplayStatus}
+                                </p:column>
+
+
+                                <p:column headerText="Holding" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                          sortBy="#{filteredSummaryData.sumholdingValue}">
+                                    <h:outputText value="#{filteredSummaryData.sumholdingValue}">
+                                        <f:convertNumber type="currency" currencySymbol="$"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <!--<p:column headerText="Adjustments" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                          sortBy="#{filteredSummaryData.sumcurValue}">
+                                    <h:outputText value="#{filteredSummaryData.sumcurValue}">
+                                        <f:convertNumber type="currency" currencySymbol="$"/>
+                                    </h:outputText>
+                                </p:column>-->
+
+
+                                <p:column headerText="New Investment" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+                                          sortBy="#{filteredSummaryData.sumnewValue}">
+                                    <h:outputText value="#{filteredSummaryData.sumnewValue}">
+                                        <f:convertNumber type="currency" currencySymbol="$"/>
+                                    </h:outputText>
+                                </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton id="downloadBtn" styleClass="advButton" value="Download"
+                                                     update="@form" ajax="true"
+                                                     actionListener="#{tradeBean.generateTrades('I')}">
+                                    </p:commandButton>
+
+                                </f:facet>
+
+                            </p:dataTable>
+                        </div>
+
+                    </p:panel>
+                    <p:panel id="summarypanel" style="border: 0px; margin: 0px;"
+                             rendered="#{tradeBean.displayReviewPanel}">
+                        <div class="Container50">
+                            <div class="DispInlBlock">
+                                <p:panel id="displayInfo" styleClass="Fleft" style="border: 0px">
+                                    <h3 class="black Fs14 FontThemeMedium">#{tradeBean.selectedSummary.name}</h3>
+                                    <span class="Fs14 gray FontThemeRegular DispBlock">#{tradeBean.selectedSummary.clientAccountID}</span>
+                                    <span class="Fs12 gray FontThemeRegular DispBlock">
+                               <p:outputLabel value="#{tradeBean.selectedSummary.accountTaxable}"/>
+                            </span>
+                                </p:panel>
+                            </div>
+                        </div>
+                        <div class="Container50 Fright TexAlRight">
+                            <p:commandButton value="Close"
+                                             update="@form"
+                                             actionListener="#{tradeBean.hideRebalDetails}" styleClass="uobsagbutton"/>
+                        </div>
+
+                        <div class="Container100 Responsive">
+                            <p:separator/>
+                        </div>
+                        <div class="Container100 Responsive">
+                            <p:fieldset legend="Overview" collapsed="false" toggleable="true" toggleSpeed="500" styleClass="uobbtn">
+                                <p:panel style="border: 0px">
+                                    <p:dataTable id="editAlloc" styleClass="invAllocTable"
+                                                 value="#{tradeBean.assetList}"
+                                                 var="assetList">
+
+                                        <f:facet name="header">
+                                            Asset Allocation
+                                        </f:facet>
+
+                                        <p:columnGroup type="header">
+                                            <p:row>
+                                                <p:column rowspan="2" headerText="" style="width: 2px;"/>
+                                                <p:column rowspan="2" headerText="Asset"/>
+                                                <p:column colspan="2" headerText="Current Holdings"/>
+                                                <p:column colspan="2" headerText="New Holdings"/>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column headerText="Weight"/>
+                                                <p:column headerText="Value"/>
+                                                <p:column headerText="Weight"/>
+                                                <p:column headerText="Value"/>
+                                            </p:row>
+                                        </p:columnGroup>
+
+                                        <p:column style="width: 2px; text-align: left;background-color: #{assetList.color};">
+                                            <h:outputText value=" "/>
+                                        </p:column>
+                                        <p:column style="width: 10%; text-align: left;">
+                                            <h:outputText value="#{assetList.assetclass}"/>
+                                        </p:column>
+
+                                        <p:column style="width: 10%; text-align: right;">
+                                            <h:outputText
+                                                    value="#{tradeBean.displayWeight(assetList.holdingValue, tradeBean.sumHoldingValue)}"
+                                                    style="text-align: right">
+                                                <f:convertNumber pattern="##0.00%"/>
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column style="width: 15%; text-align: right;">
+                                            <h:outputText value="#{assetList.holdingValue}" style="text-align: right">
+                                                <f:convertNumber type="currency" currencySymbol="$"/>
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column style="width: 10%; text-align: right; background-color: #f5f5f5">
+                                            <h:outputText
+                                                    value="#{tradeBean.displayWeight(assetList.newValue, tradeBean.sumNewValue)}"
+                                                    style="text-align: right;">
+                                                <f:convertNumber pattern="##0.00%"/>
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column style="width: 15%; text-align: right; background-color: #f5f5f5">
+                                            <h:outputText value="#{assetList.newValue}" style="text-align: right;">
+                                                <f:convertNumber type="currency" currencySymbol="$"/>
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:columnGroup type="footer">
+                                            <p:row>
+                                                <p:column colspan="2" footerText="Total" style="text-align:left"/>
+                                                <p:column colspan="2" style="text-align:right"
+                                                          footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.sumHoldingValue)}">
+                                                </p:column>
+                                                <p:column colspan="2" style="text-align:right"
+                                                          footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.sumNewValue)}">
+                                                </p:column>
+                                            </p:row>
+                                        </p:columnGroup>
+                                    </p:dataTable>
+
+                                </p:panel>
+                            </p:fieldset>
+                            <p:fieldset legend="Detail" collapsed="false" toggleable="true" toggleSpeed="500"
+                                        style="margin-top: 20px;"  styleClass="uobbtn">
+                                <p:dataTable id="dataTable" var="tradedata"
+                                             value="#{tradeBean.rebalancetradedatalist}"
+                                             styleClass="invDataTable Fs10">
+
+                                    <f:facet name="header">
+                                        Trade Details
+                                    </f:facet>
+
+                                    <p:columnGroup type="header">
+                                        <p:row>
+                                            <p:column rowspan="2" headerText="" style="width:1px"/>
+                                            <p:column rowspan="2" headerText="Subclass" style="width:10%;"/>
+                                            <p:column rowspan="2" headerText="Ticker" style="width:6%;"/>
+                                            <p:column rowspan="2" headerText="Price" style="width:6%;"/>
+                                            <p:column rowspan="2" headerText="Holding Ticker" style="width:6%;"/>
+                                            <p:column colspan="2" headerText="Current Holdings" style="width:15%;"/>
+                                            <p:column colspan="2" headerText="New Holdings" style="width:15%;"/>
+                                            <p:column colspan="2" headerText="Trades" style="width:15%;"/>
+                                            <p:column rowspan="2" headerText="Reason" style="width:10%;"/>
+                                        </p:row>
+                                        <p:row>
+                                            <p:column headerText="Shares" style="width:3%;"/>
+                                            <p:column headerText="Value" style="width:12%;"/>
+                                            <p:column headerText="Shares" style="width:3%;"/>
+                                            <p:column headerText="Value" style="width:12%;"/>
+                                            <p:column headerText="Shares" style="width:3%;"/>
+                                            <p:column headerText="Value" style="width:12%;"/>
+                                        </p:row>
+                                    </p:columnGroup>
+                                    <p:column style="width:1px; text-align: left; background-color: #{tradedata.color}">
+                                        <h:outputText value=" "/>
+                                    </p:column>
+                                    <p:column styleClass="Fs10" style="width:10%; text-align: left;">
+                                        <h:outputText value="#{tradedata.subclass}"/>
+                                    </p:column>
+                                    <p:column styleClass="Fs10" style="width:6%; text-align: left;">
+                                        <h:outputText value="#{tradedata.ticker}"/>
+                                    </p:column>
+                                    <p:column styleClass="Fs10" style="width:6%; text-align: right;">
+                                        <h:outputText value="#{tradedata.curPrice}">
+                                            <f:convertNumber type="currency" currencySymbol="$"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column styleClass="Fs10" style="width:6%; text-align: left;">
+                                        <h:outputText value="#{tradedata.holdingTicker}">
+                                            <f:convertNumber type="currency" currencySymbol="$"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column styleClass="Fs12" style="width:3%; text-align: right;">
+                                        <h:outputText value="#{tradedata.holdingQty}">
+                                            <f:convertNumber pattern="###,###,###"/>
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column styleClass="Fs12" style="width:12%; text-align: right;">
+                                        <h:outputText value="#{tradedata.holdingValue}">
+                                            <f:convertNumber type="currency" currencySymbol="$"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column styleClass="Fs12" style="width:3%; text-align: right;">
+                                        <h:outputText value="#{tradedata.newQty}">
+                                            <f:convertNumber pattern="###,###,###"/>
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column styleClass="Fs12" style="width:12%; text-align: right;">
+                                        <h:outputText value="#{tradedata.newValue}">
+                                            <f:convertNumber type="currency" currencySymbol="$"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column styleClass="Fs12" style="width:3%; text-align: right;">
+                                        <h:outputText value="#{tradedata.qty}">
+                                            <f:convertNumber pattern="###,###,###"/>
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column styleClass="Fs12" style="width:12%; text-align: right;">
+                                        <h:outputText value="#{tradedata.money}">
+                                            <f:convertNumber type="currency" currencySymbol="$"/>
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column styleClass="Fs10" style="width:10%; text-align: left;">
+                                        <h:outputText value="#{tradedata.tradeType}">
+                                        </h:outputText>
+                                    </p:column>
+
+
+                                    <p:columnGroup type="footer">
+                                        <p:row>
+                                            <p:column colspan="5" footerText="Total" style="text-align:left"/>
+
+                                            <p:column colspan="2"
+                                                      footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.sumHoldingValue)}"
+                                                      style="text-align:right"/>
+                                            <p:column colspan="2"
+                                                      footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.sumNewValue)}"
+                                                      style="text-align:right"/>
+                                            <p:column colspan="2"
+                                                      footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.sumCurValue)}"
+                                                      style="text-align:right"/>
+                                            <p:column colspan="1" footerText="" style="text-align:left"/>
+                                        </p:row>
+                                    </p:columnGroup>
+
+                                </p:dataTable>
+                            </p:fieldset>
+                        </div>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Close" styleClass="uobsagbutton"
+                                             update="@form"
+                                             actionListener="#{tradeBean.hideRebalDetails}"/>
+                        </f:facet>
+
+                    </p:panel>
+                </h:form>
+            </div>
+        </div>
+
+
+    </ui:define>
+
+</ui:composition>

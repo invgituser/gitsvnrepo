@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <p:panel style="border: 0px">
+    <div class="Container100">
+        <div class="ContainerIndent">
+            <p:panel rendered="#{uobpb.pagemanager.errorMessage != null }"
+                     style="margin-bottom:7px;border: 0px; background: transparent"
+                     styleClass="Container100">
+                <h:outputText styleClass="errorText"
+                              value="#{uobpb.pagemanager.errorMessage}" escape="false"/>
+                <div class="EmptyBox5"></div>
+            </p:panel>
+            <h5>
+                3. What is your financial situation, including expenses, loans, savings for retirement and emergencies?
+            </h5>
+            <p:selectOneRadio value="#{uobpb.riskCalculator.ans5}" id="uobrbtnriskcalc" styleClass=""
+                              layout="pageDirection">
+                <p:ajax listener="#{uobpb.onChangeValue}"
+                        update=":ceForm:graphArea, :ceForm:buttonArea"/>
+                <f:selectItem id="tbtnrc1" itemLabel="I feel very secure about all my financial needs." itemValue="1" />
+                <f:selectItem id="tbtnrc2" itemLabel="I feel somewhat secure." itemValue="2" />
+                <f:selectItem id="tbtnrc3" itemLabel="I feel secure for the next 12 months." itemValue="3" />
+                <f:selectItem id="tbtnrc4" itemLabel="I don’t feel very secure." itemValue="4" />
+                <f:selectItem id="tbtnrc5" itemLabel="I don’t feel at all secure." itemValue="5" />
+            </p:selectOneRadio>
+        </div>
+    </div>
+
+    </p:panel>
+
+
+</ui:composition>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+   <bean id="ltamListDataDAO" class="com.invessence.web.dao.ltam.LTAMListDataDAO"
+         factory-method="getInstance">
+         <property name="dataSource" ref="dataSource"/>
+   </bean>
+
+   <bean id="ltamSaveDataDAO" class="com.invessence.web.dao.ltam.LTAMSaveDataDAO"
+         factory-method="getInstance">
+         <property name="dataSource" ref="dataSource"/>
+   </bean>
+
+
+</beans>

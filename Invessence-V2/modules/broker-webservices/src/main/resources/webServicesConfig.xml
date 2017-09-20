@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"	
+	xmlns:task="http://www.springframework.org/schema/task" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+
+	<context:component-scan base-package="com.invessence.ws" />
+
+   <import resource="classpath*:/serviceConfig.xml"/>
+   <bean id="configPropLoaderNew" class="com.invessence.service.util.ServiceDetails">
+      <constructor-arg type="com.invessence.service.dao.ServiceDao" ref="wsCommonDao"/>
+   </bean>
+
+   <bean id="configPropLoader" class="com.invessence.service.util.ServiceParameters">
+      <constructor-arg>
+      <list>
+         <value type="java.lang.String">BROKER-WEBSERVICES</value>
+         <value type="java.lang.String">DOCUSIGN-SERVICES</value>
+      </list>
+   </constructor-arg><!--ALL-->
+      <constructor-arg type="java.lang.String" value=""/>
+      <constructor-arg type="com.invessence.service.dao.ServiceDao" ref="wsCommonDao"/>
+   </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+   <bean id="transactionManager"
+		 class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		 scope="singleton">
+  <property name="dataSource" ref="webServicesDataSource" />
+</bean>
+
+   <bean id="webServiceJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+  <property name="dataSource" ref="webServicesDataSource"></property>
+</bean>
+
+   <bean id="webServicesDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+
+
+   <bean id="brokerWSPropertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+      <property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:webServicesParameters.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!--<import resource="classpath*:META-INF/spring/invitation.util.xml"/>-->
+
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>emailmessages</value>
+            </list>
+        </property>
+     </bean>
+
+    <bean id="msgDAO" class="com.invessence.emailer.dao.MsgDAO">
+        <property name="dataSource" ref="webServicesDataSource"/>
+    </bean>
+
+    <bean id="emailCreator" class="com.invessence.emailer.util.EmailCreator">
+        <property name="msgDAO" ref="msgDAO"/>
+        <property name="messageSource" ref="messageSource"/>
+    </bean>
+	<!-- <task:annotation-driven />
+        <task:scheduled-tasks>
+            <task:scheduled ref="yodleeAPIService" method="coBrandSessionManager" cron="0 15 */1 * * ?"></task:scheduled>
+        </task:scheduled-tasks >
+        <task:scheduled-tasks>
+            <task:scheduled ref="yodleeAPIService" method="refreshUserAccDetailsManager" cron="* 50 10 * * ?"></task:scheduled>
+        </task:scheduled-tasks > -->
+</beans>

@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="container100 progressbarsag">
+
+        <div class="loadPgNm">
+            <span class="done"> Goal </span>
+            <span class="active"> Assets </span>
+            <span> Liabilities </span>
+            <span> Risk </span>
+        </div>
+
+
+    </div>
+
+
+
+    <div class="Container100">
+        <span class="Fs30 mainHeaderUOB">Assets</span>
+    </div>
+    <p:panel rendered="#{uobpb.pagemanager.errorMessage != null }"
+             style="margin-top: 7px;border: 0px; background: transparent"
+             styleClass="Container100">
+        <h:outputText styleClass="errorText"
+                      value="#{uobpb.pagemanager.errorMessage}" escape="false"/>
+
+        <div class="EmptyBox5"></div>
+    </p:panel>
+
+    <div class="Container100">
+        <div class="EmptyBox5"></div>
+        <div class="TexAlLeft Wid100">
+            <div class="uobBoldText">Annual Salary Plus Bonus</div>
+            <div class="uobSubText"></div>
+        </div>
+        <p:inputNumber value="#{uobpb.accountFinancials.householdwages}" id="uobinputannsal"
+                       styleClass="Wid100 uob_number_field" maxlength="15" placeholder="$"
+                       decimalPlaces="0" symbol="$">
+        </p:inputNumber>
+
+        <div class="EmptyBox10"></div>
+        <div class="TexAlLeft Wid100">
+            <div class="uobBoldText">Liquid Asset</div>
+            <div class="uobSubText">(Cash/Savings Account, etc.)</div>
+        </div>
+        <p:inputNumber value="#{uobpb.accountFinancials.liquidnetworth}" placeholder="$" id="uobinputlasset"
+                       styleClass="Wid100 uob_number_field" maxlength="15"
+                       decimalPlaces="0" symbol="$">
+        </p:inputNumber>
+        <!-- <h:outputText/>
+    <h:outputText/> -->
+        <div class="EmptyBox10"></div>
+        <div class="TexAlLeft Wid100">
+            <div class="uobBoldText">Other Investments</div>
+            <div class="uobSubText">(Stocks, Bonds, CPF)</div>
+        </div>
+        <p:inputNumber value="#{uobpb.accountFinancials.investment}" placeholder="$" id="uobinputothrinvest"
+                       styleClass="Wid100 uob_number_field" maxlength="15"
+                       decimalPlaces="0" symbol="$">
+        </p:inputNumber>
+
+        <div class="EmptyBox10"></div>
+        <div class="TexAlLeft Wid100">
+            <div class="uobBoldText">Investment Properties</div>
+            <div class="uobSubText">(Value of property less the mortgage)</div>
+        </div>
+        <p:inputNumber value="#{uobpb.accountFinancials.equityOtherProperties}" placeholder="$" id="uobinputinvestprop"
+                       styleClass="Wid100 uob_number_field" maxlength="15"
+                       decimalPlaces="0" symbol="$">
+        </p:inputNumber>
+
+    </div>
+
+</ui:composition>

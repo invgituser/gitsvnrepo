@@ -1,0 +1,134 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+    <div class="layout-portlets-box">
+        <div class="Container100 Responsive50">
+            <div class="ContainerIndent">
+                <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" class="FormContent">
+                    <h:outputText value="Portfolio Name" styleClass="Wid90 Fs12"/>
+                    <p:inputText value="#{cepb.portfolioName}" styleClass="Wid90">
+                        <p:ajax listener="#{cepb.onChange}"/>
+                    </p:inputText>
+
+                    <h:outputText value="Invest for" styleClass="Wid90 Fs12"/>
+                    <p:selectOneMenu styleClass="Container25 Fleft DispTableCell"
+                                     value="#{cepb.goal}">
+                        <p:ajax listener="#{cepb.onChange}"/>
+                        <f:selectItem itemLabel="Grow Wealth" itemValue="Growth"/>
+                        <f:selectItem itemLabel="Generate Income" itemValue="Income"/>
+                        <f:selectItem itemLabel="Safety" itemValue="Safety"/>
+                    </p:selectOneMenu>
+
+                    <h:outputText value="Portfolio Name" styleClass="Wid90 Fs12"/>
+                    <p:inputText value="#{cepb.portfolioName}" styleClass="Wid90">
+                        <p:ajax listener="#{cepb.onChange}"/>
+                    </p:inputText>
+
+                    <h:outputText value="Portfolio Name" styleClass="Wid90 Fs12"/>
+                    <p:inputText value="#{cepb.portfolioName}" styleClass="Wid90">
+                        <p:ajax listener="#{cepb.onChange}"/>
+                    </p:inputText>
+
+                </p:panelGrid>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="Container100 Responsive50">
+        <p:panel id="a1" styleClass="Container100 MarAuto TexAlLeft">
+            <div class="Container100">
+                <div class="ContainerIndent DispTable">
+                    <p:outputLabel value="Portfolio Name" styleClass="Container25 DispTableCell Fs12"/>
+                    <p:inputText value="#{cepb.portfolioName}" styleClass="Container50 Fleft DispTableCell">
+                        <p:ajax listener="#{cepb.onChange}"/>
+                    </p:inputText>
+                </div>
+            </div>
+            <div class="EmptyBox10"/>
+
+            <div class="Container100">
+                <div class="ContainerIndent DispTable">
+                    <p:outputLabel value="Invest for" styleClass="Container20 DispTableCell Fs14"/>
+
+                    <div class="Container5"/>
+                    <p:outputLabel value="Account Type" styleClass="Container20 Responsive DispTableCell Fs14"/>
+                    <p:selectBooleanButton id="accountaxable" styleClass="Container15 Fleft DispTableCell"
+                                           value="#{cepb.accountTaxable}" onLabel="Taxable"
+                                           offLabel="Non-taxable">
+                        <p:ajax listener="#{cepb.onChange}"
+                                />
+                    </p:selectBooleanButton>
+                </div>
+            </div>
+            <div class="EmptyBox10"/>
+
+            <div class="Container100">
+                <div class="ContainerIndent DispTable">
+                    <p:outputLabel value="Your Current Age" styleClass="Container20 DispTableCell Fs14"/>
+                    <p:spinner id="age" value="#{cepb.age}" styleClass="Container15 DispTableCell"
+                               min="1" max="100" stepFactor="1">
+                        <p:ajax listener="#{cepb.onChange}"/>
+                    </p:spinner>
+
+                    <div class="Container5"/>
+                    <p:outputLabel value="Number of years you plan to invest?" styleClass="Container30 DispTableCell Fs14"/>
+                    <p:spinner id="horizon" value="#{cepb.horizon}" styleClass="Container15 DispTableCell"
+                               min="1" max="100" stepFactor="1">
+                        <p:ajax listener="#{cepb.onChange}"/>
+                    </p:spinner>
+                </div>
+            </div>
+            <div class="EmptyBox10"/>
+
+            <div class="Container100">
+                <div class="ContainerIndent DispTable">
+                    <p:outputLabel value="Initial Investment" styleClass="Container20 DispTableCell Fs14"/>
+                    <p:inputNumber id="initialInvestment" styleClass="Container25 DispTableCell"
+                                    value="#{cepb.initialInvestment}"
+                                    maxlength="15" decimalPlaces="0" symbol="$">
+                        <p:ajax event="blur" listener="#{cepb.onChange}"
+                                />
+                    </p:inputNumber>
+
+                    <div class="Container5"/>
+                    <p:outputLabel value="Recurring Deposits (per year)" styleClass="Container20 Responsive DispTableCell Fs14"/>
+                    <p:inputNumber id="recurringinvestment" styleClass="Container15 DispTableCell"
+                                    value="#{cepb.recurringInvestment}"
+                                    maxlength="15" decimalPlaces="0" symbol="$">
+                        <p:ajax event="blur" listener="#{cepb.onChange}"/>
+                    </p:inputNumber>
+                </div>
+            </div>
+            <div class="EmptyBox10"/>
+
+            <div class="Container100">
+                <div class="ContainerIndent DispTable">
+                    <p:outputLabel value="Investment Experience" styleClass="Container20 DispTableCell Fs14"/>
+                    <p:selectOneButton value="#{cepb.experience}" styleClass="Container80 DispTableCell">
+                        <p:ajax listener="#{cepb.onChange}"/>
+                        <f:selectItem itemLabel="None" itemValue="0"/>
+                        <f:selectItem itemLabel="1-3" itemValue="2"/>
+                        <f:selectItem itemLabel="3-5" itemValue="4"/>
+                        <f:selectItem itemLabel="5-10" itemValue="8"/>
+                        <f:selectItem itemLabel="10+" itemValue="20"/>
+                    </p:selectOneButton>
+                </div>
+            </div>
+            <div class="EmptyBox5"/>
+
+
+        </p:panel>
+    </div>
+
+</ui:composition>

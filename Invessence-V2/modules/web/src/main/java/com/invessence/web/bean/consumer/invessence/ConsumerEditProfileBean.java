@@ -1,0 +1,1052 @@
+package com.invessence.web.bean.consumer.invessence;
+
+import java.io.Serializable;
+import java.util.*;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.*;
+import javax.faces.context.FacesContext;
+import javax.faces.event.*;
+import javax.servlet.http.HttpSession;
+
+import com.invessence.web.bean.consumer.InvessenceCharts;
+import com.invessence.web.constant.*;
+import com.invessence.converter.*;
+import com.invessence.web.dao.consumer.*;
+import com.invessence.web.data.common.*;
+import com.invessence.web.data.consumer.inv.*;
+import com.invessence.web.util.*;
+import com.invmodel.Const.InvConst;
+import org.primefaces.component.tabview.Tab;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.*;
+
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: Prashant
+ * Date: 2/4/15
+ * Time: 1:18 PM
+ * To change this template use File | Settings | File Templates.
+ */
+
+@ManagedBean(name = "cepb")
+@SessionScoped
+public class ConsumerEditProfileBean extends INVCustomer implements Serializable
+{
+   private Long beanAcctnum;
+   private Boolean formEdit = false;
+   private Boolean disablegraphtabs = true, disabledetailtabs = true, disablesaveButton = true;
+   private Boolean prefVisible = true;
+   private Integer canOpenAccount;
+   private Boolean welcomeDialog = true;
+   private Boolean displayGoalGraph = false,
+      displayGoalText = false;
+
+   private Integer prefView = 0;
+   private String whichChart;
+
+   private Integer imageSelected = 0;
+   private JavaUtil jutil = new JavaUtil();
+   private InvessenceCharts charts = new InvessenceCharts();
+   private INVRiskCalculator riskCalculator = new INVRiskCalculator();
+
+   public Long getBeanAcctnum()
+   {
+      return beanAcctnum;
+   }
+
+   public void setBeanAcctnum(Long beanAcctnum)
+   {
+      SQLData converter = new SQLData();
+      this.beanAcctnum = converter.getLongData(beanAcctnum);
+   }
+
+   public Boolean getDisablegraphtabs()
+   {
+      return disablegraphtabs;
+   }
+
+   public Boolean getDisabledetailtabs()
+   {
+      return disabledetailtabs;
+   }
+
+   public Boolean getDisablesaveButton()
+   {
+      return disablesaveButton;
+   }
+
+   public Boolean getDisplayGoalGraph()
+   {
+      return displayGoalGraph;
+   }
+
+   public Boolean getDisplayGoalText()
+   {
+      return displayGoalText;
+   }
+
+   public Integer getPrefView()
+   {
+      return prefView;
+   }
+
+   public String getWhichChart()
+   {
+      return whichChart;
+   }
+
+   public void setWhichChart(String whichChart)
+   {
+      this.whichChart = whichChart;
+   }
+
+   public void setPrefView(Integer prefView)
+   {
+      this.prefView = prefView;
+   }
+
+   public Boolean getPrefVisible()
+   {
+      return prefVisible;
+   }
+
+   public void setPrefVisible(Boolean prefVisible)
+   {
+      this.prefVisible = prefVisible;
+   }
+
+   public Integer getCanOpenAccount()
+   {
+      return canOpenAccount;
+   }
+
+   public InvessenceCharts getCharts()
+   {
+      return charts;
+   }
+
+   public USMaps getUsstates()
+   {
+      return usstates;
+   }
+
+   public Integer getImageSelected()
+   {
+      return imageSelected;
+   }
+
+   public Boolean getWelcomeDialog()
+   {
+      return welcomeDialog;
+   }
+
+   public void preRenderView()
+   {
+
+      try
+      {
+         if (!FacesContext.getCurrentInstance().isPostback())
+         {
+            if (!webutil.isUserLoggedIn())
+            {
+               webutil.redirect("/login.xhtml", null);
+            }
+            loadBasketInfo();
+            whichChart = "pie";
+            setPrefView(0);
+            if (webutil.hasAccess("Advisor") || webutil.hasAccess("Admin"))
+            {
+               setRiskCalcMethod("A");
+            }
+            else
+            {
+               setRiskCalcMethod("C");
+            }
+
+            disablegraphtabs = true;
+            disabledetailtabs = true;
+            if (getBeanAcctnum() != null && getBeanAcctnum() > 0L)
+            {
+               loadData(getBeanAcctnum());
+            }
+            else
+            {
+               loadNewClientData();
+            }
+
+            canOpenAccount = initCanOpenAccount();
+            if (canOpenAccount == -1)
+            {
+               welcomeDialog = true;
+               Map<String, Object> options = new HashMap<String, Object>();
+               options.put("modal", true);
+               options.put("draggable", false);
+               options.put("resizable", false);
+               options.put("contentHeight", 550);
+               RequestContext.getCurrentInstance().openDialog("/try/tryDialog", options, null);
+            }
+            else
+            {
+               welcomeDialog = false;
+            }
+         }
+      }
+      catch (Exception e)
+      {
+         resetDataForm();
+      }
+   }
+
+   public void changeEvent(ValueChangeEvent event)
+   {
+      String oldValue = null;
+      String newValue = null;
+      try
+      {
+         if (event.getNewValue() != null && event.getOldValue() != null)
+         {
+            if (!event.getNewValue().equals(event.getOldValue()))
+            {
+               formEdit = true;
+            }
+         }
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
+   public void onChange()
+   {
+      riskCalculator.setRiskFormula("C");
+      formEdit = true;
+   }
+
+   public void onChangeValue()
+   {
+      formEdit = true;
+      riskCalculator.setRiskFormula("C");
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
+   }
+
+   public void calculateGoal()
+   {
+      if (getGoalData() != null && getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0.0)
+      {
+         formEdit = true;
+         getGoalData().setTerm(getHorizon().doubleValue());
+         Double riskIndex = riskCalculator.calculateRisk();
+         createAssetPortfolio(1, riskIndex);
+         riskCalculator.setRiskFormula("C");
+         saveProfile();
+      }
+   }
+
+   public void onTaxStrategy()
+   {
+      formEdit = true;
+      setAccountType();
+      riskCalculator.setRiskFormula("C");
+      loadBasketInfo();
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
+   }
+
+   public void selectedGoalType(Integer item)
+   {
+
+      if (item == null)
+      {
+         item = 0;
+      }
+
+      formEdit = true;
+      imageSelected = item;
+      switch (imageSelected)
+      {
+         case 1:
+            setGoal("Growth");
+            setHorizon(20);
+            break;
+         case 2:
+            setGoal("Income");
+            setHorizon(20);
+            break;
+         case 3:
+            setGoal("Safety");
+            setHorizon(3);
+            break;
+         default:
+            setGoal("Growth");
+            setHorizon(20);
+      }
+
+      loadBasketInfo();
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
+   }
+
+   public void selectedGoal()
+   {
+
+      formEdit = true;
+      if (getGoal().toUpperCase().contains("RETIRE"))
+      {
+         if (getAge() == null)
+         {
+            setHorizon(20);
+         }
+         else if (getAge() < 65)
+         {
+            setHorizon(65 - getAge());
+         }
+         else
+         {
+            setHorizon(2);
+         }
+      }
+      else
+      {
+         if (getGoal().toUpperCase().contains("SAFETY"))
+         {
+            setHorizon(3);
+         }
+         else
+         {
+            setHorizon(20);
+         }
+      }
+      loadBasketInfo();
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
+   }
+
+   public void handleFileUpload(FileUploadEvent event)
+   {
+      setExternalPositionFile(event.getFile().getFileName());
+   }
+
+   public void askRiskQuestions()
+   {
+      RequestContext.getCurrentInstance().openDialog("riskQuestionDialog");
+   }
+
+
+   public void selectedActionBasket()
+   {
+      getExcludedSubAsset().clear();
+      if (getBasket() != null)
+      {
+         setGoal(getAdvisorBasket().get(getBasket())); // Key is the Themename, value is display
+         setTheme(getBasket());                        // Set theme to the Key.  (We assigned this during selection)
+      }
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
+   }
+
+   public void selectFirstBasket()
+   {
+/*
+      if (getAccountTaxable()) {
+         setTheme(InvConst.DEFAULT_TAXABLE_THEME);
+      }
+      else {
+         setTheme(InvConst.DEFAULT_THEME);
+      }
+*/
+
+      if (getAdvisorBasket() == null)
+      {
+         if (getAccountTaxable())
+         {
+            setGoal(InvConst.DEFAULT_TAXABLE_BASKET);
+            setBasket(InvConst.DEFAULT_TAXABLE_THEME);
+         }
+         else
+         {
+            setGoal(InvConst.DEFAULT_BASKET);
+            setBasket(InvConst.DEFAULT_THEME);
+         }
+      }
+      else
+      {
+         setGoal(getAdvisorBasket().get(getTheme()));
+         setBasket(getTheme());
+      }
+   }
+
+   private void resetDataForm()
+   {
+      disablegraphtabs = true;
+      disabledetailtabs = true;
+      displayGoalGraph = false;
+      displayGoalText = false;
+      resetCustomerData();
+   }
+
+   public void loadBasketInfo()
+   {
+      if (getAccountTaxable())
+      {
+         setAdvisorBasket(listDAO.getBasket(getAdvisor(), "T"));
+         // selectFirstBasket(); // DO this only first time.
+      }
+      else
+      {
+         setAdvisorBasket(listDAO.getBasket(getAdvisor(), "R"));
+         // selectFirstBasket();  // DO this only first time.
+      }
+   }
+
+   @Override
+   public void loadNewClientData()
+   {
+
+      resetDataForm();
+      try
+      {
+         super.loadNewClientData();
+         loadBasketInfo();
+         selectFirstBasket();
+         super.createAssetPortfolio(1, getRiskCalculator().getTotalRisk()); // Build default chart for the page...
+         // RequestContext.getCurrentInstance().execute("custProfileDialog.show()");
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
+   private void loadData(Long acctnum)
+   {
+
+      resetDataForm();
+      try
+      {
+         if (webutil.isUserLoggedIn())
+         {
+            if (webutil.hasRole(WebConst.ROLE_OWNER) ||
+               webutil.hasRole(WebConst.ROLE_ADVISOR) ||
+               webutil.hasRole(WebConst.ROLE_ADMIN))
+            {
+               UserInfoData uid = webutil.getUserInfoData();
+               if (uid != null)
+               {
+                  setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
+                  setLogonid(uid.getLogonID());
+               }
+               setAcctnum(acctnum);
+               listDAO.getProfileData(getInstance());
+               loadBasketInfo();
+            }
+         }
+         Double riskIndex = riskCalculator.calculateRisk();
+         createAssetPortfolio(1, riskIndex);
+         formEdit = false;
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
+/*
+   public void onAllocSlider(ValueChangeEvent event) {
+      if (event.getNewValue() == null)
+      {
+         return;
+      }
+
+      setRiskCalcMethod("A");
+      createAssetPortfolio(1);
+
+   }
+
+   public void onPortfolioSlider(ValueChangeEvent event) {
+      if (event.getNewValue() == null)
+      {
+         return;
+      }
+
+      setRiskCalcMethod("A");
+      createPortfolio(1);
+   }
+*/
+
+   public void onAllocSlider(SlideEndEvent event)
+   {
+      // setAge(event.getValue());
+      setRiskCalcMethod("A");
+      setAllocationIndex(event.getValue());
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
+      formEdit = true;
+   }
+
+   public void onPortfolioSlider(SlideEndEvent event)
+   {
+      //setDefaultRiskIndex(event.getValue());
+      setRiskCalcMethod("A");
+      setPortfolioIndex(event.getValue());
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
+      // createPortfolio(1);    // Due to fixed allocaton, we have to do both (asset and portfolio)
+      formEdit = true;
+   }
+
+   public void doAllocReset()
+   {
+      // resetAllocationIndex();
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
+   }
+
+   public void doPortfolioReset()
+   {
+      // resetPortfolioIndex();
+      createPortfolio(1); // Build default chart for the page...
+   }
+
+   public void refresh()
+   {
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
+   }
+
+   public void consumerRefresh()
+   {
+      setRiskCalcMethod("C");
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
+      formEdit = true;
+   }
+
+   @Override
+   public void createAssetPortfolio(Integer noOfYears, Double riskIndex)
+   {
+
+      try
+      {
+         super.createAssetPortfolio(noOfYears, riskIndex);
+         createCharts();
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
+   @Override
+   public void createPortfolio(Integer noOfYears)
+   {
+
+      try
+      {
+         super.createPortfolio(noOfYears);
+
+         createCharts();
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
+   public void refreshChart()
+   {
+      if (whichChart.toLowerCase().equals("pie"))
+      {
+         charts.createPieModel(getAssetData(), 0);
+      }
+      else if (whichChart.toLowerCase().equals("bar"))
+      {
+         charts.createBarChart(getAssetData(), 0);
+      }
+
+   }
+
+   private void createCharts()
+   {
+
+      try
+      {
+         formEdit = true;
+         // charts.setMeterGuage(getMeterRiskIndicator());
+         if (getAssetData() != null)
+         {
+            charts.createPieModel(getAssetData(), 0);
+            charts.createBarChart(getAssetData(), 0);
+         }
+         else
+         {
+            charts.resetCharts();
+         }
+
+         if (getGoalData() == null || getGoalData().getGoalDesired() == null || getGoalData().getGoalDesired() == 0.0)
+         {
+            displayGoalGraph = false;
+            displayGoalText = false;
+         }
+         else
+         {
+            displayGoalGraph = true;
+            if (getPortfolioData() != null)
+            {
+               buildGoalsData();
+               // charts.createLineModel(getProjectionData());
+               // if (getGoalData() != null && getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0.0)
+               charts.createGoalChart(getProjectionData(), getGoalData());
+               if ((!getGoalData().getReachable()))
+               {
+                  displayGoalText = true;
+               }
+               else
+               {
+                  displayGoalText = false;
+               }
+            }
+         }
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
+
+   public Boolean validateProfile()
+   {
+      try
+      {
+         String message = null;
+
+         if (getAge() == null)
+         {
+            message = "Age is required<br/>";
+         }
+         if (getInitialInvestment() == null)
+         {
+            message = "Initial Investment Amount needs to be defined<br/>";
+         }
+         if (getRiskIndex() == null)
+         {
+            message = "Risk has to be defined.<br/>";
+         }
+         if (getEmail() == null)
+         {
+            message = "Customer profile has to be created.<br/>";
+         }
+
+         if (message != null)
+         {
+            FacesContext context = FacesContext.getCurrentInstance();
+
+            context.addMessage(null, new FacesMessage("Error", "Incomplete Form " + message));
+            return false;
+         }
+      }
+      catch (Exception ex)
+      {
+         FacesContext context = FacesContext.getCurrentInstance();
+
+         context.addMessage(null, new FacesMessage("Error", "Serious Error " + "System Error: " + ex.getMessage()));
+         return false;
+      }
+      return true;
+   }
+
+   public void tryProceed()
+   {
+      Boolean validate = false;
+      try
+      {
+         String msg = "";
+         if (getLastname() == null || getLastname().isEmpty())
+         {
+            msg = "lastname is required!";
+         }
+         if (getFirstname() == null || getFirstname().isEmpty())
+         {
+            msg = (msg.isEmpty()) ? "lastname is required!" : msg + "<br/>firstname is required!";
+         }
+         if (getEmail() == null || getEmail().isEmpty())
+         {
+            msg = (msg.isEmpty()) ? "Email is required!" : msg + "<br/>Email is required!";
+         }
+
+         if (!msg.isEmpty())
+         {
+            FacesContext.getCurrentInstance().addMessage("tryMsg", new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
+         }
+         else
+         {
+            RequestContext.getCurrentInstance().execute("PF('tryDialog').hide()");
+         }
+
+      }
+      catch (Exception ex)
+      {
+
+      }
+   }
+
+   public void saveProfile()
+   {
+      long acctnum;
+      Boolean validate = false;
+      try
+      {
+            if (formEdit)
+            {
+               validate = validateProfile(); // Check if session is still valid.  If not, redirect to logon
+
+               if (validate)
+               {
+                  super.saveProfile(getRiskCalculator());
+                  formEdit = false;
+               }
+            }
+      }
+      catch (Exception ex)
+      {
+         String stackTrace = ex.getMessage();
+         webutil.alertSupport("ConsumerEdit.saveprofile", "Error:ConsumerEdit.SaveProfile",
+                              "error.saveprofile", stackTrace);
+      }
+
+   }
+
+   public void fundAccount()
+   {
+      long acctnum;
+      Boolean validate = false;
+      try
+      {
+         validate = validateProfile();
+
+         if (validate)
+         {
+            saveProfile();
+         }
+         // if (canOpenAccount == 0) {
+         webutil.redirect("/pages/consumer/funding.xhtml?acct=" + getAcctnum(), null);
+         //getWebutil().redirect("/pages/consumer/cto/cto.xhtml?acct="+getAcctnum(), null);
+         // }
+
+      }
+      catch (Exception ex)
+      {
+         String stackTrace = ex.getMessage();
+         ex.printStackTrace();
+         webutil.alertSupport("ConsumerEdit.fundaccount", "Error:ConsumerEdit.FundAccount",
+                              "error.fundaccount", stackTrace);
+      }
+
+   }
+
+   public void resetForm()
+   {
+      try
+      {
+         setRiskCalcMethod("C");
+
+         if (getBeanAcctnum() != null && getBeanAcctnum() > 0L)
+         {
+            loadData(getBeanAcctnum());
+         }
+         else
+         {
+            loadNewClientData();
+         }
+      }
+      catch (Exception ex)
+      {
+         String stackTrace = ex.getMessage();
+         webutil.alertSupport("Consumer.addGoals", "Error:Consumer.addGoals",
+                              "error.addGoals", stackTrace);
+      }
+
+   }
+
+   public void savePrefProfile(ActionEvent event)
+   {
+      Double riskIndex = riskCalculator.calculateRisk();
+      createAssetPortfolio(1, riskIndex);
+      saveProfile();
+      formEdit = false;
+   }
+
+   public void savePanelProfile()
+   {
+      saveProfile();
+      formEdit = false;
+      // RequestContext.getCurrentInstance().openDialog("/pages/consumer/fundingDialog.xhtml");
+   }
+
+   public Integer initCanOpenAccount()
+   {
+      try
+      {
+         String license;
+
+         if (getLogonid() == null)
+         {
+            return -1;
+         }
+         else
+         {
+            if (webutil.isWebProdMode())
+            {
+               license = listDAO.validateState(getLogonid(), getRegisteredState());
+               if (license == null || license.equalsIgnoreCase("quota"))
+               {
+                  return 1;
+               }
+               else
+               {
+                  return 0;
+               }
+            }
+            return 2;
+         }
+      }
+      catch (Exception ex)
+      {
+         return -99;
+      }
+   }
+
+   public String getForwardInstructions()
+   {
+      String msg;
+      if (getCanOpenAccount() == null)
+      {
+         canOpenAccount = -1;
+      }
+      switch (getCanOpenAccount())
+      {
+         case -1:
+            msg = "Unfortunately, we <u>cannot open an account at this time</u>.\n" +
+               "<p>You are currently not logged on to the system.  Either your session has expired or you have reached this page in error</p>";
+            break;
+         case 0:
+            msg = "<p>You are being forwarded to <strong>Interactive Broker</strong> to open an account.</p>\n" +
+               "<p>You will be logged off this site.</p>";
+            break;
+         case 1:
+            msg = "We are in the <strong>process of registering in your state</strong>.\n" +
+               "Unfortunately, we <u>cannot open an account at this time</u>.";
+            break;
+         case 2:
+            msg = "Unfortunately, we <u>cannot open an account at this time</u>.";
+            break;
+         case -99:
+            msg = "Unfortunately, we <u>cannot open an account at this time</u>.\n" +
+               "<p>Please contact support desk.  Phone number and email is listed at top of the page.</p>";
+            break;
+         default:
+            msg = "Unfortunately, we <u>cannot open an account at this time</u>.";
+            break;
+      }
+      return msg;
+   }
+
+   public void forwardToIB()
+   {
+
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
+      setIblink(getAccountType());
+      String url = getIblink() + "&externalId=" + getAcctnum();
+      webutil.redirect(url, null);
+      httpSession.invalidate();
+
+   }
+
+   private Integer pTab = 0, rTab = 0;
+   private Integer mTab = 0;
+
+
+   public Integer getpTab()
+   {
+      return pTab;
+   }
+
+   public void setpTab(Integer pTab)
+   {
+      this.pTab = pTab;
+   }
+
+   public Integer getrTab()
+   {
+      return rTab;
+   }
+
+   public void setrTab(Integer rTab)
+   {
+      this.rTab = rTab;
+   }
+
+   public void onPTabChange(TabChangeEvent event)
+   {
+      Tab active = event.getTab();
+      String pTabID = active.getId().toLowerCase();
+
+      if (pTabID.equals("p1"))
+      {
+         pTab = 0;
+      }
+      if (pTabID.equals("p2"))
+      {
+         pTab = 1;
+      }
+      if (pTabID.equals("p3"))
+      {
+         pTab = 2;
+      }
+      if (pTabID.equals("p4"))
+      {
+         pTab = 3;
+      }
+      if (pTabID.equals("p5"))
+      {
+         pTab = 4;
+         // setShowGoalChart(true);
+      }
+      saveProfile();
+
+   }
+
+   public void onRTabChange(TabChangeEvent event)
+   {
+      Tab active = event.getTab();
+      String pTabID = active.getId().toLowerCase();
+
+      if (pTabID.equals("q1"))
+      {
+         rTab = 0;
+      }
+      if (pTabID.equals("q2"))
+      {
+         rTab = 1;
+      }
+      if (pTabID.equals("q3"))
+      {
+         rTab = 2;
+      }
+      if (pTabID.equals("q4"))
+      {
+         rTab = 3;
+      }
+      if (pTabID.equals("q5"))
+      {
+         rTab = 4;
+      }
+      if (pTabID.equals("q6"))
+      {
+         rTab = 5;
+      }
+      if (pTabID.equals("q7"))
+      {
+         rTab = 6;
+      }
+      saveProfile();
+
+   }
+
+   public String getEnableNextButton()
+   {
+/*    Removing Goal section page to bottom
+      if (pTab == 4)
+         return "false";
+*/
+      if (pTab >= 3 && rTab >= 6)
+      {
+         return "false";
+      }
+      return "true";
+   }
+
+   public String getEnablePrevButton()
+   {
+      if (pTab == 0)
+      {
+         return "false";
+      }
+      return "true";
+   }
+
+   public void gotoPrevTab()
+   {
+      switch (rTab)
+      {
+         case 0:
+            switch (pTab)
+            {
+               case 0:
+                  break;
+               case 1:
+               case 2:
+               case 3:
+               case 4:
+                  pTab--;
+               default:
+                  break;
+            }
+            return;
+         case 1:
+         case 2:
+         case 3:
+         case 4:
+         case 5:
+         case 6:
+         case 7:
+         default:
+            rTab--;
+            break;
+      }
+      saveProfile();
+   }
+
+   public void gotoNextTab()
+   {
+      switch (pTab)
+      {
+         case 0:
+         case 1:
+         case 2:
+            pTab++;
+            rTab = 0;
+            break;
+         case 3:
+         default:
+            if (rTab >= 6)
+            {
+               pTab++;
+               rTab = 0;
+
+            }
+            else
+            {
+               rTab++;
+            }
+            break;
+
+      }
+      saveProfile();
+   }
+
+   public String getGoalAdjustment()
+   {
+      if ((!getGoalData().getReachable()))
+      {
+         return jutil.displayFormat(getGoalData().getCalcRecurringAmount(), "$###,###,###");
+      }
+      return "";
+   }
+
+}
+

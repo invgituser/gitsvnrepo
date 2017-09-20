@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <script>
+        $(document).ready(function (){
+        try
+        {
+            var vWatsonURL=$('.getTickerClass').val();
+            console.log("Ticker Watson URL "+vWatsonURL);
+            var vresponse = $.ajax({type: "GET", url: vWatsonURL, async: false}).responseText;
+            console.log("Ticker Watson response received ");
+            $('.idSecHtml').html(vresponse);
+
+        }catch (e){
+            console.log("Error "+e);
+        }
+        });
+
+    </script>
+    <p:inputText type="hidden" id="idWatsonURL"
+                 value="#{citidemo.watsonISINURL}" styleClass="getTickerClass"/>
+        <div id="layout-portlets-cover">
+            <div class="EmptyBox10"></div>
+            <p:scrollPanel mode="native" style="width: 100%; height: 400px; padding-bottom: 100px;">
+                <div class="idSecHtml"></div>
+
+            </p:scrollPanel>
+
+
+            <div class="customfooter">
+                <p:commandButton id="dpreviousbtn4"
+                                 styleClass="Fs16 citibutton" style="float: left;"
+                                 value="Back"
+                                 update=":ceForm:inputArea"
+                                 immediate="true"
+                                 actionListener="#{citidemo.pagemanager.prevPage}">
+                </p:commandButton>
+            </div>
+        </div>
+
+ </ui:composition>

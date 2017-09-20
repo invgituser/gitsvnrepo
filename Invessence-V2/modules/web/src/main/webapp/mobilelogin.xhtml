@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/main.xhtml">
+
+    <f:metadata>
+        <f:event listener="#{sessionControl.mobileRenderView}" type="preRenderView"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <div id="layout-portlets-cover">
+            <div class="EmptyBox50"></div>
+            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10 customBlockLogin"
+                 style="margin-top:5%; background-image:url(/spark/resources/spark-layout/images/loginpageillust.svg); background-repeat:no-repeat; background-position:center; background-size:cover;">
+                <div class="Container90 Fnone MarAuto TexAlCenter">
+                    <h:form id="logonForm" prependId="false" styleClass="formPage">
+                        <div class="EmptyBox50"></div>
+                        <h:graphicImage id="logo" name="#{uiLayout.logo}" styleClass="Fleft" library="invessence"
+                                        class="MarAuto MarTop20 MarBot10 sitelogologin"/>
+                        <div class="EmptyBox20"></div>
+                        <p:messages id="messages" autoUpdate="true"/>
+                        <p:inputText id="j_username" placeholder="Username" style="background: #f2f2f2;" styleClass="Container80 Fnone MarAuto Fs18"
+                                     required="true"
+                                     requiredMessage="Please enter UserID."
+                                     value="#{loginController.userID}">
+                        </p:inputText>
+                        <div class="EmptyBox10"></div>
+                        <p:password id="j_password"  placeholder="Password" style="background: #f2f2f2;" styleClass="Container80 Fnone MarAuto Fs18"
+                                    feedback="false" value="#{loginController.password}"
+                                    requiredMessage="Please enter Password."/>
+                        <div class="EmptyBox5"></div>
+                        <h:outputLabel styleClass="Container80 Fnone MarAuto Fs18"
+                                       id="question"
+                                       value="#{loginController.question}"
+                                       rendered="#{loginController.needAdditionalInfo}">
+                        </h:outputLabel>
+                        <div class="EmptyBox10"></div>
+                        <h:inputText styleClass="Container80 Fnone MarAuto Fs18"
+                                     id="ans" placeholder="Answer" required="true"
+                                     value="#{loginController.answer}"
+                                     rendered="#{loginController.needAdditionalInfo}">
+                        </h:inputText>
+                        <div class="EmptyBox20"></div>
+                        <h:commandButton styleClass="Fs16 loginBtnInv"
+                                         type="submit" id="login" value="Login" icon=""
+                                         action="#{loginController.doLogin}"></h:commandButton>
+
+                        <div class="EmptyBox10"></div>
+                        <div class="Seperator"></div>
+                        <div class="EmptyBox10"></div>
+                        <p:button  value="Forgot Password ?" styleClass="Fs16 RedButton FgtPwdBtn" href="/forgot.xhtml"></p:button>
+                        <div class="EmptyBox50"></div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

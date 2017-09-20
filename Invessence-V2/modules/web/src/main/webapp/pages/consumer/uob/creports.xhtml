@@ -1,0 +1,96 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{reportBean.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+            <!-- BOX START -->
+            <div class="layout-portlets-box">
+                <div class="Container100 Responsive100">
+                    <div class="Container100">
+                        <div class="Container50">
+                            <div class="ContainerIndent">
+                                <div class="DispInlBlock">
+                                    <div class="Container100">
+                                        <div class="Fleft">
+                                            <h2 class="black Fs24 FontThemeMedium">Reports</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Container100">
+                        <div class="Container100 Fleft">
+                            <div class="Seperator"></div>
+                        </div>
+                    </div>
+                </div>
+                <h:form id="crform">
+                <div class="Container100 Responsive100">
+                    <div class="Container100">
+                        <p:panel id="workArea" style="border:0px !important; background:none;">
+                            <p:growl id="reportGrowl" showDetail="true" sticky="true" escape="true"/>
+                            <p:dataTable var="report" value="#{reportBean.filterReportList}"
+                                         emptyMessage="No report found."
+                                         styleClass="uob_graphTable"
+                                         reflow="true">
+
+                                <p:column styleClass="Wid20 TexAlLeft"
+                                          sortBy="#{report.clientAccountID}" headerText="Account#"
+                                          resizable="true">
+                                    <h:outputText value="#{report.clientAccountID}"/>
+                                </p:column>
+
+                                <p:column styleClass="Wid20 TexAlLeft"
+                                          sortBy="#{report.businessdate}" headerText="Date"
+                                          resizable="true">
+                                    <h:outputText value="#{report.businessdate}"/>
+                                </p:column>
+
+                                <p:column styleClass="Wid40 TextAlLeft"
+                                          sortBy="#{report.reportName}" headerText="Report"
+                                          resizable="true">
+                                    <h:outputText value="#{report.reportName}"/>
+                                </p:column>
+
+                                <p:column styleClass="Wid20 TextAlLeft">
+
+                                    <ui:fragment rendered="#{! report.isPdf}">
+                                        <h:outputLink value="#{report.filename}" target="_report"
+                                                      title="#{report.reportName}">
+                                            <h:outputText value="View"/>
+                                        </h:outputLink>
+
+                                   </ui:fragment>
+                                    <ui:fragment rendered="#{report.isPdf}">
+                                        <p:commandLink value="Download" ajax="false"
+                                                        update="crform">
+                                            <p:fileDownload value="#{report.downloadfile}"/>
+                                            <h:graphicImage value="/images/pdf.png" />
+                                        </p:commandLink>
+                                </ui:fragment>
+
+                            </p:column>
+                            </p:dataTable>
+
+                        </p:panel>
+
+
+                    </div>
+
+                </div>
+                </h:form>
+            </div>
+            <!-- BOX END -->
+
+    </ui:define>
+
+</ui:composition>

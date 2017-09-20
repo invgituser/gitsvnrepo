@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				template="/template/common/simple.xhtml">
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{uobdash.preRenderView}" />
+	</f:metadata>
+
+
+	<ui:define name="content">
+
+		<div class="blue_banner_header">
+			<div class="maxWidth">
+				<!-- LOGO -->
+				<a id="headerLogoLink" class="default"><img alt="CITI logo"
+															src="https://online.citi.com/GFC/branding/img/Citi-Enterprise-White.png"/> </a>
+
+
+
+			</div>
+		</div>
+
+		<div style="width: 100%; height: 100vh; background: #e9e9e9;">
+
+			<div class="EmptyBox40"></div>
+
+			<div class="loadPgNm">
+				<span  class="active"> Goal </span>
+				<span  class="active"> Investment </span>
+				<span> Review </span>
+
+			</div>
+
+
+			<div class="EmptyBox10"></div>
+			<div class="Container100 TextAlCenter">
+
+				<div class="EmptyBox10"></div>
+
+				<div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter  MarTop10 BackgroundWhite" style="padding: 50px 0">
+					<div class="Container90 Fnone MarAuto TexAlCenter">
+
+						<h2 class="CitiDemotitle">
+							Investment
+						</h2>
+						<div class="EmptyBox20"></div>
+
+						<div class="TexAlCenter">
+							<div class="PortfolioCreationFields">
+                <span class="mobileFullWidth" >
+
+                    <h:outputText id="tcmp1formtext2" value="I plan on investing " styleClass="formFS" />
+                    </span>
+
+								<p:inputNumber id="initialIid" rendered="#{!tcmpb.formPortfolioEdit}"
+											   styleClass="invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput"
+											   value="#{tcmpb.initialInvestment}"
+											   maxlength="11" symbol="$"
+											   decimalPlaces="0"
+											   required="true" requiredMessage="Min. of $50,000 investment is required!"
+											   validatorMessage="Min. of $50,000 investment is required!">
+								</p:inputNumber>
+								<p:message id="tcmp1tooltip" for="initialIid" display="tooltip"/>
+
+
+
+							</div>
+							<div class="EmptyBox50"></div>
+							<p:button  value="Back" styleClass="Fs16 citibutton" href="Demo.xhtml" style="float: left;"></p:button>
+							<p:button  value="Next" styleClass="Fs16 citibutton" href="Demo2.xhtml" style="float: right;"></p:button>
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="EmptyBox10"></div>
+
+
+
+
+			</div>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

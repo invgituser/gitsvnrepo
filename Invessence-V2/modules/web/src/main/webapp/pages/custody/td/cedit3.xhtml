@@ -1,0 +1,153 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+    <ui:define name="head">
+        <script type="text/javascript">
+            function handleChange(activetab,nexttab) {
+                //PF('accordionPanel').unselect(nexttab);
+                PF('accordionPanel').select(activetab);
+            }
+        </script>
+    </ui:define>
+
+    <f:metadata>
+        <f:viewParam name="l" value="#{tdcto.beanlogonID}"/>
+        <f:viewParam name="acct" value="#{tdcto.beanacctnum}"/>
+        <f:event type="preRenderView" listener="#{tdcto.editStartCTO}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <!-- BOX START -->
+
+
+        <div class="layout-portlets-box" style="background: #FBFCFD;">
+
+            <div class="Container100 Responsive100">
+                <div class="ContainerIndent FundAccountTab" style="display: none">
+                    <p:steps id="ctoprogressbar" styleClass="FundAccountStepsPanel" activeIndex="#{tdcto.activeTab}">
+                        <p:menuitem value="Account Type"/>
+                        <p:menuitem value="Personal"/>
+                        <p:menuitem value="Address"/>
+                        <p:menuitem value="Employment"/>
+                        <p:menuitem value="Beneficiary"/>
+                        <p:menuitem value="Funding"/>
+                    </p:steps>
+                </div>
+            </div>
+            <h:form id="ctoForm" styleClass="formPage">
+                <div class="Container100 Responsive100">
+                    <div class="ContainerIndent">
+                        <p:panel id="inputArea" style="border: 0px; background: transparent;">
+                            <p:accordionPanel id="tdaccordian" widgetVar="accordionPanel" styleClass="tcmAccordionPanel-UI editTabsDisabled"
+                                              dynamic="false" activeIndex="#{tdcto.activeTab}"   >
+                                <p:ajax event="tabChange"   listener="#{tdcto.onTabChange}" update=":ctoForm:tdaccordian"
+                                        immediate="true" />
+                                <p:tab id="tab0" styleClass="tcmAccordion-UI" rendered="false" >
+                                    <f:facet name="title">
+                                        <p:graphicImage
+                                                value="/javax.faces.resource/images/acc_type.png.xhtml?ln=tcm"/>
+                                        <h:outputText value="Account Type" styleClass="accordionTabText"/>
+                                    </f:facet>
+                                    <ui:include src="/pages/custody/td/accttype.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tab1" disabled="#{tdcto.isAccordianDisabled(1)}" rendered="false" styleClass="tcmAccordion-UI"  >
+                                    <f:facet name="title">
+                                        <p:graphicImage
+                                                value="/javax.faces.resource/images/accountholder.png.xhtml?ln=tcm"/>
+                                        <h:outputText value="Account Holder" styleClass="accordionTabText"/>
+                                    </f:facet>
+
+                                    <ui:include src="/pages/custody/td/acctholder.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tab2" styleClass="tcmAccordion-UI" rendered="false">
+                                    <f:facet name="title">
+                                        <p:graphicImage
+                                                value="/javax.faces.resource/images/address.png.xhtml?ln=tcm"/>
+                                        <h:outputText value="Change Address" styleClass="accordionTabText"/>
+                                    </f:facet>
+                                    <ui:include src="/pages/custody/td/editaddress.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tab3" disabled="#{tdcto.isAccordianDisabled(5)}" rendered="false" styleClass="tcmAccordion-UI"  >
+                                    <f:facet name="title">
+                                        <p:graphicImage
+                                                value="/javax.faces.resource/images/citizenship.png.xhtml?ln=tcm"/>
+                                        <h:outputText value="Regulatory" styleClass="accordionTabText"/>
+                                    </f:facet>
+                                    <ui:include src="/pages/custody/td/regulatory.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tab4" disabled="#{tdcto.isAccordianDisabled(6)}" rendered="false" styleClass="tcmAccordion-UI" >
+                                    <f:facet name="title">
+                                        <p:graphicImage
+                                                value="/javax.faces.resource/images/employment.png.xhtml?ln=tcm"/>
+                                        <h:outputText value="Employment" styleClass="accordionTabText"/>
+                                    </f:facet>
+
+                                    <ui:include src="/pages/custody/td/employment.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tab5" disabled="false" styleClass="tcmAccordion-UI" >
+                                    <f:facet name="title">
+                                        <p:graphicImage
+                                                value="/javax.faces.resource/images/beneficiary.png.xhtml?ln=tcm"/>
+                                        <h:outputText value="Beneficiary" styleClass="accordionTabText"/>
+                                    </f:facet>
+
+                                    <ui:include src="/pages/custody/td/editbeneficiary.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tab6"  styleClass="tcmAccordion-UI" rendered="false">
+                                    <f:facet name="title">
+                                        <p:graphicImage
+                                                value="/javax.faces.resource/images/money.png.xhtml?ln=tcm"/>
+                                        <h:outputText value="Funding" styleClass="accordionTabText"/>
+                                    </f:facet>
+
+                                    <ui:include src="/pages/custody/td/editfunding.xhtml"/>
+                                </p:tab>
+
+                            </p:accordionPanel>
+                            <p:panel id="submitBtnId" style="border: 0px; background: transparent">
+                                <div class="Container100 saveNopenBtn" style="">
+                                    <p:commandButton value="Cancel"
+                                                     update=":ctoForm:tdaccordian, :ctoForm:errorMsg" process="@form"
+                                                     styleClass="Fleft" actionListener="#{uiLayout.defaultHome}">
+
+                                    </p:commandButton>
+
+                                    <p:commandButton value="Save and Submit"
+                                                     update=":ctoForm:tdaccordian, :ctoForm:errorMsg" process="@form"
+                                                     disabled="#{tdcto.tdMasterData.optFund and tdcto.tdMasterData.recurringFlag}"
+                                                     actionListener="#{tdcto.editFunddataSave}"
+                                                     styleClass="Fright" >
+
+                                    </p:commandButton>
+
+                                </div></p:panel>
+                        </p:panel>
+                        <div class="Container100" style="text-align: center;">
+                            <!--  <p:button value="Save and Open Account" styleClass=""
+                                  accesskey="" >
+                                  <f:param name="AccountOpenSave" />
+                              </p:button>-->
+                            <h:outputText id="errorMsg"
+                                          styleClass="errorText" rendered="#{tdcto.saveandOpenError != null}"
+                                          value="#{tdcto.saveandOpenError}" escape="false"/>
+
+                        </div>
+
+                    </div>
+                </div>
+            </h:form>
+        </div>
+
+        <!-- BOX END -->
+
+
+
+
+    </ui:define>
+
+</ui:composition>

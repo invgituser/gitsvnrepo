@@ -1,0 +1,242 @@
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<p:tabView id="regTabV">
+
+		<p:tab  title="#{tdcto.tdMasterData.titlePrimary}" >
+			<div class="Container80 Responsive100 MarTop5 MarCenter"
+				style="margin-bottom: 15px;">
+
+                <p:panel rendered="#{tdcto.getErrorMessage(5) != null}"
+                         style="border: 0px; background: transparent"
+                         styleClass="Container100">
+                    <h:outputText id="tdp5Msg" styleClass="errorText"
+                                  value="#{tdcto.getErrorMessage(5)}" escape="false"/>
+                </p:panel>
+
+                <label Class="Container100"
+					style="text-align: left !important; font-weight: bold !important;">
+					Regulatory Questions</label>
+
+				<div class="EmptyBox5"></div>
+
+				<p:panel id="ownerregspfPanel"
+					style="border: 0px; background: transparent">
+					<div class="Container100 CustomWidthFA2 MarTop5">
+						<p:selectBooleanCheckbox id="tdrspflag" styleClass="RegulatoryCheckBox" disabled="#{tdcto.tdMasterData.optoutRegulatory}"
+							value="#{tdcto.tdMasterData.senoirPolitical}"
+							itemLabel="I, my spouse or an immediate member of my family is a Senior Political Figure.">
+							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregspfPanel" listener="${tdcto.tdMasterData.resetSeniorPolitical}" />
+						</p:selectBooleanCheckbox>
+					</div>
+
+
+					<p:panel style="border: 0px; background: transparent"
+						rendered="#{tdcto.tdMasterData.senoirPolitical}">
+						<div class="EmptyBox20"></div>
+						<div class="Container100">
+							<div class="Container45 Fleft CustomWidthFA-Responsive">
+								<label Class="Container100"
+									style="text-align: left !important; font-weight: bold !important;">Name
+									Of SPF *</label>
+
+								<div class="EmptyBox5"></div>
+								<p:inputText id="tdrspname"
+									value="#{tdcto.tdMasterData.acctOwnersDetail.spfName}"
+									styleClass="Wid100 CustomWidthFA-Responsive FS14"
+									maxlength="90"
+									placeholder="Name of SPF">
+								</p:inputText>
+							</div>
+							<div
+								class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+								<label Class="Container100"
+									style="text-align: left !important; font-weight: bold !important;">Relationship *</label>
+
+								<div class="EmptyBox5"></div>
+								<p:inputText id="tdrsprelation"
+									value="#{tdcto.tdMasterData.acctOwnersDetail.spfRelationship}"
+									styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+									maxlength="90"
+									placeholder="Relationship">
+								</p:inputText>
+							</div>
+						</div>
+						<div class="EmptyBox20"></div>
+						<div class="Container100">
+							<div class="Container45 Fleft CustomWidthFA-Responsive">
+								<label Class="Container100"
+									style="text-align: left !important; font-weight: bold !important;">Political
+									Title *</label>
+
+								<div class="EmptyBox5"></div>
+								<p:inputText id="tdrsptitle"
+									value="#{tdcto.tdMasterData.acctOwnersDetail.spfTitle}"
+									styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+									maxlength="50"
+									placeholder="Political Title">
+								</p:inputText>
+							</div>
+							<div
+								class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+								<label Class="Container100"
+									style="text-align: left !important; font-weight: bold !important;">Country
+									Of Office *</label>
+
+								<div class="EmptyBox5"></div>
+								<p:inputText id="tdrspcountry"
+									value="#{tdcto.tdMasterData.acctOwnersDetail.spfCountry}"
+									styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+									maxlength="50"
+									placeholder="Country Of Office">
+								</p:inputText>
+							</div>
+						</div>
+						<div class="EmptyBox20"></div>
+					</p:panel>
+				</p:panel>
+
+
+				<p:panel id="ownerregsharePanel"
+					style="border: 0px; background: transparent">
+					<div class="Container100 CustomWidthFA2 MarTop5">
+						<p:selectBooleanCheckbox id="tdrbrkflag" styleClass="RegulatoryCheckBox" disabled="#{tdcto.tdMasterData.optoutRegulatory}"
+							value="#{tdcto.tdMasterData.ownerShare}"
+							itemLabel="I, my spouse or an immediate member of my family is a director, 10% shareholder or policy maker of a publicly traded company.">
+							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregsharePanel" listener="${tdcto.tdMasterData.resetOwnerShare}"/>
+						</p:selectBooleanCheckbox>
+					</div>
+
+					<p:panel style="border: 0px; background: transparent"
+						rendered="#{tdcto.tdMasterData.ownerShare}">
+						<div class="EmptyBox20"></div>
+						<div class="Container100">
+							<div class="Container45 Fleft CustomWidthFA-Responsive">
+								<label Class="Container100"
+									style="text-align: left !important; font-weight: bold !important;">Company
+									Name *</label>
+
+								<div class="EmptyBox5"></div>
+								<p:inputText id="tdrbrkcomp"
+											 value="#{tdcto.tdMasterData.acctOwnersDetail.shareholderCompany}"
+									styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+									maxlength="90"
+									placeholder="Company Name">
+								</p:inputText>
+							</div>
+							<div
+								class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+								<label Class="Container100"
+									style="text-align: left !important; font-weight: bold !important;">Company
+									Address *</label>
+
+								<div class="EmptyBox5"></div>
+								<p:inputText id="tdrbrkaddr"
+									value="#{tdcto.tdMasterData.acctOwnersDetail.shareholderAddress}"
+									styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+									maxlength="90"
+									placeholder="Company Address">
+								</p:inputText>
+							</div>
+						</div>
+						<div class="EmptyBox20"></div>
+						<div class="Container100">
+							<div class="Container45 Fleft CustomWidthFA-Responsive">
+								<label Class="Container100"
+									style="text-align: left !important; font-weight: bold !important;">City *</label>
+
+								<div class="EmptyBox5"></div>
+								<p:inputText id="tdrbrkcity"
+									value="#{tdcto.tdMasterData.acctOwnersDetail.shareholderCity}"
+									styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+									maxlength="30"
+									placeholder="City">
+								</p:inputText>
+							</div>
+							<div
+								class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+								<label Class="Container100"
+									style="text-align: left !important; font-weight: bold !important;">State *</label>
+
+								<div class="EmptyBox5"></div>
+								<p:selectOneMenu id="tdrbrkstate"
+									value="#{tdcto.tdMasterData.acctOwnersDetail.shareholderState}"
+									styleClass="FundAccountDropdownUI formpageDropdown"
+									style="width: 100%;">
+									<p:ajax />
+									<f:selectItem itemLabel="Select State" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItems
+										value="#{tdcto.tdMasterData.usmaps.states.entrySet()}"
+										var="ownerregshare" itemLabel="#{ownerregshare.value}"
+										itemValue="#{ownerregshare.key}" />
+								</p:selectOneMenu>
+							</div>
+						</div>
+						<div class="EmptyBox20"></div>
+					</p:panel>
+				</p:panel>
+				<p:panel id="ownerBDPanel" style="border: 0px; background: transparent">
+					<div class="Container100 CustomWidthFA2 MarTop5">
+						<p:selectBooleanCheckbox id="tdrbdflag"
+												 styleClass="RegulatoryCheckBox" disabled="#{tdcto.tdMasterData.optoutRegulatory}"
+							value="#{tdcto.tdMasterData.ownerBD}"
+							itemLabel="I, my spouse or an immediate member of my family is licensed, employed by or associated with a broker-dealer firm, a financial services regulator, securities exchange, or a member of a securities exchange. (Please provide a copy of the required authorization letter)">
+							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerBDPanel" listener="${tdcto.tdMasterData.resetOwnerShare}" />
+
+						</p:selectBooleanCheckbox>
+					</div>
+					<div class="EmptyBox20"></div>
+					<p:panel style="border: 0px; background: transparent;" rendered="#{tdcto.tdMasterData.ownerBD}">
+					<div class="Container100">
+						<div class="Container45 Fleft CustomWidthFA-Responsive">
+							<label Class="Container100"
+								style="text-align: left !important; font-weight: bold !important;">Entity *</label>
+
+							<div class="EmptyBox5"></div>
+							<p:inputText id="tdrbddetails"
+										 styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+										 value="#{tdcto.tdMasterData.acctOwnersDetail.bdDetail}"
+										 maxlength="90"
+										 placeholder="Entity">
+							</p:inputText>
+						</div>
+					</div>
+					</p:panel>
+
+
+				</p:panel>
+				<p:panel id="optoutPanel"
+						 style="border: 0px; background: transparent">
+					<div class="Container100 CustomWidthFA2 MarTop5">
+						<p:selectBooleanCheckbox id="tdroptoutflag"
+												 styleClass="RegulatoryCheckBox"
+												 value="#{tdcto.tdMasterData.optoutRegulatory}"
+												 itemLabel="None of the above.">
+							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregspfPanel, :ctoForm:tdaccordian:regTabV:ownerBDPanel, :ctoForm:tdaccordian:regTabV:ownerregsharePanel" listener="${tdcto.tdMasterData.resetoptoutRegulatory}"/>
+						</p:selectBooleanCheckbox>
+					</div>
+			</p:panel>
+
+				<div class="Container100 MarTop20" style="margin: 10px 10px;">
+					<p:commandLink id="tdp5prev" styleClass="UI-prevButtonFA Fleft"
+								   actionListener="#{tdcto.prevPage}"
+								   update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this"/>
+
+					<p:commandLink id="tdp5next" styleClass="UI-nextButtonFA Fright UI-tcmButton"
+								   actionListener="#{tdcto.nextPage}" process=":ctoForm:tdaccordian:regTabV"
+								   update=":ctoForm:tdaccordian,:ctoForm:submitBtnId" />
+				</div>
+			</div>
+
+		</p:tab>
+		<p:tab title="Joint Holder" disabled="true" rendered="false">
+		</p:tab>
+
+	</p:tabView>
+
+</ui:composition>

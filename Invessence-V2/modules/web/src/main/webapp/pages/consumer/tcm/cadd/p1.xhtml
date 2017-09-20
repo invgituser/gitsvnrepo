@@ -1,0 +1,163 @@
+    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <div class="Container100 TextAlCenter">
+		<h3 class="StepsQuestionsFS" style="text-align: center!important; margin: 10px 0px!important;">
+			Welcome to #{webutil.webprofile.companyname}! <br />We will start by asking you a
+			set of questions - beginning with your goals, and then about your
+			attitudes towards risk.
+		</h3>
+
+        <div class="TexAlCenter">
+            <div class="PortfolioCreationFields">
+                <span class="mobileFullWidth" >
+                    <h:outputText id="tcmp1formtext1" value="I plan on investing" styleClass="formFS" rendered="#{!tcmpb.formPortfolioEdit}"/>
+                    <h:outputText id="tcmp1formtext2" value="The objective for this portfolio is " styleClass="formFS" rendered="#{tcmpb.formPortfolioEdit}"/>
+                    </span>
+                <p:inputNumber id="initialIid" rendered="#{!tcmpb.formPortfolioEdit}"
+                                styleClass="invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput"
+                                value="#{tcmpb.initialInvestment}"
+                                maxlength="11" symbol="$"
+                                decimalPlaces="0"
+                                required="true" requiredMessage="Min. of $50,000 investment is required!"
+                                validatorMessage="Min. of $50,000 investment is required!">
+                </p:inputNumber>
+                <p:message id="tcmp1tooltip" for="initialIid" display="tooltip"/>
+
+               <span class="mobileFullWidth" >
+                    <h:outputText value="for" id="tcmp1formtext3" styleClass="formFS" rendered="#{!tcmpb.formPortfolioEdit}"/>
+                    </span>
+                <p:selectOneMenu id="q3" value="#{tcmpb.goal}" styleClass="TCM-UI-Dropdown dropdownInputFullWidth portfolioCreationDD"
+                                 required="true" requiredMessage="Please choose investment strategy" >
+                    <p:ajax listener="#{tcmpb.onGoalChangeValue}"
+                            update=":ceForm:inputArea" process="initialIid q3"/>/>
+                    <f:selectItem id="tcmp1chooseone" itemLabel="Choose One" itemValue=""/>
+                    <f:selectItem id="tcmp1retirement" itemLabel="Retirement" itemValue="Retirement"/>
+                    <f:selectItem id="tcmp1college" itemLabel="College" itemValue="College"/>
+                    <f:selectItem id="tcmp1buildingwealth" itemLabel="Building Wealth" itemValue="Wealth"/>
+                    <f:selectItem id="tcmp1other" itemLabel="Other" itemValue="Other"/>
+                </p:selectOneMenu>
+            </div>
+        </div>
+
+        <div class="EmptyBox10"></div>
+
+        <p:panel id="p1hrznpanel" style="background: transparent; border: 0px"
+                 rendered="#{tcmpb.displayGoalText}">
+            <div class="Container100 ResponsiveMarginTop BlockErrorIncluded">
+                <ui:fragment rendered="#{tcmpb.goal == 'Retirement'}">
+                    <div class="TexAlCenter">
+                        <div>
+                            <div class="mobileFullWidth"><h3 class="formFS"> I am </h3></div>
+                            <p:inputNumber id="ageid"
+                                            styleClass="invInputText input_agewid1 mobileFullWidthinput"
+                                            value="#{tcmpb.age}"
+                                            decimalPlaces="0" size="9"
+                                            required="true" requiredMessage="Age is required!"
+                                            validatorMessage="Age should be between 18 and 100."/>
+
+                            <div class="mobileFullWidth portfolioCreation2DropdownBlock"><h3 class="formFS"> years old and I am
+                                <p:selectOneMenu id="retiredDDID" value="#{tcmpb.riskCalculator.retired}"
+                                                 styleClass="TCM-UI-Dropdown dropdownInputFullWidth">
+                                    <p:ajax event="change" process="@this ageid"
+                                            update=":ceForm:p1hrznpanel"/>
+                                    <f:selectItem id="tcmp1notretired" itemLabel="Not Retired" itemValue="0"/>
+                                    <f:selectItem id="tcmp1retired" itemLabel="Retired" itemValue="1"/>
+                                </p:selectOneMenu>
+                            </h3></div>
+                        </div>
+                    </div>
+                    <div class="EmptyBox20"></div>
+                    <div class="TexAlCenter">
+                        <div>
+                            <ui:fragment rendered="#{tcmpb.riskCalculator.retired == 0}">
+                                <div class="mobileFullWidth">
+                                    <h3 class="formFS"> I would like to retire when I am </h3>
+                                </div>
+                                <p:inputNumber id="retireageID"
+                                                styleClass="invInputText input_wid1 amountBRmobileSupport mobileFullWidthinput"
+                                                style="width: 60px;"
+                                                value="#{tcmpb.riskCalculator.retireAge}"
+                                                decimalPlaces="0"
+                                                size="3"
+                                                required="true" requiredMessage="When do you plan to retire?">
+
+                                </p:inputNumber>
+
+                                <div class="mobileFullWidth"><h3 class="formFS"> years old.</h3></div>
+                            </ui:fragment>
+
+                        </div>
+                    </div>
+
+                </ui:fragment>
+                <ui:fragment rendered="#{tcmpb.goal == 'College'}">
+
+                    <h3 class="formFS TexAlCenter ">
+                        The child I am saving for is expected to start college in
+                        <p:inputNumber id="collegeid"
+                                        styleClass="invInputText input_wid1 mobileFullWidthinput" style="width: 60px;"
+                                        value="#{tcmpb.horizon}"
+                                        decimalPlaces="0"
+                                        size="3"
+                                        required="true" requiredMessage="When does your child plan to attend college?"/>
+                        years.
+                    </h3>
+                </ui:fragment>
+                <ui:fragment rendered="#{tcmpb.goal == 'Wealth' || tcmpb.goal == 'Other'}">
+
+                    <h3 class="formFS TexAlCenter ">
+                        I plan on utilizing the funds for this goal in
+                        <p:inputNumber id="otherid"
+                                        styleClass="invInputText input_agewid1 mobileFullWidthinput"
+										value="#{tcmpb.horizon}"
+                                        decimalPlaces="0"
+                                        size="3"
+                                        required="true" requiredMessage="When do you plan to use these funds?"/>
+                        years.
+                    </h3>
+                </ui:fragment>
+            </div>
+
+        </p:panel>
+        <div class="EmptyBox10"></div>
+        <p:panel id="tcmp1errormsg1" rendered="#{tcmpb.pagemanager.getErrorMessage(0) != null and  !tcmpb.formPortfolioEdit }"
+                 style="border: 0px; background: transparent"
+                 styleClass="Container100 TexAlCenter">
+            <h:outputText id="tcmp1errortext1" styleClass="errorText"
+                          value="#{tcmpb.pagemanager.getErrorMessage(0)}" escape="false"/>
+        </p:panel>
+        <p:panel id="tcmp1errormsg2" rendered="#{tcmpb.pagemanager.getErrorMessage(1) != null and tcmpb.formPortfolioEdit }"
+                 style="border: 0px; background: transparent"
+                 styleClass="Container100 TexAlCenter">
+            <h:outputText id="tcmp1errortext2" styleClass="errorText"
+                          value="#{tcmpb.pagemanager.getErrorMessage(1)}" escape="false"/>
+        </p:panel>
+
+        <div class="TexAlCenter">
+         <p:commandLink styleClass="UI-nextButtonPg1 UI-tcmButton" id="tcmp1nextbtn" rendered="#{tcmpb.pagemanager.nextButtonStat}"
+                         update=":ceForm:inputArea"
+                         actionListener="#{tcmpb.nextPage}">
+                         <h:outputText value="Next" />
+                         </p:commandLink>
+         </div>         
+    <div style="display: none;">
+       <img src="/javax.faces.resource/images/gl1.png.xhtml?ln=tcm"/>
+       <img src="/javax.faces.resource/images/gl2.png.xhtml?ln=tcm"/>
+       <img src="/javax.faces.resource/images/gl3.png.xhtml?ln=tcm"/>
+       <img src="/javax.faces.resource/images/gl4.png.xhtml?ln=tcm"/>
+       <img src="/javax.faces.resource/images/gl5.png.xhtml?ln=tcm"/>
+
+        <img src="/javax.faces.resource/images/sgl1.png.xhtml?ln=tcm"/>
+        <img src="/javax.faces.resource/images/sgl2.png.xhtml?ln=tcm"/>
+        <img src="/javax.faces.resource/images/sgl3.png.xhtml?ln=tcm"/>
+        <img src="/javax.faces.resource/images/sgl4.png.xhtml?ln=tcm"/>
+        <img src="/javax.faces.resource/images/sgl5.png.xhtml?ln=tcm"/>
+
+    </div>
+    </div>
+
+</ui:composition>

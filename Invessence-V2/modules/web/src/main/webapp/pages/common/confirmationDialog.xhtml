@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>#{dialogBean.title}</title>
+    <style type="text/css">
+        .ui-widget {
+            font-size: 90%;
+        }
+    </style>
+</h:head>
+
+<h:body>
+
+    <p:panelGrid cellpadding="5" styleClass="invNBgrid">
+        <p:row>
+            <p:column colspan="2" style="text-align:left; color: #CC0000">
+                <h3>#{dialogBean.header}</h3>
+            </p:column>
+        </p:row>
+        <p:row>
+            <p:column colspan="2" style="text-align:left">
+                <p:outputLabel escape="false" value="#{dialogBean.message}" />
+            </p:column>
+        </p:row>
+
+        <f:facet name="footer">
+            <p:row>
+                <p:column style="text-align: left">
+                    <p:commandButton value="#{cBean.yesText}"
+                                     actionListener="#{dialogBean.forwardURL}"
+                                     oncomplete="PF('dlgIB').hide();"/>
+                </p:column>
+                <p:column style="text-align: right">
+                    <p:commandButton value="Cancel"
+                                     oncomplete="PF('dlgIB').hide();" />
+
+                </p:column>
+            </p:row>
+        </f:facet>
+    </p:panelGrid>
+
+</h:body>
+
+</html>

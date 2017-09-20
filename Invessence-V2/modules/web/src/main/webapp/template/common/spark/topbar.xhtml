@@ -1,0 +1,82 @@
+<ui:composition
+
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://java.sun.com/jsf/html">
+
+
+    <div id="layout-topbar" class="ShadowGray">
+        <div id="layout-topbar-indent">
+            <a href="#{uiLayout.defaultHome}">
+                <h:graphicImage name="#{uiLayout.logo}"
+                                styleClass="Fleft" library="invessence" id="logo2" class="Fleft"/>
+            </a>
+
+            <ui:fragment rendered="#{webutil.isUserLoggedIn()}">
+                <!--   <a href="#" id="mobile-menu-button-gray" class="BordRad3 white ShowOnMobile"><i class="fa fa-caret-down"></i> Menu</a> -->
+                <!--   <a href="#" id="mobile-menu-button" class="BordRad3 white ShowOnMobile"><i class="fa fa-bars"></i> Top Menu</a> -->
+
+                <ul id="layout-topbar-menu">
+                    <li class="MobileModeOnly">
+                        <ui:fragment rendered="#{webutil.hasAccess('USER')}">
+                            <!--<a href="/pages/consumer/tcm/cadd.xhtml?app=N" class="Animated05"><i class="fa fa-plus-square"></i> New Account</a>-->
+                            <a href="/pages/consumer/tcm/cadd.xhtml?app=N" class="Animated05">New Account</a>
+                        </ui:fragment>
+                    </li>
+                    <li class="MobileModeOnly">
+                        <ui:fragment rendered="#{webutil.hasRole('DEVELOPER')}">
+                            <!--<a href="/pages/consumer/tcm/cadd.xhtml?app=N" class="Animated05"><i class="fa fa-plus-square"></i> New Account</a>-->
+                            <a href="/pages/productadmin/fileProcessEmulation.xhtml" id="menuFlPrcsbtn" class="Animated05">   File Processing</a>
+                        </ui:fragment>
+                    </li>
+                    <li class="MobileModeOnly">
+                        <ui:fragment rendered="#{webutil.hasRole('DEVELOPER')}">
+                            <!--<a href="/pages/consumer/tcm/cadd.xhtml?app=N" class="Animated05"><i class="fa fa-plus-square"></i> New Account</a>-->
+                            <a href="/pages/productadmin/accountEmulation.xhtml" id="menuAcctEmulbtn" class="Animated05">    Account Emulation</a>
+                        </ui:fragment>
+                    </li>
+                    <ui:fragment rendered="#{webutil.isAggregatorMenuActive()}">
+                        <li class="MobileModeOnly">
+                            <h:form>
+                                <h:commandLink action="#{aggrBean.startup('M')}" value="Aggregation" styleClass="Animated05">
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                    </ui:fragment>
+
+                    <!--</li>-->
+                    <li class="MobileModeOnly">
+                        <a href="#{uiLayout.defaultHome}" class="Animated05"><i class="fa fa-home"></i> Dashboard</a>
+                    </li>
+
+                    <li style="float:left!important;">
+                        <a class="Animated05 CursPointer Marbottom"><i class="fa fa-cog"></i> Settings</a>
+                        <ul style="width:175px; margin-left:-10px;" class="Animated03 submenu">
+                            <li><a href="/pages/common/myprofile.xhtml" class="Animated05"><i class="fa fa-dashboard"></i> My Profile</a></li>
+                        </ul>
+                    </li>
+                    <li class="fa fa-ellipsis-v menu-separator" style="float:left!important;"></li>
+                    <li>
+                        <h:form styleClass="logoutBtnFrm">
+                            <h:commandLink actionListener="#{sessionControl.logout}" style="" styleClass="Animated05 idLogoutCommon">
+                                <i class="fa fa-sign-out"></i> Logout
+                            </h:commandLink>
+                        </h:form>
+                    </li>
+                    <!-- <li class="fa fa-ellipsis-v menu-separator"></li> -->
+
+
+                </ul>
+            </ui:fragment>
+            <div class="submenuCustom submenu">
+                <p:outputText value="#{uiLayout.webProfile.supportphone}"/>
+                <br/>
+                <a href="mailto:#{uiLayout.webProfile.supportemail}">
+                    <p:outputText value="#{uiLayout.webProfile.supportemail}"/>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</ui:composition>
