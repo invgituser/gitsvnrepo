@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <div class="EmptyBox50"></div>
+    <div id="layout-portlets-cover">
+        <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
+             style="margin-top:5%;">
+            <div class="Container90 Fnone MarAuto TexAlLeft">
+
+                <div class="EmptyBox5"></div>
+                <p:panel id="signup" styleClass="Container100"
+                         style="border:0px; background: transparent; margin-top:0!important;">
+
+                    <p:panel id="p1" styleClass="Container100 Responsive50"
+                             style="width: 100%; border: 0px; background: transparent;  margin-top:0!important;">
+                        <div class="ContainerIndent margin-top-signup">
+
+                            <div class="Container100">
+                                <p:messages id="signmsg" showDetail="false" sticky="true" escape="true" closable="true"/>
+                            </div>
+
+                            <div class="Container100" style="text-align: center;">
+                                <p:inputText id="firstName" styleClass="FS14 InputMergeRight CustomWidthFA3"
+                                             value="#{neggpb.firstname}" placeholder="First Name"
+                                             required="true" requiredMessage="Please enter First Name.">
+                                </p:inputText>
+
+                                <p:inputText id="lastName" styleClass="FS14 InputMergeLeft CustomWidthFA3"
+                                             value="#{neggpb.lastname}" placeholder="Last Name"
+                                             required="true" requiredMessage="Please enter Last Name.">
+                                    <p:watermark for="lastName" value="Last Name"/>
+                                </p:inputText>
+
+                                <div class="EmptyBox10"></div>
+
+                                <p:inputText id="email" styleClass="Wid100 FS14 CustomWidthFA2"
+                                             value="#{neggpb.email}" placeholder="Email"
+                                             required="true" requiredMessage="Please enter Email."
+                                             validatorMessage="Email format is not correct.">
+                                    <p:watermark for="email" value="Email Address"/>
+                                    <f:validator validatorId="EmailValidator"/>
+                                </p:inputText>
+                            </div>
+
+                        </div>
+                        <div class="EmptyBox5"></div>
+                    </p:panel>
+
+                    <f:facet name="footer">
+                        <div class="Container100" style="text-align: center;">
+                            <p:commandButton value="Review" id="newregreview"
+                                             update=":ceForm:inputArea"
+                                             actionListener="#{neggpb.gotoReview}" styleClass="customwidthbutton"/>
+                            <p:commandButton value="Open Account" type="submit" id="newregopenacct"
+                                             update=":ceForm:inputArea"
+                                             actionListener="#{neggpb.gotoCustody}" styleClass="customwidthbutton"/>
+                        </div>
+                    </f:facet>
+
+                </p:panel>
+
+                <div class="EmptyBox20"></div>
+            </div>
+        </div>
+    </div>
+    <div class="EmptyBox50"></div>
+
+</ui:composition>

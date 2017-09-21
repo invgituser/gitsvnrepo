@@ -1,0 +1,195 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{neggdash.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <h:form id="form">
+            <!-- BOX START -->
+            <div class="layout-portlets-box">
+                <div class="Container100 Responsive100">
+                    <div class="ContainerIndent" style="padding-top: 0px;">
+                        <div class="Container100">
+
+                            <div class="DispInlBlock">
+                                <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
+                                <div class="Container80 UsernameDashboard">
+                                    <div class="Fright">
+                                        <h2 class="black head FontThemeMedium">#{webutil.lastFirstName}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="Seperator HideMobileMode"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Container100 Responsive100">
+                    <p:growl showDetail="false" escape="true" closable="true"/>
+                    <!--<p:separator style="background-color: blue; height:5px"/>-->
+
+                    <div class="Container100">
+                        <table class="invNBgrid AccountDashboardAlignRes" style="width: 100%;">
+                            <tr style="font-size: 15px;" class="HeaderDashboardTitle">
+                                <td style="width: 20%; padding-left:35px!important;" class="FS13Custom">Goal</td>
+
+                                <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">Strategy</td>
+                                <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">Account Type</td>
+                                <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">Account Number</td>
+                                <td style="width: 20%; padding-right:35px!important; text-align: right;" class="FS13Custom">Invested Amount</td>
+                            </tr>
+                        </table>
+                        <div class="EmptyBox10"></div>
+                        <p:dataGrid style="background: transparent; padding-right:5px; border:0px!important"
+                                    var="investment" value="#{neggdash.manageAccountList}"
+                                    columns="1" layout="grid">
+                            <p:panel styleClass="s_dashbaordPanel" style="width: 100%; background: #f5f5f5; padding: 0px!important;">
+
+
+                                <table class="invNBgrid AccountDashboardAlignRes effectShiftMargin" style="width: 100%;">
+                                    <tr style="font-size: 15px;" class="dashboard_customStyle">
+                                        <td style="width: 20%;" class="FS13Custom"><p:commandButton id="uidHelp"
+                                                                                                    styleClass="info_dashboard"
+                                                                                                    icon="fa fa-info-circle Fs14" process="@none"/>
+
+                                            <p:overlayPanel id="uidHP" for="uidHelp" hideEffect="fade"
+                                                            dynamic="false" showCloseIcon="true"
+                                                            style="width:200px; margin-left: 5px">
+                                                <table>
+                                                    <tr>
+                                                        <td>Goal:</td>
+                                                        <td>#{investment.goal}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Strategy:</td>
+                                                        <td>#{investment.portfolioName}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Date Opened:</td>
+                                                        <td>#{investment.displayDateOpened}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Account No.:</td>
+                                                        <td>#{investment.displayActiveAcctNum}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Account Type:</td>
+                                                        <td>#{investment.accountType}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Name:</td>
+                                                        <td>#{investment.firstname} #{investment.lastname}</td>
+                                                    </tr>
+                                                </table>
+                                            </p:overlayPanel>#{investment.goal}</td>
+
+                                        <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">#{investment.portfolioName}</td>
+                                        <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">#{investment.accountType}</td>
+                                        <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">#{investment.displayActiveAcctNum}</td>
+
+
+                                        <td style="width: 20%; text-align: right; padding-right: 30px!important;" class="FS13Custom">
+
+                                            <h:outputText value="#{investment.actualInvested}" rendered="#{investment.managed}">
+                                                <f:convertNumber currencySymbol="$" type="currency"/>
+                                            </h:outputText>
+                                            <h:outputText value="-" rendered="#{!investment.managed}">
+                                            </h:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table class="invNBgrid AccountDashboardAlignRes" style="width: 100%;">
+                                    <tr style="font-size: 13px;">
+                                        <td colspan="5" style="width: 100%; margin-left: 5px">
+                                            <div class="EmptyBox20"></div>
+                                            <div class="invNBgrid DashboardIconBlock" style="width: 100%;">
+                                                <div class="s_dashboard">
+                                                    <div class="Container40 s_dashboardIcon">
+                                                        <p:commandButton id="activeButton" disabled="#{!investment.hasPosition}"
+                                                                         styleClass="Fs14 GreenButton"
+                                                                         process="@this" immediate="true"
+                                                                         icon="fa fa-search-plus Fs14 white"
+                                                                         action="#{neggdash.showPosition}">
+                                                            <p:tooltip id="activeToolTipFade" for="activeButton" value="Positions"/>
+                                                            <f:setPropertyActionListener value="#{investment}"
+                                                                                         target="#{neggdash.selectedAccount}"/>
+                                                        </p:commandButton>
+                                                    </div>
+                                                    <div class="Container60 s_dashboardLabel"><h3>Positions</h3></div>
+                                                </div>
+                                                <div class="s_dashboard">
+
+                                                    <div class="Container40 s_dashboardIcon">
+                                                        <p:commandButton id="editPortfolioButton"
+                                                                         styleClass="Fs14 OrangeButton"
+                                                                         process="@this" immediate="true"
+                                                                         icon="fa fa-pie-chart Fs14 white"
+                                                                         action="#{neggdash.doPortfolioSelectedAction}">
+                                                            <p:tooltip id="portfolioToolTipFade" for="editPortfolioButton"
+                                                                       value="Change Strategy"/>
+                                                            <f:setPropertyActionListener value="#{investment}"
+                                                                                         target="#{neggdash.selectedAccount}"/>
+                                                        </p:commandButton>
+
+                                                    </div>
+                                                    <div class="Container60 s_dashboardLabel relativeCenter"><h3>Change Strategy</h3></div>
+                                                </div>
+
+                                                <div class="s_dashboard" style="display: none">
+                                                    <div class="Container40 s_dashboardIcon">
+                                                        <p:commandButton id="fundButton" disabled="#{!investment.editable}"
+                                                                         styleClass="Fs14 GreenButton"
+                                                                         process="@this" immediate="true"
+                                                                         icon="fa fa-university Fs14 white"
+                                                                         action="#{neggdash.doEditAction}">
+                                                            <p:tooltip id="fundToolTipFade" for="fundButton" value="Edit Funding"/>
+                                                            <f:setPropertyActionListener value="#{investment}"
+                                                                                         target="#{neggdash.selectedAccount}"/>
+                                                        </p:commandButton>
+                                                    </div>
+                                                    <div class="Container60 s_dashboardLabel"><h3>Edit Funding</h3></div>
+
+                                                </div>
+                                                <div class="s_dashboard" style="display: none">
+                                                    <div class="Container40 s_dashboardIcon">
+                                                        <p:commandButton id="editAcctButton" disabled="#{investment.editable}"
+                                                                         styleClass="Fs14 BlueButton"
+                                                                         process="@this" immediate="true"
+                                                                         icon="fa fa-pencil-square-o Fs14 white">
+
+                                                            <p:tooltip id="editAcctToolTipFade" for="editAcctButton" value="Edit Account Details"/>
+                                                            <f:setPropertyActionListener value="#{investment}"
+                                                                                         target="#{neggdash.selectedAccount}"/>
+                                                        </p:commandButton>
+                                                    </div>
+                                                    <div class="Container60 s_dashboardLabel relativeCenter relativeCenter2">
+                                                        <h3>Edit Account Details</h3></div>
+                                                </div>
+                                            </div>
+                                            <div class="EmptyBox20"></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </p:panel>
+                            <div class="EmptyBox20"></div>
+                        </p:dataGrid>
+
+                    </div>
+                </div>
+
+                <!-- Can add another element here... -->
+            </div>
+            <!-- BOX END -->
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

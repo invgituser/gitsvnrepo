@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100">
+        <p:panel id="editPage1" style="border: 0px; background: transparent;">
+            <div class="Container100 TextAlCenter">
+                <div class="TexAlCenter">
+                    <div class="textAlign Fs17">#{neggpb.firstname}, your currently selected strategy for this portfolio is <strong>#{neggpb.origCustomerData.portfolioName}</strong></div>
+                    <div class="EmptyBox20"></div>
+                    <div class="textAlign Fs17">The primary objective of this strategy is #{neggpb.longDes}</div>
+                </div>
+
+
+
+                <div class="EmptyBox10"></div>
+
+                <div class="Fs14 textAlign">
+                    <div style="margin: 10px 20px!important;">
+                       <div style="text-align: left;">If your situation has changed, or you no longer feel this is the best match for your goals and risk tolerance then you may revise your selected portfolio using the options below.  However, strategy changes should not be made lightly - there are a number of factors you should consider before editing your chosen strategy:</div>
+                        <li class="customLi" style="margin: 5px 15px;">Changing your strategy will require portfolio rebalancing which may incur: the realization of capital gains or losses, additional transaction costs, and/or short-term trading penalties/fees. Strategy changes have the potential to be detrimental to performance.</li>
+                        <li class="customLi" style="margin: 5px 15px;">Due to limited liquidity in some investments, a strategy change and accompanying rebalance may take several months to be fully completed. It may also result in temporarily increased levels of cash in the portfolio and/or variances from the model strategy allocations.  Depending on the specifics of each situation, we may also utilize placeholder investments temporarily in lieu of model strategy investments that are not currently available for purchase.</li>
+                    </div>
+                </div>
+
+                <div class="EmptyBox20"></div>
+
+                <div class="Fs12">
+                    <p:selectOneRadio value="#{neggpb.profileProcess}"
+                                      layout="pageDirection"
+                                      required="true" requiredMessage="Must choose one of the method to change profile.">
+                        <f:selectItem
+                                itemLabel="I prefer to complete the risk tolerance questionnaire again to update factors that have changed."
+                                itemValue="Q"/>
+                        <f:selectItem
+                                itemLabel="I already know which strategy I would like assigned to my portfolio. I would like to skip the risk tolerance questionnaire process and move forward with assigning a new strategy to my portfolio."
+                                itemValue="D"/>
+                    </p:selectOneRadio>
+
+                </div>
+
+                <div class="EmptyBox20"></div>
+
+            </div>
+
+            <f:facet name="footer">
+                <p:commandButton styleClass="Fleft" value="Cancel"
+                                 update=":ceForm:inputArea"
+                                 immediate="true"
+                                 actionListener="#{neggpb.exitPage}"/>
+                <p:commandButton styleClass="Fright" value="Continue"
+                                 update=":ceForm:inputArea"
+                                 actionListener="#{neggpb.nextPage}"/>
+            </f:facet>
+        </p:panel>
+    </div>
+</ui:composition>
