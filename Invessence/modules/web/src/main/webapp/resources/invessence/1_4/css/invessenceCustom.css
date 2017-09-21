@@ -6118,7 +6118,18 @@ li.strategy_list {
 
 
 .panel_block span.first_div { float: left;}
-
+.MsgBtnsBlock .ui-buttonset .ui-button {
+    z-index: 0;
+}
+.panel_block .alert_date {
+    margin-right: 14px;
+}
+.panel_block a {
+    width: 100%;
+    float: left;
+    margin: 5px;
+    padding: 0;
+}
 
 
 
