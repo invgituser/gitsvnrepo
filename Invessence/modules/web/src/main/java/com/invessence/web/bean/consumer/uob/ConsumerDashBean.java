@@ -92,7 +92,7 @@ public class ConsumerDashBean extends CustomerData implements Serializable
 
    public void collectData(Long logonid)
    {
-      manageAccountList = listDAO.getClientProfileList(logonid,null, null);
+      manageAccountList = listDAO.getClientProfileList(logonid,null, null, webutil.getUserInfoData().getAdvisor(), webutil.getUserInfoData().getRep());
    }
 
 
@@ -204,7 +204,7 @@ public class ConsumerDashBean extends CustomerData implements Serializable
       System.out.println("selectedAccount.getAcctnum().toString()");
       try
       {
-         selAccountList = listDAO.getClientProfileList(webutil.getLogonid(),selAcctNum, null);
+         selAccountList = listDAO.getClientProfileList(webutil.getLogonid(),selAcctNum, null, webutil.getUserInfoData().getAdvisor(), webutil.getUserInfoData().getRep());
 //         CustomerData ob=selAccountList.get(0);
 //         ob.buildAssetClass();
 

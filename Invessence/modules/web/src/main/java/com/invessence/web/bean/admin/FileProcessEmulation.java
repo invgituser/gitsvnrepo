@@ -32,8 +32,8 @@ public class FileProcessEmulation
       {
          System.out.print("processAccount businessDate" + businessDate);
          System.out.print("processAccount processId " + processId);
-         String product = webutil.getWebprofile().getWebInfo().get("SERVICE.PRODUCT");
-         String serviceMode = webutil.getWebprofile().getWebInfo().get("SERVICE.FILEPROCESS.MODE");
+         String product = webutil.getWebprofile().getInfo("SERVICE.PRODUCT");
+         String serviceMode = webutil.getWebprofile().getInfo("SERVICE.FILEPROCESS.MODE");
          if(businessDate!=null && !businessDate.equalsIgnoreCase(""))
          {
             if(processId!=null && !processId.equalsIgnoreCase(""))

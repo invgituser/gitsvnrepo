@@ -105,8 +105,8 @@ public class CRMBean
 
    public void startup(){
       logger.info("CRMBean.startup");
-      String product = getWebutil().getWebprofile().getWebInfo().get("SERVICE.PRODUCT").toString();
-      String serviceMode = getWebutil().getWebprofile().getWebInfo().get("SERVICE.CRM.MODE").toString();
+      String product = getWebutil().getWebprofile().getInfo("SERVICE.PRODUCT");
+      String serviceMode = getWebutil().getWebprofile().getInfo("SERVICE.CRM.MODE");
       logger.info("Product " + product);
       logger.info("ServiceMode " + serviceMode);
       try {
@@ -145,8 +145,8 @@ public class CRMBean
          if (logonid == null) {
             logonid = webutil.getLogonid();
          }
-         String product = getWebutil().getWebprofile().getWebInfo().get("SERVICE.PRODUCT").toString();
-         String serviceMode = getWebutil().getWebprofile().getWebInfo().get("SERVICE.CRM.MODE").toString();
+         String product = getWebutil().getWebprofile().getInfo("SERVICE.PRODUCT");
+         String serviceMode = getWebutil().getWebprofile().getInfo("SERVICE.CRM.MODE");
          logger.info("Product " + product);
          logger.info("ServiceMode " + serviceMode);
 
@@ -192,8 +192,8 @@ public class CRMBean
             if (logonid == null) {
                logonid = webutil.getLogonid();
             }
-            String product = getWebutil().getWebprofile().getWebInfo().get("SERVICE.PRODUCT").toString();
-            String serviceMode = getWebutil().getWebprofile().getWebInfo().get("SERVICE.CRM.MODE").toString();
+            String product = getWebutil().getWebprofile().getInfo("SERVICE.PRODUCT");
+            String serviceMode = getWebutil().getWebprofile().getInfo("SERVICE.CRM.MODE");
             logger.info("Product " + product);
             logger.info("ServiceMode " + serviceMode);
 

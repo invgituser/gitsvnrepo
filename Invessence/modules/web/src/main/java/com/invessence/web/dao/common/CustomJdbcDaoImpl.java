@@ -1,6 +1,7 @@
 package com.invessence.web.dao.common;
 
 import com.invessence.emailer.data.MsgData;
+import com.invessence.web.dao.*;
 import com.invessence.web.data.common.*;
 import com.invessence.web.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import java.util.*;
 
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.*;
 
 import org.springframework.dao.*;
 
@@ -34,8 +35,22 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
    private String lockUserSql = null;
    private String listofQAQuery = null;
 
+   private String usersByEmailQuery=null;
+
    @Autowired
    private WebUtil webutl;
+   @Autowired
+   private AuditDAO auditDAO;
+
+   public AuditDAO getAuditDAO()
+   {
+      return auditDAO;
+   }
+
+   public void setAuditDAO(AuditDAO auditDAO)
+   {
+      this.auditDAO = auditDAO;
+   }
 
    boolean enabled = true;
    boolean accountNonLocked = true;
@@ -78,6 +93,16 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       }
    }
 
+   public String getUsersByEmailQuery()
+   {
+      return usersByEmailQuery;
+   }
+
+   public void setUsersByEmailQuery(String usersByEmailQuery)
+   {
+      this.usersByEmailQuery = usersByEmailQuery;
+   }
+
    private UserInfoData getUserInfo(String username)
    { //username is email
 
@@ -104,6 +129,8 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       String emailmsgtype = null;
       String access = "User";
       String atstart = "index.xhtml";
+
+      Long logonAuditID=null;
 
       String exception = null;
 
@@ -133,8 +160,21 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
 
       // We need to fetch data all the time (for username and password)...
       // Don't use the buffered session data.
-      sql = getUsersByUsernameQuery();
-      SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{username});
+      SqlRowSet rs=null;
+      if(username.contains("@")){
+         sql = getUsersByEmailQuery();
+         rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{username});
+         if(rs==null){
+            sql = getUsersByUsernameQuery();
+            rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{username});
+         }
+
+      }else{
+         sql = getUsersByUsernameQuery();
+         rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{username});
+      }
+
+
 
       if ((rs != null) && (rs.next()))
       {
@@ -151,41 +191,41 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          stateRegistered = ""; // rs.getString("stateRegistered");
          resetID = rs.getString("resetID");
          cid = rs.getString("cid");
-         advisor = rs.getString("advisor");
-         rep = rs.getString("rep");
+         advisor = rs.getString("advisor").equalsIgnoreCase("ADMIN") || rs.getString("advisor").equalsIgnoreCase("DEMO")?webutl.getWebprofile().getDefaultAdvisor():rs.getString("advisor");
+         rep = rs.getString("advisor").equalsIgnoreCase("ADMIN") || rs.getString("advisor").equalsIgnoreCase("DEMO")?webutl.getWebprofile().getInvSiteRep():rs.getString("rep");
+         rs.getString("rep");
          emailmsgtype = rs.getString("emailmsgtype");
          access = rs.getString("access");
          atstart = rs.getString("atstart");
          // get List of questions...
-         qa = getQA(username);
-         authorities = getAuthorities(username);
+         qa = getQA(logonID);
+         authorities = getAuthorities(logonID);
          // Note: it is either set with number of attempts or it was set in past attempt.
          randomQuestion = webutl.randomGenerator(0, 2);
          String urlbasedadvisor = webutl.getWebprofile().getDefaultAdvisor();
          String testmode = webutl.getWebprofile().getMode();
-         if (! testmode.equalsIgnoreCase("demo") &&
+         if (! (advisor.equalsIgnoreCase("admin")||advisor.equalsIgnoreCase("demo")) &&
             advisor != null && ! advisor.equalsIgnoreCase(urlbasedadvisor.toLowerCase())) {
             enabled = false;
-            throw new BadCredentialsException("Username is not valid!");
+            exception="Username is not valid!";
+//            auditDAO.loginAuditEntry(new LoginAudit(null,logonID,sessionId,req.getRemoteAddr(),"F",exception,null));
+            throw new BadCredentialsException(exception);
          }
-         else {
-            if (logonStatus != null && logonStatus.equalsIgnoreCase("A"))
+
+         if (logonStatus != null && logonStatus.equalsIgnoreCase("A"))
+         {
+            enabled = true;
+         } else if (logonStatus != null)
+         {
+            enabled = false;
+            exception="This account is LOCKED.";
+            if (logonStatus.equalsIgnoreCase("X"))
             {
-               enabled = true;
+               exception = "Username is DISABLED!";
             }
-            else if (logonStatus != null)
+            else if (logonStatus.equalsIgnoreCase("T") || logonStatus.equalsIgnoreCase("I"))
             {
-               enabled = false;
-               exception="This account is LOCKED.";
-               if (logonStatus.equalsIgnoreCase("X"))
-               {
-                  exception = "Username is DISABLED!";
-               }
-               else if (logonStatus.equalsIgnoreCase("T") || logonStatus.equalsIgnoreCase("I"))
-               {
-                  exception = "User is NOT ACTIVE, please activate account!";
-               }
-               throw new BadCredentialsException(exception);
+               exception = "User is NOT ACTIVE, please activate account!";
             }
          }
       }
@@ -211,7 +251,9 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          // Note: it is either set with number of attempts or it was set in past attempt.
          randomQuestion = 0;
          enabled = false;
-         throw new BadCredentialsException("Username is not valid!");
+         exception="Username is not valid!";
+//         auditDAO.loginAuditEntry(new LoginAudit(null,logonID,sessionId,req.getRemoteAddr(),"F",exception,null));
+         throw new BadCredentialsException(exception);
       }
 
       accountNonLocked = true;
@@ -226,7 +268,9 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          {
             accountNonLocked = false;
             attempts = (attempts < 5) ? 5 : attempts;
-            throw new BadCredentialsException("Account is LOCKED!");
+            exception="Account is LOCKED!";
+//            auditDAO.loginAuditEntry(new LoginAudit(null,logonID,sessionId,req.getRemoteAddr(),"F",exception,null));
+            throw new BadCredentialsException(exception);
          }
          else if (logonStatus != null)
          {
@@ -250,13 +294,16 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
                userdata.setLogonID(logonID);
                userdata.setResetID(resetID);
                webutl.sendConfirmation(userdata,"L");
-               throw new BadCredentialsException("Too many attemps.  Account Locked!");
+               exception="Too many attemps.  Account Locked!";
+//               auditDAO.loginAuditEntry(new LoginAudit(null,logonID,sessionId,req.getRemoteAddr(),"F",exception,null));
+               throw new BadCredentialsException(exception);
             }
          }
       }
       else {
          if (exception != null)
             attempts = 0;
+//            auditDAO.loginAuditEntry(new LoginAudit(null,logonID,sessionId,req.getRemoteAddr(),"F",exception,null));
             throw new BadCredentialsException(exception);
       }
 
@@ -272,8 +319,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
                                   ip, resetID,
                                   cid, advisor, rep, stateRegistered,
                                   qa, attempts, access, atstart,
-                                  logonStatus, randomQuestion, emailmsgtype);
-
+                                  logonStatus, randomQuestion, emailmsgtype, logonAuditID);
 
       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.USER_INFO);
       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.USER_INFO, userInfo);
@@ -282,7 +328,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       return userInfo;
    }
 
-   private Map getQA(String username)
+   private Map getQA(Long username)
    {
       Map<Integer, String[]> qa = new HashMap<Integer, String[]>();
       String[] questAns = new String[2];
@@ -339,7 +385,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       return qa;
    }
 
-   private Collection<GrantedAuthority> getAuthorities(String username)
+   private Collection<GrantedAuthority> getAuthorities(Long username)
    {
 
       String sql = getAuthoritiesByUsernameQuery();

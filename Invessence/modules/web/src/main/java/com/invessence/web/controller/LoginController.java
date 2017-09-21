@@ -6,12 +6,16 @@ import javax.faces.bean.*;
 import javax.faces.context.*;
 import javax.faces.event.*;
 import javax.servlet.*;
+import javax.servlet.http.*;
 
 import com.invessence.web.constant.*;
+import com.invessence.web.dao.*;
 import com.invessence.web.data.common.UserInfoData;
 import com.invessence.web.util.*;
 import org.apache.commons.logging.*;
 import org.springframework.security.authentication.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.web.WebAttributes;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
@@ -43,7 +47,20 @@ public class LoginController implements PhaseListener
       this.uiLayout = uiLayout;
    }
 
-/*
+   @ManagedProperty("#{auditDAO}")
+   private AuditDAO auditDAO;
+
+   public AuditDAO getAuditDAO()
+   {
+      return auditDAO;
+   }
+
+   public void setAuditDAO(AuditDAO auditDAO)
+   {
+      this.auditDAO = auditDAO;
+   }
+
+   /*
    @ManagedProperty("#{emailMessage}")
    private EmailMessage emailMessage;
    public void setEmailMessage(EmailMessage emailMessage)
@@ -81,6 +98,29 @@ public class LoginController implements PhaseListener
                          (ServletResponse) context.getResponse());
 
       FacesContext.getCurrentInstance().responseComplete();
+      if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("SPRING_SECURITY_CONTEXT")!=null)
+      {
+         Authentication authentication = (Authentication) ((SecurityContextImpl) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("SPRING_SECURITY_CONTEXT")).getAuthentication();
+         if (authentication != null)
+         {
+            if (authentication.isAuthenticated() == true)
+            {
+
+               FacesContext fCtx = FacesContext.getCurrentInstance();
+               HttpSession session = (HttpSession) fCtx.getExternalContext().getSession(false);
+               String sessionId = session.getId();
+               System.out.println("sessionId = " + sessionId);
+               HttpServletRequest req = (HttpServletRequest) fCtx.getExternalContext().getRequest();
+
+               UserInfoData userInfo = (UserInfoData) authentication.getPrincipal();
+               Long logonAuditId=auditDAO.loginAuditEntry(new LoginAudit(null,  userInfo.getLogonID(),userInfo.getUsername(), sessionId, req.getRemoteAddr(), "S", "Success", null));
+               userInfo.setLogonAuditID(logonAuditId);
+
+               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.USER_INFO);
+               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.USER_INFO, userInfo);
+            }
+         }
+      }
    }
 
    public void updateMessages()
@@ -92,12 +132,21 @@ public class LoginController implements PhaseListener
 
          if (e != null)
          {
+            String exception =null;
+            String userName=null;
             if (e instanceof BadCredentialsException)
             {
                FacesContext.getCurrentInstance().addMessage(null,
                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                                                              "Invalid Password.",
                                                                              "Invalid Password."));
+               BadCredentialsException bc=(BadCredentialsException) e;
+               if(bc.getAuthentication() !=null){
+                  if(bc.getAuthentication().getPrincipal()!=null){
+                     userName=bc.getAuthentication().getPrincipal().toString();
+                  }
+               }
+               exception="Invalid Password.";
             }
             else if (e instanceof CredentialsExpiredException)
             {
@@ -105,6 +154,13 @@ public class LoginController implements PhaseListener
                                                             new FacesMessage(FacesMessage.SEVERITY_WARN,
                                                                              "Need additional Credential",
                                                                              "Need additional Credential"));
+               CredentialsExpiredException bc=(CredentialsExpiredException) e;
+               if(bc.getAuthentication() !=null){
+                  if(bc.getAuthentication().getPrincipal()!=null){
+                     userName=bc.getAuthentication().getPrincipal().toString();
+                  }
+               }
+               exception="Need additional Credential";
             }
             else if (e instanceof LockedException)
             {
@@ -112,6 +168,13 @@ public class LoginController implements PhaseListener
                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                                                              "Account is locked",
                                                                              "Account is locked"));
+               LockedException bc=(LockedException) e;
+               if(bc.getAuthentication() !=null){
+                  if(bc.getAuthentication().getPrincipal()!=null){
+                     userName=bc.getAuthentication().getPrincipal().toString();
+                  }
+               }
+               exception="Account is locked";
             }
             else if (e instanceof AuthenticationServiceException)
             {
@@ -121,6 +184,13 @@ public class LoginController implements PhaseListener
                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                                                              msg,
                                                                              msg));
+               AuthenticationServiceException bc=(AuthenticationServiceException) e;
+               if(bc.getAuthentication() !=null){
+                  if(bc.getAuthentication().getPrincipal()!=null){
+                     userName=bc.getAuthentication().getPrincipal().toString();
+                  }
+               }
+               exception=msg;
 
             }
             else
@@ -132,7 +202,24 @@ public class LoginController implements PhaseListener
                                                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                                                              msg,
                                                                              msg));
+               exception=msg;
             }
+            FacesContext fCtx = FacesContext.getCurrentInstance();
+            HttpSession session = (HttpSession) fCtx.getExternalContext().getSession(false);
+            String sessionId = session.getId();
+            System.out.println("sessionId = " + sessionId);
+            HttpServletRequest req = (HttpServletRequest) fCtx.getExternalContext().getRequest();
+            UserInfoData userInfo=(UserInfoData)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USER_INFO);
+            if(userInfo!=null)
+            {
+               auditDAO.loginAuditEntry(new LoginAudit(null, userInfo.getLogonID()==null?null:userInfo.getLogonID(),userInfo.getUsername()==null?null:userInfo.getUsername(),
+                                                       sessionId, req.getRemoteAddr(), "F", exception, null));
+            }else
+            {
+               auditDAO.loginAuditEntry(new LoginAudit(null, null, userName, sessionId, req.getRemoteAddr(), "F", exception, null));
+            }
+            FacesContext.getCurrentInstance().
+               getExternalContext().getSessionMap().remove(WebAttributes.AUTHENTICATION_EXCEPTION);
          }
       }
    }

@@ -10,9 +10,12 @@ public class WebProfile
    String url;
    Boolean locked; // locked, would mean override the default url and use given URL.
    String mode;    // This mode will be set on forced.  (DEMO, UAT to control some flow on webpage).
-   String defaultAdvisor, defaultRep,device;
+   String defaultAdvisor, defaultRep, device;
    Map<String, String> webInfo;
    Map<String, WebMenu> webmenu;
+   Boolean invSiteReq;
+   String invSiteUrl;
+   String invSiteRep;
 
    String supportInfo,supportEmailInfo,supportPhoneInfo;
 
@@ -33,6 +36,9 @@ public class WebProfile
       webInfo = new HashMap<String, String>();
       webmenu = new HashMap<String, WebMenu>();
       device=null;
+      invSiteReq=false;
+      invSiteUrl=null;
+      invSiteRep=null;
    }
 
    public void finalConfig()
@@ -71,7 +77,19 @@ public class WebProfile
             }
             else
             {
-               return webInfo.get(key);
+               if(getInvSiteReq()==true)
+               {
+                  if (key.contains(".MODE"))
+                  {
+                     return getMode();
+                  }
+                  else
+                  {
+                     return webInfo.get(key);
+                  }
+               }else{
+                     return webInfo.get(key);
+               }
             }
          }
       }
@@ -191,6 +209,36 @@ public class WebProfile
       webInfo.put("WEB.THEMELIB", "spark-layout");
       webInfo.put("WEB.GOOGLEANALYTICS", "bb_googleanalytics.js");
       webInfo.put("WEB.FAVICONLOGO", "/javax.faces.resource/images/Invessenceicon.png.xhtml?ln=tcm");
+   }
+
+   public String getInvSiteRep()
+   {
+      return invSiteRep;
+   }
+
+   public void setInvSiteRep(String invSiteRep)
+   {
+      this.invSiteRep = invSiteRep;
+   }
+
+   public Boolean getInvSiteReq()
+   {
+      return invSiteReq;
+   }
+
+   public void setInvSiteReq(Boolean invSiteReq)
+   {
+      this.invSiteReq = invSiteReq;
+   }
+
+   public String getInvSiteUrl()
+   {
+      return invSiteUrl;
+   }
+
+   public void setInvSiteUrl(String invSiteUrl)
+   {
+      this.invSiteUrl = invSiteUrl;
    }
 
    public void setDefaultRep(String defaultRep)

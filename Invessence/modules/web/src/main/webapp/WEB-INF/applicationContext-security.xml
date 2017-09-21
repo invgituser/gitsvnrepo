@@ -10,6 +10,7 @@
 
 
    <http pattern="/index.xhtml" security="none"/>
+   <http pattern="/invsite.xhtml" security="none"/>
    <http pattern="/watson.xhtml" security="none"/>
    <http pattern="/getstarted.xhtml" security="none"/>
    <http pattern="/login.xhtml" security="none" create-session="never" use-expressions="true"/>
@@ -79,11 +80,16 @@
     <beans:bean id="userDetailsService" class="com.invessence.web.dao.common.CustomJdbcDaoImpl">
         <beans:property name="dataSource" ref="dataSource"/>
         <beans:property name="usersByUsernameQuery"
-                        value="select logonid, userid, email, pwd, logonstatus, firstname, lastname, ip, stateRegistered, resetID, cid, advisor, rep, emailmsgtype, access, atstart from vw_user_logon where userid=?"/>
+                        value="select logonid, userid, email, pwd, logonstatus, firstname, lastname, ip, stateRegistered, resetID, cid, advisor, rep, emailmsgtype, access, atstart
+                        from vw_user_logon where userid=?"/>
+       <beans:property name="usersByEmailQuery"
+                       value="select logonid, userid, email, pwd, logonstatus, firstname, lastname, ip, stateRegistered, resetID, cid, advisor, rep, emailmsgtype, access, atstart
+                        from vw_user_logon where email=?"/>
+
         <beans:property name="listofQAQuery"
-                        value="select question1, answer1, question2, answer2, question3, answer3 from user_logon where userid=?"/>
+                        value="select question1, answer1, question2, answer2, question3, answer3 from user_logon where logonid=?"/>
         <beans:property name="authoritiesByUsernameQuery"
-                        value="select r.role from user_logon ul, role r where ul.logonid=r.logonid and ul.userid =?"/>
+                        value="select r.role from user_logon ul, role r where ul.logonid=r.logonid and ul.logonid =?"/>
         <beans:property name="lockUserSql"
                         value="update user_logon set logonstatus = ?, resetID = ? where userid=?"/>
     </beans:bean>

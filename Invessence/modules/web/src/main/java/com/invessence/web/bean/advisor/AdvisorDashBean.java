@@ -38,6 +38,8 @@ public class AdvisorDashBean extends AdvisorDashData implements Serializable
             if (webutil.validatePriviledge(WebConst.ROLE_ADVISOR)) {
                setLogonid(webutil.getLogonid());
                setAdvisorname(webutil.getUserInfoData().getFullName());
+               setAdvisor(webutil.getWebprofile().getDefaultAdvisor());
+               setRep(webutil.getUserInfoData().getRep());
                reloadData();
             }
          }

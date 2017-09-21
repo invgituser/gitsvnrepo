@@ -6,9 +6,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
+import com.invessence.web.constant.WebConst;
 import com.invessence.web.dao.common.CommonDAO;
 import com.invessence.web.dao.consumer.ConsumerListDataDAO;
-import com.invessence.web.data.common.CustomerData;
+import com.invessence.web.data.common.*;
 import com.invessence.web.util.*;
 
 @ManagedBean(name = "marketingBean")
@@ -71,7 +72,8 @@ public class MarketingBean implements Serializable
             if (fetchedDataList == null)
                fetchedDataList = new ArrayList<CustomerData>();
             fetchedDataList.clear();
-            fetchedDataList = cldDAO.getClientProfileList(webutil.getLogonid(), null, null);
+            UserInfoData userInfo=(UserInfoData)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USER_INFO);
+            fetchedDataList = cldDAO.getClientProfileList(webutil.getLogonid(), null, null, webutil.getUserInfoData().getAdvisor(), webutil.getUserInfoData().getRep());
 /*
             for (int i=0; i < accountDataList.size() ; i++)
                  setAcctStatus(accountDataList.get(i).getAcctStatus());

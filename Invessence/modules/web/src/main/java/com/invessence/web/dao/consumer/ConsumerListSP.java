@@ -21,6 +21,8 @@ public class ConsumerListSP extends StoredProcedure
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_days", Types.INTEGER));
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_rep", Types.VARCHAR));
             break;
          case 1:   // SP: sel_NewAccountProfile
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
@@ -62,12 +64,14 @@ public class ConsumerListSP extends StoredProcedure
       compile();
    }
 
-   public Map loadClientProfileData(Long logonid, Long acctnum, Integer days)
+   public Map loadClientProfileData(Long logonid, Long acctnum, Integer days, String advisor, String rep)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", logonid);
       inputMap.put("p_acctnum", acctnum);
       inputMap.put("p_days", days);
+      inputMap.put("p_advisor", advisor);
+      inputMap.put("p_rep", rep);
       return super.execute(inputMap);
    }
 
@@ -77,6 +81,8 @@ public class ConsumerListSP extends StoredProcedure
       inputMap.put("p_logonid", data.getLogonid());
       inputMap.put("p_acctnum", data.getAcctnum());
       inputMap.put("p_days", null);
+      inputMap.put("p_advisor", data.getAdvisor());
+      inputMap.put("p_rep", data.getRep());
       return super.execute(inputMap);
    }
 

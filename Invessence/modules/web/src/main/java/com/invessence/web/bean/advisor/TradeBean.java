@@ -777,8 +777,8 @@ public class TradeBean extends TradeClientData implements Serializable
                tradeDAO.executeTrade(tData.getAcctnum());
                tData.setProcessStatus("S");
             }
-            String product = webutil.getWebprofile().getWebInfo().get("SERVICE.PRODUCT");
-            String serviceMode = webutil.getWebprofile().getWebInfo().get("SERVICE.FILEPROCESS.MODE");
+            String product = webutil.getWebprofile().getInfo("SERVICE.PRODUCT");
+            String serviceMode = webutil.getWebprofile().getInfo("SERVICE.FILEPROCESS.MODE");
             fileIO.processDownloadFile("DOWD1", product, serviceMode);
 
             // If for some reason, there is an exception, then the trades remain in the same list here.

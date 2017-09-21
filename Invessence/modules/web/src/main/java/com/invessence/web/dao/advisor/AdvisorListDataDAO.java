@@ -19,11 +19,11 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
-   public ArrayList<AccountData> getListOfAccounts(Long logonid, String filter, Integer days,String filterByAmount) {
+   public ArrayList<AccountData> getListOfAccounts(Long logonid, String filter, Integer days,String filterByAmount, String advisor, String rep) {
       DataSource ds = getDataSource();
       AdvisorListSP sp = new AdvisorListSP(ds, "sel_Consumer4Advisor",0);
       ArrayList<AccountData> listProfiles = new ArrayList<AccountData>();
-      Map outMap = sp.getListOfAccounts(logonid, filter, days,filterByAmount);
+      Map outMap = sp.getListOfAccounts(logonid, filter, days,filterByAmount, advisor, rep);
       String action;
       try {
          if (outMap != null)
@@ -167,9 +167,6 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
       return null;
    }
 
-
-
-
    public Map<String, Asset> getAllocation(AdvisorData adata) {
       DataSource ds = getDataSource();
       AdvisorListSP sp = new AdvisorListSP(ds, "sel_asset_alloc",3);
@@ -257,7 +254,7 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
 
       DataSource ds = getDataSource();
       AdvisorListSP sp = new AdvisorListSP(ds, "sel_advisorDashBoard",5);
-      Map outMap = sp.collectDashBoardData(addata.getLogonid());
+      Map outMap = sp.collectDashBoardData(addata.getLogonid(), addata.getAdvisor(), addata.getRep());
       try {
          if (outMap != null)
          {
@@ -375,14 +372,14 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
       }
    }
 
-   public ArrayList<NotificationData> getAdvisorNotification(Long logonid, String messageType, String status)
+   public ArrayList<NotificationData> getAdvisorNotification(Long logonid, String messageType, String status, String advisor, String rep)
    {
       DataSource ds = getDataSource();
 
       AdvisorListSP sp = new AdvisorListSP(ds, "sel_notification_advisor", 8);
       ArrayList<NotificationData> notificationList = new ArrayList<NotificationData>();
 
-      Map outMap = sp.getAdvisorNotification(logonid, messageType, status);
+      Map outMap = sp.getAdvisorNotification(logonid, messageType, status, advisor, rep);
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
@@ -418,13 +415,13 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
 
    }
 
-   public Map<String, Integer> getAdvisorNotificationInfo(Long logonid) {
-      if (logonid == null)
+   public Map<String, Integer> getAdvisorNotificationInfo(AdvisorDashData addata) {
+      if (addata.getLogonid() == null)
          return null;
 
       DataSource ds = getDataSource();
-      AdvisorListSP sp = new AdvisorListSP(ds, "sel_notificationInfo_advisor",99);
-      Map outMap = sp.getAdvisorNotificationInfo(logonid);
+      AdvisorListSP sp = new AdvisorListSP(ds, "sel_notificationInfo_advisor",21);
+      Map outMap = sp.getAdvisorNotificationInfo(addata.getLogonid(), addata.getAdvisor(), addata.getRep());
       Map<String, Integer> statInfo = new HashMap<String, Integer>();
       try {
          if (outMap != null)

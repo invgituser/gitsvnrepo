@@ -25,10 +25,10 @@
         </param-name>
         <param-value>true</param-value>
     </context-param>
-   <context-param>
+    <context-param>
            <param-name>primefaces.THEME</param-name>
            <param-value>#{uiLayout.theme}</param-value>
-   </context-param>
+    </context-param>
     <!-- Welcome page -->
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
@@ -125,8 +125,8 @@
     </listener>
 
    <session-config>
-      <!-- Session idle timeout in seconds. -->
-	  <session-timeout>30</session-timeout>
+      <!-- Session idle timeout in Minutes. -->
+	  <session-timeout>10</session-timeout>
 	</session-config>
 
    <error-page>

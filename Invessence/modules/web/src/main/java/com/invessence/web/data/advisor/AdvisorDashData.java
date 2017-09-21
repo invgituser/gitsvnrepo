@@ -18,6 +18,8 @@ public class AdvisorDashData
 {
      private Long logonid;
      private String advisorname;
+     private String advisor;
+     private String rep;
      private String title;
      private Map<String, Double> securityInfo;
      private Map<String, Integer> statInfo;
@@ -66,6 +68,26 @@ public class AdvisorDashData
       this.advisorname = advisorname;
    }
 
+   public String getAdvisor()
+   {
+      return advisor;
+   }
+
+   public void setAdvisor(String advisor)
+   {
+      this.advisor = advisor;
+   }
+
+   public String getRep()
+   {
+      return rep;
+   }
+
+   public void setRep(String rep)
+   {
+      this.rep = rep;
+   }
+
    public String getTitle()
    {
       return title;
@@ -109,7 +131,7 @@ public class AdvisorDashData
    public void reloadData() {
       if (listDAO != null) {
          listDAO.reloadAdvisorDashBoard(this);
-         statInfo = listDAO.getAdvisorNotificationInfo(logonid);
+         statInfo = listDAO.getAdvisorNotificationInfo(this);
       }
    }
 

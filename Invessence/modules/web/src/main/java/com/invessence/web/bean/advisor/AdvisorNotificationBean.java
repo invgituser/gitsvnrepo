@@ -156,7 +156,7 @@ public class AdvisorNotificationBean implements Serializable
          logonid = webutil.getLogonid();
          if (notificationType == null || notificationType.isEmpty())
             notificationType = "M";
-         notificationDataList = advisorListDAO.getAdvisorNotification(logonid, notificationType, filterNotice);
+         notificationDataList = advisorListDAO.getAdvisorNotification(logonid, notificationType, filterNotice, webutil.getUserInfoData().getAdvisor(), webutil.getUserInfoData().getRep());
       }
    }
 

@@ -10,6 +10,7 @@ import javax.servlet.*;
 
 import com.invessence.converter.SQLData;
 import com.invessence.web.constant.WebConst;
+import com.invessence.web.dao.*;
 import com.invessence.web.dao.common.CommonDAO;
 import com.invessence.web.data.common.*;
 import com.invessence.web.util.*;
@@ -33,6 +34,8 @@ public class SessionController implements Serializable
    private int cstmSessionTimeout;
    private boolean allowVisitorReg;
 
+   private String site, mode;
+
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
 
@@ -52,6 +55,19 @@ public class SessionController implements Serializable
    @ManagedProperty("#{commonDAO}")
    private CommonDAO commonDAO;
 
+   @ManagedProperty("#{auditDAO}")
+   private AuditDAO auditDAO;
+
+   public AuditDAO getAuditDAO()
+   {
+      return auditDAO;
+   }
+
+   public void setAuditDAO(AuditDAO auditDAO)
+   {
+      this.auditDAO = auditDAO;
+   }
+
    public void setCommonDAO(CommonDAO commonDAO)
    {
       this.commonDAO = commonDAO;
@@ -65,6 +81,26 @@ public class SessionController implements Serializable
    public void setLogonid(Long logonid)
    {
       this.logonid = logonid;
+   }
+
+   public String getSite()
+   {
+      return site;
+   }
+
+   public void setSite(String site)
+   {
+      this.site = site;
+   }
+
+   public String getMode()
+   {
+      return mode;
+   }
+
+   public void setMode(String mode)
+   {
+      this.mode = mode;
    }
 
    public String getRep()
@@ -98,8 +134,22 @@ public class SessionController implements Serializable
 
    public void logout()
    {
+      UserInfoData userInfo=(UserInfoData)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USER_INFO);
+      if(userInfo!=null && userInfo.getLogonAuditID() != null)
+      {
+         auditDAO.loginAuditEntry(new LoginAudit(userInfo.getLogonAuditID(), userInfo.getLogonID(), userInfo.getUsername(), null, null, null, null, "Proper Logout"));
+         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.USER_INFO);
+      }
+
       String mobileUserFlag = null;
       String homeurl = webutil.getWebprofile().getHomepage();
+      if(webutil.getWebprofile().getInvSiteReq()==true){
+         if(webutil.getWebprofile().getInvSiteUrl()!=null && webutil.getWebprofile().getInvSiteUrl().contains("localhost")){
+            homeurl= "http://"+webutil.getWebprofile().getInvSiteUrl()+"/invsite.xhtml?site="+webutil.getWebprofile().getUrl()
+               +"&rep="+webutil.getWebprofile().getInvSiteRep()+"&mode="+webutil.getWebprofile().getMode();
+         }
+      }
+
 
       mobileUserFlag=getDevice();
       System.out.println("Redirecting mobileUserFlag [" + mobileUserFlag +"]\n");
@@ -112,17 +162,19 @@ public class SessionController implements Serializable
       try
       {
          uiLayout.logout();
+         FacesContext.getCurrentInstance().getExternalContext().redirect(homeurl);
+
       }
       catch (Exception ex)
       {
       }
-      reset();
-      if (homeurl != null && !homeurl.isEmpty())
-      {
-         webutil.redirect(homeurl, null);
-         return;
-      }
-      webutil.redirect("/j_spring_security_logout", null);
+//      reset();
+//      if (homeurl != null && !homeurl.isEmpty())
+//      {
+//         webutil.redirect(homeurl, null);
+////         return;
+//      }
+//      webutil.redirect("/j_spring_security_logout", null);
    }
 
    public String getLogonStart()
@@ -163,7 +215,17 @@ public class SessionController implements Serializable
       return "success";
    }
 
+   public String getInvSiteStart(){
 
+      System.out.println("SessionController.getInvSiteStart");
+      System.out.println("site = " + site+" rep = " + rep+" mode = " + mode);
+
+      resetWebSiteProfile(site==null||site.trim().equals("")?"Invessence":site);
+
+//    uiLayout.whichPage(webutil.getUserInfoData().getAccess(), webutil.getUserInfoData().getAtstart());
+      uiLayout.forwardURL("/index.xhtml");
+      return "success";
+   }
    public String getAtStart()
    {
       resetCIDByURL(null);
@@ -343,9 +405,9 @@ public class SessionController implements Serializable
    }
 
    // This process will load data based on URL (assuming the env is not locked)
-   private void resetCIDByURL(String uri)
+   private void resetWebSiteProfile(String uri)
    {
-      logger.info("Module: resetCIDByURL called");
+      System.out.println("SessionController.resetWebSiteProfile");
       if (webutil == null)
       {
          return;
@@ -358,9 +420,16 @@ public class SessionController implements Serializable
 
 
       String origurl = webutil.getWebprofile().getUrl();
-      if (uri == null)
-      {
-         uri = WebUtil.getURLAddress("Invessence");
+
+//      if (uri == null)
+//      {
+//         uri = WebUtil.getURLAddress("Invessence");
+//      }
+      if(origurl==null || !origurl.equals(uri)
+         || !webutil.getWebprofile().getInvSiteRep().equals(rep)
+         || !webutil.getWebprofile().getMode().equals(mode)){
+         System.out.println("New URL:" + uri + " is different with Original URL : " + origurl);
+         webutil.getWebprofile().setLocked(false);
       }
 
       if (webutil.getWebprofile().getLocked())
@@ -369,7 +438,82 @@ public class SessionController implements Serializable
       }
       // We we are doing demo, then it will be locked. Don't reset (regarless of URL)
 
-      if (!webutil.getWebprofile().getLocked())
+      else //if (!webutil.getWebprofile().getLocked())
+      {
+         // Was Webprofile parsed in past.  If se, then we set the origurl.
+
+         // Now get the new profile.
+
+         logger.info("Compare: ORIG URL: " + origurl + " and New One: " + uri);
+         // Now try to determine, we we need to reset, based on URL (either by logged user, or change of URL)
+         Boolean reload = true;
+//         if (origurl == null)
+//         {  // If this is first time, go reload as normal.
+//            reload = true;
+//         }
+//         else
+//         {  // If doing it again, then is the new URL NOT localhost or is different from current origurl
+//            if (!uri.equalsIgnoreCase("localhost") && !origurl.equalsIgnoreCase(uri))
+//            {
+//               reload = true;
+//            }
+//         }
+
+         logger.info("Status: " + ((reload) ? "reload" + uri : "Skip reload"));
+         if (reload)
+         {
+            // System.out.println("Load WEB property for: " + uri);
+            System.out.println("uri = [" + uri + "]");
+            System.out.println("origurl = " + origurl);
+            loadWebProfile(uri);
+            loadAdvisorProfile(webutil.getWebprofile().getDefaultAdvisor());
+            webutil.getWebprofile().finalConfig();
+            webutil.getWebprofile().setLocked(true);
+            webutil.getWebprofile().setInvSiteReq(true);
+            webutil.getWebprofile().setInvSiteUrl(WebUtil.getURLAddress("Invessence"));
+            webutil.getWebprofile().setMode(mode==null||mode.equals("")?"UAT":mode);
+            webutil.getWebprofile().setInvSiteRep(rep==null?"":rep);
+
+//            webutil.getWebprofile().setLocked(false);
+//            loadWebProfile(clienturl);
+//            loadAdvisorProfile(webutil.getWebprofile().getDefaultAdvisor());
+//            webutil.getWebprofile().finalConfig();
+//            webutil.getWebprofile().setLocked(true);
+         }
+      }
+   }
+
+   // This process will load data based on URL (assuming the env is not locked)
+   private void resetCIDByURL(String uri)
+   {
+      System.out.println("SessionController.resetCIDByURL");
+      System.out.println("uri = [" + uri + "]");
+      System.out.println("site = " + site+" rep = " + rep+" mode = " + mode);
+      if (webutil == null)
+      {
+         return;
+      }
+      System.out.println(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.WEB_INFO));
+      if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.WEB_INFO)==null){
+         WebProfile webProfile=new WebProfile();
+         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.WEB_INFO);
+         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.WEB_INFO, webProfile);
+      }
+
+
+      String origurl = webutil.getWebprofile().getUrl();
+      if (uri == null)
+      {
+         uri = WebUtil.getURLAddress("Invessence");
+      }
+      System.out.println("Is Locked :"+webutil.getWebprofile().getLocked());
+      if (webutil.getWebprofile().getLocked())
+      {
+         logger.info("Status: Attempting to reset: " + uri + " But the profile is locked in: " + origurl);
+      }
+      // We we are doing demo, then it will be locked. Don't reset (regarless of URL)
+
+      else //if (!webutil.getWebprofile().getLocked())
       {
          // Was Webprofile parsed in past.  If se, then we set the origurl.
 

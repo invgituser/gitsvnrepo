@@ -13,7 +13,6 @@ import com.invessence.web.data.advisor.AdvisorDashData;
 import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.RiskCalculator;
 import com.invessence.web.util.*;
-import org.apache.commons.lang.ObjectUtils;
 
 
 @ManagedBean(name = "manageAdvisorBean")
@@ -172,6 +171,8 @@ public class ManageAdvisorBean implements Serializable
       if (advisorListDataDAO != null) {
          AdvisorDashData advisorDashData=new AdvisorDashData();
          advisorDashData.setLogonid(logonid);
+         advisorDashData.setAdvisor(webutil.getUserInfoData().getAdvisor());
+         advisorDashData.setRep(webutil.getUserInfoData().getRep());
          advisorListDataDAO.reloadAdvisorDashBoard(advisorDashData);
         this.setSalesInfo(advisorDashData.getSalesInfo());
        //  statInfo = advisorListDataDAO.getAdvisorNotificationInfo(logonid);
@@ -267,7 +268,7 @@ public class ManageAdvisorBean implements Serializable
                filterByAmount = "Acctnum";
                filteredClient = "A";
             }
-            accountDataList = advisorListDataDAO.getListOfAccounts(logonid, filteredClient, (filteredBydate == 0 ? null : filteredBydate),filterByAmount);
+            accountDataList = advisorListDataDAO.getListOfAccounts(logonid, filteredClient, (filteredBydate == 0 ? null : filteredBydate),filterByAmount, webutil.getUserInfoData().getAdvisor(), webutil.getUserInfoData().getRep());
             filteredBydate=0;
 
          }

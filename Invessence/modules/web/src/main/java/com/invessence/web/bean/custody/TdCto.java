@@ -468,6 +468,8 @@ public class TdCto extends BaseTD
 
       getTdMasterData().getCustomerData().setAcctnum(getLongBeanacctnum());
       getTdMasterData().getCustomerData().setLogonid(logonid);
+      getTdMasterData().getCustomerData().setAdvisor(getWebutil().getUserInfoData().getAdvisor());
+      getTdMasterData().getCustomerData().setRep(getWebutil().getUserInfoData().getRep());
       loadCustomerProfileData();
 
       if (getTdMasterData().getCustomerData().getUserid() == null)
@@ -518,8 +520,8 @@ public class TdCto extends BaseTD
 
          WSCallStatus wsstatus;
          WSCallResult wsCallResult;
-         String product = getWebutil().getWebprofile().getWebInfo().get("SERVICE.CUSTODY").toString();
-         String mode = getWebutil().getWebprofile().getWebInfo().get("SERVICE.DOCUSIGN.MODE").toString();
+         String product = getWebutil().getWebprofile().getInfo("SERVICE.CUSTODY");
+         String mode = getWebutil().getWebprofile().getInfo("SERVICE.DOCUSIGN.MODE");
 
 
          saveTDNewRequest();

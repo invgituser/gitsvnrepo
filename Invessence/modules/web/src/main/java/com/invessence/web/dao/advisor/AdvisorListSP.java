@@ -23,6 +23,8 @@ public class AdvisorListSP extends StoredProcedure
             declareParameter(new SqlParameter("p_filter", Types.VARCHAR));
             declareParameter(new SqlParameter("p_days", Types.INTEGER));
             declareParameter(new SqlParameter("p_filterActive", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_rep", Types.VARCHAR));
             break;
          case 1: // sel_AdvisorAcctProfile
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
@@ -39,6 +41,8 @@ public class AdvisorListSP extends StoredProcedure
             break;
          case 5: // sel_advisorDashBoard
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_rep", Types.VARCHAR));
             break;
          case 6: // advisor_sel_assetclass
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
@@ -50,6 +54,8 @@ public class AdvisorListSP extends StoredProcedure
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_messagetype", Types.VARCHAR));
             declareParameter(new SqlParameter("p_archive", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_rep", Types.VARCHAR));
             break;
          case 9: // sel_notification_advisor
             declareParameter(new SqlParameter("p_modeltype", Types.VARCHAR));
@@ -99,6 +105,11 @@ public class AdvisorListSP extends StoredProcedure
          case 20:
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
             break;
+         case 21:
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_rep", Types.VARCHAR));
+            break;
          default:
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             break;
@@ -106,13 +117,15 @@ public class AdvisorListSP extends StoredProcedure
       compile();
    }
 
-   public Map getListOfAccounts(Long logonid, String filter, Integer days, String filterByAmount)
+   public Map getListOfAccounts(Long logonid, String filter, Integer days, String filterByAmount, String advisor, String rep)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", logonid);
       inputMap.put("p_filter", filter);
       inputMap.put("p_days", days);
       inputMap.put("p_filterActive", filterByAmount);
+      inputMap.put("p_advisor", advisor);
+      inputMap.put("p_rep", rep);
       return super.execute(inputMap);
    }
 
@@ -145,10 +158,12 @@ public class AdvisorListSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map collectDashBoardData(Long logonid)
+   public Map collectDashBoardData(Long logonid, String advisor, String rep)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", logonid);
+      inputMap.put("p_advisor", advisor);
+      inputMap.put("p_rep", rep);
       return super.execute(inputMap);
    }
 
@@ -166,19 +181,23 @@ public class AdvisorListSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map getAdvisorNotification(Long logonid, String messageType, String status)
+   public Map getAdvisorNotification(Long logonid, String messageType, String status, String advisor, String rep)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", logonid);
       inputMap.put("p_messagetype", messageType);
       inputMap.put("p_archive", status);
+      inputMap.put("p_advisor", advisor);
+      inputMap.put("p_rep", rep);
       return super.execute(inputMap);
    }
 
-   public Map getAdvisorNotificationInfo(Long logonid)
+   public Map getAdvisorNotificationInfo(Long logonid, String advisor, String rep)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", logonid);
+      inputMap.put("p_advisor", advisor);
+      inputMap.put("p_rep", rep);
       return super.execute(inputMap);
    }
 

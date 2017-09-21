@@ -72,8 +72,8 @@ public class FileProcessorBean
 // Need to return the list of file
    public void processDownloadFile(String processId){
       System.out.println("AggregationBean.startup");
-      String product = getWebutil().getWebprofile().getWebInfo().get("SERVICE.PRODUCT").toString();
-      String serviceMode = getWebutil().getWebprofile().getWebInfo().get("SERVICE.FILEPROCESS.MODE").toString();
+      String product = getWebutil().getWebprofile().getInfo("SERVICE.PRODUCT");
+      String serviceMode = getWebutil().getWebprofile().getInfo("SERVICE.FILEPROCESS.MODE");
 //      String processId= getWebutil().getWebprofile().getWebInfo().get("SERVICE.FILEPROCESS.UPLOADPROCESSID").toString();
       System.out.println("Product " + product);
       System.out.println("ServiceMode " + serviceMode);

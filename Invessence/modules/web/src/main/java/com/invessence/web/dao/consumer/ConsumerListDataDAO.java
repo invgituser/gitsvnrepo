@@ -203,11 +203,11 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       }
    }
 
-   public ArrayList<CustomerData> getClientProfileList(Long logonid, Long acctnum, Integer days) {
+   public ArrayList<CustomerData> getClientProfileList(Long logonid, Long acctnum, Integer days, String advisor, String rep) {
       DataSource ds = getDataSource();
       ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData",0);
       ArrayList<CustomerData> listProfiles = new ArrayList<CustomerData>();
-      Map outMap = sp.loadClientProfileData(logonid, acctnum, days);
+      Map outMap = sp.loadClientProfileData(logonid, acctnum, days, advisor, rep);
       String managed, currentstatus;
       if (outMap != null)
       {
