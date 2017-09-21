@@ -1,7 +1,7 @@
 package com.invessence.web.controller;
 
 import java.io.*;
-import java.util.Map;
+import java.util.*;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.*;
@@ -278,6 +278,7 @@ public class SessionController implements Serializable
       if(webutil.isUserLoggedIn())
       {
          Map<String, String> webMap=commonDAO.getWebMenuDetails(url, webutil.getAccess());
+         List<UserRepData> lstUserRepDetails=commonDAO.getUserRepDetails(webutil.getLogonid());
          FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.WEB_MENU);
          FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.WEB_MENU, webMap);
       }
@@ -503,4 +504,5 @@ public class SessionController implements Serializable
    {
       this.allowVisitorReg = allowVisitorReg;
    }
+
 }

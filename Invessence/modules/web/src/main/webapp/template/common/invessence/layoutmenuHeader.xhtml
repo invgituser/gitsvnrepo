@@ -4,6 +4,10 @@
                 xmlns:ps="http://primefaces.org/spark"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{cmnBn.preRenderView}"/>
+    </f:metadata>
     <h:outputScript name="js/jquery.url.js"
                     library="#{uiLayout.webProfile.cssdir}"/>
     <script type="text/javascript">
@@ -159,24 +163,6 @@
                     <a href="#{uiLayout.defaultHome}" id="menudashboardbtn">Dashboard</a>
 
                 </li>
-                <li  class="test" id="dashboardMenuHighlight">
-                     <div class="shake shake-constant">
-                     	<p:graphicImage name="images/alert-bell.png" library="#{uiLayout.webProfile.cssdir}"/>                     	
-                     </div>
-                     <span class="alert_count">10</span>					
-					  <h:form class="alert_menu">          
-					    <p:commandButton id="imageBtn" value="Alert" type="button" />
-					    <p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade" class="alert_overlay_panel">
-					    	<div class="outer_panel_block">
-						    	<div class="panel_block">Cross button block <span>X</span></div>
-						    	<div class="panel_block">Without Cross button block <span>X</span></div>
-						    	<div class="panel_block">Cross button block <span>X</span></div>
-						    	<div class="panel_block">without Cross button block <span>X</span></div>
-						    </div>
-					    	<div class="bottom_block">View all alerts <a href="">click here</a></div>
-					    </p:overlayPanel>
-					    </h:form>
-                </li>
 				
                 <ui:fragment rendered="#{webutil.hasMenu('Account') and webutil.hasAccess('User')}">
                 <li  id="newaccountMenuHighlight">
@@ -290,6 +276,41 @@
                         <h:outputText value="Reports"/>
                     </p:commandLink>
                 </li>
+                </ui:fragment>
+
+                <ui:fragment rendered="#{webutil.hasAccess('User')}">
+                    <li class="test" id="dashboardMenuHighlight">
+                        <ui:fragment rendered='#{cmnBn.getMessage("Message") > 0}'>
+                            <div class="shake shake-constant">
+                                <p:graphicImage name="images/alert-bell.png" library="#{uiLayout.webProfile.cssdir}"/>
+                            </div>
+                            <span class="alert_count">#{cmnBn.getMessage("Message")}</span>
+                            <h:form class="alert_menu">
+                                <p:commandButton id="imageBtn" value="Alert" type="button"/>
+                                <p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade" class="alert_overlay_panel">
+                                    <div class="outer_panel_block">
+                                        <p:repeat value="#{cmnBn.notificationDataList}" var="notfBn">
+                                            <div class="panel_block">
+                                                <h:outputText value="#{notfBn.message}" escape="false"/>
+                                                <ui:fragment rendered='#{notfBn.linkAvailable}'>
+                                                <span>X</span>
+                                                </ui:fragment>
+                                                <ui:fragment rendered='#{!notfBn.linkAvailable}'>
+                                                    <a href="http://localhost:8086/pages/consumer/uob/cadd.xhtml?app=N"><h:outputText value="Click"/></a>
+                                                </ui:fragment>
+                                            </div>
+                                        </p:repeat>
+                                    </div>
+                                    <p:commandLink rendered="true" id="menureportsbtn"
+                                                   actionListener="#{uiLayout.doMenuAction('consumer', 'alert_notification.xhtml')}">
+                                        <div class="bottom_block"> <h:outputText value="View all alerts"/>
+                                        </div>
+                                    </p:commandLink>
+
+                                </p:overlayPanel>
+                            </h:form>
+                        </ui:fragment>
+                    </li>
                 </ui:fragment>
 
                 <li id="">

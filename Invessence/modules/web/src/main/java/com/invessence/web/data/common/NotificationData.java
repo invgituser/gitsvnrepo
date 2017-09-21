@@ -27,6 +27,8 @@ public class NotificationData
    String javaDate;
    final String JAVA_FORMAT = "EEE MMM dd HH:mm:ss z yyyy";
    final String SQL_FORMAT = "yyyy/MM/dd HH:mm";
+   String clientAccountID;
+   boolean linkAvailable;
 
    public NotificationData()
    {
@@ -50,6 +52,32 @@ public class NotificationData
       this.businessdate = businessdate;
       this.message = message;
       this.link = link;
+   }
+
+   public NotificationData(Long messageid, String status,
+                           Long advisorlogonid,
+                           String advisor, String rep,
+                           Long acctnum, String noticetype,
+                           String tagid, String businessdate,
+                           String message, String link,String clientAccountID)
+   {
+      this.messageid = messageid;
+      this.status = status;
+      this.advisorlogonid = advisorlogonid;
+      this.advisor = advisor;
+      this.rep = rep;
+      this.acctnum = acctnum;
+      setNoticetype(noticetype);
+      this.tagid = tagid;
+      this.businessdate = businessdate;
+      this.message = message;
+      this.link = link;
+      this.clientAccountID=clientAccountID;
+      if(this.link==null){
+         this.linkAvailable=false;
+      }else{
+         this.linkAvailable=true;
+      }
    }
 
    public Long getMessageid()
@@ -231,5 +259,25 @@ public class NotificationData
    public String getColor()
    {
       return color;
+   }
+
+   public String getClientAccountID()
+   {
+      return clientAccountID;
+   }
+
+   public void setClientAccountID(String clientAccountID)
+   {
+      this.clientAccountID = clientAccountID;
+   }
+
+   public boolean isLinkAvailable()
+   {
+      return linkAvailable;
+   }
+
+   public void setLinkAvailable(boolean linkAvailable)
+   {
+      this.linkAvailable = linkAvailable;
    }
 }

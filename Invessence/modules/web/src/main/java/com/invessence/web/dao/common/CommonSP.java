@@ -50,6 +50,18 @@ public class CommonSP extends StoredProcedure
             declareParameter(new SqlParameter("p_url", Types.VARCHAR));
             declareParameter(new SqlParameter("p_access", Types.VARCHAR));
             break;
+         case 7: // SP: sel_user_advisor_details
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            break;
+         case 8: // SP: sel_user_advisor_details
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_access", Types.VARCHAR));
+            break;
+         case 9: // sel_notification_advisor or sel_notification_consumer
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_messagetype", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_archive", Types.VARCHAR));
+            break;
          case 99: // SP: sel_notificationInfo
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             break;
@@ -124,6 +136,30 @@ public class CommonSP extends StoredProcedure
       Map inputMap = new HashMap();
       inputMap.put("p_url", url);
       inputMap.put("p_access", access);
+      return super.execute(inputMap);
+   }
+
+   public Map getUserRepInfo(long logonid)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", logonid);
+      return super.execute(inputMap);
+   }
+
+   public Map getNotificationCnt(long logonid,String access)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", logonid);
+      inputMap.put("p_access", access);
+      return super.execute(inputMap);
+   }
+
+   public Map getNotificationDtls(Long logonid, String messageType, String status)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", logonid);
+      inputMap.put("p_messagetype", messageType);
+      inputMap.put("p_archive", status);
       return super.execute(inputMap);
    }
 }

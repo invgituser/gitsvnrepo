@@ -5,9 +5,9 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/template/common/template.xhtml">
     <f:metadata>
-        <f:viewParam name="Action" value="#{advisornotificationBean.filterNotice}"/>
-        <f:viewParam name="Type" value="#{advisornotificationBean.notificationType}"/>
-        <f:event type="preRenderView" listener="#{advisornotificationBean.preRenderView}"/>
+        <f:viewParam name="Action" value="#{consumernotificationBean.filterNotice}"/>
+        <f:viewParam name="Type" value="#{consumernotificationBean.notificationType}"/>
+        <f:event type="preRenderView" listener="#{consumernotificationBean.preRenderView}"/>
     </f:metadata>
 
     <ui:define name="content">
@@ -38,31 +38,31 @@
                             <div class="Container100">
                                 <div class="Container50 Fleft MsgBlockAdv">
                                     <h3 class="BigTopic" style="margin: 4px 10px!important;border: 0;">
-                                        <h:outputText id="advmsgheader" value="#{advisornotificationBean.messageHeader}"/></h3>
+                                        <h:outputText id="advmsgheader" value="#{consumernotificationBean.messageHeader}"/></h3>
                                 </div>
                                 <div class="Container50 Fright MsgBtnsBlock">
                                     <div class="Fright" >
-                                        <p:selectOneButton styleClass="AdvBtnTcmGrp" value="#{advisornotificationBean.filterNotice}">
+                                        <p:selectOneButton styleClass="AdvBtnTcmGrp" value="#{consumernotificationBean.filterNotice}">
                                             <f:selectItem id="advmsgnew" itemLabel="New" itemValue="N"/>
                                             <f:selectItem id="advmsgarchived" itemLabel="Archived" itemValue="A"/>
-                                            <p:ajax update="@form" listener="#{advisornotificationBean.filterData}"/>
+                                            <p:ajax update="@form" listener="#{consumernotificationBean.filterData}"/>
                                         </p:selectOneButton>
                                     </div>
                                 </div>
-                                <p:panel rendered="#{advisornotificationBean.getErrorMessage() != null}"
+                                <p:panel rendered="#{consumernotificationBean.getErrorMessage() != null}"
                                          style="border: 0px; background: transparent;"
                                          styleClass="deleteAdvError">
                                     <h:outputText id="advmsgerrortxt" styleClass="errorText"
-                                                  value="#{advisornotificationBean.getErrorMessage()}" escape="false"/>
+                                                  value="#{consumernotificationBean.getErrorMessage()}" escape="false"/>
                                 </p:panel>
                                 <div class="Container100 MarTop5">
-                                    <p:dataTable id="messageDT" var="msg" styleClass="advisorMsgTable" value="#{advisornotificationBean.notificationDataList}"
+                                    <p:dataTable id="messageDT" var="msg" styleClass="advisorMsgTable" value="#{consumernotificationBean.notificationDataList}"
                                                  paginator="true" rows="15"
                                                  rowsPerPageTemplate="5,10,15,25,50"
                                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                                                  widgetVar="messageWidget"
                                                  sortMode="multiple"
-                                                 selection="#{advisornotificationBean.selectionList}"
+                                                 selection="#{consumernotificationBean.selectionList}"
                                                  rowKey="#{msg.messageid}"
                                                  reflow="true"
                                                  emptyMessage="No Messages were created."
@@ -71,13 +71,13 @@
                                             <div style="width: 100%; text-align: left;" class="centerAlign ForBtnNormal">
                                                 <p:commandButton id="advmsgarchive" update="@form"
                                                                  styleClass="AdvNormalBtn"
-                                                                 rendered="#{advisornotificationBean.filterNotice == 'N'}" ajax="true" value="Archive"
-                                                                 actionListener="#{advisornotificationBean.markRead}" >
+                                                                 rendered="#{consumernotificationBean.filterNotice == 'N'}" ajax="true" value="Archive"
+                                                                 actionListener="#{consumernotificationBean.markRead}" >
                                                 </p:commandButton>
                                                 <p:commandButton update="@form" ajax="true" value="Unarchive"
                                                                  styleClass="centerAlign AdvNormalBtn"
-                                                                 rendered="#{advisornotificationBean.filterNotice == 'A'}"
-                                                                 actionListener="#{advisornotificationBean.markUnRead}" >
+                                                                 rendered="#{consumernotificationBean.filterNotice == 'A'}"
+                                                                 actionListener="#{consumernotificationBean.markUnRead}" >
                                                 </p:commandButton>
                                             </div>
 
@@ -91,6 +91,9 @@
                                                   headerText="Message" resizable="true">
                                             <h:outputText value="#{msg.message}" escape="false">
                                             </h:outputText>
+                                            <ui:fragment rendered='#{msg.linkAvailable}'>
+                                                <a href="http://localhost:8086/pages/consumer/uob/cadd.xhtml?app=N"><h:outputText value="Click"/></a>
+                                            </ui:fragment>
                                         </p:column>
 
 
