@@ -5905,11 +5905,11 @@ button.acc_detl_btn {
     list-style: disc;
 }
 .shake.shake-constant {
-   position: absolute;
+    position: absolute;
     height: 30px;
     width: 25px;
-    top: -15px;
-    right: -21px;
+    top: -24px;
+    right: 7px;
     z-index: 1;
 }
 .shake img {
@@ -5924,14 +5924,15 @@ button.acc_detl_btn {
 }
 .alert_count {
     position: absolute;
-    top: -25px;
+    top: -27px;
     background: green;
     color: #fff;
     padding: 3px 6px;
     border-radius: 30px;
     font-weight: bold;
-    right: -10px;
+    right: -4px;
     z-index: 0;
+    font-size: 10px;
 }
 .alert_menu button {
     background: none;
@@ -5950,7 +5951,8 @@ button.acc_detl_btn {
 }
 .alert_overlay_panel {
     
-   height: 300px;
+   height: auto;
+    max-height: 300px;
     background: #fff;
     position: absolute;
     width: 400px;
@@ -6013,9 +6015,10 @@ button.acc_detl_btn {
     width: 100%;
     float: left;
     position: relative;
-    height: 262px;
+    height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    max-height: 262px;
 }
 .alert_overlay_panel.ui-shadow {
     -moz-box-shadow: 0 5px 10px rgba(0,0,0,0.8);
@@ -6093,16 +6096,16 @@ li.strategy_list {
 
 /** alert notification page **/
 .uob_user_alert_notification .AdvBtnTcmGrp > .ui-state-active > span {
-    background: #e03826 !important;
+    background: #a4332f !important;
     border-color: #721311;
     color:#fff;
 }
 .uob_user_alert_notification .AdvBtnTcmGrp > div > span {
     border-color: #721311;
-    color: #e03826;
+    color: #a4332f;
 }
 .uob_user_alert_notification .ui-datatable .ui-paginator .ui-paginator-rpp-options {
-    background-color: #e03826 !important;
+    background-color: #a4332f !important;
 }
 
 .uob_user_alert_notification .ui-datatable .ui-paginator .ui-paginator-first,
@@ -6111,10 +6114,10 @@ li.strategy_list {
 .uob_user_alert_notification .ui-datatable .ui-paginator .ui-paginator-next,
 .uob_user_alert_notification .ui-datatable .ui-paginator .ui-paginator-last,
 .uob_user_alert_notification .ui-datatable .ui-paginator .ui-paginator-rpp-options
-{background-color: #e03826 !important;}
+{background-color:#a4332f !important;}
 
 
-
+.panel_block span.first_div { float: left;}
 
 
 
