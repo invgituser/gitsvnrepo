@@ -62,6 +62,18 @@ public class CommonSP extends StoredProcedure
             declareParameter(new SqlParameter("p_messagetype", Types.VARCHAR));
             declareParameter(new SqlParameter("p_archive", Types.VARCHAR));
             break;
+         case 10: // SP: sav_notification_consumer
+            declareParameter(new SqlParameter("p_messageid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_status", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_noticetype", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_tagid", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_alertdatetime", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_message", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_link", Types.VARCHAR));
+            break;
          case 99: // SP: sel_notificationInfo
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             break;
@@ -161,5 +173,22 @@ public class CommonSP extends StoredProcedure
       inputMap.put("p_messagetype", messageType);
       inputMap.put("p_archive", status);
       return super.execute(inputMap);
+   }
+
+   public void saveConsumerNotification(NotificationData data,long logonid)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_messageid", data.getMessageid());
+      inputMap.put("p_status", data.getStatus());
+      inputMap.put("p_logonid", logonid);
+      inputMap.put("p_advisor", data.getAdvisor());
+      inputMap.put("p_acctnum", data.getAcctnum());
+      inputMap.put("p_noticetype", data.getNoticetype());
+      inputMap.put("p_tagid", data.getTagid());
+      inputMap.put("p_alertdatetime", data.getBusinessdate());
+      inputMap.put("p_message", data.getMessage());
+      inputMap.put("p_link", data.getLink());
+
+      super.execute(inputMap);
    }
 }

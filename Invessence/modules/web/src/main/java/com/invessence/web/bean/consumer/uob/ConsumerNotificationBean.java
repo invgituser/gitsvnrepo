@@ -230,7 +230,7 @@ public class ConsumerNotificationBean implements Serializable
 
          for (NotificationData data: selectionList) {
             data.setStatus("A");
-            advisorSaveDAO.saveAdvisorNotice(data);
+            commonDAO.saveConsumerNotification(data,webutil.getLogonid());
          }
          // webutil.redirect("/pages/common/notification.xhtml", null);
          filterNotice = "N";
@@ -249,7 +249,8 @@ public class ConsumerNotificationBean implements Serializable
          this.setErrorMessage("");
          for (NotificationData data: selectionList) {
             data.setStatus("N");
-            advisorSaveDAO.saveAdvisorNotice(data);
+//            advisorSaveDAO.saveAdvisorNotice(data);
+            commonDAO.saveConsumerNotification(data,webutil.getLogonid());
          }
          filterNotice = "A";
          collectNotification();

@@ -399,6 +399,12 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
          }
       }
       return notificationList;
+   }
 
+   public void saveConsumerNotification(NotificationData data,long logonid)
+   {
+      DataSource ds = getDataSource();
+      CommonSP sp = new CommonSP(ds, "sav_notification_consumer", 10);
+      sp.saveConsumerNotification(data,logonid);
    }
 }

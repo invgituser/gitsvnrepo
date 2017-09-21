@@ -292,10 +292,10 @@
                                         <p:repeat value="#{cmnBn.notificationDataList}" var="notfBn">
                                             <div class="panel_block">
                                                 <h:outputText value="#{notfBn.message}" escape="false"/>
-                                                <ui:fragment rendered='#{notfBn.linkAvailable}'>
+                                                <ui:fragment rendered='#{!notfBn.linkAvailable}'>
                                                 <span>X</span>
                                                 </ui:fragment>
-                                                <ui:fragment rendered='#{!notfBn.linkAvailable}'>
+                                                <ui:fragment rendered='#{notfBn.linkAvailable}'>
                                                     <a href="http://localhost:8086/pages/consumer/uob/cadd.xhtml?app=N"><h:outputText value="Click"/></a>
                                                 </ui:fragment>
                                             </div>
