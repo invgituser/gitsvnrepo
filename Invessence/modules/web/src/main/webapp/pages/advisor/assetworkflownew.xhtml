@@ -54,7 +54,7 @@
             </div>
         </p:panel>
 
-        <main class="customtabs">
+        <main class="customtabs customtabs_model">
             <div class="tabspad">
             <input id="tab1" type="radio" name="tabs" checked="checked"/>
             <label for="tab1" class="tabsui">Start</label>
@@ -113,8 +113,9 @@
                                     <p:tab title="Rollback Model">
                                         <h:panelGrid cellpadding="10" style="width:100%;">
                                             <h:form>
-                                                <p:outputLabel for="rbkTheme" value="Theme Name : ">
-                                                    <p:selectOneMenu id="rbkTheme" value="#{AssetManagementUpd.rollbackId}" style="width:150px">
+                                                <p:outputLabel for="rbkTheme" value="">
+                                                <span class="span_model_nm">Theme Name : </span>
+                                                    <p:selectOneMenu id="rbkTheme" value="#{AssetManagementUpd.rollbackId}" style="width:180px">
                                                         <f:selectItem itemLabel="Select Theme" itemValue="0" noSelectionOption="true"/>
                                                         <f:selectItems value="#{AssetManagementUpd.lstRlbkfileDtl}" var="tempRbk"
                                                                        itemLabel="#{tempRbk.savedTemplateName}" itemValue="#{tempRbk.savedTemplateName}"/>
@@ -160,8 +161,9 @@
                                 <h:panelGrid cellpadding="10" style="width:100%">
                                     <h:form id="updExtForm">
                                         <div>
-                                            <p:outputLabel for="model" value="Model Name : ">
-                                                <p:selectOneMenu id="model" value="#{AssetManagementUpd.modelID}" style="width:150px">
+                                            <p:outputLabel for="model" value="">
+                                            	<span class="span_model_nm">Model Name :</span>
+                                                <p:selectOneMenu id="model" value="#{AssetManagementUpd.modelID}" style="width:180px">
                                                     <p:ajax listener="#{AssetManagementUpd.onUpdModelChange}"
                                                             update="templst,updExtForm:filDtls,rvwMainFrm:model_review"
                                                             event="change"/>
@@ -170,8 +172,9 @@
                                                     <f:selectItem itemLabel="Optimized" itemValue="Optimized"/>
                                                 </p:selectOneMenu>
                                             </p:outputLabel>
-                                            <p:outputLabel for="filDtls" value="File Type : ">
-                                                <p:selectOneMenu id="filDtls" value="#{AssetManagementUpd.fileDtl}" style="width:150px">
+                                            <p:outputLabel for="filDtls" value="">
+                                            	<span class="span_model_nm">File Type : </span>
+                                                <p:selectOneMenu id="filDtls" value="#{AssetManagementUpd.fileDtl}" style="width:180px">
                                                     <p:ajax listener="#{AssetManagementUpd.onUpdModelChange}" event="change"/>
                                                     <f:selectItem itemLabel="Select File Type" itemValue="0" noSelectionOption="true"/>
                                                     <f:selectItems value="#{AssetManagementUpd.lstFileDtlList}" var="tmpFlDtl"
@@ -181,7 +184,8 @@
                                         </div>
 
                                         <div class="uploadradiobutton">
-                                            <p:outputLabel for="idTempTypRad" value="Tempalte Type : ">
+                                            <p:outputLabel for="idTempTypRad" value="">
+                                            	<span class="span_model_nm">Tempalte Type : </span>
                                                 <p:selectOneRadio id="idTempTypRad" value="#{AssetManagementUpd.templateType}">
                                                     <p:ajax listener="#{AssetManagementUpd.onTemplateTypeChange}" event="change"
                                                             update="@form"/>
@@ -190,9 +194,9 @@
                                                 </p:selectOneRadio>
                                             </p:outputLabel>
 
-                                            <p:outputLabel for="templst" value="Tempalte Name : " id="templstDD"
-                                                           rendered="#{AssetManagementUpd.displayTempDD}">
-                                                <p:selectOneMenu id="templst" value="#{AssetManagementUpd.templateID}" style="width:150px">
+                                            <p:outputLabel for="templst" value="" id="templstDD" rendered="#{AssetManagementUpd.displayTempDD}">
+                                                <span class="span_model_nm">Tempalte Name : </span>
+                                                <p:selectOneMenu id="templst" value="#{AssetManagementUpd.templateID}" style="width:180px">
                                                     <p:ajax listener="#{AssetManagementUpd.onTemplateChange}" update="updExtForm:tableArea"
                                                             event="change"/>
                                                     <f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true"/>
@@ -200,8 +204,9 @@
                                                                    itemLabel="#{temp.templatename}" itemValue="#{temp.templatename}"/>
                                                 </p:selectOneMenu>
                                             </p:outputLabel>
-                                            <p:outputLabel for="tempTxt" value="Tempalte Name : " rendered="#{AssetManagementUpd.displayTempTxt}"
+                                            <p:outputLabel for="tempTxt" value="" rendered="#{AssetManagementUpd.displayTempTxt}"
                                                            id="templstTxt">
+                                                 <span class="span_model_nm">Tempalte Name : </span>
                                                 <p:inputText value="#{AssetManagementUpd.templateName}" id="tempTxt">
                                                     <f:ajax event="blur"/>
                                                 </p:inputText>
@@ -237,8 +242,9 @@
                     <div class="Wid100 awBlock">
                         <div>
                             <h:form id="validateForm">
-                                <p:outputLabel for="model_validate" value="Model Name : ">
-                                    <p:selectOneMenu id="model_validate" value="#{AssetManagementUpd.updModelId}" style="width:150px">
+                                <p:outputLabel for="model_validate" value="">
+                                <span class="span_model_nm">Model Name : </span>
+                                    <p:selectOneMenu id="model_validate" value="#{AssetManagementUpd.updModelId}" style="width:180px">
                                         <p:ajax listener="#{AssetManagementUpd.onModelChange}" update="templst_validate,rvwMainFrm:model_review"
                                                 event="change"/>
                                         <f:selectItem itemLabel="Select Model" itemValue="0" noSelectionOption="true"/>
@@ -246,8 +252,9 @@
                                         <f:selectItem itemLabel="Optimized" itemValue="Optimized"/>
                                     </p:selectOneMenu>
                                 </p:outputLabel>
-                                <p:outputLabel for="templst_validate" value="Tempalte Name : ">
-                                    <p:selectOneMenu id="templst_validate" value="#{AssetManagementUpd.templateID}" style="width:150px">
+                                <p:outputLabel for="templst_validate" value="">
+                                <span class="span_model_nm">Tempalte Name : </span>
+                                    <p:selectOneMenu id="templst_validate" value="#{AssetManagementUpd.templateID}" style="width:180px">
                                         <p:ajax listener="#{AssetManagementUpd.onTemplateChange}"
                                                 update="validateForm:tableArea_validate,validateForm:assetValidate"
                                                 event="change"/>
@@ -257,7 +264,7 @@
 
                                     </p:selectOneMenu>
                                 </p:outputLabel>
-                                <div class="EmptyBox30"></div>
+                               
                                 <p:panel rendered="#{AssetManagementUpd.vldFailureStatus}"
                                          style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError"
                                          id="idValidateError">
@@ -286,6 +293,7 @@
                                                      update="@form,rvwMainFrm:model_review">
                                     </p:commandButton>
                                 </label>
+                                 <div class="EmptyBox30"></div>
                                 <div class="validtable">
                                     <p:dataTable var="filelst_validate" value="#{AssetManagementUpd.lstExtFileList}" id="tableArea_validate">
                                         <p:column headerText="File Name">
@@ -308,16 +316,18 @@
 
                         <h:form id="rvwMainFrm">
                             <p:outputPanel id="rwDynaDD">
-                                <p:outputLabel for="rvw_modelTyp" value="Model Name : ">
-                                    <p:selectOneMenu id="rvw_modelTyp" value="#{AssetManagementUpd.rvwModelId}" style="width:150px">
+                                <p:outputLabel for="rvw_modelTyp" value="">
+                                 <span class="span_model_nm">Model Name : </span>
+                                    <p:selectOneMenu id="rvw_modelTyp" value="#{AssetManagementUpd.rvwModelId}" style="width:180px">
                                         <p:ajax listener="#{AssetManagementUpd.onRvwModelChange}" update="model_review" event="change"/>
                                         <f:selectItem itemLabel="Select Model" itemValue="0" noSelectionOption="true"/>
                                         <f:selectItem itemLabel="Predefined" itemValue="Predefined"/>
                                         <f:selectItem itemLabel="Optimized" itemValue="Optimized"/>
                                     </p:selectOneMenu>
                                 </p:outputLabel>
-                                <p:outputLabel for="model_review" value="Template Name : " rendered="true">
-                                    <p:selectOneMenu id="model_review" value="#{asstMgmtRvw.selApprovTheme}" style="width:150px">
+                                <p:outputLabel for="model_review" value="" rendered="true">
+                                <span class="span_model_nm">Template Name : </span>
+                                    <p:selectOneMenu id="model_review" value="#{asstMgmtRvw.selApprovTheme}" style="width:180px">
                                         <p:ajax listener="#{asstMgmtRvw.onRevTempChange}" update="rvwMainFrm:rwDynaPanel"
                                                 event="change"/>
                                         <f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true"/>
@@ -352,8 +362,9 @@
                             <h:form id="approveForm">
 
                                 <p:outputPanel id="approveArea">
-                                    <p:outputLabel for="model" value="Model Name : ">
-                                        <p:selectOneMenu id="model" value="#{asstMgmtRvw.apprModelId}" style="width:150px">
+                                    <p:outputLabel for="model" value="">
+                                    <span class="span_model_nm">Model Name : </span>
+                                        <p:selectOneMenu id="model" value="#{asstMgmtRvw.apprModelId}" style="width:180px">
                                             <p:ajax listener="#{asstMgmtRvw.onApprModelChange}"
                                                     update="@form"
                                                     event="change"/>
@@ -362,16 +373,18 @@
                                             <f:selectItem itemLabel="Optimized" itemValue="Optimized"/>
                                         </p:selectOneMenu>
                                     </p:outputLabel>
-                                    <p:outputLabel for="model_verified" value="Template Name : " rendered="#{!asstMgmtRvw.showApproveTempDD}">
-                                        <p:selectOneMenu id="model_verified" value="#{AssetManagementAppr.apprvTempId}" style="width:150px">
+                                    <p:outputLabel for="model_verified" value="" rendered="#{!asstMgmtRvw.showApproveTempDD}">
+                                        <span class="span_model_nm">Template Name : </span>
+                                        <p:selectOneMenu id="model_verified" value="#{AssetManagementAppr.apprvTempId}" style="width:180px">
                                             <f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true"/>
                                             <f:selectItems value="#{asstMgmtRvw.listApproveTemplate}" var="temp" itemLabel="#{temp.templatename}"
                                                            itemValue="#{temp.templatename}"/>
 
                                         </p:selectOneMenu>
                                     </p:outputLabel>
-                                    <p:outputLabel for="model_associate" value="Theme Name : ">
-                                        <p:selectOneMenu id="model_associate" value="#{AssetManagementAppr.assocTempId}" style="width:150px">
+                                    <p:outputLabel for="model_associate" value="">
+                                    	<span class="span_model_nm">Theme Name : </span>
+                                        <p:selectOneMenu id="model_associate" value="#{AssetManagementAppr.assocTempId}" style="width:180px">
                                             <f:selectItem itemLabel="Select Theme" itemValue="0" noSelectionOption="true"/>
                                             <f:selectItems value="#{asstMgmtRvw.listBasket}" var="basket" itemLabel="#{basket.basket}"
                                                            itemValue="#{basket.theme}"/>

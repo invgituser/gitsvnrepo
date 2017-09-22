@@ -291,9 +291,11 @@
                                     <div class="outer_panel_block">
                                         <p:repeat value="#{cmnBn.notificationDataList}" var="notfBn">
                                             <div class="panel_block">
-                                                <h:outputText value="#{notfBn.message}" escape="false"/>
+                                                <h:outputText value="#{notfBn.message}" escape="false" class="first_div"/>
                                                 <ui:fragment rendered='#{!notfBn.linkAvailable}'>
-                                                <span>X</span>
+
+                                                    <span class="alert_close">X</span>
+                                                    <span class="alert_date">19/07/02017</span>
                                                 </ui:fragment>
                                                 <ui:fragment rendered='#{notfBn.linkAvailable}'>
                                                     <a href="http://localhost:8086/pages/consumer/uob/cadd.xhtml?app=N"><h:outputText value="Click"/></a>
