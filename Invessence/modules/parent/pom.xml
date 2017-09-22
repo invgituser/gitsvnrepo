@@ -466,7 +466,7 @@
             <base.clientdata.dir>C:\\INV\\client</base.clientdata.dir>
             <base.advisor.dir>C:\\INV\\advisor</base.advisor.dir>
             <!--<catalina.base>C:\\workspace\\web\\</catalina.base> Ned to be change -->
-            <catalina.base>D:\\Project\\Sudhir\\</catalina.base>
+            <catalina.base>C:\\INV\\CATALINA</catalina.base>
             <base.web.dir>C:\\workspace\\web\\www\\ROOT</base.web.dir>
             <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
             <advisor.upload.localdir>${base.advisor.dir}\\upload\\</advisor.upload.localdir>

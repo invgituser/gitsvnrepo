@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
 import com.invessence.web.data.common.Position;
+import com.invessence.web.util.WebUtil;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "positionDAO")
@@ -14,14 +15,14 @@ public class PositionDAO extends JdbcDaoSupport
 {
    SQLData convert = new SQLData();
 
-   public List<Position> loadDBPosition(Long logonid, Long acctnum)
+   public List<Position> loadDBPosition(WebUtil webUtil, Long acctnum)
    {
       DataSource ds = getDataSource();
       String storedProcName = "sel_position";
       PositionSP sp = new PositionSP(ds, storedProcName);
       List<Position> positionList = new ArrayList<Position>();
 
-      Map outMap = sp.loadDBData(logonid, acctnum);
+      Map outMap = sp.loadDBData(webUtil.getLogonid(), acctnum, webUtil.getUserInfoData().getAdvisor(), webUtil.getUserInfoData().getRep());
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");

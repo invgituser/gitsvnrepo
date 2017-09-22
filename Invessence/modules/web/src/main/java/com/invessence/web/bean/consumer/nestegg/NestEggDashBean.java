@@ -85,7 +85,7 @@ public class NestEggDashBean implements Serializable
 
    public void collectData(Long logonid)
    {
-       manageAccountList = listDAO.getClientProfileList(logonid,null, null, webutil.getUserInfoData().getAdvisor(), webutil.getUserInfoData().getRep());
+       manageAccountList = listDAO.getClientProfileList(logonid, null, null, webutil.getUserInfoData().getAdvisor(), webutil.getUserInfoData().getRep() );
     }
 
 

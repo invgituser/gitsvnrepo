@@ -200,7 +200,7 @@ public class PositionBean implements Serializable
          else
          {
             // Note: If no data is found, then blank form will display.  It is better then going to access denied, page.
-            positionList = positionDAO.loadDBPosition(webutil.getLogonid(), this.acctnum);
+            positionList = positionDAO.loadDBPosition(webutil, this.acctnum);
             addTotals();
          }
       }
