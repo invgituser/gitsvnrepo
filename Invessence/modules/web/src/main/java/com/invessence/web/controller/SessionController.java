@@ -144,7 +144,7 @@ public class SessionController implements Serializable
       String mobileUserFlag = null;
       String homeurl = webutil.getWebprofile().getHomepage();
       if(webutil.getWebprofile().getInvSiteReq()==true){
-         if(webutil.getWebprofile().getInvSiteUrl()!=null && webutil.getWebprofile().getInvSiteUrl().contains("localhost")){
+         if(webutil.getWebprofile().getInvSiteUrl()!=null){
             homeurl= "http://"+webutil.getWebprofile().getInvSiteUrl()+"/invsite.xhtml?site="+webutil.getWebprofile().getUrl()
                +"&rep="+webutil.getWebprofile().getInvSiteRep()+"&mode="+webutil.getWebprofile().getMode();
          }
