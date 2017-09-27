@@ -54,6 +54,7 @@ public class AssetManagementUpload implements Serializable
    @ManagedProperty("#{webutil}")
    public WebUtil webutil;
    private long logonId;
+   private String uploadMessage;
 
 
 
@@ -258,19 +259,22 @@ public class AssetManagementUpload implements Serializable
          advisorSaveQuery.saveFileData(query);
          lstExtFileList = advisorListDataDAO.collectUploadedAssetFileList(WebConst.PREDEFINED, temNm, logonId);
          if(bMsgFlag){
-            FacesMessage message = new FacesMessage("Succesful","File of type "+tmp_fileDtl[0]+ " is overrided.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+//            FacesMessage message = new FacesMessage("Succesful","File of type "+tmp_fileDtl[0]+ " is overrided.");
+//            FacesContext.getCurrentInstance().addMessage(null, message);
+            uploadMessage="File of type "+tmp_fileDtl[0]+ " is overrided.";
          }else
          {
-            FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+//            FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+//            FacesContext.getCurrentInstance().addMessage(null, message);
+            uploadMessage=event.getFile().getFileName()+" uploaded successfully.";
          }
       }
       catch (Exception e)
       {
          System.out.println("Error " + e);
-         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is failed.");
-         FacesContext.getCurrentInstance().addMessage(null, message);
+//         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is failed.");
+//         FacesContext.getCurrentInstance().addMessage(null, message);
+         uploadMessage=event.getFile().getFileName()+" uploading failed.";
       }
       finally
       {
@@ -343,7 +347,7 @@ public class AssetManagementUpload implements Serializable
       System.out.println("getUpdModelId Id " +getUpdModelId());
       lstExtFileList = advisorListDataDAO.collectUploadedAssetFileList(getUpdModelId(), getTemplateID(), logonId);
       System.out.println("Model NAme " +lstExtFileList.size());
-      if(lstVldfileDtl.size()==lstExtFileList.size()){
+      if(lstVldfileDtl!=null && lstVldfileDtl.size()==lstExtFileList.size()){
          displayValidateBtn=true;
       }else{
          displayValidateBtn=false;
@@ -655,5 +659,15 @@ public class AssetManagementUpload implements Serializable
    public void setLogonId(long logonId)
    {
       this.logonId = logonId;
+   }
+
+   public String getUploadMessage()
+   {
+      return uploadMessage;
+   }
+
+   public void setUploadMessage(String uploadMessage)
+   {
+      this.uploadMessage = uploadMessage;
    }
 }
