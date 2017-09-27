@@ -21,7 +21,7 @@
                                 <div class="Container100 Responsive100">
                                     <p:selectBooleanCheckbox
                                             value="#{asstMgmtRvw.performanceAproved}"
-                                            itemLabel="Performance Data Approved">
+                                            itemLabel="Please approve performance data">
                                         <p:ajax
                                                 listener="${asstMgmtRvw.getApproveStatus}"/>
                                     </p:selectBooleanCheckbox>
@@ -290,13 +290,13 @@
                     </h:panelGrid>
                 </p:tab>
 
-                <p:tab title="Model Projetion ">
+                <p:tab title="Model Projection ">
                     <h:panelGrid cellpadding="10">
                         <p:outputPanel id="prjGraphArea" style="border: 0px; background: transparent;">
 
                             <p:selectBooleanCheckbox
                                     value="#{asstMgmtRvw.projectionAproved}"
-                                    itemLabel="Performance Data Approved">
+                                    itemLabel="Please approve projection data">
                                 <p:ajax
                                         listener="${asstMgmtRvw.getApproveStatus}"/>
                             </p:selectBooleanCheckbox>

@@ -4,12 +4,9 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 template="/template/common/template.xhtml">
-
     <f:metadata>
         <f:event type="preRenderView" listener="#{investmentmodel.preRenderView}"/>
         <f:event type="preRenderView" listener="#{AssetManagementUpd.prerender}"/>
-
-
     </f:metadata>
     <ui:define name="content">
         <h:outputScript name="js/invCharts.js" library="tcm"/>
@@ -54,7 +51,7 @@
             </div>
         </p:panel>
 
-        <main class="customtabs customtabs_model">
+        <main class="customtabs customtabs_model customtabs_model_bb">
             <div class="tabspad">
             <input id="tab1" type="radio" name="tabs" checked="checked"/>
             <label for="tab1" class="tabsui">Start</label>
@@ -63,14 +60,13 @@
             <label for="tab2" class="tabsui">Upload</label>
 
             <input id="tab3" type="radio" name="tabs"/>
-            <label for="tab3" class="tabsui">Validation Check</label>
+            <label for="tab3" class="tabsui">Validation</label>
 
             <input id="tab4" type="radio" name="tabs"/>
             <label for="tab4" class="tabsui">Review</label>
 
             <input id="tab5" type="radio" name="tabs"/>
             <label for="tab5" class="tabsui">Approve</label>
-
 
             <section id="content1">
                 <div class="Container100 wfMainBlock bgcontain">
@@ -114,7 +110,7 @@
                                         <h:panelGrid cellpadding="10" style="width:100%;">
                                             <h:form>
                                                 <p:outputLabel for="rbkTheme" value="">
-                                                <span class="span_model_nm">Theme Name : </span>
+                                                <span class="span_model_nm">Theme Name </span>
                                                     <p:selectOneMenu id="rbkTheme" value="#{AssetManagementUpd.rollbackId}" style="width:180px">
                                                         <f:selectItem itemLabel="Select Theme" itemValue="0" noSelectionOption="true"/>
                                                         <f:selectItems value="#{AssetManagementUpd.lstRlbkfileDtl}" var="tempRbk"
@@ -150,19 +146,23 @@
                     </div>
                 </div>
             </section>
-
             <section id="content2">
                 <div class="Container100 wfMainBlock bgcontain">
                     <div class="Wid100 awBlock">
                         <div class="titleContentPanel">
-
                             <div class="contentSecond">
-
                                 <h:panelGrid cellpadding="10" style="width:100%">
                                     <h:form id="updExtForm">
+                                        <div class="EmptyBox30"></div>
                                         <div>
+                                            <p:panel rendered="#{AssetManagementUpd.getUploadMessage() != null}"
+                                                     style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError" id="idUpdMessage">
+                                                <h:outputText styleClass="errorText"
+                                                              value="#{AssetManagementUpd.getUploadMessage()}" escape="false"/>
+                                                <div class="EmptyBox30"></div>
+                                            </p:panel>
                                             <p:outputLabel for="model" value="">
-                                            	<span class="span_model_nm">Model Name :</span>
+                                            	<span class="span_model_nm">Model Name </span>
                                                 <p:selectOneMenu id="model" value="#{AssetManagementUpd.modelID}" style="width:180px">
                                                     <p:ajax listener="#{AssetManagementUpd.onUpdModelChange}"
                                                             update="templst,updExtForm:filDtls,rvwMainFrm:model_review"
@@ -173,7 +173,7 @@
                                                 </p:selectOneMenu>
                                             </p:outputLabel>
                                             <p:outputLabel for="filDtls" value="">
-                                            	<span class="span_model_nm">File Type : </span>
+                                            	<span class="span_model_nm">File Type </span>
                                                 <p:selectOneMenu id="filDtls" value="#{AssetManagementUpd.fileDtl}" style="width:180px">
                                                     <p:ajax listener="#{AssetManagementUpd.onUpdModelChange}" event="change"/>
                                                     <f:selectItem itemLabel="Select File Type" itemValue="0" noSelectionOption="true"/>
@@ -185,7 +185,7 @@
 
                                         <div class="uploadradiobutton">
                                             <p:outputLabel for="idTempTypRad" value="">
-                                            	<span class="span_model_nm">Tempalte Type : </span>
+                                            	<span class="span_model_nm">Template Type </span>
                                                 <p:selectOneRadio id="idTempTypRad" value="#{AssetManagementUpd.templateType}">
                                                     <p:ajax listener="#{AssetManagementUpd.onTemplateTypeChange}" event="change"
                                                             update="@form"/>
@@ -195,7 +195,7 @@
                                             </p:outputLabel>
 
                                             <p:outputLabel for="templst" value="" id="templstDD" rendered="#{AssetManagementUpd.displayTempDD}">
-                                                <span class="span_model_nm">Tempalte Name : </span>
+                                                <span class="span_model_nm">Template Name </span>
                                                 <p:selectOneMenu id="templst" value="#{AssetManagementUpd.templateID}" style="width:180px">
                                                     <p:ajax listener="#{AssetManagementUpd.onTemplateChange}" update="updExtForm:tableArea"
                                                             event="change"/>
@@ -206,19 +206,21 @@
                                             </p:outputLabel>
                                             <p:outputLabel for="tempTxt" value="" rendered="#{AssetManagementUpd.displayTempTxt}"
                                                            id="templstTxt">
-                                                 <span class="span_model_nm">Tempalte Name : </span>
+                                                 <span class="span_model_nm">Template Name </span>
                                                 <p:inputText value="#{AssetManagementUpd.templateName}" id="tempTxt">
                                                     <f:ajax event="blur"/>
                                                 </p:inputText>
                                             </p:outputLabel>
+
+                                            <div class="uploadbuttons">
+                                                <p:fileUpload fileUploadListener="#{AssetManagementUpd.handleExistingFileUpload}" mode="advanced"
+                                                              dragDropSupport="false"
+                                                              update="updExtForm:tableArea,idUpdMessage" sizeLimit="100000" fileLimit="10"
+                                                              allowTypes="/(\.|\/)(csv)$/"/>
+                                            </div>
                                         </div>
-                                        <div class="uploadbuttons">
-                                            <p:fileUpload fileUploadListener="#{AssetManagementUpd.handleExistingFileUpload}" mode="advanced"
-                                                          dragDropSupport="false"
-                                                          update="messages,updExtForm:tableArea" sizeLimit="100000" fileLimit="10"
-                                                          allowTypes="/(\.|\/)(csv)$/"/>
-                                        </div>
-                                        <p:growl id="messages" showDetail="true"/>
+
+                                        <!--<p:growl id="messages" showDetail="true"/>-->
                                         <div class="uploadtable">
                                             <p:dataTable var="filelst" value="#{AssetManagementUpd.lstExtFileList}" id="tableArea">
                                                 <p:column headerText="File Name">
@@ -236,14 +238,44 @@
                     </div>
                 </div>
             </section>
-
             <section id="content3">
                 <div class="Container100 wfMainBlock bgcontain">
                     <div class="Wid100 awBlock">
                         <div>
                             <h:form id="validateForm">
+                                <div class="EmptyBox30"></div>
+                                <p:panel rendered="#{AssetManagementUpd.vldSuccessStatus}"
+                                         style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError">
+                                    <h:outputText styleClass="errorText"
+                                                  value="Files validated successfully" escape="false"/>
+                                    <div class="EmptyBox30"></div>
+                                </p:panel>
+                                <p:panel rendered="#{AssetManagementUpd.vldFailureStatus}"
+                                         style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError">
+                                    <h:outputText styleClass="errorText"
+                                                  value="Files validation failed " escape="false"/>
+                                    <p:commandLink id="pwdFail"
+                                                   styleClass="errorText"
+                                                     value="details" process="@none"/>
+                                    <p:overlayPanel id="helpPanel" for="pwdFail" hideEffect="fade" dynamic="false"
+                                                    showCloseIcon="true"
+                                                    style="width:300px">
+                                        <h:outputText styleClass="errorText"
+                                                      value="#{AssetManagementUpd.validationError}" escape="false"/>
+                                    </p:overlayPanel>
+                                    <div class="EmptyBox30"></div>
+                                </p:panel>
+
+
+                                <!--<p:panel rendered="#{AssetManagementUpd.vldSuccessStatus}"-->
+                                         <!--style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError"-->
+                                         <!--id="idValidateSuccess">-->
+                                    <!--<p:commandButton id="pwdSuccess"-->
+                                                     <!--icon="fa fa-question-circle white"-->
+                                                     <!--value="Success" process="@none" disabled="true"/>-->
+                                <!--</p:panel>-->
                                 <p:outputLabel for="model_validate" value="">
-                                <span class="span_model_nm">Model Name : </span>
+                                <span class="span_model_nm">Model Name </span>
                                     <p:selectOneMenu id="model_validate" value="#{AssetManagementUpd.updModelId}" style="width:180px">
                                         <p:ajax listener="#{AssetManagementUpd.onModelChange}" update="templst_validate,rvwMainFrm:model_review"
                                                 event="change"/>
@@ -253,7 +285,7 @@
                                     </p:selectOneMenu>
                                 </p:outputLabel>
                                 <p:outputLabel for="templst_validate" value="">
-                                <span class="span_model_nm">Tempalte Name : </span>
+                                <span class="span_model_nm">Template Name </span>
                                     <p:selectOneMenu id="templst_validate" value="#{AssetManagementUpd.templateID}" style="width:180px">
                                         <p:ajax listener="#{AssetManagementUpd.onTemplateChange}"
                                                 update="validateForm:tableArea_validate,validateForm:assetValidate"
@@ -264,29 +296,6 @@
 
                                     </p:selectOneMenu>
                                 </p:outputLabel>
-                               
-                                <p:panel rendered="#{AssetManagementUpd.vldFailureStatus}"
-                                         style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError"
-                                         id="idValidateError">
-                                    <p:commandButton id="pwdFail"
-                                                     icon="fa fa-question-circle white"
-                                                     value="Failure" process="@none"/>
-                                    <p:overlayPanel id="helpPanel" for="pwdFail" hideEffect="fade" dynamic="false"
-                                                    showCloseIcon="true"
-                                                    style="width:300px">
-                                        <h:outputText styleClass="errorText"
-                                                      value="#{AssetManagementUpd.validationError}" escape="false"/>
-                                    </p:overlayPanel>
-                                </p:panel>
-                                <p:panel rendered="#{AssetManagementUpd.vldSuccessStatus}"
-                                         style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError"
-                                         id="idValidateSuccess">
-                                    <p:commandButton id="pwdSuccess"
-                                                     icon="fa fa-question-circle white"
-                                                     value="Success" process="@none" disabled="true"/>
-                                </p:panel>
-
-
                                 <label class="rollbackbutton">
                                     <p:commandButton value="Validate" id="assetValidate" disabled="#{!AssetManagementUpd.displayValidateBtn}"
                                                      styleClass="awBtn Wid100" ajax="true" actionListener="#{AssetManagementUpd.onValidate}"
@@ -309,16 +318,15 @@
                     </div>
                 </div>
             </section>
-
             <section id="content4">
                 <div class="Container100 wfMainBlock bgcontain">
                     <div class="Wid100 awBlock">
-
                         <h:form id="rvwMainFrm">
                             <p:outputPanel id="rwDynaDD">
+                                <div class="EmptyBox30"></div>
                                 <p:outputLabel for="rvw_modelTyp" value="">
-                                 <span class="span_model_nm">Model Name : </span>
-                                    <p:selectOneMenu id="rvw_modelTyp" value="#{AssetManagementUpd.rvwModelId}" style="width:180px">
+                                 <span class="span_model_nm">Model Name </span>
+                                    <p:selectOneMenu id="rvw_modelTyp" value="#{AssetManagementUpd.rvwModelId}" style="width:300px">
                                         <p:ajax listener="#{AssetManagementUpd.onRvwModelChange}" update="model_review" event="change"/>
                                         <f:selectItem itemLabel="Select Model" itemValue="0" noSelectionOption="true"/>
                                         <f:selectItem itemLabel="Predefined" itemValue="Predefined"/>
@@ -326,8 +334,8 @@
                                     </p:selectOneMenu>
                                 </p:outputLabel>
                                 <p:outputLabel for="model_review" value="" rendered="true">
-                                <span class="span_model_nm">Template Name : </span>
-                                    <p:selectOneMenu id="model_review" value="#{asstMgmtRvw.selApprovTheme}" style="width:180px">
+                                <span class="span_model_nm">Template Name </span>
+                                    <p:selectOneMenu id="model_review" value="#{asstMgmtRvw.selApprovTheme}" style="width:300px">
                                         <p:ajax listener="#{asstMgmtRvw.onRevTempChange}" update="rvwMainFrm:rwDynaPanel"
                                                 event="change"/>
                                         <f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true"/>
@@ -360,10 +368,16 @@
                     <div class="Wid100 awBlock">
                         <div>
                             <h:form id="approveForm">
-
                                 <p:outputPanel id="approveArea">
+                                    <div class="EmptyBox30"></div>
+                                    <p:panel rendered="#{AssetManagementAppr.getOutputMsg() != null}"
+                                             style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError">
+                                        <h:outputText styleClass="errorText"
+                                                      value="#{AssetManagementAppr.getOutputMsg()}" escape="false"/>
+                                        <div class="EmptyBox30"></div>
+                                    </p:panel>
                                     <p:outputLabel for="model" value="">
-                                    <span class="span_model_nm">Model Name : </span>
+                                    <span class="span_model_nm">Model Name </span>
                                         <p:selectOneMenu id="model" value="#{asstMgmtRvw.apprModelId}" style="width:180px">
                                             <p:ajax listener="#{asstMgmtRvw.onApprModelChange}"
                                                     update="@form"
@@ -374,7 +388,7 @@
                                         </p:selectOneMenu>
                                     </p:outputLabel>
                                     <p:outputLabel for="model_verified" value="" rendered="#{!asstMgmtRvw.showApproveTempDD}">
-                                        <span class="span_model_nm">Template Name : </span>
+                                        <span class="span_model_nm">Template Name </span>
                                         <p:selectOneMenu id="model_verified" value="#{AssetManagementAppr.apprvTempId}" style="width:180px">
                                             <f:selectItem itemLabel="Select Template" itemValue="0" noSelectionOption="true"/>
                                             <f:selectItems value="#{asstMgmtRvw.listApproveTemplate}" var="temp" itemLabel="#{temp.templatename}"
@@ -383,20 +397,13 @@
                                         </p:selectOneMenu>
                                     </p:outputLabel>
                                     <p:outputLabel for="model_associate" value="">
-                                    	<span class="span_model_nm">Theme Name : </span>
+                                    	<span class="span_model_nm">Theme Name </span>
                                         <p:selectOneMenu id="model_associate" value="#{AssetManagementAppr.assocTempId}" style="width:180px">
                                             <f:selectItem itemLabel="Select Theme" itemValue="0" noSelectionOption="true"/>
                                             <f:selectItems value="#{asstMgmtRvw.listBasket}" var="basket" itemLabel="#{basket.basket}"
                                                            itemValue="#{basket.theme}"/>
                                         </p:selectOneMenu>
                                     </p:outputLabel>
-                                    <div class="EmptyBox30"></div>
-                                    <p:panel rendered="#{AssetManagementAppr.getOutputMsg() != null}"
-                                             style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError">
-                                        <h:outputText styleClass="errorText"
-                                                      value="#{AssetManagementAppr.getOutputMsg()}" escape="false"/>
-                                        <div class="EmptyBox30"></div>
-                                    </p:panel>
 
                                     <label class="rollbackbutton">
                                         <p:commandButton value="Approve"
@@ -413,8 +420,5 @@
 
             </div>
         </main>
-
-
     </ui:define>
-
 </ui:composition>
