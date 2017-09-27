@@ -1957,20 +1957,20 @@ main.customtabs {
 	float: right !important;
 }
 .customtabs_model_bb #updExtForm .uploadradiobutton table label {
-	margin: 0 2px 0 -8px !important;
+	/*margin: 0 2px 0 -8px !important;*/
 	padding: 14px 0 !important;
 	color:#778D9B;
 }
 .customtabs_model_bb #updExtForm .uploadradiobutton table label:before{display:none;}
 .customtabs_model_bb #updExtForm div.uploadtable div {
-	max-width: 100% !important;
+	max-width: none !important;
 }
 .customtabs_model_bb .uploadradiobutton label input {
-	width: 250px;
+	width: 300px;
 	float:left !important;
 }
 .customtabs_model_bb #validateForm .validtable div {
-	max-width: 1045px !important;
+	max-width: none !important;
 }
 .customtabs_model_bb .rollbackbutton {
 	width: 14% !important;
@@ -2003,6 +2003,7 @@ main.customtabs {
 	text-align: left;
 	color: #778D9B;
 	font-size: 17px;
+	margin:5px;
 }
 .customtabs_model_bb .tabspad #approveForm label {
 	padding: 10px 20px;
@@ -2012,18 +2013,20 @@ main.customtabs {
 }
 .customtabs_model_bb .tabspad label:before{display:none;}
 .customtabs_model_bb #updExtForm label {
-	width: 100%;
+	width: 95%;
 	float: left;
+	box-shadow: none;
+	margin: 0;
 }
 .customtabs_model_bb #updExtForm div{margin: 0px 0%; width:100%;}
 .customtabs_model_bb #validateForm label,
 .customtabs_model_bb .tabspad #rvwMainFrm label,
 .customtabs_model_bb .tabspad #approveForm label
 
-{width: 84%;	float: left;	margin: 0 0%;}
+{width: 95%;	float: left;	margin: 0 0%;}
 .customtabs_model_bb #rvwMainFrm .ui-outputlabel div{float:left !important;}
 .customtabs_model_bb #validateForm label.rollbackbutton {
-	margin: 0 5%;
+	margin: 0 9%;
 }
 .customtabs_model_bb .ui-accordion {
 	float: left;
@@ -2058,4 +2061,23 @@ main.customtabs_model{background: #F6FAFC/*#F1F6F9*/;}
 }
 .customtabs_model_bb #rvwMainFrm .ui-accordion {
 	top: 0;
+}
+.customtabs_model_bb #content2 table td {
+	padding: 0;
+}
+.customtabs_model_bb #content2 .uploadtable,
+.customtabs_model_bb #content3 .validtable{
+	width: 83% !important;
+	margin: 0 8% !important;
+}
+.customtabs_model_bb span.errorText {
+	position: absolute;
+	top: -28px;
+	margin: 21px;
+	font-size: 17px;
+	width: 1000px;
+}
+.customtabs_model_bb #content1 .ui-selectonemenu {
+	width: 330px !important;
+	min-width: auto !important;
 }

@@ -156,6 +156,9 @@ img.riskImage:hover {
     .Container100 .dashboard_right_panel { width: 93% !important;}
     .acc_block_left .userPanelv3d {  height: 100%;}
     .strategy_dtl .outer_stategy_block{ width: 85%;}
+
+
+    /** 26/09/2017 ***/
     
     
 }
@@ -445,6 +448,7 @@ img.riskImage:hover {
 }
 
 @media (min-width: 420px) and (max-width: 550px) {
+
     .ProjectionChartRadioLabelRow {
         /* display: none; */
     }
@@ -6163,24 +6167,26 @@ li.strategy_list {
  {
     box-shadow: none;
 }
-.customtabs_model #updExtForm div {
+/*.customtabs_model #updExtForm div {
        width: 90%;
     float: left;
-    margin: 10px 5%;
-}
+    margin: 0px 5%;
+}*/
 .customtabs_model #updExtForm label {
-    width: 44%;
+    width:100%;
     float: left;
 }
 .customtabs_model #updExtForm label .span_model_nm {
-   width: auto;
+   width: 250px;
     float: left;
     margin: 5px;
     position: relative;
     top: 0;
+    text-align:left;
 }
 .customtabs_model #updExtForm div div {
     margin: 0;
+    width:auto;
 }
 .customtabs_model #updExtForm div.uploadtable {
     width: 98%;
@@ -6204,10 +6210,10 @@ li.strategy_list {
     width: 100%;
     float: left;
 }
-.customtabs_model #validateForm label {
+/*.customtabs_model #validateForm label {
     width: 29%;
     float: left;
-}
+}*/
 .customtabs_model #validateForm span.span_model_nm,
 .customtabs_model #rvwMainFrm span.span_model_nm,
 .customtabs_model #approveForm span.span_model_nm,
@@ -6216,23 +6222,27 @@ li.strategy_list {
     position: relative;
     top: -8px;
 }
-.customtabs_model .tabspad #rvwMainFrm label {
+.rollbackbutton span.ui-button-text.ui-c {
+    text-align: center;
+}
+/*.customtabs_model .tabspad #rvwMainFrm label {
    
     width: 44%;
     float: left;
-}
-.customtabs_model .tabspad #approveForm label {
+}*/
+/*.customtabs_model .tabspad #approveForm label {
     box-shadow: none;
     width: 28%;
     float: left;
-}
+}*/
 .customtabs_model section {
     float: left;
     width: 90%;
     margin: 10px 5%;
-    background: #f7f7f7;
+    background: #fff;
     border: none;
     border-radius: 4px;
+    padding:0;
 }
 
 .customtabs_model .uploadbuttons .ui-fileupload-cancel {
@@ -6241,5 +6251,24 @@ li.strategy_list {
 .customtabs_model .tabspad {
     border-bottom: 2px solid #009abb;
 }
+/*.customtabs_model #updExtForm .uploadradiobutton label {
+    width: 32%;
+    padding: 14px 0;
+    margin: 0 0px 0 28px;
+}*/
+.customtabs_model #updExtForm div div.uploadbuttons {
+    padding: 8px 0 0 12px;
+    width: 29%;
+    float: right;
 
+}
 
+main.customtabs.customtabs_model {
+    background: #f6fafc;width:98%;
+}
+.customtabs_model #content2 .uploadbuttons .ui-fileupload-upload {
+    width: 108px !important;
+}
+.customtabs_model .ui-accordion-content {
+    border: none !important;
+}
