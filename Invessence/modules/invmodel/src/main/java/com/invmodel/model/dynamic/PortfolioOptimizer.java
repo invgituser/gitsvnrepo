@@ -836,8 +836,10 @@ public class PortfolioOptimizer
             instanceOfCapitalMarket.setConstraints(lbConstraints, ubConstraints);
 
             instanceOfCapitalMarket.calculateEfficientFrontier(
-               InvConst.MIN_CAPM_RETURNS,   // Minimum CAPM returns
-               InvConst.MAX_CAPM_RETURNS,  // Maximum CAPM returns
+               //InvConst.MIN_CAPM_RETURNS,   // Minimum CAPM returns
+               //InvConst.MAX_CAPM_RETURNS,  // Maximum CAPM returns
+               minReturn,   // Minimum CAPM returns
+               maxReturn,  // Maximum CAPM returns
                covarianceOfFunds,//Covariance matrix
                expectedReturnsOfFunds, // expectedReturns
                InvConst.PORTFOLIO_INTERPOLATION, // numberInterpolationPoints
