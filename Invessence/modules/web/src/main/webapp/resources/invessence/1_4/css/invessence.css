@@ -1955,6 +1955,7 @@ main.customtabs {
 	width: 28%;
 	margin: 5px;
 	float: right !important;
+	position: relative;
 }
 .customtabs_model_bb #updExtForm .uploadradiobutton table label {
 	/*margin: 0 2px 0 -8px !important;*/
@@ -2076,8 +2077,67 @@ main.customtabs_model{background: #F6FAFC/*#F1F6F9*/;}
 	margin: 21px;
 	font-size: 17px;
 	width: 1000px;
+	padding-left: 13px;
 }
 .customtabs_model_bb #content1 .ui-selectonemenu {
 	width: 330px !important;
 	min-width: auto !important;
 }
+.customtabs_model_bb #updExtForm div div.uploadbuttons .ui-fileupload-files {
+	position: absolute;
+	top: -15px;
+	left: 8px;
+}
+.customtabs_model_bb .error_dtl_block a.errorText {
+	width: 100px;
+	float: left;
+	position: relative;
+	top: -5px;
+	margin: 4px 0;
+	color: #dd4b39 !important;
+	font-size: 17px;
+	font-family: 'helvetica';
+	text-decoration: underline !important;
+}
+.customtabs_model_bb .error_dtl_block .errorText {
+	width: 165px;
+	float: left;
+	padding: 0;
+	top: -25px;
+	position: relative;
+	margin: 24px 0 24px 30px;
+}
+span.error_dtl_block {
+	width: 1100px;
+	float: left;
+	position: absolute;
+}
+.highcharts-container {
+	width:585px !important;
+}
+.customtabs_model_bb .ui-overlaypanel-content span.errorText {
+	width: 100%;
+	float: left;
+	padding: 0;
+	top: 0;
+	position: relative;
+	margin: 0;
+	max-height: 100px;
+	height: 100%;
+	overflow: auto;
+}
+.customtabs_model .ui-overlaypanel {
+	background: #fff;    width: 450px !important;
+}
+.customtabs_model .ui-overlaypanel .ui-overlaypanel-content {
+	background: none;
+	padding: 0 !important;
+}
+.customtabs_model .errorText ul {
+	padding-left: 30px;
+}
+.customtabs_model .errorText ul li {
+	list-style: disc;    color: grey;
+}
+#progressChart .highcharts-container {
+	width: 100% !important;}

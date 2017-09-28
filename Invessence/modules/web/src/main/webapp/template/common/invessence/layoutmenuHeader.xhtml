@@ -95,49 +95,63 @@
     </script>
 
     <script>
-        $(document).ready(function() {
-            $(".nav li a").each(function() {
-                if ($(this).next().length > 0) {
-                    $(this).addClass("parent");
-                };
-            })
+        $(document).ready(function ()
+                          {
+                              $(".nav li a").each(function ()
+                                                  {
+                                                      if ($(this).next().length > 0)
+                                                      {
+                                                          $(this).addClass("parent");
+                                                      }
+                                                      ;
+                                                  })
 
-            $(".toggleMenu").click(function(e) {
-                e.preventDefault();
-                $(this).toggleClass("active");
-                $(".nav").toggle();
-            });
-            adjustMenu();
-        })
+                              $(".toggleMenu").click(function (e)
+                                                     {
+                                                         e.preventDefault();
+                                                         $(this).toggleClass("active");
+                                                         $(".nav").toggle();
+                                                     });
+                              adjustMenu();
+                          })
 
-        $(window).bind('resize orientationchange', function() {
+        $(window).bind('resize orientationchange', function ()
+        {
             ww = document.body.clientWidth;
             adjustMenu();
         });
 
-        var adjustMenu = function() {
+        var adjustMenu = function ()
+        {
             var ww = document.body.clientWidth;
-            if (768 > ww) {
+            if (768 > ww)
+            {
                 $(".toggleMenu").css("display", "inline-block");
-                if (!$(".toggleMenu").hasClass("active")) {
+                if (!$(".toggleMenu").hasClass("active"))
+                {
                     $(".nav").hide();
-                } else {
+                }
+                else
+                {
                     $(".nav").show();
                 }
 
                 $(".nav li").unbind('mouseenter mouseleave click');
-                $(".nav li a.parent").unbind('click').bind('click', function(e) {
+                $(".nav li a.parent").unbind('click').bind('click', function (e)
+                {
                     // must be attached to anchor element to prevent bubbling
                     e.preventDefault();
                     $(this).parent("li").toggleClass("hover");
                 });
             }
-            else if (ww >= 768) {
+            else if (ww >= 768)
+            {
                 $(".toggleMenu").css("display", "none");
                 $(".nav").show();
                 $(".nav li").removeClass("hover");
                 $(".nav li a").unbind('click');
-                $(".nav li").unbind('click').bind('click', function() {
+                $(".nav li").unbind('click').bind('click', function ()
+                {
                     // must be attached to li so that mouseleave is not triggered when hover over submenu
 
                     $(this).toggleClass('hover').siblings().removeClass('hover');
@@ -147,35 +161,32 @@
 
             }
         }
-</script>
-
-
-
+    </script>
 
 
     <div class="Wid60 Fright">
 
 
+        <a class="toggleMenu" href="#">Menu</a>
+        <ul class="nav" id="menuMainNavigation">
+            <li class="test" id="dashboardMenuHighlight">
+                <a href="#{uiLayout.defaultHome}" id="menudashboardbtn">Dashboard</a>
 
-            <a class="toggleMenu" href="#">Menu</a>
-            <ul class="nav" id="menuMainNavigation" >
-                <li  class="test" id="dashboardMenuHighlight">
-                    <a href="#{uiLayout.defaultHome}" id="menudashboardbtn">Dashboard</a>
+            </li>
 
-                </li>
-				
-                <ui:fragment rendered="#{webutil.hasMenu('Account') and webutil.hasAccess('User')}">
-                <li  id="newaccountMenuHighlight">
+            <ui:fragment rendered="#{webutil.hasMenu('Account') and webutil.hasAccess('User')}">
+                <li id="newaccountMenuHighlight">
                     <p:commandLink rendered="true" id="menunewacctbtn"
                                    actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?app=N')}">
                         <h:outputText value="New Account"/>
                     </p:commandLink>
                 </li>
 
-                </ui:fragment>
+            </ui:fragment>
 
-                <ui:fragment rendered="#{(webutil.hasSubMenu('Operations')) and ((webutil.hasAccess('Advisor') and webutil.hasRole('Operations')) or webutil.hasAccess('SuperAdmin'))}">
-                <li  class="">
+            <ui:fragment
+                    rendered="#{(webutil.hasSubMenu('Operations')) and ((webutil.hasAccess('Advisor') and webutil.hasRole('Operations')) or webutil.hasAccess('SuperAdmin'))}">
+                <li class="">
                     <a href="#" class="submenuOperBtn" id="menuOperbtn">Operations</a>
                     <ul>
                         <ui:fragment rendered="#{webutil.hasMenu('Trade','Operations')}">
@@ -191,33 +202,35 @@
                         </ui:fragment>
                     </ul>
                 </li>
-                </ui:fragment>
+            </ui:fragment>
 
-                <ui:fragment rendered="#{(webutil.hasSubMenu('CRM')) and ((webutil.hasAccess('Advisor') and webutil.hasRole('CRM')) or webutil.hasAccess('SuperAdmin'))}">
-                    <li  class="">
-                        <a href="#" class="submenuCRMBtn" id="menuCRMbtn">CRM</a>
-                        <ul>
-                            <ui:fragment rendered="#{webutil.hasMenu('RedTail','CRM')}">
-                                <li id="redTailMenu">
-                                    <p:commandLink rendered="true" id="menucrmRedTailbtn"
-                                                   actionListener="#{crmBean.startup()}">
-                                        <h:outputText value="RedTail"/>
-                                    </p:commandLink>
-                                </li>
-                            </ui:fragment>
-                            <ui:fragment rendered="#{webutil.hasMenu('SalesFource','CRM')}">
-                                <div class="menuSeperator"></div>
-                                <li id="modelMenuHighlight">
-                                    <a href="/pages/advisor/assetworkflownew.xhtml" id="menutradebtn">SalesFource</a>
-                                </li>
-                            </ui:fragment>
-                        </ul>
-                    </li>
-                </ui:fragment>
+            <ui:fragment
+                    rendered="#{(webutil.hasSubMenu('CRM')) and ((webutil.hasAccess('Advisor') and webutil.hasRole('CRM')) or webutil.hasAccess('SuperAdmin'))}">
+                <li class="">
+                    <a href="#" class="submenuCRMBtn" id="menuCRMbtn">CRM</a>
+                    <ul>
+                        <ui:fragment rendered="#{webutil.hasMenu('RedTail','CRM')}">
+                            <li id="redTailMenu">
+                                <p:commandLink rendered="true" id="menucrmRedTailbtn"
+                                               actionListener="#{crmBean.startup()}">
+                                    <h:outputText value="RedTail"/>
+                                </p:commandLink>
+                            </li>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{webutil.hasMenu('SalesFource','CRM')}">
+                            <div class="menuSeperator"></div>
+                            <li id="modelMenuHighlight">
+                                <a href="/pages/advisor/assetworkflownew.xhtml" id="menutradebtn">SalesFource</a>
+                            </li>
+                        </ui:fragment>
+                    </ul>
+                </li>
+            </ui:fragment>
 
 
-                <ui:fragment rendered="#{(webutil.hasSubMenu('Admin')) and ((webutil.hasAccess('Advisor') and webutil.hasRole('Admin')) or webutil.hasAccess('SuperAdmin'))}">
-                <li  class="">
+            <ui:fragment
+                    rendered="#{(webutil.hasSubMenu('Admin')) and ((webutil.hasAccess('Advisor') and webutil.hasRole('Admin')) or webutil.hasAccess('SuperAdmin'))}">
+                <li class="">
                     <a href="#" class="submenuAdminBtn" id="menuAdminbtn">Admin</a>
                     <ul>
                         <ui:fragment rendered="#{webutil.hasMenu('Login Management','Admin')}">
@@ -241,10 +254,10 @@
                         </ui:fragment>
                     </ul>
                 </li>
-                </ui:fragment>
+            </ui:fragment>
 
-                <ui:fragment rendered="#{webutil.hasAccess('SuperAdmin')}">
-                <li  class="">
+            <ui:fragment rendered="#{webutil.hasAccess('SuperAdmin')}">
+                <li class="">
                     <a href="#" class="submenuSABtn" id="menuSuperAdminbtn">Product Admin</a>
                     <ul>
                         <li id="filePrcsMenuHighlight">
@@ -256,82 +269,88 @@
                         </li>
                     </ul>
                 </li>
-                </ui:fragment>
+            </ui:fragment>
 
 
-                <ui:fragment rendered="#{webutil.hasMenu('Aggregation') and webutil.hasAccess('User')}">
-                <li  class="">
+            <ui:fragment rendered="#{webutil.hasMenu('Aggregation') and webutil.hasAccess('User')}">
+                <li class="">
                     <p:commandLink rendered="true" id="menuaggrbtn"
                                    actionListener="#{aggrBean.startup('D')}">
                         <h:outputText value="Aggregation"/>
                     </p:commandLink>
 
                 </li>
-                </ui:fragment>
+            </ui:fragment>
 
-                <ui:fragment rendered="#{webutil.hasMenu('Reports') and webutil.hasAccess('User')}">
+            <ui:fragment rendered="#{webutil.hasMenu('Reports') and webutil.hasAccess('User')}">
                 <li>
                     <p:commandLink rendered="true" id="menureportsbtn"
                                    actionListener="#{uiLayout.doMenuAction('consumer', 'creportsN.xhtml')}">
                         <h:outputText value="Reports"/>
                     </p:commandLink>
                 </li>
-                </ui:fragment>
+            </ui:fragment>
 
-                <ui:fragment rendered="#{webutil.hasAccess('User')}">
-                    <li class="test" id="dashboardMenuHighlight">
+            <ui:fragment rendered="#{webutil.hasAccess('User')}">
+                <li class="test" id="dashboardMenuHighlight">
+                    <h:form class="alert_menu" id="frmNtfvtnPnl">
+                        <p:outputPanel id="NtfvtnOutPnl">
                         <ui:fragment rendered='#{cmnBn.getMessage("Message") > 0}'>
-                            <div class="shake shake-constant">
-                                <p:graphicImage name="images/alert-bell.png" library="#{uiLayout.webProfile.cssdir}"/>
-                            </div>
-                            <span class="alert_count">#{cmnBn.getMessage("Message")}</span>
-                            <h:form class="alert_menu">
-                                <p:commandButton id="imageBtn" value="Alert" type="button"/>
-                                <p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade" class="alert_overlay_panel">
-                                    <div class="outer_panel_block">
-                                        <p:repeat value="#{cmnBn.notificationDataList}" var="notfBn">
-                                            <div class="panel_block">
-                                                <h:outputText value="#{notfBn.message}" escape="false" class="first_div"/>
-                                                <ui:fragment rendered='#{!notfBn.linkAvailable}'>
+                        <div class="shake shake-constant">
+                            <p:graphicImage name="images/alert-bell.png" library="#{uiLayout.webProfile.cssdir}"/>
+                        </div>
+                        <span class="alert_count">#{cmnBn.getMessage("Message")}</span>
+                        <p:commandButton id="imageBtn" value="Alert" type="button"/>
+                        <p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade" class="alert_overlay_panel">
+                            <div class="outer_panel_block">
+                                <p:repeat value="#{cmnBn.notificationDataList}" var="notfBn">
+                                    <div class="panel_block">
+                                        <h:outputText value="#{notfBn.message}" escape="false" class="first_div"/>
+                                        <ui:fragment rendered='#{!notfBn.linkAvailable}'>
 
-                                                    <span class="alert_close">X</span>
-                                                    <span class="alert_date">19/07/02017</span>
-                                                </ui:fragment>
-                                                <ui:fragment rendered='#{notfBn.linkAvailable}'>
-                                                    <a href="http://localhost:8086/pages/consumer/uob/cadd.xhtml?app=N"><h:outputText value="Click"/></a>
-                                                </ui:fragment>
-                                            </div>
-                                        </p:repeat>
+                                                <span>
+                                                    <p:commandLink rendered="true" id="rmvNotfctn"
+                                                                   actionListener="#{cmnBn.doAction(notfBn.messageid)}" update="@form">
+                                                        X
+                                                    </p:commandLink>
+                                                    </span>
+                                            <span class="alert_date">19/07/02017</span>
+                                        </ui:fragment>
+                                        <ui:fragment rendered='#{notfBn.linkAvailable}'>
+                                            <a href="http://localhost:8086/pages/consumer/uob/cadd.xhtml?app=N"><h:outputText value="Click"/></a>
+                                        </ui:fragment>
                                     </div>
-                                    <p:commandLink rendered="true" id="menureportsbtn"
-                                                   actionListener="#{uiLayout.doMenuAction('consumer', 'alert_notification.xhtml')}">
-                                        <div class="bottom_block"> <h:outputText value="View all alerts"/>
-                                        </div>
-                                    </p:commandLink>
-
-                                </p:overlayPanel>
-                            </h:form>
+                                </p:repeat>
+                            </div>
+                            <p:commandLink rendered="true" id="menureportsbtn"
+                                           actionListener="#{uiLayout.doMenuAction('consumer', 'alert_notification.xhtml')}">
+                                <div class="bottom_block"><h:outputText value="View all alerts"/>
+                                </div>
+                            </p:commandLink>
+                        </p:overlayPanel>
                         </ui:fragment>
-                    </li>
-                </ui:fragment>
-
-                <li id="">
-                    <a href="#" class="" id="">My Profile</a>
-
-                    <ul>
-                        <li><a href="/pages/common/myprofile.xhtml">Setting</a></li>
-                        <div class="menuSeperator"></div>
-                        <li>
-                            <h:form>
-                                <h:commandLink id="menulogoutBtn" actionListener="#{sessionControl.logout}" styleClass="idLogoutCommon">
-                                    <h:outputText value="Logout"/>
-                                </h:commandLink>
-                            </h:form>
-                        </li>
-                    </ul>
+                        </p:outputPanel>
+                    </h:form>
                 </li>
+            </ui:fragment>
 
-            </ul>
+            <li id="">
+                <a href="#" class="" id="">My Profile</a>
+
+                <ul>
+                    <li><a href="/pages/common/myprofile.xhtml">Setting</a></li>
+                    <div class="menuSeperator"></div>
+                    <li>
+                        <h:form>
+                            <h:commandLink id="menulogoutBtn" actionListener="#{sessionControl.logout}" styleClass="idLogoutCommon">
+                                <h:outputText value="Logout"/>
+                            </h:commandLink>
+                        </h:form>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
 
 
     </div>
