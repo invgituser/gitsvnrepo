@@ -128,9 +128,9 @@ public class WebUtil implements Serializable
       }
       else
       {
-         if (uri.equalsIgnoreCase("localhost")) {
+         //if (uri.equalsIgnoreCase("localhost")) {
             uri += ':' + port;
-         }
+         //}
          return uri;
       }
    }
@@ -416,6 +416,14 @@ public class WebUtil implements Serializable
          {
             return null;
          }
+//         if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USER_INFO)==null){
+//            return null;
+//
+//         }else{
+//            return (UserInfoData)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USER_INFO);
+//         }
+
+
 
       }
       catch (Exception ex)

@@ -126,7 +126,7 @@
 
    <session-config>
       <!-- Session idle timeout in Minutes. -->
-	  <session-timeout>10</session-timeout>
+	  <session-timeout>30</session-timeout>
 	</session-config>
 
    <error-page>

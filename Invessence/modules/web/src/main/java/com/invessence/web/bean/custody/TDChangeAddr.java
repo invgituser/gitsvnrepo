@@ -47,6 +47,8 @@ public class TDChangeAddr extends BaseTD
 
             getTdMasterData().getCustomerData().setAcctnum(getLongBeanacctnum());
             getTdMasterData().getCustomerData().setLogonid(getWebutil().getLogonid());
+            getTdMasterData().getCustomerData().setAdvisor(getWebutil().getUserInfoData().getAdvisor());
+            getTdMasterData().getCustomerData().setRep(getWebutil().getUserInfoData().getRep());
 
             loadCustomerProfileData();
             loadTDAccountDetails();
