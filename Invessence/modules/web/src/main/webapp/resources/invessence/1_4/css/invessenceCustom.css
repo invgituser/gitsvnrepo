@@ -140,9 +140,9 @@ img.riskImage:hover {
     .BenBttonBlock {
         width: 108% !important;
     }
-    
-    
-     /** 19/9/2017**/
+
+
+    /** 19/9/2017**/
     li .alert_menu button{margin: 0 20px;}
     li .shake.shake-constant{top:10px;right:10px;}
     li .alert_count{right:0;top:-5px;}
@@ -159,8 +159,8 @@ img.riskImage:hover {
 
 
     /** 26/09/2017 ***/
-    
-    
+
+
 }
 
 /*Prakash - Advisor Page*/
@@ -218,9 +218,9 @@ img.riskImage:hover {
     .MiddleInitialWidth, .MiddleInitialWidthB {
         width: 20% !important;
     }
-    
-    
-         /** 19/9/2017**/
+
+
+    /** 19/9/2017**/
     li .alert_menu button{margin: 0 20px;}
     li .shake.shake-constant{top:10px;right:10px;}
     li .alert_count{right:0;top:-5px;}
@@ -232,9 +232,9 @@ img.riskImage:hover {
     .leftAccountInfoBlock {    display: none;}
     .Container100 .dashboard_right_panel { width: 97% !important;}
     .acc_block_left .userPanelv3d {  height: 100%;}
-    
-    
-    
+
+
+
 }
 
 @media (min-width: 900px) and (max-width: 1100px) {
@@ -425,8 +425,8 @@ img.riskImage:hover {
     .tcmPanel-UI > .ui-panel-content {
         margin-top: 0px !important;
     }
-   
-    
+
+
 }
 
 /**/
@@ -4603,71 +4603,71 @@ main.customtabs {
 }
 /*Commented By Sagar*/
 /*.bgcontain{*/
-    /*background: #f7f7f7 !important;*/
-    /*padding:10px 10px 10px 10px !important;*/
+/*background: #f7f7f7 !important;*/
+/*padding:10px 10px 10px 10px !important;*/
 /*}*/
 
 /*.bgcontain .awBlock .titleContentPanel .contentSecond .ui-accordion{*/
-    /*background: #f7f7f7 !important;*/
+/*background: #f7f7f7 !important;*/
 /*}*/
 
 /*.ui-selectonemenu {*/
-    /*float:right !important;*/
-    /*margin-top:-6px !important;*/
-    /*width:170px !important;*/
-    /*margin-left:5px !important;*/
+/*float:right !important;*/
+/*margin-top:-6px !important;*/
+/*width:170px !important;*/
+/*margin-left:5px !important;*/
 /*}*/
 
 /*.ui-selectoneradio{*/
-    /*float:right !important;*/
-    /*margin: -17px 0 0 5px !important;*/
+/*float:right !important;*/
+/*margin: -17px 0 0 5px !important;*/
 /*}*/
 
 /*.uploadbuttons .ui-fileupload .ui-fileupload-buttonbar button.ui-fileupload-cancel{*/
-    /*display: none !important;*/
+/*display: none !important;*/
 /*}*/
 /*.uploadtable, .validtable{*/
-    /*width:100% !important;*/
-    /*position: relative !important;*/
-    /*text-align: center !important;*/
-    /*margin: 0 auto !important;*/
-    /*float: left !important;*/
-    /*display: block !important;*/
+/*width:100% !important;*/
+/*position: relative !important;*/
+/*text-align: center !important;*/
+/*margin: 0 auto !important;*/
+/*float: left !important;*/
+/*display: block !important;*/
 /*}*/
 /*.uploadtable .ui-datatable, .validtable .ui-datatable{*/
 /*width:100% !important;*/
-    /*margin: 0 auto !important;*/
-    /*max-width: 900px !important;*/
+/*margin: 0 auto !important;*/
+/*max-width: 900px !important;*/
 /*}*/
 
 /*.uploadradiobutton .ui-outputlabel table.ui-selectoneradio tbody tr td label{*/
-    /*padding:15px 26px 15px 0px !important;*/
+/*padding:15px 26px 15px 0px !important;*/
 /*}*/
 
 /*.uploadradiobutton label input{*/
-    /*float:right;*/
-    /*margin-top: -7px !important;*/
+/*float:right;*/
+/*margin-top: -7px !important;*/
 /*}*/
 
 /*.ui-slider-vertical{*/
-    /*height:94% !important;*/
-    /*margin-top:0px !important;*/
+/*height:94% !important;*/
+/*margin-top:0px !important;*/
 /*}*/
 /*Commented By Sagar*/
 
 /*.ui-slider-vertical .ui-slider-handle{*/
-    /*left:-13px !important;*/
+/*left:-13px !important;*/
 /*}*/
 
 /*.ui-slider-vertical{*/
-    /*background: none !important;*/
+/*background: none !important;*/
 /*}*/
 
 /*.goalselectinvest {*/
-    /*width: 100% !important;*/
-    /*position: relative !important;*/
-    /*float: left !important;*/
-    /*margin:0 !important;*/
+/*width: 100% !important;*/
+/*position: relative !important;*/
+/*float: left !important;*/
+/*margin:0 !important;*/
 /*}*/
 /*#ceForm:rTabView:uobddrcalc,#ceForm:rTabView:uobddsoi{
     margin: 0 !important;
@@ -4680,14 +4680,14 @@ main.customtabs {
 }*/
 
 /*.Wid100{*/
-    /*position:relative;*/
-    /*float: left;*/
+/*position:relative;*/
+/*float: left;*/
 
 /*}*/
 
 /*.Goalchoose,.dependentsradio{*/
-    /*margin: 0 !important;*/
-    /*float: left !important;*/
+/*margin: 0 !important;*/
+/*float: left !important;*/
 /*}*//*Commented By Sagar*/
 @media screen and (max-width: 650px) {
     .customtabs label {
@@ -5123,7 +5123,7 @@ main.customtabs {
 
 .customAcco h3.ui-state-active {
     background: transparent;
-   /*  background-color: #009abb !important; */
+    /*  background-color: #009abb !important; */
     color: #666;
     font-size: 18px !important;
 }
@@ -5387,8 +5387,8 @@ button.closebuttonSag > span.ui-button-text {display: none;}
 
 .customTable_reports {border:0px !important;
     border-color: transparent !important;
-background-color: transparent !important;
-   }
+    background-color: transparent !important;
+}
 
 .customTable_reports th {    text-align: left !important;
     background-color: #377786 !important;
@@ -5402,11 +5402,11 @@ background-color: transparent !important;
 
 
 .userHeadingUobDash {
-font-size: 18px;
-background-color: #eee;
-padding: 10px;
-color: #777777;
-font-weight: 100;
+    font-size: 18px;
+    background-color: #eee;
+    padding: 10px;
+    color: #777777;
+    font-weight: 100;
 }
 
 .box h1{
@@ -5474,11 +5474,11 @@ font-weight: 100;
 
 .progressbarsag {
 
-height: 50px;
-position: absolute;
-width: 70%;
-margin: -50px auto;
-margin-left: 15%;
+    height: 50px;
+    position: absolute;
+    width: 70%;
+    margin: -50px auto;
+    margin-left: 15%;
 }
 
 
@@ -5777,7 +5777,7 @@ input#tab2 + label:after, input#tab3 + label:after, input#tab4 + label:after {
 /* 13-9-17*/
 
 .styled-input input:focus ~ label, .styled-input input:not(:placeholder-shown):valid ~ label  {
-font-size: 0.75em;
+    font-size: 0.75em;
     color:#a41f21;
     top: -12px;
     -webkit-transition: all 0.125s ease;
@@ -5789,7 +5789,7 @@ font-size: 0.75em;
 }
 
 .styled-input {
-      float: left;
+    float: left;
     width: 49%;
     margin: 5px 0px;
     position: relative;
@@ -5798,39 +5798,39 @@ font-size: 0.75em;
 .f-name{margin-left: 6px;}
 .wide-input{width:100%;}
 .styled-input label {
-  color: #999;
-  padding: 1rem;
-  position: absolute;
-  top: 0;
-  left: 0;
-  -webkit-transition: all 0.25s ease;
-  transition: all 0.25s ease;
-  pointer-events: none;
-  opacity:0;
+    color: #999;
+    padding: 1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+    pointer-events: none;
+    opacity:0;
 }
 
 .styled-input.wide { width: 100%; }
 
 .styled-input input,
 .styled-input textarea {
-      padding: 15px !important;    
+    padding: 15px !important;
     width: 100%;
     font-size: 1rem;
-        border: 1px solid #ecf0f1;
+    border: 1px solid #ecf0f1;
     box-shadow: none;
 }
 
 .styled-input input ~ span,
 .styled-input textarea ~ span {
-  display: block;
-  width: 0;
-  height: 3px;
-  background: #a41f21;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  -webkit-transition: all 0.125s ease;
-  transition: all 0.125s ease;
+    display: block;
+    width: 0;
+    height: 3px;
+    background: #a41f21;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    -webkit-transition: all 0.125s ease;
+    transition: all 0.125s ease;
 }
 
 .styled-input input:focus,
@@ -5838,14 +5838,14 @@ font-size: 0.75em;
 
 .styled-input input:focus ~ span,
 .styled-input textarea:focus ~ span {
-  width: 100%;
-  -webkit-transition: all 0.075s ease;
-  transition: all 0.075s ease;
+    width: 100%;
+    -webkit-transition: all 0.075s ease;
+    transition: all 0.075s ease;
 }
 
 .styled-input textarea {
-  width: 100%;
-  min-height: 15em;
+    width: 100%;
+    min-height: 15em;
 }
 /** shake bell **/
 .shake,.shake-little,.shake-slow,.shake-hard,.shake-horizontal,.shake-vertical,.shake-rotate,.shake-opacity,.shake-crazy,.shake-chunk{display:inline-block;transform-origin:center center}.shake-freeze,.shake-constant.shake-constant--hover:hover,.shake-trigger:hover .shake-constant.shake-constant--hover{animation-play-state:paused}.shake-freeze:hover,.shake-trigger:hover .shake-freeze,.shake:hover,.shake-trigger:hover .shake,.shake-little:hover,.shake-trigger:hover .shake-little,.shake-slow:hover,.shake-trigger:hover .shake-slow,.shake-hard:hover,.shake-trigger:hover .shake-hard,.shake-horizontal:hover,.shake-trigger:hover .shake-horizontal,.shake-vertical:hover,.shake-trigger:hover .shake-vertical,.shake-rotate:hover,.shake-trigger:hover .shake-rotate,.shake-opacity:hover,.shake-trigger:hover .shake-opacity,.shake-crazy:hover,.shake-trigger:hover .shake-crazy,.shake-chunk:hover,.shake-trigger:hover .shake-chunk{animation-play-state:running}@keyframes shake{2%{transform:translate(.5px, 1.5px) rotate(1.5deg)}4%{transform:translate(.5px, 1.5px) rotate(1.5deg)}6%{transform:translate(-1.5px, -1.5px) rotate(-.5deg)}8%{transform:translate(.5px, -.5px) rotate(.5deg)}10%{transform:translate(.5px, 2.5px) rotate(.5deg)}12%{transform:translate(2.5px, 1.5px) rotate(-.5deg)}14%{transform:translate(-1.5px, 2.5px) rotate(-.5deg)}16%{transform:translate(-.5px, .5px) rotate(.5deg)}18%{transform:translate(.5px, 2.5px) rotate(1.5deg)}20%{transform:translate(-.5px, -.5px) rotate(.5deg)}22%{transform:translate(2.5px, .5px) rotate(-.5deg)}24%{transform:translate(-1.5px, -1.5px) rotate(.5deg)}26%{transform:translate(2.5px, -.5px) rotate(-.5deg)}28%{transform:translate(1.5px, -.5px) rotate(.5deg)}30%{transform:translate(.5px, .5px) rotate(-.5deg)}32%{transform:translate(-1.5px, .5px) rotate(-.5deg)}34%{transform:translate(.5px, 2.5px) rotate(-.5deg)}36%{transform:translate(-.5px, -.5px) rotate(1.5deg)}38%{transform:translate(-1.5px, -1.5px) rotate(.5deg)}40%{transform:translate(-1.5px, 1.5px) rotate(1.5deg)}42%{transform:translate(.5px, -1.5px) rotate(1.5deg)}44%{transform:translate(.5px, .5px) rotate(.5deg)}46%{transform:translate(-1.5px, -1.5px) rotate(1.5deg)}48%{transform:translate(.5px, -1.5px) rotate(.5deg)}50%{transform:translate(2.5px, .5px) rotate(-.5deg)}52%{transform:translate(-.5px, 2.5px) rotate(-.5deg)}54%{transform:translate(.5px, .5px) rotate(.5deg)}56%{transform:translate(-1.5px, 2.5px) rotate(.5deg)}58%{transform:translate(2.5px, .5px) rotate(.5deg)}60%{transform:translate(-1.5px, 2.5px) rotate(.5deg)}62%{transform:translate(1.5px, -.5px) rotate(-.5deg)}64%{transform:translate(1.5px, -1.5px) rotate(1.5deg)}66%{transform:translate(1.5px, -1.5px) rotate(-.5deg)}68%{transform:translate(.5px, 2.5px) rotate(-.5deg)}70%{transform:translate(1.5px, -1.5px) rotate(1.5deg)}72%{transform:translate(1.5px, 1.5px) rotate(-.5deg)}74%{transform:translate(-.5px, 1.5px) rotate(1.5deg)}76%{transform:translate(1.5px, 2.5px) rotate(.5deg)}78%{transform:translate(-.5px, .5px) rotate(.5deg)}80%{transform:translate(-1.5px, 2.5px) rotate(.5deg)}82%{transform:translate(.5px, 2.5px) rotate(-.5deg)}84%{transform:translate(2.5px, -.5px) rotate(.5deg)}86%{transform:translate(1.5px, .5px) rotate(.5deg)}88%{transform:translate(-.5px, -1.5px) rotate(-.5deg)}90%{transform:translate(1.5px, -.5px) rotate(1.5deg)}92%{transform:translate(.5px, 2.5px) rotate(.5deg)}94%{transform:translate(2.5px, .5px) rotate(-.5deg)}96%{transform:translate(.5px, 2.5px) rotate(.5deg)}98%{transform:translate(2.5px, -1.5px) rotate(1.5deg)}0%,100%{transform:translate(0, 0) rotate(0)}}.shake:hover,.shake-trigger:hover .shake,.shake.shake-freeze,.shake.shake-constant{animation-name:shake;animation-duration:100ms;animation-timing-function:ease-in-out;animation-iteration-count:infinite}@keyframes shake-little{2%{transform:translate(1px, 1px) rotate(.5deg)}4%{transform:translate(1px, 1px) rotate(.5deg)}6%{transform:translate(1px, 1px) rotate(.5deg)}8%{transform:translate(1px, 0px) rotate(.5deg)}10%{transform:translate(1px, 1px) rotate(.5deg)}12%{transform:translate(1px, 1px) rotate(.5deg)}14%{transform:translate(0px, 0px) rotate(.5deg)}16%{transform:translate(1px, 1px) rotate(.5deg)}18%{transform:translate(0px, 1px) rotate(.5deg)}20%{transform:translate(0px, 0px) rotate(.5deg)}22%{transform:translate(1px, 1px) rotate(.5deg)}24%{transform:translate(0px, 1px) rotate(.5deg)}26%{transform:translate(0px, 1px) rotate(.5deg)}28%{transform:translate(0px, 1px) rotate(.5deg)}30%{transform:translate(0px, 0px) rotate(.5deg)}32%{transform:translate(1px, 1px) rotate(.5deg)}34%{transform:translate(0px, 0px) rotate(.5deg)}36%{transform:translate(0px, 0px) rotate(.5deg)}38%{transform:translate(1px, 1px) rotate(.5deg)}40%{transform:translate(0px, 1px) rotate(.5deg)}42%{transform:translate(0px, 0px) rotate(.5deg)}44%{transform:translate(1px, 0px) rotate(.5deg)}46%{transform:translate(0px, 0px) rotate(.5deg)}48%{transform:translate(0px, 1px) rotate(.5deg)}50%{transform:translate(0px, 1px) rotate(.5deg)}52%{transform:translate(0px, 0px) rotate(.5deg)}54%{transform:translate(0px, 1px) rotate(.5deg)}56%{transform:translate(1px, 0px) rotate(.5deg)}58%{transform:translate(1px, 0px) rotate(.5deg)}60%{transform:translate(1px, 1px) rotate(.5deg)}62%{transform:translate(0px, 1px) rotate(.5deg)}64%{transform:translate(0px, 0px) rotate(.5deg)}66%{transform:translate(0px, 1px) rotate(.5deg)}68%{transform:translate(0px, 1px) rotate(.5deg)}70%{transform:translate(0px, 1px) rotate(.5deg)}72%{transform:translate(1px, 0px) rotate(.5deg)}74%{transform:translate(0px, 1px) rotate(.5deg)}76%{transform:translate(0px, 1px) rotate(.5deg)}78%{transform:translate(0px, 1px) rotate(.5deg)}80%{transform:translate(0px, 0px) rotate(.5deg)}82%{transform:translate(1px, 0px) rotate(.5deg)}84%{transform:translate(1px, 0px) rotate(.5deg)}86%{transform:translate(0px, 0px) rotate(.5deg)}88%{transform:translate(0px, 0px) rotate(.5deg)}90%{transform:translate(1px, 0px) rotate(.5deg)}92%{transform:translate(0px, 1px) rotate(.5deg)}94%{transform:translate(1px, 1px) rotate(.5deg)}96%{transform:translate(1px, 0px) rotate(.5deg)}98%{transform:translate(1px, 0px) rotate(.5deg)}0%,100%{transform:translate(0, 0) rotate(0)}}.shake-little:hover,.shake-trigger:hover .shake-little,.shake-little.shake-freeze,.shake-little.shake-constant{animation-name:shake-little;animation-duration:100ms;animation-timing-function:ease-in-out;animation-iteration-count:infinite}@keyframes shake-slow{2%{transform:translate(4px, -9px) rotate(-2.5deg)}4%{transform:translate(6px, 8px) rotate(2.5deg)}6%{transform:translate(-5px, 6px) rotate(-.5deg)}8%{transform:translate(-1px, 1px) rotate(-.5deg)}10%{transform:translate(5px, 8px) rotate(2.5deg)}12%{transform:translate(-7px, 0px) rotate(2.5deg)}14%{transform:translate(6px, -4px) rotate(1.5deg)}16%{transform:translate(-2px, 6px) rotate(3.5deg)}18%{transform:translate(0px, 10px) rotate(.5deg)}20%{transform:translate(9px, 1px) rotate(1.5deg)}22%{transform:translate(5px, 4px) rotate(2.5deg)}24%{transform:translate(-1px, -9px) rotate(-2.5deg)}26%{transform:translate(-1px, 3px) rotate(.5deg)}28%{transform:translate(8px, -3px) rotate(-2.5deg)}30%{transform:translate(4px, 10px) rotate(.5deg)}32%{transform:translate(7px, 1px) rotate(2.5deg)}34%{transform:translate(7px, -4px) rotate(-1.5deg)}36%{transform:translate(-4px, 9px) rotate(-.5deg)}38%{transform:translate(8px, 10px) rotate(1.5deg)}40%{transform:translate(7px, 9px) rotate(3.5deg)}42%{transform:translate(-7px, -5px) rotate(1.5deg)}44%{transform:translate(5px, 3px) rotate(-1.5deg)}46%{transform:translate(-7px, 0px) rotate(-.5deg)}48%{transform:translate(-6px, -9px) rotate(-1.5deg)}50%{transform:translate(-9px, -4px) rotate(-2.5deg)}52%{transform:translate(8px, -1px) rotate(3.5deg)}54%{transform:translate(-1px, 2px) rotate(3.5deg)}56%{transform:translate(1px, -5px) rotate(-2.5deg)}58%{transform:translate(-3px, -5px) rotate(-1.5deg)}60%{transform:translate(-3px, 3px) rotate(-1.5deg)}62%{transform:translate(9px, 3px) rotate(1.5deg)}64%{transform:translate(-3px, 4px) rotate(3.5deg)}66%{transform:translate(0px, 10px) rotate(2.5deg)}68%{transform:translate(-5px, 6px) rotate(-.5deg)}70%{transform:translate(-8px, -4px) rotate(-.5deg)}72%{transform:translate(-9px, 2px) rotate(1.5deg)}74%{transform:translate(0px, 3px) rotate(1.5deg)}76%{transform:translate(4px, 6px) rotate(-.5deg)}78%{transform:translate(-2px, 1px) rotate(.5deg)}80%{transform:translate(-1px, 2px) rotate(-2.5deg)}82%{transform:translate(-9px, 2px) rotate(.5deg)}84%{transform:translate(-8px, -7px) rotate(3.5deg)}86%{transform:translate(5px, -5px) rotate(.5deg)}88%{transform:translate(-4px, 1px) rotate(3.5deg)}90%{transform:translate(0px, 0px) rotate(3.5deg)}92%{transform:translate(5px, -8px) rotate(3.5deg)}94%{transform:translate(-3px, -2px) rotate(-.5deg)}96%{transform:translate(8px, -5px) rotate(-1.5deg)}98%{transform:translate(-1px, 9px) rotate(-1.5deg)}0%,100%{transform:translate(0, 0) rotate(0)}}.shake-slow:hover,.shake-trigger:hover .shake-slow,.shake-slow.shake-freeze,.shake-slow.shake-constant{animation-name:shake-slow;animation-duration:5s;animation-timing-function:ease-in-out;animation-iteration-count:infinite}@keyframes shake-hard{2%{transform:translate(2px, 2px) rotate(1.5deg)}4%{transform:translate(-4px, 9px) rotate(-1.5deg)}6%{transform:translate(-5px, 6px) rotate(3.5deg)}8%{transform:translate(-3px, -3px) rotate(3.5deg)}10%{transform:translate(-5px, -6px) rotate(.5deg)}12%{transform:translate(-3px, -9px) rotate(.5deg)}14%{transform:translate(-7px, -8px) rotate(-1.5deg)}16%{transform:translate(-4px, 6px) rotate(-2.5deg)}18%{transform:translate(-5px, 10px) rotate(-2.5deg)}20%{transform:translate(4px, -8px) rotate(-1.5deg)}22%{transform:translate(1px, -2px) rotate(2.5deg)}24%{transform:translate(8px, -3px) rotate(.5deg)}26%{transform:translate(-8px, 8px) rotate(-.5deg)}28%{transform:translate(3px, -2px) rotate(-1.5deg)}30%{transform:translate(1px, -9px) rotate(.5deg)}32%{transform:translate(7px, 1px) rotate(.5deg)}34%{transform:translate(-1px, -5px) rotate(.5deg)}36%{transform:translate(3px, 10px) rotate(2.5deg)}38%{transform:translate(-8px, -7px) rotate(2.5deg)}40%{transform:translate(5px, 7px) rotate(-1.5deg)}42%{transform:translate(0px, 10px) rotate(-2.5deg)}44%{transform:translate(-2px, 1px) rotate(-1.5deg)}46%{transform:translate(5px, 2px) rotate(-1.5deg)}48%{transform:translate(-6px, -8px) rotate(.5deg)}50%{transform:translate(-9px, 1px) rotate(.5deg)}52%{transform:translate(1px, 5px) rotate(.5deg)}54%{transform:translate(-1px, 0px) rotate(-.5deg)}56%{transform:translate(-8px, 7px) rotate(1.5deg)}58%{transform:translate(10px, 6px) rotate(.5deg)}60%{transform:translate(-4px, 3px) rotate(-2.5deg)}62%{transform:translate(-7px, 9px) rotate(.5deg)}64%{transform:translate(-1px, -1px) rotate(-2.5deg)}66%{transform:translate(-6px, -8px) rotate(-1.5deg)}68%{transform:translate(-6px, 5px) rotate(-.5deg)}70%{transform:translate(1px, -8px) rotate(-1.5deg)}72%{transform:translate(1px, 9px) rotate(-.5deg)}74%{transform:translate(9px, -8px) rotate(-.5deg)}76%{transform:translate(5px, 6px) rotate(-1.5deg)}78%{transform:translate(10px, 5px) rotate(-.5deg)}80%{transform:translate(7px, 9px) rotate(-2.5deg)}82%{transform:translate(7px, -9px) rotate(3.5deg)}84%{transform:translate(1px, 8px) rotate(-.5deg)}86%{transform:translate(-1px, 9px) rotate(1.5deg)}88%{transform:translate(-5px, -3px) rotate(3.5deg)}90%{transform:translate(-2px, 5px) rotate(3.5deg)}92%{transform:translate(0px, 9px) rotate(-1.5deg)}94%{transform:translate(5px, 4px) rotate(.5deg)}96%{transform:translate(-4px, 0px) rotate(3.5deg)}98%{transform:translate(-6px, 1px) rotate(-2.5deg)}0%,100%{transform:translate(0, 0) rotate(0)}}.shake-hard:hover,.shake-trigger:hover .shake-hard,.shake-hard.shake-freeze,.shake-hard.shake-constant{animation-name:shake-hard;animation-duration:100ms;animation-timing-function:ease-in-out;animation-iteration-count:infinite}@keyframes shake-horizontal{2%{transform:translate(7px, 0) rotate(0)}4%{transform:translate(-3px, 0) rotate(0)}6%{transform:translate(9px, 0) rotate(0)}8%{transform:translate(2px, 0) rotate(0)}10%{transform:translate(10px, 0) rotate(0)}12%{transform:translate(-5px, 0) rotate(0)}14%{transform:translate(-2px, 0) rotate(0)}16%{transform:translate(2px, 0) rotate(0)}18%{transform:translate(-9px, 0) rotate(0)}20%{transform:translate(0px, 0) rotate(0)}22%{transform:translate(3px, 0) rotate(0)}24%{transform:translate(9px, 0) rotate(0)}26%{transform:translate(6px, 0) rotate(0)}28%{transform:translate(-1px, 0) rotate(0)}30%{transform:translate(-7px, 0) rotate(0)}32%{transform:translate(-8px, 0) rotate(0)}34%{transform:translate(-3px, 0) rotate(0)}36%{transform:translate(-3px, 0) rotate(0)}38%{transform:translate(3px, 0) rotate(0)}40%{transform:translate(2px, 0) rotate(0)}42%{transform:translate(-7px, 0) rotate(0)}44%{transform:translate(-1px, 0) rotate(0)}46%{transform:translate(-2px, 0) rotate(0)}48%{transform:translate(3px, 0) rotate(0)}50%{transform:translate(10px, 0) rotate(0)}52%{transform:translate(0px, 0) rotate(0)}54%{transform:translate(6px, 0) rotate(0)}56%{transform:translate(6px, 0) rotate(0)}58%{transform:translate(-2px, 0) rotate(0)}60%{transform:translate(-5px, 0) rotate(0)}62%{transform:translate(-2px, 0) rotate(0)}64%{transform:translate(-8px, 0) rotate(0)}66%{transform:translate(-2px, 0) rotate(0)}68%{transform:translate(-9px, 0) rotate(0)}70%{transform:translate(3px, 0) rotate(0)}72%{transform:translate(-9px, 0) rotate(0)}74%{transform:translate(7px, 0) rotate(0)}76%{transform:translate(-7px, 0) rotate(0)}78%{transform:translate(4px, 0) rotate(0)}80%{transform:translate(-4px, 0) rotate(0)}82%{transform:translate(1px, 0) rotate(0)}84%{transform:translate(5px, 0) rotate(0)}86%{transform:translate(-5px, 0) rotate(0)}88%{transform:translate(-5px, 0) rotate(0)}90%{transform:translate(9px, 0) rotate(0)}92%{transform:translate(7px, 0) rotate(0)}94%{transform:translate(-1px, 0) rotate(0)}96%{transform:translate(-1px, 0) rotate(0)}98%{transform:translate(-6px, 0) rotate(0)}0%,100%{transform:translate(0, 0) rotate(0)}}.shake-horizontal:hover,.shake-trigger:hover .shake-horizontal,.shake-horizontal.shake-freeze,.shake-horizontal.shake-constant{animation-name:shake-horizontal;animation-duration:100ms;animation-timing-function:ease-in-out;animation-iteration-count:infinite}@keyframes shake-vertical{2%{transform:translate(0, 1px) rotate(0)}4%{transform:translate(0, 5px) rotate(0)}6%{transform:translate(0, -8px) rotate(0)}8%{transform:translate(0, -5px) rotate(0)}10%{transform:translate(0, -9px) rotate(0)}12%{transform:translate(0, -1px) rotate(0)}14%{transform:translate(0, 5px) rotate(0)}16%{transform:translate(0, 6px) rotate(0)}18%{transform:translate(0, -1px) rotate(0)}20%{transform:translate(0, -9px) rotate(0)}22%{transform:translate(0, -6px) rotate(0)}24%{transform:translate(0, 6px) rotate(0)}26%{transform:translate(0, -9px) rotate(0)}28%{transform:translate(0, 8px) rotate(0)}30%{transform:translate(0, 9px) rotate(0)}32%{transform:translate(0, -1px) rotate(0)}34%{transform:translate(0, -8px) rotate(0)}36%{transform:translate(0, 3px) rotate(0)}38%{transform:translate(0, 2px) rotate(0)}40%{transform:translate(0, 6px) rotate(0)}42%{transform:translate(0, -2px) rotate(0)}44%{transform:translate(0, 4px) rotate(0)}46%{transform:translate(0, -9px) rotate(0)}48%{transform:translate(0, 9px) rotate(0)}50%{transform:translate(0, 3px) rotate(0)}52%{transform:translate(0, 0px) rotate(0)}54%{transform:translate(0, -6px) rotate(0)}56%{transform:translate(0, 8px) rotate(0)}58%{transform:translate(0, -7px) rotate(0)}60%{transform:translate(0, -9px) rotate(0)}62%{transform:translate(0, -5px) rotate(0)}64%{transform:translate(0, -9px) rotate(0)}66%{transform:translate(0, 1px) rotate(0)}68%{transform:translate(0, 3px) rotate(0)}70%{transform:translate(0, 3px) rotate(0)}72%{transform:translate(0, 3px) rotate(0)}74%{transform:translate(0, -3px) rotate(0)}76%{transform:translate(0, 2px) rotate(0)}78%{transform:translate(0, 7px) rotate(0)}80%{transform:translate(0, 8px) rotate(0)}82%{transform:translate(0, -2px) rotate(0)}84%{transform:translate(0, 7px) rotate(0)}86%{transform:translate(0, -3px) rotate(0)}88%{transform:translate(0, -3px) rotate(0)}90%{transform:translate(0, -8px) rotate(0)}92%{transform:translate(0, 0px) rotate(0)}94%{transform:translate(0, 3px) rotate(0)}96%{transform:translate(0, 5px) rotate(0)}98%{transform:translate(0, -3px) rotate(0)}0%,100%{transform:translate(0, 0) rotate(0)}}.shake-vertical:hover,.shake-trigger:hover .shake-vertical,.shake-vertical.shake-freeze,.shake-vertical.shake-constant{animation-name:shake-vertical;animation-duration:100ms;animation-timing-function:ease-in-out;animation-iteration-count:infinite}@keyframes shake-rotate{2%{transform:translate(0, 0) rotate(-5.5deg)}4%{transform:translate(0, 0) rotate(4.5deg)}6%{transform:translate(0, 0) rotate(6.5deg)}8%{transform:translate(0, 0) rotate(-6.5deg)}10%{transform:translate(0, 0) rotate(7.5deg)}12%{transform:translate(0, 0) rotate(-1.5deg)}14%{transform:translate(0, 0) rotate(-1.5deg)}16%{transform:translate(0, 0) rotate(6.5deg)}18%{transform:translate(0, 0) rotate(.5deg)}20%{transform:translate(0, 0) rotate(1.5deg)}22%{transform:translate(0, 0) rotate(-3.5deg)}24%{transform:translate(0, 0) rotate(1.5deg)}26%{transform:translate(0, 0) rotate(-5.5deg)}28%{transform:translate(0, 0) rotate(2.5deg)}30%{transform:translate(0, 0) rotate(-1.5deg)}32%{transform:translate(0, 0) rotate(-.5deg)}34%{transform:translate(0, 0) rotate(1.5deg)}36%{transform:translate(0, 0) rotate(3.5deg)}38%{transform:translate(0, 0) rotate(-1.5deg)}40%{transform:translate(0, 0) rotate(.5deg)}42%{transform:translate(0, 0) rotate(-1.5deg)}44%{transform:translate(0, 0) rotate(7.5deg)}46%{transform:translate(0, 0) rotate(-5.5deg)}48%{transform:translate(0, 0) rotate(5.5deg)}50%{transform:translate(0, 0) rotate(5.5deg)}52%{transform:translate(0, 0) rotate(4.5deg)}54%{transform:translate(0, 0) rotate(1.5deg)}56%{transform:translate(0, 0) rotate(3.5deg)}58%{transform:translate(0, 0) rotate(6.5deg)}60%{transform:translate(0, 0) rotate(-4.5deg)}62%{transform:translate(0, 0) rotate(-6.5deg)}64%{transform:translate(0, 0) rotate(4.5deg)}66%{transform:translate(0, 0) rotate(-6.5deg)}68%{transform:translate(0, 0) rotate(3.5deg)}70%{transform:translate(0, 0) rotate(-6.5deg)}72%{transform:translate(0, 0) rotate(-1.5deg)}74%{transform:translate(0, 0) rotate(-.5deg)}76%{transform:translate(0, 0) rotate(-3.5deg)}78%{transform:translate(0, 0) rotate(7.5deg)}80%{transform:translate(0, 0) rotate(5.5deg)}82%{transform:translate(0, 0) rotate(4.5deg)}84%{transform:translate(0, 0) rotate(2.5deg)}86%{transform:translate(0, 0) rotate(-2.5deg)}88%{transform:translate(0, 0) rotate(-6.5deg)}90%{transform:translate(0, 0) rotate(-1.5deg)}92%{transform:translate(0, 0) rotate(5.5deg)}94%{transform:translate(0, 0) rotate(1.5deg)}96%{transform:translate(0, 0) rotate(1.5deg)}98%{transform:translate(0, 0) rotate(5.5deg)}0%,100%{transform:translate(0, 0) rotate(0)}}.shake-rotate:hover,.shake-trigger:hover .shake-rotate,.shake-rotate.shake-freeze,.shake-rotate.shake-constant{animation-name:shake-rotate;animation-duration:100ms;animation-timing-function:ease-in-out;animation-iteration-count:infinite}@keyframes shake-opacity{10%{transform:translate(3px, 3px) rotate(.5deg);opacity:.05}20%{transform:translate(-1px, 0px) rotate(-.5deg);opacity:.74}30%{transform:translate(-1px, -3px) rotate(-1.5deg);opacity:.53}40%{transform:translate(3px, -2px) rotate(.5deg);opacity:.46}50%{transform:translate(0px, 1px) rotate(.5deg);opacity:.77}60%{transform:translate(0px, -3px) rotate(-1.5deg);opacity:.72}70%{transform:translate(0px, -4px) rotate(.5deg);opacity:.39}80%{transform:translate(-3px, -1px) rotate(.5deg);opacity:.16}90%{transform:translate(-4px, 2px) rotate(.5deg);opacity:.61}0%,100%{transform:translate(0, 0) rotate(0)}}.shake-opacity:hover,.shake-trigger:hover .shake-opacity,.shake-opacity.shake-freeze,.shake-opacity.shake-constant{animation-name:shake-opacity;animation-duration:.5s;animation-timing-function:ease-in-out;animation-iteration-count:infinite}@keyframes shake-crazy{10%{transform:translate(3px, 5px) rotate(4deg);opacity:.31}20%{transform:translate(16px, -11px) rotate(0deg);opacity:.72}30%{transform:translate(0px, -9px) rotate(10deg);opacity:.14}40%{transform:translate(13px, -9px) rotate(-1deg);opacity:.72}50%{transform:translate(-6px, -3px) rotate(0deg);opacity:.78}60%{transform:translate(14px, 9px) rotate(-9deg);opacity:.74}70%{transform:translate(16px, 3px) rotate(-4deg);opacity:.38}80%{transform:translate(-5px, 10px) rotate(6deg);opacity:.25}90%{transform:translate(-13px, -15px) rotate(8deg);opacity:.04}0%,100%{transform:translate(0, 0) rotate(0)}}.shake-crazy:hover,.shake-trigger:hover .shake-crazy,.shake-crazy.shake-freeze,.shake-crazy.shake-constant{animation-name:shake-crazy;animation-duration:100ms;animation-timing-function:ease-in-out;animation-iteration-count:infinite}@keyframes shake-chunk{2%{transform:translate(0px, -8px) rotate(8deg)}4%{transform:translate(1px, 5px) rotate(-12deg)}6%{transform:translate(10px, 11px) rotate(7deg)}8%{transform:translate(6px, -10px) rotate(0deg)}10%{transform:translate(8px, -10px) rotate(-13deg)}12%{transform:translate(5px, -12px) rotate(10deg)}14%{transform:translate(-4px, 2px) rotate(10deg)}16%{transform:translate(-8px, -13px) rotate(-14deg)}18%{transform:translate(-1px, -11px) rotate(13deg)}20%{transform:translate(-7px, 11px) rotate(6deg)}22%{transform:translate(-1px, -1px) rotate(3deg)}24%{transform:translate(15px, -12px) rotate(3deg)}26%{transform:translate(-9px, -9px) rotate(8deg)}28%{transform:translate(3px, -8px) rotate(6deg)}30%{transform:translate(-4px, 14px) rotate(7deg)}32%{transform:translate(3px, 3px) rotate(10deg)}34%{transform:translate(-9px, -6px) rotate(-5deg)}36%{transform:translate(9px, -8px) rotate(5deg)}38%{transform:translate(-4px, 7px) rotate(10deg)}0%,40%,100%{transform:translate(0, 0) rotate(0)}}.shake-chunk:hover,.shake-trigger:hover .shake-chunk,.shake-chunk.shake-freeze,.shake-chunk.shake-constant{animation-name:shake-chunk;animation-duration:4s;animation-timing-function:ease-in-out;animation-iteration-count:infinite}
@@ -5860,13 +5860,13 @@ font-size: 0.75em;
 .acc_button_block{margin: 25px 10px;float:left;}
 .left_side_title{border:none;margin-top:20px;position: relative}
 button.acc_detl_btn {
-   border: none;
+    border: none;
     margin: 5px;
     position: absolute;
     top: 4px;
     padding: 0px 3px;
     cursor: pointer;
-    
+
     z-index: 0;
 }
 .acc_overview_block .cellBlock:nth-child(2) {
@@ -5954,8 +5954,8 @@ button.acc_detl_btn {
     font-family: 'helvetica';
 }
 .alert_overlay_panel {
-    
-   height: auto;
+
+    height: auto;
     max-height: 300px;
     background: #fff;
     position: absolute;
@@ -5963,8 +5963,8 @@ button.acc_detl_btn {
     /* right: 73px; */
     left: -265px !important;
     top: 30px !important;
-  
-    
+
+
 }
 .alert_overlay_panel .ui-overlaypanel-content {
     padding: 0 !important;
@@ -5991,10 +5991,10 @@ button.acc_detl_btn {
     border-right: 15px solid transparent;
     left: 260px;
     top: -15px;
-  
+
 }
 .alert_overlay_panel:after {
-   content: '';
+    content: '';
     width: 0;
     height: 0;
     position: absolute;
@@ -6047,13 +6047,13 @@ button.acc_detl_btn {
 p.top_line {
     width: 100%;
     text-align: center;
-        font-weight: 600;
+    font-weight: 600;
 }
 .strategy_contain {
     width: 98%;
     margin: 20px 10px;
     line-height: 1.48;
-        float: left;
+    float: left;
 }
 li.strategy_list {
     list-style: disc;
@@ -6145,26 +6145,26 @@ li.strategy_list {
     font-size: 18px;
 }
 .customtabs_model section#content1 {
-       border-top: none;
+    border-top: none;
     background: none;
 }
 .customtabs_model .tabspad label {
     box-shadow: inset 0 3px 8px rgba(0, 0, 0, .24);
     padding: 12px 30px;
     font-size: 18px;
-    color: #009abb;    
+    color: #009abb;
 }
 .customtabs_model input#tab2 + label:after,
 .customtabs_model input#tab3 + label:after,
 .customtabs_model input#tab4 + label:after
 {
-	background:none;
+    background:none;
 }
 .customtabs_model label.rollbackbutton,
 .customtabs_model .tabspad .contentSecond label,
 .customtabs_model .tabspad #validateForm label,
 .customtabs_model  .tabspad #rvwMainFrm label
- {
+{
     box-shadow: none;
 }
 /*.customtabs_model #updExtForm div {
@@ -6177,7 +6177,7 @@ li.strategy_list {
     float: left;
 }
 .customtabs_model #updExtForm label .span_model_nm {
-   width: 250px;
+    width: 250px;
     float: left;
     margin: 5px;
     position: relative;
@@ -6218,7 +6218,7 @@ li.strategy_list {
 .customtabs_model #rvwMainFrm span.span_model_nm,
 .customtabs_model #approveForm span.span_model_nm,
 .customtabs_model .contentSecond span.span_model_nm
- {
+{
     position: relative;
     top: -8px;
 }
@@ -6272,3 +6272,43 @@ main.customtabs.customtabs_model {
 .customtabs_model .ui-accordion-content {
     border: none !important;
 }
+
+
+/** 29/09/2017 ** portfolioedit.xhtml **/
+span.conservative_minus,
+span.conservative_plus
+{
+    background: #a4332f;
+    float: right;
+    padding: 1px;
+    position: relative;
+    right: 1px;
+    margin: 0px 25px 5px;
+}
+span.conservative_plus{
+    float:left;
+}
+.conservative_minus span.ui-button-icon-center.ui-icon.ui-c.fa,
+.conservative_plus span.ui-button-icon-center.ui-icon.ui-c.fa
+{
+    text-align: center;
+    color: #fff;
+    padding: 3px 2px 0;
+}
+.select_currency_opt .ui-selectonemenu-label {
+    height: 10px;
+    line-height: 10px;
+    width: 120px !important;
+}
+.select_currency_opt span.ui-icon.ui-icon-triangle-1-s.ui-c {
+    margin-top: 4px !important;
+}
+.select_currency_opt {
+    /* margin-top: -12px; */
+    position: absolute;
+    margin: 0 5px;
+}
+.edit_portfolio{float: right;
+    top: 5px;
+    position: relative;}
+

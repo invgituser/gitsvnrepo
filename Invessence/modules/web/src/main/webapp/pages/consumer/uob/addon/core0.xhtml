@@ -41,7 +41,13 @@
             <f:selectItem id="uobddbwealth" itemLabel="Building Wealth" itemValue="Wealth"/>
             <f:selectItem id="uobddother" itemLabel="Other" itemValue="Other"/>
         </p:selectOneMenu>
-
+        
+        
+		 <div class="Wid100 uobCoreLabel other_desc_input">Define other Description</div>
+        	<p:inputNumber></p:inputNumber>
+        
+        
+        
         <div class="Wid100 uobCoreLabel">Your current age</div>
         <p:inputNumber value="#{uobpb.age}"
                        min="18" max="100"
@@ -59,8 +65,18 @@
             <p:ajax listener="#{uobpb.onChangeValue}"
                     update=":ceForm:graphArea, :ceForm:buttonArea"/>
         </p:inputNumber>
+		
+		
+		
 
-        <div class="Wid100 uobCoreLabel">Initial investment (SGD)</div>
+		
+        <div class="Wid100 uobCoreLabel" style="line-height: 28px;">Initial investment 
+	        <p:selectOneMenu class="select_currency_opt">            
+	            <f:selectItem itemLabel="Choose Currency" itemValue=""/>
+	            <f:selectItem id="USDollar" itemLabel="US Dollar" itemValue="US Dollar"/>
+	            <f:selectItem id="SinDollar" itemLabel="Singapore Dollar" itemValue="Singapore Dollar"/>            
+	        </p:selectOneMenu>
+        </div>
         <p:inputNumber styleClass="Wid100 uob_investAmount" id="uobinoutinitialinvest"
                        value="#{uobpb.initialInvestment}" maxlength="11"
                        decimalPlaces="0" >
