@@ -4540,7 +4540,7 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
 
 /*** 04/10/2017 **/
 .login_bg{
-    background-image:url("#{resource['tcm:images/loginpageillust.svg']}");
+    background-image:url("#{resource['tcm:images/tcmloginpageillust.svg']}");
     background-repeat:no-repeat;
     background-position:center; background-size:cover;
 }

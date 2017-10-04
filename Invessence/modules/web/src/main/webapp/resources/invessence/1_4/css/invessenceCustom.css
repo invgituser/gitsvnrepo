@@ -6315,7 +6315,32 @@ span.conservative_plus{
 
 /*** 04/10/2017 **/
 .login_bg{
-    background-image:url("#{resource['invessence:images/loginpageillust.svg']}");
+    background-image:url("#{resource['invessence:images/invloginpageillust.svg']}");
     background-repeat:no-repeat;
     background-position:center; background-size:cover;
+}
+
+/*register_buttons_widget*/
+@media (max-width: 500px) {
+    .mobileModeButton {
+        display: block;
+    }
+
+    .desktopModeButton {
+        display: none;
+    }
+}
+
+@media (min-width: 500px) {
+    .desktopModeButton {
+        display: block;
+    }
+
+    .mobileModeButton {
+        display: none;
+    }
+}
+
+.desktopModeButton, .mobileModeButton {
+    margin: 0 auto !important;
 }
