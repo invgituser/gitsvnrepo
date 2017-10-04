@@ -6312,3 +6312,10 @@ span.conservative_plus{
     top: 5px;
     position: relative;}
 
+
+/*** 04/10/2017 **/
+.login_bg{
+    background-image:url("#{resource['invessence:images/loginpageillust.svg']}");
+    background-repeat:no-repeat;
+    background-position:center; background-size:cover;
+}

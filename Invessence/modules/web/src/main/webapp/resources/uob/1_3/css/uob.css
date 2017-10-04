@@ -3369,3 +3369,9 @@ border: 0px!important;
     }
 }
 
+/*** 04/10/2017 **/
+.login_bg{
+    background-image:url("#{resource['uob:images/loginpageillust.svg']}");
+    background-repeat:no-repeat;
+    background-position:center; background-size:cover;
+}
