@@ -4539,7 +4539,7 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
 
 /*** 04/10/2017 **/
 .login_bg{
-    background-image:url("#{resource['uob:images/neloginpageillust.svg']}");
+    background-image:url("#{resource['nestegg:images/neloginpageillust.svg']}");
     background-repeat:no-repeat;
     background-position:center; background-size:cover;
 }
