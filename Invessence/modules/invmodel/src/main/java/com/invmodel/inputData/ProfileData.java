@@ -34,8 +34,11 @@ public class
    private Integer calendarYear;
    private Integer numOfAllocation = 1;
    private Integer numOfPortfolio = 1;
+   public String investmentCurrency;
    public Integer initialInvestment;
    private Double actualInvestment;
+   public String destCurrency;
+   public Double exchangeRate;
    private GoalsData goalData = new GoalsData();
    private Integer keepLiquid;
    private Integer recurringInvestment;
@@ -45,8 +48,6 @@ public class
    private String rep;
    private String theme;
    private String basket;
-   private Integer numOfQuestions = 15;
-   private Integer[] riskAnswers = new Integer[numOfQuestions];
    private String resultChart;
    private String typeOfChart;
    ArrayList<Map> consolidateAssetAndSubAssetList;
@@ -63,6 +64,7 @@ public class
    private Double shortExternalGain = 0.0;
    private Double longExternalGain = 0.0;
 
+   private Boolean allCashonZeroRisk;  // If this toggle is on, then Investor is given Portfoloo of all Cash.
    private Double riskIndex = 0.0;        // On riskIndex 0 = highest risk, 28 = lowest risk.
    private Integer displayRiskIndex = 10; // On displayRiskIndex 0 = lowest risk, 10 = highest risk.
 
@@ -433,6 +435,36 @@ public class
    }
 */
 
+   public String getInvestmentCurrency()
+   {
+      return investmentCurrency;
+   }
+
+   public void setInvestmentCurrency(String investmentCurrency)
+   {
+      this.investmentCurrency = investmentCurrency;
+   }
+
+   public String getDestCurrency()
+   {
+      return destCurrency;
+   }
+
+   public void setDestCurrency(String destCurrency)
+   {
+      this.destCurrency = destCurrency;
+   }
+
+   public Double getExchangeRate()
+   {
+      return exchangeRate;
+   }
+
+   public void setExchangeRate(Double exchangeRate)
+   {
+      this.exchangeRate = exchangeRate;
+   }
+
    public Double getDefaultInvestment()
    {
       if (actualInvestment != null && actualInvestment != 0)
@@ -591,43 +623,6 @@ public class
    {
       this.theme = theme;
       this.basket = basket;
-   }
-
-   public Integer[] getRiskAnswers()
-   {
-      return riskAnswers;
-   }
-
-   public void setRiskAnswers(Integer[] riskAnswers)
-   {
-      if (riskAnswers == null)
-      {
-         this.riskAnswers = new Integer[numOfQuestions];
-      }
-      else
-      {
-         this.riskAnswers = riskAnswers;
-      }
-   }
-
-   public void setRiskAnswers(Integer question, String value)
-   {
-      Integer riskNum = 0;
-      if (question >= 0 && question < riskAnswers.length)
-      {
-         if (value != null)
-         {
-            try
-            {
-               riskNum = Integer.valueOf(value);
-            }
-            catch (Exception ex)
-            {
-               riskNum = 0;
-            }
-            riskAnswers[question] = riskNum;
-         }
-      }
    }
 
    public String getAdvisor()
@@ -829,6 +824,16 @@ public class
    public void setRiskCalcMethod(String riskCalcMethod)
    {
       this.riskCalcMethod = riskCalcMethod;
+   }
+
+   public Boolean getAllCashonZeroRisk()
+   {
+      return allCashonZeroRisk;
+   }
+
+   public void setAllCashonZeroRisk(Boolean allCashonZeroRisk)
+   {
+      this.allCashonZeroRisk = allCashonZeroRisk;
    }
 
    public Double getRiskIndex()
@@ -1259,7 +1264,6 @@ public class
       setExperience(2);   // 1 = Experienced, 2 = inExperienced (See method strExpeience)
       setObjective(2);    // 1 = Preservation, 2 = Accumulation; (See method strObjective)
 
-      setRiskAnswers(null);
       setFixedModel(false);
       goalData = new GoalsData();
 
