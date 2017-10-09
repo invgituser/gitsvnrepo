@@ -13,6 +13,8 @@ public class InvConst
    public static String CONSUMER_RISK_FORMULA = "C";
    public static String ADVISOR_RISK_FORMULA = "A";
 
+   public static String MASTER_CURRENCY = "USD";
+
    // Used in Asset Model
    public static String DEFAULT_THEME="0.Core";
    public static String DEFAULT_BASKET="Growth";

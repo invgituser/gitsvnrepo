@@ -1,6 +1,7 @@
 package com.invmodel.dao.data;
 
 import com.google.common.base.Joiner;
+import com.invmodel.Const.InvConst;
 
 import java.util.Arrays;
 
@@ -28,6 +29,9 @@ public class SecurityData
    private String isin;
    private String cusip;
    private String ric;
+   private String baseCurrency;
+   private String destCurrency;
+   private Double exchangeRate;
 
    public SecurityData()
    {
@@ -50,6 +54,10 @@ public class SecurityData
       isin = "";
       cusip = "";
       ric = "";
+      baseCurrency = InvConst.MASTER_CURRENCY;
+      destCurrency = InvConst.MASTER_CURRENCY;
+      exchangeRate = 1.0;
+
    }
 
    public SecurityData(String advisor, String theme, String ticker, String name,
@@ -57,7 +65,8 @@ public class SecurityData
                        double dailyprice, int sortorder, double rbsaWeight,
                        String assetcolor, String primeassetcolor,
                        String securityAssetClass, String securitySubAssetClass,
-                       String isin, String cusip, String ric)
+                       String isin, String cusip, String ric,
+                       String baseCurrency, String destCurrency, Double exchangeRate)
    {
       super();
       resetSecurityData(advisor, theme, ticker, name,
@@ -65,7 +74,8 @@ public class SecurityData
                         dailyprice, sortorder, rbsaWeight,
                         assetcolor, primeassetcolor,
                         securityAssetClass, securitySubAssetClass,
-                        isin, cusip, ric
+                        isin, cusip, ric,
+                        baseCurrency, destCurrency, exchangeRate
                         );
    }
 
@@ -74,7 +84,8 @@ public class SecurityData
                                          double dailyprice, int sortorder, double rbsaWeight,
                                          String assetcolor, String primeassetcolor,
                                          String securityAssetClass, String securitySubAssetClass,
-                                          String isin, String cusip, String ric)
+                                         String isin, String cusip, String ric,
+                                         String baseCurrency, String destCurrency, Double exchangeRate)
    {
       this.advisor = advisor;
       this.ticker = ticker;
@@ -93,6 +104,9 @@ public class SecurityData
       this.isin = isin;
       this.cusip = cusip;
       this.ric = ric;
+      this.baseCurrency = baseCurrency;
+      this.destCurrency = destCurrency;
+      this.exchangeRate = exchangeRate;
       return this;
    }
 
@@ -184,6 +198,21 @@ public class SecurityData
    public String getRic()
    {
       return ric;
+   }
+
+   public String getBaseCurrency()
+   {
+      return baseCurrency;
+   }
+
+   public String getDestCurrency()
+   {
+      return destCurrency;
+   }
+
+   public Double getExchangeRate()
+   {
+      return exchangeRate;
    }
 
    public String getHeader()

@@ -1,6 +1,6 @@
 package com.invmodel.portfolio.data;
 
-import java.util.*;
+import com.invmodel.Const.InvConst;
 
 import static com.invmodel.utils.XMLBuilder.buildElement;
 import static java.lang.String.valueOf;
@@ -28,6 +28,12 @@ public class PortfolioSecurityData
    private String isin;
    private String cusip;
    private String ric;
+   private String baseCurrency;
+   private String destCurrency;
+   private Double exchangeRate;
+   private Double baseShares;
+   private Double basePrice;
+   private Double baseMoney;
 
    public PortfolioSecurityData()
    {
@@ -51,6 +57,13 @@ public class PortfolioSecurityData
       isin = "";
       cusip = "";
       ric = "";
+      baseCurrency = InvConst.MASTER_CURRENCY;
+      destCurrency = InvConst.MASTER_CURRENCY;
+      exchangeRate = 1.0;
+      baseShares = 0.0;
+      basePrice = 0.0;
+      baseMoney = 0.0;
+
    }
 
    public PortfolioSecurityData(String ticker, String name, String color,
@@ -58,29 +71,20 @@ public class PortfolioSecurityData
                                 double dailyprice, double weight, double expectedReturn, double expenseRatio,
                                 double secRisk, double yield, double shares, double money, int sortorder,
                                 double tickerWeight,
-                                String isin, String cusip, String ric)
+                                String isin, String cusip, String ric,
+                                String baseCurrency, String destCurrency, Double exchangeRate,
+                                Double baseShares, Double basePrice, Double baseMoney )
    {
       super();
-      setTicker(ticker);
-      setName(name);
-      setColor(color);
-      setType(type);
-      setStyle(style);
-      setAssetclass(assetclass);
-      setSubclass(subclass);
-      setDailyprice(dailyprice);
-      setWeight(weight);
-      setExpectedReturn(expectedReturn);
-      setExpenseRatio(expenseRatio);
-      setSecRisk(secRisk);
-      setYield(yield);
-      setShares(shares);
-      setMoney(money);
-      setSortorder(sortorder);
-      setTickerWeights(tickerWeight);
-      setIsin(isin);
-      setCusip(cusip);
-      setRic(ric);
+      resetPortfolioData(ticker, name, color,
+                         type, style, assetclass, subclass,
+                         dailyprice, weight, expectedReturn, expenseRatio,
+                         secRisk, yield, shares, money, sortorder,
+                         tickerWeight,
+                         isin, cusip, ric,
+                         baseCurrency, destCurrency, exchangeRate,
+                         baseShares, basePrice, baseMoney  );
+
    }
 
 
@@ -256,7 +260,7 @@ public class PortfolioSecurityData
 
    public void setTickerWeights(double tickerWeights)
    {
-      this.tickerWeights = round(tickerWeights *100, 2);
+      this.tickerWeights = round(tickerWeights * 100, 2);
    }
 
    public String getIsin()
@@ -289,6 +293,66 @@ public class PortfolioSecurityData
       this.ric = ric;
    }
 
+   public String getBaseCurrency()
+   {
+      return baseCurrency;
+   }
+
+   public void setBaseCurrency(String baseCurrency)
+   {
+      this.baseCurrency = baseCurrency;
+   }
+
+   public String getDestCurrency()
+   {
+      return destCurrency;
+   }
+
+   public void setDestCurrency(String destCurrency)
+   {
+      this.destCurrency = destCurrency;
+   }
+
+   public Double getExchangeRate()
+   {
+      return exchangeRate;
+   }
+
+   public void setExchangeRate(Double exchangeRate)
+   {
+      this.exchangeRate = exchangeRate;
+   }
+
+   public Double getBaseMoney()
+   {
+      return baseMoney;
+   }
+
+   public void setBaseMoney(Double baseMoney)
+   {
+      this.baseMoney = baseMoney;
+   }
+
+   public Double getBaseShares()
+   {
+      return baseShares;
+   }
+
+   public void setBaseShares(Double baseShares)
+   {
+      this.baseShares = baseShares;
+   }
+
+   public Double getBasePrice()
+   {
+      return basePrice;
+   }
+
+   public void setBasePrice(Double basePrice)
+   {
+      this.basePrice = basePrice;
+   }
+
    public double round(double value, int digits)
    {
       double calcValue;
@@ -313,12 +377,14 @@ public class PortfolioSecurityData
       return value;
    }
 
-   public PortfolioSecurityData resetPortfolioData(String ticker, String name, String color,
-                                                   String type, String style, String assetclass, String subclass,
-                                                   double dailyprice, double weight, double expectedReturn, double expenseRatio,
-                                                   double secRisk, double yield, double shares, double money, int sortorder,
-                                                   double assetvalue,
-                                                   String isin, String cusip, String ric)
+   public void resetPortfolioData(String ticker, String name, String color,
+                                  String type, String style, String assetclass, String subclass,
+                                  double dailyprice, double weight, double expectedReturn, double expenseRatio,
+                                  double secRisk, double yield, double shares, double money, int sortorder,
+                                  double assetvalue,
+                                  String isin, String cusip, String ric,
+                                  String baseCurrency, String destCurrency, Double exchangeRate,
+                                  Double baseShares, Double basePrice, Double baseMoney)
    {
       setTicker(ticker);
       setName(name);
@@ -340,59 +406,12 @@ public class PortfolioSecurityData
       setIsin(isin);
       setCusip(cusip);
       setRic(ric);
-      return this;
-   }
-
-   @SuppressWarnings("UnusedDeclaration")
-   public ArrayList<String> getPortfolioDataAsArray()
-   {
-      try
-      {
-         ArrayList<String> data = new ArrayList<String>();
-         data.add(ticker);
-         data.add(name);
-         data.add(type);
-         data.add(style);
-         data.add(assetclass);
-         data.add(subclass);
-         data.add(valueOf(dailyprice));
-         data.add(valueOf(getWeightsAsInt()));
-         data.add(valueOf(shares));
-         data.add(valueOf(money));
-         data.add(valueOf(sortorder));
-         data.add(valueOf(tickerWeights));
-         return data;
-      }
-      catch (Exception e)
-      {
-        e.printStackTrace();
-      }
-      return null;
-   }
-
-   public ArrayList<String> getPortfolioDataHeader()
-   {
-      try
-      {
-         ArrayList<String> data = new ArrayList<String>();
-         data.add("Ticker");
-         data.add("Name");
-         data.add("Type");
-         data.add("Style");
-         data.add("Assetclass");
-         data.add("Subclass");
-         data.add("Price");
-         data.add("Weight");
-         data.add("Shares");
-         data.add("Value");
-         data.add("Sortorder");
-         return data;
-      }
-      catch (Exception e)
-      {
-       e.printStackTrace();
-      }
-      return null;
+      setBaseCurrency(baseCurrency);
+      setDestCurrency(destCurrency);
+      setExchangeRate(exchangeRate);
+      setBaseShares(baseShares);
+      setBasePrice(basePrice);
+      setBaseMoney(baseMoney);
    }
 
    @Override
@@ -401,15 +420,15 @@ public class PortfolioSecurityData
       try
       {
          return getTicker() + "," +
-            getName()  + "," +
+            getName() + "," +
             getType() + "," +
             getStyle() + "," +
             getAssetclass() + "," +
             getSubclass() + "," +
-            valueOf(getDailyprice()) + "," +
-            valueOf(getTickerWeights()) + "," +
-            valueOf(getShares()) + "," +
-            valueOf(getMoney());
+            getDailyprice() + "," +
+            getTickerWeights() + "," +
+            getShares() + "," +
+            getMoney();
       }
       catch (Exception e)
       {
@@ -425,15 +444,31 @@ public class PortfolioSecurityData
       {
          xmlData = xmlData + buildElement("ticker", getTicker()) +
             buildElement("name", getName()) +
+            buildElement("color", getColor()) +
             buildElement("type", getType()) +
             buildElement("Style", getStyle()) +
             buildElement("Assetclass", getAssetclass()) +
             buildElement("Subclass", getSubclass()) +
             buildElement("dailyprice", valueOf(getDailyprice())) +
-            buildElement("weights", valueOf(getTickerWeights())) +
+            buildElement("weights", valueOf(getWeight())) +
+            buildElement("expectedReturn", valueOf(getExpectedReturn())) +
+            buildElement("expenseRatio", valueOf(getExpenseRatio())) +
+            buildElement("secRisk", valueOf(getSecRisk())) +
+            buildElement("yield", valueOf(getYield())) +
             buildElement("shares", valueOf(getShares())) +
             buildElement("money", valueOf(getMoney())) +
-            buildElement("sortorder", valueOf(getSortorder()));
+            buildElement("sortorder", valueOf(getSortorder())) +
+            buildElement("tickerWeights", valueOf(getTickerWeights())) +
+            buildElement("isin", getIsin()) +
+            buildElement("cusip", getCusip()) +
+            buildElement("ric", getRic()) +
+            buildElement("baseCurrency", getBaseCurrency()) +
+            buildElement("destCurrency", getDestCurrency()) +
+            buildElement("exchangeRate", valueOf(getExchangeRate())) +
+            buildElement("baseShares", valueOf(getBaseShares())) +
+            buildElement("basePrice", valueOf(getBasePrice())) +
+            buildElement("baseMoney", valueOf(getBaseMoney()));            ;
+
          return buildElement("PortfolioSecurityData", xmlData);
       }
       catch (Exception e)

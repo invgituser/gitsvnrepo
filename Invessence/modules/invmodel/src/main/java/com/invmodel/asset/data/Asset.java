@@ -22,6 +22,8 @@ public class Asset
    private double holdingRisk        = 0.0;
    private double holdingExpenseRatio     = 0.0;
    private double holdingValue       = 0.0;
+   private String baseCurrency;
+   private String destCurrency;
 
    public Asset()
    {
@@ -40,7 +42,8 @@ public class Asset
    }
 
    public Asset(String asset, String color,
-                double allocweight, double avgReturn, double risk, double expectedReturn, double expenseRatio, double value)
+                double allocweight, double avgReturn, double risk, double expectedReturn, double expenseRatio,
+                double value)
    {
       super();
       setAsset(asset);
@@ -57,7 +60,8 @@ public class Asset
 
    public Asset(String asset, String displayName, String color,
                 double allocweight, double avgReturn, double risk, double expectedReturn, double expenseRatio, double value,
-                double holdingweight, double holdingReturn, double holdingRisk, double holdingExpenseRatio, double holdingValue)
+                double holdingweight, double holdingReturn, double holdingRisk, double holdingExpenseRatio, double holdingValue,
+                String baseCurrency, String destCurrency)
    {
       setAsset(asset);
       this.displayName = displayName;
@@ -75,6 +79,8 @@ public class Asset
       setHoldingRisk(holdingRisk);
       setHoldingExpenseRatio(holdingExpenseRatio);
       setHoldingValue(holdingValue);
+      setBaseCurrency(baseCurrency);
+      setDestCurrency(destCurrency);
    }
 
    public double getDisplayActualWeight()
@@ -256,6 +262,26 @@ public class Asset
    public void setHoldingValue(double holdingValue)
    {
       this.holdingValue = holdingValue;
+   }
+
+   public String getBaseCurrency()
+   {
+      return baseCurrency;
+   }
+
+   public void setBaseCurrency(String baseCurrency)
+   {
+      this.baseCurrency = baseCurrency;
+   }
+
+   public String getDestCurrency()
+   {
+      return destCurrency;
+   }
+
+   public void setDestCurrency(String destCurrency)
+   {
+      this.destCurrency = destCurrency;
    }
 
    public double getBalancedValue() {

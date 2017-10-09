@@ -5,8 +5,12 @@ import java.util.*;
 import java.util.concurrent.locks.*;
 import java.util.logging.Logger;
 
+import javax.sql.DataSource;
+
+import com.invessence.converter.*;
+import com.invessence.converter.SQLData;
 import com.invmodel.Const.InvConst;
-import com.invmodel.dao.DBConnectionProvider;
+import com.invmodel.dao.*;
 import com.invmodel.dao.data.SecurityData;
 import org.apache.commons.dbutils.DbUtils;
 
@@ -95,7 +99,8 @@ public class SecurityCollection
                                 double dailyprice, int sortorder, double rbsaweight,
                                 String assetcolor, String primeassetcolor,
                                 String secAssetClass, String secSubAssetClass,
-                                String isin, String cusip, String ric)
+                                String isin, String cusip, String ric,
+                                String baseCurrency, String destCurrency, Double exchangeRate)
    {
       try
       {
@@ -109,7 +114,8 @@ public class SecurityCollection
                                                   dailyprice, sortorder, rbsaweight,
                                                   assetcolor, primeassetcolor,
                                                   secAssetClass, secSubAssetClass,
-                                                  isin, cusip, ric);
+                                                  isin, cusip, ric,
+                                                  baseCurrency, destCurrency, exchangeRate);
 
 
          if (seclistByKeyMap.containsKey(primaryKey))
@@ -153,117 +159,116 @@ public class SecurityCollection
    public void doSQLQuery(String advisor, String theme)
    {
 
-      //logger.info("Loading Advisor Security from DB");
-      seclistByKeyMap.clear();
-      listbyAdvisorPrimeassetMap.clear();
-      listofOrderedSecurity.clear();
-      themeLoaded = theme;
 
-      Connection connection = null;
-      Statement s = null;
-      ResultSet rs = null;
-      Boolean addedCash = false;
+      DBConnectionProvider dbconnection;
+      SQLData convert;
+      DataSource ds;
+
       try
       {
-         // Select data from the database
-         connection = DBConnectionProvider.getInstance().getConnection();
-         s = connection.createStatement();
-         s.executeQuery(
-            "SELECT advisor," +
-               "    theme," +
-               "    assetclass," +
-               "    primeassetclass," +
-               "    ticker," +
-               "    name," +
-               "    type," +
-               "    style," +
-               "    price," +
-               "    rbsaweight," +
-               "    sortorder," +
-               "    assetcolor," +
-               "    primeassetcolor," +
-               "    secAssetClass," +
-               "    secSubAssetClass," +
-               "    isin," +
-               "    cusip," +
-               "    ric" +
-               "   FROM vw_securities_by_theme " +
-               "   WHERE theme = '" + theme + " '" +
-               "   AND advisor = '" + advisor + " '" +
-               "   ORDER BY sortorder"
-         );
+         dbconnection = DBConnectionProvider.getInstance();
+         convert = new com.invessence.converter.SQLData();
+         ds = dbconnection.getMySQLDataSource();
+         read.lock();
+         String storedProcName = "invdb.sel_securities_by_theme";
+         InvModelSP sp = new InvModelSP(ds, storedProcName, 7, 99);
 
-         // Make sure to keep track of this position.
+         //logger.info("Loading Advisor Security from DB");
+         seclistByKeyMap.clear();
+         listbyAdvisorPrimeassetMap.clear();
+         listofOrderedSecurity.clear();
+         themeLoaded = theme;
+         Boolean addedCash = false;
+         String defaultCurrency = null;
 
-         rs = s.getResultSet();
-         // get data row from table.
-         while (rs.next())
+         ArrayList<Map<String, Object>> rows;
+         Map outMap = sp.collectSecurityData(advisor, theme);
+         if (outMap != null)
          {
-            String ticker = rs.getString("ticker");
-
-            if (ticker.toUpperCase().equals("CASH")) // Mark Cash processed
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)
             {
-               addedCash = true;
+               Integer i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
+                  String ticker = convert.getStrData(rs.get("ticker"));
+
+                  if (ticker.toUpperCase().equals("CASH")) // Mark Cash processed
+                  {
+                     addedCash = true;
+                  }
+
+                  if (defaultCurrency == null) {
+                     // Since converts all the data to destCurrency, we set as default. For default Cash.
+                     defaultCurrency = convert.getStrData(rs.get("destCurrency"));
+                  }
+
+                  setSecurityData(
+                     convert.getStrData(rs.get("advisor")), // String advisor
+                     convert.getStrData(rs.get("theme")), // String theme
+                     convert.getStrData(rs.get("ticker")), // String ticker
+                     convert.getStrData(rs.get("name")),  // String name
+                     convert.getStrData(rs.get("assetclass")),  // String assetclass
+                     convert.getStrData(rs.get("primeassetclass")),  // String primeassetclass
+                     convert.getStrData(rs.get("type")),  // String type
+                     convert.getStrData(rs.get("style")),  // String style
+                     convert.getDoubleData(rs.get("price")), // double dailyprice
+                     convert.getIntData(rs.get("sortorder")), // double sortorder
+                     convert.getDoubleData(rs.get("rbsaweight")), // double weight (RBSA)
+                     convert.getStrData(rs.get("assetcolor")),  // String assetcolor
+                     convert.getStrData(rs.get("primeassetcolor")),  // String primeassetcolor
+                     convert.getStrData(rs.get("secAssetClass")),  // String secAssetClass
+                     convert.getStrData(rs.get("secSubAssetClass")),  // String secSubAssetClass
+                     convert.getStrData(rs.get("isin")),  // String isin
+                     convert.getStrData(rs.get("cusip")),  // String cusip
+                     convert.getStrData(rs.get("ric")),  // String ric
+                     convert.getStrData(rs.get("baseCurrency")),  // String baseCurrency
+                     convert.getStrData(rs.get("destCurrency")),  // String destCurrency
+                     convert.getDoubleData(rs.get("exchangeRate"))  // String exchangeRate
+                  );
+                  i++;
+
+               }
+
+               // For every theme, make sure to add Cash element.
+               if (!addedCash)
+               {
+                  setSecurityData(
+                     advisor, // String groupname
+                     theme, // String theme
+                     "Cash", // String ticker
+                     "Cash",  // String name
+                     "Cash",  // String assetclass
+                     "Cash",  // String primeassetclass
+                     "Cash",  // String type
+                     "Cash",  // String style
+                     1.00, // double dailyprice
+                     99999, // double sortorder
+                     1.0, // double weight (RBSA)
+                     "#ffffff",  // assetcolor
+                     "#ffffff",   // primeassetcolor
+                     "Cash",  // String secAssetClass
+                     "Cash", // String secSubAssetClass
+                     "Cash",  // String isin
+                     "Cash",  // String cusip
+                     "Cash", // String ric
+                     defaultCurrency,  // String baseCurency
+                     defaultCurrency,  // String destCurrency
+                     1.0  // String exchangeRate
+                  );
+               }
             }
-
-            setSecurityData(
-               rs.getString("advisor"), // String advisor
-               rs.getString("theme"), // String theme
-               rs.getString("ticker"), // String ticker
-               rs.getString("name"),  // String name
-               rs.getString("assetclass"),  // String assetclass
-               rs.getString("primeassetclass"),  // String primeassetclass
-               rs.getString("type"),  // String type
-               rs.getString("style"),  // String style
-               rs.getDouble("price"), // double dailyprice
-               rs.getInt("sortorder"), // double sortorder
-               rs.getDouble("rbsaweight"), // double weight (RBSA)
-               rs.getString("assetcolor"),  // String assetcolor
-               rs.getString("primeassetcolor"),  // String primeassetcolor
-               rs.getString("secAssetClass"),  // String secAssetClass
-               rs.getString("secSubAssetClass"),  // String secSubAssetClass
-               rs.getString("isin"),  // String isin
-               rs.getString("cusip"),  // String cusip
-               rs.getString("ric")  // String ric
-            );
-
-         }
-
-         // For every theme, make sure to add Cash element.
-         if (!addedCash)
-         {
-            setSecurityData(
-               advisor, // String groupname
-               theme, // String theme
-               "Cash", // String ticker
-               "Cash",  // String name
-               "Cash",  // String assetclass
-               "Cash",  // String primeassetclass
-               "Cash",  // String type
-               "Cash",  // String style
-               1.00, // double dailyprice
-               99999, // double sortorder
-               1.0, // double weight (RBSA)
-               "#ffffff",  // assetcolor
-               "#ffffff",   // primeassetcolor
-               "Cash",  // String secAssetClass
-               "Cash", // String secSubAssetClass
-               "Cash",  // String isin
-               "Cash",  // String cusip
-               "Cash"  // String ric
-            );
          }
 
       }
-      catch (Exception e)
+      catch (Exception ex)
       {
-         e.printStackTrace();
+         ex.printStackTrace();
       }
       finally
       {
-         DbUtils.closeQuietly(rs);
-         DbUtils.closeQuietly(s);
-         DbUtils.closeQuietly(connection);
+         read.unlock();
       }
    }
 

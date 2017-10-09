@@ -24,6 +24,7 @@ public class Portfolio
    private double upperTotalMoney = 0.0;
    private double lowerTotalMoney = 0.0;
    private double recurInvestments = 0.0;
+   private String baseCurrency;
 
 
    private double totalCapitalGrowth = 0.0;
@@ -43,7 +44,9 @@ public class Portfolio
                     double dailyprice, double weight, double expectedReturn, double expenseRatio,
                     double secRisk, double yield, double shares, double money, int sortorder,
                     double tickerWeight,
-                    String isin, String cusip, String ric)
+                    String isin, String cusip, String ric,
+                    String baseCurrency, String destCurrency, Double exchangeRate,
+                    Double baseShares, Double basePrice, Double baseMoney  )
    {
       try
       {
@@ -53,7 +56,9 @@ public class Portfolio
                       type, style, assetclass, subclass,
                       dailyprice, weight, expectedReturn, expenseRatio,
                       secRisk, yield, shares, money, sortorder, tickerWeight,
-                      isin, cusip, ric);
+                      isin, cusip, ric,
+                      baseCurrency, destCurrency, exchangeRate,
+                      baseShares, basePrice, baseMoney);
       }
       catch (Exception e)
       {
@@ -198,7 +203,9 @@ public class Portfolio
                             double dailyprice, double weight, double expectedReturn,double expenseRatio,
                             double secRisk, double yield, double shares, double money, int sortorder,
                             double tickerWeight,
-                            String isin, String cusip, String ric)
+                            String isin, String cusip, String ric,
+                            String baseCurrency, String destCurrency, Double exchangeRate,
+                            Double baseShares, Double basePrice, Double baseMoney)
    {
 
       PortfolioSecurityData data;
@@ -217,7 +224,9 @@ public class Portfolio
                                              dailyprice, weight, expectedReturn, expenseRatio,
                                              secRisk, yield, shares, money,
                                              sortorder, tickerWeight,
-                                             isin, cusip, ric);
+                                             isin, cusip, ric,
+                                             baseCurrency, destCurrency, exchangeRate,
+                                             baseShares, basePrice, baseMoney );
             portfolio.put(ticker, data);
             addTotalMoney(money);
             tickers.add(ticker);
@@ -225,19 +234,19 @@ public class Portfolio
          else
          {
             data = portfolio.get(ticker);
+            this.baseCurrency = baseCurrency;
             money = data.getMoney() + money;
             if (actualInvestments > 0) {
                tickerWeight = money/actualInvestments;
             }
             data.setMoney(money);  // Add Money
             data.setShares(data.getShares() + shares);  // Add Shared
-            addTotalMoney(money); // Now, add the new one.
+            addTotalMoney(money); // Now, add the new one to portfolio.
             data.setTickerWeights(tickerWeight);
          }
       }
       catch (Exception e)
       {
-
          e.printStackTrace();
       }
    }
@@ -361,27 +370,6 @@ public class Portfolio
    {
       if (assetMap.containsKey(assetname))
          return assetMap.get(assetname);
-      return null;
-   }
-
-   @SuppressWarnings("rawtypes")
-   public ArrayList<String> getHeader()
-   {
-      try
-      {
-         if (!portfolio.isEmpty())
-         {
-            Iterator it = portfolio.keySet().iterator();
-            String firstticker = (String) it.next();
-            ArrayList<String> header = portfolio.get(firstticker).getPortfolioDataHeader();
-            return header;
-         }
-
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
       return null;
    }
 

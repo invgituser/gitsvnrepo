@@ -80,6 +80,10 @@ public class InvModelSP extends StoredProcedure
          case 6: // report_historical_data
             declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
             break;
+         case 7: // Security Master (Collecting Security Data
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
+            break;
          default: // All others with no args.
       }
       compile();
@@ -196,4 +200,12 @@ public class InvModelSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public Map collectSecurityData(String p_advisor, String p_theme)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_advisor", p_advisor);
+      inputMap.put("p_theme", p_theme);
+      return super.execute(inputMap);
+   }
 }

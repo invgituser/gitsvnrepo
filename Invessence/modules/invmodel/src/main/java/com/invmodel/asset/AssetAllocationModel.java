@@ -134,12 +134,20 @@ public class AssetAllocationModel
             {
                pdata.setAllocationIndex(offset);
             }
-            assetclass[counter] = createAssetsByIndex(theme, offset, duration,
-                                                      age, stayInvested);
+            if (offset == 0 && pdata.getAllCashonZeroRisk())
+            {
+               assetclass[counter] = setToAllCash(theme, offset, duration,
+                                                         age, stayInvested);
+            }
+            else {
+               assetclass[counter] = createAssetsByIndex(theme, offset, duration,
+                                                         age, stayInvested);
+            }
             age++;
             duration--;
             numofAllocation--;
             counter++;
+
          }
          return assetclass;
       }
@@ -225,6 +233,36 @@ public class AssetAllocationModel
                //assetclass.addAssetClass(assetname, totalWeight, 0.0, assetcolor[i]);
             }
          }
+
+         return assetclass;
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      return null;
+
+   }
+
+   private AssetClass setToAllCash(String theme, int offset, int duration,
+                                          int age, Integer stayInvested)
+   {
+
+      AssetClass assetclass = new AssetClass();
+      try
+      {
+         assetclass.initAssetClass(age, duration, (double) offset, stayInvested, theme);
+         double wght = 1.0;
+
+         String cash = "Cash";
+
+         // Always add each to asset List.
+         String assetcolor = portfolioOptimizer.getAssetData(theme, cash).getColor();
+         assetclass.addAssetClass(cash, cash, assetcolor, 0.0, 0.0);
+         assetclass.getAsset(cash).setAllocweight(wght);
+         assetclass.getAsset(cash).setUserweight(wght);
+         assetclass.getAsset(cash).setActualweight(wght);
+         assetclass.getAsset(cash).setAvgReturn(0.0);
 
          return assetclass;
       }

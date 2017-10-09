@@ -464,13 +464,17 @@ public class PortfolioModel
                      {
                         PrimeAssetClassData pacd = portfolioOptimizer.getPrimeAssetData(theme, assetname, primeassetclass);
                         double price = sd.getDailyprice();
+                        Double basePrice = sd.getDailyprice() * sd.getExchangeRate();
                         double rbsa_weight = ticker_weight * sd.getRbsaWeight();  // RBSA PREP WORK:  Currently all have rate of 1
                         // If there is no weight, just skip this ticker all together.
                         double shares = 0.0, money = 0.0;
+                        Double baseShare = 0.0, baseMoney = 0.0;
                         if (rbsa_weight > 0.0 && price > 0.0)
                         {
                            shares = Math.round(((invCapital * rbsa_weight) / price) - 0.5);
                            money = shares * price;
+                           baseShare = Double.valueOf(Math.round(((invCapital * rbsa_weight) / basePrice) - 0.5));
+                           baseMoney = baseShare * basePrice;
 
                            // Only create this portfolio if there are shares and money
                            if ((shares > 0.0) && (money > 0.0))
@@ -488,7 +492,9 @@ public class PortfolioModel
                                                   price, rbsa_weight,
                                                   0.0, 0.0, 0.0, 0.0,
                                                   shares, money, pacd.getSortorder(), totalPortfolioWeight,
-                                                  sd.getIsin(), sd.getCusip(), sd.getRic());
+                                                  sd.getIsin(), sd.getCusip(), sd.getRic(),
+                                                  sd.getBaseCurrency(), sd.getDestCurrency(), sd.getExchangeRate(),
+                                                  baseShare, basePrice, baseMoney);
                               pclass.addSubclassMap(sd.getSecurityAssetClass(), sd.getSecuritySubAssetClass(),
                                                     asset.getColor(),
                                                     totalPortfolioWeight, money, true);
@@ -529,6 +535,7 @@ public class PortfolioModel
             asset = assetClass.getAsset("Cash");
             assetWgt = (amount2Allocate + keepLiquidCash) / invCapital;
             double cash = amount2Allocate + keepLiquidCash;
+            double destcash = amount2Allocate + keepLiquidCash;
             investByAsset = amount2Allocate;
 
             totalPortfolioWeight = assetWgt;
@@ -537,7 +544,9 @@ public class PortfolioModel
                                 1.0, assetWgt,
                                 0.0, 0.0, 0.0, 0.0,
                                 cash, cash, 999999, assetWgt,
-                                "Cash", "Cash", "Cash");
+                                "Cash", "Cash", "Cash",
+                                sd.getBaseCurrency(),sd.getDestCurrency(), sd.getExchangeRate(),
+                                destcash, 1.0, destcash);
             if (sd != null)
             {
                pclass.addSubclassMap(sd.getAssetclass(), sd.getPrimeassetclass(),
@@ -594,6 +603,7 @@ public class PortfolioModel
                                        double invCapital, double investment, double keepLiquidCash,
                                        int year, ProfileData pdata, int offset)
    {
+/*
       try
       {
 
@@ -789,6 +799,7 @@ public class PortfolioModel
       {
          e.printStackTrace();
       }
+*/
    }
 
    private Portfolio createFixedPortfolio(AssetClass[] assetData, ProfileData pdata)
@@ -873,14 +884,8 @@ public class PortfolioModel
                }
             }
             totalWeight -= wght;
-            if (price == null || price == 0.0)
-            {
-               shares = 1.0;
-            }
-            else
-            {
-               shares = Math.round(((investment * wght) / price) - 0.5);
-            }
+
+            shares = Math.round(((investment * wght) / price) - 0.5);
 
             Double money = wght * investment;
             Double totalPortfolioWeight = money / investment;
@@ -889,7 +894,9 @@ public class PortfolioModel
                                    price, wght,
                                    0.0, 0.0, 0.0, 0.0,
                                    shares, money, sortorder, totalPortfolioWeight,
-                                   "", "", "");
+                                   "", "", "",
+                                   "USD", "USD", 1.0,
+                                   shares,price,money);
             portfolio.addSubclassMap(assetname, subclass,
                                      color,
                                      totalPortfolioWeight, amount_remain, true);
@@ -904,7 +911,9 @@ public class PortfolioModel
                                    1.0, totalWeight,
                                    0.0, 0.0, 0.0, 0.0,
                                    money, money, 999999, totalWeight,
-                                   "", "", "");
+                                   "", "", "",
+                                   "USD", "USD", 1.0,
+                                   money, 1.0, money);
             portfolio.addSubclassMap("Cash", "Cash",
                                      null,
                                      totalWeight, money, true);
