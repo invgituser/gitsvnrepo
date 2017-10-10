@@ -253,8 +253,10 @@ public class PositionBean implements Serializable
                Asset asset = new Asset(assetname,
                                        assetname,    // Display name is not defined in Managed Asset.
                                        position.getColor(),
-                                       0.0, 0.0, 0.0, 0.0,0.0,0.0,
-                                       position.getWeight(), position.getYield(), position.getRisk(), position.getExpenseRatio(), position.getPositionValue());
+                                       0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                       position.getWeight(), position.getYield(), position.getRisk(),
+                                       position.getExpenseRatio(), position.getPositionValue(),
+                                       position.getBaseCurrency(), position.getDestCurrency());
                managedAssetsMap.put(assetname, asset);
                managedAssetsList.add(counter++, asset);
             }

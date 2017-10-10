@@ -21,13 +21,21 @@ public class DataPortfolio implements Serializable
    private String isin;
    private String cusip;
    private String ric;
+   private String baseCurrency;
+   private String destCurrency;
+   private Double exchangeRate;
+   private Double destShare;
+   private Double destPrice;
+   private Double destValue;
 
    public DataPortfolio() {}
 
    public DataPortfolio(String assetType, String subclass, String color,
                         String symbol, String name, Integer share, Double price,
                         Double value, Integer sortorder, Double tickerWeight, Double weight,
-                        String isin, String cusip, String ric)
+                        String isin, String cusip, String ric,
+                        String baseCurrency, String destCurrency, Double exchangeRate,
+                        Double destShare, Double destPrice, Double destValue)
    {
       this.assetType = assetType;
       this.subclass = subclass;
@@ -43,6 +51,12 @@ public class DataPortfolio implements Serializable
       this.isin = isin;
       this.cusip = cusip;
       this.ric = ric;
+      this.baseCurrency = baseCurrency;
+      this.destCurrency = destCurrency;
+      this.exchangeRate = exchangeRate;
+      this.destShare = destShare;
+      this.destPrice = destPrice;
+      this.destValue = destValue;
    }
 
    public String getAssetType()
@@ -183,6 +197,66 @@ public class DataPortfolio implements Serializable
    public void setWeight(Double weight)
    {
       this.weight = weight;
+   }
+
+   public String getBaseCurrency()
+   {
+      return baseCurrency;
+   }
+
+   public void setBaseCurrency(String baseCurrency)
+   {
+      this.baseCurrency = baseCurrency;
+   }
+
+   public String getDestCurrency()
+   {
+      return destCurrency;
+   }
+
+   public void setDestCurrency(String destCurrency)
+   {
+      this.destCurrency = destCurrency;
+   }
+
+   public Double getExchangeRate()
+   {
+      return exchangeRate;
+   }
+
+   public void setExchangeRate(Double exchangeRate)
+   {
+      this.exchangeRate = exchangeRate;
+   }
+
+   public Double getDestShare()
+   {
+      return destShare;
+   }
+
+   public void setDestShare(Double destShare)
+   {
+      this.destShare = destShare;
+   }
+
+   public Double getDestPrice()
+   {
+      return destPrice;
+   }
+
+   public void setDestPrice(Double destPrice)
+   {
+      this.destPrice = destPrice;
+   }
+
+   public Double getDestValue()
+   {
+      return destValue;
+   }
+
+   public void setDestValue(Double destValue)
+   {
+      this.destValue = destValue;
    }
 
    public String getNamePlusSymbol() {

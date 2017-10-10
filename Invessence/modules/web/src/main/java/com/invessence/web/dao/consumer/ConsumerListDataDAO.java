@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 import com.invessence.web.bean.custody.ClientBean;
 import com.invessence.converter.SQLData;
 import com.invessence.web.dao.advisor.AdvisorListSP;
-import com.invessence.web.data.common.CustomerData;
+import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.*;
 import com.invmodel.inputData.GoalsData;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -20,17 +20,21 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
-   public void getProfileData(CustomerData data) {
+   public void getProfileData(CustomerData data)
+   {
       DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData",0);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData", 0);
       Map outMap = sp.loadClientProfileData(data);
       String managed, currentstatus;
-      try {
+      try
+      {
          if (outMap != null)
          {
             ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
             if (rows == null)
+            {
                return;
+            }
             int i = 0;
             for (Map<String, Object> map : rows)
             {
@@ -78,11 +82,17 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setPortfolioIndex(convert.getIntData(rs.get("portfolioIndex")));
 
                if (convert.getStrData(rs.get("taxable")) == null)
+               {
                   data.setAccountTaxable(true);
+               }
                else if (convert.getStrData(rs.get("taxable")).startsWith("N"))
+               {
                   data.setAccountTaxable(false);
+               }
                else
+               {
                   data.setAccountTaxable(true);
+               }
 
                data.setRole(convert.getStrData(rs.get("role")));
                data.setPrivileges(convert.getStrData(rs.get("privileges")));
@@ -143,8 +153,10 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.getAccountFinancials().setLiquidnetworth(convert.getLongData(rs.get("liquidnetworth")));
                data.getAccountFinancials().setNetworth(convert.getLongData(rs.get("networth")));
 
-               if (data.getGoalData() == null )
+               if (data.getGoalData() == null)
+               {
                   data.setGoalData(new GoalsData());
+               }
 
                data.getGoalData().setGoalDesired(convert.getDoubleData(rs.get("goalDesired")));
 
@@ -153,59 +165,76 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             }
          }
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
          ex.printStackTrace();
       }
    }
 
-   private Boolean getManaged(String managed) {
-      if (managed == null) {
+   private Boolean getManaged(String managed)
+   {
+      if (managed == null)
+      {
          return false;
       }
-      else {
-         if (managed.equalsIgnoreCase("Active")) {
+      else
+      {
+         if (managed.equalsIgnoreCase("Active"))
+         {
             return true;
          }
-         else {
+         else
+         {
             return false;
          }
       }
    }
 
-   private Boolean getEditable(String currentstatus) {
-      if (currentstatus == null) {
+   private Boolean getEditable(String currentstatus)
+   {
+      if (currentstatus == null)
+      {
          return true;
       }
-      else {
+      else
+      {
          if (currentstatus.equalsIgnoreCase("visitor") ||
             currentstatus.equalsIgnoreCase("pending") ||
-            currentstatus.equalsIgnoreCase("active")) {
+            currentstatus.equalsIgnoreCase("active"))
+         {
             return true;
          }
-         else {
+         else
+         {
             return false;
          }
       }
    }
 
-   private Boolean getUnopened(String currentstatus) {
-      if (currentstatus == null) {
+   private Boolean getUnopened(String currentstatus)
+   {
+      if (currentstatus == null)
+      {
          return true;
       }
-      else {
+      else
+      {
          if (currentstatus.equalsIgnoreCase("visitor") ||
-            currentstatus.equalsIgnoreCase("pending")) {
+            currentstatus.equalsIgnoreCase("pending"))
+         {
             return true;
          }
-         else {
+         else
+         {
             return false;
          }
       }
    }
 
-   public ArrayList<CustomerData> getClientProfileList(Long logonid, Long acctnum, Integer days, String advisor, String rep) {
+   public ArrayList<CustomerData> getClientProfileList(Long logonid, Long acctnum, Integer days, String advisor, String rep)
+   {
       DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData",0);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData", 0);
       ArrayList<CustomerData> listProfiles = new ArrayList<CustomerData>();
       Map outMap = sp.loadClientProfileData(logonid, acctnum, days, advisor, rep);
       String managed, currentstatus;
@@ -264,11 +293,17 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             String taxable = convert.getStrData(rs.get("taxable"));
 
             if (taxable == null)
+            {
                data.setAccountTaxable(false);
+            }
             else if (taxable.startsWith("N"))
+            {
                data.setAccountTaxable(false);
+            }
             else
+            {
                data.setAccountTaxable(true);
+            }
 
 
             data.setDateOpened(convert.getStrData(rs.get("dateOpened")));
@@ -330,8 +365,10 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             data.getAccountFinancials().setNetworth(convert.getLongData(rs.get("networth")));
 
 
-            if (data.getGoalData() == null )
+            if (data.getGoalData() == null)
+            {
                data.setGoalData(new GoalsData());
+            }
 
             data.getGoalData().setGoalDesired(convert.getDoubleData(rs.get("goalDesired")));
 
@@ -343,15 +380,17 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       return null;
    }
 
-   public void getNewClientProfileData(CustomerData data) {
+   public void getNewClientProfileData(CustomerData data)
+   {
       DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sel_NewAccountProfile",1);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_NewAccountProfile", 1);
       Map outMap = sp.getNewClientProfileData(data);
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
          int i = 0;
-         if (rows != null) {
+         if (rows != null)
+         {
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
@@ -367,12 +406,14 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
    }
 
 
-   public Map<String, String> getBasket(String advisor, String strategy) {
+   public Map<String, String> getBasket(String advisor, String strategy)
+   {
       DataSource ds = getDataSource();
-      AdvisorListSP sp = new AdvisorListSP(ds, "sel_AdvisorBaskets",2);
-      Map<String, String> listBasket= new LinkedHashMap<String, String>();
+      AdvisorListSP sp = new AdvisorListSP(ds, "sel_AdvisorBaskets", 2);
+      Map<String, String> listBasket = new LinkedHashMap<String, String>();
       Map outMap = sp.collectBasket(advisor, strategy);
-      try {
+      try
+      {
          if (outMap != null)
          {
             ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
@@ -380,22 +421,67 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
+
                String theme = convert.getStrData(rs.get("theme"));
-               String basket = convert.getStrData(rs.get("displayname"));
-               listBasket.put(theme, basket);
+               String displayName = convert.getStrData(rs.get("displayname"));
+               listBasket.put(theme, displayName);
                i++;
             }
 
          }
          return listBasket;
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
          ex.printStackTrace();
       }
       return null;
    }
 
-   public void getClientData(ClientBean data) {
+   public Map<String, BasketInfo> getBasketInfo(String advisor, String strategy)
+   {
+      DataSource ds = getDataSource();
+      AdvisorListSP sp = new AdvisorListSP(ds, "sel_AdvisorBaskets", 2);
+      Map<String, BasketInfo> listBasket = new LinkedHashMap<String, BasketInfo>();
+      Map outMap = sp.collectBasket(advisor, strategy);
+      try
+      {
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            int i = 0;
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+
+               String theme = convert.getStrData(rs.get("theme"));
+               BasketInfo basketInfo = new BasketInfo(
+                  convert.getStrData(rs.get("advisor")),
+                  theme,
+                  convert.getStrData(rs.get("status")),
+                  convert.getStrData(rs.get("displayname")),
+                  convert.getStrData(rs.get("sortorder")),
+                  convert.getStrData(rs.get("primary")),
+                  convert.getStrData(rs.get("taxable")),
+                  convert.getStrData(rs.get("model")),
+                  convert.getStrData(rs.get("baseCurrency"))
+               );
+               listBasket.put(theme, basketInfo);
+               i++;
+            }
+
+         }
+         return listBasket;
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+      return null;
+   }
+
+   public void getClientData(ClientBean data)
+   {
       DataSource ds = getDataSource();
 /*
       ConsumerListSP sp = new ConsumerListSP(ds, "sp_clientinfo_sel",2);
@@ -440,7 +526,8 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 */
    }
 
-   public void getClientEmpData(ClientBean data) {
+   public void getClientEmpData(ClientBean data)
+   {
       DataSource ds = getDataSource();
 /*
       ConsumerListSP sp = new ConsumerListSP(ds, "sp_client_empinfo_sel",2);
@@ -471,11 +558,12 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 */
    }
 
-   public String validateState(Long logonid, String state) {
+   public String validateState(Long logonid, String state)
+   {
       DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sp_validate_state",3);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sp_validate_state", 3);
       Map outMap = sp.validateState(logonid, state);
-      String info="quota";
+      String info = "quota";
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
@@ -483,7 +571,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
          for (Map<String, Object> map : rows)
          {
             Map rs = (Map) rows.get(i);
-            info=convert.getStrData(rs.get("license"));
+            info = convert.getStrData(rs.get("license"));
             i++;
             break;
          }
@@ -492,15 +580,17 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 
    }
 
-   public ArrayList<ReportData> loadReports(Long logonid, String fromDate, String toDate) {
+   public ArrayList<ReportData> loadReports(Long logonid, String fromDate, String toDate)
+   {
       DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sel_reports",4);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_reports", 4);
       Map outMap = sp.loadReports(logonid, fromDate, toDate);
       ArrayList<ReportData> reports = new ArrayList<ReportData>();
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
-         if (rows != null) {
+         if (rows != null)
+         {
             int i = 0;
             String filename;
             for (Map<String, Object> map : rows)
@@ -513,11 +603,13 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                rdata.setReportName(convert.getStrData(rs.get("reportName")));
                rdata.setSource(convert.getStrData(rs.get("src")));
                filename = convert.getStrData(rs.get("filename"));
-               if (filename.contains(".pdf")) {
+               if (filename.contains(".pdf"))
+               {
                   rdata.setDownloadReport(true);
                   rdata.setViewReport(false);
                }
-               else {
+               else
+               {
                   rdata.setViewReport(true);
                   rdata.setDownloadReport(false);
                }
@@ -530,16 +622,20 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       return reports;
    }
 
-   public void getRiskProfileData(Long acctnum, RiskCalculator data) {
+   public void getRiskProfileData(Long acctnum, RiskCalculator data)
+   {
       DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sel_risk_questions",5);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_risk_questions", 5);
       Map outMap = sp.loadRiskProfileData(acctnum);
-      try {
+      try
+      {
          if (outMap != null)
          {
             ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
             if (rows == null)
+            {
                return;
+            }
 
             for (Map<String, Object> map : rows)
             {
@@ -585,7 +681,8 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             }
          }
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
          ex.printStackTrace();
       }
    }
@@ -594,9 +691,9 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
    {
 
       DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sp_sel_editfund_data",6);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sp_sel_editfund_data", 6);
       Map outMap = sp.validatefundData(acctnum);
-      String info="quota";
+      String info = "quota";
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
@@ -604,7 +701,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
          for (Map<String, Object> map : rows)
          {
             Map rs = (Map) rows.get(i);
-            info=convert.getStrData(rs.get("license"));
+            info = convert.getStrData(rs.get("license"));
             i++;
             break;
          }
@@ -612,9 +709,10 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       return info;
    }
 
-   public ArrayList<CustomerData> getClientActiveAcctList(Long logonid) {
+   public ArrayList<CustomerData> getClientActiveAcctList(Long logonid)
+   {
       DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientActiveAcctData",7);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientActiveAcctData", 7);
       ArrayList<CustomerData> listActiveAcct = new ArrayList<CustomerData>();
       Map outMap = sp.getClientActiveAcctList(logonid);
       if (outMap != null)
@@ -637,9 +735,10 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       return null;
    }
 
-   public ArrayList<ReportData> getClientReportTypeList() {
+   public ArrayList<ReportData> getClientReportTypeList()
+   {
       DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ReportTypeLst",8);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ReportTypeLst", 8);
       ArrayList<ReportData> listReportType = new ArrayList<ReportData>();
       Map outMap = sp.getReportTypeList();
       if (outMap != null)
@@ -661,11 +760,12 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       return null;
    }
 
-   public ArrayList<ReportData> getClientReportData(Long acctnum,String reportType,String dateFactor,String fromDate,String toDate) {
+   public ArrayList<ReportData> getClientReportData(Long acctnum, String reportType, String dateFactor, String fromDate, String toDate)
+   {
       DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ReportDataLst",9);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ReportDataLst", 9);
       ArrayList<ReportData> listReportType = new ArrayList<ReportData>();
-      Map outMap = sp.getClientReportData( acctnum, reportType, dateFactor, fromDate, toDate);
+      Map outMap = sp.getClientReportData(acctnum, reportType, dateFactor, fromDate, toDate);
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");

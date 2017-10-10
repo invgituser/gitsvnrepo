@@ -42,6 +42,14 @@ public class Position implements Serializable
    private Double risk;
    private Double fees;
    private Double goalAmount;
+   private String baseCurrency;
+   private String destCurrency;
+   private Double exchangeRate;
+   private Double destQty;
+   private Double destPrice;
+   private Double destMoney;
+   private Double destPnL;
+
 
    public Position()
    {
@@ -359,5 +367,75 @@ public class Position implements Serializable
    public void setGoalAmount(Double goalAmount)
    {
       this.goalAmount = goalAmount;
+   }
+
+   public String getBaseCurrency()
+   {
+      return baseCurrency;
+   }
+
+   public void setBaseCurrency(String baseCurrency)
+   {
+      this.baseCurrency = baseCurrency;
+   }
+
+   public String getDestCurrency()
+   {
+      return destCurrency;
+   }
+
+   public void setDestCurrency(String destCurrency)
+   {
+      this.destCurrency = destCurrency;
+   }
+
+   public Double getExchangeRate()
+   {
+      return exchangeRate;
+   }
+
+   public void setExchangeRate(Double exchangeRate)
+   {
+      this.exchangeRate = exchangeRate;
+   }
+
+   public Double getDestQty()
+   {
+      return destQty;
+   }
+
+   public void setDestQty(Double destQty)
+   {
+      this.destQty = destQty;
+   }
+
+   public Double getDestPrice()
+   {
+      return destPrice;
+   }
+
+   public void setDestPrice(Double destPrice)
+   {
+      this.destPrice = destPrice;
+   }
+
+   public Double getDestMoney()
+   {
+      return destMoney;
+   }
+
+   public void setDestMoney(Double destMoney)
+   {
+      this.destMoney = destMoney;
+   }
+
+   public Double getDestPnL()
+   {
+      return destPnL;
+   }
+
+   public void setDestPnL(Double destPnL)
+   {
+      this.destPnL = destPnL;
    }
 }

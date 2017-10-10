@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.converter.JavaUtil;
 import com.invessence.emailer.data.MsgData;
@@ -24,6 +23,7 @@ import com.invmodel.model.ModelUtil;
 import com.invmodel.performance.OptHistoricalReport;
 import com.invmodel.performance.data.ProjectionData;
 import com.invmodel.portfolio.data.*;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.logging.*;
 
 /**
@@ -1092,7 +1092,9 @@ public class CustomerData extends ProfileData
                                                     pfList.getTicker(), pfList.getName(), (int) pfList.getShares(),
                                                     pfList.getDailyprice(), pfList.getMoney(), pfList.getSortorder(),
                                                     pfList.getTickerWeights(), weight,
-                                                    pfList.getIsin(), pfList.getCusip(), pfList.getRic());
+                                                    pfList.getIsin(), pfList.getCusip(), pfList.getRic(),
+                                                    pfList.getBaseCurrency(), pfList.getDestCurrency(), pfList.getExchangeRate(),
+                                                    pfList.getBaseShares(), pfList.getBaseMoney(), pfList.getBaseMoney());
                getDisplayPortfolioList().add(loop, dp);
             }
             addedTotalMoney = Math.round(addedTotalMoney * 100.00) / 100.00; // round off..
@@ -1190,6 +1192,8 @@ public class CustomerData extends ProfileData
             Double money = seclist.getMoney();
             String color = seclist.getColor();
             Double summoney = 0.0;
+            String baseCurrency = seclist.getBaseCurrency();
+            String destCurrency = seclist.getDestCurrency();
 
             totalMoney += money;
 
@@ -1203,6 +1207,8 @@ public class CustomerData extends ProfileData
                asset.setUserweight(newwght);
                asset.setAllocweight(newwght);
                asset.setValue(money);
+               asset.setBaseCurrency(baseCurrency);
+               asset.setDestCurrency(destCurrency);
                tallyAssetclass.put(assetname,asset);
             }
             else {
@@ -1238,6 +1244,8 @@ public class CustomerData extends ProfileData
                   aamc[i].getAssetclass().get(assetdata.getAsset()).setValue(assetdata.getValue());
                   aamc[i].getAssetclass().get(assetdata.getAsset()).setUserweight(assetdata.getUserweight());
                   aamc[i].getAssetclass().get(assetdata.getAsset()).setActualweight(assetdata.getActualweight());
+                  aamc[i].getAssetclass().get(assetdata.getAsset()).setBaseCurrency(assetdata.getBaseCurrency());
+                  aamc[i].getAssetclass().get(assetdata.getAsset()).setDestCurrency(assetdata.getDestCurrency());
 
                }
             }
