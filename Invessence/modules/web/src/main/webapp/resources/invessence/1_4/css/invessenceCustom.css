@@ -6344,3 +6344,26 @@ span.conservative_plus{
 .desktopModeButton, .mobileModeButton {
     margin: 0 auto !important;
 }
+/*** 10/06/2017/ dashboard high alert space **/
+.high_alert_dis {
+    width: 95%;
+    float: left;
+    margin: 15px 0 0;
+    border: 1px solid red;
+    padding: 8px 5px;
+    color: red;
+    cursor: pointer;
+    font-size: 13px;
+}
+/*** 10/10/2017/ external link (click icon) **/
+.panel_block span.external_link_click {
+    float: left;
+    margin: 0 5px;
+    line-height: 12px;
+}
+.click_icon {
+    margin: 0 4px;
+}
+span.external_link_click:hover {
+    text-decoration: underline;
+}
