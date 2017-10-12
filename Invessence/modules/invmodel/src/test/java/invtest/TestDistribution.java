@@ -122,7 +122,10 @@ public class TestDistribution
       profileData.setStayInvested(1);
 */
 
-      profileData.setInitialInvestment(1000000);
+      profileData.setInvestmentCurrency("SGD");
+      profileData.setExchangeRate(1.0);
+      profileData.setInitialInvestment(100000);
+      profileData.setDestCurrency("SGD");
       invCapital = profileData.getInitialInvestment();
       // profileData.setRecurringInvestment(5000);
 
@@ -136,17 +139,30 @@ public class TestDistribution
 
       profileData.setRiskCalcMethod("C"); //Using age based option A or C
 
-      profileData.setAllocationIndex(50);  // When flag is A
-      profileData.setPortfolioIndex(45);
-
-      //profileData.offsetRiskIndex();
+     if (profileData.getRiskCalcMethod().equalsIgnoreCase("C"))
+      {
+         //profileData.offsetRiskIndex();
+         profileData.setNumOfAllocation(1);
+         // Use this for calculating risk based on questions
+         profileData.setRiskIndex(calcRisk(age, duration, "1", "1", "1", "1", "1", "1", "1", "1", "1"));
+         // Use this for calculating slider
+         //profileData.setRiskIndex(39.0);
+         calculateRiskIndex(profileData);
+         profileData.setAllCashonZeroRisk(true);
+      }
+      else {
+         profileData.setAllocationIndex(50);  // When flag is A
+         profileData.setPortfolioIndex(45);
+         profileData.setAllCashonZeroRisk(true);
+      }
 
       profileData.setNumOfAllocation(1);
-      // Use this for calculating risk based on questions
-      //profileData.setRiskIndex(calcRisk(age, duration, "1", "1", "1", "1", "1", "1", "1", "1", "1"));
+      // AssetClass[] aamc = modelUtil.buildAllocation(profileData);
+      // profileData.setAssetData(aamc);
 
-      //calculateRiskIndex(profileData);
+
       profileData.setNumOfPortfolio(1);
+      // Portfolio[] pfclass = modelUtil.buildPortfolio(aamc, profileData);
 
       int i = 0;
 
@@ -161,9 +177,9 @@ public class TestDistribution
       {
          // Use this for calculating slider
          profileData.setRiskIndex((double) i);
-         AssetClass[] aamc = modelUtil.buildAllocation(profileData);
+         AssetClass[]aamc = modelUtil.buildAllocation(profileData);
          profileData.setAssetData(aamc);
-         Portfolio[] pfclass = modelUtil.buildPortfolio(aamc, profileData);
+         Portfolio[]pfclass = modelUtil.buildPortfolio(aamc, profileData);
 
          expReturnsArray[i] = pfclass[0].getExpReturns();
          totalRiskArray[i] = pfclass[0].getTotalRisk();
@@ -344,6 +360,7 @@ public class TestDistribution
 
    public static void calculateRiskIndex(ProfileData profileData)
    {
+
       // Adjust for risk questionnaire
       //{0, 4, 8, 12, 50, 0, 0, 0, 0, 0}, // Q3    Add
       //{0, 16, 0, 0, 0, 0, 0, 0, 0, 0}, //  Q4      Add
@@ -403,6 +420,8 @@ public class TestDistribution
 
       if (calcHorizonRisk > calcRisk)
          calcRisk = calcHorizonRisk;
+
+
 
       //Define operation
       // Question 3 ** Add **
@@ -486,6 +505,8 @@ public class TestDistribution
          }
       System.out.println(j);
       }
+
+
    }
    /*public static void createWeightFile(PortfolioOptimizer assetDao){
 
@@ -675,9 +696,10 @@ public class TestDistribution
                            "," + "");
          writer.close();
 
+
+
       }
    }
-
 
    public static void createHoldingsFile(Portfolio[] pfclass, String tax, AssetClass[] aamc, ProfileData profileData) throws Exception
    {
