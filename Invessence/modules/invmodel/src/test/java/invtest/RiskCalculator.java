@@ -64,7 +64,7 @@ public class RiskCalculator
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #0 Used as default.
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #1 (Corresponds to Age)
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q2 (Corresponds to Horizon)
-      {0.0, 0.0, 4.0, 8.0, 12.0, 50.0, 0.0, 0.0, 0.0, 0.0}, // Q3 Rest below is customizable
+      {0.0, 0.0, 4.0, 8.0, 12.0, 50.0, 0.0, 0.0, 0.0, 0.0},// Q3 Rest below is customizable
       {0.0, 0.0, 16.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q4
       {0.0, 0.0, 4.0, 8.0, 12.0, 50.0, 0.0, 0.0, 0.0, 0.0}, // Q5
       {0.0, 0.0, 50.0, 75.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q6
@@ -535,15 +535,15 @@ public class RiskCalculator
                      answers[loop] = getRiskHorizon().toString();
                      break;
 
-                     //answers[loop] = getRiskHorizon().toString();
-                     //Double calcHorizonRisk = 0.0;
-                     //calcHorizonRisk = (maxScore-getRiskHorizon()*(maxScore/maxDuration)); // 80 is fixed since we are scaling risk 1 to 100
-                     //riskValues[loop] = calcHorizonRisk; // Store the value in DB
-                     //if (calcHorizonRisk > calcRisk)
-                     //{
-                     //   calcRisk = calcHorizonRisk;
-                     //}
-                     //break;
+                  //answers[loop] = getRiskHorizon().toString();
+                  //Double calcHorizonRisk = 0.0;
+                  //calcHorizonRisk = (maxScore-getRiskHorizon()*(maxScore/maxDuration)); // 80 is fixed since we are scaling risk 1 to 100
+                  //riskValues[loop] = calcHorizonRisk; // Store the value in DB
+                  //if (calcHorizonRisk > calcRisk)
+                  //{
+                  //   calcRisk = calcHorizonRisk;
+                  //}
+                  //break;
 
                   case 3:
                   case 4:
