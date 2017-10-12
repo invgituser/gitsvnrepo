@@ -451,6 +451,9 @@ public class PortfolioModel
             investByAsset = 0.0;
             assetdata = portfolioOptimizer.getAssetData(theme, assetname);
             asset = assetClass.getAsset(assetname);
+            if (asset == null) { // If asset is not found, then return in case of Cash only account.
+               return;
+            }
             primeAssetWeights = assetdata.getPrimeAssetweights();
             assetWgt = asset.getUserweight();
             int tickerNum = 0;

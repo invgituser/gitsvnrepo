@@ -28,7 +28,7 @@ import static java.lang.String.valueOf;
 public class TestDistribution
 {
    private static TestDistribution instance = null;
-   private static String datadir = "C:/Users/Jigar/Work Related/RiverFrontAdvisors/";
+   private static String datadir = "C:/Data/Testing";
    private static RiskCalculator riskCalculator = new RiskCalculator();
 
 
