@@ -995,11 +995,11 @@ public class TestDistribution
 
          if (tax.equals("No"))
          {
-            file = new File(datadir + "Testing/" + fileName);
+            file = new File(datadir + fileName);
          }
          else
          {
-            file = new File(datadir + fileName);
+            file = new File(datadir + "/taxable/"+ fileName);
          }
 
          //file = new RandomAccessFile ("filename.ext","rw");
