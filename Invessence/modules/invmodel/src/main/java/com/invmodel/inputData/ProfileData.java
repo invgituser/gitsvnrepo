@@ -64,7 +64,7 @@ public class
    private Double shortExternalGain = 0.0;
    private Double longExternalGain = 0.0;
 
-   private Boolean allCashonZeroRisk;  // If this toggle is on, then Investor is given Portfoloo of all Cash.
+   private Boolean allCashonZeroRisk = false;  // If this toggle is on, then Investor is given Portfoloo of all Cash.
    private Double riskIndex = 0.0;        // On riskIndex 0 = highest risk, 28 = lowest risk.
    private Integer displayRiskIndex = 10; // On displayRiskIndex 0 = lowest risk, 10 = highest risk.
 
@@ -846,7 +846,7 @@ public class
 
    public Boolean getAllCashonZeroRisk()
    {
-      return allCashonZeroRisk;
+      return ((allCashonZeroRisk == null) ? false : true);
    }
 
    public void setAllCashonZeroRisk(Boolean allCashonZeroRisk)
