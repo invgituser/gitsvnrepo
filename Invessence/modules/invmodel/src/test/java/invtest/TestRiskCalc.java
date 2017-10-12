@@ -60,14 +60,14 @@ public class TestRiskCalc
          riskCalculator.setRiskFormula("C");
          riskCalculator.setNumberofQuestions(9);
 
-         for (Integer age = 40; age < 101; age += 10)
+         for (Integer age = 40; age < 41; age += 5)
          {
             riskCalculator.setRiskAge(age);
-            for (Integer horizon = 1; horizon < 21; horizon += 2)
+            for (Integer horizon = 20; horizon < 21; horizon += 2)
             {
                riskCalculator.setRiskHorizon(horizon);
-               for (Integer r9 = 1; r9 < 4; r9++)
-               {  // Only three choices
+               for (Integer r9 = 3; r9 > 0; r9--)
+               {  // Only three choices (Reveres order)
                   riskCalculator.setAns9(r9.toString());
                   for (Integer r8 = 1; r8 < 4; r8++)
                   {  // Only three choices
@@ -92,13 +92,13 @@ public class TestRiskCalc
 
                                     result.add(riskCalculator.getAns1() + "," +
                                                   riskCalculator.getAns2() + "," +
-                                                  riskCalculator.getAns9() + "," +
-                                                  riskCalculator.getAns8() + "," +
-                                                  riskCalculator.getAns7() + "," +
-                                                  riskCalculator.getAns6() + "," +
-                                                  riskCalculator.getAns5() + "," +
-                                                  riskCalculator.getAns4() + "," +
                                                   riskCalculator.getAns3() + "," +
+                                                  riskCalculator.getAns4() + "," +
+                                                  riskCalculator.getAns5() + "," +
+                                                  riskCalculator.getAns6() + "," +
+                                                  riskCalculator.getAns7() + "," +
+                                                  riskCalculator.getAns8() + "," +
+                                                  riskCalculator.getAns9() + "," +
                                                   riskCalculator.getRiskValue(1) + "," +
                                                   riskCalculator.getRiskValue(2) + "," +
                                                   riskCalculator.getRiskValue(3) + "," +
