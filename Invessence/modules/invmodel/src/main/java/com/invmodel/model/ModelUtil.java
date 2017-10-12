@@ -77,6 +77,11 @@ public class ModelUtil
 
    }
 
+   public PortfolioOptimizer getPoptimizer()
+   {
+      return poptimizer;
+   }
+
    public void refreshData() {
       poptimizer.refreshDataFromDB();
       fixoptimizer.refreshDataFromDB();
