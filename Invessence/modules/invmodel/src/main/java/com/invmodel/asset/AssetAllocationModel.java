@@ -136,8 +136,7 @@ public class AssetAllocationModel
             }
             if (offset == 0 && pdata.getAllCashonZeroRisk())
             {
-               assetclass[counter] = setToAllCash(theme, offset, duration,
-                                                         age, stayInvested);
+               assetclass[counter] = setToAllCash(pdata);
             }
             else {
                assetclass[counter] = createAssetsByIndex(theme, offset, duration,
@@ -244,25 +243,25 @@ public class AssetAllocationModel
 
    }
 
-   private AssetClass setToAllCash(String theme, int offset, int duration,
-                                          int age, Integer stayInvested)
+   private AssetClass setToAllCash(ProfileData pdata)
    {
 
       AssetClass assetclass = new AssetClass();
       try
       {
-         assetclass.initAssetClass(age, duration, (double) offset, stayInvested, theme);
+         assetclass.initAssetClass(pdata.getAge(), pdata.getHorizon(), pdata.getRiskIndex(), pdata.getStayInvested(), pdata.getTheme());
          double wght = 1.0;
 
          String cash = "Cash";
 
          // Always add each to asset List.
-         String assetcolor = portfolioOptimizer.getAssetData(theme, cash).getColor();
+         String assetcolor = portfolioOptimizer.getAssetData(pdata.getTheme(), cash).getColor();
          assetclass.addAssetClass(cash, cash, assetcolor, 0.0, 0.0);
          assetclass.getAsset(cash).setAllocweight(wght);
          assetclass.getAsset(cash).setUserweight(wght);
          assetclass.getAsset(cash).setActualweight(wght);
          assetclass.getAsset(cash).setAvgReturn(0.0);
+         assetclass.getAsset(cash).setHoldingValue(pdata.getInvestmentAmount());
 
          return assetclass;
       }
@@ -486,86 +485,101 @@ public class AssetAllocationModel
    public AssetClass fixedModelAllocation(ProfileData pdata)
    {
 
-      AssetClass assetclass = new AssetClass();
       try
       {
          FMData fixedModelData;
          Double wght;
          Double totalWeight = 1.0;
          Integer age =  pdata.getAge();
-         Double investment = pdata.getDefaultInvestment();
+         Double investment = pdata.getInvestmentAmount();
          String theme =  pdata.getTheme();
 
          Double adjRiskOffet = pdata.getRiskIndex();
          //Age based offset
-         assetclass.initAssetClass(pdata.getAge(), pdata.getDefaultHorizon(), adjRiskOffet,
-                                   pdata.getStayInvested(), theme);
 
-         if (pdata.getRiskCalcMethod().equalsIgnoreCase(InvConst.CONSUMER_RISK_FORMULA)) {
-            fixedModelData = fixedOptimizer.getTheme(theme, adjRiskOffet);
-         }
-         else {
-            fixedModelData = fixedOptimizer.getThemeByIndex(theme, pdata.getAllocationIndex());
+         AssetClass assetclass;
+         if (pdata.getAllCashonZeroRisk() && pdata.getRiskIndex() <= 0)
+         {
+            assetclass = setToAllCash(pdata);
          }
 
-         pdata.setFixedFMModel(fixedModelData);
-         if (fixedModelData != null) {
-            pdata.setAllocationIndex(fixedModelData.getIndex());
-            pdata.setPortfolioIndex(fixedModelData.getIndex());
-            for (FMAssetData fiasset : fixedModelData.getAssetsData())
+         else
+         {
+            assetclass = new AssetClass();
+            assetclass.initAssetClass(pdata.getAge(), pdata.getDefaultHorizon(), adjRiskOffet,
+                                      pdata.getStayInvested(), theme);
+
+            if (pdata.getRiskCalcMethod().equalsIgnoreCase(InvConst.CONSUMER_RISK_FORMULA))
             {
-               String assetname = fiasset.getAsset();
-               String displayName = fiasset.getDisplayname();
-               String assetcolor = fiasset.getColor();
+               fixedModelData = fixedOptimizer.getTheme(theme, adjRiskOffet);
+            }
+            else
+            {
+               fixedModelData = fixedOptimizer.getThemeByIndex(theme, pdata.getAllocationIndex());
+            }
 
-               // Always add each to asset List.
-               assetclass.addAssetClass(assetname, displayName, assetcolor, 0.0, 0.0);
-
-               wght = fiasset.getWeight();
-
-               if (!assetname.equalsIgnoreCase("Cash"))
+            pdata.setFixedFMModel(fixedModelData);
+            if (fixedModelData != null)
+            {
+               pdata.setAllocationIndex(fixedModelData.getIndex());
+               pdata.setPortfolioIndex(fixedModelData.getIndex());
+               for (FMAssetData fiasset : fixedModelData.getAssetsData())
                {
-                  if (wght < 0.0001)
+                  String assetname = fiasset.getAsset();
+                  String displayName = fiasset.getDisplayname();
+                  String assetcolor = fiasset.getColor();
+
+                  // Always add each to asset List.
+                  assetclass.addAssetClass(assetname, displayName, assetcolor, 0.0, 0.0);
+
+                  wght = fiasset.getWeight();
+
+                  if (!assetname.equalsIgnoreCase("Cash"))
                   {
-                     continue;
+                     if (wght < 0.0001)
+                     {
+                        continue;
+                     }
+
+                     Double risk_adjustment = 0.0;
+
+                     if (wght > totalWeight)
+                     {
+                        wght = totalWeight;
+                     }
+
+                     assetclass.getAsset(assetname).setAllocweight(wght);
+                     assetclass.getAsset(assetname).setUserweight(wght);
+                     assetclass.getAsset(assetname).setActualweight(wght);
+                     assetclass.getAsset(assetname).setValue(wght * investment);
+                     assetclass.getAsset(assetname).setAvgReturn(0.0);
+                     if (!assetname.equals("Cash"))
+                     {
+                        totalWeight = totalWeight - wght;
+                     }
                   }
-
-                  Double risk_adjustment = 0.0;
-
-                  if (wght > totalWeight)
+                  else
                   {
-                     wght = totalWeight;
-                  }
-
-                  assetclass.getAsset(assetname).setAllocweight(wght);
-                  assetclass.getAsset(assetname).setUserweight(wght);
-                  assetclass.getAsset(assetname).setActualweight(wght);
-                  assetclass.getAsset(assetname).setValue(wght * investment);
-                  assetclass.getAsset(assetname).setAvgReturn(0.0);
-                  if (!assetname.equals("Cash"))
-                  {
-                     totalWeight = totalWeight - wght;
-                  }
-               }
-               else
-               {
 
 
-                  if (totalWeight < 0.0)
-                  {
-                     totalWeight = 0.0;
+                     if (totalWeight < 0.0)
+                     {
+                        totalWeight = 0.0;
+                     }
+                     assetclass.getAsset("Cash").setAllocweight(totalWeight);  // Adjust weight.
+                     assetclass.getAsset("Cash").setUserweight(totalWeight);  // Adjust weight.
+                     assetclass.getAsset("Cash").setActualweight(totalWeight);  // Adjust weight.
+                     assetclass.getAsset("Cash").setValue(totalWeight * investment);
+                     // allocation Cash here with color.
+                     //assetclass.addAssetClass(assetname, totalWeight, 0.0, assetcolor[i]);
                   }
-                  assetclass.getAsset("Cash").setAllocweight(totalWeight);  // Adjust weight.
-                  assetclass.getAsset("Cash").setUserweight(totalWeight);  // Adjust weight.
-                  assetclass.getAsset("Cash").setActualweight(totalWeight);  // Adjust weight.
-                  assetclass.getAsset("Cash").setValue(totalWeight * investment);
-                  // allocation Cash here with color.
-                  //assetclass.addAssetClass(assetname, totalWeight, 0.0, assetcolor[i]);
                }
             }
+            else {
+               assetclass = setToAllCash(pdata);
+            }
          }
-
-            return assetclass;
+         return assetclass;
       }
       catch (Exception e)
       {

@@ -151,7 +151,8 @@ public class HolisticModelOptimizer
                                                                resultSet.getDouble("lowerBound"),
                                                                0.0,
                                                                resultSet.getInt("sortorder"),
-                                                               resultSet.getDouble("weight"));
+                                                               resultSet.getDouble("weight"),
+                                                               "USD");
 
 
             //if (! primeAssetClass.toUpperCase().equals("CASH")) {
@@ -236,7 +237,8 @@ public class HolisticModelOptimizer
                                                                0.0,
                                                                0.0,
                                                                99998,
-                                                               resultSet.getDouble("weight"));
+                                                               resultSet.getDouble("weight"),
+                                                               "USD");
 
 /*
             //if (! primeAssetClass.toUpperCase().equals("CASH")) {

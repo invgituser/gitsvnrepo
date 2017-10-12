@@ -108,13 +108,13 @@ public class LinearOptimizer
                                + includesPrimeAssets);
          */
 
-         Map<String, Double> primeWeightsMap = getMapOfPrimeWeights(pdata.getAdvisor(), pdata.getTheme(), pdata, aamc);
+         Map<String, Double> primeWeightsMap = getMapOfPrimeWeights(pdata.getAdvisor(), pdata.getTheme(),  pdata, aamc);
          double[][] primeTargetWeights = getPrimeAssetWeights(primeWeightsMap);
 
          //Compare number of tickers in theme prime assets vs. prime assets in the funds
 
          PortfolioOptimizer poptimizer = PortfolioOptimizer.getInstance();
-         HolisticOptimizedData hoptdata = poptimizer.getHolisticWeight(theme, tickerArray, primeTargetWeights, primeWeightsMap);
+         HolisticOptimizedData hoptdata = poptimizer.getHolisticWeight(theme, tickerArray, pdata.getDestCurrency(), primeTargetWeights, primeWeightsMap);
          hoptdata.setPrimeAssetInfo(primeWeightsMap);
 
          //This data will be based on input by fund within an account

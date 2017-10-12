@@ -5,6 +5,10 @@ import java.util.*;
 import java.util.concurrent.locks.*;
 import java.util.logging.Logger;
 
+import javax.sql.DataSource;
+
+import com.invessence.converter.*;
+import com.invessence.converter.SQLData;
 import com.invmodel.Const.InvConst;
 import com.invmodel.dao.*;
 import com.invmodel.dao.data.*;
@@ -55,9 +59,11 @@ public class PortfolioOptimizer
       historicaldailyreturns = new HistoricalDailyReturns();
    }
 
-   public void loadDataFromDB(String theme) {
+   public void loadDataFromDB(String theme)
+   {
       write.lock();
-      try {
+      try
+      {
          themeAssetMap.clear();
          assetDataMap.clear();
 
@@ -73,7 +79,8 @@ public class PortfolioOptimizer
          savePrimeAssetWeights();
 
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
 
       }
       finally
@@ -83,10 +90,12 @@ public class PortfolioOptimizer
 
    }
 
-   public void refreshDataFromDB() {
+   public void refreshDataFromDB()
+   {
 
       write.lock();
-      try {
+      try
+      {
          themeAssetMap.clear();
          assetDataMap.clear();
 
@@ -102,7 +111,8 @@ public class PortfolioOptimizer
          savePrimeAssetWeights();
 
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
 
       }
       finally
@@ -111,21 +121,28 @@ public class PortfolioOptimizer
       }
    }
 
-   private String checkThemeName(String theme) {
+   private String checkThemeName(String theme)
+   {
       if (theme == null || theme.length() == 0)
+      {
          theme = "DISCARD";
+      }
       return theme.toUpperCase();
    }
 
-   private String checkAssetName(String assetName) {
+   private String checkAssetName(String assetName)
+   {
       if (assetName == null || assetName.length() == 0)
+      {
          assetName = "DISCARD";
+      }
 
       return assetName.toUpperCase();
    }
 
 
-   private String buildAssetKey(String theme, String assetName) {
+   private String buildAssetKey(String theme, String assetName)
+   {
 
       return checkThemeName(theme) + "." + checkAssetName(assetName);
    }
@@ -134,7 +151,9 @@ public class PortfolioOptimizer
    {
       ArrayList<String> themeList = new ArrayList<String>();
       for (String theme : themeAssetMap.keySet())
+      {
          themeList.add(theme);
+      }
       return themeList;
    }
 
@@ -143,90 +162,109 @@ public class PortfolioOptimizer
       return themeAssetMap.get(checkThemeName(theme));
    }
 
-   public void addAssetClass(String theme, String assetName, AssetData assetData) {
+   public void addAssetClass(String theme, String assetName, AssetData assetData)
+   {
       String key;
 
       key = buildAssetKey(theme, assetName);
       theme = checkThemeName(theme);
-      if (! key.contains("DISCARD")) {
-         if (! assetDataMap.containsKey(key)) {
-            if (! themeAssetMap.containsKey(theme)) {
+      if (!key.contains("DISCARD"))
+      {
+         if (!assetDataMap.containsKey(key))
+         {
+            if (!themeAssetMap.containsKey(theme))
+            {
                ArrayList<String> assetList = new ArrayList<String>();
                assetList.add(assetName);
                themeAssetMap.put(theme, assetList);
             }
-            else {
+            else
+            {
                themeAssetMap.get(theme).add(assetName);
             }
          }
-         assetDataMap.put(key,assetData);
+         assetDataMap.put(key, assetData);
       }
 
    }
 
-   public ArrayList<AssetData> getAssetDataList(String theme) {
+   public ArrayList<AssetData> getAssetDataList(String theme)
+   {
       ArrayList<AssetData> assetDataList = new ArrayList<AssetData>();
 
-      for (String assetName : themeAssetMap.get(checkThemeName(theme))) {
+      for (String assetName : themeAssetMap.get(checkThemeName(theme)))
+      {
          String key = buildAssetKey(checkThemeName(theme), assetName);
-            assetDataList.add(assetDataMap.get(key));
+         assetDataList.add(assetDataMap.get(key));
       }
 
       return assetDataList;
    }
 
-   public AssetData getAssetData(String theme, String assetName) {
+   public AssetData getAssetData(String theme, String assetName)
+   {
       read.lock();
       try
       {
          String key = buildAssetKey(checkThemeName(theme), assetName);
          return assetDataMap.get(key);
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
 
       }
-      finally {
+      finally
+      {
          read.unlock();
       }
-       return null;
+      return null;
    }
 
-   public Boolean isValidTheme(String theme) {
+   public Boolean isValidTheme(String theme)
+   {
       return themeAssetMap.containsKey(checkThemeName(theme));
    }
 
-   public ArrayList<PrimeAssetClassData> getPrimeAssetDataList(String theme) {
+   public ArrayList<PrimeAssetClassData> getPrimeAssetDataList(String theme)
+   {
       ArrayList<PrimeAssetClassData> primeassetdata = new ArrayList<PrimeAssetClassData>();
       read.lock();
       try
       {
-         for (String asset : themeAssetMap.get(checkThemeName(theme))) {
-            String key = buildAssetKey(theme,asset);
-            for (String primeasset : assetDataMap.get(key).getOrderedPrimeAssetList()){
+         for (String asset : themeAssetMap.get(checkThemeName(theme)))
+         {
+            String key = buildAssetKey(theme, asset);
+            for (String primeasset : assetDataMap.get(key).getOrderedPrimeAssetList())
+            {
                primeassetdata.add(assetDataMap.get(key).getPrimeAssetData(primeasset));
             }
          }
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
 
       }
-      finally {
+      finally
+      {
          read.unlock();
       }
       return primeassetdata;
    }
 
-   public PrimeAssetClassData getPrimeAssetData(String theme, String assetname, String ticker) {
+   public PrimeAssetClassData getPrimeAssetData(String theme, String assetname, String ticker)
+   {
       read.lock();
       try
       {
-         String key = buildAssetKey(theme,assetname);
+         String key = buildAssetKey(theme, assetname);
          return assetDataMap.get(key).getPrimeAssetData(ticker);
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
 
       }
-      finally {
+      finally
+      {
          read.unlock();
       }
       return null;
@@ -238,7 +276,8 @@ public class PortfolioOptimizer
       try
       {
          theme = checkThemeName(theme);
-         if (themeAssetMap.containsKey(theme)) {
+         if (themeAssetMap.containsKey(theme))
+         {
             String[] asset = new String[themeAssetMap.get(theme).size()];
             for (int i = 0; i < themeAssetMap.get(theme).size(); i++)
             {
@@ -249,7 +288,9 @@ public class PortfolioOptimizer
             return asset;
          }
          else
+         {
             return null;
+         }
       }
       catch (Exception e)
       {
@@ -262,14 +303,16 @@ public class PortfolioOptimizer
       return null;
    }
 
-   private void setAssetdata(String advisor, String assetName, String displayName,
+   private void setAssetdata(String theme, String currency,
+                             String assetName, String displayName,
                              double lbConstraint, double ubConstraint,
                              String index, double averageReturn,
                              String color, double risk_adjustment, double end_allocation, int sortorder)
    {
       try
       {
-         AssetData data = new AssetData(advisor,
+         AssetData data = new AssetData(theme,
+                                        currency,
                                         assetName,
                                         displayName,
                                         lbConstraint,
@@ -281,7 +324,7 @@ public class PortfolioOptimizer
                                         end_allocation,
                                         sortorder
          );
-         addAssetClass(advisor, assetName, data);
+         addAssetClass(theme, assetName, data);
       }
       catch (Exception e)
       {
@@ -291,153 +334,132 @@ public class PortfolioOptimizer
 
    private void loadAssetDataFromDB(String theme)
    {
-      Connection connection = null;
-      Statement statement = null;
-      ResultSet resultSet = null;
+      DBConnectionProvider dbconnection = DBConnectionProvider.getInstance();
+      SQLData convert = new com.invessence.converter.SQLData();
+      DataSource ds = dbconnection.getMySQLDataSource();
       try
       {
-         String where_clause="WHERE status in ('A') \n";
-         if (theme != null && ! theme.equalsIgnoreCase("ALL")) {
-            where_clause = "AND theme = '" + theme + "'\n";
-         }
-         // Select data from the database
-         connection = DBConnectionProvider.getInstance().getConnection();
-         statement = connection.createStatement();
-         statement.executeQuery("SELECT theme,\n" +
-                                   "    assetclass,\n" +
-                                   "    ticker,\n" +
-                                   "    displayName,\n" +
-                                   "    lowerBound,\n" +
-                                   "    upperBound,\n" +
-                                   "    color,\n" +
-                                   "    averageReturn,\n" +
-                                   "    riskAdjustment,\n" +
-                                   "    endAllocation,\n" +
-                                   "    sortorder\n" +
-                                   "FROM vw_assetmapping_group\n" +
-                                   where_clause +
-                                   "order by theme, sortOrder");
+         read.lock();
+         String storedProcName = "invdb.sel_sec_assetclass_group";
+         InvModelSP sp = new InvModelSP(ds, storedProcName, 0, 1);
 
-         resultSet = statement.getResultSet();
-         resultSet.beforeFirst();
-         while (resultSet.next())
+         Map outMap = sp.assetDataFromDB(theme);
+         if (outMap != null)
          {
-            setAssetdata(resultSet.getString("theme"),
-                         resultSet.getString("assetclass"),
-                         resultSet.getString("displayName"),
-                         resultSet.getDouble("lowerBound"),
-                         resultSet.getDouble("upperBound"),
-                         resultSet.getString("ticker"),
-                         resultSet.getDouble("averageReturn"),
-                         resultSet.getString("color"),
-                         resultSet.getDouble("riskAdjustment"),
-                         resultSet.getDouble("endAllocation"),
-                         resultSet.getInt("sortorder")
-            );
+            ArrayList<Map<String, Object>> rows;
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)
+            {
+               int i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
+                  setAssetdata(convert.getStrData(rs.get("theme")),
+                               convert.getStrData(rs.get("baseCurrency")),
+                               convert.getStrData(rs.get("assetclass")),
+                               convert.getStrData(rs.get("displayName")),
+                               convert.getDoubleData(rs.get("lowerBound")),
+                               convert.getDoubleData(rs.get("upperBound")),
+                               convert.getStrData(rs.get("ticker")),
+                               convert.getDoubleData(rs.get("averageReturn")),
+                               convert.getStrData(rs.get("color")),
+                               convert.getDoubleData(rs.get("riskAdjustment")),
+                               convert.getDoubleData(rs.get("endAllocation")),
+                               convert.getIntData(rs.get("sortorder")));
+                  i++;
+               }
+            }
          }
-
       }
-      catch (Exception e)
-      {
-         e.printStackTrace();
+         catch(Exception e)
+         {
+            e.printStackTrace();
+         }
+         finally
+         {
+            read.unlock();
+         }
       }
-      finally
-      {
-         DbUtils.closeQuietly(resultSet);
-         DbUtils.closeQuietly(statement);
-         DbUtils.closeQuietly(connection);
-      }
-   }
 
    private void setSecurityData(String theme, String ticker,
-                               String assetname,
-                               double expenseRatio, double adv3Month,
-                               double aum, double beta, double riskSTD,
-                               double expectedReturn,
-                               double ubConstraint, double lbConstraint, double yield, int sortorder) {
-      try {
-         String key = buildAssetKey(theme,assetname);
-         if (! key.contains("DISCARD"))  {
+                                String assetname,
+                                double expenseRatio, double adv3Month,
+                                double aum, double beta, double riskSTD,
+                                double expectedReturn,
+                                double ubConstraint, double lbConstraint, double yield,
+                                int sortorder, String currency)
+   {
+      try
+      {
+         String key = buildAssetKey(theme, assetname);
+         if (!key.contains("DISCARD"))
+         {
             PrimeAssetClassData primeassetdata = new PrimeAssetClassData
                (theme, assetname, ticker,
                 expenseRatio, adv3Month, aum, beta,
-                riskSTD, expectedReturn, ubConstraint, lbConstraint, yield, sortorder);
+                riskSTD, expectedReturn, ubConstraint, lbConstraint, yield,
+                sortorder, currency);
 
             assetDataMap.get(key).addPrimeAsset(ticker, primeassetdata);
          }
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
       }
    }
 
 
-   private void  loadPrimeAssetsFromDB(String theme) {
-      //logger.info("Loading Advisor Security from DB");
-      Connection connection = null;
-      Statement s = null;
-      ResultSet rs = null;
+   private void loadPrimeAssetsFromDB(String theme)
+   {
+
+      DBConnectionProvider dbconnection = DBConnectionProvider.getInstance();
+      SQLData convert = new com.invessence.converter.SQLData();
+      DataSource ds = dbconnection.getMySQLDataSource();
       try
       {
-         String where_clause="WHERE status in ('A') \n";
-         if (theme != null && ! theme.equalsIgnoreCase("ALL")) {
-            where_clause = "AND theme = '" + theme + "'\n";
-         }
-         // Select data from the database
-         connection = DBConnectionProvider.getInstance().getConnection();
-         s = connection.createStatement();
-         s.executeQuery("SELECT theme,\n" +
-                           "    assetclass,\n" +
-                           "    ticker,\n" +
-                           "    status,\n" +
-                           "    lowerBound,\n" +
-                           "    upperBound,\n" +
-                           "    expenseRatio,\n" +
-                           "    expectedReturn,\n" +
-                           "    adv3months,\n" +
-                           "    aum,\n" +
-                           "    beta,\n" +
-                           "    securityRiskSTD,\n" +
-                           "    yield,\n" +
-                           "    sortorder\n" +
-                           "FROM vw_primeassets \n" +
-                           where_clause +
-                           "\t order by theme, sortorder \n"
-         );
+         read.lock();
+         String storedProcName = "invdb.sel_sec_primeasset_group";
+         InvModelSP sp = new InvModelSP(ds, storedProcName, 0, 2);
 
-         // Make sure to keep track of this position.
-
-         rs = s.getResultSet();
-         // get data row from table.
-         while (rs.next())
+         Map outMap = sp.loadPrimeAssetsFromDB(theme);
+         if (outMap != null)
          {
-            setSecurityData(
-               rs.getString("theme"), // String groupname
-               rs.getString("ticker"), // String ticker
-               rs.getString("assetclass"),  // String asset type
-               rs.getDouble("expenseRatio"),  // double expenseRatio
-               rs.getDouble("adv3months"), // double adv3Month
-               rs.getDouble("aum"),          // double aum
-               rs.getDouble("beta"),         // double beta
-               rs.getDouble("securityRiskSTD"), // double riskSTD
-               rs.getDouble("expectedReturn"), // double expectedReturn
-               rs.getDouble("upperBound"), // double ubConstraint
-               rs.getDouble("lowerBound"), // double lbConstraint
-               rs.getDouble("yield"),//double yields
-               rs.getInt("sortorder") //double sortorder
-            );
-
+            ArrayList<Map<String, Object>> rows;
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)
+            {
+               int i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
+                  setSecurityData(
+                     convert.getStrData(rs.get("theme")), // String theme
+                     convert.getStrData(rs.get("ticker")), // String ticker
+                     convert.getStrData(rs.get("assetclass")),  // String assetclass
+                     convert.getDoubleData(rs.get("expenseRatio")),  // double expenseRatio
+                     convert.getDoubleData(rs.get("adv3months")), // double adv3Month
+                     convert.getDoubleData(rs.get("aum")),          // double aum
+                     convert.getDoubleData(rs.get("beta")),         // double beta
+                     convert.getDoubleData(rs.get("securityRiskSTD")), // double riskSTD
+                     convert.getDoubleData(rs.get("expectedReturn")), // double expectedReturn
+                     convert.getDoubleData(rs.get("upperBound")), // double ubConstraint
+                     convert.getDoubleData(rs.get("lowerBound")), // double lbConstraint
+                     convert.getDoubleData(rs.get("yield")),//double yields
+                     convert.getIntData(rs.get("sortorder")), //double sortorder
+                     convert.getStrData(rs.get("currency")) //String currency
+                  );
+                  i++;
+               }
+            }
          }
-         //System.out.println (count + " rows were retrieved");
       }
-      catch (Exception e)
+      catch(Exception e)
       {
          e.printStackTrace();
       }
       finally
       {
-         DbUtils.closeQuietly(rs);
-         DbUtils.closeQuietly(s);
-         DbUtils.closeQuietly(connection);
+         read.unlock();
       }
    }
 
@@ -449,12 +471,18 @@ public class PortfolioOptimizer
          // DailyReturns dailyReturns = HistoricalDailyReturns.getInstance();
          CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
          AssetParameters assetParameters = new AssetParameters();
-         if(themeAssetMap.size() > 0) {
-            for (String theme : themeAssetMap.keySet() ) {
+         if (themeAssetMap.size() > 0)
+         {
+            for (String theme : themeAssetMap.keySet())
+            {
                String[] indexFund = getAssetOrderedIndex(theme);
                if (indexFund == null)
+               {
                   return;
-               double[][] histReturns = historicaldailyreturns.getDailyReturnsArray(indexFund);
+               }
+               logger.info("Asset Class Optimizer for theme: " + theme);
+               String destCurrency = getAssetCurrency(theme);
+               double[][] histReturns = historicaldailyreturns.getDailyReturnsArray(indexFund, destCurrency);
                if (histReturns != null)
                {
                   //double[] expectedReturnsOfFunds = assetParameters.expectedReturns(histReturns);  // This is based on historical returns
@@ -483,13 +511,17 @@ public class PortfolioOptimizer
                   //double[] risk1 = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks( covarianceOfFunds);
                   double[][] weights = instanceOfCapitalMarket.getEfficientFrontierAssetWeights();
 
-                  if (weights.length > 0) {
-                     int count=0;
-                     for (String assetname : getAdvisorOrdertedAssetList(theme)) {
-                        String key = buildAssetKey(theme,assetname);
+                  if (weights.length > 0)
+                  {
+                     int count = 0;
+                     for (String assetname : getAdvisorOrdertedAssetList(theme))
+                     {
+                        String key = buildAssetKey(theme, assetname);
                         double[] wght = new double[weights.length];
-                        for (int i=0; i < weights.length; i++)
+                        for (int i = 0; i < weights.length; i++)
+                        {
                            wght[i] = weights[i][count];
+                        }
 
                         assetDataMap.get(key).setWeights(wght);
                         count++;
@@ -515,7 +547,8 @@ public class PortfolioOptimizer
       try
       {
          theme = checkThemeName(groupname);
-         if (themeAssetMap.containsKey(theme)) {
+         if (themeAssetMap.containsKey(theme))
+         {
             double[] value = new double[themeAssetMap.get(theme).size()];
             for (int i = 0; i < themeAssetMap.get(theme).size(); i++)
             {
@@ -526,7 +559,9 @@ public class PortfolioOptimizer
             return value;
          }
          else
+         {
             return null;
+         }
       }
       catch (Exception e)
       {
@@ -546,7 +581,8 @@ public class PortfolioOptimizer
       try
       {
          theme = checkThemeName(groupname);
-         if (themeAssetMap.containsKey(theme)) {
+         if (themeAssetMap.containsKey(theme))
+         {
             double[] value = new double[themeAssetMap.get(theme).size()];
             for (int i = 0; i < themeAssetMap.get(theme).size(); i++)
             {
@@ -557,7 +593,9 @@ public class PortfolioOptimizer
             return value;
          }
          else
+         {
             return null;
+         }
       }
       catch (Exception e)
       {
@@ -577,9 +615,10 @@ public class PortfolioOptimizer
       try
       {
          theme = checkThemeName(groupname);
-         if (themeAssetMap.containsKey(theme)) {
+         if (themeAssetMap.containsKey(theme))
+         {
             String[] index = new String[themeAssetMap.get(theme).size()];
-            int i=0;
+            int i = 0;
             for (String assetname : themeAssetMap.get(theme))
             {
                String key = buildAssetKey(theme, assetname);
@@ -588,7 +627,9 @@ public class PortfolioOptimizer
             return index;
          }
          else
+         {
             return null;
+         }
       }
       catch (Exception e)
       {
@@ -601,35 +642,66 @@ public class PortfolioOptimizer
       return null;
    }
 
-
+   private String getAssetCurrency(String groupname)
+   {
+      String theme;
+      String currency = "USD";
+      try
+      {
+         theme = checkThemeName(groupname);
+         if (themeAssetMap.containsKey(theme))
+         {
+            int i = 0;
+            for (String assetname : themeAssetMap.get(theme))
+            {
+               String key = buildAssetKey(theme, assetname);
+               currency = assetDataMap.get(key).getCurrency();
+               break;
+            }
+         }
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      return currency;
+   }
 
 
    private void savePrimeAssetWeights()
    {
       String groupkey = null;
       // DailyReturns dailyReturns = DailyReturns.getInstance();
-      try {
+      try
+      {
 
          Integer numofTicker;
          Integer numofPrimeAssets;
-         for (String theme: themeAssetMap.keySet()) {
-            for (String assetName : themeAssetMap.get(theme)) {
-               String key = buildAssetKey(theme,assetName);
+         for (String theme : themeAssetMap.keySet())
+         {
+            for (String assetName : themeAssetMap.get(theme))
+            {
+               logger.info("Primeasset Class Optimizer for theme: " + theme +" assetclass: " + assetName);
+               String key = buildAssetKey(theme, assetName);
+               String destCurrency = getAssetCurrency(theme);
                ArrayList<PrimeAssetClassData> pacd = assetDataMap.get(key).getOrderedPrimeAssetData();
-               if (pacd != null && pacd.size() > 0) {
+               if (pacd != null && pacd.size() > 0)
+               {
                   numofTicker = pacd.size();
-                     CapitalMarket capMarketData = null;
-                     double[][] mrData = null;
-                     double [] historicalReturns = new double[numofTicker];
-                     double [] lbConstraints = new double[numofTicker];
-                     double [] ubConstraints = new double[numofTicker];
-                     double [] secRisk = new double[numofTicker];
-                     double [] yield = new double[numofTicker];
-                     String [] indexticker = new String[numofTicker];
+                  CapitalMarket capMarketData = null;
+                  double[][] mrData = null;
+                  double[] historicalReturns = new double[numofTicker];
+                  double[] lbConstraints = new double[numofTicker];
+                  double[] ubConstraints = new double[numofTicker];
+                  double[] secRisk = new double[numofTicker];
+                  double[] yield = new double[numofTicker];
+                  String[] indexticker = new String[numofTicker];
 
-                  if (numofTicker >= 1) {
-                     for (int j=0; j < numofTicker; j++) {
-                        lbConstraints[j] =pacd.get(j).getLbConstraint();
+                  if (numofTicker >= 1)
+                  {
+                     for (int j = 0; j < numofTicker; j++)
+                     {
+                        lbConstraints[j] = pacd.get(j).getLbConstraint();
                         ubConstraints[j] = pacd.get(j).getUbConstraint();
                         historicalReturns[j] = pacd.get(j).getExpectedReturn();
                         secRisk[j] = pacd.get(j).getRiskSTD();
@@ -644,18 +716,19 @@ public class PortfolioOptimizer
                         }*/
                      }
 
-                     mrData = historicaldailyreturns.getDailyReturnsArray(indexticker);
+                     mrData = historicaldailyreturns.getDailyReturnsArray(indexticker, destCurrency);
                      capMarketData = getCapitalMarketData(indexticker, lbConstraints, ubConstraints, historicalReturns, mrData);
                   }
 
-                     assetDataMap.get(key).setPrimeAssetreturns(getPortfolioAssetExpectedReturns(capMarketData, historicalReturns, indexticker.length));
-                     assetDataMap.get(key).setPrimeAssetweights(getPortfolioWeights(capMarketData, indexticker.length));
-                     assetDataMap.get(key).setPrimeAssetrisk(getPortfolioAssetRisk(capMarketData, numofTicker, mrData, secRisk[0]));
+                  assetDataMap.get(key).setPrimeAssetreturns(getPortfolioAssetExpectedReturns(capMarketData, historicalReturns, indexticker.length));
+                  assetDataMap.get(key).setPrimeAssetweights(getPortfolioWeights(capMarketData, indexticker.length));
+                  assetDataMap.get(key).setPrimeAssetrisk(getPortfolioAssetRisk(capMarketData, numofTicker, mrData, secRisk[0]));
                }
             }
          }
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
 
       }
    }
@@ -670,7 +743,7 @@ public class PortfolioOptimizer
          double value = 0.0;
 
          key = buildAssetKey(checkThemeName(theme), assetName);
-         value =  assetDataMap.get(key).getRisk_adjustment();
+         value = assetDataMap.get(key).getRisk_adjustment();
 
 
          return value;
@@ -684,7 +757,7 @@ public class PortfolioOptimizer
       {
          read.unlock();
       }
-      return  0.0;
+      return 0.0;
 
    }
 
@@ -697,8 +770,8 @@ public class PortfolioOptimizer
       {
          double value = 0.0;
 
-            key = buildAssetKey(checkThemeName(theme), assetName);
-            value =  assetDataMap.get(key).getEnd_allocation();
+         key = buildAssetKey(checkThemeName(theme), assetName);
+         value = assetDataMap.get(key).getEnd_allocation();
 
          return value;
 
@@ -711,7 +784,7 @@ public class PortfolioOptimizer
       {
          read.unlock();
       }
-      return  0.0;
+      return 0.0;
 
    }
 
@@ -723,10 +796,11 @@ public class PortfolioOptimizer
       try
       {
          double[] value = new double[themeAssetMap.get(checkThemeName(theme)).size()];
-         int i =0;
-         for (String assetName : themeAssetMap.get(checkThemeName(theme))) {
+         int i = 0;
+         for (String assetName : themeAssetMap.get(checkThemeName(theme)))
+         {
             key = buildAssetKey(checkThemeName(theme), assetName);
-            value[i++] =  assetDataMap.get(key).getAverageReturn();
+            value[i++] = assetDataMap.get(key).getAverageReturn();
          }
 
          return value;
@@ -751,10 +825,11 @@ public class PortfolioOptimizer
       try
       {
          String[] value = new String[themeAssetMap.get(checkThemeName(theme)).size()];
-         int i =0;
-         for (String assetName : themeAssetMap.get(checkThemeName(theme))) {
+         int i = 0;
+         for (String assetName : themeAssetMap.get(checkThemeName(theme)))
+         {
             key = buildAssetKey(checkThemeName(theme), assetName);
-            value[i++] =  assetDataMap.get(key).getColor();
+            value[i++] = assetDataMap.get(key).getColor();
          }
 
          return value;
@@ -778,10 +853,11 @@ public class PortfolioOptimizer
       try
       {
          double[] value = new double[themeAssetMap.get(checkThemeName(theme)).size()];
-         int i =0;
-         for (String assetName : themeAssetMap.get(checkThemeName(theme))) {
+         int i = 0;
+         for (String assetName : themeAssetMap.get(checkThemeName(theme)))
+         {
             key = buildAssetKey(checkThemeName(theme), assetName);
-            value[i++] =  assetDataMap.get(key).getWeight(offset);
+            value[i++] = assetDataMap.get(key).getWeight(offset);
          }
 
          return value;
@@ -800,8 +876,8 @@ public class PortfolioOptimizer
 
 
    private CapitalMarket getCapitalMarketData(String[] tickers,
-                                             double[] lbConstraints, double[] ubConstraints,
-                                             double[] expectedReturnsOfFunds, double[][] mrData)
+                                              double[] lbConstraints, double[] ubConstraints,
+                                              double[] expectedReturnsOfFunds, double[][] mrData)
    {
 
       double[][] weights;
@@ -875,7 +951,7 @@ public class PortfolioOptimizer
             weights = new double[InvConst.PORTFOLIO_INTERPOLATION][numTickers];
             for (int i = 0; i < InvConst.PORTFOLIO_INTERPOLATION; i++)
             {
-                 weights[i][0] = 1.0;
+               weights[i][0] = 1.0;
             }
             return weights;
          }
@@ -908,7 +984,8 @@ public class PortfolioOptimizer
          if (numTickers == 1)
          {
             risk = new double[InvConst.PORTFOLIO_INTERPOLATION];
-            for (int i = 0; i < InvConst.PORTFOLIO_INTERPOLATION; i++){
+            for (int i = 0; i < InvConst.PORTFOLIO_INTERPOLATION; i++)
+            {
                risk[i] = secRisk;
             }
             return risk;
@@ -955,7 +1032,7 @@ public class PortfolioOptimizer
          }
          else
          {
-              assetReturns = capMarketData.getEfficientFrontierExpectedReturns();
+            assetReturns = capMarketData.getEfficientFrontierExpectedReturns();
          }
 
          return assetReturns;
@@ -983,8 +1060,9 @@ public class PortfolioOptimizer
       return coVarMatrix;
    }
 
-   public HolisticOptimizedData getHolisticWeight(String theme, String tickers[],
-                                                  double[][] targetPAssetAllocation, Map<String, Double> primeAssetMap){
+   public HolisticOptimizedData getHolisticWeight(String theme, String tickers[], String dest_currency,
+                                                  double[][] targetPAssetAllocation, Map<String, Double> primeAssetMap)
+   {
 
          /*ArrayList <String> tickers = new ArrayList<String>();
          int j = 0;
@@ -1007,8 +1085,8 @@ public class PortfolioOptimizer
       hoptimizer.loadAllPrimeAssetMap(getPrimeAssetDataList(theme));
       hoptimizer.loadFundDataFromDB(theme, tickers);
       CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
-      double[][] mrData = historicaldailyreturns.getDailyReturnsArray(tickers);
-      double [][] coVarFunds = hoptimizer.getCoVarFunds(mrData);
+      double[][] mrData = historicaldailyreturns.getDailyReturnsArray(tickers, dest_currency);
+      double[][] coVarFunds = hoptimizer.getCoVarFunds(mrData);
       double[][] weights = hoptimizer.getWeights(instanceOfCapitalMarket, tickers, mrData, coVarFunds);
       double[] risk = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks(coVarFunds);
       double[] portReturns = instanceOfCapitalMarket.getEfficientFrontierExpectedReturns();
@@ -1018,12 +1096,13 @@ public class PortfolioOptimizer
 
       MergeSort mms = MergeSort.getInstance();
       int[] fundOffset = new int[errorDiff.length];
-      for (int i = 0; i<errorDiff.length; i++){
-         fundOffset[i]=i;
+      for (int i = 0; i < errorDiff.length; i++)
+      {
+         fundOffset[i] = i;
       }
 
       //Sort the squared error terms, and also the index which will point to the weights, risk and returns.
-      mms.sort(errorDiff,fundOffset);
+      mms.sort(errorDiff, fundOffset);
 
       //PRIME ASSET exposure can not be larger than the account exposure.
       //If PRIME ASSET funds are in IRA and it has only a 20% value than the upperbound for these
@@ -1034,7 +1113,8 @@ public class PortfolioOptimizer
 
 
       double[] optFundWeight = new double[weights[0].length];
-      for(int i=0; i<weights[0].length; i++){
+      for (int i = 0; i < weights[0].length; i++)
+      {
          optFundWeight[i] = weights[fundOffset[0]][i];
       }
 
@@ -1056,11 +1136,13 @@ public class PortfolioOptimizer
       return hoptimizer;
    }
 
-   public Integer getAssetAllocationPoints() {
+   public Integer getAssetAllocationPoints()
+   {
       return InvConst.ASSET_INTERPOLATION - 1;
    }
 
-   public Integer getPrimeAssetAllocationPoints() {
+   public Integer getPrimeAssetAllocationPoints()
+   {
       return InvConst.PORTFOLIO_INTERPOLATION - 1;
    }
 }

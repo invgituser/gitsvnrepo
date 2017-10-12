@@ -6,6 +6,7 @@ import java.util.*;
 public class AssetData implements Serializable
 {
    private String theme = "";
+   private String currency = "";
    private String asset = "";
    private String displayname = "";
    private double lbConstraint = 0.0;
@@ -35,7 +36,8 @@ public class AssetData implements Serializable
       primeAssetDataMap = new HashMap<String, PrimeAssetClassData>();
    }
 
-   public AssetData(String theme, String asset, String displayname, double lbConstraint, double ubConstraint,
+   public AssetData(String theme, String currency,
+                    String asset, String displayname, double lbConstraint, double ubConstraint,
                     String index, double averageReturn,
                     String color, double risk_adjustment, double end_allocation, int sortorder
                     //, SubAssetClassData subAsset
@@ -45,6 +47,7 @@ public class AssetData implements Serializable
       primeAssetMap = new ArrayList<String>();
       primeAssetDataMap = new HashMap<String, PrimeAssetClassData>();
       this.theme = theme;
+      this.currency = currency;
       this.asset = asset;
       this.displayname = displayname;
       this.lbConstraint = lbConstraint;
@@ -80,6 +83,16 @@ public class AssetData implements Serializable
    private String buildPrimeAssetKey(String assetName, String primeassetname) {
 
       return checkAssetName(assetName) + "." + checkPrimeAssetName(primeassetname);
+   }
+
+   public String getCurrency()
+   {
+      return currency;
+   }
+
+   public void setCurrency(String currency)
+   {
+      this.currency = currency;
    }
 
    public String getGroupname()

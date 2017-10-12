@@ -26,10 +26,13 @@ public class PrimeAssetClassData
    private int sortorder = 0;
    private double weight;
    private double rbsaweight;
+   private String currency;
 
    public PrimeAssetClassData(String theme, String assetclass, String ticker,
                               double expenseRatio, double adv3Month, double aum, double beta,
-                              double riskSTD, double expectedReturn, double ubConstraint, double lbConstraint, double yield, int sortorder)
+                              double riskSTD, double expectedReturn,
+                              double ubConstraint, double lbConstraint, double yield,
+                              int sortorder, String currency)
    {
       this.theme = theme;
       this.assetclass = assetclass;
@@ -44,6 +47,7 @@ public class PrimeAssetClassData
       this.lbConstraint = lbConstraint;
       this.yield = yield;
       this.sortorder = sortorder;
+      this.currency = currency;
    }
 
    public PrimeAssetClassData(String ticker)
@@ -53,7 +57,7 @@ public class PrimeAssetClassData
 
    public PrimeAssetClassData(String theme, String assetclass, String ticker,
                               double expectedReturn, double ubConstraint, double lbConstraint,
-                              double yield, int sortorder, double weight)
+                              double yield, int sortorder, double weight, String currency)
    {
       this.theme = theme;
       this.assetclass = assetclass;
@@ -64,6 +68,7 @@ public class PrimeAssetClassData
       this.yield = yield;
       this.sortorder = sortorder;
       this.weight = weight;
+      this.currency = currency;
    }
 
 
@@ -222,5 +227,15 @@ public class PrimeAssetClassData
    public void setRbsaweight(double rbsaweight)
    {
       this.rbsaweight = rbsaweight;
+   }
+
+   public String getCurrency()
+   {
+      return currency;
+   }
+
+   public void setCurrency(String currency)
+   {
+      this.currency = currency;
    }
 }

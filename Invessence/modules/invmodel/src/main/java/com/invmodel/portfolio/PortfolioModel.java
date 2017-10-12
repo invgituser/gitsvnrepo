@@ -89,7 +89,8 @@ public class PortfolioModel
          }
 
          // 04-15-14 Added this logic to use the actual Cash instead of entered on screen!
-         invCapital = profileData.getDefaultInvestment().doubleValue();
+         // 2017-10-10 Currency converted value
+         invCapital = profileData.getInvestmentAmount();
 
          // 04-15-14 Keep Liquid Cash as required.
          keepLiquidCash = 0.0;

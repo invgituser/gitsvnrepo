@@ -68,27 +68,27 @@ public class HistoricalDailyReturns
       }
    }
 
-   private void putDailyReturnsArray(String ticker, double value)
+   private void putDailyReturnsArray(String key, double value)
    {
       try
       {
          Integer arrayPos = 0, tickerPos;
-         if (dailyReturnsTickerMap.containsKey(ticker)) {
-            tickerPos = dailyReturnsTickerMap.get(ticker)[TICKER_ELEMENT];     // Array Position
-            arrayPos = dailyReturnsTickerMap.get(ticker)[DATA_SIZE_ELEMENT] + 1;  // Last position in Array
+         if (dailyReturnsTickerMap.containsKey(key)) {
+            tickerPos = dailyReturnsTickerMap.get(key)[TICKER_ELEMENT];     // Array Position
+            arrayPos = dailyReturnsTickerMap.get(key)[DATA_SIZE_ELEMENT] + 1;  // Last position in Array
          }
          else {
             Integer[] matrix = new Integer[2];
             tickerPos = maxticker++;
             matrix[0] = tickerPos;
             matrix[1] = 0;
-            dailyReturnsTickerMap.put(ticker,matrix);
+            dailyReturnsTickerMap.put(key,matrix);
          }
 
          if (tickerPos < MAX_TICKERS && arrayPos < MAX_RETURNS)
          {
             dailyReturnsArrayData[tickerPos][arrayPos] = value;
-            dailyReturnsTickerMap.get(ticker)[1] = arrayPos;
+            dailyReturnsTickerMap.get(key)[1] = arrayPos;
          }
       }
       catch (Exception e)
@@ -121,6 +121,7 @@ public class HistoricalDailyReturns
                {
                   Map rs = (Map) rows.get(maxticker);
                   String ticker = convert.getStrData(rs.get("ticker"));
+                  String dest_currency = convert.getStrData(rs.get("dest_currency"));
                   Integer value =  convert.getIntData(rs.get("maxrows"));
                   maxreturns = (value > maxreturns) ? value : maxreturns;
                   maxticker++;
@@ -137,8 +138,10 @@ public class HistoricalDailyReturns
                {
                   Map rs = (Map) rows.get(i);
                   String ticker = convert.getStrData(rs.get("ticker"));
+                  String dest_currency = convert.getStrData(rs.get("dest_currency"));
                   Double value =  convert.getDoubleData(rs.get("daily_return"));
-                  putDailyReturnsArray(ticker, value);
+                  String key = ticker + '.' + dest_currency;
+                  putDailyReturnsArray(key, value);
                   i++;
                }
             }
@@ -153,20 +156,21 @@ public class HistoricalDailyReturns
       }
    }
 
-   public double[] getDailyReturnsArraybyTicker(String ticker)
+   public double[] getDailyReturnsArraybyTicker(String ticker, String dest_currency)
    {
       read.lock();
       try
       {
          int tickerPos = 0;
 
+         String key = ticker + "." + dest_currency;
          // For Cash use the BIL data
-         if (ticker.toUpperCase().equals("CASH")) {
-            ticker = "BIL";
+         if (ticker.toUpperCase().equals("CASH" + "." + dest_currency)) {
+            key = "BIL.N" + "." + dest_currency;
          }
 
-         if (dailyReturnsTickerMap.containsKey(ticker)) {
-            tickerPos =  dailyReturnsTickerMap.get(ticker)[TICKER_ELEMENT];
+         if (dailyReturnsTickerMap.containsKey(key)) {
+            tickerPos =  dailyReturnsTickerMap.get(key)[TICKER_ELEMENT];
             return dailyReturnsArrayData[tickerPos];
          }
          else {
@@ -179,21 +183,20 @@ public class HistoricalDailyReturns
       }
    }
 
-   public double[][] getDailyReturnsArray(String[] tickerList)
+   public double[][] getDailyReturnsArray(String[] tickerList, String dest_currency)
    {
       Integer tickersize = dailyReturnsTickerMap.size();
       Integer numofreturns = maxreturns;
       double[][] tickerListArrary = new double[tickerList.length][maxreturns];
 
-      read.lock();
       try
       {
          //Iterator it = dailyReturnsMap.keySet().iterator();
          int count = 0;
          while (count < tickerList.length)
          {
-            String key = tickerList[count];
-            tickerListArrary[count] = getDailyReturnsArraybyTicker(key);
+            String ticker = tickerList[count];
+            tickerListArrary[count] = getDailyReturnsArraybyTicker(ticker, dest_currency);
             count++;
          }
       }
@@ -201,143 +204,7 @@ public class HistoricalDailyReturns
       {
          logger.severe(e.getMessage());
       }
-      finally
-      {
-         read.unlock();
-      }
       return tickerListArrary;
    }
-
-   public double[][] getCustomDailyReturnsArray(String[] tickerList)
-   {
-      Integer tickersize = dailyReturnsTickerMap.size();
-      Integer numofreturns = maxreturns;
-
-      Map<String, ArrayList<Double>> customDataMap = new LinkedHashMap<String, ArrayList<Double>>();
-
-      Connection connection = null;
-      Statement statement = null;
-      ResultSet resultSet = null;
-      read.lock();
-      try
-      {
-         String ticker;
-         int tickercount=0;
-         String tickerQuery="";
-         for (int i = 0; i < tickerList.length; i++) {
-            if (tickerList[i].toUpperCase().equals("CASH"))
-               ticker="BIL";
-            else
-               ticker=tickerList[i];
-
-            if (tickercount == 0)
-               tickerQuery += "'" + ticker.trim() + "'";
-            else
-               tickerQuery += ", '" + ticker.trim() + "'";
-            tickercount++;
-         }
-
-         String tickerWhere = "";
-         if (tickercount > 0) {
-            tickerWhere = " WHERE ticker in (" + tickerQuery + ") ";
-         }
-         else
-            return null;
-
-         connection = DBConnectionProvider.getInstance().getConnection();
-
-
-         statement = connection.createStatement();
-         statement.executeQuery("SELECT ticker," +
-                                   "min(DATE_FORMAT(businessdate,'%Y%m%d')) as min_businessdate, " +
-                                   "max(DATE_FORMAT(businessdate,'%Y%m%d')) as max_businessdate " +
-                                   "FROM rbsa.rbsa_daily " +
-                                   tickerWhere  +
-                                   " GROUP by ticker");
-
-         resultSet = statement.getResultSet();
-         resultSet.beforeFirst();
-         Integer firstBdate = 0, lastBdate = 99999999;
-         Integer minBDate, maxBDate;
-         Integer numofTickers = 0;
-         while (resultSet.next())
-         {
-            minBDate = resultSet.getInt("min_businessdate");
-            maxBDate = resultSet.getInt("max_businessdate");
-
-            firstBdate = (firstBdate < minBDate ) ? minBDate : firstBdate;
-            lastBdate = (maxBDate < lastBdate ) ? maxBDate : lastBdate;
-            numofTickers++;
-         }
-
-         String minDateWhere = "";
-         if (firstBdate > 0) {
-            minDateWhere = " AND  DATE_FORMAT(businessdate,'%Y%m%d') >= '" + firstBdate + "'";
-         }
-
-         String maxDateWhere = "";
-         if (lastBdate < 99999999) {
-            maxDateWhere = " AND  DATE_FORMAT(businessdate,'%Y%m%d') <= '" + lastBdate + "'";
-         }
-
-         statement = connection.createStatement();
-         statement.executeQuery("SELECT ticker, " +
-                                   "DATE_FORMAT(businessdate,'%Y%m%d') as businessdate, " +
-                                   "daily_return as daily_return " +
-                                   "FROM rbsa.rbsa_daily " +
-                                   tickerWhere  + " " +
-                                   minDateWhere + " " +
-                                   maxDateWhere + " " +
-                                   " order by 1,2 desc");
-
-
-         resultSet = statement.getResultSet();
-         resultSet.beforeFirst();
-         Integer maxcustomdata = 0;
-         while (resultSet.next())
-         {
-            ticker = resultSet.getString("ticker");
-            Double daily_return = resultSet.getDouble("daily_return");
-
-            if (customDataMap.containsKey(ticker))
-            {
-               customDataMap.get(ticker).add(daily_return);
-
-            }
-            else
-            {
-               ArrayList<Double> array = new ArrayList<Double>();
-               array.add(daily_return);
-               customDataMap.put(ticker, array);
-            }
-
-            maxcustomdata = (customDataMap.get(ticker).size() > maxcustomdata) ? customDataMap.get(ticker).size() : maxcustomdata;
-         }
-
-         double[][] customArrary = new double[customDataMap.size()][maxcustomdata];
-         int loop = 0;
-         for (String tick: customDataMap.keySet()) {
-            for (int inner=0; inner < customDataMap.get(tick).size(); inner++ ) {
-               customArrary[loop][inner] = (double) customDataMap.get(tick).get(inner);
-            }
-            loop++;
-         }
-
-         return customArrary;
-
-      }
-      catch (Exception e)
-      {
-         logger.severe(e.getMessage());
-      }
-      finally
-      {
-         DbUtils.closeQuietly(resultSet);
-         DbUtils.closeQuietly(statement);
-         DbUtils.closeQuietly(connection);
-      }
-      return null;
-   }
-
 
 }

@@ -19,6 +19,16 @@ public class InvModelSP extends StoredProcedure
       super(datasource, storedProcName);
       switch (process) {
          case 0: // PortfolioOptimizer
+            switch (which) {
+               case 1:
+                  declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
+                  break;
+               case 2:
+                  declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
+                  break;
+               default:
+                  break;
+            }
             break;
          case 1: // Rebalance/TaxLossHarvesting
             switch (which) {
@@ -208,4 +218,21 @@ public class InvModelSP extends StoredProcedure
       inputMap.put("p_theme", p_theme);
       return super.execute(inputMap);
    }
+
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public Map assetDataFromDB(String p_theme)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_theme", p_theme);
+      return super.execute(inputMap);
+   }
+
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public Map loadPrimeAssetsFromDB(String p_theme)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_theme", p_theme);
+      return super.execute(inputMap);
+   }
+
 }

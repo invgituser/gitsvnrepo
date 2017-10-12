@@ -484,6 +484,24 @@ public class
       }
    }
 
+   public Double getInvestmentAmount() {
+      Double amount = (initialInvestment != null && initialInvestment != 0) ? initialInvestment.doubleValue(): 100000.00;
+
+      amount = (actualInvestment != null && actualInvestment != 0) ? actualInvestment : amount;
+
+      Double fxRate = ((exchangeRate != null) && (exchangeRate != 0.0)) ? exchangeRate : 1.0;
+      if ((destCurrency == null || destCurrency.isEmpty()) ||
+            (investmentCurrency == null || investmentCurrency.isEmpty())){
+         return (amount);
+      }
+      else {
+         if (! destCurrency.equalsIgnoreCase(investmentCurrency)) {
+            return (amount * fxRate);
+         }
+      }
+      return amount;
+   }
+
 
    public Integer getInitialInvestment()
    {
