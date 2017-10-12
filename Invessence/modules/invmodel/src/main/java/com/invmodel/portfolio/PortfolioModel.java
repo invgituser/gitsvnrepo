@@ -452,7 +452,7 @@ public class PortfolioModel
             assetdata = portfolioOptimizer.getAssetData(theme, assetname);
             asset = assetClass.getAsset(assetname);
             if (asset == null) { // If asset is not found, then return in case of Cash only account.
-               return;
+               continue;
             }
             primeAssetWeights = assetdata.getPrimeAssetweights();
             assetWgt = asset.getUserweight();
