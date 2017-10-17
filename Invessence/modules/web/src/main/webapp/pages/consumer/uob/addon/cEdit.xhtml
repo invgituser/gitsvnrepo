@@ -322,18 +322,24 @@
                                       headerText="Asset">
                                 <h:outputText id="uobtasset" value="#{assetList.asset}"/>
                             </p:column>
-                            <p:column style="width: 30%"
+                            <p:column style="width: 15%"
                                       styleClass="Fs12 num-text-align TexAlRight" headerText="Allocation">
                                 <!-- ROHIT's CHANGE -->
                                 <h:outputText id="uobtalloc" value="#{assetList.userEdit}">
                                     <f:convertNumber pattern="##0%"/>
                                 </h:outputText>
                             </p:column>
+                            <p:column style="width: 15%"
+                                      styleClass="Fs12 num-text-align TexAlRight" headerText="Currency">
+                                <!-- ROHIT's CHANGE -->
+                                <h:outputText id="uobsmrycurrency" value="#{assetList.destCurrency}">
+                                </h:outputText>
+                            </p:column>
                             <p:column style="width: 30%"
                                       styleClass="Fs12 num-text-align TexAlRight" headerText="Value">
                                 <!-- ROHIT's CHANGE -->
                                 <h:outputText id="uobtval" value="#{assetList.value}">
-                                    <f:convertNumber pattern="$##,###,###"/>
+                                    <f:convertNumber pattern="##,###,###"/>
                                 </h:outputText>
                             </p:column>
                             <p:columnGroup type="footer">
@@ -342,8 +348,11 @@
                                     <p:column colspan="2" styleClass="Fs12 TexAlLeft FontBold"
                                               footerText="Total">
                                     </p:column>
+                                    <p:column styleClass="Fs12 TexAlRight FontBold" id="uobtotcurrency"
+                                              footerText="#{uobpb.destCurrency}">
+                                    </p:column>
                                     <p:column styleClass="Fs12 TexAlRight FontBold" id="uobttotal"
-                                              footerText="#{dataDisplayConverter.displayAsMoneyRounded(uobpb.totalMoneyAllocated)}">
+                                              footerText="#{dataDisplayConverter.displayWithComma(uobpb.totalMoneyAllocated)}">
                                     </p:column>
                                 </p:row>
                             </p:columnGroup>
@@ -359,7 +368,7 @@
                         <p:dataTable styleClass="uob_graphTable" var="ticker" id="uobtabledetails"
                                      value="#{uobpb.displayPortfolioList}">
 
-                            <p:column style="width:5%; background-color: #{ticker.color}">
+                            <p:column style="width:1%; background-color: #{ticker.color}">
                                 <h:outputText value=" "/>
                             </p:column>
 
@@ -370,7 +379,7 @@
                                 <h:outputText id="uobtnam" value="#{ticker.namePlusSymbol}"/>
                             </p:column>
 
-                            <p:column style="width:13%;"
+                            <p:column style="width:10%;"
                                       styleClass="Fs12 num-text-align TexAlRight">
                                 <!-- ROHIT's CHANGE -->
                                 <f:facet name="header">
@@ -381,16 +390,27 @@
                                 </h:outputText>
                             </p:column>
 
-                            <p:column style="width:22%;"
+                            <p:column style="width:10%;"
+                                      styleClass="Fs12 num-text-align TexAlRight">
+                                <!-- Prashant intro 2017-Sept -->
+                                <f:facet name="header">
+                                    <h:outputText value="Currency"/>
+                                </f:facet>
+                                <h:outputText id="uobbasecurrency" value="#{ticker.destCurrency}">
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column style="width:19%;"
                                       styleClass="Fs12 num-text-align TexAlRight">
                                 <!-- ROHIT's CHANGE -->
                                 <f:facet name="header">
                                     <h:outputText value="Value"/>
                                 </f:facet>
                                 <h:outputText id="uobtval" value="#{ticker.value}">
-                                    <f:convertNumber pattern="$##,###,###"/>
+                                    <f:convertNumber pattern="##,###,###"/>
                                 </h:outputText>
                             </p:column>
+
 
                             <p:columnGroup type="footer">
                                 <p:row>
@@ -398,8 +418,11 @@
                                     <p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
                                               footerText="Total">
                                     </p:column>
+                                    <p:column styleClass="Fs14 TexAlRight FontBold" id="uobttotbycur"
+                                              footerText="#{uobpb.destCurrency}">
+                                    </p:column>
                                     <p:column styleClass="Fs14 TexAlRight FontBold" id="uobttot2"
-                                              footerText="#{dataDisplayConverter.displayAsMoneyRounded(uobpb.totalMoneyAllocated)}">
+                                              footerText="#{dataDisplayConverter.displayWithComma(uobpb.totalMoneyAllocated)}">
                                     </p:column>
                                 </p:row>
                             </p:columnGroup>
