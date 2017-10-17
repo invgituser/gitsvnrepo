@@ -102,8 +102,8 @@ public class TestDistribution
       //profileData.setTheme("0.Income");
       profileData.setAdvisor("UOB");
       //profileData.setTheme("8.UOB");
-      profileData.setTheme("8.UOB.UnCons");
-      //profileData.setTheme("0.SGWealthSGD");
+      //profileData.setTheme("8.UOB.UnCons");
+      profileData.setTheme("0.SGWealthSGD");
       //profileData.setTheme("0.SGWealthSGD.Un");
       profileData.setAccountTaxable(false);
 
@@ -157,29 +157,26 @@ public class TestDistribution
       }
 
       profileData.setNumOfAllocation(1);
-      // AssetClass[] aamc = modelUtil.buildAllocation(profileData);
-      // profileData.setAssetData(aamc);
-
+      AssetClass[] aamc = modelUtil.buildAllocation(profileData);
+      profileData.setAssetData(aamc);
 
       profileData.setNumOfPortfolio(1);
-      // Portfolio[] pfclass = modelUtil.buildPortfolio(aamc, profileData);
+      Portfolio[] pfclass = modelUtil.buildPortfolio(aamc, profileData);
 
-      int i = 0;
-
-      double[] expReturnsArray = new double[100];
-      ;
-      double[] totalRiskArray = new double[100];
       Map<Integer, Portfolio> tickerList = new LinkedHashMap<Integer, Portfolio>();
 
       createPortfolioArray(modelUtil.getPoptimizer(), profileData, tickerList);
 
+      int i = 0;
+      double[] expReturnsArray = new double[100];
+      double[] totalRiskArray = new double[100];
       for (i = 0; i < 100; i++)
       {
          // Use this for calculating slider
          profileData.setRiskIndex((double) i);
-         AssetClass[]aamc = modelUtil.buildAllocation(profileData);
+         //AssetClass[]aamc = modelUtil.buildAllocation(profileData);
          profileData.setAssetData(aamc);
-         Portfolio[]pfclass = modelUtil.buildPortfolio(aamc, profileData);
+         //Portfolio[]pfclass = modelUtil.buildPortfolio(aamc, profileData);
 
          expReturnsArray[i] = pfclass[0].getExpReturns();
          totalRiskArray[i] = pfclass[0].getTotalRisk();
@@ -188,7 +185,6 @@ public class TestDistribution
 
          if (!tickerList.containsKey(i))
          {
-
             Portfolio tickerInfo = pfclass[0];
             //tickerInfo.riskNumber = i;
             //tickerInfo.expReturns =  pfclass[0].getExpReturns();
@@ -196,10 +192,9 @@ public class TestDistribution
             //tickerInfo.ticker = pfclass[0].getPortfolio();
             tickerList.put(i, tickerInfo);
          }
-
       }
 
-      createEfficientFrontier(modelUtil.getPoptimizer(), profileData, tickerList);
+      //createEfficientFrontier(modelUtil.getPoptimizer(), profileData, tickerList);
 
       //tax = "No";
       //createAssetPerformanceFile(tax, pfclass, aamc, age);
