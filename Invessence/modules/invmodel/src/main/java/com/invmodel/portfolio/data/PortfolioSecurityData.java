@@ -29,7 +29,7 @@ public class PortfolioSecurityData
    private String cusip;
    private String ric;
    private String baseCurrency;
-   private String destCurrency;
+   private String modelCurrency;
    private Double exchangeRate;
    private Double baseShares;
    private Double basePrice;
@@ -58,7 +58,7 @@ public class PortfolioSecurityData
       cusip = "";
       ric = "";
       baseCurrency = InvConst.MASTER_CURRENCY;
-      destCurrency = InvConst.MASTER_CURRENCY;
+      modelCurrency = InvConst.MASTER_CURRENCY;
       exchangeRate = 1.0;
       baseShares = 0.0;
       basePrice = 0.0;
@@ -72,7 +72,7 @@ public class PortfolioSecurityData
                                 double secRisk, double yield, double shares, double money, int sortorder,
                                 double tickerWeight,
                                 String isin, String cusip, String ric,
-                                String baseCurrency, String destCurrency, Double exchangeRate,
+                                String baseCurrency, String modelCurrency, Double exchangeRate,
                                 Double baseShares, Double basePrice, Double baseMoney )
    {
       super();
@@ -82,7 +82,7 @@ public class PortfolioSecurityData
                          secRisk, yield, shares, money, sortorder,
                          tickerWeight,
                          isin, cusip, ric,
-                         baseCurrency, destCurrency, exchangeRate,
+                         baseCurrency, modelCurrency, exchangeRate,
                          baseShares, basePrice, baseMoney  );
 
    }
@@ -303,14 +303,14 @@ public class PortfolioSecurityData
       this.baseCurrency = baseCurrency;
    }
 
-   public String getDestCurrency()
+   public String getModelCurrency()
    {
-      return destCurrency;
+      return modelCurrency;
    }
 
-   public void setDestCurrency(String destCurrency)
+   public void setModelCurrency(String modelCurrency)
    {
-      this.destCurrency = destCurrency;
+      this.modelCurrency = modelCurrency;
    }
 
    public Double getExchangeRate()
@@ -383,7 +383,7 @@ public class PortfolioSecurityData
                                   double secRisk, double yield, double shares, double money, int sortorder,
                                   double assetvalue,
                                   String isin, String cusip, String ric,
-                                  String baseCurrency, String destCurrency, Double exchangeRate,
+                                  String baseCurrency, String modelCurrency, Double exchangeRate,
                                   Double baseShares, Double basePrice, Double baseMoney)
    {
       setTicker(ticker);
@@ -407,7 +407,7 @@ public class PortfolioSecurityData
       setCusip(cusip);
       setRic(ric);
       setBaseCurrency(baseCurrency);
-      setDestCurrency(destCurrency);
+      setModelCurrency(modelCurrency);
       setExchangeRate(exchangeRate);
       setBaseShares(baseShares);
       setBasePrice(basePrice);
@@ -463,7 +463,7 @@ public class PortfolioSecurityData
             buildElement("cusip", getCusip()) +
             buildElement("ric", getRic()) +
             buildElement("baseCurrency", getBaseCurrency()) +
-            buildElement("destCurrency", getDestCurrency()) +
+            buildElement("modelCurrency", getModelCurrency()) +
             buildElement("exchangeRate", valueOf(getExchangeRate())) +
             buildElement("baseShares", valueOf(getBaseShares())) +
             buildElement("basePrice", valueOf(getBasePrice())) +

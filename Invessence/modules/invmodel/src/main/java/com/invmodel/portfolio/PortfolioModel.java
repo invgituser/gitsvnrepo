@@ -468,16 +468,18 @@ public class PortfolioModel
                      {
                         PrimeAssetClassData pacd = portfolioOptimizer.getPrimeAssetData(theme, assetname, primeassetclass);
                         double price = sd.getDailyprice();
+                        Double baseCurrencyInvestment = investment * sd.getExchangeRate();
                         Double basePrice = sd.getDailyprice() * sd.getExchangeRate();
-                        double rbsa_weight = ticker_weight * sd.getRbsaWeight();  // RBSA PREP WORK:  Currently all have rate of 1
+                        Double rbsaWeight = (Double) ticker_weight * sd.getRbsaWeight();  // RBSA PREP WORK:  Currently all have rate of 1
                         // If there is no weight, just skip this ticker all together.
                         double shares = 0.0, money = 0.0;
                         Double baseShare = 0.0, baseMoney = 0.0;
-                        if (rbsa_weight > 0.0 && price > 0.0)
+                        if (rbsaWeight > 0.0 && price > 0.0)
                         {
-                           shares = Math.round(((invCapital * rbsa_weight) / price) - 0.5);
+                           shares = Math.round(((invCapital * rbsaWeight) / price) - 0.5);
                            money = shares * price;
-                           baseShare = Double.valueOf(Math.round(((invCapital * rbsa_weight) / basePrice) - 0.5));
+
+                           baseShare = (((baseCurrencyInvestment * rbsaWeight) / basePrice) - 0.5);
                            baseMoney = baseShare * basePrice;
 
                            // Only create this portfolio if there are shares and money
@@ -493,7 +495,7 @@ public class PortfolioModel
                               pclass.setPortfolio(sd.getTicker(), sd.getName(), asset.getColor(),
                                                   sd.getType(), sd.getStyle(),
                                                   sd.getSecurityAssetClass(), sd.getSecuritySubAssetClass(),
-                                                  price, rbsa_weight,
+                                                  price, rbsaWeight,
                                                   0.0, 0.0, 0.0, 0.0,
                                                   shares, money, pacd.getSortorder(), totalPortfolioWeight,
                                                   sd.getIsin(), sd.getCusip(), sd.getRic(),
@@ -504,7 +506,7 @@ public class PortfolioModel
                                                     totalPortfolioWeight, money, true);
 
 
-                              secExpense = secExpense + 0.0 * rbsa_weight;
+                              secExpense = secExpense + 0.0 * rbsaWeight;
                               amount2Allocate = amount2Allocate - money;
                            }
                            pclass.setCashMoney(amount2Allocate);
@@ -512,7 +514,7 @@ public class PortfolioModel
                            double pAssetreturns = assetdata.getPrimeAssetreturns()[offset];
                            portfolioReturns = portfolioReturns + assetdata.getPrimeAssetreturns()[offset] * totalPortfolioWeight;
 
-                           ticker_weight = ticker_weight - rbsa_weight;
+                           ticker_weight = ticker_weight - rbsaWeight;
                         }
                      }
 
