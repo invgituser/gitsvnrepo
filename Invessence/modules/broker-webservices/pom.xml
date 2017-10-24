@@ -218,7 +218,7 @@
 					</archive>
 
                    <!--<finalName>broker-services/broker-services</finalName>-->
-                   <finalName>broker-webservices/${artifactId}-${version}</finalName>
+                   <!--<finalName>broker-webservices/${artifactId}-${version}</finalName>-->
 				</configuration>
 			</plugin>
 		</plugins>

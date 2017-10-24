@@ -152,18 +152,17 @@ public class SessionController implements Serializable
 
 
       mobileUserFlag=getDevice();
-      System.out.println("Redirecting mobileUserFlag [" + mobileUserFlag +"]\n");
 
       if (mobileUserFlag!=null && mobileUserFlag.equalsIgnoreCase("mobile"))
       {
          homeurl = webutil.getWebprofile().getMobileHomepage();
+         System.out.println("Redirecting mobileUserFlag [" + mobileUserFlag +"]\n");
       }
       System.out.println("Redirecting homeurl " + homeurl );
       try
       {
          uiLayout.logout();
          FacesContext.getCurrentInstance().getExternalContext().redirect(homeurl);
-
       }
       catch (Exception ex)
       {
@@ -217,8 +216,8 @@ public class SessionController implements Serializable
 
    public String getInvSiteStart(){
 
-      System.out.println("SessionController.getInvSiteStart");
-      System.out.println("site = " + site+" rep = " + rep+" mode = " + mode);
+//      System.out.println("SessionController.getInvSiteStart");
+//      System.out.println("site = " + site+" rep = " + rep+" mode = " + mode);
 
       resetWebSiteProfile(site==null||site.trim().equals("")?"Invessence":site);
 
@@ -323,6 +322,7 @@ public class SessionController implements Serializable
          // logger.info("Load WEB property for:" + url);
          if(webutil.getWebprofile()!=null)
          {
+            System.out.println("Load WEB property for:" + url);
             WebProfile webProfile = webutil.getWebprofile();
             webProfile.initWebProfile();
             webProfile.setUrl(url);
@@ -407,7 +407,7 @@ public class SessionController implements Serializable
    // This process will load data based on URL (assuming the env is not locked)
    private void resetWebSiteProfile(String uri)
    {
-      System.out.println("SessionController.resetWebSiteProfile");
+//      System.out.println("SessionController.resetWebSiteProfile");
       if (webutil == null)
       {
          return;
@@ -463,8 +463,7 @@ public class SessionController implements Serializable
          if (reload)
          {
             // System.out.println("Load WEB property for: " + uri);
-            System.out.println("uri = [" + uri + "]");
-            System.out.println("origurl = " + origurl);
+            System.out.println("Reloading Profile origurl = " + origurl +" uri = [" + uri + "]");
             loadWebProfile(uri);
             loadAdvisorProfile(webutil.getWebprofile().getDefaultAdvisor());
             webutil.getWebprofile().finalConfig();
@@ -486,14 +485,14 @@ public class SessionController implements Serializable
    // This process will load data based on URL (assuming the env is not locked)
    private void resetCIDByURL(String uri)
    {
-      System.out.println("SessionController.resetCIDByURL");
-      System.out.println("uri = [" + uri + "]");
-      System.out.println("site = " + site+" rep = " + rep+" mode = " + mode);
+//      System.out.println("SessionController.resetCIDByURL");
+//      System.out.println("uri = [" + uri + "]");
+//      System.out.println("site = " + site+" rep = " + rep+" mode = " + mode);
       if (webutil == null)
       {
          return;
       }
-      System.out.println(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.WEB_INFO));
+//      System.out.println(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.WEB_INFO));
       if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.WEB_INFO)==null){
          WebProfile webProfile=new WebProfile();
          FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.WEB_INFO);
@@ -506,7 +505,7 @@ public class SessionController implements Serializable
       {
          uri = WebUtil.getURLAddress("Invessence");
       }
-      System.out.println("Is Locked :"+webutil.getWebprofile().getLocked());
+//      System.out.println("Is Locked :"+webutil.getWebprofile().getLocked());
       if (webutil.getWebprofile().getLocked())
       {
          logger.info("Status: Attempting to reset: " + uri + " But the profile is locked in: " + origurl);
@@ -562,10 +561,13 @@ public class SessionController implements Serializable
       cstmSessionTimeout = 10 * 60 * 1000;
       try
       {
-         cstmSessionTimeout = webutil.getWebprofile().getSessionTimeout();
-
-         cstmSessionTimeout = cstmSessionTimeout * 60 * 1000;
+         if(webutil==null || webutil.getWebprofile()==null || webutil.getWebprofile().getSessionTimeout()==null){
+            return cstmSessionTimeout;
+         }else {
+            cstmSessionTimeout = webutil.getWebprofile().getSessionTimeout();
+            cstmSessionTimeout = cstmSessionTimeout * 60 * 1000;
          // System.out.println("SessionController.getCustomSessionTimeout session timeout " + cstmSessionTimeout);
+         }
       }
       catch (Exception e)
       {
@@ -640,7 +642,7 @@ public class SessionController implements Serializable
             allowVisitorReg = true;
          }
       }
-      System.out.println("allowVisitorReg ~~>" + allowVisitorReg);
+//      System.out.println("allowVisitorReg ~~>" + allowVisitorReg);
       return allowVisitorReg;
    }
 

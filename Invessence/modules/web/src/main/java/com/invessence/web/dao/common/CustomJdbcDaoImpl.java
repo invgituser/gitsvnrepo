@@ -39,6 +39,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
 
    @Autowired
    private WebUtil webutl;
+
    @Autowired
    private AuditDAO auditDAO;
 
@@ -192,7 +193,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          resetID = rs.getString("resetID");
          cid = rs.getString("cid");
          advisor = rs.getString("advisor").equalsIgnoreCase("ADMIN") || rs.getString("advisor").equalsIgnoreCase("DEMO")?webutl.getWebprofile().getDefaultAdvisor():rs.getString("advisor");
-         rep = rs.getString("advisor").equalsIgnoreCase("ADMIN") || rs.getString("advisor").equalsIgnoreCase("DEMO")?webutl.getWebprofile().getInvSiteRep():rs.getString("rep");
+         rep = rs.getString("advisor").equalsIgnoreCase("ADMIN") || rs.getString("advisor").equalsIgnoreCase("DEMO")?(webutl.getWebprofile().getInvSiteRep()==null?"":webutl.getWebprofile().getInvSiteRep()):rs.getString("rep");
          rs.getString("rep");
          emailmsgtype = rs.getString("emailmsgtype");
          access = rs.getString("access");
