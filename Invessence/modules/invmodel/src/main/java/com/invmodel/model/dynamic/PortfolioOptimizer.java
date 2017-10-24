@@ -355,7 +355,7 @@ public class PortfolioOptimizer
                {
                   Map rs = (Map) rows.get(i);
                   setAssetdata(convert.getStrData(rs.get("theme")),
-                               convert.getStrData(rs.get("baseCurrency")),
+                               convert.getStrData(rs.get("tradeCurrency")),
                                convert.getStrData(rs.get("assetclass")),
                                convert.getStrData(rs.get("displayName")),
                                convert.getDoubleData(rs.get("lowerBound")),
@@ -387,7 +387,7 @@ public class PortfolioOptimizer
                                 double aum, double beta, double riskSTD,
                                 double expectedReturn,
                                 double ubConstraint, double lbConstraint, double yield,
-                                int sortorder, String currency)
+                                int sortorder, String tradeCurrency)
    {
       try
       {
@@ -398,7 +398,7 @@ public class PortfolioOptimizer
                (theme, assetname, ticker,
                 expenseRatio, adv3Month, aum, beta,
                 riskSTD, expectedReturn, ubConstraint, lbConstraint, yield,
-                sortorder, currency);
+                sortorder, tradeCurrency);
 
             assetDataMap.get(key).addPrimeAsset(ticker, primeassetdata);
          }
@@ -446,7 +446,7 @@ public class PortfolioOptimizer
                      convert.getDoubleData(rs.get("lowerBound")), // double lbConstraint
                      convert.getDoubleData(rs.get("yield")),//double yields
                      convert.getIntData(rs.get("sortorder")), //double sortorder
-                     convert.getStrData(rs.get("currency")) //String currency
+                     convert.getStrData(rs.get("tradeCurrency")) //String currency
                   );
                   i++;
                }

@@ -28,12 +28,12 @@ public class PortfolioSecurityData
    private String isin;
    private String cusip;
    private String ric;
-   private String baseCurrency;
-   private String modelCurrency;
+   private String tradeCurrency;
+   private String settleCurrency;
    private Double exchangeRate;
-   private Double baseShares;
-   private Double basePrice;
-   private Double baseMoney;
+   private Double settleShares;
+   private Double settlePrice;
+   private Double settleMoney;
 
    public PortfolioSecurityData()
    {
@@ -57,12 +57,12 @@ public class PortfolioSecurityData
       isin = "";
       cusip = "";
       ric = "";
-      baseCurrency = InvConst.MASTER_CURRENCY;
-      modelCurrency = InvConst.MASTER_CURRENCY;
+      tradeCurrency = InvConst.MASTER_CURRENCY;
+      settleCurrency = InvConst.MASTER_CURRENCY;
       exchangeRate = 1.0;
-      baseShares = 0.0;
-      basePrice = 0.0;
-      baseMoney = 0.0;
+      settleShares = 0.0;
+      settlePrice = 0.0;
+      settleMoney = 0.0;
 
    }
 
@@ -72,8 +72,8 @@ public class PortfolioSecurityData
                                 double secRisk, double yield, double shares, double money, int sortorder,
                                 double tickerWeight,
                                 String isin, String cusip, String ric,
-                                String baseCurrency, String modelCurrency, Double exchangeRate,
-                                Double baseShares, Double basePrice, Double baseMoney )
+                                String tradeCurrency, String settleCurrency,  Double exchangeRate,
+                                Double settleShares, Double settlePrice, Double settleMoney )
    {
       super();
       resetPortfolioData(ticker, name, color,
@@ -82,8 +82,8 @@ public class PortfolioSecurityData
                          secRisk, yield, shares, money, sortorder,
                          tickerWeight,
                          isin, cusip, ric,
-                         baseCurrency, modelCurrency, exchangeRate,
-                         baseShares, basePrice, baseMoney  );
+                         settleCurrency, tradeCurrency, exchangeRate,
+                         settleShares, settlePrice, settleMoney  );
 
    }
 
@@ -293,24 +293,24 @@ public class PortfolioSecurityData
       this.ric = ric;
    }
 
-   public String getBaseCurrency()
+   public String getTradeCurrency()
    {
-      return baseCurrency;
+      return tradeCurrency;
    }
 
-   public void setBaseCurrency(String baseCurrency)
+   public void setTradeCurrency(String tradeCurrency)
    {
-      this.baseCurrency = baseCurrency;
+      this.tradeCurrency = tradeCurrency;
    }
 
-   public String getModelCurrency()
+   public String getSettleCurrency()
    {
-      return modelCurrency;
+      return settleCurrency;
    }
 
-   public void setModelCurrency(String modelCurrency)
+   public void setSettleCurrency(String settleCurrency)
    {
-      this.modelCurrency = modelCurrency;
+      this.settleCurrency = settleCurrency;
    }
 
    public Double getExchangeRate()
@@ -323,34 +323,34 @@ public class PortfolioSecurityData
       this.exchangeRate = exchangeRate;
    }
 
-   public Double getBaseMoney()
+   public Double getSettleShares()
    {
-      return baseMoney;
+      return settleShares;
    }
 
-   public void setBaseMoney(Double baseMoney)
+   public void setSettleShares(Double settleShares)
    {
-      this.baseMoney = baseMoney;
+      this.settleShares = settleShares;
    }
 
-   public Double getBaseShares()
+   public Double getSettlePrice()
    {
-      return baseShares;
+      return settlePrice;
    }
 
-   public void setBaseShares(Double baseShares)
+   public void setSettlePrice(Double settlePrice)
    {
-      this.baseShares = baseShares;
+      this.settlePrice = settlePrice;
    }
 
-   public Double getBasePrice()
+   public Double getSettleMoney()
    {
-      return basePrice;
+      return settleMoney;
    }
 
-   public void setBasePrice(Double basePrice)
+   public void setSettleMoney(Double settleMoney)
    {
-      this.basePrice = basePrice;
+      this.settleMoney = settleMoney;
    }
 
    public double round(double value, int digits)
@@ -383,8 +383,8 @@ public class PortfolioSecurityData
                                   double secRisk, double yield, double shares, double money, int sortorder,
                                   double assetvalue,
                                   String isin, String cusip, String ric,
-                                  String baseCurrency, String modelCurrency, Double exchangeRate,
-                                  Double baseShares, Double basePrice, Double baseMoney)
+                                  String settleCurrency, String tradeCurrency, Double exchangeRate,
+                                  Double settleShares, Double settlePrice, Double settleMoney)
    {
       setTicker(ticker);
       setName(name);
@@ -406,12 +406,12 @@ public class PortfolioSecurityData
       setIsin(isin);
       setCusip(cusip);
       setRic(ric);
-      setBaseCurrency(baseCurrency);
-      setModelCurrency(modelCurrency);
+      setSettleCurrency(settleCurrency);
+      setTradeCurrency(tradeCurrency);
       setExchangeRate(exchangeRate);
-      setBaseShares(baseShares);
-      setBasePrice(basePrice);
-      setBaseMoney(baseMoney);
+      setSettleShares(settleShares);
+      setSettlePrice(settlePrice);
+      setSettleMoney(settleMoney);
    }
 
    @Override
@@ -462,12 +462,12 @@ public class PortfolioSecurityData
             buildElement("isin", getIsin()) +
             buildElement("cusip", getCusip()) +
             buildElement("ric", getRic()) +
-            buildElement("baseCurrency", getBaseCurrency()) +
-            buildElement("modelCurrency", getModelCurrency()) +
+            buildElement("baseCurrency", getSettleCurrency()) +
+            buildElement("modelCurrency", getTradeCurrency()) +
             buildElement("exchangeRate", valueOf(getExchangeRate())) +
-            buildElement("baseShares", valueOf(getBaseShares())) +
-            buildElement("basePrice", valueOf(getBasePrice())) +
-            buildElement("baseMoney", valueOf(getBaseMoney()));            ;
+            buildElement("baseShares", valueOf(getSettleShares())) +
+            buildElement("basePrice", valueOf(getSettlePrice())) +
+            buildElement("baseMoney", valueOf(getSettleMoney()));            ;
 
          return buildElement("PortfolioSecurityData", xmlData);
       }

@@ -462,6 +462,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
    public void onGoalChangeValue()
    {
       String selectedgoal;
+      formEdit = true;
       selectedgoal = (getGoal() == null || getGoal().isEmpty()) ? "Other" : getGoal();
       riskCalculator.setInvestmentobjective(selectedgoal);
       Double riskIndex = riskCalculator.calculateRisk();
@@ -736,6 +737,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
       try
       {
+         formEdit = true;
          super.createAssetPortfolio(noOfYears, riskIndex);
          createCharts();
       }

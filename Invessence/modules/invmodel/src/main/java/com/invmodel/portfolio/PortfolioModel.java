@@ -468,19 +468,19 @@ public class PortfolioModel
                      {
                         PrimeAssetClassData pacd = portfolioOptimizer.getPrimeAssetData(theme, assetname, primeassetclass);
                         double price = sd.getDailyprice();
-                        Double baseCurrencyInvestment = investment * sd.getExchangeRate();
-                        Double basePrice = sd.getDailyprice() * sd.getExchangeRate();
+                        Double settleCurrencyInvestment = investment * sd.getExchangeRate();
+                        Double settlePrice = sd.getSettlePrice();
                         Double rbsaWeight = (Double) ticker_weight * sd.getRbsaWeight();  // RBSA PREP WORK:  Currently all have rate of 1
                         // If there is no weight, just skip this ticker all together.
-                        double shares = 0.0, money = 0.0;
-                        Double baseShare = 0.0, baseMoney = 0.0;
+                        Double shares = 0.0, money = 0.0;
+                        Double settleShare = 0.0, settleMoney = 0.0;
                         if (rbsaWeight > 0.0 && price > 0.0)
                         {
-                           shares = Math.round(((invCapital * rbsaWeight) / price) - 0.5);
+                           shares = (double) Math.round(((invCapital * rbsaWeight) / price) - 0.5);
                            money = shares * price;
 
-                           baseShare = (((baseCurrencyInvestment * rbsaWeight) / basePrice) - 0.5);
-                           baseMoney = baseShare * basePrice;
+                           settleShare = (double) Math.round(((settleCurrencyInvestment * rbsaWeight) / settlePrice) - 0.5);
+                           settleMoney = settleShare * settlePrice;
 
                            // Only create this portfolio if there are shares and money
                            if ((shares > 0.0) && (money > 0.0))
@@ -499,8 +499,8 @@ public class PortfolioModel
                                                   0.0, 0.0, 0.0, 0.0,
                                                   shares, money, pacd.getSortorder(), totalPortfolioWeight,
                                                   sd.getIsin(), sd.getCusip(), sd.getRic(),
-                                                  sd.getBaseCurrency(), sd.getDestCurrency(), sd.getExchangeRate(),
-                                                  baseShare, basePrice, baseMoney);
+                                                  sd.getTradeCurrency(), sd.getSettleCurrency(), sd.getExchangeRate(),
+                                                  settleShare, settlePrice, settleMoney);
                               pclass.addSubclassMap(sd.getSecurityAssetClass(), sd.getSecuritySubAssetClass(),
                                                     asset.getColor(),
                                                     totalPortfolioWeight, money, true);
@@ -541,7 +541,7 @@ public class PortfolioModel
             asset = assetClass.getAsset("Cash");
             assetWgt = (amount2Allocate + keepLiquidCash) / invCapital;
             double cash = amount2Allocate + keepLiquidCash;
-            double destcash = amount2Allocate + keepLiquidCash;
+            double settlecash = cash;
             investByAsset = amount2Allocate;
 
             totalPortfolioWeight = assetWgt;
@@ -551,8 +551,8 @@ public class PortfolioModel
                                 0.0, 0.0, 0.0, 0.0,
                                 cash, cash, 999999, assetWgt,
                                 "Cash", "Cash", "Cash",
-                                sd.getBaseCurrency(),sd.getDestCurrency(), sd.getExchangeRate(),
-                                destcash, 1.0, destcash);
+                                sd.getTradeCurrency(),sd.getSettleCurrency(), sd.getExchangeRate(),
+                                settlecash, 1.0, settlecash);
             if (sd != null)
             {
                pclass.addSubclassMap(sd.getAssetclass(), sd.getPrimeassetclass(),

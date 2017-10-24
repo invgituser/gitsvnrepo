@@ -21,12 +21,12 @@ public class DataPortfolio implements Serializable
    private String isin;
    private String cusip;
    private String ric;
-   private String baseCurrency;
-   private String destCurrency;
+   private String tradeCurrency;
    private Double exchangeRate;
-   private Double destShare;
-   private Double destPrice;
-   private Double destValue;
+   private String settleCurrency;
+   private Double settleShare;
+   private Double settlePrice;
+   private Double settleValue;
 
    public DataPortfolio() {}
 
@@ -34,8 +34,8 @@ public class DataPortfolio implements Serializable
                         String symbol, String name, Integer share, Double price,
                         Double value, Integer sortorder, Double tickerWeight, Double weight,
                         String isin, String cusip, String ric,
-                        String baseCurrency, String destCurrency, Double exchangeRate,
-                        Double destShare, Double destPrice, Double destValue)
+                        String tradeCurrency, Double exchangeRate, String settleCurrency,
+                        Double settleShare, Double settlePrice, Double settleValue)
    {
       this.assetType = assetType;
       this.subclass = subclass;
@@ -51,12 +51,12 @@ public class DataPortfolio implements Serializable
       this.isin = isin;
       this.cusip = cusip;
       this.ric = ric;
-      this.baseCurrency = baseCurrency;
-      this.destCurrency = destCurrency;
+      this.tradeCurrency = tradeCurrency;
       this.exchangeRate = exchangeRate;
-      this.destShare = destShare;
-      this.destPrice = destPrice;
-      this.destValue = destValue;
+      this.settleCurrency = settleCurrency;
+      this.settleShare = settleShare;
+      this.settlePrice = settlePrice;
+      this.settleValue = settleValue;
    }
 
    public String getAssetType()
@@ -199,24 +199,14 @@ public class DataPortfolio implements Serializable
       this.weight = weight;
    }
 
-   public String getBaseCurrency()
+   public String getTradeCurrency()
    {
-      return baseCurrency;
+      return tradeCurrency;
    }
 
-   public void setBaseCurrency(String baseCurrency)
+   public void setTradeCurrency(String tradeCurrency)
    {
-      this.baseCurrency = baseCurrency;
-   }
-
-   public String getDestCurrency()
-   {
-      return destCurrency;
-   }
-
-   public void setDestCurrency(String destCurrency)
-   {
-      this.destCurrency = destCurrency;
+      this.tradeCurrency = tradeCurrency;
    }
 
    public Double getExchangeRate()
@@ -229,34 +219,44 @@ public class DataPortfolio implements Serializable
       this.exchangeRate = exchangeRate;
    }
 
-   public Double getDestShare()
+   public String getSettleCurrency()
    {
-      return destShare;
+      return settleCurrency;
    }
 
-   public void setDestShare(Double destShare)
+   public void setSettleCurrency(String settleCurrency)
    {
-      this.destShare = destShare;
+      this.settleCurrency = settleCurrency;
    }
 
-   public Double getDestPrice()
+   public Double getSettleShare()
    {
-      return destPrice;
+      return settleShare;
    }
 
-   public void setDestPrice(Double destPrice)
+   public void setSettleShare(Double settleShare)
    {
-      this.destPrice = destPrice;
+      this.settleShare = settleShare;
    }
 
-   public Double getDestValue()
+   public Double getSettlePrice()
    {
-      return destValue;
+      return settlePrice;
    }
 
-   public void setDestValue(Double destValue)
+   public void setSettlePrice(Double settlePrice)
    {
-      this.destValue = destValue;
+      this.settlePrice = settlePrice;
+   }
+
+   public Double getSettleValue()
+   {
+      return settleValue;
+   }
+
+   public void setSettleValue(Double settleValue)
+   {
+      this.settleValue = settleValue;
    }
 
    public String getNamePlusSymbol() {

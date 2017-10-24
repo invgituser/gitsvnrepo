@@ -24,7 +24,7 @@ public class Portfolio
    private double upperTotalMoney = 0.0;
    private double lowerTotalMoney = 0.0;
    private double recurInvestments = 0.0;
-   private String baseCurrency;
+   private String tradeCurrency;
 
 
    private double totalCapitalGrowth = 0.0;
@@ -204,8 +204,8 @@ public class Portfolio
                             double secRisk, double yield, double shares, double money, int sortorder,
                             double tickerWeight,
                             String isin, String cusip, String ric,
-                            String baseCurrency, String destCurrency, Double exchangeRate,
-                            Double baseShares, Double basePrice, Double baseMoney)
+                            String tradeCurrency, String settleCurrency, Double exchangeRate,
+                            Double settleShares, Double settlePrice, Double settleMoney)
    {
 
       PortfolioSecurityData data;
@@ -225,8 +225,8 @@ public class Portfolio
                                              secRisk, yield, shares, money,
                                              sortorder, tickerWeight,
                                              isin, cusip, ric,
-                                             baseCurrency, destCurrency, exchangeRate,
-                                             baseShares, basePrice, baseMoney );
+                                             tradeCurrency, settleCurrency, exchangeRate,
+                                             settleShares, settlePrice, settleMoney );
             portfolio.put(ticker, data);
             addTotalMoney(money);
             tickers.add(ticker);
@@ -234,7 +234,7 @@ public class Portfolio
          else
          {
             data = portfolio.get(ticker);
-            this.baseCurrency = baseCurrency;
+            this.tradeCurrency =tradeCurrency;
             money = data.getMoney() + money;
             if (actualInvestments > 0) {
                tickerWeight = money/actualInvestments;

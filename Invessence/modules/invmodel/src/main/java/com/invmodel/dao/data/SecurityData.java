@@ -29,9 +29,10 @@ public class SecurityData
    private String isin;
    private String cusip;
    private String ric;
-   private String baseCurrency;
-   private String destCurrency;
+   private String settleCurrency;
+   private String tradeCurrency;
    private Double exchangeRate;
+   private Double settlePrice;
 
    public SecurityData()
    {
@@ -54,8 +55,8 @@ public class SecurityData
       isin = "";
       cusip = "";
       ric = "";
-      baseCurrency = InvConst.MASTER_CURRENCY;
-      destCurrency = InvConst.MASTER_CURRENCY;
+      settleCurrency = InvConst.MASTER_CURRENCY;
+      tradeCurrency = InvConst.MASTER_CURRENCY;
       exchangeRate = 1.0;
 
    }
@@ -66,7 +67,8 @@ public class SecurityData
                        String assetcolor, String primeassetcolor,
                        String securityAssetClass, String securitySubAssetClass,
                        String isin, String cusip, String ric,
-                       String baseCurrency, String destCurrency, Double exchangeRate)
+                       String tradeCurrency, String settleCurrency, Double exchangeRate,
+                       Double settlePrice)
    {
       super();
       resetSecurityData(advisor, theme, ticker, name,
@@ -75,7 +77,7 @@ public class SecurityData
                         assetcolor, primeassetcolor,
                         securityAssetClass, securitySubAssetClass,
                         isin, cusip, ric,
-                        baseCurrency, destCurrency, exchangeRate
+                        tradeCurrency, settleCurrency,  exchangeRate, settlePrice
                         );
    }
 
@@ -85,7 +87,8 @@ public class SecurityData
                                          String assetcolor, String primeassetcolor,
                                          String securityAssetClass, String securitySubAssetClass,
                                          String isin, String cusip, String ric,
-                                         String baseCurrency, String destCurrency, Double exchangeRate)
+                                         String tradeCurrency, String settleCurrency,  Double exchangeRate,
+                                         Double settlePrice)
    {
       this.advisor = advisor;
       this.ticker = ticker;
@@ -104,9 +107,10 @@ public class SecurityData
       this.isin = isin;
       this.cusip = cusip;
       this.ric = ric;
-      this.baseCurrency = baseCurrency;
-      this.destCurrency = destCurrency;
+      this.tradeCurrency = tradeCurrency;
+      this.settleCurrency = settleCurrency;
       this.exchangeRate = exchangeRate;
+      this.settlePrice = settlePrice;
       return this;
    }
 
@@ -200,19 +204,24 @@ public class SecurityData
       return ric;
    }
 
-   public String getBaseCurrency()
+   public String getSettleCurrency()
    {
-      return baseCurrency;
+      return settleCurrency;
    }
 
-   public String getDestCurrency()
+   public String getTradeCurrency()
    {
-      return destCurrency;
+      return tradeCurrency;
    }
 
    public Double getExchangeRate()
    {
       return exchangeRate;
+   }
+
+   public Double getSettlePrice()
+   {
+      return settlePrice;
    }
 
    public String getHeader()

@@ -26,13 +26,13 @@ public class PrimeAssetClassData
    private int sortorder = 0;
    private double weight;
    private double rbsaweight;
-   private String currency;
+   private String tradeCurrency;
 
    public PrimeAssetClassData(String theme, String assetclass, String ticker,
                               double expenseRatio, double adv3Month, double aum, double beta,
                               double riskSTD, double expectedReturn,
                               double ubConstraint, double lbConstraint, double yield,
-                              int sortorder, String currency)
+                              int sortorder, String tradeCurrency)
    {
       this.theme = theme;
       this.assetclass = assetclass;
@@ -47,7 +47,7 @@ public class PrimeAssetClassData
       this.lbConstraint = lbConstraint;
       this.yield = yield;
       this.sortorder = sortorder;
-      this.currency = currency;
+      this.tradeCurrency = tradeCurrency;
    }
 
    public PrimeAssetClassData(String ticker)
@@ -57,7 +57,7 @@ public class PrimeAssetClassData
 
    public PrimeAssetClassData(String theme, String assetclass, String ticker,
                               double expectedReturn, double ubConstraint, double lbConstraint,
-                              double yield, int sortorder, double weight, String currency)
+                              double yield, int sortorder, double weight, String tradeCurrency)
    {
       this.theme = theme;
       this.assetclass = assetclass;
@@ -68,7 +68,7 @@ public class PrimeAssetClassData
       this.yield = yield;
       this.sortorder = sortorder;
       this.weight = weight;
-      this.currency = currency;
+      this.tradeCurrency = tradeCurrency;
    }
 
 
@@ -229,13 +229,13 @@ public class PrimeAssetClassData
       this.rbsaweight = rbsaweight;
    }
 
-   public String getCurrency()
+   public String getTradeCurrency()
    {
-      return currency;
+      return tradeCurrency;
    }
 
-   public void setCurrency(String currency)
+   public void setTradeCurrency(String tradeCurrency)
    {
-      this.currency = currency;
+      this.tradeCurrency = tradeCurrency;
    }
 }

@@ -85,7 +85,7 @@ public class ConsumerSaveDataDAO extends JdbcDaoSupport implements Serializable
       DataSource ds = getDataSource();
       ConsumerSaveSP sp = new ConsumerSaveSP(ds, "del_virtual_portfolio",6);
       sp.deletePortfolio(mgoal);
-      ConsumerSaveSP sp2 = new ConsumerSaveSP(ds, "sp_virtual_portfolio_add_mod",7);
+      ConsumerSaveSP sp2 = new ConsumerSaveSP(ds, "save_virtual_portfolio",7);
       sp2.savePortfolio(mgoal);
    }
 

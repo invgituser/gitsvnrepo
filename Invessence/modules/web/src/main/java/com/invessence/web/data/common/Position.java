@@ -42,13 +42,13 @@ public class Position implements Serializable
    private Double risk;
    private Double fees;
    private Double goalAmount;
-   private String baseCurrency;
-   private String destCurrency;
+   private String tradeCurrency;
    private Double exchangeRate;
-   private Double destQty;
-   private Double destPrice;
-   private Double destMoney;
-   private Double destPnL;
+   private String settleCurrency;
+   private Double settleQty;
+   private Double settlePrice;
+   private Double settleMoney;
+   private Double settlePnL;
 
 
    public Position()
@@ -369,24 +369,14 @@ public class Position implements Serializable
       this.goalAmount = goalAmount;
    }
 
-   public String getBaseCurrency()
+   public String getTradeCurrency()
    {
-      return baseCurrency;
+      return tradeCurrency;
    }
 
-   public void setBaseCurrency(String baseCurrency)
+   public void setTradeCurrency(String tradeCurrency)
    {
-      this.baseCurrency = baseCurrency;
-   }
-
-   public String getDestCurrency()
-   {
-      return destCurrency;
-   }
-
-   public void setDestCurrency(String destCurrency)
-   {
-      this.destCurrency = destCurrency;
+      this.tradeCurrency = tradeCurrency;
    }
 
    public Double getExchangeRate()
@@ -399,43 +389,53 @@ public class Position implements Serializable
       this.exchangeRate = exchangeRate;
    }
 
-   public Double getDestQty()
+   public String getSettleCurrency()
    {
-      return destQty;
+      return settleCurrency;
    }
 
-   public void setDestQty(Double destQty)
+   public void setSettleCurrency(String settleCurrency)
    {
-      this.destQty = destQty;
+      this.settleCurrency = settleCurrency;
    }
 
-   public Double getDestPrice()
+   public Double getSettleQty()
    {
-      return destPrice;
+      return settleQty;
    }
 
-   public void setDestPrice(Double destPrice)
+   public void setSettleQty(Double settleQty)
    {
-      this.destPrice = destPrice;
+      this.settleQty = settleQty;
    }
 
-   public Double getDestMoney()
+   public Double getSettlePrice()
    {
-      return destMoney;
+      return settlePrice;
    }
 
-   public void setDestMoney(Double destMoney)
+   public void setSettlePrice(Double settlePrice)
    {
-      this.destMoney = destMoney;
+      this.settlePrice = settlePrice;
    }
 
-   public Double getDestPnL()
+   public Double getSettleMoney()
    {
-      return destPnL;
+      return settleMoney;
    }
 
-   public void setDestPnL(Double destPnL)
+   public void setSettleMoney(Double settleMoney)
    {
-      this.destPnL = destPnL;
+      this.settleMoney = settleMoney;
+   }
+
+   public Double getSettlePnL()
+   {
+      return settlePnL;
+   }
+
+   public void setSettlePnL(Double settlePnL)
+   {
+      this.settlePnL = settlePnL;
    }
 }

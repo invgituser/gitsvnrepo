@@ -100,7 +100,8 @@ public class SecurityCollection
                                 String assetcolor, String primeassetcolor,
                                 String secAssetClass, String secSubAssetClass,
                                 String isin, String cusip, String ric,
-                                String baseCurrency, String destCurrency, Double exchangeRate)
+                                String tradeCurrency, String settleCurrency, Double exchangeRate,
+                                Double settlePrice)
    {
       try
       {
@@ -115,7 +116,7 @@ public class SecurityCollection
                                                   assetcolor, primeassetcolor,
                                                   secAssetClass, secSubAssetClass,
                                                   isin, cusip, ric,
-                                                  baseCurrency, destCurrency, exchangeRate);
+                                                  tradeCurrency, settleCurrency, exchangeRate, settlePrice);
 
 
          if (seclistByKeyMap.containsKey(primaryKey))
@@ -223,9 +224,10 @@ public class SecurityCollection
                      convert.getStrData(rs.get("isin")),  // String isin
                      convert.getStrData(rs.get("cusip")),  // String cusip
                      convert.getStrData(rs.get("ric")),  // String ric
-                     convert.getStrData(rs.get("baseCurrency")),  // String baseCurrency
-                     convert.getStrData(rs.get("destCurrency")),  // String destCurrency
-                     convert.getDoubleData(rs.get("exchangeRate"))  // String exchangeRate
+                     convert.getStrData(rs.get("tradeCurrency")),  // String tradeCurrency
+                     convert.getStrData(rs.get("settleCurrency")),  // String settleCurrency
+                     convert.getDoubleData(rs.get("exchangeRate")),  // Double exchangeRate
+                     convert.getDoubleData(rs.get("settlePrice")) // Double settlePrice
                   );
                   i++;
 
@@ -255,7 +257,8 @@ public class SecurityCollection
                      "Cash", // String ric
                      defaultCurrency,  // String baseCurency
                      defaultCurrency,  // String destCurrency
-                     1.0  // String exchangeRate
+                     1.0,  // Double exchangeRate
+                     1.0 // Double settlePrice
                   );
                }
             }

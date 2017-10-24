@@ -254,8 +254,7 @@ public class PositionBean implements Serializable
                                        position.getColor(),
                                        0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
                                        position.getWeight(), position.getYield(), position.getRisk(),
-                                       position.getExpenseRatio(), position.getPositionValue(),
-                                       position.getBaseCurrency(), position.getDestCurrency());
+                                       position.getExpenseRatio(), position.getPositionValue());
                managedAssetsMap.put(assetname, asset);
                managedAssetsList.add(counter++, asset);
             }
