@@ -15,11 +15,7 @@
     margin-top: 4px;
 }
 
-@media (min-width: 960px) {
-    #logo {
-        /*margin-bottom : 25px;*/
-    }
-}
+
 
 img.atCheckMarkImg {
     height: 20px;
@@ -122,46 +118,6 @@ img.riskImage:hover {
 
 /**Button save and cancel**/
 
-@media (min-width: 320px) and (max-width: 450px) {
-
-
-    .CommonBtnWidthSave {
-        float: none !important;
-    }
-
-    .CommonBtnWidthCancel {
-        float: none !important;
-    }
-
-    .CommonBtnWidthCancel > span, .CommonBtnWidthSave > span {
-        font-size: 12px !important;
-    }
-
-    .BenBttonBlock {
-        width: 108% !important;
-    }
-
-
-    /** 19/9/2017**/
-    li .alert_menu button{margin: 0 20px;}
-    li .shake.shake-constant{top:10px;right:10px;}
-    li .alert_count{right:0;top:-5px;}
-    li .alert_overlay_panel{width: 99%;left: 2px !important;  top: 42px !important;}
-    li .alert_overlay_panel:before{left: 49.4%;}
-    li .alert_overlay_panel:after{left:50%;}
-    .Container100 .acc_overview_dtl { width: 100%;margin-bottom:20px;}
-    .Container100 .acc_overview_label{width: 100%;  text-align: left;}
-    .acc_overview_block{width:92%;}
-    .leftAccountInfoBlock {    display: none;}
-    .Container100 .dashboard_right_panel { width: 93% !important;}
-    .acc_block_left .userPanelv3d {  height: 100%;}
-    .strategy_dtl .outer_stategy_block{ width: 85%;}
-
-
-    /** 26/09/2017 ***/
-
-
-}
 
 /*Prakash - Advisor Page*/
 
@@ -202,368 +158,6 @@ img.riskImage:hover {
 /**/
 
 /*Prakash: Fund Account - Component responsive*/
-@media (min-width: 1201px) and (max-width: 1339px) {
-    .Margin-FAAddress {
-        margin: 0 31px !important;
-    }
-}
-
-/* @media (min-width: 635px) and (max-width: 700px) {
-    .MiddleInitialWidth, .MiddleInitialWidthB {
-        width: 25%!important;
-    }
-} */
-
-@media (min-width: 736px) and (max-width: 900px) {
-    .MiddleInitialWidth, .MiddleInitialWidthB {
-        width: 20% !important;
-    }
-
-
-    /** 19/9/2017**/
-    li .alert_menu button{margin: 0 20px;}
-    li .shake.shake-constant{top:10px;right:10px;}
-    li .alert_count{right:0;top:-5px;}
-    li .alert_overlay_panel{width: 99%;left: 2px !important;  top: 42px !important;}
-    li .alert_overlay_panel:before{left: 49.4%;}
-    li .alert_overlay_panel:after{left:50%;}
-    .Container100 .left_side_title {margin-top: 60px;}
-    .acc_overview_block{width:96%;}
-    .leftAccountInfoBlock {    display: none;}
-    .Container100 .dashboard_right_panel { width: 97% !important;}
-    .acc_block_left .userPanelv3d {  height: 100%;}
-
-
-
-}
-
-@media (min-width: 900px) and (max-width: 1100px) {
-    .MiddleInitialWidth, .MiddleInitialWidthB {
-        width: 15% !important;
-    }
-}
-
-@media (min-width: 1100px) {
-    .MiddleInitialWidth {
-        width: 12% !important;
-    }
-
-    .MiddleInitialWidthB {
-        width: 15% !important;
-    }
-}
-
-@media (max-width: 735px) {
-
-    .ui-panel > .ui-panel-content, .ui-panel {
-        padding: 5px 0px !important;
-    }
-
-    .ui-selectonemenu label.ui-selectonemenu-label {
-        color: #778D9B !important;
-        padding: 7px 1px !important;
-    }
-
-    .MiddleInitialWidth, .MiddleInitialWidthB {
-        width: 100% !important;
-        border-right: 1px solid #D9E19B !important;
-        border-radius: 3px !important;
-    }
-}
-
-@media (min-width: 635px) and (max-width: 890px) {
-    .Margin-FAAddress {
-        margin: 0 23px !important;
-    }
-}
-
-@media (max-width: 750px) and (min-width: 635px) {
-    .CustomWidthFA {
-        width: 29% !important;
-    }
-}
-
-@media (min-width: 735px) {
-    .portfolioCreationDD {
-        width: 180px !important;
-    }
-}
-
-@media (max-width: 355px) {
-    .acctTypeBtnNxt {
-        margin-top: 25px !important;
-    }
-}
-
-@media (max-width: 500px) {
-    .ResCheckSize {
-        width: 100%;
-    }
-
-    .saveNopenBtn {
-        margin-bottom: 25px;
-    }
-}
-
-@media (max-width: 735px) {
-
-    .sharePercentageInput > input {
-        width: 100% !important;
-    }
-
-    img.imgSizeClose {
-        height: 10px;
-        width: 10px;
-        padding: 0 !important;
-    }
-
-    .ui-panel > .ui-panel-content, .ui-panel {
-        /*margin:5px 0px!important;*/
-    }
-
-    .BeneficiaryBlockPadding .ui-panel-content {
-        padding: 5px !important;
-    }
-
-    .FsRes14 {
-        font-size: 14px !important;
-    }
-
-    .FsRes13 {
-        font-size: 13px !important;
-    }
-
-    .BenBttonBlock {
-        width: 105% !important;
-    }
-
-    .BeneficiaryEditPanel {
-        width: 100% !important;
-    }
-
-    .BeneficiaryEditPanel > .ContainerIndent {
-        /*padding-right: 25px!important;*/
-    }
-
-    .fundingRecurring > input {
-        width: 100% !important;
-        padding: 7px 0px !important;
-    }
-
-    .CustomWidthFA, .CustomWidthFA3 {
-        width: 100% !important;
-        margin: 5px 0;
-        border-radius: 3px !important;
-        border: solid 1px #C6D6DF !important;
-    }
-
-    .CustomWidthFA2 {
-        width: 100% !important;
-    }
-
-    .CustomWidthAccountypePanel {
-        width: 100% !important;
-        margin: 5px 0;
-    }
-
-    .CustomWidthFA-Responsive, .CustomWidthAddressFA, .CustomWidthFA3 {
-        width: 100% !important;
-        margin: 5px 0;
-        float: none !important;
-        /* padding: 10px 1px!important; */
-    }
-
-    .CustomWidthFA2, .MiddleInitialWidth, .MiddleInitialWidthB, .InputMergeRight, .InputMergeLeft {
-        /*  padding: 10px 1px!important; */
-    }
-
-    .Margin-FAAddress {
-        margin: 5px 0 !important;
-    }
-}
-
-@media (min-width: 367px) and (max-width: 600px) {
-    .ui-tabs-top .ui-tabs-nav li a {
-        font-size: 12px;
-    }
-
-    .accordionTabText {
-        font-size: 15px;
-    }
-
-    .ui-tabs .ui-tabs-panel {
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-
-    .FSResponsiveFA {
-        font-size: 15px;
-        text-align: center;
-    }
-}
-
-@media (min-width: 320px) and (max-width: 366px) {
-    .ui-tabs-top .ui-tabs-nav li a {
-        font-size: 10px;
-    }
-
-    .FSResponsiveFA {
-        font-size: 13px;
-    }
-
-    .accordionTabText {
-        font-size: 13px;
-    }
-
-    .ui-tabs .ui-tabs-panel {
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-}
-
-@media (min-width: 320px) and (max-width: 480px) {
-    .tcmPanel-UI > .ui-panel-content {
-        margin-top: 0px !important;
-    }
-
-
-}
-
-/**/
-/*Prakash - Projection chart slider*/
-@media (min-width: 550px) and (max-width: 850px) {
-    .ProjectionChartRadioAssetsLabel {
-        font-size: 11px !important;
-    }
-
-    .ProjectionChartRadioTable {
-        margin: 0 auto;
-    }
-
-    .ProjectionChartRadioBlock > .stripe {
-        left: 75px !important;
-        right: 75px !important;
-    }
-
-}
-
-@media (min-width: 420px) and (max-width: 550px) {
-
-    .ProjectionChartRadioLabelRow {
-        /* display: none; */
-    }
-
-    .ProjectionChartRadioBlock > .stripe {
-        left: 40px !important;
-        right: 40px !important;
-    }
-
-}
-
-@media (min-width: 370px) and (max-width: 500px) {
-    .stripe {
-        display: none;
-    }
-
-    .ProjectionChartRadioLabelRow {
-        /* display: none; */
-        float: right;
-    }
-
-    .ProjectionChartRadioTable {
-        display: inline;
-    }
-
-    .ProjectionChartRadioTable > tbody > tr {
-        float: left;
-    }
-
-    .ProjectionChartRadioTable > tbody > tr > td {
-        text-align: center;
-        display: table;
-    }
-
-    .ProjectionChartRadioAssets > tbody > tr > td {
-        margin: -20px 12px !important;
-    }
-
-    .ProjectionChartRadioBlock > .stripe {
-        left: 40px !important;
-        right: 40px !important;
-    }
-}
-
-@media (min-width: 320px) and (max-width: 370px) {
-    .stripe {
-        display: none;
-    }
-
-    .ProjectionChartRadioLabelRow {
-        /* display: none; */
-        float: right;
-    }
-
-    .ProjectionChartRadioTable {
-        display: inline;
-    }
-
-    .ProjectionChartRadioTable > tbody > tr {
-        float: left;
-    }
-
-    .ProjectionChartRadioTable > tbody > tr > td {
-        text-align: center;
-        display: table;
-    }
-
-    .ProjectionChartRadioAssets > tbody > tr > td {
-        margin: -20px 12px !important;
-    }
-
-    .ProjectionChartRadioBlock > .stripe {
-        left: 40px !important;
-        right: 40px !important;
-    }
-}
-
-@media (min-width: 641px) {
-    .mobileFullWidthinput {
-        margin: 0 5px;
-    }
-
-    .dropdownInputFullWidth {
-        margin: 0 5px;
-    }
-
-}
-
-@media (max-width: 1000px) and (min-width: 320px) {
-    .RightBlockAcctType, .LeftBlockAcctType {
-        width: 100% !important;
-    }
-
-    .BeneficiaryEditPanel {
-        width: 100% !important;
-    }
-}
-
-/**/
-
-@media (max-width: 480px) and (min-width: 320px) {
-    .margin-top-signup {
-        margin-top: 30px;
-    }
-}
-
-@media (min-width: 736px) {
-    .fundingRecurring > input {
-        padding: 7px 10px !important;
-    }
-
-    .AddressFieldOnly {
-        width: 97% !important;
-    }
-}
 
 /*Projection Salb*/
 .ProjectionSlabHeight {
@@ -666,74 +260,6 @@ img.riskImage:hover {
     border-right: 15px solid #546e7a !important;
 }
 
-@media (max-width: 1205px) {
-    .PSlabLabel {
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 600px) and (min-width: 320px) {
-    .ContainerPSlab-tcmUI {
-        width: 100%;
-    }
-
-    .Res100MP {
-        width: 100% !important;
-    }
-
-    .MarTopRes {
-        margin-top: 20px;
-    }
-
-}
-
-@media (max-width: 735px) {
-    .ContainerPSlab-tcmUI {
-        margin-top: 25px !important;
-    }
-}
-
-@media (max-width: 1015px) and (min-width: 320px) {
-    .Container30-tcmUI {
-        width: 100%;
-    }
-
-    .EnableProjectionSlab {
-        Display: none !important;
-    }
-
-    .Container70-tcmUI {
-        width: 100%;
-    }
-
-    .EnableDrodownProjection {
-        Display: block;
-    }
-}
-
-/*Menu*/
-@media (min-width: 961px) {
-    .MobileModeOnly {
-        display: none;
-    }
-}
-
-/* @media (max-width: 860px) and (min-width: 640px) {
-	.submenuCustom {
-	   margin-right: 20%;
-	}
-} */
-
-@media (max-width: 640px) {
-    .submenuCustom {
-        width: 100% !important;
-        float: right;
-        font-size: 13px !important;
-        text-align: right;
-        padding-top: 0px !important;
-        padding-bottom: 5px;
-    }
-}
 
 /**/
 
@@ -1173,17 +699,6 @@ Panel-UI > div {
     top: 5px;
 }
 
-@media (max-width: 960px) {
-    .tcm-graphType {
-        font-size: 16px;
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.14);
-        /* border-radius : 20px 20px 20px 20px;*/
-        padding: 5px 0px;
-        position: relative;
-        top: 5px;
-        left: 0px;
-    }
-}
 
 /*DropDown For Portfolio creation*/
 .TCM-UI-Dropdown > .ui-selectonemenu-trigger, .formpageDropdown > .ui-selectonemenu-trigger, .TCM-UI-Dropdown, .formpageDropdown {
@@ -1593,396 +1108,6 @@ h3 {
 {
     color: #ffffff !important;}
 
-@media (min-width: 320px) and (max-width: 950px) {
-    .Responsive100-tcmUI {
-        width: 100% !important;
-    }
-
-    .ResponsiveWid-tcmUI {
-        width: 50% !important;
-    }
-
-    .Fright-MP {
-        float: right;
-    }
-
-    .Fleft-MP {
-        float: left;
-    }
-
-    .PerformanceVerticalSpacing {
-        display: none;
-    }
-
-    .PerformanceMeterBlock {
-        margin: 5px 0px;
-    }
-}
-
-@media (max-width: 360px) and (min-width: 320px) {
-    img.riskImage {
-        height: 114px !important;
-        opacity: 1 !important;
-    }
-}
-
-@media (max-width: 470px) and (min-width: 361px) {
-    img.riskImage {
-        height: 137px !important;
-        opacity: 1 !important;
-    }
-}
-
-@media (max-width: 630px) and (min-width: 471px) {
-    img.riskImage {
-        height: 199px !important;
-    }
-}
-
-@media (min-width: 631px) {
-    img.riskImage {
-        height: 275px !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .ResponsiveMarginTop {
-        margin-top: 35px;
-    }
-}
-
-@media (max-width: 1200px) {
-    .MarginTopRes {
-        margin-top: 10px;
-    }
-}
-
-/*Steps-tab-center-alligned*/
-@media (max-width: 361px) and (min-width: 320px) {
-    .portfolioCreationStepsPanel .portfolioCreationStepsPanel > ul > .ui-steps-item {
-        padding: 0 10px !important;
-    }
-
-    .tab_main > div {
-        margin: 0 auto;
-        width: 189px;
-    }
-
-    .tab_main {
-        padding: 35px 0px 0px 0px !important;
-    }
-
-    .portfolioCreationStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
-        background: #F6FAFC;
-        width: 20px;
-    }
-}
-
-@media (max-width: 481px) and (min-width: 361px) {
-    .portfolioCreationStepsPanel .portfolioCreationStepsPanel > ul > .ui-steps-item {
-        padding: 0 11px !important;
-    }
-
-    .tab_main > div {
-        margin: 0 auto;
-        width: 217px;
-    }
-
-    .tab_main {
-        padding: 35px 0px 0px 0px !important;
-    }
-
-    .portfolioCreationStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
-        background: #F6FAFC;
-        width: 22px;
-    }
-}
-
-@media (max-width: 560px) and (min-width: 481px) {
-    .portfolioCreationStepsPanel .portfolioCreationStepsPanel > ul > .ui-steps-item {
-        padding: 0 12px;
-    }
-
-    .tab_main > div {
-        margin: 0 auto;
-        width: 227px;
-    }
-
-    .portfolioCreationStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
-        width: 24px;
-    }
-
-    .tab_main {
-        padding: 20px 0px 0px 0px !important;
-    }
-}
-
-@media (max-width: 640px) and (min-width: 561px) {
-    .tab_main > div {
-        margin: 0 auto;
-        width: 305px;
-    }
-
-    .portfolioCreationStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
-        width: 40px;
-    }
-
-    .tab_main {
-        padding: 20px 0px 0px 0px !important;
-    }
-
-    .portfolioCreationStepsPanel > ul > li > a > span.ui-steps-title {
-        visibility: hidden;
-    }
-}
-
-@media (max-width: 729px) and (min-width: 641px) {
-    .tab_main > div {
-        margin: 0 auto;
-        width: 355px;
-    }
-
-    .tab_main {
-        padding: 20px 0px 0px 0px !important;
-    }
-
-    .portfolioCreationStepsPanel > ul > li > a > span.ui-steps-title {
-        visibility: hidden;
-    }
-}
-
-@media (max-width: 770px) and (min-width: 730px) {
-    .tab_main > div {
-        margin: 0 auto;
-        width: 430px;
-    }
-
-    .tab_main {
-        padding: 20px 0px 0px 0px !important;
-    }
-
-    .portfolioCreationStepsPanel > ul > li > a > span.ui-steps-title {
-        font-size: 12px !important;
-    }
-}
-
-@media (max-width: 960px) and (min-width: 771px) {
-    .tab_main > div {
-        margin: 0 auto;
-        width: 455px;
-    }
-
-    .portfolioCreationStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
-        width: 70px;
-    }
-
-    .tab_main {
-        padding: 20px 0px 0px 0px !important;
-    }
-}
-
-@media (max-width: 999px) and (min-width: 961px) {
-    .tab_main > div {
-        margin: 0 auto;
-        width: 555px;
-    }
-
-    .tab_main {
-        padding: 20px 0px 0px 0px !important;
-    }
-}
-
-@media (min-width: 1301px) and (max-width: 1320px) {
-    .portfolioCreationStepsPanel > ul > li > a > span.ui-steps-title {
-        margin-left: -6px !important;
-    }
-}
-
-@media (max-width: 1320px) and (min-width: 1000px) {
-    .tab_main > div {
-        margin: 0 auto;
-        width: 530px;
-    }
-}
-
-@media (min-width: 1321px) {
-    .tab_main > div {
-        margin: 0 auto;
-        width: 705px;
-    }
-}
-
-/**/
-/**/
-
-/*Steps-tab-center-alligned (Fund Account)*/
-@media (max-width: 361px) and (min-width: 320px) {
-    .FundAccountStepsPanel .FundAccountStepsPanel > ul > .ui-steps-item {
-        padding: 0 10px !important;
-    }
-
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 252px;
-    }
-
-    .FundAccountStepsPanel > ul > .ui-state-highlight {
-        position: relative;
-        top: 0;
-        background: none !important;
-        border-radius: 0 !important;
-    }
-
-    .FundAccountStepsPanel > ul > .ui-state-highlight > a {
-        margin-top: 0px !important;
-        top: -5px;
-    }
-
-    .FundAccountStepsPanel > ul > li > a > .ui-steps-number {
-        border-radius: 20px !important;
-        width: 11px !important;
-    }
-
-    .FundAccountTab {
-        padding: 20px 0px 0px 0px !important;
-    }
-
-    .FundAccountStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
-        background: #F6FAFC;
-    }
-}
-
-@media (max-width: 481px) and (min-width: 361px) {
-    .FundAccountStepsPanel .FundAccountStepsPanel > ul > .ui-steps-item {
-        padding: 0 11px !important;
-    }
-
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 300px;
-    }
-
-    .FundAccountStepsPanel > ul > li > a > .ui-steps-number {
-        border-radius: 20px !important;
-        width: 15px !important;
-    }
-
-    .FundAccountStepsPanel > ul > .ui-state-highlight {
-        position: relative;
-        top: 0;
-        background: none !important;
-        border-radius: 0 !important;
-    }
-
-    .FundAccountStepsPanel > ul > .ui-state-highlight > a {
-        margin-top: 0px !important;
-        top: -5px;
-    }
-
-    .FundAccountTab {
-        padding: 20px 0px 0px 0px !important;
-    }
-
-    .FundAccountStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
-        background: #F6FAFC;
-    }
-}
-
-@media (max-width: 560px) and (min-width: 481px) {
-    .FundAccountStepsPanel .FundAccountStepsPanel > ul > .ui-steps-item {
-        padding: 0 12px;
-    }
-
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 330px;
-    }
-
-    .FundAccountTab {
-        padding: 20px 0px 0px 0px !important;
-    }
-}
-
-@media (max-width: 640px) and (min-width: 561px) {
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 366px;
-    }
-
-    .FundAccountTab {
-        padding: 20px 0px 0px 0px !important;
-    }
-
-    .FundAccountStepsPanel > ul > li > a > span.ui-steps-title {
-        visibility: hidden;
-    }
-}
-
-@media (max-width: 729px) and (min-width: 641px) {
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 426px;
-    }
-
-    .FundAccountTab {
-        padding: 20px 0px 0px 0px !important;
-    }
-
-    .FundAccountStepsPanel > ul > li > a > span.ui-steps-title {
-        visibility: hidden;
-    }
-}
-
-@media (max-width: 770px) and (min-width: 730px) {
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 516px;
-    }
-
-    .FundAccountTab {
-        padding: 20px 0px 0px 0px !important;
-    }
-
-    .portfolioCreationStepsPanel > ul > li > a > span.ui-steps-title {
-        font-size: 12px !important;
-    }
-}
-
-@media (max-width: 960px) and (min-width: 771px) {
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 546px;
-    }
-
-    .FundAccountTab {
-        padding: 20px 0px 0px 0px !important;
-    }
-}
-
-@media (max-width: 999px) and (min-width: 961px) {
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 666px;
-    }
-
-    .FundAccountTab {
-        padding: 20px 0px 0px 0px !important;
-    }
-}
-
-@media (max-width: 1320px) and (min-width: 1000px) {
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 636px;
-    }
-}
-
-@media (min-width: 1321px) {
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 846px;
-    }
-}
 
 /**/
 
@@ -2025,704 +1150,6 @@ h3 {
 
 /*vivek CSS */
 /* Large desktop */
-@media (min-width: 960px) and (max-width: 1300px) {
-    #logo {
-        height: 70px;
-        /*margin-top : 4 px; */
-    }
-
-    #logo2 {
-        height: 45px;
-        /* margin-top : 4 px; */
-    }
-
-    .ui-steps .ui-steps-title {
-        width: 70px !important
-    }
-
-    /*vivek CSS */
-    .tab_main {
-        padding: 0 15px;
-        padding-top: 20px;
-    }
-
-    .input_namewid1 {
-        width: 140px;
-    }
-
-    .input_agewid1 {
-        width: 60px;
-    }
-
-    .input_investwid1 {
-        width: 100px;
-    }
-
-    .title1 {
-        font-size: 1.5em;
-    }
-
-    .top_desk {
-        margin-top: 10px;
-        float: none;
-    }
-}
-
-/* Portrait tablet to landscape and desktop */
-@media (min-width: 730px) and (max-width: 960px) {
-    #logo {
-        height: 70px;
-        /* margin-top : 6 px;*/
-    }
-
-    #logo2 {
-        height: 60px;
-        /* margin-top : 6 px;*/
-    }
-
-    /*vivek CSS */
-    .tab_main {
-        padding: 0 40px;
-        padding-top: 20px;
-    }
-
-    .input_namewid1 {
-        width: 140px;
-    }
-
-    .input_agewid1 {
-        width: 60px;
-    }
-
-    .input_investwid1 {
-        width: 100px;
-    }
-
-    .title1 {
-        font-size: 1.5em;
-    }
-
-    .ui-steps .ui-steps-title {
-        width: 50px !important
-    }
-}
-
-/* Portrait tablet to landscape and desktop */
-@media (min-width: 640px) and (max-width: 730px) {
-    #logo {
-        height: 70px;
-        /* margin-top : 4 px; */
-    }
-
-    #logo2 {
-        height: 60px;
-        /* margin-top : 4 px; */
-    }
-
-    .ui-steps .ui-steps-title {
-        width: 30px !important
-    }
-
-    /*vivek CSS */
-    .tab_main {
-        padding: 0 40px;
-        padding-top: 20px;
-    }
-
-    .input_namewid1 {
-        width: 100px;
-    }
-
-    .input_agewid1 {
-        width: 60px;
-    }
-
-    .input_investwid1 {
-        width: 100px;
-    }
-
-    .title1 {
-        font-size: 1.5em;
-    }
-
-    .top_desk {
-        margin-top: 10px;
-        float: none;
-    }
-
-    .page4_left {
-        margin-left: 10px;
-        border: 0px;
-    }
-}
-
-/* Landscape phone to portrait tablet */
-@media (min-width: 480px) and (max-width: 640px) {
-    #logo {
-        height: 40px;
-        /* margin-top : 11 px;*/
-    }
-
-    #logo2 {
-        height: 40px;
-        /* margin-top : 11 px;*/
-    }
-
-    /**/
-    .ui-steps .ui-steps-title {
-        width: 20px !important
-    }
-
-    /*vivek CSS */
-    /*vivek CSS */
-    .tab_main {
-        padding: 0 45px;
-        padding-top: 20px;
-    }
-
-    h1 {
-        font-size: 1em;
-    }
-
-    h1 > input {
-        font-size: 1em;
-    }
-
-    .input_namewid1 {
-        width: 90px;
-    }
-
-    .input_agewid1 {
-        width: 60px;
-    }
-
-    .input_investwid1 {
-        width: 100px;
-    }
-
-    .title1 {
-        font-size: 1.2em;
-    }
-
-    .top_desk {
-        margin-top: 10px;
-        float: none;
-    }
-
-    .ui-outputlabel {
-        font-size: 12px;
-    }
-
-    .jqplot-xaxis-tick {
-        -ms-transform: rotate(-30deg); /* IE 9 */
-        -webkit-transform: rotate(-30deg); /* Chrome, Safari, Opera */
-        transform: rotate(-30deg);
-        font-size: 12px;
-        margin-left: 0px;
-
-        margin-top: 15px;
-    }
-
-    .tp1 {
-        margin-top: 15px;
-    }
-
-    .selection {
-        margin-left: 0px;
-    }
-
-    .selection tr {
-        float: left;
-        width: 50%;
-    }
-}
-
-/* Portrait phones and down */
-@media (min-width: 220px) and (max-width: 480px) {
-    #logo {
-        height: 40px;
-        /* margin-top : 6 px;*/
-    }
-
-    #logo2 {
-        height: 40px;
-        /* margin-top : 6 px;*/
-    }
-
-    .ui-steps .ui-steps-title {
-        display: none;
-
-    }
-
-    .invInputText {
-        background-color: transparent;
-        border: 0px none;
-        border-bottom: solid 1px #F2F2F2;
-        font-size: 14px;
-        text-align: center;
-    }
-
-    .invInputText input {
-        font-size: 14px;
-    }
-
-}
-
-@media (max-width: 920px) {
-    .PaddingblocktradeP > div > div > div {
-        padding: 0 10px;
-    }
-
-    .ThankyBlockMain {
-        width: 100% !important;
-    }
-}
-
-@media (min-width: 200px) and (max-width: 360px) {
-    .InputWidthP {
-        width: 100% !important;
-        margin: 5px 0;
-    }
-
-    .CenterAlignP, .AddressBlockAlign {
-        text-align: center !important;
-        float: none;
-    }
-}
-
-@media (min-width: 320px) and (max-width: 360px) {
-    .SignupBlock0 > div {
-        margin-top: 10px !important;
-    }
-
-    .PwdReset0 {
-        margin-top: 10px !important;
-    }
-}
-
-@media (min-width: 360px) and (max-width: 480px) {
-    .PwdReset0 {
-        margin-top: 10px !important;
-    }
-
-    .mobileFullWidth {
-        width: 100%;
-        margin: 5px 0;
-    }
-
-    .InputWidthP {
-        width: 100% !important;
-        margin: 5px 0;
-    }
-
-    .CenterAlignP, .AddressBlockAlign {
-        text-align: center !important;
-        float: none;
-    }
-
-    /*vivek CSS */
-    .tab_main {
-        /*margin: 0 34px;*/
-        padding-top: 15px;
-    }
-
-    .ui-steps .ui-steps-item .ui-steps-number {
-        font-size: 16px;
-    }
-
-    h1 {
-        font-size: 1em;
-    }
-
-    h1 > input {
-        font-size: 1.5em;
-    }
-
-    .input_namewid1 {
-        width: 100px;
-    }
-
-    .input_agewid1 {
-        width: 60px;
-    }
-
-    .input_investwid1 {
-        width: 100px;
-    }
-
-    .ShowOnMobile {
-        height: 5px;
-    }
-
-    .title1 {
-        font-size: 1.2em;
-    }
-
-    .top_desk {
-        margin-top: 10px;
-        float: none;
-    }
-
-    .ui-panel .ui-panel-content {
-        margin-top: -15px;
-    }
-
-    .SignupBlock0 > div {
-        margin-top: 10px !important;
-    }
-
-    .SignupBlock2 > div {
-        margin-top: 0px !important;
-    }
-
-    .ui-messages-error, .ui-message-error {
-        font-size: 13px;
-    }
-
-    .ui-messages-info, .ui-messages-warn, .ui-messages-error, .ui-messages-fatal {
-        margin-top: 5px;
-        margin-bottom: 0px;
-    }
-
-    .jqplot-xaxis-tick {
-        -ms-transform: rotate(-40deg); /* IE 9 */
-        -webkit-transform: rotate(-40deg); /* Chrome, Safari, Opera */
-        transform: rotate(-40deg);
-        font-size: 11px;
-        margin-left: -20px;
-
-        margin-top: 18px;
-    }
-
-    .Fs24 {
-        font-size: 16px !important;
-    }
-
-    .tp1 {
-        margin-top: 10px;
-    }
-
-    .startover {
-        width: 145px;
-    }
-
-    .investnow {
-        width: 145px;
-    }
-
-    .btn_left {
-        margin-left: -20px;
-    }
-
-    .btn_rite {
-        margin-right: -20px;
-    }
-
-    .ui-outputlabel {
-        font-size: 12px;
-    }
-
-    .pg5_h1 {
-        height: 30px;
-    }
-
-    .tp2 {
-        margin-top: 5px;
-    }
-
-    .label {
-        font-size: 12px;
-    }
-
-    .selection {
-        margin-left: 0px;
-    }
-
-    .selection tr {
-        float: left;
-        width: 50%;
-
-    }
-
-    .ui-selectoneradio label {
-        font-size: 13px;
-    }
-
-    .f1 {
-        font-size: 16px;
-    }
-
-}
-
-@media (min-width: 1000px) and (max-width: 1320px) {
-    .ui-steps.ui-steps-readonly .ui-steps-item .ui-menuitem-link {
-        width: 85px;
-    }
-}
-
-@media (min-width: 730px) and (max-width: 770px) {
-    .ui-steps.ui-steps-readonly .ui-steps-item .ui-menuitem-link {
-        width: 65px;
-    }
-}
-
-@media (min-width: 300px) and (max-width: 360px) {
-    /*vivek CSS */
-    .tab_main {
-        padding: 0 20px;
-        padding-top: 15px;
-    }
-
-    .ui-steps .ui-steps-item .ui-steps-number {
-        font-size: 13px;
-    }
-
-    .ui-steps .ui-steps-item .ui-menuitem-link {
-        height: 8px;
-        padding: 0px 8px !important;
-    }
-
-    .input_namewid1 {
-        width: 100px;
-    }
-
-    .input_agewid1 {
-        width: 60px;
-    }
-
-    .input_investwid1 {
-        width: 100px;
-    }
-
-    .ltamInputText {
-        font-size: 12px;
-    }
-
-    .ShowOnMobile {
-        height: 5px;
-    }
-
-    .ui-selectoneradio label {
-        font-size: 0.6em;
-    }
-
-    h1 {
-        font-size: 1em;
-    }
-
-    h1 > input {
-        font-size: 1.5em;
-    }
-
-    .title1 {
-        font-size: 1.2em;
-    }
-
-    .EmptyBox_v {
-        height: 10px;
-    }
-
-    .ui-panel .ui-panel-content {
-        margin-top: -15px;
-    }
-
-    .SignupBlock2 > div {
-        margin-top: 0px !important;
-    }
-
-    .ui-messages-error, .ui-message-error {
-        font-size: 12px;
-    }
-
-    .top_desk {
-        margin-top: 10px;
-        float: none;
-    }
-
-    .jqplot-xaxis-tick {
-        -ms-transform: rotate(-40deg); /* IE 9 */
-        -webkit-transform: rotate(-40deg); /* Chrome, Safari, Opera */
-        transform: rotate(-40deg);
-        font-size: 11px;
-        margin-left: -30px;
-
-        margin-top: 18px;
-    }
-
-    .tp1 {
-        margin-top: 10px;
-    }
-
-    .Fs24 {
-        font-size: 16px !important;
-    }
-
-    .btn_left {
-        margin-left: -25px;
-    }
-
-    .btn_rite {
-        margin-right: -25px;
-    }
-
-    .startover {
-        width: 30px;
-    }
-
-    .investnow {
-        width: 100px;
-    }
-
-    .ui-outputlabel {
-        font-size: 12px;
-    }
-
-    .pg5_h1 {
-        height: 30px;
-    }
-
-    .tp2 {
-        margin-top: 5px;
-    }
-
-    label {
-        font-size: 12px;
-    }
-
-    .selection {
-        margin-left: 0px;
-    }
-
-    .selection tr {
-        float: left;
-        width: 100%;
-
-    }
-
-    .ui-selectoneradio label {
-        font-size: 13px;
-    }
-
-    .f1 {
-        font-size: 13px;
-    }
-
-    .investnow {
-        width: 140px;
-    }
-
-}
-
-@media (min-width: 200px) and (max-width: 320px) {
-    /*vivek CSS */
-    .tab_main {
-        padding: 0 15px;
-        padding-top: 15px;
-    }
-
-    .ui-steps .ui-steps-item .ui-steps-number {
-        font-size: 11px;
-    }
-
-    h1 {
-        font-size: 1em;
-    }
-
-    .input_namewid1 {
-        width: 100px;
-        height: 20px;
-    }
-
-    .input_agewid1 {
-        width: 60px;
-    }
-
-    .input_investwid1 {
-        width: 100px;
-    }
-
-    .ltamInputText {
-        font-size: 14px;
-    }
-
-    .EmptyBox30 {
-        height: 15px;
-    }
-
-    .ShowOnMobile {
-        height: 5px;
-    }
-
-    .title1 {
-        font-size: 1.2em;
-    }
-
-    .EmptyBox_v {
-        height: 10px;
-    }
-
-    .ui-panel .ui-panel-content {
-        margin-top: -15px;
-    }
-
-    .SignupBlock2 > div {
-        margin-top: 0px !important;
-    }
-
-    .ui-messages-error, .ui-message-error {
-        font-size: 12px;
-    }
-
-    .top_desk {
-        margin-top: 10px;
-        float: none;
-    }
-
-    .tp1 {
-        margin-top: 10px;
-    }
-
-    .Fs24 {
-        font-size: 16px !important;
-    }
-
-    .btn_left {
-        margin-left: -30px;
-    }
-
-    .btn_rite {
-        margin-right: -30px;
-    }
-
-    .startover {
-        width: 75px;
-    }
-
-    .investnow {
-        width: 75px;
-    }
-
-    .tp2 {
-        margin-top: 5px;
-    }
-
-    label {
-        font-size: 12px;
-    }
-
-    .f1 {
-        font-size: 14px;
-    }
-
-    .investnow {
-        width: 140px;
-    }
-
-    .tbl1 {
-        font-size: 12px;
-    }
-
-}
 
 /**Prakash_UOB**/
 
@@ -2852,11 +1279,7 @@ h3 {
     height: 305px !important;
 }
 
-@media (max-width: 640px) {
-    .uob_Block_tabs > div:nth-child(1) {
-        height: 335px !important;
-    }
-}
+
 
 .uob_Block_tabs > div > div {
     background: none !important;
@@ -2948,12 +1371,7 @@ input {
     width: 60px;
 }
 
-@media (max-width: 600px) {
-    .tcmLoaderBackground > div > img {
-        height: 40px;
-        width: 40px;
-    }
-}
+
 
 /**/
 
@@ -2979,44 +1397,7 @@ input {
     border-radius: 40px !important;
 }
 
-@media (min-width: 745px) {
-    .dsahboardEditDropdownBlock {
-        float: right;
-        margin-right: 5px;
-    }
-}
 
-@media (max-width: 744px) and (min-width: 736px) {
-    .editDropdownSelect > .ui-selectonemenu-trigger {
-        height: 30px !important;
-    }
-}
-
-@media (max-width: 735px) {
-    .editDropdownSelect > .ui-selectonemenu-trigger {
-        height: 27px !important;
-    }
-}
-
-@media (max-width: 744px) {
-    .dsahboardEditDropdownBlock {
-        position: absolute;
-        right: 0;
-        margin-top: -85px;
-        width: 225px;
-    }
-
-    .editDropdownSelect > .ui-selectonemenu-trigger > span {
-        margin-top: 5px !important;
-    }
-
-}
-
-@media (max-width: 370px) {
-    .dsahboardEditDropdownBlock {
-        width: 200px;
-    }
-}
 
 .dropdownDashboardTable {
     position: absolute;
@@ -3046,71 +1427,6 @@ input {
     top: 7px;
 }
 
-@media (max-width: 744px) {
-
-    /* .NewDashTable > tbody > tr > td:nth-child(1), .NewDashTable > tbody > tr > td:nth-child(3) {
-    width: 50%!important;
-    }
-     */
-    /* dec21*/
-    .NewDashTable2 > tbody > tr {
-        display: inline-block;
-    }
-
-    .NewDashTable2 > tbody > tr:nth-child(2) {
-        display: none !important;
-    }
-
-    .NewDashTable2 > tbody > tr:nth-child(1) {
-        width: 30% !important;
-        float: left;
-    }
-
-    .NewDashTable2 > tbody > tr:nth-child(3) {
-        display: table !important;
-        width: 70% !important;
-        float: right;
-    }
-
-    /**/
-    .InfoNewDash {
-        float: none;
-    }
-
-    .CustomWidthColumn_d_2_newDash {
-        text-align: center;
-    }
-
-    .NewDashButtonBlock {
-        width: 32% !important;
-    }
-
-    .NewDashTable, .NewDashTable2 {
-        width: 100% !important;
-    }
-
-}
-
-@media (max-width: 735px) {
-    .acctOverviewLabel {
-        padding: 5px 0px 10px 10px !important;
-    }
-}
-
-@media (max-width: 1000px) {
-
-    .ButtonConDashBlock {
-        display: none;
-    }
-
-    .NewDashTable > tbody > tr > td:nth-child(2) {
-        display: none;
-    }
-
-    .NewDashTable > tbody > tr > td, .NewDashTable2 > tbody > tr > td {
-        font-size: 14px !important;
-    }
-}
 
 .dashExtraInfoTable > tbody > tr > td {
     padding: 5px 0px;
@@ -3250,17 +1566,6 @@ input {
     margin: 0px 10px 1px 0px !important;
 }
 
-@media (min-width: 374px) and (max-width: 411px) {
-    .NBwidget > .ui-tabs-nav > li {
-        margin: 0px 5px 1px 0px !important;
-    }
-}
-
-@media (max-width: 373px) {
-    .NBwidget > .ui-tabs-nav > li {
-        margin: 0px 2px 1px 0px !important;
-    }
-}
 
 .NBwidget > .ui-tabs-nav > li::before, .NBwidget > .ui-tabs-nav > li::after {
     content: '';
@@ -3271,21 +1576,7 @@ input {
     position: absolute;
 }
 
-@media (min-width: 366px) and (max-width: 600px) {
-    .NBwidget > .ui-tabs-nav > li::before, .NBwidget > .ui-tabs-nav > li::after,
-    .NBwidget > .ui-tabs-nav > li.ui-tabs-selected::before, .NBwidget > .ui-tabs-nav > li.ui-tabs-active::before, .NBwidget > .ui-tabs-nav > li.ui-state-hover::before,
-    .NBwidget .ui-tabs-nav li.ui-tabs-selected::after, .NBwidget .ui-tabs-nav li.ui-tabs-active::after, .NBwidget .ui-tabs-nav li.ui-state-hover::after {
-        border-bottom-width: 24px;
-    }
-}
 
-@media (max-width: 365px) {
-    .NBwidget > .ui-tabs-nav > li::before, .NBwidget > .ui-tabs-nav > li::after,
-    .NBwidget > .ui-tabs-nav > li.ui-tabs-selected::before, .NBwidget > .ui-tabs-nav > li.ui-tabs-active::before, .NBwidget > .ui-tabs-nav > li.ui-state-hover::before,
-    .NBwidget .ui-tabs-nav li.ui-tabs-selected::after, .NBwidget .ui-tabs-nav li.ui-tabs-active::after, .NBwidget .ui-tabs-nav li.ui-state-hover::after {
-        border-bottom-width: 22px;
-    }
-}
 
 .NBwidget > .ui-tabs-nav > li {
     border-radius: 2px 2px 0px 0px;
@@ -3416,35 +1707,12 @@ input {
     font-size: 20px;
 }
 
-@media (max-width: 600px) and (min-width: 390px) {
-    .invFineTune {
-        top: -4px;
-    }
-}
-
-@media (max-width: 390px) {
-    .invFineTune {
-        top: 30px;
-    }
-}
 
 .Container49UOB {
     width: 49%;
     float: left;
 }
 
-@media (min-width: 1200px) {
-    .leftBorderUOB {
-        border-right: 3px solid grey;
-    }
-}
-
-@media (max-width: 1200px) {
-    .Container49UOB {
-        width: 100%;
-        float: left;
-    }
-}
 
 /***Latest Layout*****/
 .TopHeader {
@@ -3890,218 +2158,6 @@ span > input {
 
 /***Responsive***/
 
-@media (max-width: 1300px) {
-    .uobRisk7Q.ui-tabs-top .ui-tabs-nav li a {
-        font-size: 13px !important;
-    }
-
-    .uobRisk7Q > .ui-tabs-nav > li {
-        margin: 0px 10px -2px 0px !important;
-    }
-
-    .NBwidget > .ui-tabs-nav > li::before, .NBwidget > .ui-tabs-nav > li::after,
-    .NBwidget > .ui-tabs-nav > li.ui-tabs-selected::before,
-    .NBwidget > .ui-tabs-nav > li.ui-tabs-active::before,
-    .NBwidget > .ui-tabs-nav > li.ui-state-hover::before,
-    .NBwidget .ui-tabs-nav li.ui-tabs-selected::after,
-    .NBwidget .ui-tabs-nav li.ui-tabs-active::after,
-    .NBwidget .ui-tabs-nav li.ui-state-hover::after {
-        border-bottom-width: 25px;
-    }
-}
-
-@media (max-width: 1200px) {
-    .mainHeaderUOB {
-        font-size: 25px !important;
-    }
-}
-
-@media (min-width: 1000px) and (max-width: 1200px) {
-    .finetuneBtnBlock {
-        left: 32% !important;
-    }
-
-    .uobRisk7Q {
-        margin-top: 8px !important;
-    }
-
-    .LeftPanel, .fineTuneBlock {
-        width: 36% !important;
-    }
-
-    .RightPanel {
-        width: 60% !important;
-    }
-
-    .IRERBlock {
-        width: 60% !important;
-    }
-}
-
-@media (max-width: 1000px) {
-    .ftBtnLabel {
-        position: relative;
-        left: 0px;
-        text-align: center;
-    }
-
-    .finetuneBtnBlock > button {
-        positive: relative;
-        right: -13px;
-    }
-
-    .finetuneBtnBlock {
-        right: 0px !important;
-        left: initial;
-    }
-
-    .LeftPanel {
-        border-right: 0px solid #666666;
-    }
-
-    .RightPanel {
-        padding: 10px 0px;
-    }
-
-    .uob_graphTable {
-        margin: 0px 5px;
-    }
-
-    .LeftPanel, .fineTuneBlock {
-        width: 100% !important;
-    }
-
-    .RightPanel {
-        width: 100% !important;
-    }
-
-    .IRERBlock {
-        width: 60% !important;
-    }
-
-    .closeFTBtn {
-        width: initial;
-        margin-right: 30px;
-    }
-}
-
-@media (min-width: 701px) and (max-width: 1000px) {
-    .summaryPanel {
-        position: relative;
-        left: -25px;
-    }
-}
-
-@media (max-width: 700px) {
-    .donutChartTableEB {
-        display: none;
-    }
-
-    .donutChartGraph,
-    .donutChartTable {
-        width: 100%;
-        float: none;
-    }
-
-    .donutChartTable {
-        position: relative;
-        top: -70px;
-    }
-
-    .RightPanel {
-        padding: 0px 0px;
-    }
-
-    .menuBtnLinks {
-        /*display: none;*/
-        position: absolute;
-        right: 10px;
-        top: 55px;
-        background: white;
-        z-index: 200;
-        padding: 0px !important;
-        width: 200px;
-        box-shadow: 1px 1px 3px grey;
-    }
-
-    .menuBtnLinks li {
-        display: inherit !important;
-        padding: 10px 5px !important;
-        width: 90%;
-        text-align: left !important;
-    }
-
-    .MobileButton {
-        display: block;
-        padding: 0px 5px !important;
-    }
-}
-
-@media (max-width: 580px) {
-    .IRERBlock {
-        width: 100% !important;
-        /* float: none!important; */
-        margin-top: 15px;
-    }
-
-    .ReturnValuePanel {
-        text-align: right;
-        padding: 0px 5px 0px 0px !important;
-        border-right: 10px solid #666666 !important;
-    }
-
-    .RiskValuePanel {
-        float: left !important;
-        border-right: 0 !important;
-        border-left: 10px solid #666666 !important;
-        padding: 0px 0px 0px 5px !important;
-    }
-
-    .RiskValuePanel {
-        width: 40%;
-    }
-}
-
-@media (max-width: 380px) {
-    .uobSliderLabel.firstLabel {
-        right: 0px !important;
-    }
-
-    .uobSliderLabel.lastLabel {
-        left: 0px !important;
-    }
-
-    .NBwidget > .ui-tabs-nav > li::before, .NBwidget > .ui-tabs-nav > li::after {
-        content: none;
-    }
-
-    .uobRisk7Q.ui-tabs-top .ui-tabs-nav li a {
-        font-size: 10px !important;
-    }
-
-    .uobRisk7Q {
-        margin-top: 10px !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .MarTop20 {
-        margin-top: 20px;
-    }
-}
-
-@media (min-width: 701px) {
-    .menuBtnLinks {
-        display: block !important;
-    }
-}
-
-@media (max-width: 735px) {
-    .fixedHeightLP, .FTLabel {
-        margin-top: 0px !important;
-    }
-}
-
 /***uobDashboard***/
 .leftAccountInfoBlock, .rightAccountInfoBlock {
     padding: 0 10px;
@@ -4283,12 +2339,7 @@ span > input {
     padding: 0px !important;
 }
 
-@media (max-width: 700px) {
-    .subMenuBlk {
-        right: 40px;
-        margin-top: -5px;
-    }
-}
+
 
 .submenuContent1 {
     display: none;
@@ -4483,31 +2534,6 @@ span > input {
     box-sizing: border-box;
 }
 
-@media (max-width: 1000px) {
-    .notificationBlk {
-        display: none;
-    }
-
-    .acctdtlsPanel {
-        width: 100%;
-    }
-}
-
-@media (max-width: 680px) {
-    .detailsPanelBlock {
-        display: none;
-    }
-
-    .userPanelBlock {
-        width: 100%;
-    }
-}
-
-@media (min-width: 681px) {
-    .MoileModeAcctOvw {
-        display: none;
-    }
-}
 
 .RPHeadings1, .RPHeadings2 {
     padding: 6px 20px;
@@ -4689,22 +2715,6 @@ main.customtabs {
 /*margin: 0 !important;*/
 /*float: left !important;*/
 /*}*//*Commented By Sagar*/
-@media screen and (max-width: 650px) {
-    .customtabs label {
-        font-size: 0;
-    }
-
-    .customtabs label:before {
-        margin: 0;
-        font-size: 18px;
-    }
-}
-
-@media screen and (max-width: 400px) {
-    .customtabs label {
-        padding: 15px;
-    }
-}
 
 .customtabs section input {
     display: block;
@@ -4910,54 +2920,7 @@ main.customtabs {
     height: 36px;
 }
 
-@media screen and (max-width: 600px) {
-    .customtabs table {
-        border: 0;
-    }
 
-    .customtabs table caption {
-        font-size: 1.3em;
-    }
-
-    .customtabs table thead {
-        border: none;
-        clip: rect(0 0 0 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        width: 1px;
-    }
-
-    .customtabs table tr {
-        border-bottom: 3px solid #ddd;
-        display: block;
-        margin-bottom: .625em;
-    }
-
-    .customtabs table td {
-        border-bottom: 1px solid #ddd;
-        display: block;
-        font-size: .8em;
-        text-align: right;
-    }
-
-    .customtabs table td:before {
-        /*
-        * aria-label has no advantage, it won't be read inside a table
-        content: attr(aria-label);
-        */
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    .customtabs table td:last-child {
-        border-bottom: 0;
-    }
-}
 
 .avlrole {
     background-color: #f2f2f2;
@@ -5255,48 +3218,7 @@ main.customtabs {
     border-top: 1px solid #1d7a62;
 }
 
-@media screen and (max-width: 768px) {
-    .active {
-        display: block;
-    }
 
-    .nav {    width: 100%;
-        position: absolute;
-        background-color: rgb(255, 255, 255);
-        left: 0px;
-        top: 69px;
-        padding-top: 0px;
-        z-index: 11;}
-
-    .nav > li {
-        float: none;
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-    }
-
-    .nav > li > .parent {
-        background-position: 95% 50%;
-    }
-
-    .nav li li .parent {
-        background-image: url("https://raw.githubusercontent.com/tessalt/dropdowns/master/images/downArrow.png");
-        background-repeat: no-repeat;
-        background-position: 95% 50%;
-    }
-
-    .nav ul {
-        display: block;
-        width: 100%;
-    }
-
-    .nav > li.hover > ul, .nav li li.hover ul {
-        position: static;
-        width: 100%;
-        top: 20px;
-        margin-top: 15px;
-    }
-
-}
 
 .uobsagbutton span {
     background-color: #009abb !important;
@@ -5735,18 +3657,7 @@ button.closebuttonSag > span.ui-button-text {display: none;}
     border-color: #312e2e transparent transparent transparent;
 }
 
-@media (min-width: 320px) and (max-width: 450px) {
 
-    .progressbarsag {
-
-        height: 50px;
-        position: absolute;
-        width: 96%;
-        margin: -50px auto;
-        margin-left: 1%;
-    }
-
-}
 
 .reviewbarContainer {padding: 20px 0px; display: block; margin-bottom: 20px;}
 
@@ -6321,25 +4232,7 @@ span.conservative_plus{
 }
 
 /*register_buttons_widget*/
-@media (max-width: 500px) {
-    .mobileModeButton {
-        display: block;
-    }
 
-    .desktopModeButton {
-        display: none;
-    }
-}
-
-@media (min-width: 500px) {
-    .desktopModeButton {
-        display: block;
-    }
-
-    .mobileModeButton {
-        display: none;
-    }
-}
 
 .desktopModeButton, .mobileModeButton {
     margin: 0 auto !important;
@@ -6355,6 +4248,40 @@ span.conservative_plus{
     cursor: pointer;
     font-size: 13px;
 }
+
+
+/**** 09/10/2017 user confirmation page **/
+.confirmation_donut {
+    height: 295px;
+}
+.start_over_btn {
+    margin: 10px;
+    float: right;
+}
+.outer_stategy_block.user_confirmation_block {
+    width: 99%;
+    margin: 0;
+    box-shadow: 2px 2px 5px 1px #e1e1e1;
+}
+.accepted_block div {
+    margin: 0;
+}
+.accepted_block {
+    width: 100%;
+    float: left;
+    margin: 5% 5px;
+}
+
+.user-confirm-progressbar {
+    width: 80%;
+    margin: 0 10% 20px;
+    position: relative;
+}
+.user-confirm-progressbar span {
+    width: 20%;
+}
+
+
 /*** 10/10/2017/ external link (click icon) **/
 .panel_block span.external_link_click {
     float: left;
@@ -6367,3 +4294,560 @@ span.conservative_plus{
 span.external_link_click:hover {
     text-decoration: underline;
 }
+
+/*** 10/10/2017 account opening for UOB **/
+.account_type_block {
+    width: 96%;
+    float: left;
+    margin: 2%;
+}
+.account_type_block .Container50:nth-child(1) {
+    margin-right: 40px;
+}
+.account_type_block .Container10 {
+    float: right;
+}
+.account_type_block label {
+    font-size: 17px;
+    margin: 5px;
+    line-height: 32px;
+}
+
+.account_type_block .Container50 {
+    width: 47%;
+    padding: 5px !important;
+    border-bottom: 3px solid #a4332f;
+}
+
+/*** 11/10/2017 account opening for UOB **/
+.acc_holder_form .ui-tabs-top .ui-tabs-nav {
+    background: none !important;
+    border-bottom: 2px solid #a4332f;
+}
+.acc_holder_form .ui-tabs-top .ui-tabs-nav li.ui-tabs-selected{
+    background-color: #a4332f !important;
+    color:#fff;
+}
+.acc_holder_form .ui-tabs-top .ui-tabs-nav li.ui-tabs-selected a
+{color:#fff !important;    font-weight: normal;   font-size: 14px;}
+
+
+/** floating label**/
+.go-bottom {
+  width: 90%;
+  float: left;
+  margin: 20px 5%;
+}
+.go-bottom > div {
+  position: relative;
+  overflow: hidden;
+}
+.go-bottom input, .go-bottom textarea {
+  width: 100%;
+  border: 1px solid #c6d6df;
+  background: none;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  padding: 8px 12px;
+  outline: 0;
+}
+.go-bottom input:valid, .go-bottom textarea:valid {
+  background: white;
+}
+.go-bottom input:focus, .go-bottom textarea:focus {
+  border-color: #a4332f;
+}
+.go-bottom input:focus + label, .go-bottom textarea:focus + label ,
+.go-bottom input:not(:placeholder-shown):valid ~ label
+{
+  
+  font-size: 13px;
+  padding: 0px 6px;
+  z-index: 2;
+  text-transform: uppercase;
+   margin-top: -16px;
+  opacity: 1;
+  background: transparent;
+    color: #a4332f;
+   top: 41%;
+}
+.go-bottom label {
+  transition: background 0.2s, color 0.2s, top 0.2s, bottom 0.2s, right 0.2s, left 0.2s;
+  position: absolute;
+  color: #999;
+  padding: 7px 6px;
+}
+.go-bottom textarea {
+  display: block;
+  resize: vertical;
+}
+
+.go-bottom input, .go-bottom textarea {
+  padding: 12px 12px 12px 12px;
+      height: 45px;
+}
+.go-bottom label {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.go-bottom input:focus, .go-bottom textarea:focus {
+   padding: 19px 12px 0px 5px;
+    font-size: 17px;
+}
+.go-bottom input:not(:placeholder-shown):valid {
+    padding: 19px 12px 0px 5px;
+    font-size: 17px;
+}
+/* .go-bottom input:focus + label, .go-bottom textarea:focus + label {
+  top: 100%;
+  margin-top: -16px;
+  opacity: 1;
+} */
+.go-bottom div {
+    position: relative;
+}
+.go-bottom label {
+    opacity: 0;
+}
+
+
+/** floating label **/
+
+.acc_holder_form table {
+    width: 100%;
+}
+.go-bottom .Container80 {
+    width: 78%;
+}
+.go-bottom .Container20 {
+    margin-right: 10px;
+}
+.go-bottom .Container80 input:focus + label {
+    width: 98.5%;
+}
+.go-bottom .Container50 input:focus + label {
+    width: 97.5%;
+}
+.go-bottom .Container20 input:focus + label {
+    width: 94%;
+}
+.go-bottom div.acc_holder_dtl_block {
+    width: 100%;
+    float: left;
+    margin: 10px 0;
+}
+.label_opacity span {
+    font-family: 'helvetica';
+    line-height: 30px;
+    color:#000;
+    font-size:17px;
+}
+.go-bottom .label_opacity label {
+    opacity: 1;
+    position: relative;
+    padding: 0 !important;
+        color: #000;
+   /*  line-height: 0; */
+    font-size: 17px !important;
+}
+.go-bottom .radio_label label {
+    line-height: 22px;
+}
+.Container60 .ui-selectonemenu,
+.Container50 .ui-selectonemenu,
+.Container20 .ui-selectonemenu,
+.Container40 .ui-selectonemenu,
+.Container25 .ui-selectonemenu,
+.Container30 .ui-selectonemenu
+ {
+    width: 60%;
+    height: 45px;
+    border: 1px solid #c6d6df !important;
+}
+.Container25 .ui-selectonemenu
+ {
+    width: 116%;
+    }
+.Container20 .ui-selectonemenu,.Container30 .ui-selectonemenu{
+	width:100%;
+}
+.go-bottom .ui-selectonemenu .ui-selectonemenu-label {
+    opacity: 1;
+    width: 90% !important;
+    float: left;
+    background: transparent;
+    line-height: 30px;
+    color: #778D9B !important;
+    font-family: 'helvetica' !important;
+    font-size: 16px !important;
+}
+.ui-accordion .ui-state-hover, .ui-accordion .ui-state-active {
+    background: transparent;
+}
+.acc_holder_form .label_opacity table {
+    width: auto;
+}
+.go-bottom .Container50:nth-child(1) {
+    margin-right: 10px;
+}
+
+.go-bottom .Container50 {
+    width: 49%;
+}
+.go-bottom div.Container30:nth-child(3) {
+    margin-right: 0;
+}
+.go-bottom .Container30 input:focus + label {
+    width: 96.5%;
+}
+.go-bottom div.Container30 {
+    margin-right: 10px;
+    width: 32.7%;
+}
+/*** 12/10/2017 uob account opening page**/
+.Container50 .ui-selectonemenu {width:100%;}
+.relation_dtl .Container50:nth-child(2),.relation_dtl .Container50:nth-child(4){margin-right:10px;}
+.relation_dtl .label_opacity{float: right;    margin:-3px 0 0;}
+.relation_dtl .Container100 span {
+margin: 0px 0 10px;
+    float: left;
+    font-size: 17px;
+    color: #000;
+}
+.relation_dtl .margin-top {
+    margin-top: 10px;
+}
+/*** 13/10/2017 UOB acc opening page **/
+.go-bottom input::-webkit-input-placeholder {
+    font-size: 17px;
+    
+}
+.go-bottom input:focus input::-webkit-input-placeholder {  
+    color:red;
+}
+
+
+.leftAccountInfoBlock {   
+    display:none;
+}
+
+
+/*** 17/10/2017**/
+.date_birth .hasDatepicker {
+    width: 89% !important;
+    float: left;
+    border: 1px solid #c6d6df;
+    height: 45px;
+    font-family: 'helvetica' !important;
+}
+.date_birth span.ui-button-text {
+    background: #a4332f;
+    height: 24px;
+}
+.ui-datepicker-calendar tbody tr .ui-datepicker-current-day
+{
+	background-color:  #a4332f;
+    border: solid 1px  #a4332f;
+}
+.date_birth .ui-button.ui-state-hover .ui-button-text,
+.date_birth .ui-buttonset .ui-state-hover .ui-button-text
+ {
+    background: #a4332f;
+    opacity: 0.8;
+}
+.ui-datepicker-calendar tbody tr .ui-datepicker-today{border: solid 1px #a4332f;background-color:  #a4332f;}
+.ui-datepicker-calendar tbody tr .ui-datepicker-today a {
+    color: #fff !important;
+}
+.date_birth .ui-button.ui-state-focus .ui-button-text,
+.date_birth .ui-inputswitch-handle.ui-state-focus,
+.date_birth .ui-slider-handle.ui-state-focus{
+	background-color:  #a4332f;
+}
+.ui-datepicker-calendar tbody tr td:hover{background-color: #a4332f; border: solid 1px #a4332f;}
+.Container100.pre_next_btn {
+    height: 30px;
+}
+.pre_next_btn span:before {
+    background: #a4332f;
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 20px;
+        cursor: pointer;
+}
+.Container50.next_btn {
+    width: 6%;
+    float: right;
+}
+.Container50.pre_btn {
+    padding: 0 28px;
+    width: 45%;
+}
+.acc_type_title
+	{
+    width: 90%;
+    padding: 0 30px;
+    color: #000;
+    font-size: 17px;
+}
+.label_opacity .ui-chkbox .ui-state-active {
+    border-color: #a4332f;
+}
+.label_opacity .ui-chkbox-box .ui-icon-check {
+    background-color: #a4332f;
+    border-color: #a4332f;
+}
+.acc_holder_dtl_block h3 {
+    color: #000;
+    font-weight: normal;
+    font-size: 17px;
+}
+.Container100.add_tax_info {
+    margin: 10px;
+}
+.add_tax_info span.ui-button-icon-center.ui-icon.ui-c.fa.fa-plus {
+    padding: 10px;
+}
+.add_tax_info span:before {
+    background: #a4332f;
+    color: #fff;
+    padding: 5px 8px;
+    font-size: 18px;
+    /* margin: 10px; */
+    /* height: 25px; */
+    border-radius: 2px;
+    cursor: pointer;
+}
+.acc_panel_block {
+    width: 96%;
+    padding: 20px;
+    box-shadow: 1px 1px 5px 1px #efefef;
+
+}
+.panel_close {
+    position: absolute;
+    top: -10px;
+}
+.panel_close span:before {
+    
+    font-size: 20px;
+    font-weight: normal;
+}
+.acc_panel_block .Container50.select_item {
+    margin-bottom: 30px;
+    margin: 0 5px 30px 5px;
+}
+.acc_panel_block .label_opacity {
+    padding: 10px 0;
+   
+}
+.acc_panel_block .Container25,.acc_panel_block .Container30 {
+    font-size: 17px;
+    color: #000;
+    line-height: 31px;
+}
+.acc_panel_block .label_opacity .Container100 table {
+    margin: 8px 0;
+}
+.acc_holder_dtl_block .save_btn {
+    margin: 2% 45% 0;
+    
+}
+.acc_holder_dtl_block .save_btn span {
+    color: #fff;
+}
+.contact_dtl_block span,
+.title_line
+ {
+    font-size: 17px;
+    color: #000;
+    
+}
+.panel_block .title_line{float:left;font-weight: normal;}
+.pass_nric_no{width:59%;}
+.go-bottom .radio_select label {
+    line-height: 24px;
+}
+.label_opacity .ui-selectoneradio td {
+    vertical-align: top;
+}
+.submit_acc_dtl{padding:1% 40%;}
+
+
+
+
+
+
+
+
+
+
+
+/*** responsive**/
+
+/** 16/10/2017***/
+
+/* Large screens ----------- */
+@media only screen and (min-width : 1824px) 
+{
+
+}
+/* Desktops and laptops ----------- */
+@media only screen and (min-width : 1224px)
+ {
+
+}
+ 
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px)and (max-device-width : 1024px) 
+{
+
+} 
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px)and (max-device-width : 640px) 
+{
+
+/*** for dashboard UOB**/
+	.bussinessContact {
+    font-size: 12px;
+    padding: 7px 8px 0px ;
+   float: right;
+}
+ul#menuMainNavigation {
+    width: 100%;
+    position: absolute;
+    background: #fff;
+    top: 66px;
+    left: 0;
+    z-index: 1;
+    box-shadow: 0px 1px 4px 0px #666;
+}
+ul#menuMainNavigation li {
+    width: 100%;
+    /* float: left; */
+    padding: 10px 0;
+    border-bottom: 1px solid #666666;
+}
+.alert_menu span.ui-button-text.ui-c{
+	color: #454545;
+    padding: 0px 10px 0px 23px !important;
+}
+.shake.shake-constant{
+	top: 7px;
+    right: 20px;
+}
+.alert_count{
+	top: 0px;
+    right: 15px;
+}
+.nav > li > .parent{
+	    background-position: 92% 50%;
+}
+.acc_overview_dtl {
+    width: 52%;  
+    font-size: 15px;
+    }
+.left_side_title .ui-selectonemenu {
+    width: 110px !important;
+}
+.acc_overview_label {   
+    width: 40%;
+}
+.acc_block_left {
+   margin: 10px 3%;
+    width: 94%;
+    }
+
+.extraMenuBlock {
+    display: none;
+}
+.dashboard_right_panel {
+    margin: 0 3% 10px;
+    width: 94%;
+    padding: 0;
+}
+.Container50,.Wid30,.Wid40 {
+    width: 100%;
+    }
+.userPanelv3d {
+    height: 100%;
+}
+.LeftPanel {
+    border-right: none;
+    border-bottom: 3px solid #666666;
+}
+.Wid66.RightPanel {
+    width: 94%;
+    padding: 3%;
+}
+.Fright .Wid35 {
+    width: 40%;
+}
+.Fright {
+    margin: 10px 0;
+}
+
+/*** 24/10/2017 account opening page **/
+.account_type_block .Container50 {
+    width: 95%;
+    margin: 2% 0;
+}
+.acc_type_title {
+    width: 96%;
+    padding: 0 2%;
+    }
+.Container50.next_btn {
+    width: 15%;
+    margin: 2%;
+}
+.acc_holder_form .ui-tabs .ui-tabs-panel {
+    padding: 0;
+}
+.go-bottom {
+    width: 96%;
+    margin: 20px 2%;
+}
+.go-bottom .Container80,
+.go-bottom .Container50,
+.Container25 .ui-selectonemenu,
+.pass_nric_no,
+.go-bottom div.acc_holder_dtl_block,
+.go-bottom div.Container30,
+.Container70,
+.relation_dtl .label_opacity,
+.Container60
+{width:100%;    margin: 2% 0;float:left;}
+
+.Container60 .ui-selectonemenu,
+.Container50 .ui-selectonemenu,
+.Container20 .ui-selectonemenu,
+.Container40 .ui-selectonemenu,
+.Container25 .ui-selectonemenu,
+.Container30 .ui-selectonemenu
+{
+	width:100%;
+}
+
+.submit_acc_dtl {
+    padding: 3% 18%;
+}
+.date_birth .hasDatepicker {
+    width: 81% !important;}
+.acc_panel_block{  padding: 20px 2%;}
+.acc_panel_block .Container50 {
+    width: 50%;
+}
+.acc_panel_block .Container40 {
+    margin-top: 4px;
+}
+
+
+}
+ 
+
+
