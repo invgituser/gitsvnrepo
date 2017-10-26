@@ -1,0 +1,137 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+    <ui:define name="content">
+
+    <div class="layout-portlets-box strategy_layout" >
+        <div class="Container100 Responsive50">
+            
+               <!--  <h3 class="BigTopic">User Confirmation</h3> -->
+               <div class="container100 progressbarsag user-confirm-progressbar">
+
+                        <div class="loadPgNm">
+                            <span class="done"> Goal </span>
+                            <span class="done"> Assets </span>
+                            <span class="done"> Liabilities </span>
+                            <span class="active"> Risk </span>
+                            <span class="active"> Confirmation </span>
+                        </div>
+
+
+                    </div>
+              	<div class="outer_stategy_block user_confirmation_block">
+                    <div class="container100 strategy_dtl">
+                    	
+                    	      <div class="Container40 Responsive50 tp20 confirmation_donut_dtl">
+                                        <!-- ROHIT's CHANGE -->
+                                        <div class="ContainerIndent">
+                                        <div class="confirmation_donut">
+                                            <p:chart type="pie" model="#{uobpos.pieModel}" styleClass="PieGraphPosition"
+                                                     style="height:200px; width: 100%; border:0!important;"
+                                                     rendered="#{uobpos.pieModel != null}"
+                                                     responsive="true"
+                                                     extender="pie_extensions"/>
+                                         </div>
+                                            <p:commandButton id="uobContinueBtn2"
+		                                     value="Start Over"
+		                                     styleClass="uob_button start_over_btn"
+		                                     actionListener="#{uobpb.investnow}">
+		                    				</p:commandButton>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="Container60 Responsive50"><!-- ROHIT's CHANGE -->
+                                        <div class="ContainerIndent">
+                                            <p:dataTable styleClass="uob_graphTable" var="ticker" id="uobtabledetails"
+                                     value="#{uobpb.displayPortfolioList}">
+
+                            <p:column style="width:5%; background-color: #{ticker.color}">
+                                <h:outputText value=" "/>
+                            </p:column>
+
+                            <p:column style="width:60%;" styleClass="Fs12 TexAlLeft">
+                                <f:facet name="header">
+                                    <h:outputText value="Name"/>
+                                </f:facet>
+                                <h:outputText id="uobtnam" value="#{ticker.namePlusSymbol}"/>
+                            </p:column>
+
+                            <p:column style="width:13%;"
+                                      styleClass="Fs12 num-text-align TexAlRight">
+                                <!-- ROHIT's CHANGE -->
+                                <f:facet name="header">
+                                    <h:outputText value="Allocated"/>
+                                </f:facet>
+                                <h:outputText id="uobtalloc2" value="#{ticker.weight}">
+                                    <f:convertNumber pattern="##0%"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column style="width:22%;"
+                                      styleClass="Fs12 num-text-align TexAlRight">
+                                <!-- ROHIT's CHANGE -->
+                                <f:facet name="header">
+                                    <h:outputText value="Value"/>
+                                </f:facet>
+                                <h:outputText id="uobtval" value="#{ticker.value}">
+                                    <f:convertNumber pattern="$##,###,###"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:columnGroup type="footer">
+                                <p:row>
+                                    <p:column />
+                                    <p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
+                                              footerText="Total">
+                                    </p:column>
+                                    <p:column styleClass="Fs14 TexAlRight FontBold" id="uobttot2"
+                                              footerText="#{dataDisplayConverter.displayAsMoneyRounded(uobpb.totalMoneyAllocated)}">
+                                    </p:column>
+                                </p:row>
+                            </p:columnGroup>
+                        	</p:dataTable>
+                                        </div>
+                                    </div>
+
+                                
+
+                    
+                    <div class="accepted_block">
+						<div class="strategy_contain">
+							You are about to change your user requirements .Please read and accept the following statements to indicate that you know and understand the potential implications
+							
+						</div>
+						<div class="strategy_select">
+			                <p:selectOneRadio id="radio" value="" >
+					            <f:selectItem itemLabel="I accepted the changes of user requirements" itemValue="value1" ></f:selectItem>
+					            
+					        </p:selectOneRadio>
+					        
+		        		</div>
+                    	<h:form class="strategy_btn">
+		                    <p:commandButton id="uobCancelBtn"
+		                                     value="Cancel"
+		                                     styleClass="uob_button cancel_btn"
+		                                     actionListener="#{uobpb.investnow}">
+		                    </p:commandButton>
+		                    <p:commandButton id="uobContinueBtn"
+		                                     value="Accept"
+		                                     styleClass="uob_button continue_btn"
+		                                     actionListener="#{uobpb.investnow}">
+		                    </p:commandButton>
+		
+		                </h:form>
+		                </div>	  
+                	</div>
+                    </div>
+        </div>
+        
+    </div>
+    </ui:define>
+
+</ui:composition>
