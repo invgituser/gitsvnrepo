@@ -82,14 +82,14 @@
 													        
 									                     </div>
 									                     <div class="Container80 Responsive100"> 
-									                        <input id="name" name="name" type="text" placeholder="Name"/>
-									                	     <label for="name">Name</label>
+									                        <input id="name" name="name" type="text" placeholder="Full Name"/>
+									                	     <label for="name">Full Name</label>
 									                      </div>  
 									                  </div>
 									                   
 									                  <div class="acc_holder_dtl_block">
 									               		<div class="Container20 Responsive100 select_item">   
-									               			<span class="title_line" style="opacity:0;">Gender</span> 
+									               			<span class="title_line">Gender</span> 
 									                	 	<p:selectOneMenu id="gender" value="Select Gender" >
 													            <f:selectItem itemLabel="Select Gender" itemValue="" />
 													            <f:selectItem itemLabel="Male" itemValue="Male" />
@@ -124,7 +124,17 @@
 									               		
 									                  </div>
 									                  <div class="acc_holder_dtl_block ">
-									               		<div class="Container40 Responsive100 label_opacity">
+									                  	<div class="Container20 Responsive100 select_item">  
+									                      	
+									                	 	<p:selectOneMenu id="nationalit" value="Select Nationality" >
+													            <f:selectItem itemLabel="Select Nationality" itemValue="" />
+													            <f:selectItem itemLabel="Nationality1" itemValue="Nationality1" />
+													            <f:selectItem itemLabel="Nationality2" itemValue="Nationality2" />
+													            <f:selectItem itemLabel="Nationality3" itemValue="Nationality3" />
+													        </p:selectOneMenu>
+																						                	     
+									                     </div>
+									               		<div class="Container50 Responsive100 label_opacity per_res">
 										               		<div class="Container60 Responsive100">   
 										                	 	<span>Permanent Resident Of Singapore</span>
 										                     </div>
@@ -136,7 +146,7 @@
 									                     </div>
 									                   </div>
 									                   
-									                   	<div class="Container60 Responsive100 pass_nric_no" >   
+									                   	<div class="Container25 Responsive100 pass_nric_no" >   
 									                	 	<input id="nric" name="nric" type="text" placeholder="NRIC No. / Passport No."/>
 									                	     <label for="nric">NRIC No. / Passport No.</label>
 									                     </div>
@@ -197,11 +207,167 @@
 									                         	<label for="faxTel">Fax No</label>
 										                     </div> 
 										                 </div>
-									                  </div>						                  
+									                  </div>	
+									                  <div class="acc_holder_dtl_block">
+									               		 <div class="Container100">   
+									                	 	<input id="emailadd" name="emailadd" type="text" placeholder="Email Address"/>
+									                	     <label for="emailadd">Email Address</label>
+									                     </div>									                     
+									                  </div>					                  
 									                  							                     
 								                  </div>
 								           
 								        </p:tab>
+								       <!--  joint account holder -->
+								       <p:tab title="Joint Account Holder">
+								      	<div class="go-bottom">  
+								                	<div class="acc_holder_dtl_block">
+									               		 <div class="Container20 Responsive100 select_item">   
+									                	 	<p:selectOneMenu id="jointtitle" value="Select Title" name="title" >
+													            <f:selectItem itemLabel="Select Title" itemValue="" />
+													            <f:selectItem itemLabel="Dr" itemValue="Dr" />
+													            <f:selectItem itemLabel="Mr" itemValue="Mr" />
+													            <f:selectItem itemLabel="Mrs" itemValue="Mrs" />
+													            <f:selectItem itemLabel="Miss" itemValue="Miss" />
+													        </p:selectOneMenu>
+													        
+									                     </div>
+									                     <div class="Container80 Responsive100"> 
+									                        <input id="jointname" name="name" type="text" placeholder="Name"/>
+									                	     <label for="name">Name</label>
+									                      </div>  
+									                  </div>
+									                   
+									                  <div class="acc_holder_dtl_block">
+									               		<div class="Container20 Responsive100 select_item">   
+									               			<span class="title_line">Gender</span> 
+									                	 	<p:selectOneMenu id="jointgender" value="Select Gender" >
+													            <f:selectItem itemLabel="Select Gender" itemValue="" />
+													            <f:selectItem itemLabel="Male" itemValue="Male" />
+													            <f:selectItem itemLabel="Female" itemValue="Female" />													            
+													        </p:selectOneMenu>
+									                     </div>
+									                     <div class="Container50 Responsive100 date_birth">
+									                     <div class="Container100"><span class="title_line">Date Of Birth</span></div>
+									                     
+        												 <p:calendar id="jointgerman" value="#{calendarView.date5}"  navigator="true" pattern="dd-mm-yyyy" showOn="button" placeholder="Date Of Birth (dd/mm/yyyy)"/>
+ 
+									                      
+									                     	 <!-- <p:calendar id="button" name="dtbirth" value="#{calendarView.date3}" showOn="button" placeholder="Date Of Birth (dd/mm/yyyy)"  />									                   -->      
+									                         <label for="dtbirth">Date Of Birth</label>
+									                       
+									                      </div> 
+									                      <div class="Container25 Responsive100 select_item">  
+									                      		<span class="title_line">Country Of Birth</span> 
+									                	 	<!-- <input id="countbirth" name="countbirth" type="text" placeholder="Country of birth"/>
+									                	     <label for="countbirth">Country of birth</label> -->
+									                	     <p:selectOneMenu id="jointconutry" value="Select Country Of Birth" >
+													            <f:selectItem itemLabel="Select Country Of Birth" itemValue="" />
+													            <f:selectItem itemLabel="Country1" itemValue="Country1" />
+													            <f:selectItem itemLabel="Country2" itemValue="Country2" />
+													            <f:selectItem itemLabel="Country3" itemValue="Country3" />
+													        </p:selectOneMenu>
+																						                	     
+									                     </div>
+									                  </div>	
+									                  
+									                  <div class="acc_holder_dtl_block">
+									               		
+									                  </div>
+									                  <div class="acc_holder_dtl_block ">
+									                  	<div class="Container20 Responsive100 select_item">  
+									                      	
+									                	 	<p:selectOneMenu id="jointnationalit" value="Select Nationality" >
+													            <f:selectItem itemLabel="Select Nationality" itemValue="" />
+													            <f:selectItem itemLabel="Nationality1" itemValue="Nationality1" />
+													            <f:selectItem itemLabel="Nationality2" itemValue="Nationality2" />
+													            <f:selectItem itemLabel="Nationality3" itemValue="Nationality3" />
+													        </p:selectOneMenu>
+																						                	     
+									                     </div>
+									               		<div class="Container50 Responsive100 label_opacity per_res">
+										               		<div class="Container60 Responsive100">   
+										                	 	<span>Permanent Resident Of Singapore</span>
+										                     </div>
+										                     <div class="Container30 Responsive100">  
+									                	 	<p:selectOneRadio id="jointradio" value="" >
+					            								<f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
+					            								<f:selectItem itemLabel="No" itemValue="value2" ></f:selectItem>
+					        								</p:selectOneRadio>
+									                     </div>
+									                   </div>
+									                   
+									                   	<div class="Container25 Responsive100 pass_nric_no" >   
+									                	 	<input id="jointnric" name="nric" type="text" placeholder="NRIC No. / Passport No."/>
+									                	     <label for="nric">NRIC No. / Passport No.</label>
+									                     </div>
+									                   
+									                  </div>									                  
+									                  <div class="acc_holder_dtl_block contact_dtl_block">
+									                  	<div class="Container50 Responsive100">  
+										               		<div class="Container20 Responsive100">   
+										                	 	<span>Country Code</span>
+										                	 	 <input id="jointcountrycode" name="countrycode" type="text" placeholder=""/>
+									                         	<!-- <label for="offTel">Office Tel No</label>	 -->									                	 	
+										                     </div>
+										                     <div class="Container80 Responsive100"> 
+										                        <span>Area Code / Number</span>
+										                        <div class="Container100">
+											                        <input id="jointhomeTel" name="homeTel" type="text" placeholder="Home Tel No"/>
+										                         	<label for="homeTel">Home Tel No</label>
+									                         	</div>
+										                     </div> 
+										                 </div>
+										                 <div class="Container50 Responsive100">  
+										               		<div class="Container20 Responsive100">   
+										                	 	<span>Country Code</span>
+										                	 	<input id="jointcountrycode" name="countrycode" type="text" placeholder=""/>
+									                         	<!-- <label for="offTel">Office Tel No</label>	 -->	
+										                     </div>
+										                     <div class="Container80 Responsive100"> 
+										                        <span>Area Code / Number</span>
+										                        <div class="Container100">
+											                        <input id="jointmobTel" name="mobTel" type="text" placeholder="Mobile No"/>
+										                         	<label for="mobTel">Mobile No</label>
+										                        </div>
+										                     </div> 
+										                 </div>
+									                  </div>			
+									                  <div class="acc_holder_dtl_block">
+									                  	<div class="Container50 Responsive100">  
+										               		<div class="Container20 Responsive100">   
+										                	 	
+										                	 	 <input id="jointcountrycode" name="countrycode" type="text" placeholder=""/>
+									                         	<!-- <label for="offTel">Office Tel No</label>	 -->									                	 	
+										                     </div>
+										                     <div class="Container80 Responsive100"> 
+										                        
+										                        <input id="jointoffTel" name="offTel" type="text" placeholder="Office Tel No"/>
+									                         	<label for="offTel">Office Tel No</label>
+										                     </div> 
+										                 </div>
+										                 <div class="Container50 Responsive100">  
+										               		<div class="Container20 Responsive100">   
+										                	 	
+										                	 	<input id="jointcountrycode" name="countrycode" type="text" placeholder=""/>
+									                         	<!-- <label for="offTel">Office Tel No</label>	 -->	
+										                     </div>
+										                     <div class="Container80 Responsive100"> 
+										                       
+										                        <input id="jointfaxTel" name="faxTel" type="text" placeholder="Fax No"/>
+									                         	<label for="faxTel">Fax No</label>
+										                     </div> 
+										                 </div>
+									                  </div>	
+									                  <div class="acc_holder_dtl_block">
+									               		 <div class="Container100">   
+									                	 	<input id="jointemailadd" name="emailadd" type="text" placeholder="Email Address"/>
+									                	     <label for="emailadd">Email Address</label>
+									                     </div>									                     
+									                  </div>					                  
+									                  							                     
+								                  </div>
+								       </p:tab>
 								        
 								    </p:tabView>
 								    
@@ -221,11 +387,11 @@
                                     <p:tabView>
 								        <p:tab title="Main Account Holder">
 								            
-								                <div class="go-bottom">  
+								                <div class="go-bottom address_tab">  
 								                	<div class="acc_holder_dtl_block">
 									               		 <div class="Container100">   
-									                	 	<input id="resadd" name="resadd" type="text" placeholder="Residential Address"/>
-									                	     <label for="resadd">Residential Address</label>
+									                	 	<textarea id="resadd" name="resadd" class="add_block" type="text" placeholder="Residential Address As Per NRIC For Singaporean Or Singapore PR"/>
+									                	     <label for="resadd">Residential Address As Per NRIC For Singaporean Or Singapore PR</label>
 									                     </div>									                     
 									                  </div>
 									                  <div class="acc_holder_dtl_block">
@@ -250,14 +416,27 @@
 									                  </div>
 								                		<div class="acc_holder_dtl_block label_opacity">
 								                		         
-									                		<p:selectManyCheckbox id="basic" >
+									                	<!-- 	<p:selectManyCheckbox id="basic" >
 														        <f:selectItem itemLabel="Different Mailing Address" itemValue="Different Mailing Address" />
 														        														    </p:selectManyCheckbox>
-								                			
+								                		 -->	
+								                		 
+								                		 <div class="Container100 Responsive100 radio_label ">
+								                					<div class="Container40 ">
+									                				<span class="title_line">Is your mailing address is different from residential address ?</span>
+										                			</div>
+										                			<div class="Container40">
+										                				<p:selectOneRadio id="radio1" value="" >
+						            									<f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
+						            									<f:selectItem itemLabel="No" itemValue="value1" ></f:selectItem>
+						            									</p:selectOneRadio>
+										                			</div>
+								                				</div>
+								                		 
 								                		</div>
 								                	<div class="acc_holder_dtl_block">
 									               		 <div class="Container100">   
-									                	 	<input id="mailadd" name="mailadd" type="text" placeholder="Mailing Address"/>
+									                	 	<textarea id="mailadd" class="add_block" name="mailadd" type="text" placeholder="Mailing Address"/>
 									                	     <label for="mailadd">Mailing Address</label>
 									                     </div>									                     
 									                  </div>
@@ -280,16 +459,88 @@
 													        </p:selectOneMenu>
 									                      </div> 
 									                  </div>
+									                   							                     
+								                  </div>
+								           
+								        </p:tab>
+								    	<!-- joint account holder tab -->   
+								    	<p:tab title="Joint Account Holder">
+								            
+								                <div class="go-bottom"> 
+								                 	<div class="acc_holder_dtl_block label_opacity">								                		         
+									                		<p:selectManyCheckbox id="jointcheckbox" >
+														        <f:selectItem itemLabel="As same as main account holder" itemValue="As same as main account holder" />
+														    </p:selectManyCheckbox>
+								                			
+								                		</div>
+								                	<div class="acc_holder_dtl_block">
+									               		 <div class="Container100">   
+									                	 	<textarea id="jointresadd" class="add_block" name="resadd" type="text" placeholder="Residential Address As Per NRIC For Singaporean Or Singapore PR"/>
+									                	     <label for="resadd">Residential Address As Per NRIC For Singaporean Or Singapore PR</label>
+									                     </div>									                     
+									                  </div>
 									                  <div class="acc_holder_dtl_block">
+									               		<div class="Container30 Responsive100">   
+									                	 	<input id="jointpostcode" name="postcode" type="text" placeholder="Postal Code"/>
+									                	     <label for="postcode">Postal Code</label>
+									                     </div>
+									                     <div class="Container30 Responsive100"> 
+									                        <input id="jointCitystate" name="Citystate" type="text" placeholder="City / State"/>
+									                         <label for="Citystate">City / State</label>
+									                      </div> 
+									                      <div class="Container30 Responsive100">								                        
+									                         
+									                         <p:selectOneMenu id="joint_conutry" value="Select Country" >
+													            <f:selectItem itemLabel="Select Country" itemValue="" />
+													            <f:selectItem itemLabel="Country1" itemValue="Country1" />
+													            <f:selectItem itemLabel="Country2" itemValue="Country2" />
+													            <f:selectItem itemLabel="Country3" itemValue="Country3" />
+													        </p:selectOneMenu>
+									                         
+									                      </div> 
+									                  </div>
+								                		<div class="acc_holder_dtl_block label_opacity">
+								                		         
+									                		<p:selectManyCheckbox id="jointbasic" >
+														        <f:selectItem itemLabel="Different Mailing Address" itemValue="Different Mailing Address" />
+														        														    </p:selectManyCheckbox>
+								                			
+								                		</div>
+								                	<div class="acc_holder_dtl_block">
+									               		 <div class="Container100">   
+									                	 	<textarea id="jointmailadd" class="add_block" name="mailadd" type="text" placeholder="Mailing Address"/>
+									                	     <label for="mailadd">Mailing Address</label>
+									                     </div>									                     
+									                  </div>
+									                   
+									                  <div class="acc_holder_dtl_block">
+									               		<div class="Container30 Responsive100">   
+									                	 	<input id="jointpostalcode" name="postalcode" type="text" placeholder="Postal Code"/>
+									                	     <label for="postalcode">Postal Code</label>
+									                     </div>
+									                     <div class="Container30 Responsive100"> 
+									                        <input id="jointcity" name="city" type="text" placeholder="City / State"/>
+									                         <label for="city">City / State</label>
+									                      </div> 
+									                      <div class="Container30 Responsive100"> 
+									                        <p:selectOneMenu id="jointconutry1" value="Select Country" >
+													            <f:selectItem itemLabel="Select Country" itemValue="" />
+													            <f:selectItem itemLabel="Country1" itemValue="Country1" />
+													            <f:selectItem itemLabel="Country2" itemValue="Country2" />
+													            <f:selectItem itemLabel="Country3" itemValue="Country3" />
+													        </p:selectOneMenu>
+									                      </div> 
+									                  </div>
+									                  <!-- <div class="acc_holder_dtl_block">
 									               		 <div class="Container100">   
 									                	 	<input id="emailadd" name="emailadd" type="text" placeholder="Email Address"/>
 									                	     <label for="emailadd">Email Address</label>
 									                     </div>									                     
-									                  </div>    							                     
+									                  </div>  -->   							                     
 								                  </div>
 								           
-								        </p:tab>
-								        
+								        </p:tab> 
+								    
 								    </p:tabView>
                                         
                                     
@@ -355,9 +606,9 @@
 									                  	  
 								                		<div class="acc_holder_dtl_block ">
 								                			<div class="Container100 select_item">
-								                				<div class="Container30 Responsive100 label_opacity radio_label">
-								                					<div class="Container50 ">
-									                				 Have Tax Id ?
+								                				<div class="Container40 Responsive100 label_opacity radio_label">
+								                					<div class="Container60 ">
+									                		<span class="title_line">Have Tax Identification Number ?</span>
 										                			</div>
 										                			<div class="Container40">
 										                				<p:selectOneRadio id="radio" value="" >
@@ -366,12 +617,12 @@
 						            									</p:selectOneRadio>
 										                			</div>
 								                				</div>
-								                				<div class="Container60 Responsive100">
-								                					<input id="taxId" name="taxId" type="text" placeholder="Tax Id"/>
-								                					<label for="taxId">Tax Id</label>
+								                				<div class="Container50 Responsive100">
+								                					<input id="taxId" name="taxId" type="text" placeholder="Tax Identification Number"/>
+								                					<label for="taxId">Tax Identification Number</label>
 								                				</div>
 								                			</div>	
-								                			<div class="Container100 select_item">
+								                			<!-- <div class="Container100 select_item">
 									                			<div class="Container30 Responsive30 label_opacity radio_label">
 									                				<div class="Container50">
 										                				Have citizenship ?
@@ -389,7 +640,7 @@
 								                					<label for="cityId">Citizenship Id</label>
 								                				</div>
 								                				
-								                			</div>	
+								                			</div> -->	
 								                			<div class="Container100 Responsive100 label_opacity radio_select">
 									                				<p:selectOneRadio id="radio3" value="" >
 						            									<f:selectItem itemLabel="The country where the Account Holder is resident does not issue Tax Identification Number to its resident" itemValue="value1" ></f:selectItem>
@@ -417,7 +668,115 @@
 								                </div>
 								           
 								        </p:tab>
-								        
+								        <!-- joint account holder tab -->
+								         <p:tab title="Joint Account Holder">
+								            
+								                <div class="go-bottom">  
+								                	<div class="Container100">
+								                		<p:dataTable>
+														    <p:column headerText="Jurisdiction Of Tax">
+														        <h:outputText value="" />
+														    </p:column>
+														 
+														    <p:column headerText="Tax Id">
+														        <h:outputText value="" />
+														    </p:column>
+														 
+														    <p:column headerText="Reason">
+														        <h:outputText value="" />
+														    </p:column>
+														 
+														    
+														</p:dataTable>
+								                	</div>
+								                	<div class="Container100 add_tax_info ">
+								                		<p:commandButton id="jointuobAddBtn"
+												                                     value="Add"
+												                                     styleClass="uob_button add_btn"
+												                                     actionListener="#{uobpb.investnow}"  icon="ui-icon-plus">
+												                 
+												                    </p:commandButton>
+								                		
+								                	</div>
+								                	<div class="Container100 panel_block acc_panel_block">
+									                	<div class="panel_close">
+									                		<span class="ui-button-icon-center ui-icon ui-c fa fa-close"></span>
+									                	</div>
+									                	<div class="Container60 Responsive100 select_item">
+									                	<div class="Container100"><span class="title_line">Jurisdiction / Country Of Tax</span></div>
+										                	     <p:selectOneMenu id="jointconutry1" value="Select Jurisdiction / Country Of Tax " >
+														            <f:selectItem itemLabel="Select Jurisdiction / Country Of Tax" itemValue="" />
+														            <f:selectItem itemLabel="Country1" itemValue="Country1" />
+														            <f:selectItem itemLabel="Country2" itemValue="Country2" />
+														            <f:selectItem itemLabel="Country3" itemValue="Country3" />
+														        </p:selectOneMenu>
+																							                	     
+										                  </div>
+									                  	  
+								                		<div class="acc_holder_dtl_block ">
+								                			<div class="Container100 select_item">
+								                				<div class="Container40 Responsive100 label_opacity radio_label">
+								                					<div class="Container60 ">
+									                				<span class="title_line"> Have Tax Identification Number ?</span>
+										                			</div>
+										                			<div class="Container40">
+										                				<p:selectOneRadio id="jointradio" value="" >
+						            									<f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
+						            									<f:selectItem itemLabel="No" itemValue="value1" ></f:selectItem>
+						            									</p:selectOneRadio>
+										                			</div>
+								                				</div>
+								                				<div class="Container50 Responsive100">
+								                					<input id="jointtaxId" name="taxId" type="text" placeholder="Tax Identification Number"/>
+								                					<label for="taxId">Tax Identification Number</label>
+								                				</div>
+								                			</div>	
+								                			<!-- <div class="Container100 select_item">
+									                			<div class="Container30 Responsive30 label_opacity radio_label">
+									                				<div class="Container50">
+										                				Have citizenship ?
+										                			</div>
+										                			<div class="Container40">
+										                				<p:selectOneRadio id="jointradio1" value="" >
+							            									<f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
+							            									<f:selectItem itemLabel="No" itemValue="value1" ></f:selectItem>
+						            									</p:selectOneRadio>
+										                			</div>
+									                				
+									                			</div>
+									                			<div class="Container60 Responsive100">
+								                					<input id="jointcityId" name="cityId" type="text" placeholder="Citizenship Id"/>
+								                					<label for="cityId">Citizenship Id</label>
+								                				</div>
+								                				
+								                			</div> -->	
+								                			<div class="Container100 Responsive100 label_opacity radio_select">
+									                				<p:selectOneRadio id="jointradio3" value="" >
+						            									<f:selectItem itemLabel="The country where the Account Holder is resident does not issue Tax Identification Number to its resident" itemValue="value1" ></f:selectItem>
+						            								</p:selectOneRadio>
+						            								<p:selectOneRadio id="jointradio4" value="" >
+						            									<f:selectItem itemLabel="The Account Holder is otherwise unenable to obtain a Tax Identification Number or equivalent (Please Explain)" itemValue="value1" ></f:selectItem>
+						            								</p:selectOneRadio>
+						            									<input id="jointexplain" name="explain" type="text" placeholder="Explain"/>									                	     
+						            								<p:selectOneRadio id="jointradio5" value="" class="last_radio">
+						            									<f:selectItem itemLabel="No Tax Identification Number require as th domestic law of the relevant jurisdiction does not require the collection of the Tax Identification Number issued by such jurisdiction " itemValue="value1" ></f:selectItem>
+					            									</p:selectOneRadio>
+									                			</div>	
+									                			<h:form class="tax_info_btn">
+												                    <p:commandButton id="uobSaveBtn"
+												                                     value="Save"
+												                                     styleClass="uob_button save_btn"
+												                                     actionListener="#{uobpb.investnow}">
+												                    </p:commandButton>
+												                    
+												                </h:form> 						                		
+								                			
+								                			
+								                		</div>
+								               		 </div>
+								                </div>
+								           
+								        </p:tab>
 								    </p:tabView>
                                         
                                     
@@ -440,6 +799,16 @@
 								        <p:tab title="Main Account Holder">
 								            
 								                <div class="go-bottom">  
+								                	<div class="acc_holder_dtl_block label_opacity">
+								                		<div class="Container100">
+								                			<span class="title_line">Employment Status</span>
+								                			<p:selectManyCheckbox id="emplyment" >
+														        <f:selectItem itemLabel="Employed" itemValue="Employed" />
+														        <f:selectItem itemLabel="Self-Employed" itemValue="Employed" />
+														        <f:selectItem itemLabel="UnEmployed" itemValue="Employed" />
+														    </p:selectManyCheckbox>
+								                		</div>
+								                	</div>
 								               		<div class="acc_holder_dtl_block">
 								               		<div class="Container50">
 									                      <div class="Container100"><span class="title_line">Qualification</span></div>    
@@ -495,7 +864,75 @@
 									                  							                     
 									              </div>
 									     </p:tab>
-								        
+								        <!-- joint account holder  tab -->
+								        <p:tab title="Joint Account Holder">
+								            
+								                <div class="go-bottom">  
+								                	<div class="acc_holder_dtl_block label_opacity">
+								                		<div class="Container100">
+								                			<span class="title_line">Employment Status</span>
+								                			<p:selectManyCheckbox id="jointemplyment" >
+														        <f:selectItem itemLabel="Employed" itemValue="Employed" />
+														        <f:selectItem itemLabel="Self-Employed" itemValue="Employed" />
+														        <f:selectItem itemLabel="UnEmployed" itemValue="Employed" />
+														    </p:selectManyCheckbox>
+								                		</div>
+								                	</div>
+								               		<div class="acc_holder_dtl_block">
+								               		<div class="Container50">
+									                      <div class="Container100"><span class="title_line">Qualification</span></div>    
+									                	 	<p:selectOneMenu id="jointoccupation" value="Qualification" >
+													            <f:selectItem itemLabel="Qualification" itemValue="" />
+													            <f:selectItem itemLabel="Qualification1" itemValue="Qualification1" />
+													            <f:selectItem itemLabel="Qualification2" itemValue="Qualification2" />
+													            <f:selectItem itemLabel="Qualification3" itemValue="Qualification3" />
+													        </p:selectOneMenu>
+									                     </div>
+									                     <div class="Container50">
+									                      <div class="Container100"><span class="title_line" style="opacity:0;">other</span></div> 
+									                     	<input id="jointother" name="other" type="text" placeholder="Other"/>
+									                	     <label for="other">Other</label>
+									                     </div>
+									                     </div>
+								                	<div class="acc_holder_dtl_block">
+									               		 <div class="Container100">   
+									                	 	<input id="jointoccupation" name="occupation" type="text" placeholder="Occupation"/>
+									                	     <label for="occupation">Occupation</label>
+									                     </div>
+									                 </div>
+									                 <div class="acc_holder_dtl_block">
+									                     <div class="Container100">   
+									                	 	<input id="jointempName" name="empName" type="text" placeholder="Name of Employer"/>
+									                	     <label for="empName">Name of Employer</label>
+									                     </div>	
+									                 </div>
+									                 <div class="acc_holder_dtl_block">
+									                     <div class="Container100">   
+									                	 	<input id="jointempAdd" name="empAdd" type="text" placeholder="Employer Address"/>
+									                	     <label for="empAdd">Employer Address</label>
+									                     </div>									                     
+									                  </div>	
+									                  <div class="acc_holder_dtl_block">
+									               		<div class="Container30 Responsive100">   
+									                	 	<input id="jointpostalcode" name="postalcode" type="text" placeholder="Postal Code"/>
+									                	     <label for="postalcode">Postal Code</label>
+									                     </div>
+									                     <div class="Container30 Responsive100"> 
+									                        <input id="jointcity" name="city" type="text" placeholder="City/State"/>
+									                         <label for="city">City/State</label>
+									                      </div> 
+									                      <div class="Container30 Responsive100"> 
+									                        	<p:selectOneMenu id="jointconutry2" value="Select Country" >
+														            <f:selectItem itemLabel="Select Country" itemValue="" />
+														            <f:selectItem itemLabel="Country1" itemValue="Country1" />
+														            <f:selectItem itemLabel="Country2" itemValue="Country2" />
+														            <f:selectItem itemLabel="Country3" itemValue="Country3" />
+														        </p:selectOneMenu>
+									                      </div> 
+									                  </div>
+									                  							                     
+									              </div>
+									     </p:tab>
 								    </p:tabView>
                                         
                                     
@@ -523,7 +960,7 @@
 									                	 	<h3>What is Mother's Maiden Name ?</h3>
 									                     </div> -->
 									               		 <div class="Container60 Responsive100">   
-									                	 	<input id="motherName" name="motherName" type="text" placeholder="What is Mother's Maiden Name ?"/>
+									                	 	<input id="motherName" name="motherName" type="text" placeholder="What is your mother's maiden name ?"/>
 									                	     <label for="motherName">Mother's Maiden Name</label>
 									                     </div>
 									                 </div>
@@ -532,7 +969,7 @@
 									                	 	<h3>What is Father's Name ?</h3>
 									                     </div>	 -->
 									                      <div class="Container60 Responsive100">   
-									                	 	<input id="fatherName" name="fatherName" type="text" placeholder="What is Father's Name ?"/>
+									                	 	<input id="fatherName" name="fatherName" type="text" placeholder="What is your father's name  ?"/>
 									                	     <label for="fatherName">Father's Name</label>
 									                     </div>	
 									                 </div>
@@ -541,7 +978,41 @@
 									                	 	<h3>Name of Primary School Attend ?</h3>
 									                     </div>	 -->
 									                     <div class="Container60 Responsive100">   
-									                	 	<input id="schoolName" name="schoolName" type="text" placeholder="Name of Primary School Attend ?"/>
+									                	 	<input id="schoolName" name="schoolName" type="text" placeholder="What is the name of primary school attend ?"/>
+									                	     <label for="schoolName">Name of Primary School Attend</label>
+									                     </div>								                     
+									                 </div>
+									                  							                  							                     
+									              </div>
+									     </p:tab>
+									     <!-- joint account holder tab -->
+									     <p:tab title="Joint Account Holder">
+								            
+								                <div class="go-bottom">  
+								                	<div class="acc_holder_dtl_block">
+								                		<!-- <div class="Container40">   
+									                	 	<h3>What is Mother's Maiden Name ?</h3>
+									                     </div> -->
+									               		 <div class="Container60 Responsive100">   
+									                	 	<input id="jointmotherName" name="motherName" type="text" placeholder="What is your mother's maiden name ?"/>
+									                	     <label for="motherName">Mother's Maiden Name</label>
+									                     </div>
+									                 </div>
+									                 <div class="acc_holder_dtl_block">
+									                     <!-- <div class="Container40">   
+									                	 	<h3>What is Father's Name ?</h3>
+									                     </div>	 -->
+									                      <div class="Container60 Responsive100">   
+									                	 	<input id="jointfatherName" name="fatherName" type="text" placeholder="What is your father's name ?"/>
+									                	     <label for="fatherName">Father's Name</label>
+									                     </div>	
+									                 </div>
+									                 <div class="acc_holder_dtl_block">
+									                     <!-- <div class="Container40">   
+									                	 	<h3>Name of Primary School Attend ?</h3>
+									                     </div>	 -->
+									                     <div class="Container60 Responsive100">   
+									                	 	<input id="jointschoolName" name="schoolName" type="text" placeholder="What is the name of primary school attend ?"/>
 									                	     <label for="schoolName">Name of Primary School Attend</label>
 									                     </div>								                     
 									                 </div>
@@ -564,7 +1035,7 @@
             					</div>
                             </p:tab>
                             
-                            <p:tab title="Asset Details">
+                            <p:tab title="Financial Information">
                                 <div class="Container100 Responsive100 holder_employment acc_holder_form">
                                     <p:tabView>
 								        <p:tab title="Main Account Holder">								            
@@ -602,7 +1073,42 @@
 									                 				                  							                     
 									              </div>
 									     </p:tab>
-								        
+								        <!-- joint account holder tab -->
+								        <p:tab title="Joint Account Holder">								            
+								                <div class="go-bottom">  
+								                	<div class="acc_holder_dtl_block">
+									               		 <div class="Container30 Responsive100 select_item">   
+									               		 <div class="Container100"><span class="title_line">Annual Income</span></div>
+									                	 	<p:selectOneMenu id="jointannual_income" value="Annual Income" >
+													            <f:selectItem itemLabel="Annual Income" itemValue="" />
+													            <f:selectItem itemLabel="Annual Income1" itemValue="Annual Income1" />
+													            <f:selectItem itemLabel="Annual Income2" itemValue="Annual Income2" />
+													            <f:selectItem itemLabel="Annual Income3" itemValue="Annual Income3" />
+													        </p:selectOneMenu>
+									                     </div>
+									                 
+									                     <div class="Container30 Responsive100 select_item"> 
+									                      <div class="Container100"><span class="title_line">Source of Funds / Wealth</span></div>  
+									                	 	<p:selectOneMenu id="jointwealth_income" value="Source of Funds/Wealth" >
+													            <f:selectItem itemLabel="Source of Funds/Weath" itemValue="" />
+													            <f:selectItem itemLabel="Source of Funds/Weath1" itemValue="Source of Funds/Weath1" />
+													            <f:selectItem itemLabel="Source of Funds/Weath2" itemValue="Source of Funds/Weath2" />
+													            <f:selectItem itemLabel="Source of Funds/Weath3" itemValue="Source of Funds/Weath3" />
+													        </p:selectOneMenu>
+									                     </div>	
+									                     <div class="Container30 Responsive100 select_item"> 
+									                      <div class="Container100"><span class="title_line">Networth</span></div>    
+									                	 	<p:selectOneMenu id="jointnewtworth" value="Networth" >
+													            <f:selectItem itemLabel="Networth" itemValue="" />
+													            <f:selectItem itemLabel="Networth1" itemValue="Networth1" />
+													            <f:selectItem itemLabel="Networth2" itemValue="Networth2" />
+													            <f:selectItem itemLabel="Networth3" itemValue="Networth3" />
+													        </p:selectOneMenu>
+									                     </div>
+									                 </div>
+									                 				                  							                     
+									              </div>
+									     </p:tab>
 								    </p:tabView>
                                         
                                     
@@ -701,9 +1207,91 @@
 									                 				                  							                     
 									              </div>
 									     </p:tab>
-								        
+								          <!-- joint account holder tab -->    
+								          <p:tab title="Joint Account Holder">								            
+								                <div class="go-bottom">  
+								                	<div class="acc_holder_dtl_block relation_dtl">
+									               		 <div class="Container70">   
+									                	 	<div class="Container100"><span>1.Are you related to any employee / trading representative of UOB Kay Hian? </span></div>									                	 	
+									                	 	<div class="Container50">
+									                	 		<input id="jointName" name="Name" type="text" placeholder="Name"/>
+									                	     	<label for="Name">Name</label>
+									                	 	</div>
+									                	 	<div class="Container50">
+									                	 		<input id="jointrelationship" name="relationship" type="text" placeholder="Relationship"/>
+									                	     	<label for="relationship">Relationship</label>
+									                	 	</div>
+									                     </div>
+									                     <div class="Container20 label_opacity">   
+									                	 	<p:selectOneRadio id="jointradio" value="" >
+					            								<f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
+					            								<f:selectItem itemLabel="No" itemValue="value2" ></f:selectItem>
+					        								</p:selectOneRadio>
+									                     </div>
+									                 </div>
+									                 <div class="acc_holder_dtl_block relation_dtl">
+									               		 <div class="Container70">   
+									                	 	<div class="Container100"><span>2.Are there any trading account(s) in UOB Kay Hian in which you have control or influence?</span></div>									                	 	
+									                	 	<div class="Container50">
+									                	 		<input id="jointAccName" name="AccName" type="text" placeholder="Account Name"/>
+									                	     	<label for="AccName">Account Name</label>
+									                	 	</div>
+									                	 	<div class="Container50">
+									                	 		<input id="jointAccNo" name="AccNo" type="text" placeholder="Account Number"/>
+									                	     	<label for="AccNo">Account Number</label>
+									                	 	</div>
+									                	 	<div class="Container50 margin-top">
+									                	 		<input id="jointAccName" name="AccName" type="text" placeholder="Account Name"/>
+									                	     	<label for="AccName">Account Name</label>
+									                	 	</div>
+									                	 	<div class="Container50 margin-top">
+									                	 		<input id="jointAccNo" name="AccNo" type="text" placeholder="Account Number"/>
+									                	     	<label for="AccNo">Account Number</label>
+									                	 	</div>
+									                     </div>
+									                     <div class="Container20 label_opacity">   
+									                	 	<p:selectOneRadio id="jointradio1" value="" >
+					            								<f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
+					            								<f:selectItem itemLabel="No" itemValue="value2" ></f:selectItem>
+					        								</p:selectOneRadio>
+									                     </div>
+									                 </div>
+									                 <div class="acc_holder_dtl_block relation_dtl">
+									               		 <div class="Container70">   
+									                	 	<div class="Container100"><span>3.Does any account holder in UOB Kay Hian who has control or influence over this trading account?</span></div>									                	 	
+									                	 	<div class="Container50">
+									                	 		<input id="jointAccName" name="AccName" type="text" placeholder="Account Name"/>
+									                	     	<label for="AccName">Account Name</label>
+									                	 	</div>
+									                	 	<div class="Container50">
+									                	 		<input id="jointAccNo" name="AccNo" type="text" placeholder="Account Number"/>
+									                	     	<label for="AccNo">Account Number</label>
+									                	 	</div>
+									                	 	<div class="Container50 margin-top">
+									                	 		<input id="jointAccName" name="AccName" type="text" placeholder="Account Name"/>
+									                	     	<label for="AccName">Account Name</label>
+									                	 	</div>
+									                	 	<div class="Container50 margin-top">
+									                	 		<input id="jointAccNo" name="AccNo" type="text" placeholder="Account Number"/>
+									                	     	<label for="AccNo">Account Number</label>
+									                	 	</div>
+									                     </div>
+									                     <div class="Container20 label_opacity">   
+									                	 	<p:selectOneRadio id="jointradio2" value="" >
+					            								<f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
+					            								<f:selectItem itemLabel="No" itemValue="value2" ></f:selectItem>
+					        								</p:selectOneRadio>
+									                     </div>
+									                 </div>
+									                 
+									                 				                  							                     
+									              </div>
+									     </p:tab>
+								          
+								          
 								    </p:tabView>
-                                        
+                                  
+                                    
                                     
                                 </div>
                                 <div class="Container100 pre_next_btn">
@@ -726,8 +1314,8 @@
 									               		 <div class="Container70">   
 									                	 	<div class="Container100"><span>1.Do you have previous experience in investing in financial product(s)?  </span></div>									                	 	
 									                	 	<div class="Container100">
-									                	 		<input id="dtl_plz" name="dtlplz" type="text" placeholder="Details Please"/>
-									                	     	<label for="dtlplz">Details Please</label>
+									                	 		<input id="dtl_plz" name="dtlplz" type="text" placeholder="Please Specify"/>
+									                	     	<label for="dtlplz">Please Specify</label>
 									                	 	</div>									                	 	
 									                     </div>
 									                     <div class="Container20 label_opacity">   
@@ -755,8 +1343,8 @@
 									               		 <div class="Container70">   
 									                	 	<div class="Container100"><span>3.Name of other financial institution(s) currently used for any financial product(s): </span></div>									                	 	
 									                	 	<div class="Container50">
-									                	 		<input id="other_pro" name="other_pro" type="text" placeholder="Other Products"/>
-									                	     	<label for="other_pro">Other products</label>
+									                	 		<input id="other_pro" name="other_pro" type="text" placeholder="Other Financial Institution"/>
+									                	     	<label for="other_pro">Other Financial Institution</label>
 									                	 	</div>
 									                	 	
 									                     </div>
@@ -766,8 +1354,8 @@
 									               		 <div class="Container70">   
 									                	 	<div class="Container100"><span>4.Are you currently unable to pay your debts as they fall due, or have entered into or have proposed to enter into any scheme, arrangement or composition with your creditors, or has any bankruptcy proceeding or resolution been filed against you or passed to effect the same, or has an administrator, trustee or other analogous officer been appointed over all or a material part of your assets?  </span></div>									                	 	
 									                	 	<div class="Container100">
-									                	 		<input id="des_plz1" name="desplz" type="text" placeholder="Description Please"/>
-									                	     	<label for="desplz">Description Please</label>
+									                	 		<input id="des_plz1" name="desplz" type="text" placeholder="Please Specify"/>
+									                	     	<label for="desplz">Please Specify</label>
 									                	 	</div>									                	 	
 									                     </div>
 									                     <div class="Container20 label_opacity">   
@@ -783,12 +1371,96 @@
 									               		 <div class="Container70">   
 									                	 	<div class="Container100"><span>5.Do you have any disputed account(s) or unresolved litigation matters with any stockbroking firm(s)/ financial institution(s)? </span></div>									                	 	
 									                	 	<div class="Container100">
-									                	 		<input id="des_plz1" name="desplz" type="text" placeholder="Description Please"/>
-									                	     	<label for="desplz">Description Please</label>
+									                	 		<input id="des_plz1" name="desplz" type="text" placeholder="Please Specify"/>
+									                	     	<label for="desplz">Please Specify</label>
 									                	 	</div>									                	 	
 									                     </div>
 									                     <div class="Container20 label_opacity">   
 									                	 	<p:selectOneRadio id="radio2" value="" >
+					            								<f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
+					            								<f:selectItem itemLabel="No" itemValue="value2" ></f:selectItem>
+					        								</p:selectOneRadio>
+									                     </div>
+									                 </div>
+									                 
+									                 
+									                 
+									                 
+									                 				                  							                     
+									              </div>
+									     </p:tab>
+									     
+									     <!-- joint account holder tab -->
+									     
+									     <p:tab title="Joint Account Holder">								            
+								                <div class="go-bottom">  
+								                	<div class="acc_holder_dtl_block relation_dtl">
+									               		 <div class="Container70">   
+									                	 	<div class="Container100"><span>1.Do you have previous experience in investing in financial product(s)?  </span></div>									                	 	
+									                	 	<div class="Container100">
+									                	 		<input id="jointdtl_plz" name="dtlplz" type="text" placeholder="Please Specify"/>
+									                	     	<label for="dtlplz">Please Specify</label>
+									                	 	</div>									                	 	
+									                     </div>
+									                     <div class="Container20 label_opacity">   
+									                	 	<p:selectOneRadio id="jointradio" value="" >
+					            								<f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
+					            								<f:selectItem itemLabel="No" itemValue="value2" ></f:selectItem>
+					        								</p:selectOneRadio>
+									                     </div>
+									                 </div>
+									                 <div class="acc_holder_dtl_block relation_dtl">
+									               		 <div class="Container100">   
+									                	 	<div class="Container100"><span>2.Please indicate your investment objectives:</span></div>									                	 	
+									                	 	
+									                     </div>
+									                     <div class="Container60 ">   
+									                	 	<p:selectOneMenu id="jointinvestment" value="Investment" >
+													            <f:selectItem itemLabel="Investment" itemValue="" />
+													            <f:selectItem itemLabel="investment1" itemValue="investment1" />
+													            <f:selectItem itemLabel="investment2" itemValue="investment2" />
+													            <f:selectItem itemLabel="investment3" itemValue="investment3" />
+													        </p:selectOneMenu>
+									                     </div>
+									                 </div>
+									                 <div class="acc_holder_dtl_block relation_dtl">
+									               		 <div class="Container70">   
+									                	 	<div class="Container100"><span>3.Name of other financial institution(s) currently used for any financial product(s): </span></div>									                	 	
+									                	 	<div class="Container50">
+									                	 		<input id="jointother_pro" name="other_pro" type="text" placeholder="Other Financial Institution"/>
+									                	     	<label for="other_pro">Other Financial Institution</label>
+									                	 	</div>
+									                	 	
+									                     </div>
+									                     
+									                 </div>
+									                 <div class="acc_holder_dtl_block relation_dtl">
+									               		 <div class="Container70">   
+									                	 	<div class="Container100"><span>4.Are you currently unable to pay your debts as they fall due, or have entered into or have proposed to enter into any scheme, arrangement or composition with your creditors, or has any bankruptcy proceeding or resolution been filed against you or passed to effect the same, or has an administrator, trustee or other analogous officer been appointed over all or a material part of your assets?  </span></div>									                	 	
+									                	 	<div class="Container100">
+									                	 		<input id="jointdes_plz1" name="desplz" type="text" placeholder="Please Specify"/>
+									                	     	<label for="desplz">Please Specify</label>
+									                	 	</div>									                	 	
+									                     </div>
+									                     <div class="Container20 label_opacity">   
+									                	 	<p:selectOneRadio id="jointradio1" value="" >
+					            								<f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
+					            								<f:selectItem itemLabel="No" itemValue="value2" ></f:selectItem>
+					        								</p:selectOneRadio>
+									                     </div>
+									                 </div>
+									                 
+									                 
+									                 <div class="acc_holder_dtl_block relation_dtl">
+									               		 <div class="Container70">   
+									                	 	<div class="Container100"><span>5.Do you have any disputed account(s) or unresolved litigation matters with any stockbroking firm(s)/ financial institution(s)? </span></div>									                	 	
+									                	 	<div class="Container100">
+									                	 		<input id="jointdes_plz1" name="desplz" type="text" placeholder="Please Specify"/>
+									                	     	<label for="desplz">Please Specify</label>
+									                	 	</div>									                	 	
+									                     </div>
+									                     <div class="Container20 label_opacity">   
+									                	 	<p:selectOneRadio id="jointradio2" value="" >
 					            								<f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
 					            								<f:selectItem itemLabel="No" itemValue="value2" ></f:selectItem>
 					        								</p:selectOneRadio>
