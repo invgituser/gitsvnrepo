@@ -4341,7 +4341,9 @@ span.external_link_click:hover {
 .go-bottom > div {
   position: relative;
   overflow: hidden;
+ 
 }
+
 .go-bottom input, .go-bottom textarea {
   width: 100%;
   border: 1px solid #c6d6df;
@@ -4359,8 +4361,16 @@ span.external_link_click:hover {
 .go-bottom input:focus, .go-bottom textarea:focus {
   border-color: #a4332f;
 }
+.acc_holder_form .go-bottom textarea:focus + label ,
+.acc_holder_form  .go-bottom textarea:not(:placeholder-shown):valid ~ label
+{
+	 margin-top: -26px;
+	
+}
+
 .go-bottom input:focus + label, .go-bottom textarea:focus + label ,
-.go-bottom input:not(:placeholder-shown):valid ~ label
+.go-bottom input:not(:placeholder-shown):valid ~ label,
+.go-bottom textarea:not(:placeholder-shown):valid ~ label
 {
   
   font-size: 13px;
@@ -4382,6 +4392,8 @@ span.external_link_click:hover {
 .go-bottom textarea {
   display: block;
   resize: vertical;
+   font-size: 17px;
+   width:97.5%;
 }
 
 .go-bottom input, .go-bottom textarea {
@@ -4668,7 +4680,7 @@ margin: 0px 0 10px;
     
 }
 .panel_block .title_line{float:left;font-weight: normal;}
-.pass_nric_no{width:59%;}
+.pass_nric_no{width:29%;}
 .go-bottom .radio_select label {
     line-height: 24px;
 }
@@ -4676,8 +4688,21 @@ margin: 0px 0 10px;
     vertical-align: top;
 }
 .submit_acc_dtl{padding:1% 40%;}
-
-
+.per_res {
+    margin: 8px 0;
+}
+.per_res .Container60 {
+    text-align: center;
+}
+.acc_holder_form .ui-tabs-top .ui-tabs-nav li a {
+    color: #ffffff !important;
+    background: #a4332f;
+    font-weight: normal;
+    border-radius: 2px;
+}
+.address_tab .Container40 {
+    width: 42%;
+}
 
 
 
@@ -4788,9 +4813,17 @@ ul#menuMainNavigation li {
 .Fright .Wid35 {
     width: 40%;
 }
-.Fright {
+/* .Fright {
     margin: 10px 0;
+} */
+.toggleMenu{    margin-top: -45px;}
+.nav > li.hover:last-child > ul {
+    left: 2px;
+    width: 98%;
+    top: 35px;
 }
+.ui-datatable table {
+    width: 98%;}
 
 /*** 24/10/2017 account opening page **/
 .account_type_block .Container50 {
@@ -4845,7 +4878,19 @@ ul#menuMainNavigation li {
 .acc_panel_block .Container40 {
     margin-top: 4px;
 }
-
+.acc_holder_form .ui-tabs-top .ui-tabs-nav li.ui-tabs-selected a,
+.acc_holder_form .ui-tabs-top .ui-tabs-nav li a
+{
+	font-size:12px;
+}
+.acc_holder_dtl_block .save_btn {
+    margin: 2% 36% 0;
+}
+.label_opacity .ui-selectmanycheckbox.ui-widget td:nth-child(odd){ width: auto;}
+.label_opacity .ui-selectmanycheckbox.ui-widget td{   
+	width: 88%;
+    float: left;
+    margin: 2% 0;}
 
 }
  
