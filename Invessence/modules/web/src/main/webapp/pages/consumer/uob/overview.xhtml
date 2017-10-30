@@ -49,7 +49,7 @@
                         <p:accordionPanel multiple="true" styleClass="marginZero" id="idAccrdPnl">
                             <p:tab title="Current Holding">
                                 <div class="Container100">
-                                    <div class="Container50 Responsive50 tp20">
+                                    <div class="Container30 Responsive50 tp20">
                                         <div id="2dDonutChart"></div>
                                         <h:inputHidden value="#{uobpos.strDonutString}"
                                                        id="twodDonutValueChart"/>
@@ -75,7 +75,7 @@
                                                      <!--extender="pie_extensions"/>-->
                                         <!--</div>-->
                                     </div>
-                                    <div class="Container50 Responsive50"><!-- ROHIT's CHANGE -->
+                                    <div class="Container70 Responsive50"><!-- ROHIT's CHANGE -->
                                         <div class="ContainerIndent">
                                             <!--<p:dataTable id="editAlloc" styleClass="invAllocTable"-->
                                                          <!--value="#{uobpos.managedAssetsList}"-->
@@ -127,11 +127,12 @@
                                                 <!--</p:columnGroup>-->
                                             <!--</p:dataTable>-->
                                             <p:dataTable id="posDataTable" var="position" value="#{uobpos.displayPositionList}"
-                                                         styleClass="invDataTable" reflow="false"> <!-- ROHIT's CHANGE reflow="true" for previuos table-->
+                                                         styleClass="invDataTable" reflow="false" > <!-- ROHIT's CHANGE reflow="true" for previuos table-->
 
-                                                <p:column priority="0"
-                                                          style="width:1%; text-align: left; background-color: #{position.color}"><!-- ROHIT's CHANGE -->
-                                                    <h:outputText value=" "/>
+                                                <p:column priority="0" class="bullet_td"
+                                                          style="width:8%; text-align: left;text-align: center;"><!-- ROHIT's CHANGE -->
+
+                                                    <span style="background-color: #{position.color}">HI</span>
                                                 </p:column>
 
                                                 <p:column headerText="Asset" priority="5"

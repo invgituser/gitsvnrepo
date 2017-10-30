@@ -4334,38 +4334,38 @@ span.external_link_click:hover {
 
 /** floating label**/
 .go-bottom {
-  width: 90%;
-  float: left;
-  margin: 20px 5%;
+    width: 90%;
+    float: left;
+    margin: 20px 5%;
 }
 .go-bottom > div {
-  position: relative;
-  overflow: hidden;
- 
+    position: relative;
+    overflow: hidden;
+
 }
 
 .go-bottom input, .go-bottom textarea {
-  width: 100%;
-  border: 1px solid #c6d6df;
-  background: none;
-  position: relative;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  padding: 8px 12px;
-  outline: 0;
+    width: 100%;
+    border: 1px solid #c6d6df;
+    background: none;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    padding: 8px 12px;
+    outline: 0;
 }
 .go-bottom input:valid, .go-bottom textarea:valid {
-  background: white;
+    background: white;
 }
 .go-bottom input:focus, .go-bottom textarea:focus {
-  border-color: #a4332f;
+    border-color: #a4332f;
 }
 .acc_holder_form .go-bottom textarea:focus + label ,
 .acc_holder_form  .go-bottom textarea:not(:placeholder-shown):valid ~ label
 {
-	 margin-top: -26px;
-	
+    margin-top: -26px;
+
 }
 
 .go-bottom input:focus + label, .go-bottom textarea:focus + label ,
@@ -4373,41 +4373,42 @@ span.external_link_click:hover {
 .go-bottom textarea:not(:placeholder-shown):valid ~ label
 {
 
-  font-size: 13px;
-  padding: 0px 6px;
-  z-index: 2;
-  text-transform: uppercase;
-   margin-top: -16px;
-  opacity: 1;
-  background: transparent;
+    font-size: 13px;
+    padding: 0px 6px;
+    z-index: 2;
+    text-transform: uppercase;
+    margin-top: -16px;
+    opacity: 1;
+    background: transparent;
     color: #a4332f;
-   top: 41%;
+    top: 41%;
+    z-index:0;
 }
 .go-bottom label {
-  transition: background 0.2s, color 0.2s, top 0.2s, bottom 0.2s, right 0.2s, left 0.2s;
-  position: absolute;
-  color: #999;
-  padding: 7px 6px;
+    transition: background 0.2s, color 0.2s, top 0.2s, bottom 0.2s, right 0.2s, left 0.2s;
+    position: absolute;
+    color: #999;
+    padding: 7px 6px;
 }
 .go-bottom textarea {
-  display: block;
-  resize: vertical;
-   font-size: 17px;
-   width:97.5%;
+    display: block;
+    resize: vertical;
+    font-size: 17px;
+    width:97.5%;
 }
 
 .go-bottom input, .go-bottom textarea {
-  padding: 12px 12px 12px 12px;
-      height: 45px;
+    padding: 12px 12px 12px 12px;
+    height: 45px;
 }
 .go-bottom label {
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
 .go-bottom input:focus, .go-bottom textarea:focus {
-   padding: 19px 12px 0px 5px;
+    padding: 19px 12px 0px 5px;
     font-size: 17px;
 }
 .go-bottom input:not(:placeholder-shown):valid {
@@ -4462,8 +4463,8 @@ span.external_link_click:hover {
     opacity: 1;
     position: relative;
     padding: 0 !important;
-        color: #000;
-   /*  line-height: 0; */
+    color: #000;
+    /*  line-height: 0; */
     font-size: 17px !important;
 }
 .go-bottom .radio_label label {
@@ -4475,17 +4476,17 @@ span.external_link_click:hover {
 .Container40 .ui-selectonemenu,
 .Container25 .ui-selectonemenu,
 .Container30 .ui-selectonemenu
- {
+{
     width: 60%;
     height: 45px;
     border: 1px solid #c6d6df !important;
 }
 .Container25 .ui-selectonemenu
- {
+{
     width: 116%;
-    }
+}
 .Container20 .ui-selectonemenu,.Container30 .ui-selectonemenu{
-	width:100%;
+    width:100%;
 }
 .go-bottom .ui-selectonemenu .ui-selectonemenu-label {
     opacity: 1;
@@ -4525,14 +4526,15 @@ span.external_link_click:hover {
 .relation_dtl .Container50:nth-child(2),.relation_dtl .Container50:nth-child(4){margin-right:10px;}
 .relation_dtl .label_opacity{float: right;    margin:-3px 0 0;}
 .relation_dtl .Container100 span {
-margin: 0px 0 10px;
+    margin: 0px 0 10px;
     float: left;
     font-size: 17px;
     color: #000;
 }
-.relation_dtl .margin-top {
+.margin-top {
     margin-top: 10px;
 }
+
 /*** 13/10/2017 UOB acc opening page **/
 .go-bottom input::-webkit-input-placeholder {
     font-size: 17px;
@@ -4562,12 +4564,12 @@ margin: 0px 0 10px;
 }
 .ui-datepicker-calendar tbody tr .ui-datepicker-current-day
 {
-	background-color:  #a4332f;
+    background-color:  #a4332f;
     border: solid 1px  #a4332f;
 }
 .date_birth .ui-button.ui-state-hover .ui-button-text,
 .date_birth .ui-buttonset .ui-state-hover .ui-button-text
- {
+{
     background: #a4332f;
     opacity: 0.8;
 }
@@ -4578,7 +4580,7 @@ margin: 0px 0 10px;
 .date_birth .ui-button.ui-state-focus .ui-button-text,
 .date_birth .ui-inputswitch-handle.ui-state-focus,
 .date_birth .ui-slider-handle.ui-state-focus{
-	background-color:  #a4332f;
+    background-color:  #a4332f;
 }
 .ui-datepicker-calendar tbody tr td:hover{background-color: #a4332f; border: solid 1px #a4332f;}
 .Container100.pre_next_btn {
@@ -4589,7 +4591,7 @@ margin: 0px 0 10px;
     color: #fff;
     padding: 10px 12px;
     border-radius: 20px;
-        cursor: pointer;
+    cursor: pointer;
 }
 .Container50.next_btn {
     width: 6%;
@@ -4600,7 +4602,7 @@ margin: 0px 0 10px;
     width: 45%;
 }
 .acc_type_title
-	{
+{
     width: 90%;
     padding: 0 30px;
     color: #000;
@@ -4674,7 +4676,7 @@ margin: 0px 0 10px;
 }
 .contact_dtl_block span,
 .title_line
- {
+{
     font-size: 17px;
     color: #000;
 
@@ -4704,7 +4706,35 @@ margin: 0px 0 10px;
     width: 42%;
 }
 
-
+/*** 30/10/2017 **/
+.edit_input .ui-inputtext {
+    border: none;
+    box-shadow: none;
+    font-family: 'helvetica' !important;
+    color: #777 !important;
+    font-size: 18px !important;
+    padding: 0 !important;
+}
+.edit_input .ui-inputtext.ui-state-hover {
+    border: none !important;
+}
+.dbdTxtBox {
+    background: white;
+    width: 85%;
+    padding: 5px;
+}
+.edit_portfolio {
+    margin: 0 5px;
+    cursor: pointer;
+}
+td.bullet_td span {
+    height: 13px;
+    width: 13px;
+    background: #333F50;
+    padding: 3px 4px;
+    border-radius: 40px;
+    color:transparent;
+}
 
 
 
@@ -4723,7 +4753,7 @@ margin: 0px 0 10px;
 }
 /* Desktops and laptops ----------- */
 @media only screen and (min-width : 1224px)
- {
+{
 
 }
 
@@ -4737,164 +4767,162 @@ margin: 0px 0 10px;
 @media only screen and (min-device-width : 320px)and (max-device-width : 640px)
 {
 
-/*** for dashboard UOB**/
-	.bussinessContact {
-    font-size: 12px;
-    padding: 7px 8px 0px ;
-   float: right;
-}
-ul#menuMainNavigation {
-    width: 100%;
-    position: absolute;
-    background: #fff;
-    top: 66px;
-    left: 0;
-    z-index: 1;
-    box-shadow: 0px 1px 4px 0px #666;
-}
-ul#menuMainNavigation li {
-    width: 100%;
-    /* float: left; */
-    padding: 10px 0;
-    border-bottom: 1px solid #666666;
-}
-.alert_menu span.ui-button-text.ui-c{
-	color: #454545;
-    padding: 0px 10px 0px 23px !important;
-}
-.shake.shake-constant{
-	top: 7px;
-    right: 20px;
-}
-.alert_count{
-	top: 0px;
-    right: 15px;
-}
-.nav > li > .parent{
-	    background-position: 92% 50%;
-}
-.acc_overview_dtl {
-    width: 52%;
-    font-size: 15px;
+    /*** for dashboard UOB**/
+    .bussinessContact {
+        font-size: 12px;
+        padding: 7px 8px 0px ;
+        float: right;
     }
-.left_side_title .ui-selectonemenu {
-    width: 110px !important;
-}
-.acc_overview_label {
-    width: 40%;
-}
-.acc_block_left {
-   margin: 10px 3%;
-    width: 94%;
+    ul#menuMainNavigation {
+        width: 100%;
+        position: absolute;
+        background: #fff;
+        top: 66px;
+        left: 0;
+        z-index: 1;
+        box-shadow: 0px 1px 4px 0px #666;
+    }
+    ul#menuMainNavigation li {
+        width: 100%;
+        /* float: left; */
+        padding: 10px 0;
+        border-bottom: 1px solid #666666;
+    }
+    .alert_menu span.ui-button-text.ui-c{
+        color: #454545;
+        padding: 0px 10px 0px 23px !important;
+    }
+    .shake.shake-constant{
+        top: 7px;
+        right: 20px;
+    }
+    .alert_count{
+        top: 0px;
+        right: 15px;
+    }
+    .nav > li > .parent{
+        background-position: 92% 50%;
+    }
+    .acc_overview_dtl {
+        width: 52%;
+        font-size: 15px;
+    }
+    .left_side_title .ui-selectonemenu {
+        width: 110px !important;
+    }
+    .acc_overview_label {
+        width: 40%;
+    }
+    .acc_block_left {
+        margin: 10px 3%;
+        width: 94%;
     }
 
-.extraMenuBlock {
-    display: none;
-}
-.dashboard_right_panel {
-    margin: 0 3% 10px;
-    width: 94%;
-    padding: 0;
-}
-.Container50,.Wid30,.Wid40 {
-    width: 100%;
+    .extraMenuBlock {
+        display: none;
     }
-.userPanelv3d {
-    height: 100%;
-}
-.LeftPanel {
-    border-right: none;
-    border-bottom: 3px solid #666666;
-}
-.Wid66.RightPanel {
-    width: 94%;
-    padding: 3%;
-}
-.Fright .Wid35 {
-    width: 40%;
-}
-/* .Fright {
-    margin: 10px 0;
-} */
-.toggleMenu{    margin-top: -45px;}
-.nav > li.hover:last-child > ul {
-    left: 2px;
-    width: 98%;
-    top: 35px;
-}
-.ui-datatable table {
-    width: 98%;}
-
-/*** 24/10/2017 account opening page **/
-.account_type_block .Container50 {
-    width: 95%;
-    margin: 2% 0;
-}
-.acc_type_title {
-    width: 96%;
-    padding: 0 2%;
+    .dashboard_right_panel {
+        margin: 0 3% 10px;
+        width: 94%;
+        padding: 0;
     }
-.Container50.next_btn {
-    width: 15%;
-    margin: 2%;
-}
-.acc_holder_form .ui-tabs .ui-tabs-panel {
-    padding: 0;
-}
-.go-bottom {
-    width: 96%;
-    margin: 20px 2%;
-}
-.go-bottom .Container80,
-.go-bottom .Container50,
-.Container25 .ui-selectonemenu,
-.pass_nric_no,
-.go-bottom div.acc_holder_dtl_block,
-.go-bottom div.Container30,
-.Container70,
-.relation_dtl .label_opacity,
-.Container60
-{width:100%;    margin: 2% 0;float:left;}
+    .Container50,.Wid30,.Wid40 {
+        width: 100%;
+    }
+    .userPanelv3d {
+        height: 100%;
+    }
+    .LeftPanel {
+        border-right: none;
+        border-bottom: 3px solid #666666;
+    }
+    .Wid66.RightPanel {
+        width: 94%;
+        padding: 3%;
+    }
+    .Fright .Wid35 {
+        width: 40%;
+    }
+    /* .Fright {
+        margin: 10px 0;
+    } */
+    .toggleMenu{    margin-top: -45px;}
+    .nav > li.hover:last-child > ul {
+        left: 2px;
+        width: 98%;
+        top: 35px;
+    }
+    .ui-datatable table {
+        width: 98%;}
 
-.Container60 .ui-selectonemenu,
-.Container50 .ui-selectonemenu,
-.Container20 .ui-selectonemenu,
-.Container40 .ui-selectonemenu,
-.Container25 .ui-selectonemenu,
-.Container30 .ui-selectonemenu
-{
-	width:100%;
+    /*** 24/10/2017 account opening page **/
+    .account_type_block .Container50 {
+        width: 95%;
+        margin: 2% 0;
+    }
+    .acc_type_title {
+        width: 96%;
+        padding: 0 2%;
+    }
+    .Container50.next_btn {
+        width: 15%;
+        margin: 2%;
+    }
+    .acc_holder_form .ui-tabs .ui-tabs-panel {
+        padding: 0;
+    }
+    .go-bottom {
+        width: 96%;
+        margin: 20px 2%;
+    }
+    .go-bottom .Container80,
+    .go-bottom .Container50,
+    .Container25 .ui-selectonemenu,
+    .pass_nric_no,
+    .go-bottom div.acc_holder_dtl_block,
+    .go-bottom div.Container30,
+    .Container70,
+    .relation_dtl .label_opacity,
+    .Container60
+    {width:100%;    margin: 2% 0;float:left;}
+
+    .Container60 .ui-selectonemenu,
+    .Container50 .ui-selectonemenu,
+    .Container20 .ui-selectonemenu,
+    .Container40 .ui-selectonemenu,
+    .Container25 .ui-selectonemenu,
+    .Container30 .ui-selectonemenu
+    {
+        width:100%;
+    }
+
+    .submit_acc_dtl {
+        padding: 3% 18%;
+    }
+    .date_birth .hasDatepicker {
+        width: 81% !important;}
+    .acc_panel_block{  padding: 20px 2%;}
+    .acc_panel_block .Container50 {
+        width: 50%;
+    }
+    .acc_panel_block .Container40 {
+        margin-top: 4px;
+    }
+    .acc_holder_form .ui-tabs-top .ui-tabs-nav li.ui-tabs-selected a,
+    .acc_holder_form .ui-tabs-top .ui-tabs-nav li a
+    {
+        font-size:12px;
+    }
+    .acc_holder_dtl_block .save_btn {
+        margin: 2% 36% 0;
+    }
+    .label_opacity .ui-selectmanycheckbox.ui-widget td:nth-child(odd){ width: auto;}
+    .label_opacity .ui-selectmanycheckbox.ui-widget td{
+        width: 88%;
+        float: left;
+        margin: 2% 0;}
+
 }
 
-.submit_acc_dtl {
-    padding: 3% 18%;
-}
-.date_birth .hasDatepicker {
-    width: 81% !important;}
-.acc_panel_block{  padding: 20px 2%;}
-.acc_panel_block .Container50 {
-    width: 50%;
-}
-.acc_panel_block .Container40 {
-    margin-top: 4px;
-}
-.acc_holder_form .ui-tabs-top .ui-tabs-nav li.ui-tabs-selected a,
-.acc_holder_form .ui-tabs-top .ui-tabs-nav li a
-{
-	font-size:12px;
-}
-.acc_holder_dtl_block .save_btn {
-    margin: 2% 36% 0;
-}
-.label_opacity .ui-selectmanycheckbox.ui-widget td:nth-child(odd){ width: auto;}
-.label_opacity .ui-selectmanycheckbox.ui-widget td{   
-	width: 88%;
-    float: left;
-    margin: 2% 0;}
 
-}
 
-.dbdTxtBox{
-    background: white;
-    width: 90%;
-}
