@@ -42,8 +42,10 @@
                     </div>
                     <div class="Container50 TexAlCenter Fs20">
                         <h:inputHidden id="allocValue" value="#{uobpb.sliderAllocationIndex}"/>
-                        <p:slider id="allocSlider" for="allocValue" minValue="0"
-                                  maxValue="#{uobpb.maxAssetAllocatonPoints}" step="1">
+                        <h:inputHidden id="minAllocValue" value="#{uobpb.cstmSliderMinAlloc}"/>
+                        <h:inputHidden id="maxAllocValue" value="#{uobpb.cstmSliderMaxAlloc}"/>
+                        <p:slider id="allocSlider" for="allocValue" minValue="#{uobpb.cstmSliderMinAlloc}"
+                                  maxValue="#{uobpb.cstmSliderMaxAlloc}" step="1">
                             <p:ajax event="slideEnd"
                                     update=":ceForm:graphArea, :ceForm:inputArea"
                                     listener="#{uobpb.onAllocSlider}"/>

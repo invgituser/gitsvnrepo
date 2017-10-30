@@ -1,7 +1,7 @@
 package com.invessence.web.bean.advisor;
 
 import java.io.*;
-import java.util.List;
+import java.util.*;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
@@ -26,8 +26,8 @@ import javax.faces.bean.ManagedBean;
 public class AssetManagementUpload implements Serializable
 {
    private String templateName;
-   private String templateID,rollbackId;
-   private String modelID,rvwModelId,updModelId;
+   private String templateID,rollbackId,vldTempId;
+   private String modelID,rvwModelId,updModelId,vldModelId;
    private String fileDtl;
    @ManagedProperty("#{advisorListDataDAO}")
    private AdvisorListDataDAO advisorListDataDAO;
@@ -302,7 +302,17 @@ public class AssetManagementUpload implements Serializable
       lstVldfileDtl=advisorListDataDAO.collectFileTypeList(getUpdModelId());
       listValidateTemplate=advisorListDataDAO.collectUpdatedThemeList(WebConst.PREDEFINED,WebConst.VALIDATION_SUCCESS);
       System.out.println("onModelChange  listValidateTemplate " +listValidateTemplate.size());
+   }
 
+   public void onvldModelChange(){
+
+      System.out.println("onModelChange " +getVldModelId());
+      lstTempList=advisorListDataDAO.collectUpdatedThemeList(getVldModelId(),WebConst.UPLOADED);
+      // .collectUploadedAssetTemplateList(getUpdModelId());
+      System.out.println("onModelChange " +lstTempList.size());
+      lstVldfileDtl=advisorListDataDAO.collectFileTypeList(getVldModelId());
+      listValidateTemplate=advisorListDataDAO.collectUpdatedThemeList(WebConst.PREDEFINED,WebConst.VALIDATION_SUCCESS);
+      System.out.println("onModelChange  listValidateTemplate " +listValidateTemplate.size());
    }
 
    public void onRvwModelChange(){
@@ -318,13 +328,21 @@ public class AssetManagementUpload implements Serializable
    public void onUpdModelChange(){
 
       System.out.println("onUpdModelChange " +getModelID());
-      lstTempList=advisorListDataDAO.collectUpdatedThemeList(WebConst.PREDEFINED,WebConst.UPLOADED);
+      templateID="0";
+      templateName="";
+      if(getModelID().equalsIgnoreCase("0")){
+         lstTempList=new ArrayList<AssetFileUploadList>();
+
+      }else
+      {
+         lstTempList = advisorListDataDAO.collectUpdatedThemeList(WebConst.PREDEFINED, WebConst.UPLOADED);
 //      .collectUploadedAssetTemplateList(getModelID());
-      System.out.println("onModelChange " +lstTempList.size());
-      lstFileDtlList=advisorListDataDAO.collectFileTypeList(getModelID());
-      System.out.println("onUpdModelChange " +lstFileDtlList.size());
-      listValidateTemplate=advisorListDataDAO.collectUpdatedThemeList(WebConst.PREDEFINED,WebConst.VALIDATION_SUCCESS);
-      System.out.println("onModelChange  listValidateTemplate " +listValidateTemplate.size());
+         System.out.println("onModelChange " + lstTempList.size());
+         lstFileDtlList = advisorListDataDAO.collectFileTypeList(getModelID());
+         System.out.println("onUpdModelChange " + lstFileDtlList.size());
+         listValidateTemplate = advisorListDataDAO.collectUpdatedThemeList(WebConst.PREDEFINED, WebConst.VALIDATION_SUCCESS);
+         System.out.println("onModelChange  listValidateTemplate " + listValidateTemplate.size());
+      }
 
    }
    public void onTemplateTypeChange(){
@@ -333,7 +351,9 @@ public class AssetManagementUpload implements Serializable
       if(templateType.equalsIgnoreCase("new")){
          displayTempDD=false;
          displayTempTxt=true;
+         templateID="0";
       }else{
+         templateName="";
          displayTempDD=true;
          displayTempTxt=false;
       }
@@ -342,18 +362,29 @@ public class AssetManagementUpload implements Serializable
    }
 
    public void onTemplateChange(){
-
       System.out.println("Template Id " +getTemplateID());
-      System.out.println("getUpdModelId Id " +getUpdModelId());
-      lstExtFileList = advisorListDataDAO.collectUploadedAssetFileList(getUpdModelId(), getTemplateID(), logonId);
+      System.out.println("getUpdModelId Id " +getModelID());
+      lstExtFileList = advisorListDataDAO.collectUploadedAssetFileList(getModelID(), getTemplateID(), logonId);
       System.out.println("Model NAme " +lstExtFileList.size());
-      if(lstVldfileDtl!=null && lstVldfileDtl.size()==lstExtFileList.size()){
+      if((lstVldfileDtl!=null && lstExtFileList!=null) && lstVldfileDtl.size()==lstExtFileList.size()){
          displayValidateBtn=true;
       }else{
          displayValidateBtn=false;
       }
-
    }
+
+   public void onValTempChange(){
+      System.out.println("Vld Template Id " +getVldTempId());
+      System.out.println("getVldModelId Id " +getVldModelId());
+      lstExtFileList = advisorListDataDAO.collectUploadedAssetFileList(getVldModelId(), getVldTempId(), logonId);
+      System.out.println("Model NAme " +lstExtFileList.size());
+      if((lstVldfileDtl!=null && lstExtFileList!=null) && lstVldfileDtl.size()==lstExtFileList.size()){
+         displayValidateBtn=true;
+      }else{
+         displayValidateBtn=false;
+      }
+   }
+
    public void onFileTypeChange(){
 
       System.out.println("File Type" +getFileDtl());
@@ -669,5 +700,25 @@ public class AssetManagementUpload implements Serializable
    public void setUploadMessage(String uploadMessage)
    {
       this.uploadMessage = uploadMessage;
+   }
+
+   public String getVldModelId()
+   {
+      return vldModelId;
+   }
+
+   public void setVldModelId(String vldModelId)
+   {
+      this.vldModelId = vldModelId;
+   }
+
+   public String getVldTempId()
+   {
+      return vldTempId;
+   }
+
+   public void setVldTempId(String vldTempId)
+   {
+      this.vldTempId = vldTempId;
    }
 }

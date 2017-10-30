@@ -3,7 +3,7 @@ package com.invessence.web.data.common;
 import java.util.*;
 import javax.faces.bean.ManagedProperty;
 
-import com.invessence.web.dao.common.PositionDAO;
+import com.invessence.web.dao.common.*;
 import com.invessence.web.util.*;
 import com.invmodel.asset.data.*;
 import org.primefaces.model.chart.PieChartModel;
@@ -14,6 +14,7 @@ import org.primefaces.model.chart.PieChartModel;
 public class PositionData
 {
    private List<Position> positionList;
+   private List<Transaction> transactionList;
    private List<Position> displayPositionList = new ArrayList<Position>();
    private DataDisplayConverter dconveter = new DataDisplayConverter();
 
@@ -31,6 +32,8 @@ public class PositionData
 
    @ManagedProperty("#{positionDAO}")
    private PositionDAO positionDAO;
+   @ManagedProperty("#{transactionDAO}")
+   private TransactionDAO transactionDAO;
 
    private Map<String, Asset> managedAssetsMap = new LinkedHashMap<String, Asset>();
    private List<Asset> managedAssetsList = new ArrayList<Asset>();
@@ -49,6 +52,8 @@ public class PositionData
    private Long acctnum;
    private String firstname, lastname, dateOpened, clientAccountID,accountAlias;
    private Boolean managed;
+   private Map<String,Double> currencyWiseTotal;
+   private Double settlmentTotal;
 
    public void setPositionDAO(PositionDAO positionDAO)
    {
@@ -176,12 +181,14 @@ public class PositionData
          {
             // Note: If no data is found, then blank form will display.  It is better then going to access denied, page.
             positionList = positionDAO.loadDBPosition(webutil, this.acctnum);
+            transactionList = transactionDAO.loadTransaction(webutil, this.acctnum,"E");
             addTotals();
          }
       }
       catch (Exception ex)
       {
          System.out.println("Error in collect data from DB :" + ex.getMessage());
+         ex.printStackTrace();
       }
 
    }
@@ -211,6 +218,13 @@ public class PositionData
          rows = positionList.size();
          managedAssetsMap.clear();
          managedAssetsList.clear();
+         if(currencyWiseTotal!=null)
+         {
+            currencyWiseTotal.clear();
+         }else{
+            currencyWiseTotal=new HashMap<String, Double>();
+         }
+         settlmentTotal=0.0;
          int counter=0;
          this.managed = true;
          Boolean infoData = false;
@@ -270,7 +284,17 @@ public class PositionData
             }
 
             // Recalc the actual weight
-
+            if(currencyWiseTotal.isEmpty()){
+               currencyWiseTotal.put(position.getSettleCurrency(),position.getSettleMoney());
+            }else{
+               if(currencyWiseTotal.containsKey(position.getSettleCurrency())){
+                  Double value=position.getSettleMoney()+currencyWiseTotal.get(position.getSettleCurrency());
+                  currencyWiseTotal.put(position.getSettleCurrency(),value);
+               }else{
+                  currencyWiseTotal.put(position.getSettleCurrency(),position.getSettleMoney());
+               }
+            }
+            settlmentTotal=settlmentTotal+position.getSettleMoney();
          }
 
          for (Asset asset: managedAssetsList) {
@@ -393,5 +417,46 @@ public class PositionData
    {
       return "success";
    }
+
+   public Map<String, Double> getCurrencyWiseTotal()
+   {
+      return currencyWiseTotal;
+   }
+
+   public void setCurrencyWiseTotal(Map<String, Double> currencyWiseTotal)
+   {
+      this.currencyWiseTotal = currencyWiseTotal;
+   }
+
+   public Double getSettlmentTotal()
+   {
+      return settlmentTotal;
+   }
+
+   public TransactionDAO getTransactionDAO()
+   {
+      return transactionDAO;
+   }
+
+   public void setTransactionDAO(TransactionDAO transactionDAO)
+   {
+      this.transactionDAO = transactionDAO;
+   }
+
+   public List<Transaction> getTransactionList()
+   {
+      return transactionList;
+   }
+
+   public void setTransactionList(List<Transaction> transactionList)
+   {
+      this.transactionList = transactionList;
+   }
+
+   public void setSettlmentTotal(Double settlmentTotal)
+   {
+      this.settlmentTotal = settlmentTotal;
+   }
+
 
 }

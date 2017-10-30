@@ -30,19 +30,38 @@ public class CommonBean
 
       try
       {
-         if (!FacesContext.getCurrentInstance().isPostback())
-         {
+//         if (!FacesContext.getCurrentInstance().isPostback())
+//         {
                reloadData();
-         }
+//         }
       }
       catch (Exception e)
       {
          e.printStackTrace();
       }
    }
+
+   public void doAction(Long messageId){
+      System.out.println("Long MessageId"+messageId);
+      if (messageId != 0 && messageId != null) {
+
+         for (int i=0;i<notificationDataList.size();i++) {
+            if(notificationDataList.get(i).getMessageid()==messageId)
+            {
+               System.out.println("In Data Matched");
+               NotificationData data=notificationDataList.get(i);
+               data.setStatus("A");
+               commonDAO.saveConsumerNotification(data, webutil.getLogonid());
+               System.out.println("Out");
+            }
+         }
+         reloadData();
+      }
+   }
    public void reloadData() {
+      System.out.println("Inside Common Bean");
       statInfo = commonDAO.getNotificationCount(webutil.getLogonid(),webutil.getAccess());
-      notificationDataList = commonDAO.getNotificationDtls(webutil.getLogonid(), "M", "N",webutil.getAccess());
+      notificationDataList = commonDAO.getNotificationDtls(webutil.getLogonid(), "M", "N",webutil.getAccess(),false);
    }
 
    public void setWebutil(WebUtil webutil)
@@ -71,6 +90,8 @@ public class CommonBean
    }
 
    public Integer getMessage(String src) {
+//      System.out.println("getMessage ~~>"+src add condition on session );
+//      reloadData();
       if (statInfo != null) {
          if (statInfo.containsKey(src))
             return statInfo.get(src);

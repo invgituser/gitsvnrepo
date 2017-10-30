@@ -33,6 +33,7 @@ public class SessionController implements Serializable
    private String device;
    private int cstmSessionTimeout;
    private boolean allowVisitorReg;
+   private List<UserRepData> lstUserRepDetails;
 
    private String site, mode;
 
@@ -340,7 +341,7 @@ public class SessionController implements Serializable
       if(webutil.isUserLoggedIn())
       {
          Map<String, String> webMap=commonDAO.getWebMenuDetails(url, webutil.getAccess());
-         List<UserRepData> lstUserRepDetails=commonDAO.getUserRepDetails(webutil.getLogonid());
+         lstUserRepDetails=commonDAO.getUserRepDetails(webutil.getLogonid());
          FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.WEB_MENU);
          FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.WEB_MENU, webMap);
       }
@@ -651,4 +652,13 @@ public class SessionController implements Serializable
       this.allowVisitorReg = allowVisitorReg;
    }
 
+   public List<UserRepData> getLstUserRepDetails()
+   {
+      return lstUserRepDetails;
+   }
+
+   public void setLstUserRepDetails(List<UserRepData> lstUserRepDetails)
+   {
+      this.lstUserRepDetails = lstUserRepDetails;
+   }
 }

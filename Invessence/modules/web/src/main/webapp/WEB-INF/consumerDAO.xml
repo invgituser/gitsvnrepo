@@ -11,6 +11,9 @@
     <bean id="positionDAO" class="com.invessence.web.dao.common.PositionDAO">
    		<property name="dataSource" ref="dataSource"/>
    	</bean>
+	<bean id="transactionDAO" class="com.invessence.web.dao.common.TransactionDAO">
+   		<property name="dataSource" ref="dataSource"/>
+   	</bean>
 
     <bean id="consumerListDataDAO" class="com.invessence.web.dao.consumer.ConsumerListDataDAO" >
    		<property name="dataSource" ref="dataSource"/>

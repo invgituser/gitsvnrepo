@@ -4372,7 +4372,7 @@ span.external_link_click:hover {
 .go-bottom input:not(:placeholder-shown):valid ~ label,
 .go-bottom textarea:not(:placeholder-shown):valid ~ label
 {
-  
+
   font-size: 13px;
   padding: 0px 6px;
   z-index: 2;
@@ -4536,14 +4536,14 @@ margin: 0px 0 10px;
 /*** 13/10/2017 UOB acc opening page **/
 .go-bottom input::-webkit-input-placeholder {
     font-size: 17px;
-    
+
 }
-.go-bottom input:focus input::-webkit-input-placeholder {  
+.go-bottom input:focus input::-webkit-input-placeholder {
     color:red;
 }
 
 
-.leftAccountInfoBlock {   
+.leftAccountInfoBlock {
     display:none;
 }
 
@@ -4645,7 +4645,7 @@ margin: 0px 0 10px;
     top: -10px;
 }
 .panel_close span:before {
-    
+
     font-size: 20px;
     font-weight: normal;
 }
@@ -4655,7 +4655,7 @@ margin: 0px 0 10px;
 }
 .acc_panel_block .label_opacity {
     padding: 10px 0;
-   
+
 }
 .acc_panel_block .Container25,.acc_panel_block .Container30 {
     font-size: 17px;
@@ -4667,7 +4667,7 @@ margin: 0px 0 10px;
 }
 .acc_holder_dtl_block .save_btn {
     margin: 2% 45% 0;
-    
+
 }
 .acc_holder_dtl_block .save_btn span {
     color: #fff;
@@ -4677,7 +4677,7 @@ margin: 0px 0 10px;
  {
     font-size: 17px;
     color: #000;
-    
+
 }
 .panel_block .title_line{float:left;font-weight: normal;}
 .pass_nric_no{width:29%;}
@@ -4717,7 +4717,7 @@ margin: 0px 0 10px;
 /** 16/10/2017***/
 
 /* Large screens ----------- */
-@media only screen and (min-width : 1824px) 
+@media only screen and (min-width : 1824px)
 {
 
 }
@@ -4726,15 +4726,15 @@ margin: 0px 0 10px;
  {
 
 }
- 
+
 /* iPads (portrait and landscape) ----------- */
-@media only screen and (min-device-width : 768px)and (max-device-width : 1024px) 
+@media only screen and (min-device-width : 768px)and (max-device-width : 1024px)
 {
 
-} 
+}
 
 /* Smartphones (portrait and landscape) ----------- */
-@media only screen and (min-device-width : 320px)and (max-device-width : 640px) 
+@media only screen and (min-device-width : 320px)and (max-device-width : 640px)
 {
 
 /*** for dashboard UOB**/
@@ -4774,13 +4774,13 @@ ul#menuMainNavigation li {
 	    background-position: 92% 50%;
 }
 .acc_overview_dtl {
-    width: 52%;  
+    width: 52%;
     font-size: 15px;
     }
 .left_side_title .ui-selectonemenu {
     width: 110px !important;
 }
-.acc_overview_label {   
+.acc_overview_label {
     width: 40%;
 }
 .acc_block_left {
@@ -4893,6 +4893,8 @@ ul#menuMainNavigation li {
     margin: 2% 0;}
 
 }
- 
 
-
+.dbdTxtBox{
+    background: white;
+    width: 90%;
+}

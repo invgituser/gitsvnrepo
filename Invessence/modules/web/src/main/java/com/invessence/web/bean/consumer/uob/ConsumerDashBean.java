@@ -1,13 +1,15 @@
 package com.invessence.web.bean.consumer.uob;
 
 import java.io.Serializable;
+import java.text.*;
 import java.util.*;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.web.constant.*;
+import com.invessence.web.dao.common.*;
 import com.invessence.web.dao.consumer.*;
-import com.invessence.web.data.common.CustomerData;
+import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.uob.UOBRiskCalculator;
 import com.invessence.web.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +49,20 @@ public class ConsumerDashBean extends CustomerData implements Serializable
       this.listDAO = listDAO;
    }
 
+   @ManagedProperty("#{positionDAO}")
+   private PositionDAO posDao;
+   @ManagedProperty("#{commonDAO}")
+   private CommonDAO commonDAO;
+
    private ArrayList<CustomerData> manageAccountList;
    private ArrayList<CustomerData> selAccountList;
 
    private CustomerData selectedAccount;
    private long selAcctNum,accoutListZize;
+   private boolean dsplStrategyCNfPnl;
+   private String goalcstmnm;
+   private ArrayList<NotificationData> highNotification;
+   private String acctOpnDtLbl;
 //   private UOBRiskCalculator riskCalculator;
 //   private String whichChart;
 //   public String riskCalcMethod = "C";
@@ -79,6 +90,9 @@ public class ConsumerDashBean extends CustomerData implements Serializable
          }else{
             accoutListZize=0;
          }
+
+         highNotification = commonDAO.getNotificationDtls(webutil.getLogonid(), "M", "N",webutil.getAccess(),true);
+         System.out.println("highNotification "+highNotification.size());
       }
       catch (Exception e)
       {
@@ -126,6 +140,20 @@ public class ConsumerDashBean extends CustomerData implements Serializable
       return ("success");
    }
 
+   public String showPositionNew()
+   {
+      String whichXML;
+      try
+      {
+         uiLayout.doMenuAction("consumer", "overview.xhtml?acct=" + selAcctNum);
+      }
+      catch (Exception ex)
+      {
+         return ("failed");
+      }
+
+      return ("success");
+   }
 
 
    public String doEditAction()
@@ -164,6 +192,39 @@ public class ConsumerDashBean extends CustomerData implements Serializable
 
       return ("success");
    }
+   public String doPortfolioSelectedActionNew()
+   {
+      String whichXML;
+      try
+      {
+         if (selAccountList.get(0).isUnopened())
+         {
+//            dsplStrategyPnl=false;
+            if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("ProfileCnf")!=null){
+
+               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("ProfileCnf");
+            }
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ProfileCnf",false);
+            uiLayout.doMenuAction("consumer", "cadd.xhtml?app=E&acct=" + selAcctNum);
+         }
+         else
+         {
+//            dsplStrategyPnl=true;
+            if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("ProfileCnf")!=null){
+
+               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("ProfileCnf");
+            }
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ProfileCnf",true);
+            uiLayout.doMenuAction("consumer", "portfolioedit.xhtml?app=E&acct=" + selAcctNum);
+         }
+      }
+      catch (Exception ex)
+      {
+         return ("failed");
+      }
+
+      return ("success");
+   }
 
    public String doFundingAction()
    {
@@ -171,6 +232,20 @@ public class ConsumerDashBean extends CustomerData implements Serializable
       try
       {
          uiLayout.doMenuAction("custody", "editfunding.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
+      }
+      catch (Exception ex)
+      {
+         return ("failed");
+      }
+
+      return ("success");
+   }
+   public String doFundingActionNew()
+   {
+      String whichXML;
+      try
+      {
+         uiLayout.doMenuAction("custody", "funding.xhtml?app=E&acct=" +selAcctNum);
       }
       catch (Exception ex)
       {
@@ -216,12 +291,45 @@ public class ConsumerDashBean extends CustomerData implements Serializable
 //         super.loadProfileData(selAcctNum, riskCalculator);
 //         Double riskIndex = riskCalculator.calculateRisk();
 //         createDynaAssetPortfolio(1, riskIndex,selAccountList.get(0).getTheme());
+         List<Position> l1=posDao.loadDBPosition(webutil, selAcctNum,selAccountList.get(0).getManaged());
+         if(selAccountList.get(0).getCustomName().isEmpty())
+         {
+//            strGoalCstmName ="Goal-"+selAccountList.get(0).getGoal();
+            setGoalcstmnm("Goal-"+selAccountList.get(0).getGoal());
+         }else{
+//            strGoalCstmName =selAccountList.get(0).getCustomName();
+            setGoalcstmnm(""+selAccountList.get(0).getCustomName());
+         }
+//         rollupAssetClassByPosList(l1,Double.parseDouble(""+selAccountList.get(0).getInitialInvestment()));
+         if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("AccountBal")!=null){
+
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("AccountBal");
+         }
+         if(selAccountList.get(0).getManaged()){
+            Double amt=selAccountList.get(0).getActualInvestment();
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("AccountBal",amt);
+//            actualInvestment
+         }else{
+//            initialInvestment
+            Integer amt=selAccountList.get(0).getInitialInvestment();
+            Double amt2=Double.parseDouble(""+amt);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("AccountBal",amt2);
+         }
+
          accoutListZize=selAccountList.size();
          if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.SEL_ACCOUNT)!=null){
 
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.SEL_ACCOUNT);
          }
          FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.SEL_ACCOUNT,selAcctNum);
+
+         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+         Date date = new Date();
+         date = df.parse(selAccountList.get(0).getDisplayDateOpened());
+//         System.out.println(date);
+
+         SimpleDateFormat dt1 = new SimpleDateFormat("d MMM, yy");
+         acctOpnDtLbl=dt1.format(date);
 //         setDisplayFTPanel(false);
 //         setEnableChangeStrategy(true);
 //         setAltrOnChngStrategy(true);
@@ -260,6 +368,20 @@ public class ConsumerDashBean extends CustomerData implements Serializable
          ex.printStackTrace();
       }
 
+   }
+
+   public void updateGoalDescription(){
+      try{
+//         System.out.println("Hellooo "+strGoalCstmName);
+//         System.out.println("bye "+getStrGoalCstmName());
+         System.out.println("Parma ");
+         System.out.println("strGoalCstmName "+goalcstmnm);
+         CustomerData objCustData=selAccountList.get(0);
+         objCustData.setCustomName(goalcstmnm);
+         updateProfileData(objCustData);
+      }catch (Exception e){
+
+      }
    }
 
    public ArrayList<CustomerData> getSelAccountList()
@@ -302,4 +424,69 @@ public class ConsumerDashBean extends CustomerData implements Serializable
 //      this.whichChart = whichChart;
 //   }
 
+   public PositionDAO getPosDao()
+   {
+      return posDao;
+   }
+
+   public void setPosDao(PositionDAO posDao)
+   {
+      this.posDao = posDao;
+   }
+
+//   public boolean isDsplStrategyPnl()
+//   {
+//      return dsplStrategyPnl;
+//   }
+//
+//   public void setDsplStrategyPnl(boolean dsplStrategyPnl)
+//   {updateGoalDescription
+//      this.dsplStrategyPnl = dsplStrategyPnl;
+//   }
+
+   public void onChngCsmVal()
+   {
+      System.out.println("Del "+getGoalcstmnm());
+      System.out.println("strGoalCstmName "+goalcstmnm);
+   }
+
+   public String getGoalcstmnm()
+   {
+      return goalcstmnm;
+   }
+
+   public void setGoalcstmnm(String goalcstmnm)
+   {
+      this.goalcstmnm = goalcstmnm;
+   }
+
+   public ArrayList<NotificationData> getHighNotification()
+   {
+      return highNotification;
+   }
+
+   public void setHighNotification(ArrayList<NotificationData> highNotification)
+   {
+      this.highNotification = highNotification;
+   }
+
+   public CommonDAO getCommonDAO()
+   {
+      return commonDAO;
+   }
+
+   public void setCommonDAO(CommonDAO commonDAO)
+   {
+      this.commonDAO = commonDAO;
+   }
+
+   public String getAcctOpnDtLbl()
+   {
+      return acctOpnDtLbl;
+   }
+
+   public void setAcctOpnDtLbl(String acctOpnDtLbl)
+   {
+      this.acctOpnDtLbl = acctOpnDtLbl;
+   }
 }

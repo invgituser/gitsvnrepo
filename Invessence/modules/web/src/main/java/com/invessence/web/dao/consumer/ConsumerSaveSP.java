@@ -48,6 +48,9 @@ public class ConsumerSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_portfolioIndex", Types.INTEGER));
             declareParameter(new SqlParameter("p_goalDesired", Types.DOUBLE));
             declareParameter(new SqlParameter("p_customName", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_tradeCurrency", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_settleCurrency", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_exchangeRate", Types.DOUBLE));
             break;
          case 1:  // save_user_financial_data
             declareParameter(new SqlParameter(	"p_acctnum"	, Types.BIGINT	))	;
@@ -318,7 +321,16 @@ public class ConsumerSaveSP extends StoredProcedure
          if (data.getGoalData() != null)
             goalDesired = data.getGoalData().getGoalDesired();
          inputMap.put("p_goalDesired", goalDesired);
-         inputMap.put("p_customName", data.getCustomName());
+         if(data.getCustomName()!=null && data.getCustomName().length()!=0 )
+         {
+            inputMap.put("p_customName", data.getCustomName());
+         }else{
+            inputMap.put("p_customName", data.getGoal());
+         }
+
+         inputMap.put("p_tradeCurrency", data.getTradeCurrency());
+         inputMap.put("p_settleCurrency", data.getSettleCurrency());
+         inputMap.put("p_exchangeRate", data.getExchangeRate());
 
          return super.execute(inputMap);
 

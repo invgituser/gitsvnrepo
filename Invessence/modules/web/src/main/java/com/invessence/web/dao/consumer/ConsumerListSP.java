@@ -59,6 +59,14 @@ public class ConsumerListSP extends StoredProcedure
             declareParameter(new SqlParameter("p_fromDate", Types.VARCHAR));
             declareParameter(new SqlParameter("p_toDate", Types.VARCHAR));
             break;
+         case 10:
+            declareParameter(new SqlParameter("p_from_currency", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_to_currency", Types.VARCHAR));
+            break;
+         case 11:
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_from_currency", Types.VARCHAR));
+            break;
          default:
       }
       compile();
@@ -149,4 +157,21 @@ public class ConsumerListSP extends StoredProcedure
       inputMap.put("p_toDate", toDate);
       return super.execute(inputMap);
    }
+   public Map getExhangeRate(String fromCurrency, String toCurrency)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_from_currency", fromCurrency);
+      inputMap.put("p_to_currency", toCurrency);
+      return super.execute(inputMap);
+   }
+
+   public Map getAdvisorbaseCurrency(String advisor,String tradeCurrency)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_advisor", advisor);
+      inputMap.put("p_from_currency", tradeCurrency);
+      return super.execute(inputMap);
+   }
+
+
 }

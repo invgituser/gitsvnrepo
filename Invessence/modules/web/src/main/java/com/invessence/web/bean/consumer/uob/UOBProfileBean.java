@@ -12,6 +12,7 @@ import com.invessence.converter.*;
 import com.invessence.web.bean.consumer.InvessenceCharts;
 import com.invessence.web.constant.*;
 import com.invessence.web.controller.HighChartsController;
+import com.invessence.web.dao.common.PositionDAO;
 import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.RiskCalculator;
 import com.invessence.web.data.consumer.uob.UOBRiskCalculator;
@@ -58,8 +59,15 @@ public class UOBProfileBean extends CustomerData implements Serializable
    private UOBRiskCalculator riskCalculator;
    private boolean altrOnChngStrategy;
    private boolean allAnsSbmt;
+   private boolean dsplClgPnl,dsplOtrPnl;
+   private boolean dsplStrategyCnfPnl;
 
    private Boolean finalCheck1, finalCheck2, confirmationCheck = false;
+   private Integer cstmSliderMaxAlloc, cstmSliderMinAlloc,riskVariance;
+   private String profileProcess = "";
+   private String  selctedSettleCurrency;
+
+   Map<String,Double> userAdvisorCurr;
 
 
    public UOBProfileBean()
@@ -377,11 +385,23 @@ public class UOBProfileBean extends CustomerData implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
+            if(getWebutil().getWebprofile().getInfo("RISK.VARIANCE")!=null){
+               String tempVariance=getWebutil().getWebprofile().getInfo("RISK.VARIANCE");
+               try{
+                  riskVariance=Integer.parseInt(tempVariance);
+               }catch (Exception e){
+                  riskVariance=10;
+               }
+            }else
+            {
+               riskVariance =10;
+            }
             setDisplayFTPanel(false);
             setEnableChangeStrategy(true);
             setAltrOnChngStrategy(true);
             setDoesUserHavaLogonID(false);  //  This is default, but fetchCustomer will set reset it.
             flagforInvestShow = false;
+            setTradeCurrency(getWebutil().getWebprofile().getInfo("DEFAULT.CURRENCY"));
 
             masterpagemanager = new PagesImpl(3);
             masterpagemanager.setPage(0);
@@ -397,6 +417,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
                   webutil.redirect("/login.xhtml", null);
                   return;
                }
+               selctedSettleCurrency=getTradeCurrency();
             }
             riskCalculator.setNumberofQuestions(9);
             whichChart = "pie";
@@ -424,6 +445,17 @@ public class UOBProfileBean extends CustomerData implements Serializable
                welcomeDialog = false;
             }
 */
+
+            UserInfoData userInfo=(UserInfoData)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USER_INFO);
+            if(userInfo!=null && userInfo.getAdvisor()!=null && !userInfo.getAdvisor().equalsIgnoreCase(""))
+            {
+               userAdvisorCurr = listDAO.getAdvisorbaseCurrency(userInfo.getAdvisor(),getTradeCurrency());
+            }
+
+            if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("ProfileCnf")!=null){
+               dsplStrategyCnfPnl=(Boolean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("ProfileCnf");
+               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("ProfileCnf");
+            }
          }
       }
       catch (Exception e)
@@ -464,12 +496,38 @@ public class UOBProfileBean extends CustomerData implements Serializable
       String selectedgoal;
       formEdit = true;
       selectedgoal = (getGoal() == null || getGoal().isEmpty()) ? "Other" : getGoal();
+      System.out.println("selectedgoal"+selectedgoal);
+      if(selectedgoal.equalsIgnoreCase("College")){
+         dsplClgPnl=true;
+         setAge(20);
+      }else{
+         dsplClgPnl=false;
+         setAge(18);
+      }
+      if(selectedgoal.equalsIgnoreCase("Other")){
+         dsplOtrPnl=true;
+      }else{
+         dsplOtrPnl=false;
+      }
       riskCalculator.setInvestmentobjective(selectedgoal);
       Double riskIndex = riskCalculator.calculateRisk();
       createAssetPortfolio(1, riskIndex);
       isAllDataEntered();
    }
 
+   public void onChangeSettlCurrency()
+   {
+      if(getSelctedSettleCurrency().equalsIgnoreCase(getTradeCurrency())){
+         setExchangeRate(1.0);
+      }else{
+         Double hmExchangeRate=userAdvisorCurr.get(selctedSettleCurrency);
+         System.out.println("hmExchangeRate "+hmExchangeRate);
+         System.out.println("selctedSettleCurrency "+selctedSettleCurrency);
+         setSettleCurrency(selctedSettleCurrency);
+        setExchangeRate(hmExchangeRate);
+      }
+         onChangeValue();
+   }
 
    public void onChangeValue()
    {
@@ -1059,6 +1117,12 @@ public class UOBProfileBean extends CustomerData implements Serializable
       }
    }
 
+   public void goAfterSrategy(){
+      if(profileProcess.equalsIgnoreCase(WebConst.PROFILE_ADVANCE_PROCESS)){
+         gotoNextPage();
+      }
+   }
+
    public void gotoStartOverPage()
    {
       rTab = 0;
@@ -1105,6 +1169,11 @@ public class UOBProfileBean extends CustomerData implements Serializable
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.plantoinvestamt.requiredMsg", "Enter a number (years) for how long you plan to invest", null));
 //               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.plantoinvestamt.requiredMsg", "Plan to Invest is required", null));
             }
+            if (getSelctedSettleCurrency() == null || getSelctedSettleCurrency().isEmpty())
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.investamtCurr.requiredMsg", "Investment currency is required", null));
+            }
             if (getInitialInvestment() == null || getInitialInvestment() == 0)
             {
                dataOK = false;
@@ -1116,6 +1185,9 @@ public class UOBProfileBean extends CustomerData implements Serializable
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.goal.required", "Please choose your investment goal", null));
 //               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.goal.required", "Please choose an investment strategy", null));
             }
+
+
+
             break;
          case 1:
             if (getAccountFinancials().getHouseholdwages() == null || getAccountFinancials().getHouseholdwages() == 0)
@@ -1290,6 +1362,10 @@ public class UOBProfileBean extends CustomerData implements Serializable
       setDisplayFTPanel(true);
       setEnableChangeStrategy(false);
       setAltrOnChngStrategy(false);
+      System.out.println("riskVariance "+riskVariance);
+      setCstmSliderMaxAlloc(((getSliderAllocationIndex()+riskVariance) >= 99 ? 99 :getSliderAllocationIndex()+riskVariance));
+      setCstmSliderMinAlloc(((getSliderAllocationIndex()-riskVariance) < 0 ? 0 : getSliderAllocationIndex()-riskVariance));
+
    }
 
    public void saveFTPanel() {
@@ -1430,18 +1506,137 @@ public class UOBProfileBean extends CustomerData implements Serializable
       goBack();
    }
 
+
+   @ManagedProperty("#{positionDAO}")
+   private PositionDAO posDao;
+//   private ArrayList<CustomerData> selAccountList;
    public void loadDynaDbGraphs(){
+
       if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.SEL_ACCOUNT)!=null)
       {
          newapp = "E";
          beanAcctnum=(Long)(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.SEL_ACCOUNT));
+         Double dblInvstAmt=(Double)(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("AccountBal"));
 //         beanAcctnum = 3l;
-         riskCalculator.setNumberofQuestions(9);
-         whichChart = "pie";
-         setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
-         fetchClientData();
+         List<Position> l1=posDao.loadDBPosition(webutil, beanAcctnum,false);
+         rollupAssetClassByPosList(l1,dblInvstAmt);
+//         rollupAssetClassByPosList(l1,Double.parseDouble(strInvstAmt));
+
+//         riskCalculator.setNumberofQuestions(9);
+//         whichChart = "pie";
+//         setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
+//         fetchClientData();
+         createCharts();
       }
    }
 
+   public PositionDAO getPosDao()
+   {
+      return posDao;
+   }
+
+   public void setPosDao(PositionDAO posDao)
+   {
+      this.posDao = posDao;
+   }
+
+   public boolean isDsplClgPnl()
+   {
+      return dsplClgPnl;
+   }
+
+   public void setDsplClgPnl(boolean dsplClgPnl)
+   {
+      this.dsplClgPnl = dsplClgPnl;
+   }
+
+   public Integer getCstmSliderMaxAlloc()
+   {
+      return cstmSliderMaxAlloc;
+   }
+
+   public void setCstmSliderMaxAlloc(Integer cstmSliderMaxAlloc)
+   {
+      this.cstmSliderMaxAlloc = cstmSliderMaxAlloc;
+   }
+
+   public Integer getCstmSliderMinAlloc()
+   {
+      return cstmSliderMinAlloc;
+   }
+
+   public void setCstmSliderMinAlloc(Integer cstmSliderMinAlloc)
+   {
+      this.cstmSliderMinAlloc = cstmSliderMinAlloc;
+   }
+
+   public String getProfileProcess()
+   {
+      return profileProcess;
+   }
+
+   public void setProfileProcess(String profileProcess)
+   {
+      this.profileProcess = profileProcess;
+      if (profileProcess != null && !profileProcess.isEmpty())
+      {
+         dsplStrategyCnfPnl=false;
+         if (!profileProcess.equalsIgnoreCase(WebConst.PROFILE_ADVANCE_PROCESS))
+         {
+//            setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
+         }
+         else
+         {
+            pagemanager.setPage(8);
+            rTab=5;
+//            setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
+         }
+      }
+   }
+
+   public void exitPage()
+   {
+      uiLayout.goToStartPage();
+   }
+
+   public boolean isDsplStrategyCnfPnl()
+   {
+      return dsplStrategyCnfPnl;
+   }
+
+   public void setDsplStrategyCnfPnl(boolean dsplStrategyCnfPnl)
+   {
+      this.dsplStrategyCnfPnl = dsplStrategyCnfPnl;
+   }
+
+   public boolean isDsplOtrPnl()
+   {
+      return dsplOtrPnl;
+   }
+
+   public void setDsplOtrPnl(boolean dsplOtrPnl)
+   {
+      this.dsplOtrPnl = dsplOtrPnl;
+   }
+
+   public Map<String, Double> getUserAdvisorCurr()
+   {
+      return userAdvisorCurr;
+   }
+
+   public void setUserAdvisorCurr(Map<String, Double> userAdvisorCurr)
+   {
+      this.userAdvisorCurr = userAdvisorCurr;
+   }
+
+   public String getSelctedSettleCurrency()
+   {
+      return selctedSettleCurrency;
+   }
+
+   public void setSelctedSettleCurrency(String selctedSettleCurrency)
+   {
+      this.selctedSettleCurrency = selctedSettleCurrency;
+   }
 }
 

@@ -164,7 +164,7 @@
     </script>
 
 
-    <div class="Wid60 Fright">
+    <div class="Wid60 Fright" >
 
 
         <a class="toggleMenu" href="#">Menu</a>
@@ -291,9 +291,9 @@
                 </li>
             </ui:fragment>
 
-            <ui:fragment rendered="#{webutil.hasAccess('User')}">
+            <ui:fragment rendered="#{webutil.hasAccess('User')}" >
                 <li class="test" id="dashboardMenuHighlight">
-                    <h:form class="alert_menu" id="frmNtfvtnPnl">
+                    <h:form class="alert_menu alert_menu_1" id="frmNtfvtnPnl">
                         <p:outputPanel id="NtfvtnOutPnl">
                         <ui:fragment rendered='#{cmnBn.getMessage("Message") > 0}'>
                         <div class="shake shake-constant">
@@ -322,7 +322,7 @@
                                                     <h:outputText value="Click"/>
                                                     <span class="ui-button-icon-center ui-icon ui-c fa fa-external-link click_icon" ></span>
                                                 </span>
-                                            </a>
+                                        </a>
                                         </ui:fragment>
                                     </div>
                                 </p:repeat>
@@ -334,6 +334,13 @@
                             </p:commandLink>
                         </p:overlayPanel>
                         </ui:fragment>
+                            <ui:fragment rendered='#{cmnBn.getMessage("Message") == 0}'>
+                                <div class="shake shake-constant" style="animation-duration: 0ms;right: 0;">
+                                    <i class="fa fa-bell Fs20 animated swing infinite gray"></i>
+                                </div>
+                                <p:commandButton id="imageBtn2" value="Alert"
+                                                 actionListener="#{uiLayout.doMenuAction('consumer', 'alert_notification.xhtml')}" process="@this"/>
+                            </ui:fragment>
                         </p:outputPanel>
                     </h:form>
                 </li>

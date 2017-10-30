@@ -16,6 +16,8 @@ public class UserRepData
    private String email;
    private String phone;
    private String address;
+   private String slsrFirstName;
+   private String slsLstName;
 
    public Long getLogonID()
    {
@@ -125,5 +127,25 @@ public class UserRepData
    public void setAddress(String address)
    {
       this.address = address;
+   }
+
+   public String getSlsrFirstName()
+   {
+      return slsrFirstName;
+   }
+
+   public void setSlsrFirstName(String slsrFirstName)
+   {
+      this.slsrFirstName = slsrFirstName;
+   }
+
+   public String getSlsLstName()
+   {
+      return slsLstName;
+   }
+
+   public void setSlsLstName(String slsLstName)
+   {
+      this.slsLstName = slsLstName;
    }
 }

@@ -4,28 +4,17 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions"
-                template="/template/common/template.xhtml">
+                >
 
-    <ui:define name="content">
 
     <div class="layout-portlets-box strategy_layout" >
         <div class="Container100 Responsive50">
             
                 <!-- <h3 class="BigTopic">Strategy</h3> -->
-              	
+
                     <div class="container100 strategy_dtl">
-                    	
-                    	<div class="container100 progressbarsag strategy-progressbar">
-
-                        <div class="loadPgNm">
-                            <span class="done"> Goal </span>
-                            <span class="done"> Assets </span>
-                            <span class="done"> Liabilities </span>
-                            <span class="active"> Risk </span>
-                        </div>
 
 
-                    </div>
                     <div class="outer_stategy_block">
                     	<p class="top_line">your currently selected strategy for this portfolio is</p>
 						<p class="top_line">The primary objective of this strategy is</p>
@@ -37,33 +26,35 @@
 							</ul>
 						</div>
 						<div class="strategy_select">
-			                <p:selectOneRadio id="radio" value="" >
-					            <f:selectItem itemLabel="I prefer to complete the risk tolerance questionnaire again to update factors that have changed." itemValue="value1" ></f:selectItem>
-					            
-					        </p:selectOneRadio>
-					        <p:selectOneRadio id="radio1" value="" >
-					            <f:selectItem itemLabel="I already know which strategy I would like assigned to my portfolio. I would like to skip the risk tolerance questionnaire process and move forward with assigning a new strategy to my portfolio." itemValue="value2" />
-					            
-					        </p:selectOneRadio>
+
+							<p:selectOneRadio value="#{uobpb.profileProcess}"
+											  layout="pageDirection"
+											  required="true" requiredMessage="Must choose one of the method to change profile.">
+								<f:selectItem
+										itemLabel="I prefer to complete the risk tolerance questionnaire again to update factors that have changed."
+										itemValue="Q"/>
+								<f:selectItem
+										itemLabel="I already know which strategy I would like assigned to my portfolio. I would like to skip the risk tolerance questionnaire process and move forward with assigning a new strategy to my portfolio."
+										itemValue="D"/>
+							</p:selectOneRadio>
 		        		</div>
                     	<h:form class="strategy_btn">
 		                    <p:commandButton id="uobCancelBtn"
-		                                     value="Continue"
+		                                     value="Cancel"
 		                                     styleClass="uob_button cancel_btn"
-		                                     actionListener="#{uobpb.investnow}">
+		                                     actionListener="#{uobpb.exitPage}">
 		                    </p:commandButton>
 		                    <p:commandButton id="uobContinueBtn"
-		                                     value="Cancel"
+		                                     value="Continue"
 		                                     styleClass="uob_button continue_btn"
-		                                     actionListener="#{uobpb.investnow}">
+		                                     actionListener="#{uobpb.goAfterSrategy}" update="ceForm:workArea">
 		                    </p:commandButton>
-		
-		                </h:form>  
+
+		                </h:form>
                 	</div>
                     </div>
         </div>
-        
+
     </div>
-    </ui:define>
 
 </ui:composition>

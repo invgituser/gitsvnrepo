@@ -34,10 +34,10 @@ public class
    private Integer calendarYear;
    private Integer numOfAllocation = 1;
    private Integer numOfPortfolio = 1;
-   public String investmentCurrency;
+   public String settleCurrency;
    public Integer initialInvestment;
    private Double actualInvestment;
-   public String destCurrency;
+   public String tradeCurrency;
    public Double exchangeRate;
    private GoalsData goalData = new GoalsData();
    private Integer keepLiquid;
@@ -48,6 +48,8 @@ public class
    private String rep;
    private String theme;
    private String basket;
+   private Integer numOfQuestions = 15;
+   private Integer[] riskAnswers = new Integer[numOfQuestions];
    private String resultChart;
    private String typeOfChart;
    ArrayList<Map> consolidateAssetAndSubAssetList;
@@ -435,24 +437,24 @@ public class
    }
 */
 
-   public String getInvestmentCurrency()
+   public String getSettleCurrency()
    {
-      return investmentCurrency;
+      return settleCurrency;
    }
 
-   public void setInvestmentCurrency(String investmentCurrency)
+   public void setSettleCurrency(String settleCurrency)
    {
-      this.investmentCurrency = investmentCurrency;
+      this.settleCurrency = settleCurrency;
    }
 
-   public String getDestCurrency()
+   public String getTradeCurrency()
    {
-      return destCurrency;
+      return tradeCurrency;
    }
 
-   public void setDestCurrency(String destCurrency)
+   public void setTradeCurrency(String tradeCurrency)
    {
-      this.destCurrency = destCurrency;
+      this.tradeCurrency = tradeCurrency;
    }
 
    public Double getExchangeRate()
@@ -490,12 +492,12 @@ public class
       amount = (actualInvestment != null && actualInvestment != 0) ? actualInvestment : amount;
 
       Double fxRate = ((exchangeRate != null) && (exchangeRate != 0.0)) ? exchangeRate : 1.0;
-      if ((destCurrency == null || destCurrency.isEmpty()) ||
-            (investmentCurrency == null || investmentCurrency.isEmpty())){
+      if ((tradeCurrency == null || tradeCurrency.isEmpty()) ||
+            (settleCurrency == null || settleCurrency.isEmpty())){
          return (amount);
       }
       else {
-         if (! destCurrency.equalsIgnoreCase(investmentCurrency)) {
+         if (! tradeCurrency.equalsIgnoreCase(settleCurrency)) {
             return (amount * fxRate);
          }
       }

@@ -161,6 +161,8 @@ function draw2dDonut1lyrChartDyna(vForm)
               chartValue==document.getElementById('ceForm:twodDonutValueChart').value;
           }else if(vForm=='uobIndxform'){
               chartValue=document.getElementById('uobIndxform:twodDonutValueChart').value;
+          }else if(vForm=='idOverviewFrm'){
+              chartValue=document.getElementById('idOverviewFrm:idAccrdPnl:twodDonutValueChart').value;
           }
           var assetJSON = $.parseJSON(chartValue)
           var iterator = 0;

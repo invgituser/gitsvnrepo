@@ -152,6 +152,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 
                data.getAccountFinancials().setLiquidnetworth(convert.getLongData(rs.get("liquidnetworth")));
                data.getAccountFinancials().setNetworth(convert.getLongData(rs.get("networth")));
+               data.setCustomName(convert.getStrData(rs.get("customName")));
 
                if (data.getGoalData() == null)
                {
@@ -159,6 +160,13 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                }
 
                data.getGoalData().setGoalDesired(convert.getDoubleData(rs.get("goalDesired")));
+
+               data.setTradeCurrency(convert.getStrData(rs.get("tradeCurrency")));
+               data.setSettleCurrency(convert.getStrData(rs.get("settleCurrency")));
+               data.setExchangeRate(convert.getDoubleData(rs.get("exchangeRate")));
+//               data.setInvestmentCurrency(data.getSettleCurrency());
+//               data.setDestCurrency(data.getTradeCurrency());
+//               data.setExchangeRate(data.getUserExchangeRate());
 
                i++;
                break;  // Only load the first account info.
@@ -363,7 +371,14 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 
             data.getAccountFinancials().setLiquidnetworth(convert.getLongData(rs.get("liquidnetworth")));
             data.getAccountFinancials().setNetworth(convert.getLongData(rs.get("networth")));
+            data.setCustomName(convert.getStrData(rs.get("customName")));
 
+            if(data.getCustomName().isEmpty() && acctnum==null){
+               data.setCustomName(data.getGoal());
+            }
+            if(acctnum!=null && data.getAccountType()==null){
+               data.setAccountType("-");
+            }
 
             if (data.getGoalData() == null)
             {
@@ -371,6 +386,15 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             }
 
             data.getGoalData().setGoalDesired(convert.getDoubleData(rs.get("goalDesired")));
+            if(data.getManaged()){
+               data.setCstmAccountLabel(data.getCustomName()+"-"+data.getClientAccountID());
+            }else{
+               data.setCstmAccountLabel(data.getCustomName()+"-"+data.getAcctstatus());
+            }
+
+            data.setTradeCurrency(convert.getStrData(rs.get("tradeCurrency")));
+            data.setSettleCurrency(convert.getStrData(rs.get("settleCurrency")));
+            data.setExchangeRate(convert.getDoubleData(rs.get("exchangeRate")));
 
             listProfiles.add(i, data);
             i++;
@@ -788,4 +812,60 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       }
       return null;
    }
+
+   public double getExchangeRate(String fromCurrency, String toCurrency)
+   {
+      Double retExchgRate=0.0;
+      DataSource ds = getDataSource();
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_exchange_rate", 10);
+      Map outMap = sp.getExhangeRate( fromCurrency, toCurrency);
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         int i = 0;
+         for (Map<String, Object> map : rows)
+         {
+            Map rs = (Map) rows.get(i);
+            String exhangeStatus=convert.getStrData(rs.get("exhangeStatus"));
+
+            if(exhangeStatus.equalsIgnoreCase("Success")){
+               retExchgRate=convert.getDoubleData(rs.get("retExchangeRate"));
+            }
+            i++;
+         }
+      }
+      return retExchgRate;
+   }
+
+   public Map<String,Double> getAdvisorbaseCurrency(String advisor,String tradeCurrency)
+   {
+      DataSource ds = getDataSource();
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_advisor_currencies", 11);
+      Map outMap = sp.getAdvisorbaseCurrency( advisor,tradeCurrency);
+      Map<String, Double> currInfo = new HashMap<String, Double>();
+      try {
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows;
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)  {
+               Integer i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
+                  currInfo.put(convert.getStrData(rs.get("supportCurrency")),
+                               convert.getDoubleData(rs.get("exchangeRate")));
+                  i++;
+               }
+            }
+         }
+         return currInfo;
+      }
+      catch (Exception ex) {
+         System.out.println("getAdvisorbaseCurrency Exception "+ex);
+         ex.printStackTrace();
+      }
+      return null;
+   }
+
 }

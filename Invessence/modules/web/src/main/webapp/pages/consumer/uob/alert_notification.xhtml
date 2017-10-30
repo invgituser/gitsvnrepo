@@ -44,7 +44,7 @@
                                     <div class="Fright" >
                                         <p:selectOneButton styleClass="AdvBtnTcmGrp" value="#{consumernotificationBean.filterNotice}">
                                             <f:selectItem id="advmsgnew" itemLabel="New" itemValue="N"/>
-                                            <f:selectItem id="advmsgarchived" itemLabel="Archived" itemValue="A"/>
+                                            <f:selectItem id="advmsgarchived" itemLabel="Read" itemValue="A"/>
                                             <p:ajax update="@form" listener="#{consumernotificationBean.filterData}"/>
                                         </p:selectOneButton>
                                     </div>
@@ -72,9 +72,9 @@
                                                 <p:commandButton id="advmsgarchive" update="@form"
                                                                  styleClass="AdvNormalBtn"
                                                                  rendered="#{consumernotificationBean.filterNotice == 'N'}" ajax="true" value="Archive"
-                                                                 actionListener="#{consumernotificationBean.markRead}" >
+                                                                 actionListener="#{consumernotificationBean.markRead}"  >
                                                 </p:commandButton>
-                                                <p:commandButton update="@form" ajax="true" value="Unarchive"
+                                                <p:commandButton update="@form,@(form:frmNtfvtnPnl)" ajax="true" value="Unarchive" id="Unarchive"
                                                                  styleClass="centerAlign AdvNormalBtn"
                                                                  rendered="#{consumernotificationBean.filterNotice == 'A'}"
                                                                  actionListener="#{consumernotificationBean.markUnRead}" >
@@ -82,7 +82,7 @@
                                             </div>
 
                                         </f:facet>
-                                        <p:column selectionMode="multiple" styleClass="multipleSelectionChkList" style="border:solid 1px #D9E3E8!important;"/>
+                                        <p:column selectionMode="multiple" styleClass="multipleSelectionChkList" style="border:solid 1px #D9E3E8!important;" rendered="#{consumernotificationBean.filterNotice == 'N'}"/>
                                         <p:column style="" styleClass="mobileLeftAdvMsg Fs14 textAlign " sortBy="#{msg.businessdate}" sortOrder="ascending"
                                         headerText="Created" resizable="true">
                                             <h:outputText styleClass="mobileRightAdvMsg" value="#{msg.businessdate}"/>
@@ -92,7 +92,12 @@
                                             <h:outputText value="#{msg.message}" escape="false">
                                             </h:outputText>
                                             <ui:fragment rendered='#{msg.linkAvailable}'>
-                                                <a href="http://localhost:8086/pages/consumer/uob/cadd.xhtml?app=N"><h:outputText value="Click"/></a>
+                                                <a href="http://localhost:8086/pages/consumer/uob/cadd.xhtml?app=N" style="float: left;color: #000;margin: 3px 0;">
+                                                 <span class="external_link_click">
+                                                    <h:outputText value="Click"/>
+                                                  <span class="ui-button-icon-center ui-icon ui-c fa fa-external-link click_icon" style="float: right;    margin: 2px 3px;"></span>
+                                                </span>
+                                                </a>
                                             </ui:fragment>
                                         </p:column>
 

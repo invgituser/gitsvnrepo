@@ -296,6 +296,8 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
                   objUserRepData.setEmail(convert.getStrData(rs.get("email")));
                   objUserRepData.setPhone(convert.getStrData(rs.get("phone")));
                   objUserRepData.setAddress(convert.getStrData(rs.get("address")));
+                  objUserRepData.setSlsrFirstName(convert.getStrData(rs.get("advFirstname")));
+                  objUserRepData.setSlsLstName(convert.getStrData(rs.get("advLastname")));
 
                   lstUserRepDetails.add(objUserRepData);
                   objUserRepData = null;
@@ -352,7 +354,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
       return null;
    }
 
-   public ArrayList<NotificationData> getNotificationDtls(Long logonid, String messageType, String status, String access)
+   public ArrayList<NotificationData> getNotificationDtls(Long logonid, String messageType, String status, String access,boolean bflag)
    {
       DataSource ds = getDataSource();
       CommonSP sp = null;
@@ -378,21 +380,40 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
-               NotificationData ndata = new NotificationData(
-                  convert.getLongData(rs.get("messageid")),
-                  convert.getStrData(rs.get("status")),
-                  convert.getLongData(rs.get("advisorlogonid")),
-                  convert.getStrData(rs.get("advisor")),
-                  convert.getStrData(rs.get("rep")),
-                  convert.getLongData(rs.get("acctnum")),
-                  convert.getStrData(rs.get("noticetype")),
-                  convert.getStrData(rs.get("tagid")),
-                  convert.getStrData(rs.get("alertdatetime")),
-                  convert.getStrData(rs.get("message")),
-                  convert.getStrData(rs.get("link")),
-                  convert.getStrData(rs.get("clientAccountID"))
-               );
-               notificationList.add(i, ndata);
+               if(!bflag)
+               {
+                  NotificationData ndata = new NotificationData(
+                     convert.getLongData(rs.get("messageid")),
+                     convert.getStrData(rs.get("status")),
+                     convert.getLongData(rs.get("advisorlogonid")),
+                     convert.getStrData(rs.get("advisor")),
+                     convert.getStrData(rs.get("rep")),
+                     convert.getLongData(rs.get("acctnum")),
+                     convert.getStrData(rs.get("noticetype")),
+                     convert.getStrData(rs.get("tagid")),
+                     convert.getStrData(rs.get("alertdatetime")),
+                     convert.getStrData(rs.get("message")),
+                     convert.getStrData(rs.get("link")),
+                     convert.getStrData(rs.get("clientAccountID"))
+                  );
+                  notificationList.add(i, ndata);
+               }else if(bflag && convert.getStrData(rs.get("status")).equalsIgnoreCase("H")){
+                  NotificationData ndata = new NotificationData(
+                     convert.getLongData(rs.get("messageid")),
+                     convert.getStrData(rs.get("status")),
+                     convert.getLongData(rs.get("advisorlogonid")),
+                     convert.getStrData(rs.get("advisor")),
+                     convert.getStrData(rs.get("rep")),
+                     convert.getLongData(rs.get("acctnum")),
+                     convert.getStrData(rs.get("noticetype")),
+                     convert.getStrData(rs.get("tagid")),
+                     convert.getStrData(rs.get("alertdatetime")),
+                     convert.getStrData(rs.get("message")),
+                     convert.getStrData(rs.get("link")),
+                     convert.getStrData(rs.get("clientAccountID"))
+                  );
+                  notificationList.add(i, ndata);
+               }
                i++;
             }
 

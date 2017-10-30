@@ -34,11 +34,16 @@
         <!-- HighChart jsplugin End -->
         <h:form id="ceForm">
             <p:outputPanel id="workArea">
-
+                <ui:fragment rendered="#{uobpb.dsplStrategyCnfPnl}">
+                <div class="FullContainer">
+                    <ui:include src="/pages/consumer/uob/strategy.xhtml"/>
+                </div>
+                </ui:fragment>
+                <ui:fragment rendered="#{!uobpb.dsplStrategyCnfPnl}">
                 <div class="FullContainer">
                     <ui:include src="/pages/consumer/uob/addon/cEdit.xhtml"/>
-
                 </div>
+                </ui:fragment>
 
             </p:outputPanel>
         </h:form>

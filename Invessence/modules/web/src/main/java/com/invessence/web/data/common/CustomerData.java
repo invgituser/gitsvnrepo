@@ -114,6 +114,10 @@ public class CustomerData extends ProfileData
    private String savedRiskFormula;
    private Integer savedAllocSliderIndex;
    private Boolean doesUserHavaLogonID;
+   private String cstmAccountLabel;
+//   private String tradeCurrency;
+//   private String settleCurrency;
+//   private Double userExchangeRate;
 
    private String customName;
 
@@ -374,15 +378,6 @@ public class CustomerData extends ProfileData
       this.doesUserHavaLogonID = doesUserHavaLogonID;
    }
 
-   public String getCustomName()
-   {
-      return customName;
-   }
-
-   public void setCustomName(String customName)
-   {
-      this.customName = customName;
-   }
 
    public void setSavedAllocSliderIndex(Integer savedAllocSliderIndex)
    {
@@ -1570,6 +1565,124 @@ public class CustomerData extends ProfileData
       OptHistoricalReport optHistoricalReport = new OptHistoricalReport();
       optHistoricalReport.calcuatePerformance(theme, getPortfolioData());
 
+   }
+
+   public void rollupAssetClassByPosList(List<Position> pfclass,Double dtotalMoneyAllocated)
+   {
+      Map<String, Asset> tallyAssetclass = new LinkedHashMap<String, Asset>();
+      Double totalMoney = 0.0;
+      if (pfclass != null)
+      {
+         for (int i = 0; i < pfclass.size(); i++)
+         {
+            String assetname = pfclass.get(i).getAssetclass();
+            Double wght = pfclass.get(i).getWeight();
+            Double money = pfclass.get(i).getCostBasisPrice();
+            String color = pfclass.get(i).getColor();
+            Double summoney = 0.0;
+
+            totalMoney += money;
+
+            if (!tallyAssetclass.containsKey(assetname))
+            {
+               Asset asset = new Asset();
+               Double newwght = money / dtotalMoneyAllocated;
+               asset.setAsset(assetname);
+               asset.setColor(color);
+               asset.setValue(money);
+               asset.setActualweight(newwght);
+               asset.setUserweight(newwght);
+               asset.setAllocweight(newwght);
+               asset.setValue(money);
+               tallyAssetclass.put(assetname, asset);
+            }
+            else
+            {
+               Asset asset = tallyAssetclass.get(assetname);
+               summoney = money + asset.getValue();
+               Double newwght = summoney / dtotalMoneyAllocated;
+               asset.setActualweight(newwght);
+               asset.setUserweight(newwght);
+               asset.setAllocweight(wght + asset.getAllocweight());
+               asset.setValue(summoney);
+               tallyAssetclass.put(assetname, asset);
+            }
+         }
+      }
+
+
+      // After the tally is done, lets reallocate to whole
+      if (tallyAssetclass.size() > 0)
+      {
+         recreateEditableAsset();
+         AssetClass[] aamc = new AssetClass[tallyAssetclass.size()];
+         Integer i = 0;
+         aamc[i] = new AssetClass();
+         for (Asset assetdata : tallyAssetclass.values())
+         {
+            setEditableAsset(assetdata);
+            Asset origAssetData = aamc[i].getAssetclass().get(assetdata.getAsset());
+            if (origAssetData != null)
+            {
+               origAssetData.setUserweight(assetdata.getUserweight());
+               origAssetData.setActualweight(assetdata.getActualweight());
+               origAssetData.setValue(assetdata.getValue());
+            }
+            else
+            {
+               aamc[i].addAssetClass(assetdata.getAsset(), assetdata.getDisplayName(), assetdata.getColor(),
+                                     assetdata.getAllocweight(), assetdata.getAvgReturn());
+               aamc[i].getAssetclass().get(assetdata.getAsset()).setValue(assetdata.getValue());
+               aamc[i].getAssetclass().get(assetdata.getAsset()).setUserweight(assetdata.getUserweight());
+               aamc[i].getAssetclass().get(assetdata.getAsset()).setActualweight(assetdata.getActualweight());
+
+            }
+         }
+         aamc[i].setTotalInvested(totalMoney);
+//         System.out.println("aamc"+aamc);
+         setAssetData(aamc);
+
+      }
+      System.out.println("aamc");
+   }
+
+public  void updateProfileData(CustomerData objCustomerData){
+
+   Long acctnum;
+   try
+   {
+      System.out.println("after update acctnum "+objCustomerData.getCustomName());
+      acctnum = saveDAO.saveProfileData(objCustomerData);
+      System.out.println("after update acctnum "+acctnum);
+   }
+   catch (Exception ex)
+   {
+      String stackTrace = ex.getMessage();
+//      webutil.alertSupport("CustomerData.updateProfileData", "Error:CustomerData.updateProfileData",
+//                           "error.saveprofile", stackTrace);
+      System.out.println("Error while updating profile "+ex);
+      ex.printStackTrace();
+   }
+}
+
+   public String getCstmAccountLabel()
+   {
+      return cstmAccountLabel;
+   }
+
+   public void setCstmAccountLabel(String cstmAccountLabel)
+   {
+      this.cstmAccountLabel = cstmAccountLabel;
+   }
+
+   public String getCustomName()
+   {
+      return customName;
+   }
+
+   public void setCustomName(String customName)
+   {
+      this.customName = customName;
    }
 
 }

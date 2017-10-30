@@ -49,6 +49,9 @@ public class Position implements Serializable
    private Double settlePrice;
    private Double settleMoney;
    private Double settlePnL;
+   private Double settleCostBasisMoney;
+   private Double settleMarkPrice;
+
 
 
    public Position()
@@ -437,5 +440,25 @@ public class Position implements Serializable
    public void setSettlePnL(Double settlePnL)
    {
       this.settlePnL = settlePnL;
+   }
+
+   public Double getSettleCostBasisMoney()
+   {
+      return settleCostBasisMoney;
+   }
+
+   public void setSettleCostBasisMoney(Double settleCostBasisMoney)
+   {
+      this.settleCostBasisMoney = settleCostBasisMoney;
+   }
+
+   public Double getSettleMarkPrice()
+   {
+      return settleMarkPrice;
+   }
+
+   public void setSettleMarkPrice(Double settleMarkPrice)
+   {
+      this.settleMarkPrice = settleMarkPrice;
    }
 }

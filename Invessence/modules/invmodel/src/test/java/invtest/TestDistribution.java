@@ -122,10 +122,10 @@ public class TestDistribution
       profileData.setStayInvested(1);
 */
 
-      profileData.setInvestmentCurrency("SGD");
+      profileData.setSettleCurrency("SGD");
       profileData.setExchangeRate(1.0);
       profileData.setInitialInvestment(100000);
-      profileData.setDestCurrency("SGD");
+      profileData.setTradeCurrency("SGD");
       invCapital = profileData.getInitialInvestment();
       // profileData.setRecurringInvestment(5000);
 
