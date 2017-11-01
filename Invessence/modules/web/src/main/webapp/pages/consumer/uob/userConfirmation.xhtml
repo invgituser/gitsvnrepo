@@ -13,17 +13,17 @@
             <!--  <h3 class="BigTopic">User Confirmation</h3> -->
             <div class="container100 progressbarsag user-confirm-progressbar">
                 <div class="loadPgNm">
-                    <span class="done"> Goal </span>
-                    <span class="done"> Assets </span>
-                    <span class="done"> Liabilities </span>
-                    <span class="done"> Risk </span>
+                    <span> Goal </span>
+                    <span> Assets </span>
+                    <span> Liabilities </span>
+                    <span> Risk </span>
                     <span class="active"> Confirmation </span>
                 </div>
             </div>
             <div class="outer_stategy_block user_confirmation_block">
                 <div class="container100 strategy_dtl">
 
-                    <div class="Container100 Responsive50 tp20 confirmation_donut_dtl">
+                    <div class="Container40 Responsive50 tp20 confirmation_donut_dtl">
                         <!-- ROHIT's CHANGE -->
                         <div class="ContainerIndent">
 
@@ -40,7 +40,7 @@
                                       }
                                   });
                             </script>
-                                <div class="Container50 donutChartGraph">
+                                <div class="Container100 donutChartGraph">
                                     <ui:fragment rendered="#{uobpb.typeOfChart == 'HIGHCHART.2DDONUT'}">
                                         <div id="2dDonutChartCnf"></div>
                                         <h:inputHidden value="#{uobpb.resultChart}"
@@ -124,7 +124,7 @@
                         </div>
                     </div>
 
-                    <div class="Container60 Responsive50"><!-- ROHIT's CHANGE -->
+                    <div class="Container60 Responsive50 UserconfTable"><!-- ROHIT's CHANGE -->
                         <div class="ContainerIndent">
                             <p:dataTable styleClass="uob_graphTable" var="ticker" id="uobtabledetails2"
                                          value="#{uobpb.displayPortfolioList}">
@@ -187,29 +187,38 @@
                             <!--</p:selectOneRadio>-->
 
                         <!--</div>-->
-                        <ui:fragment rendered="true">
-                            <p:commandLink id="startBtnCnf" value="Start Over"
-                                           styleClass="nextButtonLP Fleft"
-                                           update="ceForm:cnfgraphArea"
-                                           actionListener="#{uobpb.gotoStartOverPage}"/>
-                        </ui:fragment>
+                        <div class="Container30 over_start_btn">
+                            <ui:fragment rendered="true">
+                                <p:commandButton id="startBtnCnf" value="Start Over"
+                                               styleClass="investNowBtn "
+                                               update=":ceForm:cnfgraphArea"
+                                               actionListener="#{uobpb.gotoStartOverPage}"/>
 
-                        <ui:fragment rendered="true">
-                        <p:commandButton id="uobfinetunebtnCnf" styleClass="fineTuneBtn fineTuneBtnImg"
-                                         icon="ui-icon-image"
-                                         update=":ceForm:workArea"
-                                         actionListener="#{uobpb.showFTPanel}">
-                        </p:commandButton>
-                        </ui:fragment>
-                        <!--<ui:fragment rendered="#{uobpb.flagforInvestShow}">-->
-                        <ui:fragment rendered="true">
-                            <p:commandLink id="invsetBtnCnf" value="Save"
-                                           styleClass="investNowBtn Fright"
-                                           update=":ceForm:workArea"
-                                           actionListener="#{uobpb.saveAccount}"/>
+                            </ui:fragment>
+                        </div>
+                        <div class="Container30 fine_tune_btn">
+                            <ui:fragment rendered="true">
+                                <p:commandButton id="uobfinetunebtnCnf" styleClass="fineTuneBtn fineTuneBtnImg"
+                                                 icon="ui-icon-image"
+                                                 update=":ceForm:workArea"
+                                                 actionListener="#{uobpb.showFTPanel}">
+                                </p:commandButton>
+                                <span class="ftBtnLabel">Fine Tune</span>
+                            </ui:fragment>
+                        </div>
+                        <div class="Container30 save_btn">
+                            <!--<ui:fragment rendered="#{uobpb.flagforInvestShow}">-->
+                            <ui:fragment rendered="true">
+                                <p:commandLink id="invsetBtnCnf" value="Save"
+                                               styleClass="investNowBtn "
+                                               update=":ceForm:workArea"
+                                               actionListener="#{uobpb.saveAccount}"/>
 
-                        </ui:fragment>
-                        <div class="ftBtnLabel">Fine Tune</div>
+                            </ui:fragment>
+                         </div>
+
+
+
 
                     </div>
                 </div>

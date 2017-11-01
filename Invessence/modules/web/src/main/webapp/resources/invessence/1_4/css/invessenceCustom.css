@@ -1895,8 +1895,14 @@ span > input {
     border-radius: 40px;
     padding: 5px 5px;
 }
-
-.investNowBtn {
+.over_start_btn .ui-button-text {
+    background: transparent;
+    padding: 0 !important;
+    margin: 0;
+    font-family: helvetica;
+}
+.investNowBtn
+{
     border: 2px solid #a4332f;
     margin: 0px 5px;
     border-radius: 4px;
@@ -1929,14 +1935,18 @@ span > input {
 }
 
 .fineTuneBlock {
-    width: 30%;
-    height: 420px;
+    width: 90%;
+    height: 340px;
     position: absolute;
     background: white;
     border: 0;
     z-index: 200;
+    left: 0;
+    margin: 0 5%;
+    box-shadow: 2px 2px 5px 1px #c5c5c5;
+    top:90px;
 }
-
+.UserconfTable .ContainerIndent{margin:45px auto;}
 .fineTuneDetail {
     padding: 5px 10px;
 }
@@ -1945,6 +1955,7 @@ span > input {
     margin-bottom: 20px;
     padding: 0px 10px;
     margin-top: 10px;
+    text-align: center;
 }
 
 .fineTuneBtn > .ui-button-text,
@@ -1997,10 +2008,12 @@ span > input {
 }
 
 .ftBtnLabel {
-    font-size: 12px;
+    font-size: 14px;
     position: relative;
-    left: 0px;
-    text-align:center;
+    /* left: 0px; */
+    text-align: center;
+    width: 100%;
+    float: left;
 }
 
 /*risk bar_uob*/
@@ -3648,7 +3661,7 @@ button.closebuttonSag > span.ui-button-text {display: none;}
     position: absolute;
     left: 46%;
     /* top: 11px; */
-    z-index: -1;
+    z-index: 0;
     margin-top: -8px;
     width: 0;
     height: 0;
@@ -4262,14 +4275,16 @@ span.conservative_plus{
     width: 99%;
     margin: 0;
     box-shadow: 2px 2px 5px 1px #e1e1e1;
+    position:relative;
 }
 .accepted_block div {
     margin: 0;
+    text-align:center;
 }
 .accepted_block {
-    width: 100%;
+    width: 95%;
     float: left;
-    margin: 5% 5px;
+    margin: -30px 2% 2%;
 }
 
 .user-confirm-progressbar {
