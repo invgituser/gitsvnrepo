@@ -210,6 +210,14 @@
                                  </p:commandLink>
                               </div>
                               <div class="Container30 centerRelRight Fleft">
+                                 <p:commandLink action="#{uobdash.doPrflCnfActionNew}" process="@this"
+                                                disabled="#{uobdash.selAccountList.get(0).canIEditAccount or !uobdash.selAccountList.get(0).hasClientID}">
+                                    <div class="boxBtn">
+                                       <i class="fa fa-university" aria-hidden="true"></i> <label>Portfolio Confirmation</label>
+                                    </div>
+                                 </p:commandLink>
+                              </div>
+                              <div class="Container30 centerRelRight Fleft">
                                  <p:commandLink action="#{uobdash.doFundingActionNew}" process="@this"
                                                 disabled="#{uobdash.selAccountList.get(0).canIEditAccount or !uobdash.selAccountList.get(0).hasClientID}">
                                     <div class="boxBtn">

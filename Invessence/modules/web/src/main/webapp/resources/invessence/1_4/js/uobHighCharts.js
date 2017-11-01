@@ -156,18 +156,26 @@ function draw2dDonut1lyrChartDyna(vForm)
       {
           // Create the chart
           var chartValue = '';
-          console.log("Hellloo1 "+vForm);
+          var vChrtId='2dDonutChart';
           if(vForm=='ceForm'){
               chartValue==document.getElementById('ceForm:twodDonutValueChart').value;
           }else if(vForm=='uobIndxform'){
               chartValue=document.getElementById('uobIndxform:twodDonutValueChart').value;
           }else if(vForm=='idOverviewFrm'){
               chartValue=document.getElementById('idOverviewFrm:idAccrdPnl:twodDonutValueChart').value;
+          }else if(vForm=='CNFPrflo')
+          {
+              chartValue = document.getElementById('ceForm:twodDonutValueChartCnf').value;
+              vChrtId='2dDonutChartCnf';
           }
+          console.log("Hellloo1 "+vForm);
+          console.log("vChrtId "+vChrtId);
+
+
           var assetJSON = $.parseJSON(chartValue)
           var iterator = 0;
           console.log(chartValue);
-          var chart = Highcharts.chart('2dDonutChart', {
+          var chart = Highcharts.chart(vChrtId, {
                                            chart: {
                                                type: 'pie',
                                                options3d: {

@@ -405,7 +405,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
             masterpagemanager = new PagesImpl(3);
             masterpagemanager.setPage(0);
-            pagemanager = new PagesImpl(9);
+            pagemanager = new PagesImpl(10);
             if (newapp != null && newapp.startsWith("N"))
             {
                beanAcctnum = null;
@@ -417,8 +417,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
                   webutil.redirect("/login.xhtml", null);
                   return;
                }
-               selctedSettleCurrency=getTradeCurrency();
             }
+            selctedSettleCurrency=getTradeCurrency();
             riskCalculator.setNumberofQuestions(9);
             whichChart = "pie";
             setPrefView(0);
@@ -446,15 +446,25 @@ public class UOBProfileBean extends CustomerData implements Serializable
             }
 */
 
-            UserInfoData userInfo=(UserInfoData)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USER_INFO);
-            if(userInfo!=null && userInfo.getAdvisor()!=null && !userInfo.getAdvisor().equalsIgnoreCase(""))
+            if(webutil.isUserLoggedIn())
             {
-               userAdvisorCurr = listDAO.getAdvisorbaseCurrency(userInfo.getAdvisor(),getTradeCurrency());
+               UserInfoData userInfo = (UserInfoData) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USER_INFO);
+               if (userInfo != null && userInfo.getAdvisor() != null && !userInfo.getAdvisor().equalsIgnoreCase(""))
+               {
+                  userAdvisorCurr = listDAO.getAdvisorbaseCurrency(userInfo.getAdvisor(), getTradeCurrency());
+               }
+            }else{
+               userAdvisorCurr = listDAO.getAdvisorbaseCurrency(null, getTradeCurrency());
             }
 
             if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("ProfileCnf")!=null){
                dsplStrategyCnfPnl=(Boolean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("ProfileCnf");
                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("ProfileCnf");
+            }
+
+            if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("ProfileCnf1")!=null){
+               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("ProfileCnf1");
+               doPrflCnfActionNew();
             }
          }
       }
@@ -738,7 +748,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public void onAllocSlider(SlideEndEvent event)
    {
-      // setAge(event.getValue());
+      System.out.println(event.getValue());
       setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
       setAllocationIndex(event.getValue());
       formEdit = true;
@@ -1099,6 +1109,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public void gotoNextPage()
    {
+      System.out.println("In "+pagemanager.getPage());
       Integer currentpage = pagemanager.getPage();
       if (validatePage(currentpage))
       {
@@ -1115,6 +1126,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
          }
          saveProfile(getRiskCalculator());
       }
+      System.out.println("Out "+pagemanager.getPage());
    }
 
    public void goAfterSrategy(){
@@ -1366,6 +1378,10 @@ public class UOBProfileBean extends CustomerData implements Serializable
       setCstmSliderMaxAlloc(((getSliderAllocationIndex()+riskVariance) >= 99 ? 99 :getSliderAllocationIndex()+riskVariance));
       setCstmSliderMinAlloc(((getSliderAllocationIndex()-riskVariance) < 0 ? 0 : getSliderAllocationIndex()-riskVariance));
 
+      System.out.println("riskVariance max "+cstmSliderMaxAlloc);
+
+      System.out.println("riskVariance min"+cstmSliderMinAlloc);
+
    }
 
    public void saveFTPanel() {
@@ -1386,6 +1402,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
    }
 
    public void cancelFTPanel() {
+      System.out.println("cancelFTPanel In");
       setRiskCalcMethod(getSavedRiskFormula());
       setSliderAllocationIndex(getSavedAllocSliderIndex());
       // riskCalculator.setRiskFormula(savedRiskFormula);
@@ -1393,6 +1410,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       Double riskIndex = riskCalculator.calculateRisk();
       createAssetPortfolio(1, riskIndex);
       closeFTPanel();
+      System.out.println("cancelFTPanel Out");
    }
 
    public void gotoReview() {
@@ -1412,7 +1430,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       {
          // Call Register User.  If he is not registered.  If Registration fails, then stay on the same page.
          if (registerUser()) {
-            uiLayout.doMenuAction("consumer", "forward.xhtml");
+            uiLayout.doMenuAction("consumer", "acc_opening.xhtml");
          }
       }
       else {
@@ -1420,7 +1438,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
          {
             // If in Edit mode, then don't save till final changes are accounted for.
             // Need to keep the original data.
-            uiLayout.doMenuAction("consumer", "forward.xhtml");
+            uiLayout.doMenuAction("consumer", "acc_opening.xhtml");
          }
          else {
             uiLayout.doMenuAction("consumer", "addon/editReview.xhtml");
@@ -1587,11 +1605,16 @@ public class UOBProfileBean extends CustomerData implements Serializable
          }
          else
          {
-            pagemanager.setPage(8);
-            rTab=5;
+            pagemanager.setPage(9);
+//            rTab=5;
 //            setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
          }
       }
+   }
+
+   public void doPrflCnfActionNew(){
+      pagemanager.setPage(9);
+      pagemanager.nextPage();
    }
 
    public void exitPage()

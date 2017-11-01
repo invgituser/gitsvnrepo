@@ -255,6 +255,26 @@ public class ConsumerDashBean extends CustomerData implements Serializable
       return ("success");
    }
 
+   public String doPrflCnfActionNew()
+   {
+      String whichXML;
+      try
+      {
+         uiLayout.doMenuAction("consumer", "portfolioedit.xhtml?app=E&acct=" +selAcctNum);
+         if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("ProfileCnf1")!=null){
+
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("ProfileCnf1");
+         }
+         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ProfileCnf1",true);
+      }
+      catch (Exception ex)
+      {
+         return ("failed");
+      }
+
+      return ("success");
+   }
+
 
    public String doOptionMenuAction()
    {
