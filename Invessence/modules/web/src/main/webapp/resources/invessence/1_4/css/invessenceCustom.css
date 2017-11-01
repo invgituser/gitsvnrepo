@@ -1912,7 +1912,7 @@ span > input {
     font-weight: bold;
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.21);
 }
-
+.over_start_btn .investNowBtn{top:-6px;}
 .fixedHeightLP {
     height: 350px;
     padding: 10px 10px;
@@ -2307,6 +2307,7 @@ span > input {
 .fineTuneBtn {
     width: 60px;
     left: 0px;
+    top:-6px;
 }
 
 .fineTuneBtn .ui-button-text {
@@ -3669,7 +3670,10 @@ button.closebuttonSag > span.ui-button-text {display: none;}
     border-width: 10px 10px 0 10px;
     border-color: #312e2e transparent transparent transparent;
 }
-
+.over_start_btn .ui-button.ui-state-hover .ui-button-text,
+.over_start_btn .ui-buttonset .ui-state-hover .ui-button-text {
+    background-color:#a4332f;
+}
 
 
 .reviewbarContainer {padding: 20px 0px; display: block; margin-bottom: 20px;}
