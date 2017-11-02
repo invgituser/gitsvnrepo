@@ -72,6 +72,16 @@
             </div>
 
          </div>
+         <ui:fragment rendered="#{uobdash.dispNoRcrd}">
+            <div class="Container100">
+               <div class="Wid100  v3dMainTitle left_side_title">
+                  <div class="acc_overview_dtl ui-selectonemenu-trigger">
+                     No Record Found
+                  </div>
+               </div>
+            </div>
+         </ui:fragment>
+         <ui:fragment rendered="#{!uobdash.dispNoRcrd}">
          <div class="Container100">
             <div class="Wid100  v3dMainTitle left_side_title">
 
@@ -208,17 +218,16 @@
                                     </div>
                                  </p:commandLink>
                               </div>
-
-                              <!--Need to check-->
-                              <!--<div class="Container30 centerRelRight Fleft">-->
-                                 <!--<p:commandLink action="#{uobdash.doPrflCnfActionNew}" process="@this"-->
-                                                <!--disabled="#{uobdash.selAccountList.get(0).canIEditAccount or !uobdash.selAccountList.get(0).hasClientID}">-->
-                                    <!--<div class="boxBtn">-->
-                                       <!--<i class="fa fa-university" aria-hidden="true"></i> <label>Portfolio Confirmation</label>-->
-                                    <!--</div>-->
-                                 <!--</p:commandLink>-->
-                              <!--</div>-->
-                              <!--Need to check-->
+                              <ui:fragment rendered="false">
+                                 <div class="Container30 centerRelRight Fleft">
+                                    <p:commandLink action="#{uobdash.doPrflCnfActionNew}" process="@this"
+                                                   disabled="#{uobdash.selAccountList.get(0).canIEditAccount or !uobdash.selAccountList.get(0).hasClientID}">
+                                       <div class="boxBtn">
+                                          <i class="fa fa-university" aria-hidden="true"></i> <label>Portfolio Confirmation</label>
+                                       </div>
+                                    </p:commandLink>
+                                 </div>
+                              </ui:fragment>
                               <div class="Container30 centerRelRight Fleft">
                                  <p:commandLink action="#{uobdash.doFundingActionNew}" process="@this"
                                                 disabled="#{uobdash.selAccountList.get(0).canIEditAccount or !uobdash.selAccountList.get(0).hasClientID}">
@@ -446,6 +455,7 @@
                </ui:fragment>
             </p:outputPanel>
          </div>
+      </ui:fragment>
       </h:form>
       <!-- BOX END -->
    </ui:define>

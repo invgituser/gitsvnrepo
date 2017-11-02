@@ -174,16 +174,16 @@ public class ConsumerSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_itemnum", Types.INTEGER));
             declareParameter(new SqlParameter("p_ticker", Types.VARCHAR));
             declareParameter(new SqlParameter("p_active", Types.VARCHAR));
-            declareParameter(new SqlParameter("p_destCurrency", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_tradeCurrency", Types.VARCHAR));
             declareParameter(new SqlParameter("p_qty", Types.DOUBLE));
             declareParameter(new SqlParameter("p_weight", Types.DOUBLE));
             declareParameter(new SqlParameter("p_tradeprice", Types.DOUBLE));
             declareParameter(new SqlParameter("p_investmentvalue", Types.DOUBLE));
-            declareParameter(new SqlParameter("p_baseCurrency", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_settleCurrency", Types.VARCHAR));
             declareParameter(new SqlParameter("p_exchangeRate", Types.DOUBLE));
-            declareParameter(new SqlParameter("p_baseQty", Types.DOUBLE));
-            declareParameter(new SqlParameter("p_basePrice", Types.DOUBLE));
-            declareParameter(new SqlParameter("p_baseValue", Types.DOUBLE));
+            declareParameter(new SqlParameter("p_settleQty", Types.DOUBLE));
+            declareParameter(new SqlParameter("p_settlePrice", Types.DOUBLE));
+            declareParameter(new SqlParameter("p_settleValue", Types.DOUBLE));
             break;
          case 8: // sp_clientinfo_add_mod
             declareParameter(new SqlParameter("p_addmodflag", Types.VARCHAR));
@@ -546,16 +546,16 @@ public class ConsumerSaveSP extends StoredProcedure
          inputPortfolioMap.put("p_itemnum", loop + 1);
          inputPortfolioMap.put("p_ticker", pfList.getTicker());
          inputPortfolioMap.put("p_active", (data.getManaged() ? "A": ""));
-         inputPortfolioMap.put("p_destCurrency", pfList.getTradeCurrency());
+         inputPortfolioMap.put("p_tradeCurrency", pfList.getTradeCurrency());
          inputPortfolioMap.put("p_qty", pfList.getShares());
          inputPortfolioMap.put("p_weight", pfList.getWeight());
          inputPortfolioMap.put("p_tradeprice", pfList.getDailyprice());
          inputPortfolioMap.put("p_investmentvalue", pfList.getMoney());
-         inputPortfolioMap.put("p_baseCurrency", pfList.getSettleCurrency());
+         inputPortfolioMap.put("p_settleCurrency", pfList.getSettleCurrency());
          inputPortfolioMap.put("p_exchangeRate", pfList.getExchangeRate());
-         inputPortfolioMap.put("p_baseQty", pfList.getSettleShares());
-         inputPortfolioMap.put("p_basePrice", pfList.getSettlePrice());
-         inputPortfolioMap.put("p_baseValue", pfList.getSettleMoney());
+         inputPortfolioMap.put("p_settleQty", pfList.getSettleShares());
+         inputPortfolioMap.put("p_settlePrice", pfList.getSettlePrice());
+         inputPortfolioMap.put("p_settleValue", pfList.getSettleMoney());
 
          super.execute(inputPortfolioMap);
       }

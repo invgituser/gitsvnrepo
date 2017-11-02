@@ -64,6 +64,7 @@ public class ConsumerDashBean extends CustomerData implements Serializable
    private String goalcstmnm;
    private ArrayList<NotificationData> highNotification;
    private String acctOpnDtLbl;
+   private boolean dispNoRcrd=true;
 //   private UOBRiskCalculator riskCalculator;
 //   private String whichChart;
 //   public String riskCalcMethod = "C";
@@ -108,6 +109,13 @@ public class ConsumerDashBean extends CustomerData implements Serializable
    public void collectData(Long logonid)
    {
       manageAccountList = listDAO.getClientProfileList(logonid,null, null, webutil.getUserInfoData().getAdvisor(), webutil.getUserInfoData().getRep());
+      if(manageAccountList!=null && manageAccountList.size()>0){
+         dispNoRcrd=false;
+         selAcctNum=manageAccountList.get(0).getAcctnum();
+         showSelAcctDtls();
+      }else{
+         dispNoRcrd=true;
+      }
    }
 
 
@@ -301,24 +309,13 @@ public class ConsumerDashBean extends CustomerData implements Serializable
       try
       {
          selAccountList = listDAO.getClientProfileList(webutil.getLogonid(),selAcctNum, null, webutil.getUserInfoData().getAdvisor(), webutil.getUserInfoData().getRep());
-//         CustomerData ob=selAccountList.get(0);
-//         ob.buildAssetClass();
 
-//         UOBRiskCalculator riskCalculator =new UOBRiskCalculator();
-
-//         riskCalculator.setNumberofQuestions(9);
-//         whichChart = "pie";
-//         setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
-//         super.loadProfileData(selAcctNum, riskCalculator);
-//         Double riskIndex = riskCalculator.calculateRisk();
-//         createDynaAssetPortfolio(1, riskIndex,selAccountList.get(0).getTheme());
 
          List<Position> l1=posDao.loadDBPosition(webutil, selAcctNum,selAccountList.get(0).getManaged());
 
-//         rollupAssetClassByPosList();
+
          if(selAccountList.get(0).getCustomName().isEmpty())
          {
-//            strGoalCstmName ="Goal-"+selAccountList.get(0).getGoal();
             setGoalcstmnm("Goal-"+selAccountList.get(0).getGoal());
          }else{
 //            strGoalCstmName =selAccountList.get(0).getCustomName();
@@ -522,5 +519,15 @@ public class ConsumerDashBean extends CustomerData implements Serializable
    public void setAcctOpnDtLbl(String acctOpnDtLbl)
    {
       this.acctOpnDtLbl = acctOpnDtLbl;
+   }
+
+   public boolean isDispNoRcrd()
+   {
+      return dispNoRcrd;
+   }
+
+   public void setDispNoRcrd(boolean dispNoRcrd)
+   {
+      this.dispNoRcrd = dispNoRcrd;
    }
 }

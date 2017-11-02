@@ -64,7 +64,7 @@ public class PositionDAO extends JdbcDaoSupport
             data.setSettleMoney(convert.getDoubleData(rs.get("settleMoney")));
             data.setSettlePnL(convert.getDoubleData(rs.get("settlePnL")));
             data.setSettleCostBasisMoney(convert.getDoubleData(rs.get("settleCostBasisMoney")));
-            data.setSettleMarkPrice(convert.getDoubleData(rs.get("settleMarkPrice")));
+            data.setSettleMarkPrice(convert.getDoubleData(rs.get("settlementMarkPrice")));
 
             positionList.add(i, data);
             i++;

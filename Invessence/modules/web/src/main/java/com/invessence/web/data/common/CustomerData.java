@@ -1487,6 +1487,7 @@ public class CustomerData extends ProfileData
          String stackTrace = ex.getMessage();
          webutil.alertSupport("CustomerData.saveprofile", "Error:CustomerData.SaveProfile",
                               "error.saveprofile", stackTrace);
+         ex.printStackTrace();
       }
 
    }
