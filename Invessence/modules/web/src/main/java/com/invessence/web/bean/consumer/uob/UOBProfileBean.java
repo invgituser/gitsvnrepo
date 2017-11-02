@@ -62,7 +62,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
    private boolean dsplClgPnl,dsplOtrPnl;
    private boolean dsplStrategyCnfPnl;
 
-   private Boolean finalCheck1, finalCheck2, confirmationCheck = false;
+   private Boolean finalCheck1=false, finalCheck2=false, confirmationCheck = false;
    private Integer cstmSliderMaxAlloc, cstmSliderMinAlloc,riskVariance;
    private String profileProcess = "";
    private String  selctedSettleCurrency;
@@ -754,6 +754,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       formEdit = true;
       Double riskIndex = riskCalculator.calculateRisk();
       createAssetPortfolio(1, riskIndex);
+      System.out.println(" onAllocSlider ind "+getAllocationIndex());
       setSliderAllocationIndex(getAllocationIndex());
       setFlagforInvestShow(true);
    }
@@ -775,6 +776,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
       Double riskIndex = riskCalculator.calculateRisk();
       createAssetPortfolio(1, riskIndex);
+      System.out.println(" doAllocReset ind "+getAllocationIndex());
       setSliderAllocationIndex(getAllocationIndex());
    }
 
@@ -1368,15 +1370,23 @@ public class UOBProfileBean extends CustomerData implements Serializable
       if (getSavedRiskFormula() == null || getSavedRiskFormula().isEmpty())
       {
          setSavedRiskFormula(getRiskCalcMethod());
+         System.out.println(" showFTPanel if  ind "+getAllocationIndex());
          setSavedAllocSliderIndex(getAllocationIndex());
       }
+      System.out.println(" showFTPanel ifouter  ind "+getAllocationIndex());
       setSliderAllocationIndex(getAllocationIndex());
       setDisplayFTPanel(true);
       setEnableChangeStrategy(false);
       setAltrOnChngStrategy(false);
       System.out.println("riskVariance "+riskVariance);
-      setCstmSliderMaxAlloc(((getSliderAllocationIndex()+riskVariance) >= 99 ? 99 :getSliderAllocationIndex()+riskVariance));
-      setCstmSliderMinAlloc(((getSliderAllocationIndex()-riskVariance) < 0 ? 0 : getSliderAllocationIndex()-riskVariance));
+      if(formEdit)
+      {
+         setCstmSliderMaxAlloc(((getAllocationIndex() + riskVariance) >= 99 ? 99 : getAllocationIndex() + riskVariance));
+         setCstmSliderMinAlloc(((getAllocationIndex() - riskVariance) < 0 ? 0 : getAllocationIndex() - riskVariance));
+      }else{
+         setCstmSliderMaxAlloc(((riskCalculator.getRiskByQuestion().intValue() + riskVariance) >= 99 ? 99 : riskCalculator.getRiskByQuestion().intValue() + riskVariance));
+         setCstmSliderMinAlloc(((riskCalculator.getRiskByQuestion().intValue() - riskVariance) < 0 ? 0 : riskCalculator.getRiskByQuestion().intValue() - riskVariance));
+      }
 
       System.out.println("riskVariance max "+cstmSliderMaxAlloc);
 
@@ -1386,8 +1396,14 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public void saveFTPanel() {
       setSavedRiskFormula(getRiskCalcMethod());
+      System.out.println(" saveFTPanel ifouter  ind "+getAllocationIndex());
       setSavedAllocSliderIndex(getAllocationIndex());
       setSliderAllocationIndex(getAllocationIndex());
+      if(formEdit){
+         riskCalculator.setRiskOverride(Double.parseDouble(""+getAllocationIndex()));
+      }else{
+         riskCalculator.setRiskByQuestion(Double.parseDouble(""+getAllocationIndex()));
+      }
       savePanelProfile();
       closeFTPanel();
    }
@@ -1514,11 +1530,13 @@ public class UOBProfileBean extends CustomerData implements Serializable
    }
 
    public void processTransfer() {
+
       tradeDAO.saveTradeProcessIdentifier(getAcctnum(),
                                           WebConst.TRADE_PROCESS_ALLOC,
                                           WebConst.TRADE_PROCESS_STAT_NEW,
                                           "Changed Strategy");
       setCanSaveData(true);
+      formEdit =true;
       saveProfile(getRiskCalculator());
 
       goBack();
@@ -1528,25 +1546,25 @@ public class UOBProfileBean extends CustomerData implements Serializable
    @ManagedProperty("#{positionDAO}")
    private PositionDAO posDao;
 //   private ArrayList<CustomerData> selAccountList;
-   public void loadDynaDbGraphs(){
-
-      if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.SEL_ACCOUNT)!=null)
-      {
-         newapp = "E";
-         beanAcctnum=(Long)(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.SEL_ACCOUNT));
-         Double dblInvstAmt=(Double)(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("AccountBal"));
-//         beanAcctnum = 3l;
-         List<Position> l1=posDao.loadDBPosition(webutil, beanAcctnum,false);
-         rollupAssetClassByPosList(l1,dblInvstAmt);
-//         rollupAssetClassByPosList(l1,Double.parseDouble(strInvstAmt));
-
-//         riskCalculator.setNumberofQuestions(9);
-//         whichChart = "pie";
-//         setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
-//         fetchClientData();
-         createCharts();
-      }
-   }
+//   public void loadDynaDbGraphs(){
+//
+//      if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.SEL_ACCOUNT)!=null)
+//      {
+//         newapp = "E";
+//         beanAcctnum=(Long)(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.SEL_ACCOUNT));
+//         Double dblInvstAmt=(Double)(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("AccountBal"));
+////         beanAcctnum = 3l;
+//         List<Position> l1=posDao.loadDBPosition(webutil, beanAcctnum,true);
+//         rollupAssetClassByPosList(l1,dblInvstAmt);
+////         rollupAssetClassByPosList(l1,Double.parseDouble(strInvstAmt));
+//
+////         riskCalculator.setNumberofQuestions(9);
+////         whichChart = "pie";
+////         setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
+////         fetchClientData();
+//         createCharts();
+//      }
+//   }
 
    public PositionDAO getPosDao()
    {

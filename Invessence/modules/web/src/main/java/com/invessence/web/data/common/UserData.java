@@ -23,6 +23,7 @@ public class UserData
    private String middleInitial = null;
    private String lastName = null;
    private String suffix = null;
+   private String regfullname = null;
 
    private String email = null;
    private String emailalt = null;
@@ -579,5 +580,15 @@ public class UserData
 //      setCid(null);
       setAdvisor(advisor);
       setRep(rep);
+   }
+
+   public String getRegfullname()
+   {
+      return regfullname;
+   }
+
+   public void setRegfullname(String regfullname)
+   {
+      this.regfullname = regfullname;
    }
 }

@@ -6,7 +6,6 @@
                 template="/template/common/template.xhtml">`
    <f:metadata>
       <f:event type="preRenderView" listener="#{uobdash.preRenderView}"/>
-      <f:event type="preRenderView" listener="#{uobpb.loadDynaDbGraphs}"/>
    </f:metadata>
 
 
@@ -398,17 +397,17 @@
                            <div class="Container100 tabpanel1 summaryPanel">
                               <div class="Container50 donutChartGraph">
 
-                                 <ui:fragment rendered="#{uobpb.typeOfChart == 'HIGHCHART.2DDONUT'}">
+                                 <ui:fragment rendered="#{uobdash.typeOfChart == 'HIGHCHART.2DDONUT'}">
                                     <div id="2dDonutChart"></div>
-                                    <h:inputHidden value="#{uobpb.resultChart}"
+                                    <h:inputHidden value="#{uobdash.resultChart}"
                                                    id="twodDonutValueChart"/>
-                                    <h:inputHidden value="#{uobpb.typeOfChart}" id="typeOfCharts"/>
+                                    <h:inputHidden value="#{uobdash.typeOfChart}" id="typeOfCharts"/>
                                  </ui:fragment>
                               </div>
                               <div class="Container50 donutChartTable">
                                  <div class="EmptyBox20 donutChartTableEB"></div>
                                  <p:dataTable styleClass="uob_graphTable" id="uobtablesummary"
-                                              value="#{uobpb.editableAsset}" var="assetList">
+                                              value="#{uobdash.editableAsset}" var="assetList">
 
                                     <p:column
                                             style="width: 5%; background-color: #{assetList.color}; border:0px!important;">

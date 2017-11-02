@@ -701,6 +701,8 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setRiskValue(14, convert.getDoubleData(rs.get("risk14")));
                data.setRiskValue(15, convert.getDoubleData(rs.get("risk15")));
                data.setTotalRisk(convert.getDoubleData(rs.get("totalrisk")));
+               data.setRiskByQuestion(convert.getDoubleData(rs.get("riskByQuestion")));
+               data.setRiskOverride(convert.getDoubleData(rs.get("riskOverride")));
                break;  // Only load the first account info.
             }
          }

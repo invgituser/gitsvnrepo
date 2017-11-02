@@ -145,6 +145,8 @@ public class ConsumerSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_r14", Types.TINYINT));
             declareParameter(new SqlParameter("p_r15", Types.TINYINT));
             declareParameter(new SqlParameter("p_totalRisk", Types.TINYINT));
+            declareParameter(new SqlParameter("p_riskByQuestion", Types.TINYINT));
+            declareParameter(new SqlParameter("p_riskOverride", Types.TINYINT));
             break;
          case 3:   // Not used (Open)
             break;
@@ -452,6 +454,19 @@ public class ConsumerSaveSP extends StoredProcedure
       inputMap.put("p_r14", setDefaultRisk(data.getRiskValue(14)));
       inputMap.put("p_r15", setDefaultRisk(data.getRiskValue(15)));
       inputMap.put("p_totalRisk", setDefaultRisk(data.getTotalRisk().intValue()));
+      if(setDefaultRisk(data.getRiskByQuestion().intValue())==0)
+      {
+         inputMap.put("p_riskByQuestion", setDefaultRisk(data.getTotalRisk().intValue()));
+      }else{
+         inputMap.put("p_riskByQuestion", setDefaultRisk(data.getRiskByQuestion().intValue()));
+      }
+      if(setDefaultRisk(data.getRiskOverride().intValue())==0)
+      {
+         inputMap.put("p_riskOverride", setDefaultRisk(data.getTotalRisk().intValue()));
+      }else{
+         inputMap.put("p_riskOverride", setDefaultRisk(data.getRiskOverride().intValue()));
+      }
+//      inputMap.put("p_riskOverride", setDefaultRisk(data.getRiskOverride().intValue()));
 
       super.execute(inputMap);
 

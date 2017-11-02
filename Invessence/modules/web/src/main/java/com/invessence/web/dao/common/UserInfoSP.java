@@ -47,6 +47,7 @@ public class UserInfoSP extends StoredProcedure
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
             declareParameter(new SqlParameter("p_rep", Types.VARCHAR));
             declareParameter(new SqlParameter("p_access", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_fullname", Types.VARCHAR));
             break;
          case 1:
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
@@ -142,6 +143,7 @@ public class UserInfoSP extends StoredProcedure
       inputMap.put("p_advisor", data.getAdvisor());
       inputMap.put("p_rep", data.getRep());
       inputMap.put("p_access", data.getAccess());
+      inputMap.put("p_fullname",data.getRegfullname());
 
       return super.execute(inputMap);
    }

@@ -22,7 +22,7 @@ public class RiskCalculator
    public Integer riskAge;
    public Integer retireAge;
    public Integer riskHorizon;
-   public Double totalRisk;
+   public Double totalRisk,riskByQuestion,riskOverride;
    public Integer retired;
    public String  investmentobjective;
    public SQLData converter = new SQLData();
@@ -34,6 +34,8 @@ public class RiskCalculator
       riskAge = 30;
       riskHorizon = 20;
       totalRisk = 0.0;
+      riskByQuestion=0.0;
+      riskOverride=0.0;
       riskFormula = WebConst.CONSUMER_RISK_FORMULA;
       retired = 0;  // same as false;  Need to use 0,1 (because of dropdown on the menu)
 
@@ -132,6 +134,26 @@ public class RiskCalculator
    public void setTotalRisk(Double totalRisk)
    {
       this.totalRisk = totalRisk;
+   }
+
+   public Double getRiskByQuestion()
+   {
+      return riskByQuestion;
+   }
+
+   public void setRiskByQuestion(Double riskByQuestion)
+   {
+      this.riskByQuestion = riskByQuestion;
+   }
+
+   public Double getRiskOverride()
+   {
+      return riskOverride;
+   }
+
+   public void setRiskOverride(Double riskOverride)
+   {
+      this.riskOverride = riskOverride;
    }
 
    public Integer getRetired()

@@ -7,6 +7,7 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.web.constant.*;
+import com.invessence.web.controller.HighChartsController;
 import com.invessence.web.dao.common.*;
 import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.common.*;
@@ -311,7 +312,10 @@ public class ConsumerDashBean extends CustomerData implements Serializable
 //         super.loadProfileData(selAcctNum, riskCalculator);
 //         Double riskIndex = riskCalculator.calculateRisk();
 //         createDynaAssetPortfolio(1, riskIndex,selAccountList.get(0).getTheme());
+
          List<Position> l1=posDao.loadDBPosition(webutil, selAcctNum,selAccountList.get(0).getManaged());
+
+//         rollupAssetClassByPosList();
          if(selAccountList.get(0).getCustomName().isEmpty())
          {
 //            strGoalCstmName ="Goal-"+selAccountList.get(0).getGoal();
@@ -325,15 +329,16 @@ public class ConsumerDashBean extends CustomerData implements Serializable
 
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("AccountBal");
          }
+         Double amt=null;
          if(selAccountList.get(0).getManaged()){
-            Double amt=selAccountList.get(0).getActualInvestment();
+             amt=selAccountList.get(0).getActualInvestment();
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("AccountBal",amt);
 //            actualInvestment
          }else{
 //            initialInvestment
-            Integer amt=selAccountList.get(0).getInitialInvestment();
-            Double amt2=Double.parseDouble(""+amt);
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("AccountBal",amt2);
+            Integer amt1=selAccountList.get(0).getInitialInvestment();
+             amt=Double.parseDouble(""+amt1);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("AccountBal",amt);
          }
 
          accoutListZize=selAccountList.size();
@@ -350,6 +355,15 @@ public class ConsumerDashBean extends CustomerData implements Serializable
 
          SimpleDateFormat dt1 = new SimpleDateFormat("d MMM, yy");
          acctOpnDtLbl=dt1.format(date);
+         Map<String, String> configMap = webutil.getWebprofile().getWebInfo();
+         HighChartsController highChartsController = new HighChartsController();
+         rollupAssetClassByPosList(l1,amt);
+         setResultChart(highChartsController.highChartrequesthandler(null,getAssetData(),configMap));
+         setTypeOfChart(webutil.getWebprofile().getInfo("CHART.ASSET.ALLOCATION"));
+         System.out.println("Helloooooo ~@~["+getResultChart()+"]~@~");
+         System.out.println("Helloooooo1 ~@~["+getTypeOfChart()+"]~@~");
+
+
 //         setDisplayFTPanel(false);
 //         setEnableChangeStrategy(true);
 //         setAltrOnChngStrategy(true);

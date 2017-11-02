@@ -84,7 +84,7 @@ public class CustomerData extends ProfileData
 
    private String portfolioName;
 
-   private String email, firstname, lastname;
+   private String email, firstname, lastname,regfullname;
    public List<DataPortfolio> displayPortfolioList = new ArrayList<DataPortfolio>();
    public DataPortfolio selectedPortfolio;
    public List<DataPortfolio> selectedPortfolioList = null;
@@ -1309,6 +1309,7 @@ public class CustomerData extends ProfileData
          UserData userdata = new UserData();
          userdata.setFirstName(getFirstname());
          userdata.setLastName(getLastname());
+         userdata.setFullName(getRegfullname());
          userdata.setEmail(getEmail());
          userdata.setUserID(getEmail());
          userdata.setIp(webutil.getClientIpAddr());
@@ -1685,4 +1686,13 @@ public  void updateProfileData(CustomerData objCustomerData){
       this.customName = customName;
    }
 
+   public String getRegfullname()
+   {
+      return regfullname;
+   }
+
+   public void setRegfullname(String regfullname)
+   {
+      this.regfullname = regfullname;
+   }
 }
