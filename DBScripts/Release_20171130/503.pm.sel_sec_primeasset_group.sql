@@ -11,7 +11,7 @@ BEGIN
 		THEN
             SELECT 
 				IFNULL(`sec_prime`.`theme`, 'Invessence') AS `theme`,
-                `user_basket_access`.`baseCurrency`,
+                `user_basket_access`.`tradeCurrency`,
 				`sec_prime`.`assetclass` AS `assetclass`,
 				`sec_prime`.`ticker` AS `ticker`,
 				`sec_prime`.`status` AS `status`,
@@ -37,7 +37,7 @@ BEGIN
 		ELSE
 			SELECT 
 				IFNULL(`sec_prime`.`theme`, 'Invessence') AS `theme`,
-                `user_basket_access`.`baseCurrency`,
+                `user_basket_access`.`tradeCurrency`,
 				`sec_prime`.`assetclass` AS `assetclass`,
 				`sec_prime`.`ticker` AS `ticker`,
 				`sec_prime`.`status` AS `status`,

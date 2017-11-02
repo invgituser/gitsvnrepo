@@ -8,12 +8,13 @@ BEGIN
 
 	DELETE FROM `invdb`.`sec_asset_mapping` where theme = p_theme;
     
+    /* Insert from sec_primeasset_mapping */
 	INSERT INTO `invdb`.`sec_asset_mapping`
 	(`theme`,`ticker`
 	,`assetclass`,`assetName`,`assetcolor`,`assetsortorder`
 	,`subclass`,`subclassName`, `subclasscolor`, `subclasssortorder` 
 	,`created`,`lastUpdated`)
-	SELECT `assetclass`.`theme`, `subclass`.`ticker`
+	SELECT `assetclass`.`theme`, `sec_rbsa`.`ticker`
 	, `assetclass`.`assetclass`, `assetclass`.`displayName`,`assetclass`.`color`, `assetclass`.`sortorder`
 	,`subclass`.`primeassetclass`, `subclass`.`primeassetclass`,`subclass`.`color`, `subclass`.`sortorder`
 	, now(), null
@@ -21,6 +22,9 @@ BEGIN
 	INNER JOIN `invdb`.`sec_prime_asset_group` as `subclass`
 	ON (`subclass`.`theme` = `assetclass`.`theme`
 		AND `subclass`.`assetclass` = `assetclass`.`assetclass`)
+    INNER JOIN `invdb`.`sec_rbsa`
+    ON (`sec_rbsa`.`theme` = `subclass`.`theme`
+		AND `sec_rbsa`.`primeasset_ticker` = `subclass`.`ticker`)
 	WHERE `assetclass`.`theme` = p_theme
 	order by 1,2,3,6
 	;

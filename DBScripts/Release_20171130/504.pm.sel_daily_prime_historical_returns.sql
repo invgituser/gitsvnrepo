@@ -9,7 +9,7 @@ BEGIN
 	CREATE TEMPORARY TABLE tmp_historical_dates
 	(
 		ticker VARCHAR(20),
-        dest_currency VARCHAR(3),
+        tradeCurrency VARCHAR(3),
 	    min_businessdate VARCHAR(10),
 	    max_businessdate VARCHAR(10)
 	);
@@ -18,13 +18,13 @@ BEGIN
 	CREATE TEMPORARY TABLE tmp_ticker_list
 	(
 		ticker VARCHAR(20),
-        dest_currency VARCHAR(3)
+        tradeCurrency VARCHAR(3)
 	);
 
 	INSERT INTO tmp_ticker_list
 	SELECT DISTINCT 
 			sec_assetclass_group.ticker,
-            user_basket_access.baseCurrency
+            user_basket_access.tradeCurrency
 	FROM invdb.sec_assetclass_group,
 		 invdb.user_basket_access
 	WHERE user_basket_access.theme = sec_assetclass_group.theme
@@ -34,7 +34,7 @@ BEGIN
 	INSERT INTO tmp_ticker_list
 	SELECT DISTINCT 
 		   sec_prime_asset_group.ticker,
-           user_basket_access.baseCurrency
+           user_basket_access.tradeCurrency
 	FROM invdb.sec_prime_asset_group,
 		 invdb.user_basket_access
 	WHERE user_basket_access.theme = sec_prime_asset_group.theme
@@ -53,7 +53,7 @@ BEGIN
 	FROM `rbsa`.`rbsa_daily` daily,
 		 tmp_ticker_list
 	WHERE daily.ticker = tmp_ticker_list.ticker
-    AND   daily.dest_currency = tmp_ticker_list.dest_currency
+    AND   daily.dest_currency = tmp_ticker_list.tradeCurrency
 	group by daily.ticker, daily.dest_currency;
 
 	SELECT daily.ticker, daily.dest_currency, count(*) as maxrows
@@ -64,12 +64,13 @@ BEGIN
 	WHERE businessdate >= tmp.min_date
 	AND   businessdate <= tmp.max_date
 	AND   daily.ticker = tmp_ticker_list.ticker
-    AND   daily.dest_currency = tmp_ticker_list.dest_currency
+    AND   daily.dest_currency = tmp_ticker_list.tradeCurrency
 	AND   businessdate in (select businessdate from invdb.inv_date_table)
 	GROUP BY daily.ticker, daily.dest_currency; 
 	
 	SELECT daily.ticker,
-		   daily.dest_currency,
+		   tmp_ticker_list.tradeCurrency,
+           daily.base_currency as settleCurrency,
 		   businessdate,
 		   IFNULL(daily_return,0) as daily_return
 	FROM 
@@ -79,7 +80,7 @@ BEGIN
 	WHERE businessdate >= tmp.min_date
 	AND   businessdate <= tmp.max_date
 	AND   daily.ticker = tmp_ticker_list.ticker
-    AND   daily.dest_currency = tmp_ticker_list.dest_currency
+    AND   daily.dest_currency = tmp_ticker_list.tradeCurrency
 	AND   businessdate in (select businessdate from invdb.inv_date_table)
 	ORDER BY 1, 2, 3 desc;
 	

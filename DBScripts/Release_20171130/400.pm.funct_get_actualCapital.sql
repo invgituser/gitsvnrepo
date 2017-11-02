@@ -15,7 +15,7 @@ BEGIN
 		END IF;
 
 		BEGIN
-			SELECT SUM(nav.total * IFNULL(nav.exchangeRate,1.0))
+			SELECT SUM(nav.total)
 			INTO tAmount
 			FROM ext_acct_info,
 				 ext_nav nav
@@ -27,7 +27,7 @@ BEGIN
 			IF (IFNULL(tAmount,0.0) > 0)
 			THEN return tAmount;
 			ELSE
-					SELECT SUM(pos.positionValue * IFNULL(fxRateToBase,1.0))
+					SELECT SUM(pos.positionValue)
 					INTO tPosition
 					FROM ext_position pos
 					WHERE pos.acctnum = p_acctnum

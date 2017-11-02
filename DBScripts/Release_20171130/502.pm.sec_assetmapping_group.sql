@@ -10,7 +10,7 @@ BEGIN
 		THEN
 			SELECT 
 				`sec_assetclass_group`.`theme` AS `theme`,
-				`user_basket_access`.`baseCurrency`,
+				`user_basket_access`.`tradeCurrency`,
 				`sec_assetclass_group`.`status` AS `status`,
 				`sec_assetclass_group`.`assetclass` AS `assetclass`,
 				`sec_assetclass_group`.`displayName` AS `displayName`,
@@ -33,7 +33,7 @@ BEGIN
 		ELSE 
 			SELECT 
 				`sec_assetclass_group`.`theme` AS `theme`,
-                `user_basket_access`.`baseCurrency`,
+                `user_basket_access`.`tradeCurrency`,
 				`sec_assetclass_group`.`status` AS `status`,
 				`sec_assetclass_group`.`assetclass` AS `assetclass`,
 				`sec_assetclass_group`.`displayName` AS `displayName`,
