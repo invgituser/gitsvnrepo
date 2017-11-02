@@ -208,14 +208,17 @@
                                     </div>
                                  </p:commandLink>
                               </div>
-                              <div class="Container30 centerRelRight Fleft">
-                                 <p:commandLink action="#{uobdash.doPrflCnfActionNew}" process="@this"
-                                                disabled="#{uobdash.selAccountList.get(0).canIEditAccount or !uobdash.selAccountList.get(0).hasClientID}">
-                                    <div class="boxBtn">
-                                       <i class="fa fa-university" aria-hidden="true"></i> <label>Portfolio Confirmation</label>
-                                    </div>
-                                 </p:commandLink>
-                              </div>
+
+                              <!--Need to check-->
+                              <!--<div class="Container30 centerRelRight Fleft">-->
+                                 <!--<p:commandLink action="#{uobdash.doPrflCnfActionNew}" process="@this"-->
+                                                <!--disabled="#{uobdash.selAccountList.get(0).canIEditAccount or !uobdash.selAccountList.get(0).hasClientID}">-->
+                                    <!--<div class="boxBtn">-->
+                                       <!--<i class="fa fa-university" aria-hidden="true"></i> <label>Portfolio Confirmation</label>-->
+                                    <!--</div>-->
+                                 <!--</p:commandLink>-->
+                              <!--</div>-->
+                              <!--Need to check-->
                               <div class="Container30 centerRelRight Fleft">
                                  <p:commandLink action="#{uobdash.doFundingActionNew}" process="@this"
                                                 disabled="#{uobdash.selAccountList.get(0).canIEditAccount or !uobdash.selAccountList.get(0).hasClientID}">
@@ -225,31 +228,32 @@
                                  </p:commandLink>
                               </div>
                            </div>
+<!--Need to check-->
+                           <!--<div class="rowBlock">-->
+                              <!--<div class="Wid100 cellBlock">-->
+                                 <!--<ui:fragment rendered="true">-->
+                                    <!--<a href="http://localhost:8086/pages/consumer/uob/cadd.xhtml?app=N">-->
+                                                <!--<span class="external_link_click">-->
+                                                    <!--<h:outputText value="Click"/>-->
+                                                    <!--<span class="ui-button-icon-center ui-icon ui-c fa fa-external-link click_icon" ></span>-->
+                                                <!--</span>-->
+                                    <!--</a>-->
+                                    <!--<p:repeat value="#{uobdash.highNotification}" var="notfBn">-->
+                                       <!--<h:outputText value="#{notfBn.message}" escape="false" />-->
+                                       <!--<ui:fragment rendered='#{notfBn.linkAvailable}'>-->
+                                          <!--<a href="http://localhost:8086/pages/consumer/uob/cadd.xhtml?app=N">-->
+                                                <!--<span class="external_link_click">-->
+                                                    <!--<h:outputText value="Click"/>-->
+                                                    <!--<span class="ui-button-icon-center ui-icon ui-c fa fa-external-link click_icon" ></span>-->
+                                                <!--</span>-->
+                                          <!--</a>-->
+                                       <!--</ui:fragment>-->
+                                    <!--</p:repeat>-->
 
-                           <div class="rowBlock">
-                              <div class="Wid100 cellBlock">
-                                 <ui:fragment rendered="true">
-                                    <a href="http://localhost:8086/pages/consumer/uob/cadd.xhtml?app=N">
-                                                <span class="external_link_click">
-                                                    <h:outputText value="Click"/>
-                                                    <span class="ui-button-icon-center ui-icon ui-c fa fa-external-link click_icon" ></span>
-                                                </span>
-                                    </a>
-                                    <p:repeat value="#{uobdash.highNotification}" var="notfBn">
-                                       <h:outputText value="#{notfBn.message}" escape="false" />
-                                       <ui:fragment rendered='#{notfBn.linkAvailable}'>
-                                          <a href="http://localhost:8086/pages/consumer/uob/cadd.xhtml?app=N">
-                                                <span class="external_link_click">
-                                                    <h:outputText value="Click"/>
-                                                    <span class="ui-button-icon-center ui-icon ui-c fa fa-external-link click_icon" ></span>
-                                                </span>
-                                          </a>
-                                       </ui:fragment>
-                                    </p:repeat>
-
-                                 </ui:fragment>
-                              </div>
-                           </div>
+                                 <!--</ui:fragment>-->
+                              <!--</div>-->
+                           <!--</div>-->
+                           <!--Need to check-->
 
 
                         </div>
