@@ -97,7 +97,7 @@
                </div>
 
                <p:outputLabel for="acctDtls" value="" class="acc_overview_label">
-                  <p:selectOneMenu id="acctDtls" value="#{uobdash.selAcctNum}" style="width:150px">
+                  <p:selectOneMenu id="acctDtls" value="#{uobdash.selAcctNum}" style="width:215px">
                      <p:ajax listener="#{uobdash.showSelAcctDtls}" event="change" update="uobIndxform:accountDtlArea"/>
                      <f:selectItem itemLabel="Select Account" itemValue="0" noSelectionOption="true"/>
                      <f:selectItems value="#{uobdash.manageAccountList}" var="acctDtl"
@@ -222,7 +222,7 @@
                               </div>
                               </ui:fragment>
                               <ui:fragment rendered="#{uobdash.selAccountList.get(0).reqPrflCnf}">
-                                 <div class="Container30 centerRelRight Fleft">
+                                 <div class="Container30 centerRelCenter Fleft">
                                     <p:commandLink action="#{uobdash.doPrflCnfActionNew}" process="@this"
                                                    disabled="#{uobdash.selAccountList.get(0).canIEditAccount or !uobdash.selAccountList.get(0).hasClientID}">
                                        <div class="boxBtn">
@@ -241,7 +241,7 @@
                               </div>
                            </div>
                            <div class="rowBlock">
-                              <div class="Wid100 cellBlock">
+                              <div class="Wid100 cellBlock dashboard_link">
                                  <ui:fragment rendered="true">
                                     <p:repeat value="#{uobdash.highNotification}" var="notfBn">
                                        <h:outputText value="#{notfBn.message}" escape="false" />
