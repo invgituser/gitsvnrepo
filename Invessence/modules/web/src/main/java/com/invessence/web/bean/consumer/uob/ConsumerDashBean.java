@@ -258,6 +258,8 @@ public class ConsumerDashBean extends CustomerData implements Serializable
       try
       {
          uiLayout.doMenuAction("custody", "funding.xhtml?app=E&acct=" +selAcctNum);
+
+//         uiLayout.doMenuAction("custody", "editfunding.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
       }
       catch (Exception ex)
       {
@@ -360,8 +362,8 @@ public class ConsumerDashBean extends CustomerData implements Serializable
          rollupAssetClassByPosList(l1,amt);
          setResultChart(highChartsController.highChartrequesthandler(null,getAssetData(),configMap));
          setTypeOfChart(webutil.getWebprofile().getInfo("CHART.ASSET.ALLOCATION"));
-         System.out.println("Helloooooo ~@~["+getResultChart()+"]~@~");
-         System.out.println("Helloooooo1 ~@~["+getTypeOfChart()+"]~@~");
+//         System.out.println("Helloooooo ~@~["+getResultChart()+"]~@~");
+//         System.out.println("Helloooooo1 ~@~["+getTypeOfChart()+"]~@~");
 
 
 //         setDisplayFTPanel(false);

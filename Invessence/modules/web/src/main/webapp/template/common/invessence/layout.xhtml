@@ -44,10 +44,25 @@
                 <div class="ContainerIndent" style="padding: 0px;">
                     <div id="ceForm:j_idt277" class="ui-outputpanel ui-widget">
                         <ul class="footerlinks">
-                            <li><a>FAQ</a></li>
+                            <li>
+                                <p:commandLink rendered="true"
+                                               actionListener="#{uiLayout.doMenuAction('custody', 'FAQ.xhtml')}">
+                                FAQ
+                                </p:commandLink>
+                            </li>
                             <li><a>Demo</a></li>
-                            <li><a>Support &#38; Feedback</a></li>
-                            <li><a>Disclaimer</a></li>
+                            <li>
+                                <p:commandLink rendered="true"
+                                               actionListener="#{uiLayout.doMenuAction('custody', 'supportFeedback.xhtml')}">
+                                    Support &#38; Feedback
+                                </p:commandLink>
+                            </li>
+                            <li>
+                                <p:commandLink rendered="true"
+                                               actionListener="#{uiLayout.doMenuAction('custody', 'disclaimer.xhtml')}">
+                                    Disclaimer
+                                </p:commandLink>
+                            </li>
                         </ul>
 
                         <!--<p style="font-style: italic; font-size: .8em;">

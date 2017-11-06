@@ -17,7 +17,7 @@
                     <span class="done"> Assets </span>
                     <span class="done"> Liabilities </span>
                     <span class="done"> Risk </span>
-                    <span class="active"> Confirmation </span>
+                    <span class="active"> Review </span>
                 </div>
             </div>
             <div class="outer_stategy_block user_confirmation_block">
@@ -218,8 +218,15 @@
                         </div>
                         <div class="Container30 save_btn">
                             <!--<ui:fragment rendered="#{uobpb.flagforInvestShow}">-->
-                            <ui:fragment rendered="true">
-                                <p:commandLink id="invsetBtnCnf" value="Save"
+                            <ui:fragment rendered="#{uobdash.selAccountList.get(0).canIEditAccount or !uobdash.selAccountList.get(0).hasClientID}">
+                                <p:commandLink id="invsetBtnCnf" value="Open Account"
+                                               styleClass="investNowBtn "
+                                               update=":ceForm:workArea"
+                                               actionListener="#{uobpb.saveAccount}"/>
+
+                            </ui:fragment>
+                            <ui:fragment rendered="#{uobdash.selAccountList.get(0).canIEditAccount or uobdash.selAccountList.get(0).hasClientID}">
+                                <p:commandLink id="invsetBtnCnf2" value="Next"
                                                styleClass="investNowBtn "
                                                update=":ceForm:workArea"
                                                actionListener="#{uobpb.saveAccount}"/>

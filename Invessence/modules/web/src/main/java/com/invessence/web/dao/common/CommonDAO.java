@@ -376,7 +376,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
          if (rows != null)
          {
-            int i = 0;
+            int i = 0,j=0;
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
@@ -396,8 +396,9 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
                      convert.getStrData(rs.get("link")),
                      convert.getStrData(rs.get("clientAccountID"))
                   );
-                  notificationList.add(i, ndata);
-               }else if(bflag && convert.getStrData(rs.get("status")).equalsIgnoreCase("H") && convert.getLongData(rs.get("acctnum"))==acctnum){
+                  notificationList.add(j, ndata);
+                  j++;
+               }else if(bflag && convert.getStrData(rs.get("noticetype")).equalsIgnoreCase("H") && convert.getLongData(rs.get("acctnum"))==acctnum){
                   NotificationData ndata = new NotificationData(
                      convert.getLongData(rs.get("messageid")),
                      convert.getStrData(rs.get("status")),
@@ -412,7 +413,8 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
                      convert.getStrData(rs.get("link")),
                      convert.getStrData(rs.get("clientAccountID"))
                   );
-                  notificationList.add(i, ndata);
+                  notificationList.add(j, ndata);
+                  j++;
                }
                i++;
             }

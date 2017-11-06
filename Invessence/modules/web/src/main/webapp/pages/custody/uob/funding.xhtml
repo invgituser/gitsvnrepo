@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+   <ui:define name="content">
+
+      <div class="layout-portlets-box open_client_layout" >
+         <div class="Container100 Responsive50">
+
+            <h3 class="BigTopic">Fund Your Account</h3>
+
+            <!--<div class="client_acc_select">-->
+               <!--<p:selectOneRadio id="radio" value="" >-->
+                  <!--<f:selectItem itemLabel="New Client" itemValue="New Client" />-->
+                  <!--<f:selectItem itemLabel="Existing Client" itemValue="Existing Client" />-->
+
+               <!--</p:selectOneRadio>-->
+            <!--</div>-->
+            <!--<h:form>-->
+               <p:commandButton id="uobForwardBtn"
+                                value="Back"
+                                styleClass="uob_button"
+                                actionListener="#{uobpb.goBack}">
+               </p:commandButton>
+
+            <!--</h:form>-->
+
+         </div>
+
+      </div>
+   </ui:define>
+
+</ui:composition>

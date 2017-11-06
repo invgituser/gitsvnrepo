@@ -1458,7 +1458,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       {
          // Call Register User.  If he is not registered.  If Registration fails, then stay on the same page.
          if (registerUser()) {
-            uiLayout.doMenuAction("consumer", "acc_opening.xhtml");
+            uiLayout.doMenuAction("consumer", "acc_opening.xhtml?acct=" + getAcctnum().toString());
          }
       }
       else {
@@ -1466,7 +1466,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
          {
             // If in Edit mode, then don't save till final changes are accounted for.
             // Need to keep the original data.
-            uiLayout.doMenuAction("consumer", "acc_opening.xhtml");
+            uiLayout.doMenuAction("consumer", "acc_opening.xhtml?acct=" + getAcctnum().toString());
          }
          else {
             uiLayout.doMenuAction("consumer", "addon/editReview.xhtml");

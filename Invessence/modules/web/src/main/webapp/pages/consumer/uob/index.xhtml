@@ -240,36 +240,24 @@
                                  </p:commandLink>
                               </div>
                            </div>
-<!--Need to check-->
-                           <!--<div class="rowBlock">-->
-                              <!--<div class="Wid100 cellBlock">-->
-                                 <!--<ui:fragment rendered="true">-->
-                                    <!--<a href="http://localhost:8086/pages/consumer/uob/cadd.xhtml?app=N">-->
-                                                <!--<span class="external_link_click">-->
-                                                    <!--<h:outputText value="Click"/>-->
-                                                    <!--<span class="ui-button-icon-center ui-icon ui-c fa fa-external-link click_icon" ></span>-->
-                                                <!--</span>-->
-                                    <!--</a>-->
-                                    <!--<p:repeat value="#{uobdash.highNotification}" var="notfBn">-->
-                                       <!--<h:outputText value="#{notfBn.message}" escape="false" />-->
-                                       <!--<ui:fragment rendered='#{notfBn.linkAvailable}'>-->
-                                          <!--<a href="http://localhost:8086/pages/consumer/uob/cadd.xhtml?app=N">-->
-                                                <!--<span class="external_link_click">-->
-                                                    <!--<h:outputText value="Click"/>-->
-                                                    <!--<span class="ui-button-icon-center ui-icon ui-c fa fa-external-link click_icon" ></span>-->
-                                                <!--</span>-->
-                                          <!--</a>-->
-                                       <!--</ui:fragment>-->
-                                    <!--</p:repeat>-->
-
-                                 <!--</ui:fragment>-->
-                              <!--</div>-->
-                           <!--</div>-->
-                           <!--Need to check-->
-
-
+                           <div class="rowBlock">
+                              <div class="Wid100 cellBlock">
+                                 <ui:fragment rendered="true">
+                                    <p:repeat value="#{uobdash.highNotification}" var="notfBn">
+                                       <h:outputText value="#{notfBn.message}" escape="false" />
+                                       <ui:fragment rendered='#{notfBn.linkAvailable}'>
+                                          <a href="#{notfBn.link}">
+                                                <span class="external_link_click">
+                                                    <h:outputText value="Click"/>
+                                                    <span class="ui-button-icon-center ui-icon ui-c fa fa-external-link click_icon" ></span>
+                                                </span>
+                                          </a>
+                                       </ui:fragment>
+                                    </p:repeat>
+                                 </ui:fragment>
+                              </div>
+                           </div>
                         </div>
-
 
                         <!--<div class="Container100 leftAccountInfoBlock MoileModeAcctOvw">-->
                         <!--<div class="Wid100 AccountInfoPanel">-->
