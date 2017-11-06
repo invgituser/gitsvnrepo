@@ -241,7 +241,8 @@
                               </div>
                            </div>
                            <div class="rowBlock">
-                              <div class="Wid100 cellBlock dashboard_link">
+                              <div class="Wid100 cellBlock ">
+                                 <div class="dashboard_link">
                                  <ui:fragment rendered="true">
                                     <p:repeat value="#{uobdash.highNotification}" var="notfBn">
                                        <h:outputText value="#{notfBn.message}" escape="false" />
@@ -255,6 +256,7 @@
                                        </ui:fragment>
                                     </p:repeat>
                                  </ui:fragment>
+                                 </div>
                               </div>
                            </div>
                         </div>

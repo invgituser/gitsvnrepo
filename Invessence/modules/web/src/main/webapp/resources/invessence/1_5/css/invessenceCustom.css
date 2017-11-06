@@ -1766,7 +1766,10 @@ a {
 
 .FullContainer {
     margin: 10px 0px;
-   /* padding-top: 50px;*/
+    padding-top: 50px;
+}
+.layout-portlets-box.strategy_layout {
+    margin-top: -50px;
 }
 
 .RightPanel {
@@ -2168,6 +2171,7 @@ span > input {
 .uobRisk7Q div div:nth-child(7) {
     height: 170px;
 }
+
 
 /***Responsive***/
 
@@ -3790,6 +3794,7 @@ input#tab2 + label:after, input#tab3 + label:after, input#tab4 + label:after {
     box-shadow: 0px 0px 2px 1px #d2cbcb;
     padding: 10px;
     line-height: 1.50;
+    float:left;
 }
 .dashboard_link .external_link_click {
     float: left;padding: 0 42%;}
@@ -4772,7 +4777,19 @@ td.bullet_td span {
 /** 3/11/2017 **/
 .width99{width:99%;}
 
-
+.edit_review_block {
+    width: 90%;
+    margin: 0 5%;
+    box-shadow: 1px 1px 1px 2px #ccc;
+    /* padding: 10px; */
+}
+.edit_review_block span.ui-button-text.ui-c {
+    background: #a4332f;
+}
+.edit_review_block span.ui-chkbox-icon.ui-icon.ui-icon-check.ui-c {
+    background-color: #a4332f;
+    border: #a4332f;
+}
 
 
 
