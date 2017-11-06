@@ -1769,7 +1769,7 @@ a {
     padding-top: 50px;
 }
 .layout-portlets-box.strategy_layout {
-    margin-top: -50px;
+    /*margin-top: -50px;*/
 }
 
 .RightPanel {
