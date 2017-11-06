@@ -317,7 +317,7 @@
                                             <span class="alert_date"><h:outputText value="#{notfBn.businessdate}"/></span>
                                         </ui:fragment>
                                         <ui:fragment rendered='#{notfBn.linkAvailable}'>
-                                            <a href="http://localhost:8086/pages/consumer/uob/cadd.xhtml?app=N">
+                                            <a href="#{notfBn.link}">
                                                 <span class="external_link_click">
                                                     <h:outputText value="Click"/>
                                                     <span class="ui-button-icon-center ui-icon ui-c fa fa-external-link click_icon" ></span>

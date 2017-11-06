@@ -92,7 +92,7 @@
                                             <h:outputText value="#{msg.message}" escape="false">
                                             </h:outputText>
                                             <ui:fragment rendered='#{msg.linkAvailable}'>
-                                                <a href="http://localhost:8086/pages/consumer/uob/cadd.xhtml?app=N" style="float: left;color: #000;margin: 3px 0;">
+                                                <a href="#{msg.link}" style="float: left;color: #000;margin: 3px 0;">
                                                  <span class="external_link_click">
                                                     <h:outputText value="Click"/>
                                                   <span class="ui-button-icon-center ui-icon ui-c fa fa-external-link click_icon" style="float: right;    margin: 2px 3px;"></span>
