@@ -61,7 +61,7 @@ public class CommonBean
    public void reloadData() {
       System.out.println("Inside Common Bean");
       statInfo = commonDAO.getNotificationCount(webutil.getLogonid(),webutil.getAccess());
-      notificationDataList = commonDAO.getNotificationDtls(webutil.getLogonid(), "M", "N",webutil.getAccess(),false);
+      notificationDataList = commonDAO.getNotificationDtls(webutil.getLogonid(), "M", "N",webutil.getAccess(),false,0l);
    }
 
    public void setWebutil(WebUtil webutil)

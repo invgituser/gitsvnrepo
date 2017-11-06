@@ -354,7 +354,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
       return null;
    }
 
-   public ArrayList<NotificationData> getNotificationDtls(Long logonid, String messageType, String status, String access,boolean bflag)
+   public ArrayList<NotificationData> getNotificationDtls(Long logonid, String messageType, String status, String access,boolean bflag,long acctnum)
    {
       DataSource ds = getDataSource();
       CommonSP sp = null;
@@ -397,7 +397,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
                      convert.getStrData(rs.get("clientAccountID"))
                   );
                   notificationList.add(i, ndata);
-               }else if(bflag && convert.getStrData(rs.get("status")).equalsIgnoreCase("H")){
+               }else if(bflag && convert.getStrData(rs.get("status")).equalsIgnoreCase("H") && convert.getLongData(rs.get("acctnum"))==acctnum){
                   NotificationData ndata = new NotificationData(
                      convert.getLongData(rs.get("messageid")),
                      convert.getStrData(rs.get("status")),

@@ -757,6 +757,8 @@ public class CustomerData extends ProfileData
       setRegisteredState(newgoals.getRegisteredState());
       setUserAssetOverride(false);
       setName(newgoals.getFirstname() + " " + newgoals.getLastname());
+      setSettleCurrency(newgoals.getSettleCurrency());
+      setTradeCurrency(newgoals.getTradeCurrency());
 
       accountFinancials = newgoals.accountFinancials;
    }
@@ -1264,6 +1266,14 @@ public class CustomerData extends ProfileData
    {
       return (getClientAccountID() != null)
          && (getActualInvestment() != null && getActualInvestment() > 0.0);
+   }
+
+   public Boolean getReqPrflCnf(){
+      if(getManaged() && getCurrentStatus().equalsIgnoreCase("CONFIRMATION")){
+         return true;
+      }else {
+         return false;
+      }
    }
 
    public String getDisplayActiveAcctNum()

@@ -169,7 +169,7 @@ public class ConsumerNotificationBean implements Serializable
          if (notificationType == null || notificationType.isEmpty())
             notificationType = "M";
 //         notificationDataList = advisorListDAO.getAdvisorNotification(logonid, notificationType, filterNotice);
-         notificationDataList = commonDAO.getNotificationDtls(webutil.getLogonid(),notificationType, filterNotice,webutil.getAccess(),false);
+         notificationDataList = commonDAO.getNotificationDtls(webutil.getLogonid(),notificationType, filterNotice,webutil.getAccess(),false,0l);
       }
    }
 

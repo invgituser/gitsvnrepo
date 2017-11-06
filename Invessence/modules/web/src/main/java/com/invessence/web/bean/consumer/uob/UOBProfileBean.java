@@ -401,7 +401,6 @@ public class UOBProfileBean extends CustomerData implements Serializable
             setAltrOnChngStrategy(true);
             setDoesUserHavaLogonID(false);  //  This is default, but fetchCustomer will set reset it.
             flagforInvestShow = false;
-            setTradeCurrency(getWebutil().getWebprofile().getInfo("DEFAULT.CURRENCY"));
 
             masterpagemanager = new PagesImpl(3);
             masterpagemanager.setPage(0);
@@ -409,6 +408,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
             if (newapp != null && newapp.startsWith("N"))
             {
                beanAcctnum = null;
+               setTradeCurrency(getWebutil().getWebprofile().getInfo("DEFAULT.CURRENCY"));
             }
             else
             {
@@ -418,7 +418,6 @@ public class UOBProfileBean extends CustomerData implements Serializable
                   return;
                }
             }
-            selctedSettleCurrency=getTradeCurrency();
             riskCalculator.setNumberofQuestions(9);
             whichChart = "pie";
             setPrefView(0);
@@ -429,6 +428,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
             fetchClientData();
 
             canOpenAccount = initCanOpenAccount();
+            selctedSettleCurrency=getSettleCurrency();
+            getGoalFields();
 /*
             if (canOpenAccount == -1)
             {
@@ -501,12 +502,10 @@ public class UOBProfileBean extends CustomerData implements Serializable
       isAllDataEntered();
    }
 
-   public void onGoalChangeValue()
-   {
+   public void getGoalFields(){
       String selectedgoal;
-      formEdit = true;
       selectedgoal = (getGoal() == null || getGoal().isEmpty()) ? "Other" : getGoal();
-      System.out.println("selectedgoal"+selectedgoal);
+//      System.out.println("getGoalFields "+selectedgoal);
       if(selectedgoal.equalsIgnoreCase("College")){
          dsplClgPnl=true;
          setAge(20);
@@ -519,6 +518,15 @@ public class UOBProfileBean extends CustomerData implements Serializable
       }else{
          dsplOtrPnl=false;
       }
+   }
+
+   public void onGoalChangeValue()
+   {
+      String selectedgoal;
+      formEdit = true;
+      selectedgoal = (getGoal() == null || getGoal().isEmpty()) ? "Other" : getGoal();
+//      System.out.println("selectedgoal"+selectedgoal);
+      getGoalFields();
       riskCalculator.setInvestmentobjective(selectedgoal);
       Double riskIndex = riskCalculator.calculateRisk();
       createAssetPortfolio(1, riskIndex);
@@ -531,8 +539,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
          setExchangeRate(1.0);
       }else{
          Double hmExchangeRate=userAdvisorCurr.get(selctedSettleCurrency);
-         System.out.println("hmExchangeRate "+hmExchangeRate);
-         System.out.println("selctedSettleCurrency "+selctedSettleCurrency);
+//         System.out.println("hmExchangeRate "+hmExchangeRate);
+//         System.out.println("selctedSettleCurrency "+selctedSettleCurrency);
          setSettleCurrency(selctedSettleCurrency);
         setExchangeRate(hmExchangeRate);
       }
@@ -546,6 +554,9 @@ public class UOBProfileBean extends CustomerData implements Serializable
       Double riskIndex = riskCalculator.calculateRisk();
       createAssetPortfolio(1, riskIndex);
       isAllDataEntered();
+   }
+   public void onChangeDesc()
+   {
    }
 
    public void calculateGoal()
@@ -711,6 +722,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
 //            loadNewClientData();
 
          }
+
          if (getManaged()) {
             setCanSaveData(false);
          }
@@ -748,13 +760,13 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public void onAllocSlider(SlideEndEvent event)
    {
-      System.out.println(event.getValue());
+//      System.out.println(event.getValue());
       setRiskCalcMethod(WebConst.ADVISOR_RISK_FORMULA);
       setAllocationIndex(event.getValue());
       formEdit = true;
       Double riskIndex = riskCalculator.calculateRisk();
       createAssetPortfolio(1, riskIndex);
-      System.out.println(" onAllocSlider ind "+getAllocationIndex());
+//      System.out.println(" onAllocSlider ind "+getAllocationIndex());
       setSliderAllocationIndex(getAllocationIndex());
       setFlagforInvestShow(true);
    }
@@ -776,7 +788,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
       Double riskIndex = riskCalculator.calculateRisk();
       createAssetPortfolio(1, riskIndex);
-      System.out.println(" doAllocReset ind "+getAllocationIndex());
+//      System.out.println(" doAllocReset ind "+getAllocationIndex());
       setSliderAllocationIndex(getAllocationIndex());
    }
 
@@ -1111,7 +1123,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public void gotoNextPage()
    {
-      System.out.println("In "+pagemanager.getPage());
+//      System.out.println("In "+pagemanager.getPage());
       Integer currentpage = pagemanager.getPage();
       if (validatePage(currentpage))
       {
@@ -1128,7 +1140,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
          }
          saveProfile(getRiskCalculator());
       }
-      System.out.println("Out "+pagemanager.getPage());
+//      System.out.println("Out "+pagemanager.getPage());
    }
 
    public void goAfterSrategy(){
@@ -1370,15 +1382,15 @@ public class UOBProfileBean extends CustomerData implements Serializable
       if (getSavedRiskFormula() == null || getSavedRiskFormula().isEmpty())
       {
          setSavedRiskFormula(getRiskCalcMethod());
-         System.out.println(" showFTPanel if  ind "+getAllocationIndex());
+//         System.out.println(" showFTPanel if  ind "+getAllocationIndex());
          setSavedAllocSliderIndex(getAllocationIndex());
       }
-      System.out.println(" showFTPanel ifouter  ind "+getAllocationIndex());
+//      System.out.println(" showFTPanel ifouter  ind "+getAllocationIndex());
       setSliderAllocationIndex(getAllocationIndex());
       setDisplayFTPanel(true);
       setEnableChangeStrategy(false);
       setAltrOnChngStrategy(false);
-      System.out.println("riskVariance "+riskVariance);
+//      System.out.println("riskVariance "+riskVariance);
       if(formEdit)
       {
          setCstmSliderMaxAlloc(((getAllocationIndex() + riskVariance) >= 99 ? 99 : getAllocationIndex() + riskVariance));
@@ -1388,15 +1400,15 @@ public class UOBProfileBean extends CustomerData implements Serializable
          setCstmSliderMinAlloc(((riskCalculator.getRiskByQuestion().intValue() - riskVariance) < 0 ? 0 : riskCalculator.getRiskByQuestion().intValue() - riskVariance));
       }
 
-      System.out.println("riskVariance max "+cstmSliderMaxAlloc);
+//      System.out.println("riskVariance max "+cstmSliderMaxAlloc);
 
-      System.out.println("riskVariance min"+cstmSliderMinAlloc);
+//      System.out.println("riskVariance min"+cstmSliderMinAlloc);
 
    }
 
    public void saveFTPanel() {
       setSavedRiskFormula(getRiskCalcMethod());
-      System.out.println(" saveFTPanel ifouter  ind "+getAllocationIndex());
+//      System.out.println(" saveFTPanel ifouter  ind "+getAllocationIndex());
       setSavedAllocSliderIndex(getAllocationIndex());
       setSliderAllocationIndex(getAllocationIndex());
       if(formEdit){
@@ -1418,7 +1430,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
    }
 
    public void cancelFTPanel() {
-      System.out.println("cancelFTPanel In");
+//      System.out.println("cancelFTPanel In");
       setRiskCalcMethod(getSavedRiskFormula());
       setSliderAllocationIndex(getSavedAllocSliderIndex());
       // riskCalculator.setRiskFormula(savedRiskFormula);
@@ -1426,7 +1438,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       Double riskIndex = riskCalculator.calculateRisk();
       createAssetPortfolio(1, riskIndex);
       closeFTPanel();
-      System.out.println("cancelFTPanel Out");
+//      System.out.println("cancelFTPanel Out");
    }
 
    public void gotoReview() {

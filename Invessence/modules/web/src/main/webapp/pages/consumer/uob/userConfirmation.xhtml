@@ -13,10 +13,10 @@
             <!--  <h3 class="BigTopic">User Confirmation</h3> -->
             <div class="container100 progressbarsag user-confirm-progressbar">
                 <div class="loadPgNm">
-                    <span> Goal </span>
-                    <span> Assets </span>
-                    <span> Liabilities </span>
-                    <span> Risk </span>
+                    <span class="done"> Goal </span>
+                    <span class="done"> Assets </span>
+                    <span class="done"> Liabilities </span>
+                    <span class="done"> Risk </span>
                     <span class="active"> Confirmation </span>
                 </div>
             </div>
@@ -137,7 +137,7 @@
                                     </f:facet>
                                     <h:outputText id="uobtnam" value="#{ticker.namePlusSymbol}"/>
                                 </p:column>
-                                <p:column style="width:13%;"
+                                <p:column style="width:10%;"
                                           styleClass="Fs12 num-text-align TexAlRight">
                                     <!-- ROHIT's CHANGE -->
                                     <f:facet name="header">
@@ -148,25 +148,35 @@
                                     </h:outputText>
                                 </p:column>
 
-                                <p:column style="width:22%;"
+                                <p:column style="width:10%;"
+                                          styleClass="Fs12 num-text-align TexAlRight">
+                                    <!-- Prashant intro 2017-Sept -->
+                                    <f:facet name="header">
+                                        <h:outputText value="Currency"/>
+                                    </f:facet>
+                                    <h:outputText id="uobbasecurrency" value="#{ticker.tradeCurrency}">
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column style="width:19%;"
                                           styleClass="Fs12 num-text-align TexAlRight">
                                     <!-- ROHIT's CHANGE -->
                                     <f:facet name="header">
                                         <h:outputText value="Value"/>
                                     </f:facet>
                                     <h:outputText id="uobtval" value="#{ticker.value}">
-                                        <f:convertNumber pattern="$##,###,###"/>
+                                        <f:convertNumber pattern="##,###,###"/>
                                     </h:outputText>
                                 </p:column>
 
                                 <p:columnGroup type="footer">
                                     <p:row>
-                                        <p:column/>
-                                        <p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
+                                        <p:column />
+                                        <p:column colspan="3" styleClass="Fs14 TexAlLeft FontBold"
                                                   footerText="Total">
                                         </p:column>
                                         <p:column styleClass="Fs14 TexAlRight FontBold" id="uobttot2"
-                                                  footerText="#{dataDisplayConverter.displayAsMoneyRounded(uobpb.totalMoneyAllocated)}">
+                                                  footerText="#{dataDisplayConverter.displayWithComma(uobpb.totalMoneyAllocated)}">
                                         </p:column>
                                     </p:row>
                                 </p:columnGroup>

@@ -206,6 +206,8 @@
                                     </div>
                                  </p:commandLink>
                               </div>
+
+                              <ui:fragment rendered="#{!uobdash.selAccountList.get(0).reqPrflCnf}">
                               <div class="Container30 centerRelCenter Fleft">
                                  <p:commandLink action="#{uobdash.doPortfolioSelectedActionNew}" process="@this" disabled="#{uobdash.selAccountList.get(0).canIEditAccount}">
                                     <div class="boxBtn">
@@ -218,12 +220,13 @@
                                     </div>
                                  </p:commandLink>
                               </div>
-                              <ui:fragment rendered="false">
+                              </ui:fragment>
+                              <ui:fragment rendered="#{uobdash.selAccountList.get(0).reqPrflCnf}">
                                  <div class="Container30 centerRelRight Fleft">
                                     <p:commandLink action="#{uobdash.doPrflCnfActionNew}" process="@this"
                                                    disabled="#{uobdash.selAccountList.get(0).canIEditAccount or !uobdash.selAccountList.get(0).hasClientID}">
                                        <div class="boxBtn">
-                                          <i class="fa fa-university" aria-hidden="true"></i> <label>Portfolio Confirmation</label>
+                                          <i class="fa fa-pie-chart" aria-hidden="true"></i> <label>Portfolio Confirmation</label>
                                        </div>
                                     </p:commandLink>
                                  </div>
@@ -367,6 +370,7 @@
                                                 }
                                                 $('#idDbdGoalSave').hide();
                                                 $('#idDbdGoalCancel').hide();
+                                                document.getElementById("uobIndxform:inpDbGoal").disabled = true;
 
                                                 $( "#idDbdGoalEdit" ).click(function() {
                                                    $('#idDbdGoalSave').show();
@@ -374,6 +378,7 @@
                                                    $('#idDbdGoalEdit').hide();
                                                    $('#idDbdGoalDesc').addClass('dbdTxtBox');
                                                    $('#idDbdGoalDesc').attr('contentEditable','true');
+                                                   document.getElementById("uobIndxform:inpDbGoal").disabled = false;
                                                 })
                                                 $( "#idDbdGoalSave" ).click(function() {
                                                    $('#idDbdGoalSave').hide();
@@ -381,6 +386,7 @@
                                                    $('#idDbdGoalEdit').show();
                                                    $('#idDbdGoalDesc').attr('contentEditable','false');
                                                    $('#idDbdGoalDesc').removeClass('dbdTxtBox');
+                                                   document.getElementById("uobIndxform:inpDbGoal").disabled = true;
                                                 })
                                                 $( "#idDbdGoalCancel" ).click(function() {
                                                    $('#idDbdGoalSave').hide();
@@ -390,6 +396,7 @@
                                                    document.getElementById("uobIndxform:inpDbGoal").value=document.getElementById("uobIndxform:idGoalHidden").value;
                                                    $('#idDbdGoalDesc').attr('contentEditable','false');
                                                    $('#idDbdGoalDesc').removeClass('dbdTxtBox');
+                                                   document.getElementById("uobIndxform:inpDbGoal").disabled = true;
                                                 })
 
 

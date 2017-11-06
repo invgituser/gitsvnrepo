@@ -93,7 +93,7 @@ public class ConsumerDashBean extends CustomerData implements Serializable
             accoutListZize=0;
          }
 
-         highNotification = commonDAO.getNotificationDtls(webutil.getLogonid(), "M", "N",webutil.getAccess(),true);
+         highNotification = commonDAO.getNotificationDtls(webutil.getLogonid(), "M", "N",webutil.getAccess(),true,selAcctNum);
          System.out.println("highNotification "+highNotification.size());
       }
       catch (Exception e)
@@ -111,7 +111,10 @@ public class ConsumerDashBean extends CustomerData implements Serializable
       manageAccountList = listDAO.getClientProfileList(logonid,null, null, webutil.getUserInfoData().getAdvisor(), webutil.getUserInfoData().getRep());
       if(manageAccountList!=null && manageAccountList.size()>0){
          dispNoRcrd=false;
-         selAcctNum=manageAccountList.get(0).getAcctnum();
+         if(selAcctNum==0)
+         {
+            selAcctNum = manageAccountList.get(0).getAcctnum();
+         }
          showSelAcctDtls();
       }else{
          dispNoRcrd=true;
@@ -350,7 +353,7 @@ public class ConsumerDashBean extends CustomerData implements Serializable
          date = df.parse(selAccountList.get(0).getDisplayDateOpened());
 //         System.out.println(date);
 
-         SimpleDateFormat dt1 = new SimpleDateFormat("d MMM, yy");
+         SimpleDateFormat dt1 = new SimpleDateFormat("d MMM yyyy");
          acctOpnDtLbl=dt1.format(date);
          Map<String, String> configMap = webutil.getWebprofile().getWebInfo();
          HighChartsController highChartsController = new HighChartsController();

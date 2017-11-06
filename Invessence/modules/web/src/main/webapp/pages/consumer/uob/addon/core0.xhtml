@@ -12,7 +12,7 @@
             <span> Assets </span>
             <span> Liabilities </span>
             <span> Risk </span>
-            <span > Confirmation </span>
+            <span > Review </span>
         </div>
 
 
@@ -48,6 +48,8 @@
             <p:inputText style="width: 100%;" value="#{uobpb.customName}"
                            id="uobCustomName"
                            maxlength="60">
+                <p:ajax listener="#{uobpb.onChangeDesc}"
+                        update=":ceForm:graphArea, :ceForm:buttonArea"/>
             </p:inputText>
         </p:panel>
 
