@@ -1766,7 +1766,7 @@ a {
 
 .FullContainer {
     margin: 10px 0px;
-    padding-top: 50px;
+   /* padding-top: 50px;*/
 }
 
 .RightPanel {
@@ -3785,14 +3785,14 @@ input#tab2 + label:after, input#tab3 + label:after, input#tab4 + label:after {
 }
 .acc_button_block{margin: 25px 10px;float:left;}
 .rowBlock .dashboard_link:nth-child(1) {
-    color: #000;
+    text-align:center;
     width: 90%;
     box-shadow: 0px 0px 2px 1px #d2cbcb;
     padding: 10px;
     line-height: 1.50;
 }
 .dashboard_link .external_link_click {
-    float: left;}
+    float: left;padding: 0 42%;}
 .dashboard_link .click_icon {
     padding: 3px 0 0;
     width: auto;
