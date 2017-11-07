@@ -3,7 +3,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:pe="http://primefaces.org/ui/extensions">
+                xmlns:pe="http://primefaces.org/ui/extensions" xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
     <!--<ui:define name="content">-->
 
@@ -18,6 +18,43 @@
                     <span class="done"> Liabilities </span>
                     <span class="done"> Risk </span>
                     <span class="active"> Review </span>
+                </div>
+            </div>
+            <div class="Container100 MarTop20" style="border-bottom: 2px solid #a4332f;">
+                <div class="Wid40 Fright IRERBlock">
+                    <div class="Wid35 Fright ReturnValuePanel">
+                        <div class="Wid100 ERLabel">Expected Return</div>
+                        <div class="Wid100 ERCount">
+                            <h:outputText id="uober1" value="#{uobpb.totalExpectedReturns}">
+                                <f:convertNumber pattern="##0.00%"/>
+                            </h:outputText>
+                        </div>
+                    </div>
+                    <div class="Wid35 Fright RiskValuePanel">
+                        <div class="Wid100 IRLabel">
+                            <h:outputLink id="IRinfoPOP1" value="#" style="color:#000000!important;">
+                                <i class="fa fa-info-circle" style="padding-right: 5px;"></i>Investment Risk
+                            </h:outputLink></div>
+                        <p:tooltip for="IRinfoPOP1" styleClass="tooltipIR" value="" position="bottom">
+                            <ul>
+                                <li>
+                                    Investment risk or volatility of a portfolio is a statistical measure of the dispersion of returns for a given portfolio.
+                                </li>
+                                <li>
+                                    Volatility can be measured by using the standard deviation of returns of the portfolio.
+                                </li>
+                                <li>
+                                    Commonly, the higher the volatility, the riskier the portfolio. Example, volatility of Singapore Government Bonds could be 1.58% vs. Singapore Equities could be as high as 17%.
+                                </li>
+                            </ul>
+                        </p:tooltip>
+                        <div class="Wid100 IRCount">
+                            <h:outputText id="uobir1" value="#{uobpb.totalRisk}">
+                                <f:convertNumber pattern="##0.00%"/>
+                            </h:outputText>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div class="outer_stategy_block user_confirmation_block">
@@ -218,14 +255,14 @@
                         </div>
                         <div class="Container30 save_btn">
                             <!--<ui:fragment rendered="#{uobpb.flagforInvestShow}">-->
-                            <ui:fragment rendered="#{uobdash.selAccountList.get(0).canIEditAccount or !uobdash.selAccountList.get(0).hasClientID}">
+                            <ui:fragment rendered="#{!uobdash.selAccountList.get(0).managed}">
                                 <p:commandLink id="invsetBtnCnf" value="Open Account"
                                                styleClass="investNowBtn "
                                                update=":ceForm:workArea"
                                                actionListener="#{uobpb.saveAccount}"/>
 
                             </ui:fragment>
-                            <ui:fragment rendered="#{uobdash.selAccountList.get(0).canIEditAccount or uobdash.selAccountList.get(0).hasClientID}">
+                            <ui:fragment rendered="#{uobdash.selAccountList.get(0).managed}">
                                 <p:commandLink id="invsetBtnCnf2" value="Next"
                                                styleClass="investNowBtn "
                                                update=":ceForm:workArea"

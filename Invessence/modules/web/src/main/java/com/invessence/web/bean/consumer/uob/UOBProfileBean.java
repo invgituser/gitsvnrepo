@@ -1458,7 +1458,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
       {
          // Call Register User.  If he is not registered.  If Registration fails, then stay on the same page.
          if (registerUser()) {
-            uiLayout.doMenuAction("consumer", "acc_opening.xhtml?acct=" + getAcctnum().toString());
+//            uiLayout.doMenuAction("consumer", "acc_opening.xhtml?acct=" + getAcctnum().toString());
+            uiLayout.doCustody(getLogonid(),getAcctnum(),"custody","acctOpening.xhtml");
          }
       }
       else {

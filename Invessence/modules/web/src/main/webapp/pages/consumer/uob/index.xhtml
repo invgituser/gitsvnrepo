@@ -240,10 +240,11 @@
                                  </p:commandLink>
                               </div>
                            </div>
+
+                           <ui:fragment rendered="#{uobdash.dispHghAlrt}">
                            <div class="rowBlock">
                               <div class="Wid100 cellBlock ">
                                  <div class="dashboard_link">
-                                 <ui:fragment rendered="true">
                                     <p:repeat value="#{uobdash.highNotification}" var="notfBn">
                                        <h:outputText value="#{notfBn.message}" escape="false" />
                                        <ui:fragment rendered='#{notfBn.linkAvailable}'>
@@ -255,10 +256,10 @@
                                           </a>
                                        </ui:fragment>
                                     </p:repeat>
-                                 </ui:fragment>
                                  </div>
                               </div>
                            </div>
+                           </ui:fragment>
                         </div>
 
                         <!--<div class="Container100 leftAccountInfoBlock MoileModeAcctOvw">-->

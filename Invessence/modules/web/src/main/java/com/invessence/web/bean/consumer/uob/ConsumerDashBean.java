@@ -64,7 +64,7 @@ public class ConsumerDashBean extends CustomerData implements Serializable
    private String goalcstmnm;
    private ArrayList<NotificationData> highNotification;
    private String acctOpnDtLbl;
-   private boolean dispNoRcrd=true;
+   private boolean dispNoRcrd=true,dispHghAlrt=false;
 //   private UOBRiskCalculator riskCalculator;
 //   private String whichChart;
 //   public String riskCalcMethod = "C";
@@ -94,7 +94,11 @@ public class ConsumerDashBean extends CustomerData implements Serializable
          }
 
          highNotification = commonDAO.getNotificationDtls(webutil.getLogonid(), "M", "N",webutil.getAccess(),true,selAcctNum);
-         System.out.println("highNotification "+highNotification.size());
+         if(highNotification!=null && highNotification.size()>0){
+            dispHghAlrt=true;
+         }else{
+            dispHghAlrt=false;
+         }
       }
       catch (Exception e)
       {
@@ -259,7 +263,7 @@ public class ConsumerDashBean extends CustomerData implements Serializable
       {
          uiLayout.doMenuAction("custody", "funding.xhtml?app=E&acct=" +selAcctNum);
 
-//         uiLayout.doMenuAction("custody", "editfunding.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
+         uiLayout.doMenuAction("custody", "editfunding.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
       }
       catch (Exception ex)
       {
@@ -534,5 +538,15 @@ public class ConsumerDashBean extends CustomerData implements Serializable
    public void setDispNoRcrd(boolean dispNoRcrd)
    {
       this.dispNoRcrd = dispNoRcrd;
+   }
+
+   public boolean isDispHghAlrt()
+   {
+      return dispHghAlrt;
+   }
+
+   public void setDispHghAlrt(boolean dispHghAlrt)
+   {
+      this.dispHghAlrt = dispHghAlrt;
    }
 }

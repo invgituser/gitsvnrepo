@@ -256,6 +256,37 @@ public class UILayout implements Serializable
       }
    }
 
+   public void doCustody(Long logonid, Long acctnum,String location,String page)
+   {
+      try
+      {
+         String custody_service =  webutil.getWebprofile().getWebInfo().get("CUSTODY.SERVICE");
+         if (custody_service != null) {
+            if (custody_service.equalsIgnoreCase("URL")) {
+               String custodyURL =  webutil.getWebprofile().getWebInfo().get("CUSTODY.URL");
+               if (custodyURL != null && !custodyURL.isEmpty()) {
+                  forwardURL(custodyURL);
+                  return;
+               }
+            }
+            else if (custody_service.equalsIgnoreCase("INTERNAL")) {
+               if (webutil.getWebprofile().getCustodydir() != null && !webutil.getWebprofile().getCustodydir().isEmpty()) {
+                  doMenuAction(location, page+"?l="+logonid.toString()+"&acct="+acctnum.toString());
+                  // tdcto.startCTO(logonid,acctnum);
+                  return;
+               }
+            }
+         }
+         String msgheader = "custody.100";
+         webutil.redirecttoMessagePage("ERROR", "Service Error", msgheader);
+         return;
+      }
+      catch (Exception ex)
+      {
+         webutil.redirect("/pages/common/invalid.xhtml", null);
+      }
+   }
+
 
    public void doMenuAction(String location, String menuItem)
    {
