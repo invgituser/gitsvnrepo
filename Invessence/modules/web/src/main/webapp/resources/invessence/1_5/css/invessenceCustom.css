@@ -4790,7 +4790,10 @@ td.bullet_td span {
     background-color: #a4332f;
     border: #a4332f;
 }
-
+.ui-button.ui-state-hover .ui-button-text, .ui-buttonset .ui-state-hover .ui-button-text {
+    background-color: #a4332f;
+    opacity: 0.7;
+}
 
 
 
