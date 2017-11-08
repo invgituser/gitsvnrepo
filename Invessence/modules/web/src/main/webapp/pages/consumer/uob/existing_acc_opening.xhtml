@@ -1,0 +1,509 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:pe="http://primefaces.org/ui/extensions"
+				template="/template/common/template.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="acct" value="#{uobpos.acctnum}"/>
+		<f:event type="preRenderView" listener="#{uobpos.preRenderView}"/>
+	</f:metadata>
+
+	<ui:define name="content">
+		<h:outputScript name="js/invCharts.js" library="#{uiLayout.webProfile.cssdir}"/>
+		<h:form>
+
+			<div class="layout-portlets-box">
+				<div class="Container100 Responsive100 acc_holder_form">
+					<div class="ContainerIndent">
+
+						<p:accordionPanel multiple="true" styleClass="marginZero">
+
+
+							<p:tab title="Account Holder">
+								<div class="Container100 Responsive100 acc_holder_form">
+
+									<!--  <p:growl id="msgs" showDetail="true" /> -->
+
+									<p:tabView>
+										<p:tab title="Main Account Holder">
+
+											<div class="go-bottom">
+												<div class="acc_holder_dtl_block">
+													<div class="Container20 Responsive100 select_item">
+														<p:selectOneMenu id="title" value="Select Title" name="title" >
+															<f:selectItem itemLabel="Select Title" itemValue="" />
+															<f:selectItem itemLabel="Dr" itemValue="Dr" />
+															<f:selectItem itemLabel="Professor" itemValue="Professor" />
+															<f:selectItem itemLabel="Mr" itemValue="Mr" />
+															<f:selectItem itemLabel="Mrs" itemValue="Mrs" />
+															<f:selectItem itemLabel="Miss" itemValue="Miss" />
+															<f:selectItem itemLabel="Mdm" itemValue="Mdm" />
+														</p:selectOneMenu>
+
+													</div>
+													<div class="Container80 Responsive100">
+														<input id="name" name="name" type="text" placeholder="Full Name"/>
+														<label for="name">Full Name</label>
+													</div>
+												</div>
+
+
+
+
+												<div class="acc_holder_dtl_block ">
+
+													<div class="Container100 Responsive100 margin-top width99" >
+														<input id="nric" name="nric" type="text" placeholder="NRIC Number"/>
+														<label for="nric">NRIC /Passport Number</label>
+													</div>
+
+
+
+												</div>
+												<div class="acc_holder_dtl_block contact_dtl_block">
+													<div class="Container50 Responsive100">
+														<div class="Container20 Responsive100">
+															<span>Country Code</span>
+															<input id="countrycode" name="countrycode" type="text" placeholder=""/>
+															<!-- <label for="offTel">Office Tel No</label>	 -->
+														</div>
+														<div class="Container80 Responsive100">
+															<span>Area Code / Number</span>
+															<div class="Container100">
+																<input id="homeTel" name="homeTel" type="text" placeholder="Home Tel No"/>
+																<label for="homeTel">Home Tel No</label>
+															</div>
+														</div>
+													</div>
+													<div class="Container50 Responsive100">
+														<div class="Container20 Responsive100">
+															<span>Country Code</span>
+															<input id="countrycode" name="countrycode" type="text" placeholder=""/>
+															<!-- <label for="offTel">Office Tel No</label>	 -->
+														</div>
+														<div class="Container80 Responsive100">
+															<span>Area Code / Number</span>
+															<div class="Container100">
+																<input id="mobTel" name="mobTel" type="text" placeholder="Mobile No"/>
+																<label for="mobTel">Mobile No</label>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="acc_holder_dtl_block">
+													<div class="Container50 Responsive100">
+														<div class="Container20 Responsive100">
+
+															<input id="countrycode" name="countrycode" type="text" placeholder=""/>
+															<!-- <label for="offTel">Office Tel No</label>	 -->
+														</div>
+														<div class="Container80 Responsive100">
+
+															<input id="offTel" name="offTel" type="text" placeholder="Office Tel No"/>
+															<label for="offTel">Office Tel No</label>
+														</div>
+													</div>
+													<div class="Container50 Responsive100">
+														<div class="Container20 Responsive100">
+
+															<input id="countrycode" name="countrycode" type="text" placeholder=""/>
+															<!-- <label for="offTel">Office Tel No</label>	 -->
+														</div>
+														<div class="Container80 Responsive100">
+
+															<input id="faxTel" name="faxTel" type="text" placeholder="Fax No"/>
+															<label for="faxTel">Fax No</label>
+														</div>
+													</div>
+												</div>
+												<div class="acc_holder_dtl_block">
+													<div class="Container100 width99">
+														<input id="emailadd" name="emailadd" type="text" placeholder="Email Address"/>
+														<label for="emailadd">Email Address</label>
+													</div>
+												</div>
+
+											</div>
+
+										</p:tab>
+										<!--  joint account holder -->
+										<p:tab title="Joint Account Holder">
+											<div class="go-bottom">
+												<div class="acc_holder_dtl_block">
+													<div class="Container20 Responsive100 select_item">
+														<p:selectOneMenu id="jointtitle" value="Select Title" name="title" >
+															<f:selectItem itemLabel="Select Title" itemValue="" />
+															<f:selectItem itemLabel="Dr" itemValue="Dr" />
+															<f:selectItem itemLabel="Mr" itemValue="Mr" />
+															<f:selectItem itemLabel="Mrs" itemValue="Mrs" />
+															<f:selectItem itemLabel="Miss" itemValue="Miss" />
+														</p:selectOneMenu>
+
+													</div>
+													<div class="Container80 Responsive100">
+														<input id="jointname" name="name" type="text" placeholder="Full Name"/>
+														<label for="name">Full Name</label>
+													</div>
+												</div>
+
+
+
+
+												<div class="acc_holder_dtl_block ">
+
+
+													<div class="Container25 Responsive100 pass_nric_no" >
+														<input id="jointnric" name="nric" type="text" placeholder="NRIC / Passport Number"/>
+														<label for="nric">NRIC / Passport Number</label>
+													</div>
+
+												</div>
+												<div class="acc_holder_dtl_block contact_dtl_block">
+													<div class="Container50 Responsive100">
+														<div class="Container20 Responsive100">
+															<span>Country Code</span>
+															<input id="jointcountrycode" name="countrycode" type="text" placeholder=""/>
+															<!-- <label for="offTel">Office Tel No</label>	 -->
+														</div>
+														<div class="Container80 Responsive100">
+															<span>Area Code / Number</span>
+															<div class="Container100">
+																<input id="jointhomeTel" name="homeTel" type="text" placeholder="Home Tel No"/>
+																<label for="homeTel">Home Tel No</label>
+															</div>
+														</div>
+													</div>
+													<div class="Container50 Responsive100">
+														<div class="Container20 Responsive100">
+															<span>Country Code</span>
+															<input id="jointcountrycode" name="countrycode" type="text" placeholder=""/>
+															<!-- <label for="offTel">Office Tel No</label>	 -->
+														</div>
+														<div class="Container80 Responsive100">
+															<span>Area Code / Number</span>
+															<div class="Container100">
+																<input id="jointmobTel" name="mobTel" type="text" placeholder="Mobile No"/>
+																<label for="mobTel">Mobile No</label>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="acc_holder_dtl_block">
+													<div class="Container50 Responsive100">
+														<div class="Container20 Responsive100">
+
+															<input id="jointcountrycode" name="countrycode" type="text" placeholder=""/>
+															<!-- <label for="offTel">Office Tel No</label>	 -->
+														</div>
+														<div class="Container80 Responsive100">
+
+															<input id="jointoffTel" name="offTel" type="text" placeholder="Office Tel No"/>
+															<label for="offTel">Office Tel No</label>
+														</div>
+													</div>
+													<div class="Container50 Responsive100">
+														<div class="Container20 Responsive100">
+
+															<input id="jointcountrycode" name="countrycode" type="text" placeholder=""/>
+															<!-- <label for="offTel">Office Tel No</label>	 -->
+														</div>
+														<div class="Container80 Responsive100">
+
+															<input id="jointfaxTel" name="faxTel" type="text" placeholder="Fax No"/>
+															<label for="faxTel">Fax No</label>
+														</div>
+													</div>
+												</div>
+												<div class="acc_holder_dtl_block">
+													<div class="Container100">
+														<input id="jointemailadd" name="emailadd" type="text" placeholder="Email Address"/>
+														<label for="emailadd">Email Address</label>
+													</div>
+												</div>
+
+											</div>
+										</p:tab>
+
+									</p:tabView>
+
+								</div>
+								<div class="Container100 pre_next_btn">
+									<!--<div class="Container50 Responsive100 pre_btn">
+										<span class="ui-button-icon-center ui-icon ui-c fa fa-edit fa-chevron-left"></span>
+									</div>-->
+									<div class="Container50 Responsive100 next_btn">
+										<span class="ui-button-icon-center ui-icon ui-c fa fa-chevron-right"></span>
+									</div>
+
+								</div>
+							</p:tab>
+
+
+							<p:tab title="Tax Residence Information">
+								<div class="Container100 Responsive100 holder_address acc_holder_form ">
+									<p:tabView>
+										<p:tab title="Main Account Holder">
+
+											<div class="go-bottom">
+												<div class="Container100">
+													<p:dataTable>
+														<p:column headerText="Jurisdiction Of Tax">
+															<h:outputText value="" />
+														</p:column>
+
+														<p:column headerText="Tax Id">
+															<h:outputText value="" />
+														</p:column>
+
+														<p:column headerText="Reason">
+															<h:outputText value="" />
+														</p:column>
+
+
+													</p:dataTable>
+												</div>
+												<div class="Container100 add_tax_info ">
+													<p:commandButton id="uobAddBtn"
+																	 value="Add"
+																	 styleClass="uob_button add_btn"
+																	 actionListener="#{uobpb.investnow}"  icon="ui-icon-plus">
+
+													</p:commandButton>
+
+												</div>
+												<div class="Container100 panel_block acc_panel_block">
+													<div class="panel_close">
+														<span class="ui-button-icon-center ui-icon ui-c fa fa-close"></span>
+													</div>
+													<div class="Container60 Responsive100 select_item">
+														<div class="Container100"><span class="title_line">Country / Jurisdiction Of Tax Residence</span></div>
+														<p:selectOneMenu id="conutry1" value="Country / Jurisdiction Of Tax Residence " >
+															<f:selectItem itemLabel="Select Jurisdiction / Country Of Tax" itemValue="" />
+															<f:selectItem itemLabel="Singapore" itemValue="Singapore" />
+															<f:selectItem itemLabel="Malaysia" itemValue="Malaysia" />
+														</p:selectOneMenu>
+
+													</div>
+
+													<div class="acc_holder_dtl_block ">
+														<div class="Container100 select_item">
+															<div class="Container40 Responsive100 label_opacity radio_label">
+																<div class="Container60 ">
+																	<span class="title_line">Have Tax Identification Number ?</span>
+																</div>
+																<div class="Container40">
+																	<p:selectOneRadio id="radio" value="" >
+																		<f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
+																		<f:selectItem itemLabel="No" itemValue="value1" ></f:selectItem>
+																	</p:selectOneRadio>
+																</div>
+															</div>
+															<div class="Container50 Responsive100">
+																<input id="taxId" name="taxId" type="text" placeholder="Tax Identification Number"/>
+																<label for="taxId">Tax Identification Number</label>
+															</div>
+														</div>
+														<!-- <div class="Container100 select_item">
+                                                            <div class="Container30 Responsive30 label_opacity radio_label">
+                                                                <div class="Container50">
+                                                                    Have citizenship ?
+                                                                </div>
+                                                                <div class="Container40">
+                                                                    <p:selectOneRadio id="radio1" value="" >
+                                                                        <f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
+                                                                        <f:selectItem itemLabel="No" itemValue="value1" ></f:selectItem>
+                                                                    </p:selectOneRadio>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="Container60 Responsive100">
+                                                                <input id="cityId" name="cityId" type="text" placeholder="Citizenship Id"/>
+                                                                <label for="cityId">Citizenship Id</label>
+                                                            </div>
+
+                                                        </div> -->
+														<div class="Container100 Responsive100 label_opacity radio_select">
+															<p:selectOneRadio id="radio3" value="" >
+																<f:selectItem itemLabel="A. The country/jurisdiction where the Account Holder is resident does not issue Tax Identification Number(s) to its residents" itemValue="value1" ></f:selectItem>
+															</p:selectOneRadio>
+															<p:selectOneRadio id="radio4" value="" >
+																<f:selectItem itemLabel="B. The Account Holder is otherwise unable to obtain a Tax Identification Number or equivalent number (Please explain why you are unable to obtain a Tax Identification Number in the below table if you have selected this reason)" itemValue="value1" ></f:selectItem>
+															</p:selectOneRadio>
+															<input id="explain" name="explain" type="text" placeholder="Explain"/>
+															<p:selectOneRadio id="radio5" value="" class="last_radio">
+																<f:selectItem itemLabel="C. No Tax Identification Number is required as the domestic law of relevant jurisdiction does not require the collection of the Tax Identification Number issues by such jurisdiction " itemValue="value1" ></f:selectItem>
+															</p:selectOneRadio>
+														</div>
+														<h:form class="tax_info_btn">
+															<p:commandButton id="uobSaveBtn"
+																			 value="Save"
+																			 styleClass="uob_button save_btn"
+																			 actionListener="#{uobpb.investnow}">
+															</p:commandButton>
+
+														</h:form>
+
+
+													</div>
+												</div>
+											</div>
+
+										</p:tab>
+										<!-- joint account holder tab -->
+										<p:tab title="Joint Account Holder">
+
+											<div class="go-bottom">
+												<div class="Container100">
+													<p:dataTable>
+														<p:column headerText="Jurisdiction Of Tax">
+															<h:outputText value="" />
+														</p:column>
+
+														<p:column headerText="Tax Id">
+															<h:outputText value="" />
+														</p:column>
+
+														<p:column headerText="Reason">
+															<h:outputText value="" />
+														</p:column>
+
+
+													</p:dataTable>
+												</div>
+												<div class="Container100 add_tax_info ">
+													<p:commandButton id="jointuobAddBtn"
+																	 value="Add"
+																	 styleClass="uob_button add_btn"
+																	 actionListener="#{uobpb.investnow}"  icon="ui-icon-plus">
+
+													</p:commandButton>
+
+												</div>
+												<div class="Container100 panel_block acc_panel_block">
+													<div class="panel_close">
+														<span class="ui-button-icon-center ui-icon ui-c fa fa-close"></span>
+													</div>
+													<div class="Container60 Responsive100 select_item">
+														<div class="Container100"><span class="title_line">Jurisdiction / Country Of Tax</span></div>
+														<p:selectOneMenu id="jointconutry1" value="Select Jurisdiction / Country Of Tax " >
+															<f:selectItem itemLabel="Select Jurisdiction / Country Of Tax" itemValue="" />
+															<f:selectItem itemLabel="Country1" itemValue="Country1" />
+															<f:selectItem itemLabel="Country2" itemValue="Country2" />
+															<f:selectItem itemLabel="Country3" itemValue="Country3" />
+														</p:selectOneMenu>
+
+													</div>
+
+													<div class="acc_holder_dtl_block ">
+														<div class="Container100 select_item">
+															<div class="Container40 Responsive100 label_opacity radio_label">
+																<div class="Container60 ">
+																	<span class="title_line"> Have Tax Identification Number ?</span>
+																</div>
+																<div class="Container40">
+																	<p:selectOneRadio id="jointradio" value="" >
+																		<f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
+																		<f:selectItem itemLabel="No" itemValue="value1" ></f:selectItem>
+																	</p:selectOneRadio>
+																</div>
+															</div>
+															<div class="Container50 Responsive100">
+																<input id="jointtaxId" name="taxId" type="text" placeholder="Tax Identification Number"/>
+																<label for="taxId">Tax Identification Number</label>
+															</div>
+														</div>
+														<!-- <div class="Container100 select_item">
+                                                            <div class="Container30 Responsive30 label_opacity radio_label">
+                                                                <div class="Container50">
+                                                                    Have citizenship ?
+                                                                </div>
+                                                                <div class="Container40">
+                                                                    <p:selectOneRadio id="jointradio1" value="" >
+                                                                        <f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
+                                                                        <f:selectItem itemLabel="No" itemValue="value1" ></f:selectItem>
+                                                                    </p:selectOneRadio>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="Container60 Responsive100">
+                                                                <input id="jointcityId" name="cityId" type="text" placeholder="Citizenship Id"/>
+                                                                <label for="cityId">Citizenship Id</label>
+                                                            </div>
+
+                                                        </div> -->
+														<div class="Container100 Responsive100 label_opacity radio_select">
+															<p:selectOneRadio id="jointradio3" value="" >
+																<f:selectItem itemLabel="The country where the Account Holder is resident does not issue Tax Identification Number to its resident" itemValue="value1" ></f:selectItem>
+															</p:selectOneRadio>
+															<p:selectOneRadio id="jointradio4" value="" >
+																<f:selectItem itemLabel="The Account Holder is otherwise unenable to obtain a Tax Identification Number or equivalent (Please Explain)" itemValue="value1" ></f:selectItem>
+															</p:selectOneRadio>
+															<input id="jointexplain" name="explain" type="text" placeholder="Explain"/>
+															<p:selectOneRadio id="jointradio5" value="" class="last_radio">
+																<f:selectItem itemLabel="No Tax Identification Number require as th domestic law of the relevant jurisdiction does not require the collection of the Tax Identification Number issued by such jurisdiction " itemValue="value1" ></f:selectItem>
+															</p:selectOneRadio>
+														</div>
+														<h:form class="tax_info_btn">
+															<p:commandButton id="uobSaveBtn"
+																			 value="Save"
+																			 styleClass="uob_button save_btn"
+																			 actionListener="#{uobpb.investnow}">
+															</p:commandButton>
+
+														</h:form>
+
+
+													</div>
+												</div>
+											</div>
+
+										</p:tab>
+									</p:tabView>
+
+
+								</div>
+								<div class="Container100 pre_next_btn">
+									<div class="Container50 pre_btn">
+										<span class="ui-button-icon-center ui-icon ui-c fa fa-edit fa-chevron-left"></span>
+									</div>
+									<div class="Container50 next_btn">
+										<span class="ui-button-icon-center ui-icon ui-c fa fa-chevron-right"></span>
+									</div>
+
+								</div>
+							</p:tab>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						</p:accordionPanel>
+						<div class="Container20 Responsive100 submit_acc_dtl">
+							<h:form>
+								<p:commandButton id="uobSubmitBtn"
+												 value="Submit Account Details"
+												 styleClass="uob_button"
+												 actionListener="#{uobpb.investnow}">
+								</p:commandButton>
+
+							</h:form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
