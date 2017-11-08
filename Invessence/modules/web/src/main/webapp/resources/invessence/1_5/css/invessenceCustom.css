@@ -1756,8 +1756,8 @@ input {
 }
 
 .Sitelogo {
-    height: 40px;
-    padding: 5px 10px;
+    height: 48px;
+    padding: 1px 10px;
 }
 
 a {
@@ -4794,7 +4794,9 @@ td.bullet_td span {
     background-color: #a4332f;
     opacity: 0.7;
 }
-
+.acc_holder_form .ui-panel-titlebar {
+    background: #a4332f;
+}
 
 
 
