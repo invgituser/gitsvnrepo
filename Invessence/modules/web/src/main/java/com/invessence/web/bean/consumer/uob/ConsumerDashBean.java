@@ -13,6 +13,7 @@ import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.uob.UOBRiskCalculator;
 import com.invessence.web.util.*;
+import com.invmodel.asset.data.AssetClass;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -63,8 +64,8 @@ public class ConsumerDashBean extends CustomerData implements Serializable
    private boolean dsplStrategyCNfPnl;
    private String goalcstmnm;
    private ArrayList<NotificationData> highNotification;
-   private String acctOpnDtLbl;
-   private boolean dispNoRcrd=true,dispHghAlrt=false;
+   private String acctOpnDtLbl,dsplDbdInvstAmt,dsplDfltCrncy;
+   private boolean dispNoRcrd=true,dispHghAlrt=false,dsplPrflDtl=false;
 //   private UOBRiskCalculator riskCalculator;
 //   private String whichChart;
 //   public String riskCalcMethod = "C";
@@ -82,7 +83,7 @@ public class ConsumerDashBean extends CustomerData implements Serializable
          {
             if (webutil.validatePriviledge(WebConst.ROLE_USER)) {
                logonid = webutil.getLogonid();
-
+               dsplDfltCrncy=webutil.getWebprofile().getInfo("DEFAULT.CURRENCY");
                if (logonid != null)
                   collectData(logonid);
             }
@@ -318,90 +319,56 @@ public class ConsumerDashBean extends CustomerData implements Serializable
       try
       {
          selAccountList = listDAO.getClientProfileList(webutil.getLogonid(),selAcctNum, null, webutil.getUserInfoData().getAdvisor(), webutil.getUserInfoData().getRep());
-
-
-         List<Position> l1=posDao.loadDBPosition(webutil, selAcctNum,selAccountList.get(0).getManaged());
-
-
-         if(selAccountList.get(0).getCustomName().isEmpty())
+         if (selAccountList.get(0).getCustomName().isEmpty())
          {
-            setGoalcstmnm("Goal-"+selAccountList.get(0).getGoal());
-         }else{
-//            strGoalCstmName =selAccountList.get(0).getCustomName();
-            setGoalcstmnm(""+selAccountList.get(0).getCustomName());
+            setGoalcstmnm("Goal-" + selAccountList.get(0).getGoal());
          }
-//         rollupAssetClassByPosList(l1,Double.parseDouble(""+selAccountList.get(0).getInitialInvestment()));
-         if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("AccountBal")!=null){
+         else
+         {
+            setGoalcstmnm("" + selAccountList.get(0).getCustomName());
+         }
 
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("AccountBal");
-         }
-         Double amt=null;
-         if(selAccountList.get(0).getManaged()){
-             amt=selAccountList.get(0).getActualInvestment();
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("AccountBal",amt);
+         Double amt = null;
+         if (selAccountList.get(0).getManaged())
+         {
+            amt = selAccountList.get(0).getActualInvestment()*selAccountList.get(0).getExchangeRate();
 //            actualInvestment
-         }else{
+         }
+         else
+         {
 //            initialInvestment
-            Integer amt1=selAccountList.get(0).getInitialInvestment();
-             amt=Double.parseDouble(""+amt1);
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("AccountBal",amt);
+            Double amt1 = selAccountList.get(0).getInitialInvestment()*selAccountList.get(0).getExchangeRate();
+            amt = amt1;
          }
 
-         accoutListZize=selAccountList.size();
-         if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.SEL_ACCOUNT)!=null){
-
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.SEL_ACCOUNT);
-         }
-         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.SEL_ACCOUNT,selAcctNum);
+         accoutListZize = selAccountList.size();
 
          DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
          Date date = new Date();
          date = df.parse(selAccountList.get(0).getDisplayDateOpened());
-//         System.out.println(date);
-
          SimpleDateFormat dt1 = new SimpleDateFormat("d MMM yyyy");
-         acctOpnDtLbl=dt1.format(date);
-         Map<String, String> configMap = webutil.getWebprofile().getWebInfo();
-         HighChartsController highChartsController = new HighChartsController();
-         rollupAssetClassByPosList(l1,amt);
-         setResultChart(highChartsController.highChartrequesthandler(null,getAssetData(),configMap));
-         setTypeOfChart(webutil.getWebprofile().getInfo("CHART.ASSET.ALLOCATION"));
-//         System.out.println("Helloooooo ~@~["+getResultChart()+"]~@~");
-//         System.out.println("Helloooooo1 ~@~["+getTypeOfChart()+"]~@~");
+         acctOpnDtLbl = dt1.format(date);
 
+         setResultChart("");
+         setTypeOfChart("");
+         setAssetData(new AssetClass[0]);
+         dsplPrflDtl=false;
+         DecimalFormat df2 = new DecimalFormat("##,###,##0.00");
+         dsplDbdInvstAmt= df2.format(amt);
+         System.out.println("converted amt "+dsplDbdInvstAmt);
+         List<Position> l1=null;
+         l1 = posDao.loadDBPosition(webutil, selAcctNum, selAccountList.get(0).getManaged());
+         if(l1!=null && l1.size()>0)
+         {
+            Map<String, String> configMap = webutil.getWebprofile().getWebInfo();
+            HighChartsController highChartsController = new HighChartsController();
+            rollupAssetClassByPosList(l1,amt);
+            setResultChart(highChartsController.highChartrequesthandler(null, getAssetData(), configMap));
+            setTypeOfChart(webutil.getWebprofile().getInfo("CHART.ASSET.ALLOCATION"));
 
-//         setDisplayFTPanel(false);
-//         setEnableChangeStrategy(true);
-//         setAltrOnChngStrategy(true);
-//         setDoesUserHavaLogonID(false);  //  This is default, but fetchCustomer will set reset it.
-//         flagforInvestShow = false;
-//
-//         masterpagemanager = new PagesImpl(3);
-//         masterpagemanager.setPage(0);
-//         pagemanager = new PagesImpl(9);
-//         if (newapp != null && newapp.startsWith("N"))
-//         {
-//            beanAcctnum = null;
-//         }
-//         else
-//         {
-//            if (!webutil.isUserLoggedIn())
-//            {
-//               webutil.redirect("/login.xhtml", null);
-//               return;
-//            }
-//         }
-//         riskCalculator.setNumberofQuestions(9);
-//         whichChart = "pie";
-//
-//         setPrefView(0);
-//         setRiskCalcMethod(WebConst.CONSUMER_RISK_FORMULA);
-//
-//         disablegraphtabs = true;
-//         disabledetailtabs = true;
-//         fetchClientData();
-//
-//         canOpenAccount = initCanOpenAccount();
+            System.out.println("DBD strDonutString~~>"+getResultChart()+"<~~");
+            dsplPrflDtl=true;
+         }
       }
       catch (Exception ex)
       {
@@ -548,5 +515,35 @@ public class ConsumerDashBean extends CustomerData implements Serializable
    public void setDispHghAlrt(boolean dispHghAlrt)
    {
       this.dispHghAlrt = dispHghAlrt;
+   }
+
+   public boolean isDsplPrflDtl()
+   {
+      return dsplPrflDtl;
+   }
+
+   public void setDsplPrflDtl(boolean dsplPrflDtl)
+   {
+      this.dsplPrflDtl = dsplPrflDtl;
+   }
+
+   public String getDsplDbdInvstAmt()
+   {
+      return dsplDbdInvstAmt;
+   }
+
+   public void setDsplDbdInvstAmt(String dsplDbdInvstAmt)
+   {
+      this.dsplDbdInvstAmt = dsplDbdInvstAmt;
+   }
+
+   public String getDsplDfltCrncy()
+   {
+      return dsplDfltCrncy;
+   }
+
+   public void setDsplDfltCrncy(String dsplDfltCrncy)
+   {
+      this.dsplDfltCrncy = dsplDfltCrncy;
    }
 }

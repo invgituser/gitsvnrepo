@@ -1,5 +1,6 @@
 package com.invessence.web.data.common;
 
+import java.text.DecimalFormat;
 import java.util.*;
 import javax.faces.bean.ManagedProperty;
 
@@ -53,7 +54,7 @@ public class PositionData
    private String firstname, lastname, dateOpened, clientAccountID,accountAlias;
    private Boolean managed;
    private Map<String,Double> currencyWiseTotal;
-   private Double settlmentTotal;
+   private String settlmentTotal;
 
    public void setPositionDAO(PositionDAO positionDAO)
    {
@@ -224,7 +225,7 @@ public class PositionData
          }else{
             currencyWiseTotal=new HashMap<String, Double>();
          }
-         settlmentTotal=0.0;
+        Double dbSettlmentTotal=0.0;
          int counter=0;
          this.managed = true;
          Boolean infoData = false;
@@ -241,7 +242,7 @@ public class PositionData
                Asset asset = new Asset(assetname,
                                        assetname,    // Display name is not defined in Managed Asset.
                                        position.getColor(),
-                                       0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                       0.0, 0.0, 0.0, 0.0, 0.0, position.getPositionValue(),
                                        position.getWeight(), position.getYield(), position.getRisk(),
                                        position.getExpenseRatio(), position.getPositionValue());
                managedAssetsMap.put(assetname, asset);
@@ -255,6 +256,8 @@ public class PositionData
                asset.setHoldingReturn(asset.getHoldingReturn() + position.getYield());
                asset.setHoldingRisk(asset.getHoldingRisk() + position.getRisk());
                asset.setHoldingExpenseRatio(asset.getHoldingExpenseRatio() + position.getExpenseRatio());
+
+               asset.setValue(asset.getHoldingValue());
             }
 
             if ((!infoData) && (position.getClientAccountID() != null))
@@ -294,7 +297,7 @@ public class PositionData
                   currencyWiseTotal.put(position.getSettleCurrency(),position.getSettleMoney());
                }
             }
-            settlmentTotal=settlmentTotal+position.getSettleMoney();
+            dbSettlmentTotal=dbSettlmentTotal+position.getSettleMoney();
          }
 
          for (Asset asset: managedAssetsList) {
@@ -303,7 +306,8 @@ public class PositionData
             asset.setActualweight(assetHolingTotal/totalvalue);
             asset.setHoldingweight(assetHolingTotal/totalvalue);
          }
-
+         DecimalFormat df2 = new DecimalFormat("##,###,##0.00");
+         settlmentTotal= df2.format(dbSettlmentTotal);
 
       }
       catch (Exception ex)
@@ -428,10 +432,7 @@ public class PositionData
       this.currencyWiseTotal = currencyWiseTotal;
    }
 
-   public Double getSettlmentTotal()
-   {
-      return settlmentTotal;
-   }
+
 
    public TransactionDAO getTransactionDAO()
    {
@@ -453,10 +454,13 @@ public class PositionData
       this.transactionList = transactionList;
    }
 
-   public void setSettlmentTotal(Double settlmentTotal)
+   public String getSettlmentTotal()
+   {
+      return settlmentTotal;
+   }
+
+   public void setSettlmentTotal(String settlmentTotal)
    {
       this.settlmentTotal = settlmentTotal;
    }
-
-
 }

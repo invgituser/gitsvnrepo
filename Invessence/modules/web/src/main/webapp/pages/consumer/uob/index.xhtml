@@ -37,7 +37,7 @@
             <div class="Wid100  v3dMainTitle">
                <h3 class="Wid70 Fleft">
                   <span style="display: block;font-size: 14px;">Welcome </span>
-                  #{webutil.lastFirstName}
+                  #{webutil.regFullName}
                </h3>
                <div class="supportAdvBlock">
                   <div class="sAdvLabel Fs14">
@@ -159,21 +159,25 @@
                                     <h:outputText value="Proposed Amount " rendered="#{!uobdash.selAccountList.get(0).managed}">
                                        <!--<f:convertNumber type="currency" currencySymbol=""/>-->
                                     </h:outputText>
+
                                  </div>
                                  <div class="Wid50 cellBlock">
-                                    <h:outputText value="#{uobdash.selAccountList.get(0).actualInvestment}"
-                                                  rendered="#{uobdash.selAccountList.get(0).managed}"/>
-                                    <h:outputText value="#{uobdash.selAccountList.get(0).initialInvestment}"
-                                                  rendered="#{!uobdash.selAccountList.get(0).managed}"/>
+                                    <h:outputText value="#{uobdash.dsplDbdInvstAmt}"
+                                                  rendered="#{uobdash.selAccountList.get(0).managed}">
+                                    <f:convertNumber pattern="##,###,###"/>
+                                    </h:outputText>
+                                    <h:outputText value="#{uobdash.dsplDbdInvstAmt}"
+                                                  rendered="#{!uobdash.selAccountList.get(0).managed}">
+                                    <f:convertNumber pattern="##,###,###"/>
+                                    </h:outputText> <h:outputText value=" #{uobdash.dsplDfltCrncy}"/>
                                  </div>
                               </div>
                               <div class="rowBlock">
                                  <div class="Wid50 cellBlock">Account</div>
                                  <div class="Wid50 cellBlock">
-                                    <h:outputText value="#{uobdash.selAccountList.get(0).acctstatus}"
-                                                  rendered="#{!uobdash.selAccountList.get(0).managed}"/>
-                                    <h:outputText value="#{uobdash.selAccountList.get(0).clientAccountID}"
-                                                  rendered="#{uobdash.selAccountList.get(0).managed}"/>
+                                    <h:outputText value="#{uobdash.selAccountList.get(0).displayActiveAcctNum}"/>
+                                    <!--<h:outputText value="#{uobdash.selAccountList.get(0).clientAccountID}"-->
+                                                  <!--rendered="#{uobdash.selAccountList.get(0).managed}"/>-->
                                  </div>
                               </div>
                               <div class="rowBlock">
@@ -341,7 +345,11 @@
                                       rendered="#{!uobdash.selAccountList.get(0).managed}">
                         </h:outputText>
                         <h:outputText value="Current Holdings"
-                                      rendered="#{uobdash.selAccountList.get(0).managed}">
+                                      rendered="#{uobdash.selAccountList.get(0).managed and uobdash.dsplPrflDtl}">
+                        </h:outputText>
+
+                        <h:outputText value="Account has not yet been funded" style="color: #a4332f;"
+                                      rendered="#{uobdash.selAccountList.get(0).managed and !uobdash.dsplPrflDtl}">
                         </h:outputText>
                      </h1>
                      <p:panel id="graphArea" style="border: 0px; background: white;">
@@ -403,8 +411,10 @@
 
                                              });
                         </script>
+                        <h:inputHidden value="#{uobdash.dsplPrflDtl}"
+                                       id="dispGrpArea"/>
 
-                        <p:panel id="summaryPanel" style="border: 0px; background: transparent;" rendered="#{uobpb.isSummaryActive}">
+                        <p:panel id="summaryPanel" style="border: 0px; background: transparent;" rendered="#{uobdash.dsplPrflDtl}">
                            <div class="Container100 tabpanel1 summaryPanel">
                               <div class="Container50 donutChartGraph">
 

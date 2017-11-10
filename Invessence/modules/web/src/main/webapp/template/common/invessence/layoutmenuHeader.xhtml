@@ -291,7 +291,7 @@
                 </li>
             </ui:fragment>
 
-            <ui:fragment rendered="#{webutil.hasAccess('User')}" >
+            <ui:fragment rendered="#{webutil.hasMenu('Alerts') and webutil.hasAccess('User')}" >
                 <li class="test" id="dashboardMenuHighlight">
                     <h:form class="alert_menu alert_menu_1" id="frmNtfvtnPnl">
                         <p:outputPanel id="NtfvtnOutPnl">

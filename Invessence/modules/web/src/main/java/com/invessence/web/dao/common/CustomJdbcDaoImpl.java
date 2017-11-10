@@ -119,7 +119,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       String advisor = null;
       String rep = null;
       Collection<GrantedAuthority> authorities;
-      String firstname, lastname;
+      String firstname, lastname,fullname;
       String ip, resetID;
       String stateRegistered;
       Integer randomQuestion;
@@ -189,6 +189,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          ip = rs.getString("ip");
          firstname = rs.getString("firstname");
          lastname = rs.getString("lastname");
+         fullname=rs.getString("fullname");
          stateRegistered = ""; // rs.getString("stateRegistered");
          resetID = rs.getString("resetID");
          cid = rs.getString("cid");
@@ -238,6 +239,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          // attempts = rs.getInt("attempts");
          firstname = "";
          lastname = "";
+         fullname="";
          ip = "";
          resetID = "";
          cid = "";
@@ -320,7 +322,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
                                   ip, resetID,
                                   cid, advisor, rep, stateRegistered,
                                   qa, attempts, access, atstart,
-                                  logonStatus, randomQuestion, emailmsgtype, logonAuditID);
+                                  logonStatus, randomQuestion, emailmsgtype, logonAuditID,fullname);
 
       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.USER_INFO);
       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.USER_INFO, userInfo);

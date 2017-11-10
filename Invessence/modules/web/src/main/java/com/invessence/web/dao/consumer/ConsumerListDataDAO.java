@@ -387,9 +387,9 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 
             data.getGoalData().setGoalDesired(convert.getDoubleData(rs.get("goalDesired")));
             if(data.getManaged()){
-               data.setCstmAccountLabel(data.getCustomName()+"-"+data.getClientAccountID());
+               data.setCstmAccountLabel(data.getCustomName()+"-"+data.getDisplayActiveAcctNum());
             }else{
-               data.setCstmAccountLabel(data.getCustomName()+"-"+data.getAcctstatus());
+               data.setCstmAccountLabel(data.getCustomName()+"-"+data.getCurrentStatus());
             }
 
             data.setTradeCurrency(convert.getStrData(rs.get("tradeCurrency")));

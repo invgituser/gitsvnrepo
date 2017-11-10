@@ -530,6 +530,27 @@ public class WebUtil implements Serializable
          return username;
       }
    }
+   public String getRegFullName()
+   {
+      String fullname = null;
+      if (isUserLoggedIn())
+      {
+         UserInfoData uid = getUserInfoData();
+         if (uid != null)
+         {
+            fullname = uid.getRegFullName();
+         }
+      }
+
+      if (fullname == null)
+      {
+         return "";
+      }
+      else
+      {
+         return fullname;
+      }
+   }
 
    public String getAccess()
    {

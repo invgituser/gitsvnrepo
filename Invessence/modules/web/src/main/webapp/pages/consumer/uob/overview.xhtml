@@ -210,7 +210,7 @@
                                                         <p:column priority="2" footerText="" style="text-align:left;"/>
                                                         <p:column priority="2" footerText="" style="text-align:left;"/>
                                                         <p:column priority="5" footerText="" style="text-align:left;"/>
-                                                        <p:column priority="2" footerText="#{uobpos.currencyWiseTotal[entry1]}" style="text-align:left">
+                                                        <p:column priority="2" footerText="#{dataDisplayConverter.displayWithComma(uobpos.currencyWiseTotal[entry1])}" style="text-align:right">
                                                             <!--<f:convertNumber type="currency" currencySymbol=""/>-->
                                                         </p:column>
                                                         <p:column priority="2" footerText="#{entry1}" style="text-align:left;"/>
@@ -222,7 +222,7 @@
                                                         <p:column priority="2" footerText="" style="text-align:left;"/>
                                                         <p:column priority="2" footerText="" style="text-align:left;"/>
                                                         <p:column priority="2" footerText="" style="text-align:left;"/>
-                                                        <p:column priority="5" footerText="#{uobpos.settlmentTotal}" style="text-align:left;">
+                                                        <p:column priority="5" footerText="#{uobpos.settlmentTotal}" style="text-align:right;">
                                                             <!--<f:convertNumber type="currency" currencySymbol=""/>-->
                                                         </p:column>
                                                         <p:column priority="2"
@@ -344,7 +344,7 @@
                                     </div>
                                 </div>
                             </p:tab>
-                            <p:tab title="Trade History">
+                            <p:tab title="Trade History" rendered="#{uobpos.dsplHstry}">
                                 <div class="Container100 Responsive100">
                                     <div class="ContainerIndent">
                                         <p:dataTable id="hstTranDataTable" var="hstTran" value="#{uobpos.transactionList}"

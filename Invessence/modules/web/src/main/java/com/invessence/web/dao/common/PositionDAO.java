@@ -101,7 +101,6 @@ public class PositionDAO extends JdbcDaoSupport
 //            data.setCurrencyPrimary(convert.getStrData(rs.get("currencyPrimary")));
             data.setTicker(convert.getStrData(rs.get("symbol")));
             data.setQty(convert.getIntData(rs.get("quantity")));
-            data.setCostBasisPrice(convert.getDoubleData(rs.get("costBasisPrice")));
             data.setAssetclass(convert.getStrData(rs.get("assetclass")));
             data.setColor(convert.getStrData(rs.get("color")));
 
@@ -119,6 +118,12 @@ public class PositionDAO extends JdbcDaoSupport
 //            data.setRisk(convert.getDoubleData(rs.get("risk")));
 //            data.setFees(convert.getDoubleData(rs.get("ytdinvoiceFee")));
 //            data.setGoalAmount(convert.getDoubleData(rs.get("goalAmount")));
+
+            if(managed){
+               data.setPositionValue(convert.getDoubleData(rs.get("positionValue")));
+            }else{
+               data.setPositionValue(convert.getDoubleData(rs.get("costBasisPrice")));
+            }
             positionList.add(i, data);
             i++;
          }

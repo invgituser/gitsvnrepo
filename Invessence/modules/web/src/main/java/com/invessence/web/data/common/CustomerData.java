@@ -1589,7 +1589,7 @@ public class CustomerData extends ProfileData
          {
             String assetname = pfclass.get(i).getAssetclass();
             Double wght = pfclass.get(i).getWeight();
-            Double money = pfclass.get(i).getCostBasisPrice();
+            Double money = pfclass.get(i).getPositionValue();
             String color = pfclass.get(i).getColor();
             Double summoney = 0.0;
 
@@ -1598,7 +1598,7 @@ public class CustomerData extends ProfileData
             if (!tallyAssetclass.containsKey(assetname))
             {
                Asset asset = new Asset();
-               Double newwght = money / dtotalMoneyAllocated;
+               Double newwght = money ;
                asset.setAsset(assetname);
                asset.setColor(color);
                asset.setValue(money);
@@ -1612,7 +1612,7 @@ public class CustomerData extends ProfileData
             {
                Asset asset = tallyAssetclass.get(assetname);
                summoney = money + asset.getValue();
-               Double newwght = summoney / dtotalMoneyAllocated;
+               Double newwght = summoney ;
                asset.setActualweight(newwght);
                asset.setUserweight(newwght);
                asset.setAllocweight(wght + asset.getAllocweight());
@@ -1632,7 +1632,6 @@ public class CustomerData extends ProfileData
          aamc[i] = new AssetClass();
          for (Asset assetdata : tallyAssetclass.values())
          {
-            setEditableAsset(assetdata);
             Asset origAssetData = aamc[i].getAssetclass().get(assetdata.getAsset());
             if (origAssetData != null)
             {
@@ -1646,16 +1645,19 @@ public class CustomerData extends ProfileData
                                      assetdata.getAllocweight(), assetdata.getAvgReturn());
                aamc[i].getAssetclass().get(assetdata.getAsset()).setValue(assetdata.getValue());
                aamc[i].getAssetclass().get(assetdata.getAsset()).setUserweight(assetdata.getUserweight());
-               aamc[i].getAssetclass().get(assetdata.getAsset()).setActualweight(assetdata.getActualweight());
+               aamc[i].getAssetclass().get(assetdata.getAsset()).setActualweight(assetdata.getActualweight()/totalMoney);
 
             }
+            assetdata.setActualweight(assetdata.getActualweight()/totalMoney);
+            assetdata.setUserweight(assetdata.getUserweight()/totalMoney);
+            setEditableAsset(assetdata);
          }
          aamc[i].setTotalInvested(totalMoney);
 //         System.out.println("aamc"+aamc);
          setAssetData(aamc);
 
       }
-      System.out.println("aamc");
+//      System.out.println("aamc");
    }
 
 public  void updateProfileData(CustomerData objCustomerData){

@@ -137,7 +137,7 @@ function draw2dDonut1lyrChart()
                                                    x = this.series[0].center[0] + this.plotLeft,
                                                    y = this.series[0].center[1] + this.plotTop;
 
-                                           chart.renderer.text('<span text-anchor="middle" style="text-anchor:middle; font-size: 14px;">' + name_value + '</span><br><span text-anchor="middle" style="text-anchor:middle;font-size: 20px;font-weight: bold;">' + amount_value + '</span><br><span text-anchor="middle" style="text-anchor:middle;font-size: 14px;">' + weight_value + '</span>', x, y - 20).css({
+                                           chart.renderer.text('<span text-anchor="middle" style="text-anchor:middle; font-size: 14px;">' + name_value + '</span><br><span text-anchor="middle" style="text-anchor:middle;font-size: 20px;font-weight: bold;"> </span><br><span text-anchor="middle" style="text-anchor:middle;font-size: 14px;">' + weight_value + '</span>', x, y - 20).css({
                                                                                                                                                                                                                                                                                                                                                                                                                      width: circleradius * 2,
                                                                                                                                                                                                                                                                                                                                                                                                                      color: color_value,
                                                                                                                                                                                                                                                                                                                                                                                                                      textAlign: 'center'
@@ -236,9 +236,13 @@ function draw2dDonut1lyrChartDyna(vForm)
 
                                                                weight_value = this.y.toFixed(0) + "%";
                                                                name_value = this.name;
-                                                               amount_value = '$' +
-                                                                       Highcharts.numberFormat(this.amount,
-                                                                                               0, ',', ',');
+                                                               amount_value ='';
+                                                                       //Highcharts.numberFormat(this.amount,
+                                                                       //                        0, ',', ',') ;
+
+                                                               //amount_value =
+                                                               //        Highcharts.numberFormat(this.amount,
+                                                               //                                0, ',', ',')+' '+currSymbol ;
                                                                color_value = this.color;
 
                                                                //draw2dDonut1lyrChart();
@@ -248,9 +252,12 @@ function draw2dDonut1lyrChartDyna(vForm)
                                                            {
                                                                weight_value = this.y.toFixed(0) + "%";
                                                                name_value = this.name;
-                                                               amount_value = '$' +
-                                                                       Highcharts.numberFormat(this.amount,
-                                                                                               0, ',', ',');
+                                                               amount_value ='';
+                                                                       //Highcharts.numberFormat(this.amount,
+                                                                       //                        0, ',', ',');
+                                                               //amount_value = '$' +
+                                                               //        Highcharts.numberFormat(this.amount,
+                                                               //                                0, ',', ',');
                                                                color_value = this.color;
 
                                                                //draw2dDonut1lyrChart();
@@ -296,7 +303,7 @@ function draw2dDonut1lyrChartDyna(vForm)
                                                    x = this.series[0].center[0] + this.plotLeft,
                                                    y = this.series[0].center[1] + this.plotTop;
 
-                                           chart.renderer.text('<span text-anchor="middle" style="text-anchor:middle; font-size: 14px;">' + name_value + '</span><br><span text-anchor="middle" style="text-anchor:middle;font-size: 20px;font-weight: bold;">' + amount_value + '</span><br><span text-anchor="middle" style="text-anchor:middle;font-size: 14px;">' + weight_value + '</span>', x, y - 20).css({
+                                           chart.renderer.text('<span text-anchor="middle" style="text-anchor:middle; font-size: 14px;">' + name_value + '</span><br><span text-anchor="middle" style="text-anchor:middle;font-size: 20px;font-weight: bold;"> </span><br><span text-anchor="middle" style="text-anchor:middle;font-size: 14px;">' + weight_value + '</span>', x, y - 20).css({
                                                                                                                                                                                                                                                                                                                                                                                                                      width: circleradius * 2,
                                                                                                                                                                                                                                                                                                                                                                                                                      color: color_value,
                                                                                                                                                                                                                                                                                                                                                                                                                      textAlign: 'center'

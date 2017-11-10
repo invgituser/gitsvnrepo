@@ -24,6 +24,7 @@ public class PositionBean extends PositionData implements Serializable
    private String dfltCrncy;
    private Map<String,Double> tranCrcyWsTtl;
    private Double tranSettTtl;
+   private boolean dsplHstry=false;
 
    public void preRenderView()
    {
@@ -75,6 +76,11 @@ public class PositionBean extends PositionData implements Serializable
       dfltCrncy=getWebutil().getWebprofile().getInfo("DEFAULT.CURRENCY");
       collectTranData();
       createPositionCharts("2DDONUT");
+      if(getTransactionList()!=null && getTransactionList().size()>0){
+         dsplHstry=true;
+      }else{
+         dsplHstry=false;
+      }
    }
 
    public String getPieIsValid()
@@ -149,7 +155,7 @@ public class PositionBean extends PositionData implements Serializable
             Map<String, String> configMap = webutil.getWebprofile().getWebInfo();
             HighChartsController highChartsController = new HighChartsController();
              strDonutString=highChartsController.highChartrequesthandler(null,assetclassArray,configMap);
-            System.out.println("strDonutString~~>"+strDonutString+"<~~");
+            System.out.println("HD strDonutString~~>"+strDonutString+"<~~");
          }
       }
    }
@@ -276,6 +282,16 @@ public class PositionBean extends PositionData implements Serializable
    public void setExTranKeyList(List<String> exTranKeyList)
    {
       this.exTranKeyList = exTranKeyList;
+   }
+
+   public boolean isDsplHstry()
+   {
+      return dsplHstry;
+   }
+
+   public void setDsplHstry(boolean dsplHstry)
+   {
+      this.dsplHstry = dsplHstry;
    }
 }
 

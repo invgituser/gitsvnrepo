@@ -30,6 +30,7 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
    private String atstart;
    private Boolean user_enabled,user_acctexpired, user_crediatialexpired,user_locked;
    private Long logonAuditID = null;
+   private String regFullName;
 
    private List<String> authList = new ArrayList<String>();
 
@@ -52,7 +53,7 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
                        String cid, String advisor, String rep,  String stateRegistered,
                        Map questAns, Integer attempts, String access, String atstart,
                        String logonStatus, Integer randomQuestion,
-                       String emailmsgtype, Long logonAuditID)
+                       String emailmsgtype, Long logonAuditID,String regFullName)
    {
       super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 
@@ -78,6 +79,7 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
       setEmailmsgtype(emailmsgtype);
       setStateRegistered(stateRegistered);
       setLogonAuditID(logonAuditID);
+      setRegFullName(regFullName);
       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.LOGONID_PARAM, logonID);
    }
 
@@ -396,5 +398,15 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
    public void setStateRegistered(String stateRegistered)
    {
       this.stateRegistered = stateRegistered;
+   }
+
+   public String getRegFullName()
+   {
+      return regFullName;
+   }
+
+   public void setRegFullName(String regFullName)
+   {
+      this.regFullName = regFullName;
    }
 }
