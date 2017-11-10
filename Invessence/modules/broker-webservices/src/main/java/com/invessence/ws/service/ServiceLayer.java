@@ -12,6 +12,7 @@ import com.invessence.ws.provider.td.bean.DCRequest;
 public interface ServiceLayer
 {
    public WSCallResult processDCRequest(ServiceRequest serviceRequest, List<DCRequest> dcRequests);
+   public WSCallResult processDCRequest(ServiceRequest serviceRequest, List<DCRequest> dcRequests, Object object);
    public WSCallResult processDCRequest(Long acctNum, int eventNum);
    public void createPendingUser();
    public WSCallStatus updateEmail(String clientAccountID, String newEmail);

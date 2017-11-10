@@ -225,6 +225,12 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       return wsCallResult;
    }
 
+   @Override
+   public WSCallResult docuSignRequestHandler(ServiceRequest serviceRequest, List<DCRequest> dcRequests, Object object)
+   {
+      return null;
+   }
+
 //   private CompositeTemplate tdTransfer(DCRequest dcRequest, DCTemplateDetails dcTemplateDetail, String servTempSeq) throws Exception
 //   {
 //      logger.info("TDAccountOpeningLayerImpl.acctTransfer");

@@ -3,10 +3,10 @@ package com.invessence.ws.service;
 import java.util.List;
 
 import com.invessence.service.bean.ServiceRequest;
+import com.invessence.custody.uob.dao.UOBDaoImpl;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.provider.td.bean.DCRequest;
-import com.invessence.ws.provider.td.dao.TDDaoLayer;
-import com.invessence.ws.provider.td.service.*;
+import com.invessence.ws.provider.td.service.TDAccountOpeningLayer;
 import com.invessence.ws.util.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,36 +15,31 @@ import org.springframework.stereotype.Service;
 /**
  * Created by abhangp on 3/11/2016.
  */
-@Service("TD")
-public class CallingLayerTDImpl implements CallingLayer
+@Service("UOBKH")
+public class CallingLayerUOBImpl implements CallingLayer
 {
-   private static final Logger logger = Logger.getLogger(CallingLayerTDImpl.class);
+   private static final Logger logger = Logger.getLogger(CallingLayerUOBImpl.class);
    @Autowired
-   TDDaoLayer tdDaoLayer;
+   UOBDaoImpl uobDaoImpl;
    @Autowired
    TDAccountOpeningLayer tdAccountOpeningLayer;
-   public CallingLayerTDImpl(){
+   public CallingLayerUOBImpl(){
       System.out.println("CallingLayerTDImpl.CallingLayerTDImpl");
    }
 
    @Override
    public WSCallResult processDCRequest(Long acctNum, Integer eventNum) throws Exception
    {
-      logger.info("CallingLayerTDImpl.processDCRequest");
-      logger.info("acctNum = [" + acctNum + "], eventNum = [" + eventNum + "]");
-      WSCallResult wsCallResult=null;
-      List<DCRequest> dcRequests= tdDaoLayer.getDCRequests(acctNum, eventNum);
-      if(dcRequests.size()>0)
-      {
-         wsCallResult=tdAccountOpeningLayer.docuSignRequestHandler(dcRequests);
-      }else{
-         wsCallResult=new WSCallResult(new WSCallStatus(SysParameters.dcReqDataIssueCode, SysParameters.dcReqDataIssueMsg), null);
-         logger.info("Request details are not available for acctNum = [" + acctNum + "], eventNum = [" + eventNum + "]");
-      }
-      return wsCallResult;
+      return null;
    }
    @Override
    public WSCallResult processDCRequest(ServiceRequest serviceRequest, List<DCRequest> dcRequests)throws Exception
+   {
+      return null;
+   }
+
+   @Override
+   public WSCallResult processDCRequest(ServiceRequest serviceRequest, List<DCRequest> dcRequests, Object object) throws Exception
    {
       logger.info("CallingLayerTDImpl.processDCRequest");
       logger.info("serviceRequest = [" + serviceRequest + "]");
@@ -52,19 +47,13 @@ public class CallingLayerTDImpl implements CallingLayer
       //List<DCRequest> dcRequests= uobDaoImpl.getDCRequests(acctNum, eventNum);
       if(dcRequests.size()>0)
       {
-         wsCallResult=tdAccountOpeningLayer.docuSignRequestHandler(serviceRequest, dcRequests);
+         wsCallResult=tdAccountOpeningLayer.docuSignRequestHandler(serviceRequest, dcRequests, object);
          //wsCallResult=docuSignService.processDocuSignRequest(dcRequests);
       }else{
          wsCallResult=new WSCallResult(new WSCallStatus(SysParameters.dcReqDataIssueCode, SysParameters.dcReqDataIssueMsg), null);
          //logger.info("Request details are not available for acctNum = [" + acctNum + "], eventNum = [" + eventNum + "]");
       }
       return wsCallResult;
-   }
-
-   @Override
-   public WSCallResult processDCRequest(ServiceRequest serviceRequest, List<DCRequest> dcRequests, Object object) throws Exception
-   {
-      return null;
    }
 
    @Override

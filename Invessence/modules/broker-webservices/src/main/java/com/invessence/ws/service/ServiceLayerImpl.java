@@ -74,6 +74,23 @@ public class ServiceLayerImpl implements ServiceLayer
       return wsCallResult;
    }
 
+   @Override
+   public WSCallResult processDCRequest(ServiceRequest serviceRequest, List<DCRequest> dcRequests, Object object)
+   {
+      logger.info("ServiceLayerImpl.processDCRequest");
+      WSCallResult wsCallResult=null;
+      try
+      {
+         wsCallResult= getCallingLayer(serviceRequest.getProduct()).processDCRequest(serviceRequest, dcRequests);
+      }
+      catch (Exception e)
+      {
+         logger.error(e.getMessage());
+         return new WSCallResult(new WSCallStatus(SysParameters.dcTechIssueCode, SysParameters.dcTechIssueMsg),null);
+      }
+      return wsCallResult;
+   }
+
    public void createPendingUser()
    {
       logger.info("ServiceLayerImpl.createPendingUser");

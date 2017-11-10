@@ -13,6 +13,7 @@ public interface CallingLayer
 {
    public WSCallResult processDCRequest(Long acctNum, Integer eventNum)throws Exception;
    public WSCallResult processDCRequest(ServiceRequest serviceRequest, List<DCRequest> dcRequests)throws Exception;
+   public WSCallResult processDCRequest(ServiceRequest serviceRequest, List<DCRequest> dcRequests, Object object)throws Exception;
    public WSCallResult moveMoney(Long acctNum, Integer reqId);
    public WSCallResult fundTransfer(Long acctNum, Integer reqId);
 

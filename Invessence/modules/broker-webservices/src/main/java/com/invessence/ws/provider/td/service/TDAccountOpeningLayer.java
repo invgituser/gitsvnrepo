@@ -14,4 +14,5 @@ public interface TDAccountOpeningLayer
 {
    public WSCallResult docuSignRequestHandler(List<DCRequest> dcRequests);
    public WSCallResult docuSignRequestHandler(ServiceRequest serviceRequest, List<DCRequest> dcRequests);
+   public WSCallResult docuSignRequestHandler(ServiceRequest serviceRequest, List<DCRequest> dcRequests, Object object);
 }

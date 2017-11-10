@@ -43,6 +43,12 @@ public class CallingLayerGeminiImpl implements CallingLayer
    }
 
    @Override
+   public WSCallResult processDCRequest(ServiceRequest serviceRequest, List<DCRequest> dcRequests, Object object) throws Exception
+   {
+      return null;
+   }
+
+   @Override
    public WSCallResult moveMoney(Long acctNum, Integer reqId)
    {
       return null;

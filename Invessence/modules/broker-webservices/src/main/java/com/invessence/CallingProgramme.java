@@ -1,9 +1,8 @@
 package com.invessence;
 
-import com.invessence.util.EncryDecryAES;
+import com.invessence.custody.uob.UOBDataMaster;
+import com.invessence.custody.uob.dao.UOBDaoImpl;
 import com.invessence.ws.bean.*;
-import com.invessence.ws.service.*;
-import com.invessence.ws.util.SysParameters;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -20,7 +19,11 @@ public class CallingProgramme
 
          WSCallStatus wsCallStatus=null;
          ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("webServicesConfig.xml");
-         ServiceLayerImpl serviceLayer = (ServiceLayerImpl) context.getBean("serviceLayerImpl");
+         UOBDaoImpl uobDao = (UOBDaoImpl) context.getBean("uobDaoImpl");
+         UOBDataMaster uobDataMaster=(UOBDataMaster) uobDao.fetch(new Long(123));
+         System.out.println("uobDataMaster = " + uobDataMaster);
+
+//         ServiceLayerImpl serviceLayer = (ServiceLayerImpl) context.getBean("serviceLayerImpl");
 //         serviceLayer.toTestAPI();
          //serviceLayer.loginUser("310100020");
          //serviceLayer.createUser("310100028","secQuest","secAnsw");
@@ -67,13 +70,13 @@ public class CallingProgramme
 //         WSCallResult wsCallResult=serviceLayer.fundAccount("310100028",903, 1, "6105640720");
 //         WSCallResult wsCallResult=serviceLayer.fundAccount("310100046",903, 1, "358233");
 //
-         serviceLayer.getUserBankAcctDetails("310100028");
+//         serviceLayer.getUserBankAcctDetails("310100028");
 //         serviceLayer.loginUser("310100033");
          //serviceLayer.resetPassword("310100046");
 //         serviceLayer.loginUser("310100046");
 //         System.out.println("-------------------------------------------------------------------");
-         System.out.println("wsCalltatus = " + wsCallStatus);
-         System.out.println("isServiceActive"+serviceLayer.isServiceActive());
+//         System.out.println("wsCalltatus = " + wsCallStatus);
+//         System.out.println("isServiceActive"+serviceLayer.isServiceActive());
          context.close();
       }
       catch (Exception e)
