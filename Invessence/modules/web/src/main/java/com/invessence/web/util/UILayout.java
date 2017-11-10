@@ -144,29 +144,33 @@ public class UILayout implements Serializable
 
    public String getDefaultDashBoard()
    {
-      String dashboard;
-
-      if (webutil.isUserLoggedIn())
+      String dashboard=null;
+      try
       {
-         if (webutil.hasAccess(WebConst.WEB_ADVISOR))
+         if (webutil.isUserLoggedIn())
          {
-            dashboard = "/pages/advisor/index.xhtml";
-         }
-         else
-         {
-            if (webutil.getWebprofile().getConsumerdir() != null)
+            if (webutil.hasAccess(WebConst.WEB_ADVISOR))
             {
-               dashboard = "/pages/consumer/" + webutil.getWebprofile().getConsumerdir().trim() + "/index.xhtml";
+               dashboard = "/pages/advisor/index.xhtml";
             }
             else
             {
-               dashboard = "/pages/consumer/invessence/index.xhtml";
+               if (webutil.getWebprofile().getConsumerdir() != null)
+               {
+                  dashboard = "/pages/consumer/" + webutil.getWebprofile().getConsumerdir().trim() + "/index.xhtml";
+               }
+               else
+               {
+                  dashboard = "/pages/consumer/invessence/index.xhtml";
+               }
             }
          }
-      }
-      else
-      {
+         else
+         {
             dashboard = webutil.getWebprofile().getHomepage();
+         }
+      }catch(Exception e){
+         System.out.println(e.getMessage());
       }
       return dashboard;
 
