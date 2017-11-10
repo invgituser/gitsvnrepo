@@ -120,21 +120,25 @@ public class SQLData implements Serializable
 
    public Boolean getBooleanData(Object dataobj)
    {
-      Boolean val = false;
+      String text;
       try
       {
          if (dataobj == null)
-            return val;
+            return false;
          else
          {
-            val = (Boolean) dataobj;
+            text = dataobj.toString();
+            if (text.equalsIgnoreCase("true") || text.equalsIgnoreCase("t")) {
+               return true;
+            }
+            else
+               return false;
          }
       }
       catch (Exception ex)
       {
          return false;
       }
-      return val;
    }
 
 }
