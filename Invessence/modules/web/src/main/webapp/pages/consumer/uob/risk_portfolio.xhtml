@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+    <ui:define name="content">
+
+    <div class="layout-portlets-box open_client_layout " >
+		<div class="Container100 Responsive50">	
+			<div class="portfolio_selection">
+				<div class="Container30"><p:graphicImage name="images/goal_img.png" library="#{uiLayout.webProfile.cssdir}" width="80px"/></div>
+				<div class="Container30"><p:graphicImage name="images/goal_img.png" library="#{uiLayout.webProfile.cssdir}" width="80px"/></div>
+				<div class="Container30"><p:graphicImage name="images/goal_img.png" library="#{uiLayout.webProfile.cssdir}" width="80px"/></div>
+				
+			</div>
+			<div class="portfolio_progress_bar">
+				<p:progressBar value="50" labelTemplate="{value}%" displayOnly="true"/>
+			</div>
+			<div class="ring_widget">
+				<p:ring id="basic" value="#{ringView.cars}" var="car">
+			        <p:outputPanel style="text-align: center;" layout="block">
+			            #{car.brand}
+			            <br />
+			            <p:commandButton update=":form:carDetail" icon="ui-icon-search" title="View" oncomplete="PF('carDialog').show();">
+			                <f:setPropertyActionListener value="#{car}" target="#{ringView.selectedCar}" />
+			            </p:commandButton>
+			        </p:outputPanel>
+			    </p:ring>
+			</div>
+				
+				
+				
+				
+		</div>
+	</div>
+    </ui:define>
+
+</ui:composition>
