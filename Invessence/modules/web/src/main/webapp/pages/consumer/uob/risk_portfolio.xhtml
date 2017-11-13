@@ -20,15 +20,16 @@
 				<p:progressBar value="50" labelTemplate="{value}%" displayOnly="true"/>
 			</div>
 			<div class="ring_widget">
+				<h3 style="margin-top: 0">Basic Ring</h3>
 				<p:ring id="basic" value="#{ringView.cars}" var="car">
-			        <p:outputPanel style="text-align: center;" layout="block">
-			            #{car.brand}
-			            <br />
-			            <p:commandButton update=":form:carDetail" icon="ui-icon-search" title="View" oncomplete="PF('carDialog').show();">
-			                <f:setPropertyActionListener value="#{car}" target="#{ringView.selectedCar}" />
-			            </p:commandButton>
-			        </p:outputPanel>
-			    </p:ring>
+					<p:outputPanel style="text-align: center;" layout="block">
+						#{car.brand}
+						<br />
+						<p:commandButton update=":form:carDetail" icon="ui-icon-search" title="View" oncomplete="PF('carDialog').show();">
+							<f:setPropertyActionListener value="#{car}" target="#{ringView.selectedCar}" />
+						</p:commandButton>
+					</p:outputPanel>
+				</p:ring>
 			</div>
 				
 				

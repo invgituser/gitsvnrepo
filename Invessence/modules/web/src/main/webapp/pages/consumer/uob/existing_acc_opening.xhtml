@@ -248,7 +248,17 @@
 										<p:tab title="Main Account Holder">
 
 											<div class="go-bottom">
-												<div class="Container100">
+
+												<div class="Container10 add_tax_info ">
+													<p:commandButton id="uobAddBtn"
+																	 value="Add"
+																	 styleClass="uob_button add_btn"
+																	 actionListener="#{uobpb.investnow}"  icon="ui-icon-plus">
+
+													</p:commandButton>
+
+												</div>
+												<div class="Container90">
 													<p:dataTable>
 														<p:column headerText="Jurisdiction Of Tax">
 															<h:outputText value="" />
@@ -265,15 +275,7 @@
 
 													</p:dataTable>
 												</div>
-												<div class="Container100 add_tax_info ">
-													<p:commandButton id="uobAddBtn"
-																	 value="Add"
-																	 styleClass="uob_button add_btn"
-																	 actionListener="#{uobpb.investnow}"  icon="ui-icon-plus">
 
-													</p:commandButton>
-
-												</div>
 												<div class="Container100 panel_block acc_panel_block">
 													<div class="panel_close">
 														<span class="ui-button-icon-center ui-icon ui-c fa fa-close"></span>
@@ -356,7 +358,16 @@
 										<p:tab title="Joint Account Holder">
 
 											<div class="go-bottom">
-												<div class="Container100">
+												<div class="Container10 add_tax_info ">
+													<p:commandButton id="jointuobAddBtn"
+																	 value="Add"
+																	 styleClass="uob_button add_btn"
+																	 actionListener="#{uobpb.investnow}"  icon="ui-icon-plus">
+
+													</p:commandButton>
+
+												</div>
+												<div class="Container90">
 													<p:dataTable>
 														<p:column headerText="Jurisdiction Of Tax">
 															<h:outputText value="" />
@@ -373,15 +384,7 @@
 
 													</p:dataTable>
 												</div>
-												<div class="Container100 add_tax_info ">
-													<p:commandButton id="jointuobAddBtn"
-																	 value="Add"
-																	 styleClass="uob_button add_btn"
-																	 actionListener="#{uobpb.investnow}"  icon="ui-icon-plus">
 
-													</p:commandButton>
-
-												</div>
 												<div class="Container100 panel_block acc_panel_block">
 													<div class="panel_close">
 														<span class="ui-button-icon-center ui-icon ui-c fa fa-close"></span>

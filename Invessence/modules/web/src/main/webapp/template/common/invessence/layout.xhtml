@@ -58,10 +58,23 @@
                                 </p:commandLink>
                             </li>
                             <li>
-                                <p:commandLink rendered="true"
+                                <!--<p:commandLink rendered="true"
                                                actionListener="#{uiLayout.doMenuAction('custody', 'disclaimer.xhtml')}">
                                     Disclaimer
+                                </p:commandLink>-->
+                                <p:commandLink value="Discalimer" type="button" onclick="PF('disc_block').show();" rendered="true">
+                                    Disclaimer
                                 </p:commandLink>
+                                <p:dialog  widgetVar="disc_block"  width="1000" class="disclaimer_dtl">
+                                    <h3>Disclaimer</h3>
+                                    <p>The portfolio shown is a recommended portfolio allocation upon your initial investment or next rebalancing date. Your portfolio allocation may change over time due to market conditions, or as your time horizon reduces with the passing of time. Changes to the portfolio allocation may also result from adjustments to expected returns, expected volatilities, constraints, other assumptions or factors, or changes to the algorithm used to determine a suitable risk level, as determined by and at the discretion of UOB Kay Hian Pte Ltd.</p>
+                                    <p>Your investment funds will be managed according on your stated financial objectives and risk tolerance. It does not take into consideration your financial situation and particular needs, including your employment status, financial situation, source and amount of your regular income, financial commitments, current investment portfolio or whether the amount to be invested is a substantial portion of your assets. You may wish to obtain advice from a financial adviser before making a commitment to engage this fund management service. If you choose not to obtain advice from a financial adviser, you should assess and consider whether the service is suitable for you before proceeding to invest and we do not offer any advice in this regard.</p>
+                                    <p:commandButton id="uobCancelBtn"
+                                                     value="Cancel"
+                                                     styleClass="uob_button cancel_btn"
+                                    >
+                                    </p:commandButton>
+                                </p:dialog>
                             </li>
                         </ul>
 

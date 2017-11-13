@@ -4797,6 +4797,37 @@ td.bullet_td span {
 .acc_holder_form .ui-panel-titlebar {
     background: #a4332f;
 }
+/*** 13/11/2017 Disclaimer **/
+.disclaimer_dtl .ui-dialog-content {
+    color: #000;
+    padding: 6% 0 !important;
+}
+.disclaimer_dtl {
+    position: fixed;
+    top: 0 !important;
+    left: 0 !important;
+    width: 99% !important;
+    height: 100% !important;
+    /* resize: horizontal; */
+    background: #fff;
+    padding: 10px;
+    /* color: #000; */
+}
+.disclaimer_dtl p {
+    line-height: 1.5;
+}
+.disclaimer_dtl .ui-dialog-titlebar {
+    background: #fff;
+    border: none !important;
+    /* color: #000 !important; */
+    /* font-size: 25px; */
+}
+.disclaimer_dtl h3 {
+    text-align: left;
+    font-size: 24px;
+    padding: 10px 5px;
+    border-bottom: 1px solid #c1c1c1;
+}
 
 
 
