@@ -83,7 +83,7 @@
                         value="select logonid, userid, email, pwd, logonstatus, firstname, lastname, ip, stateRegistered, resetID, cid, advisor, rep, emailmsgtype, access, atstart,fullname
                         from vw_user_logon where userid=?"/>
        <beans:property name="usersByEmailQuery"
-                       value="select logonid, userid, email, pwd, logonstatus, firstname, lastname, ip, stateRegistered, resetID, cid, advisor, rep, emailmsgtype, access, atstart
+                       value="select logonid, userid, email, pwd, logonstatus, firstname, lastname, ip, stateRegistered, resetID, cid, advisor, rep, emailmsgtype, access, atstart,fullname
                         from vw_user_logon where email=?"/>
 
         <beans:property name="listofQAQuery"
