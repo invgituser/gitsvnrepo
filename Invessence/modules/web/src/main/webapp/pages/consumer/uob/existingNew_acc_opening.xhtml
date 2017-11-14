@@ -9,7 +9,7 @@
 	<ui:define name="content">
 
 		<div class="layout-portlets-box open_client_layout acc_holder_form" >
-			<div class="Container100 Responsive50">
+			<div class="Container100 ">
 
 				<p:panel id="acc_type" header="Account Type" >
 
@@ -26,14 +26,10 @@
 								</p:selectOneRadio>
 							</div>
 						</div>
-						<div class="Container100">
-							<div class="Container70">
-								<div class="Container100">
+						<div class="Container100 margin-top">
+							<div class="Container70 ">
+								<div class="Container100 ">
 									<span class="title_line">Is it Individual Account? </span>
-								</div>
-								<div class="Container70 margin-top">
-									<input id="exAccName" name="exAccName" type="text" placeholder="Enter your existing  Securities Trading account number"/>
-									<label for="exAccName">Securities Trading account number</label>
 								</div>
 							</div>
 							<div class="Container20 label_opacity">
@@ -41,7 +37,11 @@
 									<f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
 									<f:selectItem itemLabel="No" itemValue="value2" ></f:selectItem>
 								</p:selectOneRadio>
-							</div>-
+							</div>
+							<div class="Container50 margin-top">
+								<input id="exAccName" name="exAccName" type="text" placeholder="Enter your existing  Securities Trading account number"/>
+								<label for="exAccName">Securities Trading account number</label>
+							</div>
 						</div>
 
 						<div class="Container100 margin-top ">
@@ -49,16 +49,17 @@
 								<div class="Container100">
 									<span class="title_line">Is it Joint-Alternate Account? </span>
 								</div>
-								<div class="Container70 margin-top">
-									<input id="exAccName" name="exAccName" type="text" placeholder="Enter your existing Joint UOBKH account number"/>
-									<label for="exAccName">Joint UOBKH account number</label>
-								</div>
+
 							</div>
 							<div class="Container20 label_opacity">
 								<p:selectOneRadio id="radiotype2" value="" >
 									<f:selectItem itemLabel="Yes" itemValue="value1" ></f:selectItem>
 									<f:selectItem itemLabel="No" itemValue="value2" ></f:selectItem>
 								</p:selectOneRadio>
+							</div>
+							<div class="Container50 margin-top">
+								<input id="exAccName" name="exAccName" type="text" placeholder="Enter your existing Joint UOBKH account number"/>
+								<label for="exAccName">Joint UOBKH account number</label>
 							</div>
 						</div>
 
