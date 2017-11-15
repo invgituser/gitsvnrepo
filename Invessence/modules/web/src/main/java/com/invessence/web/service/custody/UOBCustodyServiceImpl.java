@@ -1,5 +1,6 @@
 package com.invessence.web.service.custody;
 
+import com.invessence.custody.uob.UOBDataMaster;
 import com.invessence.custody.uob.dao.UOBDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,8 +38,21 @@ public class UOBCustodyServiceImpl implements CustodyService
    }
 
    @Override
-   public Object fetch()
+   public UOBDataMaster fetch(Long acctNum)
    {
-      return null;
+      UOBDataMaster uobDataMaster=new UOBDataMaster();
+      try
+      {
+         Object ftchObj = uobDao.fetch(acctNum);
+         if (ftchObj != null)
+         {
+            uobDataMaster =(UOBDataMaster)ftchObj;
+         }
+         System.out.println("uobDataMaster obje ~@~["+uobDataMaster.toString()+"]~@~");
+      }catch (Exception e){
+         System.out.println("UOBCustodyServiceImpl.fetch Exception occured "+e);
+         e.printStackTrace();
+      }
+      return uobDataMaster;
    }
 }

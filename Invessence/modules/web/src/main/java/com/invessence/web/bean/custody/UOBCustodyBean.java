@@ -44,6 +44,7 @@ public class UOBCustodyBean
             dspIntroAcctPnl=true;
             dsblSubmtBtn=true;
             dspJntTab=false;
+            custodyService.fetch(new Long(3560));
 //            // clear all data.
 //            resetBaseTD();
 //

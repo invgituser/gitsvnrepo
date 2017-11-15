@@ -89,11 +89,11 @@ public class OwnerDetails
       return ownership;
    }
 
-   public Boolean isIndividualAccount()
+   public Boolean isJointAccount()
    {
       if(getOwnership()!=null)
       {
-         if (getOwnership().equals("Individual"))
+         if (getOwnership().equals("Joint"))
          {
             return true;
          }
