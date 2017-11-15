@@ -4906,7 +4906,8 @@ span.input_value {
     font-size: 18px;
     font-weight: bold;
     padding: 0 10px;
-    width: 27%;
+    width: 34%;
+    text-transform: capitalize;
 }
 
 .header_tab {
@@ -5181,7 +5182,7 @@ span.input_value {
         margin: 1% 4%;
         width: 92%;
     }
-    .header_link.next_btn.Container70 {
+    .header_link.next_btn.Container60 {
         text-align: right;
         width: 64%;
         margin: 0;
