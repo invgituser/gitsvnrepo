@@ -33,6 +33,17 @@ public class OwnerDetails
    private OwnerIdentificationDetails ownerIdentificationDetails;
    private OwnerRegularityDetails ownerRegularityDetails;
    private OwnerMiscDetails ownerMiscDetails;
+   private OwnerCitizenshipDetails ownerCitizenshipDetails;
+
+   public OwnerCitizenshipDetails getOwnerCitizenshipDetails()
+   {
+      return ownerCitizenshipDetails;
+   }
+
+   public void setOwnerCitizenshipDetails(OwnerCitizenshipDetails ownerCitizenshipDetails)
+   {
+      this.ownerCitizenshipDetails = ownerCitizenshipDetails;
+   }
 
    public OwnerFinancialDetails getOwnersFinancialDetails()
    {
@@ -341,11 +352,13 @@ public class OwnerDetails
          ", mailingAddressState='" + mailingAddressState + '\'' +
          ", mailingAddressZipCode='" + mailingAddressZipCode + '\'' +
          ", mailingAddressCountry='" + mailingAddressCountry + '\'' +
+         ", ownership='" + ownership + '\'' +
          ", ownersFinancialDetails=" + ownersFinancialDetails +
          ", ownerContactDetails=" + ownerContactDetails +
          ", ownerIdentificationDetails=" + ownerIdentificationDetails +
          ", ownerRegularityDetails=" + ownerRegularityDetails +
          ", ownerMiscDetails=" + ownerMiscDetails +
+         ", ownerCitizenshipDetails=" + ownerCitizenshipDetails +
          '}';
    }
 }

@@ -147,6 +147,15 @@ public class UOBDaoImpl implements UOBDao
          ownerDetails.setOwnerIdentificationDetails(ownerMiscDetails);
       }
 
+      rows =null;
+      rows = (ArrayList<LinkedHashMap<String, Object>>) map.get("#result-set-8");
+      if(rows.size()>0)
+      {
+         OwnerCitizenshipDetails ownerCitizenshipDetails=new OwnerCitizenshipDetails();
+         getObjectFormROW(rows,ownerCitizenshipDetails,"acctOwnerId",ownerDetails.getAcctOwnerId());
+         ownerDetails.setOwnerCitizenshipDetails(ownerCitizenshipDetails);
+      }
+
    }
 
    public static Object getInstanceValue(final Object classInstance, final String fieldName) throws SecurityException, NoSuchFieldException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
