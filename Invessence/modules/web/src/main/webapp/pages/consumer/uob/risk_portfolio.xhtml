@@ -6,37 +6,64 @@
                 xmlns:pe="http://primefaces.org/ui/extensions"
                 template="/template/common/template.xhtml">
 
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{ringView.preRenderView}"/>
+	</f:metadata>
     <ui:define name="content">
 
-    <div class="layout-portlets-box open_client_layout " >
-		<div class="Container100 Responsive50">	
-			<div class="portfolio_selection">
-				<div class="Container30"><p:graphicImage name="images/goal_img.png" library="#{uiLayout.webProfile.cssdir}" width="80px"/></div>
-				<div class="Container30"><p:graphicImage name="images/goal_img.png" library="#{uiLayout.webProfile.cssdir}" width="80px"/></div>
-				<div class="Container30"><p:graphicImage name="images/goal_img.png" library="#{uiLayout.webProfile.cssdir}" width="80px"/></div>
-				
+		<div class="layout-portlets-box open_client_layout " >
+			<div class="Container100 Responsive50">
+				<div class="portfolio_selection">
+					<div class="Container30"><p:graphicImage name="images/portfolio/goal.png" library="#{uiLayout.webProfile.cssdir}" width="80px"/><span>Goal</span></div>
+					<div class="Container30"><p:graphicImage name="images/portfolio/riskMeter.png" library="#{uiLayout.webProfile.cssdir}" width="120px"/></div>
+					<div class="Container30"><span class="sapn_review">Review</span><p:graphicImage name="images/portfolio/review.png" library="#{uiLayout.webProfile.cssdir}" width="80px"/></div>
+
+				</div>
+				<div class="portfolio_progress_bar">
+					<p:progressBar value="50" labelTemplate="{value}%" displayOnly="true"/>
+				</div>
+				<div class="ring_widget">
+
+					<h:form id="form">
+
+						<p:ring id="custom" value="#{ringView.cars}" var="cars" styleClass="image-ring" easing="easeInOutBack">
+							<p:graphicImage name="images/portfolio/education.png" library="#{uiLayout.webProfile.cssdir}" width="100px"/>
+
+						</p:ring>
+
+
+					</h:form>
+
+				</div>
+				<div class="caraousle">
+					<p:carousel numVisible="1" effect="easeInStrong"  style="margin-bottom:0">
+
+						<p:tab >
+							<div class="header_tab">
+								<div class="header_title Container30">Goal</div>
+								<div class="header_link next_btn Container70" ><a href="#">Next > </a></div>
+							</div>
+							<div class="Container100 tab_dtl">
+								<p>
+									Hi, what is your full name ?<input type="text" placeholder="Enter Your Full Name"></input>
+								</p>
+								<p>
+									<span class="input_value">Sam</span> , what is your e-mail address?<input type="text" placeholder="Enter Your Email"></input>
+								</p>
+							</div>
+
+						</p:tab>
+
+
+					</p:carousel>
+
+				</div>
+
+
+
+
 			</div>
-			<div class="portfolio_progress_bar">
-				<p:progressBar value="50" labelTemplate="{value}%" displayOnly="true"/>
-			</div>
-			<div class="ring_widget">
-				<h3 style="margin-top: 0">Basic Ring</h3>
-				<p:ring id="basic" value="#{ringView.cars}" var="car">
-					<p:outputPanel style="text-align: center;" layout="block">
-						#{car.brand}
-						<br />
-						<p:commandButton update=":form:carDetail" icon="ui-icon-search" title="View" oncomplete="PF('carDialog').show();">
-							<f:setPropertyActionListener value="#{car}" target="#{ringView.selectedCar}" />
-						</p:commandButton>
-					</p:outputPanel>
-				</p:ring>
-			</div>
-				
-				
-				
-				
 		</div>
-	</div>
     </ui:define>
 
 </ui:composition>
