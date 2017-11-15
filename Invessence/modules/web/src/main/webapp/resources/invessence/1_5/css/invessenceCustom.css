@@ -4840,7 +4840,9 @@ td.bullet_td span {
     margin: 1% 0;
 }
 .for_res{display:none;}
-
+.margin-left {
+    margin-left: 10px;
+}
 
 
 
