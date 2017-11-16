@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{ringView.preRenderView}"/>
+	</f:metadata>
+    <ui:define name="content">
+
+    <div class="layout-portlets-box open_client_layout " >
+		<div class="Container100 Responsive50">	
+			<div class="portfolio_selection">
+				<div class="Container30"><p:graphicImage name="images/portfolio/goal.png" library="#{uiLayout.webProfile.cssdir}" width="80px"/><span>Goal</span></div>
+				<div class="Container30"><p:graphicImage name="images/portfolio/riskMeter.png" library="#{uiLayout.webProfile.cssdir}" width="120px"/></div>
+				<div class="Container30"><span class="sapn_review">Review</span><p:graphicImage name="images/portfolio/review.png" library="#{uiLayout.webProfile.cssdir}" width="80px"/></div>
+				
+			</div>
+			<div class="portfolio_progress_bar">
+				<p:progressBar value="50" labelTemplate="{value}%" displayOnly="true"/>
+			</div>
+			
+			<div class="caraousle Container100">
+				
+					<div class="header_tab">
+						<div class="header_title Container30">Singapore-based Assets</div>
+						<div class="header_link prenext_btn Container70" >
+							<div class="Container50 next_btn">
+								<p:commandLink rendered="true" class="next_pg_link"
+                                               actionListener="#{uiLayout.doMenuAction('consumer', 'portfolioDemo/riskToleranceQ6.xhtml')}"> Next </p:commandLink>
+							</div>
+							<div class="Container50 pre_btn">
+								<p:commandLink rendered="true" class="next_pg_link"
+                                               actionListener="#{uiLayout.doMenuAction('consumer', 'portfolioDemo/riskToleranceQ5.xhtml')}"> Previous </p:commandLink>
+							</div>
+						</div>
+						
+					</div>
+					<div class="Container100 tab_dtl RTQ">
+					<p>For your investment portfolio outside this investment account, an investor may choose to include Singapore-based assets, including equities, stock and cash. The implication of the inclusion is that your overall investment portfolio, including your assets outside this investment account, will be less diversified due to its increased exposure of Singaporean assets.
+							<br/>Please choose if you wish to include Singapore-based assets in your portfolio</p>
+					<div class="selectRadio">
+						<p:selectOneRadio id="radio" value="" >
+							<f:selectItem itemLabel="I have sufficient exposure to Singapore-based asstes. I do not wants Singapore-based assets to be included as a significant part of the portfolio allocated to me." itemValue="value1" ></f:selectItem>
+						</p:selectOneRadio>
+						<p:selectOneRadio id="radio1" value="" >
+							<f:selectItem itemLabel="I want Singapore-based assets to be included as a significant part (in the range 5% - 50%) of the global portfolio allocated to me. " itemValue="value3" ></f:selectItem>
+						</p:selectOneRadio>
+						<p:selectOneRadio id="radio2" value="" >
+							<f:selectItem itemLabel=" I would cut my losses" itemValue="value2" ></f:selectItem>
+						</p:selectOneRadio>
+						
+						
+					</div>
+
+						</div>
+		</div>
+				
+				
+				
+				
+		</div>
+	</div>
+    </ui:define>
+
+</ui:composition>

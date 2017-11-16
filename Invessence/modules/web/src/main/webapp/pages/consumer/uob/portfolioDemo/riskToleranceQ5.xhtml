@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{ringView.preRenderView}"/>
+	</f:metadata>
+    <ui:define name="content">
+
+    <div class="layout-portlets-box open_client_layout " >
+		<div class="Container100 Responsive50">	
+			<div class="portfolio_selection">
+				<div class="Container30"><p:graphicImage name="images/portfolio/goal.png" library="#{uiLayout.webProfile.cssdir}" width="80px"/><span>Goal</span></div>
+				<div class="Container30"><p:graphicImage name="images/portfolio/riskMeter.png" library="#{uiLayout.webProfile.cssdir}" width="120px"/></div>
+				<div class="Container30"><span class="sapn_review">Review</span><p:graphicImage name="images/portfolio/review.png" library="#{uiLayout.webProfile.cssdir}" width="80px"/></div>
+				
+			</div>
+			<div class="portfolio_progress_bar">
+				<p:progressBar value="50" labelTemplate="{value}%" displayOnly="true"/>
+			</div>
+			
+			<div class="caraousle Container100">
+				
+					<div class="header_tab">
+						<div class="header_title Container30">Risk Tolerance</div>
+						<div class="header_link prenext_btn Container70" >
+							<div class="Container50 next_btn">
+								<p:commandLink rendered="true" class="next_pg_link"
+                                               actionListener="#{uiLayout.doMenuAction('consumer', 'portfolioDemo/riskToleranceQ6.xhtml')}"> Next </p:commandLink>
+							</div>
+							<div class="Container50 pre_btn">
+								<p:commandLink rendered="true" class="next_pg_link"
+                                               actionListener="#{uiLayout.doMenuAction('consumer', 'portfolioDemo/riskToleranceQ4.xhtml')}"> Previous </p:commandLink>
+							</div>
+						</div>
+						
+					</div>
+					<div class="Container100 tab_dtl RTQ">
+					<p>What would your reaction be if you discovered that your account value had decreased in value by 25% after a period of 3 months? </p>
+					<div class="selectRadio">
+						<p:selectOneRadio id="radio" value="" >
+							<f:selectItem itemLabel="I would invest more funds to lower my average investment price, expecting future growth." itemValue="value1" ></f:selectItem>
+						</p:selectOneRadio>
+						<p:selectOneRadio id="radio1" value="" >
+							<f:selectItem itemLabel="  This was a calculated risk and I would leave the investment in place, and wait for a recovery. " itemValue="value3" ></f:selectItem>
+						</p:selectOneRadio>
+						<p:selectOneRadio id="radio2" value="" >
+							<f:selectItem itemLabel=" I would cut my losses" itemValue="value2" ></f:selectItem>
+						</p:selectOneRadio>
+						
+						
+					</div>
+
+						</div>
+		</div>
+				
+				
+				
+				
+		</div>
+	</div>
+    </ui:define>
+
+</ui:composition>

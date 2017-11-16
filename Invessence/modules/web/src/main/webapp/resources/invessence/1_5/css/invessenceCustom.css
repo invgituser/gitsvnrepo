@@ -5054,7 +5054,20 @@ span.change_goal {
 .risk_switch .ui-inputswitch:focus {
     border: solid 1px #a4332f;
 }
-
+.RTQ .ui-selectoneradio > tbody > tr > td {
+    vertical-align: top;
+    padding: 0 5px;
+}
+.RTQ .ui-selectoneradio label {
+    text-align: left;
+    line-height: 1.5;
+    font-size: 15px !important;
+}
+.RTQ p {
+    font-weight: bold;
+    text-align: left;
+    padding: 0 12px;
+}
 /** end portfolio creation**/
 
 
