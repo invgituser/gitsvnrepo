@@ -4879,10 +4879,10 @@ td.bullet_td span {
 .caraousle input {
     border-width: 0 0 2px 0;
     border-color: #a4332f;
-    padding: 5px;
+    padding: 0 5px;
     color: #a4332f;
     font-size: 16px;
-    /* width: 100px; */
+    width: 100px;
     text-align: center;
     font-weight: bold;
     position: relative;
@@ -4906,8 +4906,7 @@ span.input_value {
     font-size: 18px;
     font-weight: bold;
     padding: 0 10px;
-    width: 34%;
-    text-transform: capitalize;
+    width: 60%;
 }
 
 .header_tab {
@@ -4916,19 +4915,110 @@ span.input_value {
     width: 100%;
     padding: 8px 0;
 }
-.next_btn a {
+.next_btn .next_pg_link,
+.pre_btn .next_pg_link {
     color: #27aae1;
     text-align: right;
     font-size: 18px;
 }
-.header_link.next_btn.Container70 {
+.header_link.prenext_btn.Container70 {
     text-align: right;
-    width:68%;
+    width:37%;
+    position:relative;
 }
 .Container100.tab_dtl {
     padding: 12px 0;
 }
-
+.caraousle {
+    border: 1px solid #c1c1c1;
+    text-align: center;
+    border-radius: 4px;
+}
+.ui-ring-item span {
+    text-align: center;
+    width: 100%;
+    float: left;
+    color: gray;
+    font-size: 13px;
+}
+.ui-ring-item-focus span {
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+}
+.selectList .ui-selectonemenu {
+    width: 60px;
+    /* border: none; */
+    border-width: 0px 0px 2px 0px !important;
+    border-color: #a4332f !important;
+}
+.selectList .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon {
+    background-image: none !important;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    border-top: 6px solid #a4332f;
+    height: 0;
+    width: 0;
+    margin-top: 9px !important;
+}
+.selectList .ui-selectonemenu .ui-selectonemenu-trigger {
+    background: #fff !important;
+    top: -3px;
+    width: 8px;
+}
+.selectList .ui-selectonemenu label.ui-selectonemenu-label {
+    background: #fff;
+    box-shadow: none;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    color: #a4332f !important;
+    font-family: 'helvetica' !important;
+    padding: 0 5px !important;
+    text-align: center;
+}
+span.change_goal {
+    color: #a4332f;
+    text-transform: capitalize;
+}
+.assets_liabilityTab .Container50 {
+    width: 48.7%;
+    border: 1px solid #ccc;
+    margin: 5px;
+    border-radius: 3px;
+    text-align: left;
+    /* padding: 10px 0; */
+    height: 280px;
+}
+.assets_liabilityTab .Conatiner100.tab_title {
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+    padding: 5px 0;
+    border: none;
+}
+.assets_liabilityTab .Conatiner100.tab_title.networth {
+    border-top: 1px solid #ccc;
+}
+.assets_liabilityTab .Conatiner100 {
+    padding: 5px 5px;
+    border-top: 1px solid #ccc;
+    line-height: 1.50;
+}
+.caraousle .Container50.next_btn {
+    width: 10%;
+    float: right;
+}
+.caraousle .Container50.pre_btn {
+    width: 22%;
+    float: right;
+}
+.caraousle .Container50.pre_btn:before {
+    content: '';
+    position: absolute;
+    border-left: 2px solid #000;
+    height: 23px;
+    right: 50px;
+}
 
 /** end portfolio creation**/
 
@@ -5182,7 +5272,7 @@ span.input_value {
         margin: 1% 4%;
         width: 92%;
     }
-    .header_link.next_btn.Container60 {
+    .header_link.next_btn.Container70 {
         text-align: right;
         width: 64%;
         margin: 0;
