@@ -5019,6 +5019,41 @@ span.change_goal {
     height: 23px;
     right: 50px;
 }
+.risk_switch .ui-inputswitch-handle.ui-state-default {
+    background: #a4332f;
+    border-color: #a4332f !important;
+    background-image: none !important;
+    width: 50px !important;
+}
+.risk_switch .ui-inputswitch {
+    width: 100px !important;
+}
+.risk_switch .ui-state-active:after {
+    content: 'Yes';
+    color: #a4332f;
+    top: 3px;
+    position: absolute;
+    left: 9px;
+    font-weight: bold;
+    font-size: 16px;
+}
+.risk_switch .ui-inputswitch .ui-inputswitch-on span,
+.risk_switch .ui-inputswitch .ui-inputswitch-off span {
+    display: none;
+}
+.risk_switch .ui-inputswitch-off:after {
+    content: 'No';
+    position: relative;
+    color: #424242;
+    font-size: 16px;
+    font-weight: bold;
+    right: 11px;
+    top: 4px;
+}
+.risk_switch .ui-inputswitch:hover,
+.risk_switch .ui-inputswitch:focus {
+    border: solid 1px #a4332f;
+}
 
 /** end portfolio creation**/
 
