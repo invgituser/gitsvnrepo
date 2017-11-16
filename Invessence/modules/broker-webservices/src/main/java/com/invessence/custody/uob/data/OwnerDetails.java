@@ -35,6 +35,15 @@ public class OwnerDetails
    private OwnerMiscDetails ownerMiscDetails;
    private OwnerCitizenshipDetails ownerCitizenshipDetails;
 
+   public OwnerDetails(){
+      setOwnerCitizenshipDetails(new OwnerCitizenshipDetails());
+      setOwnerContactDetails(new OwnerContactDetails());
+      setOwnerRegularityDetails(new OwnerRegularityDetails());
+      setOwnerIdentificationDetails(new OwnerIdentificationDetails());
+      setOwnersFinancialDetails(new OwnerFinancialDetails());
+      setOwnerMiscDetails(new OwnerMiscDetails());
+   }
+
    public OwnerCitizenshipDetails getOwnerCitizenshipDetails()
    {
       return ownerCitizenshipDetails;

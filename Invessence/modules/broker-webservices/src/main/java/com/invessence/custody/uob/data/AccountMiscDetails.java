@@ -5,59 +5,35 @@ package com.invessence.custody.uob.data;
  */
 public class AccountMiscDetails
 {
-   private String divIntPrefId;
-   private String monthStmtId;
-   private String tradConfId;
-   private String dupStatement;
-   private String dupTradeConfirm;
+   private String existingTradeAcctNumber;
+   private String salesPersonName;
 
-   public String getDivIntPrefId()
+   @Override
+   public String toString()
    {
-      return divIntPrefId;
+      return "AccountMiscDetails{" +
+         "existingTradeAcctNumber='" + existingTradeAcctNumber + '\'' +
+         ", salesPersonName='" + salesPersonName + '\'' +
+         '}';
    }
 
-   public void setDivIntPrefId(String divIntPrefId)
+   public String getSalesPersonName()
    {
-      this.divIntPrefId = divIntPrefId;
+      return salesPersonName;
    }
 
-   public String getMonthStmtId()
+   public void setSalesPersonName(String salesPersonName)
    {
-      return monthStmtId;
+      this.salesPersonName = salesPersonName;
    }
 
-   public void setMonthStmtId(String monthStmtId)
+   public String getExistingTradeAcctNumber()
    {
-      this.monthStmtId = monthStmtId;
+      return existingTradeAcctNumber;
    }
 
-   public String getTradConfId()
+   public void setExistingTradeAcctNumber(String existingTradeAcctNumber)
    {
-      return tradConfId;
-   }
-
-   public void setTradConfId(String tradConfId)
-   {
-      this.tradConfId = tradConfId;
-   }
-
-   public String getDupStatement()
-   {
-      return dupStatement;
-   }
-
-   public void setDupStatement(String dupStatement)
-   {
-      this.dupStatement = dupStatement;
-   }
-
-   public String getDupTradeConfirm()
-   {
-      return dupTradeConfirm;
-   }
-
-   public void setDupTradeConfirm(String dupTradeConfirm)
-   {
-      this.dupTradeConfirm = dupTradeConfirm;
+      this.existingTradeAcctNumber = existingTradeAcctNumber;
    }
 }

@@ -11,6 +11,14 @@ public class UOBDataMaster
    private OwnerDetails individualOwnersDetails;
    private OwnerDetails jointOwnersDetails;
 
+
+   public UOBDataMaster(){
+
+      setAccountDetails(new AccountDetails());
+      setIndividualOwnersDetails(new OwnerDetails());
+      setJointOwnersDetails(new OwnerDetails());
+   }
+
    @Override
    public String toString()
    {

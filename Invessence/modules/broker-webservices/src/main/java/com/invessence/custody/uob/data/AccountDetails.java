@@ -14,6 +14,20 @@ public class AccountDetails
 
    private AccountMiscDetails accountMiscDetails;
 
+   public AccountDetails(){
+      setAccountMiscDetails(new AccountMiscDetails());
+   }
+
+
+   public AccountMiscDetails getAccountMiscDetails()
+   {
+      return accountMiscDetails;
+   }
+
+   public void setAccountMiscDetails(AccountMiscDetails accountMiscDetails)
+   {
+      this.accountMiscDetails = accountMiscDetails;
+   }
 
    public Long getAcctnum()
    {

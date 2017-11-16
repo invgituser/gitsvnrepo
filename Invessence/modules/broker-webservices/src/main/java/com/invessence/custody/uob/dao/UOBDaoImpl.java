@@ -35,7 +35,7 @@ public class UOBDaoImpl implements UOBDao
       @Override
       public Object fetch(Long acctNum)
       {
-         UOBDataMaster uobDataMaster=null;
+         UOBDataMaster uobDataMaster=new UOBDataMaster();
          try
          {
             CustodySP serviceSP = new CustodySP(webServiceJdbcTemplate, "spao_uob_fetch_data", 0);
@@ -44,17 +44,23 @@ public class UOBDaoImpl implements UOBDao
                Map outMap = serviceSP.fetchData(acctNum);
                if (outMap != null)
                {
-                  uobDataMaster=new UOBDataMaster();
                   ArrayList<LinkedHashMap<String, Object>> rows = (ArrayList<LinkedHashMap<String, Object>>) outMap.get("#result-set-1");
+
                   if(rows.size()>0)
                   {
-                     AccountDetails accountDetails=new AccountDetails();
-                     getObjectFormCOLUMN(rows,accountDetails);
-                     uobDataMaster.setAccountDetails(accountDetails);
+                     getObjectFormCOLUMN(rows,uobDataMaster.getAccountDetails());
                   }
-                  rows=null;
+                  uobDataMaster.setAccountDetails(uobDataMaster.getAccountDetails());
+
+                  rows =null;
                   rows = (ArrayList<LinkedHashMap<String, Object>>) outMap.get("#result-set-2");
-                  OwnerDetails ownerDetails=null;
+                  if(rows.size()>0)
+                  {
+                     getObjectFormROW(rows,uobDataMaster.getAccountDetails().getAccountMiscDetails());
+                  }
+
+                  rows=null;
+                  rows = (ArrayList<LinkedHashMap<String, Object>>) outMap.get("#result-set-3");
                   if(rows.size()>0)
                   {
                      Iterator<LinkedHashMap<String, Object>> itr = rows.iterator();
@@ -63,7 +69,7 @@ public class UOBDaoImpl implements UOBDao
                      {
                         StringBuilder fileRow = new StringBuilder();
                         LinkedHashMap<String, Object> map = itr.next();
-                        ownerDetails = new OwnerDetails();
+                        OwnerDetails ownerDetails = new OwnerDetails();
                         getObjectFormCOLUMN(map, ownerDetails);
                         if(ownerDetails.getOwnership().equals("Individual"))
                         {
@@ -103,59 +109,46 @@ public class UOBDaoImpl implements UOBDao
    private void getOwnerDetails(OwnerDetails ownerDetails, Map map){
 
       ArrayList<LinkedHashMap<String, Object>> rows =null;
-      rows = (ArrayList<LinkedHashMap<String, Object>>) map.get("#result-set-3");
-      if(rows.size()>0)
-      {
-         OwnerContactDetails ownerContactDetails=new OwnerContactDetails();
-         getObjectFormROW(rows,ownerContactDetails,"acctOwnerId",ownerDetails.getAcctOwnerId());
-         ownerDetails.setOwnerContactDetails(ownerContactDetails);
-      }
-
-      rows =null;
       rows = (ArrayList<LinkedHashMap<String, Object>>) map.get("#result-set-4");
       if(rows.size()>0)
       {
-         OwnerFinancialDetails ownerFinancialDetails=new OwnerFinancialDetails();
-         getObjectFormROW(rows,ownerFinancialDetails,"acctOwnerId",ownerDetails.getAcctOwnerId());
-         ownerDetails.setOwnersFinancialDetails(ownerFinancialDetails);
+         getObjectFormROW(rows,ownerDetails.getOwnerContactDetails(),"acctOwnerId",ownerDetails.getAcctOwnerId());
       }
 
       rows =null;
       rows = (ArrayList<LinkedHashMap<String, Object>>) map.get("#result-set-5");
       if(rows.size()>0)
       {
-         OwnerRegularityDetails ownerRegularityDetails=new OwnerRegularityDetails();
-         getObjectFormROW(rows,ownerRegularityDetails,"acctOwnerId",ownerDetails.getAcctOwnerId());
-         ownerDetails.setOwnerRegularityDetails(ownerRegularityDetails);
+         getObjectFormROW(rows,ownerDetails.getOwnersFinancialDetails(),"acctOwnerId",ownerDetails.getAcctOwnerId());
       }
 
       rows =null;
       rows = (ArrayList<LinkedHashMap<String, Object>>) map.get("#result-set-6");
       if(rows.size()>0)
       {
-         OwnerMiscDetails ownerMiscDetails=new OwnerMiscDetails();
-         getObjectFormROW(rows,ownerMiscDetails,"acctOwnerId",ownerDetails.getAcctOwnerId());
-         ownerDetails.setOwnerMiscDetails(ownerMiscDetails);
+         getObjectFormROW(rows,ownerDetails.getOwnerRegularityDetails(),"acctOwnerId",ownerDetails.getAcctOwnerId());
       }
 
       rows =null;
       rows = (ArrayList<LinkedHashMap<String, Object>>) map.get("#result-set-7");
       if(rows.size()>0)
       {
-         OwnerIdentificationDetails ownerMiscDetails=new OwnerIdentificationDetails();
-         getObjectFormROW(rows,ownerMiscDetails,"acctOwnerId",ownerDetails.getAcctOwnerId());
-         ownerDetails.setOwnerIdentificationDetails(ownerMiscDetails);
+        getObjectFormROW(rows,ownerDetails.getOwnerMiscDetails(),"acctOwnerId",ownerDetails.getAcctOwnerId());
       }
 
       rows =null;
       rows = (ArrayList<LinkedHashMap<String, Object>>) map.get("#result-set-8");
       if(rows.size()>0)
       {
-         OwnerCitizenshipDetails ownerCitizenshipDetails=new OwnerCitizenshipDetails();
-         getObjectFormROW(rows,ownerCitizenshipDetails,"acctOwnerId",ownerDetails.getAcctOwnerId());
-         ownerDetails.setOwnerCitizenshipDetails(ownerCitizenshipDetails);
+         getObjectFormROW(rows,ownerDetails.getOwnerIdentificationDetails(),"acctOwnerId",ownerDetails.getAcctOwnerId());
       }
 
+      rows =null;
+      rows = (ArrayList<LinkedHashMap<String, Object>>) map.get("#result-set-9");
+      if(rows.size()>0)
+      {
+         getObjectFormROW(rows,ownerDetails.getOwnerCitizenshipDetails(),"acctOwnerId",ownerDetails.getAcctOwnerId());
+      }
    }
 
    public static Object getInstanceValue(final Object classInstance, final String fieldName) throws SecurityException, NoSuchFieldException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
