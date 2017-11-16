@@ -25,7 +25,7 @@ public class CallingProgramme
          UOBDaoImpl uobDao = (UOBDaoImpl) context.getBean("uobDaoImpl");
          UOBDataMaster uobDataMaster=(UOBDataMaster) uobDao.fetch(new Long(123));
          System.out.println("uobDataMaster = " + uobDataMaster);
-        List<String> fieldsLst= getFieldNames(uobDataMaster.getIndividualOwnersDetails().getOwnerContactDetails(),false);
+        List<String> fieldsLst= getFieldNames(uobDataMaster.getIndividualOwnersDetails(),false);
 
          for(int i=0;i<fieldsLst.size();i++){
             System.out.println(fieldsLst.get(i));
@@ -109,28 +109,28 @@ public class CallingProgramme
             if (Modifier.isPublic(fields[i].getModifiers()))
             {
                Object value = fields[i].get(obj);
-               if (value == null)
-               {
-                  sb.append(name + ", ");
-               }
-               else
-               {
+//               if (value == null)
+//               {
+//                  sb.append(name + ", ");
+//               }
+//               else
+//               {
                   lst.add(name);
-               }
+//               }
             }
          }
          else
          {
             fields[i].setAccessible(true);
             Object value = fields[i].get(obj);
-            if (value == null)
-            {
-               sb.append(name + ", ");
-            }
-            else
-            {
+//            if (value == null)
+//            {
+//               sb.append(name + ", ");
+//            }
+//            else
+//            {
                lst.add(name);
-            }
+//            }
          }
       }
 //      System.out.println("Avoided properties of "+c1+" due to empty or null value : (" + sb + ")");
