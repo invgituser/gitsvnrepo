@@ -59,6 +59,7 @@ public class PortfolioOptimizer
       historicaldailyreturns = new HistoricalDailyReturns();
    }
 
+   // If Theme is null, then reload all model.
    public void loadDataFromDB(String theme)
    {
       write.lock();
@@ -92,33 +93,7 @@ public class PortfolioOptimizer
 
    public void refreshDataFromDB()
    {
-
-      write.lock();
-      try
-      {
-         themeAssetMap.clear();
-         assetDataMap.clear();
-
-         logger.info("Loading Historical Returns from RBSA");
-         historicaldailyreturns.refreshDataFromDB();
-         logger.info("Loading ASSET information from DB");
-         loadAssetDataFromDB(null);
-         logger.info("Loading Prime Asset information from DB");
-         loadPrimeAssetsFromDB(null);
-         logger.info("Optimize Asset Class");
-         saveAssetWeights();
-         logger.info("Optimize Prime Asset Class");
-         savePrimeAssetWeights();
-
-      }
-      catch (Exception ex)
-      {
-
-      }
-      finally
-      {
-         write.unlock();
-      }
+      loadDataFromDB(null);
    }
 
    private String checkThemeName(String theme)

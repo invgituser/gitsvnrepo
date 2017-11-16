@@ -16,61 +16,64 @@ public class TradeData
    private String subclass;
    private String color;
    private String ticker;
+   private String tradeDate;
+   private String tradeCurrency;
    private Double qty;
    private Double money;
    private Double curPrice;
-
-   private String holdingTicker;
-   private Double holdingQty;
-   private Double holdingPrice, holdingValue;
-   private Double holdingWeight, costBasisValue;
 
    private String allocTicker;
    private Double allocQty;
    private Double allocPrice, allocValue;
    private Double allocWeight;
 
+   private String settleCurrency;
+   private Double exchangeRate;
+   private Double settleCurQty;
+   private Double settleCurMoney;
+   private Double settleCurPrice;
+
    private String tradeType;
    private String reason;
-   private String created;
-   private double cashAvaailable;
+   private Double cashAvaailable;
+
 
    public TradeData()
    {
    }
 
-   public TradeData(String advisor, String clientAccountID, Long acctnum, String assetclass, String subclass, String ticker,
-                    Double qty, Double curPrice, Double money,
-                    String holdingTicker, Double holdingQty, Double holdingPrice, Double holdingValue,
-                    Double holdingWeight, Double costBasisValue,
+   public TradeData(String advisor, String clientAccountID, Long acctnum,
+                    String assetclass, String subclass, String color, String ticker,
+                    String tradeCurrency, Double qty, Double curPrice, Double money,
                     String allocTicker, Double allocQty, Double allocPrice, Double allocValue, Double allocWeight,
-                    String tradeType, String reason, double cashAvaailable)
+                    String settleCurrency, Double exchangeRate, Double settleCurQty, Double settleCurMoney, Double settleCurPrice,
+                    String tradeType, String reason, Double cashAvaailable)
    {
       this.advisor = advisor;
       this.clientAccountID = clientAccountID;
       this.acctnum = acctnum;
       this.assetclass = assetclass;
       this.subclass = subclass;
+      this.color = color;
       this.ticker = ticker;
+      this.tradeCurrency = tradeCurrency;
       this.qty = qty;
       this.money = money;
       this.curPrice = curPrice;
-      this.holdingTicker = holdingTicker;
-      this.holdingQty = holdingQty;
-      this.holdingPrice = holdingPrice;
-      this.holdingValue = holdingValue;
-      this.holdingWeight = holdingWeight;
-      this.costBasisValue = costBasisValue;
       this.allocTicker = allocTicker;
       this.allocQty = allocQty;
       this.allocPrice = allocPrice;
       this.allocValue = allocValue;
       this.allocWeight = allocWeight;
+      this.settleCurrency = settleCurrency;
+      this.exchangeRate = exchangeRate;
+      this.settleCurQty = settleCurQty;
+      this.settleCurMoney = settleCurMoney;
+      this.settleCurPrice = settleCurPrice;
       this.tradeType = tradeType;
       this.reason = reason;
       this.cashAvaailable = cashAvaailable;
    }
-
 
    public double getCashAvaailable()
    {
@@ -186,66 +189,6 @@ public class TradeData
       this.curPrice = curPrice;
    }
 
-   public String getHoldingTicker()
-   {
-      return holdingTicker;
-   }
-
-   public void setHoldingTicker(String holdingTicker)
-   {
-      this.holdingTicker = holdingTicker;
-   }
-
-   public Double getHoldingQty()
-   {
-      return holdingQty;
-   }
-
-   public void setHoldingQty(Double holdingQty)
-   {
-      this.holdingQty = holdingQty;
-   }
-
-   public Double getHoldingPrice()
-   {
-      return holdingPrice;
-   }
-
-   public void setHoldingPrice(Double holdingPrice)
-   {
-      this.holdingPrice = holdingPrice;
-   }
-
-   public Double getHoldingValue()
-   {
-      return holdingValue;
-   }
-
-   public void setHoldingValue(Double holdingValue)
-   {
-      this.holdingValue = holdingValue;
-   }
-
-   public Double getHoldingWeight()
-   {
-      return holdingWeight;
-   }
-
-   public void setHoldingWeight(Double holdingWeight)
-   {
-      this.holdingWeight = holdingWeight;
-   }
-
-   public Double getCostBasisValue()
-   {
-      return costBasisValue;
-   }
-
-   public void setCostBasisValue(Double costBasisValue)
-   {
-      this.costBasisValue = costBasisValue;
-   }
-
    public String getAllocTicker()
    {
       return allocTicker;
@@ -296,14 +239,84 @@ public class TradeData
       this.allocWeight = allocWeight;
    }
 
+   public String getTradeDate()
+   {
+      return tradeDate;
+   }
+
+   public void setTradeDate(String tradeDate)
+   {
+      this.tradeDate = tradeDate;
+   }
+
+   public String getTradeCurrency()
+   {
+      return tradeCurrency;
+   }
+
+   public void setTradeCurrency(String tradeCurrency)
+   {
+      this.tradeCurrency = tradeCurrency;
+   }
+
+   public String getSettleCurrency()
+   {
+      return settleCurrency;
+   }
+
+   public void setSettleCurrency(String settleCurrency)
+   {
+      this.settleCurrency = settleCurrency;
+   }
+
+   public Double getExchangeRate()
+   {
+      return exchangeRate;
+   }
+
+   public void setExchangeRate(Double exchangeRate)
+   {
+      this.exchangeRate = exchangeRate;
+   }
+
+   public Double getSettleCurQty()
+   {
+      return settleCurQty;
+   }
+
+   public void setSettleCurQty(Double settleCurQty)
+   {
+      this.settleCurQty = settleCurQty;
+   }
+
+   public Double getSettleCurMoney()
+   {
+      return settleCurMoney;
+   }
+
+   public void setSettleCurMoney(Double settleCurMoney)
+   {
+      this.settleCurMoney = settleCurMoney;
+   }
+
+   public Double getSettleCurPrice()
+   {
+      return settleCurPrice;
+   }
+
+   public void setSettleCurPrice(Double settleCurPrice)
+   {
+      this.settleCurPrice = settleCurPrice;
+   }
+
+   public void setCashAvaailable(Double cashAvaailable)
+   {
+      this.cashAvaailable = cashAvaailable;
+   }
+
    public String getTradeType()
    {
       return tradeType;
-   }
-
-   public void setTradeType(String tradeType)
-   {
-      this.tradeType = tradeType;
    }
 
    public String getReason()
@@ -314,15 +327,5 @@ public class TradeData
    public void setReason(String reason)
    {
       this.reason = reason;
-   }
-
-   public String getCreated()
-   {
-      return created;
-   }
-
-   public void setCreated(String created)
-   {
-      this.created = created;
    }
 }

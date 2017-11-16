@@ -53,14 +53,13 @@ public class InvModelDAO extends JdbcDaoSupport
             if (i == 0) {
                currentHolding.setAcctnum(convert.getLongData(rs.get("acctnum")));
                currentHolding.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
-               currentHolding.setFirstname(convert.getStrData(rs.get("firstname")));
-               currentHolding.setLastname(convert.getStrData(rs.get("lastname")));
-               currentHolding.setDateOpened(convert.getStrData(rs.get("dateOpened")));
-               currentHolding.setAccountAlias(convert.getStrData(rs.get("accountAlias")));
                currentHolding.setTotalFees(convert.getDoubleData(rs.get("ytdinvoiceFee")));
+               currentHolding.setTradeCurrency(convert.getStrData(rs.get("tradeCurrency")));
+               currentHolding.setSettleCurrency(convert.getStrData(rs.get("settleCurrency")));
+               currentHolding.setExchangeRate(convert.getDoubleData(rs.get("exchangeRate")));
 
             }
-            data.setCurrencyPrimary(convert.getStrData(rs.get("currencyPrimary")));
+            data.setTradeCurrency(convert.getStrData(rs.get("tradeCurrency")));
             data.setTicker(ticker);
             data.setDescription(convert.getStrData(rs.get("description")));
             data.setSide(convert.getStrData(rs.get("side")));
@@ -372,17 +371,17 @@ public class InvModelDAO extends JdbcDaoSupport
 
    public void deleteTradeData(Long acctnum) {
       // DataSource ds = getDs();
-      String storedProcName = "del_rebalanced_trades";
+      String storedProcName = "del_user_trade_preprocess";
       InvModelSP sp = new InvModelSP(ds, storedProcName,1, 11);
       sp.deleteTradeData(acctnum);
       }
 
 
-   public void saveTradeData(ArrayList<RebalanceTradeData> rebalanceTradeData) {
+   public void saveTradeData(ArrayList<UserTradePreprocess> rebalanceTradeData) {
       // DataSource ds = getDs();
-      String storedProcName = "save_rebalanced_trades";
+      String storedProcName = "save_user_trade_preprocess";
       InvModelSP sp = new InvModelSP(ds, storedProcName,1, 10);
-      for (RebalanceTradeData tData : rebalanceTradeData) {
+      for (UserTradePreprocess tData : rebalanceTradeData) {
          sp.saveTradeData(tData);
       }
    }
@@ -390,9 +389,13 @@ public class InvModelDAO extends JdbcDaoSupport
    public Map<Long, FamilyAccount> loadAllExternalPositions(Long familyacctnum)
    {
       // DataSource ds = getDs();
-      String storedProcName = "sel_external_position";
-      InvModelSP sp = new InvModelSP(ds, storedProcName, 1, 12);
+
+      // Had to remove this method for now.  Will have to use the standard sel_position to collect all data
+      // based on logonid (As defined as master account holder or family account. -- Prashant Oct-30-2017
+      String storedProcName = "sel_position";
       Map<Long, FamilyAccount> currentHolding = new HashMap<Long, FamilyAccount>();
+/*
+      InvModelSP sp = new InvModelSP(ds, storedProcName, 1, 12);
 
       Map outMap = sp.loadAllExternalPositions(familyacctnum);
 
@@ -443,6 +446,7 @@ public class InvModelDAO extends JdbcDaoSupport
             }
          }
       }
+*/
       return currentHolding;
    }
 

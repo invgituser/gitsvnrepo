@@ -12,6 +12,8 @@ import java.util.*;
 public class FamilyAccount
 {
    Long familyacctnum;
+   String advisor;
+   String rep;
    Double totalValue;
    Double totalCostbasisValue;
    Double totalPnl;

@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.web.constant.WebConst;
 import com.invessence.web.dao.common.*;
-import com.invessence.web.dao.consumer.ConsumerSaveDataDAO;
+import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.common.*;
+import com.invessence.web.data.consumer.RiskCalculator;
+import com.invessence.web.data.consumer.tcm.TCMRiskCalculator;
+import com.invessence.web.data.consumer.uob.UOBRiskCalculator;
 import com.invessence.web.io.TradeWriter;
 import com.invessence.web.util.*;
 import com.invmodel.rebalance.RebalanceProcess;
@@ -43,8 +46,8 @@ public class TradeBean extends TradeClientData implements Serializable
    private Integer whichScreen;
    private Boolean displayReviewPanel;
 
-   private List<RebalanceTradeData> rebalancetradedatalist;
-   private Map<String, RebalanceTradeData> assetMap = new HashMap<String, RebalanceTradeData>();
+   private List<UserTradePreprocess> rebalancetradedatalist;
+   private Map<String, UserTradePreprocess> assetMap = new HashMap<String, UserTradePreprocess>();
 
    private List<String> tradeFilters;
    Double sumHoldingValue= 0.0, sumCurValue = 0.0, sumNewValue = 0.0;
@@ -56,6 +59,9 @@ public class TradeBean extends TradeClientData implements Serializable
 
    @ManagedProperty("#{tradeDAO}")
    private TradeDAO tradeDAO;
+
+   @ManagedProperty("#{consumerListDataDAO}")
+   private ConsumerListDataDAO cldDAO;
 
    @ManagedProperty("#{consumerSaveDataDAO}")
    private ConsumerSaveDataDAO csdDAO;
@@ -109,6 +115,11 @@ public class TradeBean extends TradeClientData implements Serializable
    public void setCsdDAO(ConsumerSaveDataDAO csdDAO)
    {
       this.csdDAO = csdDAO;
+   }
+
+   public void setCldDAO(ConsumerListDataDAO cldDAO)
+   {
+      this.cldDAO = cldDAO;
    }
 
    public void setTradeDAO(TradeDAO tradeDAO)
@@ -241,7 +252,7 @@ public class TradeBean extends TradeClientData implements Serializable
       this.tradeFilters = tradeFilters;
    }
 
-   public List<RebalanceTradeData> getRebalancetradedatalist()
+   public List<UserTradePreprocess> getRebalancetradedatalist()
    {
       return rebalancetradedatalist;
    }
@@ -266,18 +277,21 @@ public class TradeBean extends TradeClientData implements Serializable
       return sumNewValue;
    }
 
-   public void setAssetMap(RebalanceTradeData data)
+   public void setAssetMap(UserTradePreprocess data)
    {
       String key = data.getAssetclass();
       if (assetMap.containsKey(key)) {
-         RebalanceTradeData origData = assetMap.get(key);
-         origData.setQty(origData.getQty() + data.getHoldingQty());
-         origData.setMoney(origData.getMoney() + data.getMoney());
-         origData.setHoldingQty(origData.getHoldingQty() + data.getHoldingQty());
-         origData.setHoldingValue(origData.getHoldingValue() + data.getHoldingValue());
+         UserTradePreprocess origData = assetMap.get(key);
+         origData.setCurQty(origData.getCurQty() + data.getCurQty());
+         origData.setCurValue(origData.getCurValue() + data.getCurValue());
          origData.setNewQty(origData.getNewQty() + data.getNewQty());
          origData.setNewValue(origData.getNewValue() + data.getNewValue());
-         assetMap.put(key,origData);
+
+         origData.setSettleCurQty(origData.getSettleCurQty() + data.getSettleCurQty());
+         origData.setSettleCurValue(origData.getSettleCurValue() + data.getSettleCurValue());
+         origData.setSettleNewQty(origData.getSettleNewQty() + data.getSettleNewQty());
+         origData.setSettleNewValue(origData.getSettleNewValue() + data.getSettleNewValue());
+         // assetMap.put(key,origData);
       }
       else {
          assetMap.put(key,data);
@@ -297,15 +311,14 @@ public class TradeBean extends TradeClientData implements Serializable
       return webutil.MathAbs(value/sum);
    }
 
-   public List<RebalanceTradeData> getAssetList()
+   public List<UserTradePreprocess> getAssetList()
    {
-      List<RebalanceTradeData> assetList = new ArrayList<RebalanceTradeData>();
+      List<UserTradePreprocess> assetList = new ArrayList<UserTradePreprocess>();
       sumHoldingValue= 0.0; sumCurValue = 0.0; sumNewValue = 0.0;
       if (! assetMap.isEmpty()) {
-         for (RebalanceTradeData data : assetMap.values()) {
+         for (UserTradePreprocess data : assetMap.values()) {
             assetList.add(data);
-            sumHoldingValue += data.getHoldingValue();
-            sumCurValue += data.getCurPrice();
+            sumCurValue += data.getCurValue();
             sumNewValue += data.getNewValue();
          }
       }
@@ -487,12 +500,12 @@ public class TradeBean extends TradeClientData implements Serializable
       try
       {
          if (assetMap == null) {
-            assetMap = new HashMap<String, RebalanceTradeData>();
+            assetMap = new HashMap<String, UserTradePreprocess>();
          }
 
          assetMap.clear();
          rebalancetradedatalist = tradeDAO.loadRebalTrades(acctnum);
-         for (RebalanceTradeData data : rebalancetradedatalist) {
+         for (UserTradePreprocess data : rebalancetradedatalist) {
             setAssetMap(data);
          }
       }
@@ -609,7 +622,7 @@ public class TradeBean extends TradeClientData implements Serializable
       TradeClientData tData = null;
       Long logonid;
 
-      ArrayList<RebalanceTradeData> tradedata = null;
+      ArrayList<UserTradePreprocess> tradedata = null;
       try
       {
          if (!mode.equalsIgnoreCase("I"))
@@ -626,6 +639,13 @@ public class TradeBean extends TradeClientData implements Serializable
             {
                webutil.setProgressbar((loop / numClients) * 100);
                tData = getSelectedClientList().get(loop);
+
+               // Need to reaccess the client Risk based on duration and age.
+               Integer whichAdvisor = 0;
+               RiskCalculator riskCalc = new UOBRiskCalculator();
+
+               riskCalc.calculateRisk();
+
                tradedata = rebalProcess.process(logonid, tData.getAcctnum());
                if (tradedata != null)
                {

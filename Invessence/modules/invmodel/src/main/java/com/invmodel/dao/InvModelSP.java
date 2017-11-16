@@ -53,19 +53,28 @@ public class InvModelSP extends StoredProcedure
                   declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
                   declareParameter(new SqlParameter("p_clientAccountID", Types.VARCHAR));
                   declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
-                  declareParameter(new SqlParameter("p_ticker", Types.VARCHAR));
+                  declareParameter(new SqlParameter("p_processed", Types.VARCHAR));
+                  declareParameter(new SqlParameter("p_tradeDate", Types.VARCHAR));
+                  declareParameter(new SqlParameter("p_tradeCurrency", Types.VARCHAR));
                   declareParameter(new SqlParameter("p_assetclass", Types.VARCHAR));
                   declareParameter(new SqlParameter("p_subclass", Types.VARCHAR));
                   declareParameter(new SqlParameter("p_color", Types.VARCHAR));
+                  declareParameter(new SqlParameter("p_holdingTicker", Types.VARCHAR));
                   declareParameter(new SqlParameter("p_curQty", Types.INTEGER));
                   declareParameter(new SqlParameter("p_curPrice", Types.DOUBLE));
                   declareParameter(new SqlParameter("p_curValue", Types.DOUBLE));
-                  declareParameter(new SqlParameter("p_holdingTicker", Types.VARCHAR));
-                  declareParameter(new SqlParameter("p_holdingQty", Types.INTEGER));
-                  declareParameter(new SqlParameter("p_holdingPrice", Types.DOUBLE));
-                  declareParameter(new SqlParameter("p_holdingValue", Types.DOUBLE));
+                  declareParameter(new SqlParameter("p_newTicker", Types.VARCHAR));
                   declareParameter(new SqlParameter("p_newQty", Types.INTEGER));
+                  declareParameter(new SqlParameter("p_newPrice", Types.INTEGER));
                   declareParameter(new SqlParameter("p_newValue", Types.DOUBLE));
+                  declareParameter(new SqlParameter("p_settleCurrency", Types.VARCHAR));
+                  declareParameter(new SqlParameter("p_setleCurQty", Types.DOUBLE));
+                  declareParameter(new SqlParameter("p_settleCurPrice", Types.DOUBLE));
+                  declareParameter(new SqlParameter("p_settleCurValue", Types.DOUBLE));
+                  declareParameter(new SqlParameter("p_exchangeRate", Types.DOUBLE));
+                  declareParameter(new SqlParameter("p_setleNewQty", Types.DOUBLE));
+                  declareParameter(new SqlParameter("p_settleNewPrice", Types.DOUBLE));
+                  declareParameter(new SqlParameter("p_settleNewValue", Types.DOUBLE));
                   declareParameter(new SqlParameter("p_tradeType", Types.VARCHAR));
                   declareParameter(new SqlParameter("p_reason", Types.VARCHAR));
                   break;
@@ -150,27 +159,37 @@ public class InvModelSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map saveTradeData(RebalanceTradeData tData)
+   public Map saveTradeData(UserTradePreprocess tData)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_advisor", tData.getAdvisor());
       inputMap.put("p_clientAccountID", tData.getClientAccountID());
       inputMap.put("p_acctnum", tData.getAcctnum());
-      inputMap.put("p_ticker", tData.getTicker());
+      inputMap.put("p_processed", "N");
+      inputMap.put("p_tradeDate", null);
+      inputMap.put("p_tradeCurrency", tData.getTradeCurrency());
       inputMap.put("p_assetclass", tData.getAssetclass());
       inputMap.put("p_subclass", tData.getSubclass());
       inputMap.put("p_color", tData.getColor());
-      inputMap.put("p_curQty", tData.getQty().intValue());
-      inputMap.put("p_curPrice", tData.getCurPrice());
-      inputMap.put("p_curValue", tData.getMoney());
       inputMap.put("p_holdingTicker", tData.getHoldingTicker());
-      inputMap.put("p_holdingQty", tData.getHoldingQty());
-      inputMap.put("p_holdingPrice", tData.getHoldingPrice());
-      inputMap.put("p_holdingValue", tData.getHoldingValue());
+      inputMap.put("p_curQty", tData.getCurQty());
+      inputMap.put("p_curPrice", tData.getCurPrice());
+      inputMap.put("p_curValue", tData.getCurValue());
+      inputMap.put("p_newTicker", tData.getNewTicker());
       inputMap.put("p_newQty", tData.getNewQty());
+      inputMap.put("p_newPrice", tData.getNewValue());
       inputMap.put("p_newValue", tData.getNewValue());
+      inputMap.put("p_settleCurrency", tData.getSettleCurrency());
+      inputMap.put("p_setleCurQty", tData.getSettleCurQty());
+      inputMap.put("p_settleCurPrice", tData.getSettleCurPrice());
+      inputMap.put("p_settleCurValue", tData.getSettleCurValue());
+      inputMap.put("p_exchangeRate", tData.getExchangeRate());
+      inputMap.put("p_setleNewQty", tData.getSettleNewQty());
+      inputMap.put("p_settleNewPrice", tData.getSettleNewPrice());
+      inputMap.put("p_settleNewValue", tData.getSettleNewValue());
       inputMap.put("p_tradeType", tData.getTradeType());
       inputMap.put("p_reason", tData.getReason());
+
       return super.execute(inputMap);
    }
 

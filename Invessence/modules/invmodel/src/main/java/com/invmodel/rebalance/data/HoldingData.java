@@ -21,7 +21,7 @@ public class HoldingData
    private Double subQty;
    private Double weight;
 
-   private String currencyPrimary;
+   private String tradeCurrency;
    private String description;
    private String side;
    private Double costBasisPrice;
@@ -58,6 +58,22 @@ public class HoldingData
    private Double longTimeShares;
    private Double shortProceeds;
    private Double shortTimeShares;
+
+   private String settleCurrency;
+   private Double exchangeRate;
+   private Double settleQty;
+   private Double settleMarkPrice;
+   private Double settlePosition;
+
+   private Double settleLongProceeds;
+   private Double settleLongTimeShares;
+   private Double settleShortProceeds;
+   private Double settleShortTimeShares;
+
+   public HoldingData()
+   {
+   }
+
 
    public Boolean getOutRightSellFlag()
    {
@@ -148,10 +164,6 @@ public class HoldingData
    {
       this.subMarketPrice = subMarketPrice;
    }
-
-
-
-
 
    public Double getRelShortGain()
    {
@@ -265,11 +277,7 @@ public class HoldingData
       this.processed = processed;
    }
 
-   public HoldingData()
-   {
-   }
-
-   public Long getInstrumentid()
+    public Long getInstrumentid()
    {
       return instrumentid;
    }
@@ -346,14 +354,14 @@ public class HoldingData
          return 0.0;
    }
 
-   public String getCurrencyPrimary()
+   public String getTradeCurrency()
    {
-      return currencyPrimary;
+      return tradeCurrency;
    }
 
-   public void setCurrencyPrimary(String currencyPrimary)
+   public void setTradeCurrency(String tradeCurrency)
    {
-      this.currencyPrimary = currencyPrimary;
+      this.tradeCurrency = tradeCurrency;
    }
 
    public String getDescription()
@@ -464,5 +472,100 @@ public class HoldingData
    public void setRisk(Double risk)
    {
       this.risk = risk;
+   }
+
+   public Boolean getTlhSellShortFlag()
+   {
+      return tlhSellShortFlag;
+   }
+
+   public Boolean getTlhSellLongFlag()
+   {
+      return tlhSellLongFlag;
+   }
+
+   public String getSettleCurrency()
+   {
+      return settleCurrency;
+   }
+
+   public void setSettleCurrency(String settleCurrency)
+   {
+      this.settleCurrency = settleCurrency;
+   }
+
+   public Double getExchangeRate()
+   {
+      return exchangeRate;
+   }
+
+   public void setExchangeRate(Double exchangeRate)
+   {
+      this.exchangeRate = exchangeRate;
+   }
+
+   public Double getSettleLongProceeds()
+   {
+      return settleLongProceeds;
+   }
+
+   public void setSettleLongProceeds(Double settleLongProceeds)
+   {
+      this.settleLongProceeds = settleLongProceeds;
+   }
+
+   public Double getSettleLongTimeShares()
+   {
+      return settleLongTimeShares;
+   }
+
+   public void setSettleLongTimeShares(Double settleLongTimeShares)
+   {
+      this.settleLongTimeShares = settleLongTimeShares;
+   }
+
+   public Double getSettleShortProceeds()
+   {
+      return settleShortProceeds;
+   }
+
+   public void setSettleShortProceeds(Double settleShortProceeds)
+   {
+      this.settleShortProceeds = settleShortProceeds;
+   }
+
+   public Double getSettleShortTimeShares()
+   {
+      return settleShortTimeShares;
+   }
+
+   public void setSettleShortTimeShares(Double settleShortTimeShares)
+   {
+      this.settleShortTimeShares = settleShortTimeShares;
+   }
+
+   public Double getSettlePosition()
+   {
+      return settlePosition;
+   }
+
+   public Double getSettleMarkPrice()
+   {
+      return settleMarkPrice;
+   }
+
+   public void setSettlePosition(Double settlePosition)
+   {
+      this.settlePosition = settlePosition;
+   }
+
+   public Double getSettleQty()
+   {
+      return settleQty;
+   }
+
+   public void setSettleQty(Double settleQty)
+   {
+      this.settleQty = settleQty;
    }
 }

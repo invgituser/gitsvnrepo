@@ -53,6 +53,7 @@ public class UOBRiskCalculator extends RiskCalculator
       retired = 0;  // same as false;  Need to use 0,1 (because of dropdown on the menu)
    }
 
+   @Override
    public Double calculateRisk()
    {
       Double calcRisk = 0.0;

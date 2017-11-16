@@ -5,7 +5,7 @@ import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
- * User: pichaimanir
+ * User: Prashant Mehta
  * Date: 8/19/13
  * Time: 4:50 PM
  * To change this template use File | Settings | File Templates.
@@ -16,13 +16,10 @@ public class CurrentHolding implements Serializable
    private Long logonid;
    private Long acctnum;
    private String clientAccountID;
-   private String accountAlias;
-   private String firstname, lastname;
-   private String dateOpened;
-
-   private List<HoldingData> holdingList;
-
-   private Map<String, HoldingData> holdingDataMap = new HashMap<String, HoldingData>();
+   private String tradeCurrency;
+   private String ticker;
+   private String settleCurrency;
+   private Double exchangeRate;
 
    private Double totalAllocation;
    private Double totalvalue;
@@ -37,6 +34,14 @@ public class CurrentHolding implements Serializable
    private Double shortLoss;
    private Double longLoss;
    private Double cashAvailable;
+
+   private List<HoldingData> holdingList;
+
+   private Map<String, HoldingData> holdingDataMap = new HashMap<String, HoldingData>();
+
+   public CurrentHolding()
+   {
+   }
 
    public Double getCashAvailable()
    {
@@ -88,9 +93,6 @@ public class CurrentHolding implements Serializable
       this.longLoss = longLoss;
    }
 
-   public CurrentHolding()
-   {
-   }
 
    public Long getLogonid()
    {
@@ -120,46 +122,6 @@ public class CurrentHolding implements Serializable
    public void setClientAccountID(String clientAccountID)
    {
       this.clientAccountID = clientAccountID;
-   }
-
-   public String getAccountAlias()
-   {
-      return accountAlias;
-   }
-
-   public void setAccountAlias(String accountAlias)
-   {
-      this.accountAlias = accountAlias;
-   }
-
-   public String getFirstname()
-   {
-      return firstname;
-   }
-
-   public void setFirstname(String firstname)
-   {
-      this.firstname = firstname;
-   }
-
-   public String getLastname()
-   {
-      return lastname;
-   }
-
-   public void setLastname(String lastname)
-   {
-      this.lastname = lastname;
-   }
-
-   public String getDateOpened()
-   {
-      return dateOpened;
-   }
-
-   public void setDateOpened(String dateOpened)
-   {
-      this.dateOpened = dateOpened;
    }
 
    public List<HoldingData> getHoldingList()
@@ -260,6 +222,46 @@ public class CurrentHolding implements Serializable
    public void setTotalFees(Double totalFees)
    {
       this.totalFees = totalFees;
+   }
+
+   public String getTradeCurrency()
+   {
+      return tradeCurrency;
+   }
+
+   public void setTradeCurrency(String tradeCurrency)
+   {
+      this.tradeCurrency = tradeCurrency;
+   }
+
+   public String getTicker()
+   {
+      return ticker;
+   }
+
+   public void setTicker(String ticker)
+   {
+      this.ticker = ticker;
+   }
+
+   public String getSettleCurrency()
+   {
+      return settleCurrency;
+   }
+
+   public void setSettleCurrency(String settleCurrency)
+   {
+      this.settleCurrency = settleCurrency;
+   }
+
+   public Double getExchangeRate()
+   {
+      return exchangeRate;
+   }
+
+   public void setExchangeRate(Double exchangeRate)
+   {
+      this.exchangeRate = exchangeRate;
    }
 
    public void addTotals()

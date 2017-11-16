@@ -25,7 +25,6 @@ public class Position implements Serializable
 
    private String clientAccountID;
    private String accountAlias;
-   private String currencyPrimary;
    private String description;
    private String side;
    private Double costBasisPrice;
@@ -230,14 +229,14 @@ public class Position implements Serializable
       this.accountAlias = accountAlias;
    }
 
-   public String getCurrencyPrimary()
+   public String getTradePrimary()
    {
-      return currencyPrimary;
+      return tradeCurrency;
    }
 
-   public void setCurrencyPrimary(String currencyPrimary)
+   public void setCurrencyPrimary(String tradeCurrency)
    {
-      this.currencyPrimary = currencyPrimary;
+      this.tradeCurrency = tradeCurrency;
    }
 
    public String getDescription()

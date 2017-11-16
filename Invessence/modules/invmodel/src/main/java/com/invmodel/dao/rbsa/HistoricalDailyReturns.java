@@ -121,7 +121,7 @@ public class HistoricalDailyReturns
                {
                   Map rs = (Map) rows.get(maxticker);
                   String ticker = convert.getStrData(rs.get("ticker"));
-                  String dest_currency = convert.getStrData(rs.get("dest_currency"));
+                  String tradeCurrency = convert.getStrData(rs.get("tradeCurrency"));
                   Integer value =  convert.getIntData(rs.get("maxrows"));
                   maxreturns = (value > maxreturns) ? value : maxreturns;
                   maxticker++;
@@ -138,9 +138,9 @@ public class HistoricalDailyReturns
                {
                   Map rs = (Map) rows.get(i);
                   String ticker = convert.getStrData(rs.get("ticker"));
-                  String dest_currency = convert.getStrData(rs.get("dest_currency"));
+                  String tradeCurrency = convert.getStrData(rs.get("tradeCurrency"));
                   Double value =  convert.getDoubleData(rs.get("daily_return"));
-                  String key = ticker + '.' + dest_currency;
+                  String key = ticker + '.' + tradeCurrency;
                   putDailyReturnsArray(key, value);
                   i++;
                }

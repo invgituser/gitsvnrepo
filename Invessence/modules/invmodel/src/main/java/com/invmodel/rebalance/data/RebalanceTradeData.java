@@ -22,6 +22,8 @@ public class RebalanceTradeData
 
    private String ticker;
    private String secname;
+
+   private String tradeCurrency;
    private Double qty;
    private Double money;
    private Double curPrice;
@@ -35,6 +37,13 @@ public class RebalanceTradeData
 
    private String tradeType;
    private String reason;
+
+   private Double exchangeRate;
+   private String settleCurrency;
+   private Double settleQty;
+   private Double settlePrice;
+   private Double settleMoney;
+
 
    private Integer sortorder;
 
@@ -51,7 +60,9 @@ public class RebalanceTradeData
                              Double qty, Double money, Double curPrice,
                              String holdingTicker, Double holdingQty, Double holdingPrice, Double holdingValue,
                              Double newQty, Double newValue,
-                             String tradeType, String reason, Integer sortorder)
+                             String tradeType, String reason, Integer sortorder,
+                             String tradeCurrency, Double exchangeRate, String settleCurrency,
+                             Double settleQty, Double settlePrice, Double settleMoney)
    {
       this.acctnum = acctnum;
       this.clientAccountID = clientAccountID;
@@ -77,6 +88,12 @@ public class RebalanceTradeData
       this.tradeType = tradeType;
       this.reason = reason;
       this.sortorder = sortorder;
+      this.tradeCurrency = tradeCurrency;
+      this.exchangeRate =exchangeRate;
+      this.settleCurrency = settleCurrency;
+      this.settleQty = settleQty;
+      this.settlePrice = settlePrice;
+      this.settleMoney = settleMoney;
    }
 
    public Long getAcctnum()
@@ -317,5 +334,65 @@ public class RebalanceTradeData
    public void setSortorder(Integer sortorder)
    {
       this.sortorder = sortorder;
+   }
+
+   public String getTradeCurrency()
+   {
+      return tradeCurrency;
+   }
+
+   public void setTradeCurrency(String tradeCurrency)
+   {
+      this.tradeCurrency = tradeCurrency;
+   }
+
+   public Double getExchangeRate()
+   {
+      return exchangeRate;
+   }
+
+   public void setExchangeRate(Double exchangeRate)
+   {
+      this.exchangeRate = exchangeRate;
+   }
+
+   public String getSettleCurrency()
+   {
+      return settleCurrency;
+   }
+
+   public void setSettleCurrency(String settleCurrency)
+   {
+      this.settleCurrency = settleCurrency;
+   }
+
+   public Double getSettleQty()
+   {
+      return settleQty;
+   }
+
+   public void setSettleQty(Double settleQty)
+   {
+      this.settleQty = settleQty;
+   }
+
+   public Double getSettlePrice()
+   {
+      return settlePrice;
+   }
+
+   public void setSettlePrice(Double settlePrice)
+   {
+      this.settlePrice = settlePrice;
+   }
+
+   public Double getSettleMoney()
+   {
+      return settleMoney;
+   }
+
+   public void setSettleMoney(Double settleMoney)
+   {
+      this.settleMoney = settleMoney;
    }
 }

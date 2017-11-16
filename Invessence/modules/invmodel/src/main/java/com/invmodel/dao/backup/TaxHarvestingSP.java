@@ -12,6 +12,7 @@ import org.springframework.jdbc.object.StoredProcedure;
 
 public class TaxHarvestingSP extends StoredProcedure
 {
+/*
 
    public TaxHarvestingSP(DataSource datasource, String storedProcName, int which)
    {
@@ -127,15 +128,9 @@ public class TaxHarvestingSP extends StoredProcedure
       inputMap.put("p_ticker", tData.getTicker());
       inputMap.put("p_assetclass", tData.getAssetclass());
       inputMap.put("p_sublass", tData.getSubclass());
-      inputMap.put("p_curQty", tData.getQty().intValue());
+      inputMap.put("p_curQty", tData.getQty());
       inputMap.put("p_curPrice", tData.getCurPrice());
       inputMap.put("p_curValue", tData.getMoney());
-      inputMap.put("p_holdingTicker", tData.getHoldingTicker());
-      inputMap.put("p_holdingQty", tData.getHoldingQty());
-      inputMap.put("p_holdingPrice", tData.getHoldingPrice());
-      inputMap.put("p_holdingValue", tData.getHoldingValue());
-      inputMap.put("p_holdingWeight", tData.getHoldingWeight());
-      inputMap.put("p_holdingCostBasis", tData.getCostBasisValue());
       inputMap.put("p_allocTicker", tData.getAllocTicker());
       inputMap.put("p_allocgQty", tData.getAllocQty());
       inputMap.put("p_allocPrice", tData.getAllocPrice());
@@ -154,5 +149,6 @@ public class TaxHarvestingSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
+*/
 
 }

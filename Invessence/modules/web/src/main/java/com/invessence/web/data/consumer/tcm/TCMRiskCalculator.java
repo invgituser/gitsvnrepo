@@ -189,6 +189,7 @@ public class TCMRiskCalculator extends RiskCalculator
       }
    }
 
+   @Override
    public Double calculateRisk()
    {
       Double calcRisk = 0.0;

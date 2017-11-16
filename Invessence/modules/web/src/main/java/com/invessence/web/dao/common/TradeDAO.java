@@ -135,15 +135,15 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
       return null;
    }
 
-   public List<RebalanceTradeData> loadRebalTrades(Long acctnum)
+   public List<UserTradePreprocess> loadRebalTrades(Long acctnum)
    {
       DataSource ds = getDataSource();
       TradeSP sp;
 
-      sp = new TradeSP(ds, "sel_TradeRebalDetail", 102);
+      sp = new TradeSP(ds, "sel_user_trade_preprocess", 102);
       Map outMap = sp.loadTradesDetails(acctnum);
 
-      ArrayList<RebalanceTradeData> rebalanceTradesList = new ArrayList<RebalanceTradeData>();
+      ArrayList<UserTradePreprocess> userTradePreprocess = new ArrayList<UserTradePreprocess>();
       int i = 0;
       if (outMap != null)
       {
@@ -154,39 +154,43 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
-               RebalanceTradeData tradedata = new RebalanceTradeData(
-                  convert.getLongData(rs.get("acctnum")),
-                  convert.getStrData(rs.get("clientAccountID")),
-                  convert.getStrData(rs.get("lastname")),
-                  convert.getStrData(rs.get("firstname")),
-                  convert.getStrData(rs.get("taxable")),
+               UserTradePreprocess tradedata = new UserTradePreprocess(
                   convert.getStrData(rs.get("advisor")),
-                  convert.getStrData(rs.get("rep")),
+                  convert.getStrData(rs.get("clientAccountID")),
+                  convert.getLongData(rs.get("acctnum")),
+                  convert.getStrData(rs.get("processed")),
+                  convert.getStrData(rs.get("tradeDate")),
+                  convert.getStrData(rs.get("tradeCurrency")),
                   convert.getStrData(rs.get("assetclass")),
                   convert.getStrData(rs.get("subclass")),
-                  convert.getStrData(rs.get("color")),
-                  convert.getStrData(rs.get("ticker")),
-                  convert.getStrData(rs.get("name")), // Security Name
-                  convert.getDoubleData(rs.get("curQty")),
-                  convert.getDoubleData(rs.get("curValue")),
-                  convert.getDoubleData(rs.get("curPrice")),
+                  convert.getStrData(rs.get("assetcolor")),
                   convert.getStrData(rs.get("holdingTicker")),
-                  convert.getDoubleData(rs.get("holdingQty")),
-                  convert.getDoubleData(rs.get("holdingPrice")),
-                  convert.getDoubleData(rs.get("holdingValue")),
+                  convert.getDoubleData(rs.get("curQty")),
+                  convert.getDoubleData(rs.get("curPrice")),
+                  convert.getDoubleData(rs.get("curValue")),
+                  convert.getStrData(rs.get("newTicker")),
                   convert.getDoubleData(rs.get("newQty")),
+                  convert.getDoubleData(rs.get("newPrice")),
                   convert.getDoubleData(rs.get("newValue")),
+                  convert.getStrData(rs.get("settleCurrency")),
+                  convert.getDoubleData(rs.get("setleCurQty")),
+                  convert.getDoubleData(rs.get("settleCurPrice")),
+                  convert.getDoubleData(rs.get("settleCurValue")),
+                  convert.getDoubleData(rs.get("exchangeRate")),
+                  convert.getDoubleData(rs.get("settleNewQty")),
+                  convert.getDoubleData(rs.get("settleNewPrice")),
+                  convert.getDoubleData(rs.get("settleNewValue")),
                   convert.getStrData(rs.get("tradeType")),
-                  convert.getStrData(rs.get("reason")),
-                  convert.getIntData(rs.get("sortorder"))
-               );
-               rebalanceTradesList.add(tradedata);
+                  convert.getStrData(rs.get("reason"))
+                  );
+
+               userTradePreprocess.add(tradedata);
                 i++;
             }
          }
       }
 
-      return rebalanceTradesList;
+      return userTradePreprocess;
    }
 
    public List<TradeClientData> getTradeProfileData(Long logonid, String filter)

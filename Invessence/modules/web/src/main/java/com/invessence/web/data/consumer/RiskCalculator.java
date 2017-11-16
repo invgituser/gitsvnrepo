@@ -450,4 +450,8 @@ public class RiskCalculator
       riskValues[index] = value;
    }
 
+   public Double calculateRisk(){
+      return 0.0;
+   }
+
 }

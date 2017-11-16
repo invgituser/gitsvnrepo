@@ -39,8 +39,8 @@ public class NewRebal
       rbal.setTlhSecurityCollection(tlhsecurityCollection);
 
       // Now we can do re-balancing on account(s).
-      ArrayList<RebalanceTradeData> rebalanceTradeDataList = rbal.process(2L, 1L);
-      printTradeFile(rebalanceTradeDataList);
+      ArrayList<UserTradePreprocess> UserTradePreprocess = rbal.process(2L, 1L);
+      printTradeFile(UserTradePreprocess);
    }
 
    public static PrintWriter getFileHandle(String fileName)
@@ -63,7 +63,7 @@ public class NewRebal
       return writer;
    }
 
-   public static void printTradeFile (ArrayList<RebalanceTradeData> tList){
+   public static void printTradeFile (ArrayList<UserTradePreprocess> tList){
 
       if(tList != null) {
          PrintWriter writer = getFileHandle("TradeFile.csv");
@@ -81,17 +81,17 @@ public class NewRebal
                            "," + "newValue" +
                            "," + "tradeType" );
 
-         for (RebalanceTradeData tData : tList) {
+         for (UserTradePreprocess tData : tList) {
             writer.println(tData.getClientAccountID() +
                               "," + tData.getAcctnum() +
-                              "," + tData.getTicker() +
-                              "," + tData.getQty() +
-                              "," + tData.getCurPrice() +
-                              "," + tData.getMoney() +
                               "," + tData.getHoldingTicker() +
-                              "," + tData.getHoldingQty() +
-                              "," + tData.getHoldingPrice() +
-                              "," + tData.getHoldingValue() +
+                              "," + tData.getCurQty() +
+                              "," + tData.getCurPrice() +
+                              "," + tData.getCurValue() +
+                              "," + tData.getNewTicker() +
+                              "," + tData.getNewQty() +
+                              "," + tData.getNewPrice() +
+                              "," + tData.getNewValue() +
                               "," + tData.getNewQty() +
                               "," + tData.getNewValue() +
                               "," + tData.getTradeType());
