@@ -1,5 +1,8 @@
 package com.invessence;
 
+import java.lang.reflect.*;
+import java.util.*;
+
 import com.invessence.custody.uob.UOBDataMaster;
 import com.invessence.custody.uob.dao.UOBDaoImpl;
 import com.invessence.ws.bean.*;
@@ -22,6 +25,11 @@ public class CallingProgramme
          UOBDaoImpl uobDao = (UOBDaoImpl) context.getBean("uobDaoImpl");
          UOBDataMaster uobDataMaster=(UOBDataMaster) uobDao.fetch(new Long(123));
          System.out.println("uobDataMaster = " + uobDataMaster);
+        List<String> fieldsLst= getFieldNames(uobDataMaster.getIndividualOwnersDetails().getOwnerContactDetails(),false);
+
+         for(int i=0;i<fieldsLst.size();i++){
+            System.out.println(fieldsLst.get(i));
+         }
 
 //         ServiceLayerImpl serviceLayer = (ServiceLayerImpl) context.getBean("serviceLayerImpl");
 //         serviceLayer.toTestAPI();
@@ -85,4 +93,48 @@ public class CallingProgramme
       }
 
    }
+
+   public static List<String> getFieldNames(final Object obj, boolean publicOnly)
+      throws IllegalArgumentException, IllegalAccessException
+   {
+      StringBuilder sb = new StringBuilder();
+      Class<? extends Object> c1 = obj.getClass();
+      List<String> lst = new ArrayList<String>();
+      Field[] fields = c1.getDeclaredFields();
+      for (int i = 0; i < fields.length; i++)
+      {
+         String name = fields[i].getName();
+         if (publicOnly)
+         {
+            if (Modifier.isPublic(fields[i].getModifiers()))
+            {
+               Object value = fields[i].get(obj);
+               if (value == null)
+               {
+                  sb.append(name + ", ");
+               }
+               else
+               {
+                  lst.add(name);
+               }
+            }
+         }
+         else
+         {
+            fields[i].setAccessible(true);
+            Object value = fields[i].get(obj);
+            if (value == null)
+            {
+               sb.append(name + ", ");
+            }
+            else
+            {
+               lst.add(name);
+            }
+         }
+      }
+//      System.out.println("Avoided properties of "+c1+" due to empty or null value : (" + sb + ")");
+      return lst;
+   }
+
 }
