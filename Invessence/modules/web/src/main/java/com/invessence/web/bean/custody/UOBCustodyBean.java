@@ -37,8 +37,39 @@ public class UOBCustodyBean
    private String acctCat, extAcctInd, extAcctJnt, clientAcctId, slsPrsnNm, selIndAcctTyp, selJntAcctTyp;
    private Integer activeTab = 0;
    private boolean dsplNricInp = false, dsplOtrCntry = false, dsplIcNoInp = false, dsplPspNoInp = false;
-   private  Date dtPriHldrDob;
+   private Date dtPriHldrDob;
    String introError;
+
+   public void cleanUpAll()
+   {
+      dsplExtIndAcctCat = false;
+      dsplExtIndAcctInp = false;
+      dsplExtJntAcctCat = false;
+      dsplExtJntAcctInp = false;
+      dsplAcctTyp = false;
+      dspExtAcctPnl = false;
+      dspNewAcctPnl = false;
+      dspIntroAcctPnl = false;
+      dsblSubmtBtn = true;
+      dspJntTab = false;
+      dsplNricInp = false;
+      dsplOtrCntry = false;
+      dsplIcNoInp = false;
+      dsplPspNoInp = false;
+      acctCat = null;
+      extAcctInd = null;
+      extAcctJnt = null;
+      clientAcctId = null;
+      slsPrsnNm = null;
+      selIndAcctTyp = null;
+      selJntAcctTyp = null;
+      introError = null;
+      activeTab = 0;
+      dtPriHldrDob = new Date();
+      dspIntroAcctPnl = true;
+      dsblSubmtBtn = true;
+      dspJntTab = false;
+   }
 
    public void initCustody()
    {
@@ -53,29 +84,30 @@ public class UOBCustodyBean
                getWebutil().redirecttoMessagePage("ERROR", "Access Denied", msgheader);
                return;
             }
-            dspIntroAcctPnl = true;
-            dsblSubmtBtn = true;
-            dspJntTab = false;
-            uobDataMaster = custodyService.fetch(getBeanAcctNum(),false);
+            cleanUpAll();
+            uobDataMaster = custodyService.fetch(getBeanAcctNum(), false);
             uobDataMaster.getAccountDetails().setAcctnum(getBeanAcctNum());
             onChngNation();
             onChngOtrCntry();
             loadIntroPage();
 
-         if(uobDataMaster.getIndividualOwnersDetails().getDob()==null ||
-            uobDataMaster.getIndividualOwnersDetails().getDob().equalsIgnoreCase("") ){
-            dtPriHldrDob=new Date();
+            if (uobDataMaster.getIndividualOwnersDetails().getDob() == null ||
+               uobDataMaster.getIndividualOwnersDetails().getDob().equalsIgnoreCase(""))
+            {
+               dtPriHldrDob = new Date();
 //            SimpleDateFormat dt1 = new SimpleDateFormat("d MMM yyyy");
 //            dtPriHldrDob=dt1.format(dtPriHldrDob);
-         }else{
+            }
+            else
+            {
 //            DateFormat df = new SimpleDateFormat("d MMM yyyy");
 //            dtPriHldrDob = df.parse(uobDataMaster.getIndividualOwnersDetails().getDob());
-            DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+               DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
 //            Date date = new Date();
-            dtPriHldrDob = df.parse(uobDataMaster.getIndividualOwnersDetails().getDob());
+               dtPriHldrDob = df.parse(uobDataMaster.getIndividualOwnersDetails().getDob());
 //            SimpleDateFormat dt1 = new SimpleDateFormat("d MMM yyyy");
 //            dtPriHldrDob = dt1.format(date);
-         }
+            }
 //            DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 //            Date date = new Date();
 //         date = df.parse("");
@@ -153,13 +185,17 @@ public class UOBCustodyBean
                dsplExtJntAcctCat = true;
             }
          }
-      }catch (Exception e){
-         System.out.println("Error "+e);
+      }
+      catch (Exception e)
+      {
+         System.out.println("Error " + e);
          e.printStackTrace();
       }
    }
-   public void loadIntroPage(){
-      if(uobDataMaster.getAccountDetails().getAcctTypeId()!=null || uobDataMaster.getAccountDetails().getAcctTypeId()!="")
+
+   public void loadIntroPage()
+   {
+      if (uobDataMaster.getAccountDetails().getAcctTypeId() != null && uobDataMaster.getAccountDetails().getAcctTypeId() != "")
       {
          if (uobDataMaster.getAccountDetails().getClientAccountID() == null || uobDataMaster.getAccountDetails().getClientAccountID() == "")
          {
@@ -193,9 +229,9 @@ public class UOBCustodyBean
 
    public void introNextPage()
    {
-      if(validateIntroPage())
+      if (validateIntroPage())
       {
-         custodyService.saveAcctDetails(uobDataMaster.getAccountDetails(),"12");
+         custodyService.saveAcctDetails(uobDataMaster.getAccountDetails(), "12");
          dspIntroAcctPnl = false;
          getPagemanager().setPage(0);
          if (getAcctCat().equalsIgnoreCase("yes"))
@@ -229,10 +265,11 @@ public class UOBCustodyBean
       }
    }
 
-   public boolean validateIntroPage(){
+   public boolean validateIntroPage()
+   {
       Boolean dataOK = true;
-      StringBuilder sb=new StringBuilder();
-      if (acctCat == null || acctCat== "")
+      StringBuilder sb = new StringBuilder();
+      if (acctCat == null || acctCat == "")
       {
          dataOK = false;
 //         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.acctType.exist", "Please select Existing securities trading account on UOBKH Yes/No!", null));
@@ -240,12 +277,12 @@ public class UOBCustodyBean
       }
       if (acctCat != null && acctCat.equalsIgnoreCase("yes"))
       {
-         if (extAcctInd == null || extAcctInd== "")
+         if (extAcctInd == null || extAcctInd == "")
          {
             dataOK = false;
             sb.append("Please select Is it Individual Account Yes/No.<br/>");
          }
-         if ((extAcctInd != null ||extAcctInd!="") && extAcctInd.equalsIgnoreCase("yes"))
+         if ((extAcctInd != null || extAcctInd != "") && extAcctInd.equalsIgnoreCase("yes"))
          {
             if (uobDataMaster.getAccountDetails().getClientAccountID() == null || uobDataMaster.getAccountDetails().getClientAccountID().trim().equalsIgnoreCase(""))
             {
@@ -253,7 +290,7 @@ public class UOBCustodyBean
                sb.append("Enter your existing  Securities Trading account number is required.<br/>");
             }
          }
-         else if ((extAcctInd != null || extAcctInd!="") && extAcctInd.equalsIgnoreCase("No"))
+         else if ((extAcctInd != null || extAcctInd != "") && extAcctInd.equalsIgnoreCase("No"))
          {
             if (uobDataMaster.getAccountDetails().getClientAccountID() == null || uobDataMaster.getAccountDetails().getClientAccountID().trim().equalsIgnoreCase(""))
             {
@@ -267,27 +304,31 @@ public class UOBCustodyBean
          dataOK = false;
          sb.append("Sales Person Name is required.<br/>");
       }
-      if ( uobDataMaster.getAccountDetails().getAcctTypeId() == null || uobDataMaster.getAccountDetails().getAcctTypeId()=="")
+      if (uobDataMaster.getAccountDetails().getAcctTypeId() == null || uobDataMaster.getAccountDetails().getAcctTypeId() == "")
       {
          dataOK = false;
          sb.append("Type of account like to open is required.<br/>");
       }
-      if(sb.length()>0){
+      if (sb.length() > 0)
+      {
          dataOK = false;
-         introError=sb.toString();
-      }else{
+         introError = sb.toString();
+      }
+      else
+      {
          dataOK = true;
-         introError=null;
+         introError = null;
       }
 
       return dataOK;
    }
+
    public void nextPage()
    {
       System.out.println("page current" + getPagemanager().getPage());
-      if(validate(getPagemanager().getPage(),getAcctCat(),false))
+      if (validate(getPagemanager().getPage(), getAcctCat(), false))
       {
-         saveDetails(getPagemanager().getPage(),getAcctCat(),false);
+         saveDetails(getPagemanager().getPage(), getAcctCat(), false);
          getPagemanager().nextPage();
          System.out.println("page next" + getPagemanager().getPage());
          activeTab = getPagemanager().getPage();
@@ -321,37 +362,51 @@ public class UOBCustodyBean
             dsplIcNoInp = false;
             dsplPspNoInp = true;
          }
-      }catch(Exception e){}
-   }
-
-   public void onChngOtrCntry(){
-      try{
-      if(uobDataMaster.getIndividualOwnersDetails().getOwnerCitizenshipDetails().getNationalitySpecify().equalsIgnoreCase("malaysia")){
-         dsplNricInp = false;
-         dsplIcNoInp =true;
-         dsplPspNoInp = false;
-      }else{
-         dsplNricInp = false;
-         dsplIcNoInp =false;
-         dsplPspNoInp = true;
       }
-   }catch(Exception e){}
+      catch (Exception e)
+      {
+      }
    }
 
-   public Boolean validate(int pagenum ,String isNewForm,boolean isJoint){
+   public void onChngOtrCntry()
+   {
+      try
+      {
+         if (uobDataMaster.getIndividualOwnersDetails().getOwnerCitizenshipDetails().getNationalitySpecify().equalsIgnoreCase("malaysia"))
+         {
+            dsplNricInp = false;
+            dsplIcNoInp = true;
+            dsplPspNoInp = false;
+         }
+         else
+         {
+            dsplNricInp = false;
+            dsplIcNoInp = false;
+            dsplPspNoInp = true;
+         }
+      }
+      catch (Exception e)
+      {
+      }
+   }
+
+   public Boolean validate(int pagenum, String isNewForm, boolean isJoint)
+   {
       Boolean dataOK = true;
       pagemanager.clearErrorMessage(pagenum);
-      if(isNewForm.equalsIgnoreCase("NO"))
+      if (isNewForm.equalsIgnoreCase("NO"))
       {
          switch (pagenum)
          {
             case 0:// New Account ACCOUNT HOLDER
-                  if(!isJoint)
-                  {
-                     dataOK = validateAcctHldr(uobDataMaster.getIndividualOwnersDetails(),dtPriHldrDob);
-                  }else{
-                     dataOK = validateAcctHldr(uobDataMaster.getJointOwnersDetails(),dtPriHldrDob);
-                  }
+               if (!isJoint)
+               {
+                  dataOK = validateAcctHldr(uobDataMaster.getIndividualOwnersDetails(), dtPriHldrDob);
+               }
+               else
+               {
+                  dataOK = validateAcctHldr(uobDataMaster.getJointOwnersDetails(), dtPriHldrDob);
+               }
                break;
             case 1:// New Account ADDRESS
                break;
@@ -370,15 +425,19 @@ public class UOBCustodyBean
             default:
                break;
          }
-      }else{
+      }
+      else
+      {
          switch (pagenum)
          {
             case 0:// Existing Account ACCOUNT HOLDER
-               if(!isJoint)
+               if (!isJoint)
                {
-                  dataOK = validateAcctHldr(uobDataMaster.getIndividualOwnersDetails(),dtPriHldrDob);
-               }else{
-                  dataOK = validateAcctHldr(uobDataMaster.getJointOwnersDetails(),dtPriHldrDob);
+                  dataOK = validateAcctHldr(uobDataMaster.getIndividualOwnersDetails(), dtPriHldrDob);
+               }
+               else
+               {
+                  dataOK = validateAcctHldr(uobDataMaster.getJointOwnersDetails(), dtPriHldrDob);
                }
                break;
             case 1:// Existing Account TAX RESIDENCE INFORMATION
@@ -391,24 +450,27 @@ public class UOBCustodyBean
       return dataOK;
    }
 
-   public Boolean saveDetails(int pagenum ,String isNewForm,boolean isJoint){
+   public Boolean saveDetails(int pagenum, String isNewForm, boolean isJoint)
+   {
       Boolean dataOK = true;
       pagemanager.clearErrorMessage(pagenum);
-      if(isNewForm.equalsIgnoreCase("NO"))
+      if (isNewForm.equalsIgnoreCase("NO"))
       {
          switch (pagenum)
          {
             case 0:// New Account ACCOUNT HOLDER
-               if(!isJoint)
+               if (!isJoint)
                {
 //                  DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
                   SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                   uobDataMaster.getIndividualOwnersDetails().setDob(sdf.format(dtPriHldrDob));
-                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(),1,"",uobDataMaster.getIndividualOwnersDetails());
-               }else{
+                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, "", uobDataMaster.getIndividualOwnersDetails());
+               }
+               else
+               {
                   SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                   uobDataMaster.getIndividualOwnersDetails().setDob(sdf.format(dtPriHldrDob));
-                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(),2,"",uobDataMaster.getJointOwnersDetails());
+                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 2, "", uobDataMaster.getJointOwnersDetails());
                }
                break;
             case 1:// New Account ADDRESS
@@ -428,19 +490,23 @@ public class UOBCustodyBean
             default:
                break;
          }
-      }else{
+      }
+      else
+      {
          switch (pagenum)
          {
             case 0:// Existing Account ACCOUNT HOLDER
-               if(!isJoint)
+               if (!isJoint)
                {
                   SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                   uobDataMaster.getIndividualOwnersDetails().setDob(sdf.format(dtPriHldrDob));
-                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(),1,"",uobDataMaster.getIndividualOwnersDetails());
-               }else{
+                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, "", uobDataMaster.getIndividualOwnersDetails());
+               }
+               else
+               {
                   SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                   uobDataMaster.getIndividualOwnersDetails().setDob(sdf.format(dtPriHldrDob));
-                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(),2,"",uobDataMaster.getJointOwnersDetails());
+                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 2, "", uobDataMaster.getJointOwnersDetails());
                }
                break;
             case 1:// Existing Account TAX RESIDENCE INFORMATION
@@ -453,43 +519,46 @@ public class UOBCustodyBean
       return dataOK;
    }
 
-   public boolean saveAcctHldrDtls(Long acctNum, int acctOwnerId , String p_logonId, OwnerDetails ownerDetails){
+   public boolean saveAcctHldrDtls(Long acctNum, int acctOwnerId, String p_logonId, OwnerDetails ownerDetails)
+   {
       custodyService.saveAccountHolderDtls(acctNum, acctOwnerId, p_logonId, ownerDetails);
 //      uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails
-      saveAdditionalDtls(ownerDetails.getOwnerContactDetails(),acctNum,acctOwnerId,"ao_owners_contact_details");
-      saveAdditionalDtls(ownerDetails.getOwnerCitizenshipDetails(),acctNum,acctOwnerId,"ao_owners_citizenship_details");
-      saveAdditionalDtls(ownerDetails.getOwnerIdentificationDetails(),acctNum,acctOwnerId,"ao_owners_indentification_details");
+      saveAdditionalDtls(ownerDetails.getOwnerContactDetails(), acctNum, acctOwnerId, "ao_owners_contact_details");
+      saveAdditionalDtls(ownerDetails.getOwnerCitizenshipDetails(), acctNum, acctOwnerId, "ao_owners_citizenship_details");
+      saveAdditionalDtls(ownerDetails.getOwnerIdentificationDetails(), acctNum, acctOwnerId, "ao_owners_indentification_details");
 
 
       return true;
    }
+
    public void saveAdditionalDtls(Object obj, Long acctNum, int acctOwnerId, String table)
-{
-   try
    {
-      Map<String, Object> obMap = getFieldNames(obj, false);
-      for (Map.Entry<String, Object> entry : obMap.entrySet())
+      try
       {
-         String name = entry.getKey();
-         Object value = entry.getValue();
-         if (value == null)
+         Map<String, Object> obMap = getFieldNames(obj, false);
+         for (Map.Entry<String, Object> entry : obMap.entrySet())
          {
-            custodyService.saveAdditionalDtls(acctNum, acctOwnerId, name, null, table);
+            String name = entry.getKey();
+            Object value = entry.getValue();
+            if (value == null)
+            {
+               custodyService.saveAdditionalDtls(acctNum, acctOwnerId, name, null, table);
+            }
+            else
+            {
+               custodyService.saveAdditionalDtls(acctNum, acctOwnerId, name, value.toString(), table);
+            }
          }
-         else
-         {
-            custodyService.saveAdditionalDtls(acctNum, acctOwnerId, name, value.toString(), table);
-         }
+
       }
+      catch (Exception e)
+      {
 
+      }
    }
-   catch (Exception e)
+
+   public Boolean validateAcctHldr(OwnerDetails ownerDetails, Date dob)
    {
-
-   }
-}
-
-   public Boolean validateAcctHldr(OwnerDetails ownerDetails,Date dob) {
       Boolean dataOK = true;
       if (ownerDetails.getTitle() == null || ownerDetails.getTitle().equalsIgnoreCase("select"))
       {
@@ -501,91 +570,102 @@ public class UOBCustodyBean
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.fullName", "Full Name is required!", null));
       }
-      if (ownerDetails.getGender() == null || ownerDetails.getGender().equalsIgnoreCase("select"))
+      if (acctCat.equalsIgnoreCase("No"))
       {
-         dataOK = false;
-         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.gender", "Gender is required!", null));
-      }
+         if (ownerDetails.getGender() == null || ownerDetails.getGender().equalsIgnoreCase("select"))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.gender", "Gender is required!", null));
+         }
 //      Pending for Date of birth
-      if (dob == null)
-      {
-         dataOK = false;
-         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.dob", "Date of birth is required!", null));
+         if (dob == null)
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.dob", "Date of birth is required!", null));
+         }
+         if (ownerDetails.getCountryOfBirth() == null || ownerDetails.getCountryOfBirth().equalsIgnoreCase("select"))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctryOfBrth", "Country of birth is required!", null));
+         }
+         if (ownerDetails.getOwnerCitizenshipDetails().getNationality() == null ||
+            ownerDetails.getOwnerCitizenshipDetails().getNationality().trim().equalsIgnoreCase(""))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.natioanlity", "Nationality is required!", null));
+         }
+         if (ownerDetails.getOwnerCitizenshipDetails().getNationality() != null &&
+            !ownerDetails.getOwnerCitizenshipDetails().getNationality().trim().equalsIgnoreCase(""))
+         {
+            if (!ownerDetails.getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Others")
+               && (ownerDetails.getOwnerIdentificationDetails().getNric() == null ||
+               ownerDetails.getOwnerIdentificationDetails().getNric().trim().equalsIgnoreCase("")))
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.nric", "NRIC number is required!", null));
+            }
+         }
+         if (ownerDetails.getOwnerCitizenshipDetails().getNationality() != null &&
+            !ownerDetails.getOwnerCitizenshipDetails().getNationality().trim().equalsIgnoreCase(""))
+         {
+            if (ownerDetails.getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Others")
+               && (ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify() == null ||
+               ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify().equalsIgnoreCase("Select")))
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.otrNatCtry", "Other nationality country is required!", null));
+            }
+         }
+         if (ownerDetails.getOwnerCitizenshipDetails().getNationality() != null &&
+            !ownerDetails.getOwnerCitizenshipDetails().getNationality().trim().equalsIgnoreCase(""))
+         {
+            if (ownerDetails.getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Others")
+               && ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify() != null &&
+               ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify().equalsIgnoreCase("Malaysia")
+               && (ownerDetails.getOwnerIdentificationDetails().getIcno() == null ||
+               ownerDetails.getOwnerIdentificationDetails().getIcno().trim().equalsIgnoreCase("")))
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.malayIcNum", "Malaysia IC number is required is required!", null));
+            }
+         }
+         if (ownerDetails.getOwnerCitizenshipDetails().getNationality() != null &&
+            !ownerDetails.getOwnerCitizenshipDetails().getNationality().trim().equalsIgnoreCase(""))
+         {
+            if (ownerDetails.getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Others")
+               && ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify() != null &&
+               !ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify().equalsIgnoreCase("Malaysia")
+               && (ownerDetails.getOwnerIdentificationDetails().getPassport() == null ||
+               ownerDetails.getOwnerIdentificationDetails().getPassport().trim().equalsIgnoreCase("")))
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.psprtNum", "Passport number is required is required!", null));
+            }
+         }
       }
-      if (ownerDetails.getCountryOfBirth() == null || ownerDetails.getCountryOfBirth().equalsIgnoreCase("select"))
+      else
       {
-         dataOK = false;
-         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctryOfBrth", "Country of birth is required!", null));
-      }
-      if (ownerDetails.getOwnerCitizenshipDetails().getNationality() == null ||
-         ownerDetails.getOwnerCitizenshipDetails().getNationality().trim().equalsIgnoreCase(""))
-      {
-         dataOK = false;
-         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.natioanlity", "Nationality is required!", null));
-      }
-      if (ownerDetails.getOwnerCitizenshipDetails().getNationality() != null &&
-         !ownerDetails.getOwnerCitizenshipDetails().getNationality().trim().equalsIgnoreCase(""))
-      {
-         if (!ownerDetails.getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Others")
-            && (ownerDetails.getOwnerIdentificationDetails().getNric() == null ||
-            ownerDetails.getOwnerIdentificationDetails().getNric().trim().equalsIgnoreCase("")))
+         if (ownerDetails.getOwnerIdentificationDetails().getNric() == null ||
+            ownerDetails.getOwnerIdentificationDetails().getNric().trim().equalsIgnoreCase(""))
          {
             dataOK = false;
             pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.nric", "NRIC number is required!", null));
          }
       }
-      if (ownerDetails.getOwnerCitizenshipDetails().getNationality() != null &&
-         !ownerDetails.getOwnerCitizenshipDetails().getNationality().trim().equalsIgnoreCase(""))
-      {
-         if (ownerDetails.getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Others")
-            && (ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify() == null ||
-            ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify().equalsIgnoreCase("Select")))
-         {
-            dataOK = false;
-            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.otrNatCtry", "Other nationality country is required!", null));
-         }
-      }
-      if (ownerDetails.getOwnerCitizenshipDetails().getNationality() != null &&
-         !ownerDetails.getOwnerCitizenshipDetails().getNationality().trim().equalsIgnoreCase(""))
-      {
-         if (ownerDetails.getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Others")
-            && ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify() != null &&
-            ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify().equalsIgnoreCase("Malaysia")
-            &&(ownerDetails.getOwnerIdentificationDetails().getIcno()==null ||
-            ownerDetails.getOwnerIdentificationDetails().getIcno().trim().equalsIgnoreCase("") ))
-         {
-            dataOK = false;
-            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.malayIcNum", "Malaysia IC number is required is required!", null));
-         }
-      }
-      if (ownerDetails.getOwnerCitizenshipDetails().getNationality() != null &&
-         !ownerDetails.getOwnerCitizenshipDetails().getNationality().trim().equalsIgnoreCase(""))
-      {
-         if (ownerDetails.getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Others")
-            && ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify() != null &&
-           !ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify().equalsIgnoreCase("Malaysia")
-            &&(ownerDetails.getOwnerIdentificationDetails().getPassport()==null ||
-            ownerDetails.getOwnerIdentificationDetails().getPassport().trim().equalsIgnoreCase("") ))
-         {
-            dataOK = false;
-            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.psprtNum", "Passport number is required is required!", null));
-         }
-      }
 
-
-      if (ownerDetails.getOwnerContactDetails().getHomeTelNumberCD() == null ||
-         ownerDetails.getOwnerContactDetails().getHomeTelNumberCD().trim().equalsIgnoreCase(""))
-      {
-         dataOK = false;
-         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctryCdHmNum", "Country code for home tel number is required!", null));
-      }
-      if (ownerDetails.getOwnerContactDetails().getHomeTelNumber() == null ||
-         ownerDetails.getOwnerContactDetails().getHomeTelNumber().trim().equalsIgnoreCase(""))
-      {
-         dataOK = false;
-         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.hmNum", "Home tel number is required!", null));
-      }
-
+//      if (ownerDetails.getOwnerContactDetails().getHomeTelNumberCD() == null ||
+//         ownerDetails.getOwnerContactDetails().getHomeTelNumberCD().trim().equalsIgnoreCase(""))
+//      {
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctryCdHmNum", "Country code for home tel number is required!", null));
+//      }
+//      if (ownerDetails.getOwnerContactDetails().getHomeTelNumber() == null ||
+//         ownerDetails.getOwnerContactDetails().getHomeTelNumber().trim().equalsIgnoreCase(""))
+//      {
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.hmNum", "Home tel number is required!", null));
+//      }
+//
       if (ownerDetails.getOwnerContactDetails().getMobNumberCD() == null ||
          ownerDetails.getOwnerContactDetails().getMobNumberCD().trim().equalsIgnoreCase(""))
       {
@@ -600,34 +680,35 @@ public class UOBCustodyBean
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.mblNum", "Mobile number is required!", null));
       }
 
-      if (ownerDetails.getOwnerContactDetails().getOfficeTelNumberCD() == null ||
-         ownerDetails.getOwnerContactDetails().getOfficeTelNumberCD().trim().equalsIgnoreCase(""))
-      {
-         dataOK = false;
-         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctryCdOffNum", "Country code for office tel number is required!", null));
-      }
+//      if (ownerDetails.getOwnerContactDetails().getOfficeTelNumberCD() == null ||
+//         ownerDetails.getOwnerContactDetails().getOfficeTelNumberCD().trim().equalsIgnoreCase(""))
+//      {
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctryCdOffNum", "Country code for office tel number is required!", null));
+//      }
+//
+//      if (ownerDetails.getOwnerContactDetails().getOfficeTelNumber() == null ||
+//         ownerDetails.getOwnerContactDetails().getOfficeTelNumber().trim().equalsIgnoreCase(""))
+//      {
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.offNum", "Office tel number is required!", null));
+//      }
 
-      if (ownerDetails.getOwnerContactDetails().getOfficeTelNumber() == null ||
-         ownerDetails.getOwnerContactDetails().getOfficeTelNumber().trim().equalsIgnoreCase(""))
-      {
-         dataOK = false;
-         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.offNum", "Office tel number is required!", null));
-      }
+//      if (ownerDetails.getOwnerContactDetails().getFaxNumberCD() == null ||
+//         ownerDetails.getOwnerContactDetails().getFaxNumberCD().trim().equalsIgnoreCase(""))
+//      {
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctryCdFaxNum", "Country code for fax number is required!", null));
+//      }
+//
+//      if (ownerDetails.getOwnerContactDetails().getFaxNumber() == null ||
+//         ownerDetails.getOwnerContactDetails().getFaxNumber().trim().equalsIgnoreCase(""))
+//      {
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.faxNum", "Fax number is required!", null));
+//      }
 
-      if (ownerDetails.getOwnerContactDetails().getFaxNumberCD() == null ||
-         ownerDetails.getOwnerContactDetails().getFaxNumberCD().trim().equalsIgnoreCase(""))
-      {
-         dataOK = false;
-         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctryCdFaxNum", "Country code for fax number is required!", null));
-      }
-
-      if (ownerDetails.getOwnerContactDetails().getFaxNumber() == null ||
-         ownerDetails.getOwnerContactDetails().getFaxNumber().trim().equalsIgnoreCase(""))
-      {
-         dataOK = false;
-         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.faxNum", "Fax number is required!", null));
-      }
-      if (hasRequiredData(ownerDetails.getEmailAddress()))
+      if (!hasRequiredData(ownerDetails.getEmailAddress()))
       {
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.email.requiredMsg", "Email address is required!", null));
@@ -637,7 +718,7 @@ public class UOBCustodyBean
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.emlAddrs", "Valid email address is required!", null));
       }
-      System.out.println("validtion output "+dataOK);
+      System.out.println("validtion output " + dataOK);
       return dataOK;
    }
 
@@ -645,7 +726,9 @@ public class UOBCustodyBean
    {
 
       if (value == null || value.isEmpty())
+      {
          return false;
+      }
 
       return true;
    }
@@ -676,12 +759,12 @@ public class UOBCustodyBean
 //      activeTab = nextTab;
    }
 
-   public static Map<String,Object> getFieldNames(final Object obj, boolean publicOnly)
+   public static Map<String, Object> getFieldNames(final Object obj, boolean publicOnly)
       throws IllegalArgumentException, IllegalAccessException
    {
       StringBuilder sb = new StringBuilder();
       Class<? extends Object> c1 = obj.getClass();
-      Map<String,Object> lst = new HashMap<String,Object>();
+      Map<String, Object> lst = new HashMap<String, Object>();
       Field[] fields = c1.getDeclaredFields();
       for (int i = 0; i < fields.length; i++)
       {
@@ -691,7 +774,7 @@ public class UOBCustodyBean
             if (Modifier.isPublic(fields[i].getModifiers()))
             {
                Object value = fields[i].get(obj);
-               lst.put(name,value);
+               lst.put(name, value);
 //               lst.add(name);
             }
          }
@@ -700,7 +783,7 @@ public class UOBCustodyBean
             fields[i].setAccessible(true);
             Object value = fields[i].get(obj);
 //            lst.add(name);
-            lst.put(name,value);
+            lst.put(name, value);
          }
       }
       return lst;
