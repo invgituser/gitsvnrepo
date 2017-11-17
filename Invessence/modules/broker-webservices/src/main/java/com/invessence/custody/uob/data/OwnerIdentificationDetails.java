@@ -10,6 +10,7 @@ public class OwnerIdentificationDetails
    private String  pan;
    private String  passport;
    private String  ssn;
+   private String icno;
 
    @Override
    public String toString()
@@ -20,6 +21,7 @@ public class OwnerIdentificationDetails
          ", pan='" + pan + '\'' +
          ", passport='" + passport + '\'' +
          ", ssn='" + ssn + '\'' +
+         ", icno='" + icno + '\'' +
          '}';
    }
 
@@ -71,5 +73,15 @@ public class OwnerIdentificationDetails
    public void setSsn(String ssn)
    {
       this.ssn = ssn;
+   }
+
+   public String getIcno()
+   {
+      return icno;
+   }
+
+   public void setIcno(String icno)
+   {
+      this.icno = icno;
    }
 }

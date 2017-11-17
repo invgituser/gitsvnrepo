@@ -5,23 +5,31 @@ package com.invessence.custody.uob.data;
  */
 public class OwnerContactDetails
 {
-   private String  faxNumber;
-   private String  homeTelNumber;
-   private String  mobNumber;
-   private String  officeTelNumber;
-   private String  phoneNumber;
-   private String  phoneNumberNonUS;
-   private String  secondPhoneNumber;
-   private String  secondPhoneNumberNonUS;
+   private String faxNumber;
+   private String faxNumberCD;
+   private String homeTelNumber;
+   private String homeTelNumberCD;
+   private String mobNumber;
+   private String mobNumberCD;
+   private String officeTelNumber;
+   private String officeTelNumberCD;
+   private String phoneNumber;
+   private String phoneNumberNonUS;
+   private String secondPhoneNumber;
+   private String secondPhoneNumberNonUS;
 
    @Override
    public String toString()
    {
       return "OwnerContactDetails{" +
          "faxNumber='" + faxNumber + '\'' +
+         ", faxNumberCD='" + faxNumberCD + '\'' +
          ", homeTelNumber='" + homeTelNumber + '\'' +
+         ", homeTelNumberCD='" + homeTelNumberCD + '\'' +
          ", mobNumber='" + mobNumber + '\'' +
+         ", mobNumberCD='" + mobNumberCD + '\'' +
          ", officeTelNumber='" + officeTelNumber + '\'' +
+         ", officeTelNumberCD='" + officeTelNumberCD + '\'' +
          ", phoneNumber='" + phoneNumber + '\'' +
          ", phoneNumberNonUS='" + phoneNumberNonUS + '\'' +
          ", secondPhoneNumber='" + secondPhoneNumber + '\'' +
@@ -39,6 +47,16 @@ public class OwnerContactDetails
       this.faxNumber = faxNumber;
    }
 
+   public String getFaxNumberCD()
+   {
+      return faxNumberCD;
+   }
+
+   public void setFaxNumberCD(String faxNumberCD)
+   {
+      this.faxNumberCD = faxNumberCD;
+   }
+
    public String getHomeTelNumber()
    {
       return homeTelNumber;
@@ -47,6 +65,16 @@ public class OwnerContactDetails
    public void setHomeTelNumber(String homeTelNumber)
    {
       this.homeTelNumber = homeTelNumber;
+   }
+
+   public String getHomeTelNumberCD()
+   {
+      return homeTelNumberCD;
+   }
+
+   public void setHomeTelNumberCD(String homeTelNumberCD)
+   {
+      this.homeTelNumberCD = homeTelNumberCD;
    }
 
    public String getMobNumber()
@@ -59,6 +87,16 @@ public class OwnerContactDetails
       this.mobNumber = mobNumber;
    }
 
+   public String getMobNumberCD()
+   {
+      return mobNumberCD;
+   }
+
+   public void setMobNumberCD(String mobNumberCD)
+   {
+      this.mobNumberCD = mobNumberCD;
+   }
+
    public String getOfficeTelNumber()
    {
       return officeTelNumber;
@@ -67,6 +105,16 @@ public class OwnerContactDetails
    public void setOfficeTelNumber(String officeTelNumber)
    {
       this.officeTelNumber = officeTelNumber;
+   }
+
+   public String getOfficeTelNumberCD()
+   {
+      return officeTelNumberCD;
+   }
+
+   public void setOfficeTelNumberCD(String officeTelNumberCD)
+   {
+      this.officeTelNumberCD = officeTelNumberCD;
    }
 
    public String getPhoneNumber()

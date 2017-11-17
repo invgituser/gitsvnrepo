@@ -109,17 +109,7 @@ public class OwnerDetails
       return ownership;
    }
 
-   public Boolean isJointAccount()
-   {
-      if(getOwnership()!=null)
-      {
-         if (getOwnership().equals("Joint"))
-         {
-            return true;
-         }
-      }
-      return false;
-   }
+
 
    public void setOwnership(String ownership)
    {

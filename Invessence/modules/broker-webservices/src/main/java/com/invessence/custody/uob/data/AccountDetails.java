@@ -102,4 +102,15 @@ public class AccountDetails
          ", accountMiscDetails=" + accountMiscDetails +
          '}';
    }
+   public Boolean isJointAccount()
+   {
+      if(getAcctTypeId()!=null)
+      {
+         if (getAcctTypeId().equals("Joint"))
+         {
+            return true;
+         }
+      }
+      return false;
+   }
 }

@@ -5,22 +5,25 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
-
     <div class="layout-portlets-box">
         <div class="Container100 Responsive100 acc_holder_form">
             <div class="ContainerIndent">
-                <p:accordionPanel multiple="true" styleClass="marginZero" activeIndex="#{uobCustodyBean.activeTab}" dynamic="false" >
+                <p:accordionPanel multiple="true" styleClass="marginZero" activeIndex="#{uobCustodyBean.activeTab}" dynamic="false" id="newAccordian" >
                     <p:tab title="Account Holder">
                         <div class="Container100 Responsive100 acc_holder_form">
-                            <!--  <p:growl id="msgs" showDetail="true" /> -->
-                            <p:tabView>
+                            <p:tabView id="accHolderNTab">
                                 <p:tab title="Main Account Holder">
-
+                                    <p:panel id="nwPriHldrErr1" rendered="#{uobCustodyBean.getErrorMessage(0) != null}"
+                                             style="border: 0px; background: transparent"
+                                             styleClass="Container100">
+                                        <h:outputText id="nwPriHldrMsg1" styleClass="errorText"
+                                                      value="#{uobCustodyBean.getErrorMessage(0)}" escape="false"/>
+                                    </p:panel>
                                     <div class="go-bottom">
                                         <div class="acc_holder_dtl_block">
                                             <div class="Container20 Responsive100 select_item">
                                                 <p:selectOneMenu id="nwPriHldrTtl" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.title}" name="title">
-                                                    <f:selectItem itemLabel="Select Title" itemValue=""/>
+                                                    <f:selectItem itemLabel="Select Title" itemValue="Select"/>
                                                     <f:selectItem itemLabel="Dr" itemValue="Dr"/>
                                                     <f:selectItem itemLabel="Professor" itemValue="Professor"/>
                                                     <f:selectItem itemLabel="Mr" itemValue="Mr"/>
@@ -28,126 +31,124 @@
                                                     <f:selectItem itemLabel="Miss" itemValue="Miss"/>
                                                     <f:selectItem itemLabel="Mdm" itemValue="Mdm"/>
                                                 </p:selectOneMenu>
-
                                             </div>
                                             <div class="Container80 Responsive100">
-                                                <input id="nwPriHldrNm" type="text" placeholder="Full Name"
+                                                <p:inputText id="nwPriHldrNm" placeholder="Full Name"
                                                        value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.fullName}"/>
                                                 <label for="nwPriHldrNm">Full Name</label>
                                             </div>
                                         </div>
-
                                         <div class="acc_holder_dtl_block">
                                             <div class="Container20 Responsive100 select_item">
                                                 <span class="title_line">Gender</span>
                                                 <p:selectOneMenu id="nwPriHldrGndr" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.gender}">
-                                                    <f:selectItem itemLabel="Select Gender" itemValue=""/>
+                                                    <f:selectItem itemLabel="Select Gender" itemValue="Select"/>
                                                     <f:selectItem itemLabel="Male" itemValue="Male"/>
                                                     <f:selectItem itemLabel="Female" itemValue="Female"/>
                                                 </p:selectOneMenu>
                                             </div>
                                             <div class="Container50 Responsive100 date_birth">
                                                 <div class="Container100"><span class="title_line">Date Of Birth</span></div>
-                                                <p:calendar id="nwPriHldrDob"  navigator="true" pattern="dd-mm-yyyy"
-                                                            showOn="button" placeholder="Date Of Birth (dd-mm-yyyy)"
-                                                            value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.dob}"/>
+                                                <p:calendar yearRange="c-100:c" id="nwPriHldrDob"  navigator="true"
+                                                            showOn="button" placeholder="Date Of Birth (d MMM yyyy)" pattern="d MMM yyyy"
+                                                            value="#{uobCustodyBean.dtPriHldrDob}"/>
                                                 <label for="nwPriHldrDob">Date Of Birth</label>
                                             </div>
+
                                             <div class="Container25 Responsive100 select_item">
                                                 <span class="title_line">Country Of Birth</span>
-                                                <!-- <input id="countbirth" name="countbirth" type="text" placeholder="Country of birth"/>
-                                                <label for="countbirth">Country of birth</label> -->
                                                 <p:selectOneMenu id="nwPriHldrBrtCtry" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.countryOfBirth}">
-                                                    <f:selectItem itemLabel="Select Country Of Birth" itemValue=""/>
+                                                    <f:selectItem itemLabel="Select Country Of Birth" itemValue="Select"/>
                                                     <f:selectItem itemLabel="Singapore" itemValue="Singapore"/>
                                                     <f:selectItem itemLabel="Malaysia" itemValue="Malaysia"/>
                                                     <f:selectItem itemLabel="India" itemValue="India"/>
                                                 </p:selectOneMenu>
-
                                             </div>
                                         </div>
 
                                         <div class="acc_holder_dtl_block">
-
                                         </div>
+
+                                        <p:panel id="nwPriHldNtnPnl" style="border-color: transparent;" >
                                         <div class="acc_holder_dtl_block ">
                                             <div class="Container100 Responsive100 label_opacity per_res">
                                                 <div class="Container10 Responsive100">
                                                     <span>Nationality</span>
                                                 </div>
                                                 <div class="Container70 Responsive100">
-                                                    <p:selectOneRadio id="nwPriHldrNation" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ow}">
-                                                        <f:selectItem itemLabel="Singapore" itemValue="value1"></f:selectItem>
-                                                        <f:selectItem itemLabel="Singapore PR" itemValue="value2"></f:selectItem>
-                                                        <f:selectItem itemLabel="Others" itemValue="value3"></f:selectItem>
+                                                    <p:selectOneRadio id="nwPriHldrNation"
+                                                                      value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerCitizenshipDetails.nationality}">
+                                                        <p:ajax listener="#{uobCustodyBean.onChngNation}" update="nwPriHldNtnPnl"/>
+                                                        <f:selectItem itemLabel="Singapore" itemValue="Singapore"></f:selectItem>
+                                                        <f:selectItem itemLabel="Singapore PR" itemValue="Singapore PR"></f:selectItem>
+                                                        <f:selectItem itemLabel="Others" itemValue="Others"></f:selectItem>
                                                     </p:selectOneRadio>
                                                 </div>
                                             </div>
+                                            <ui:fragment rendered="#{uobCustodyBean.dsplNricInp}">
                                             <div class="Container100 Responsive100 margin-top width99">
-                                                <input id="nric" name="nric" type="text" placeholder="NRIC Number"/>
-                                                <label for="nric">NRIC Number</label>
+                                                <p:inputText id="nwPriHldrNric" placeholder="NRIC Number"
+                                                       value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerIdentificationDetails.nric}"/>
+                                                <label for="nwPriHldrNric">NRIC Number</label>
                                             </div>
+                                            </ui:fragment>
                                             <div class="Container100 Responsive100 margin-top">
-                                                <div class="Container50 Responsive100 ">
-                                                    <p:selectOneMenu id="conutryPR" value="Select Country">
-                                                        <f:selectItem itemLabel="Select Country" itemValue=""/>
-                                                        <f:selectItem itemLabel="Singapore" itemValue="Singapore"/>
-                                                        <f:selectItem itemLabel="Malaysia" itemValue="Malaysia"/>
-
-
-                                                    </p:selectOneMenu>
-                                                </div>
-                                                <div class="Container50 Responsive100 ">
-                                                    <input id="nricPR" name="nricPR" type="text" placeholder="NRIC Number"/>
-                                                    <label for="nricPR">NRIC Number</label>
-                                                </div>
+                                                <ui:fragment rendered="#{uobCustodyBean.dsplOtrCntry}">
+                                                    <div class="Container30 Responsive100 ">
+                                                        <p:selectOneMenu id="nwPriHldrSelCtry"
+                                                                         value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerCitizenshipDetails.nationalitySpecify}">
+                                                            <p:ajax listener="#{uobCustodyBean.onChngOtrCntry}" update="nwPriHldNtnPnl"/>
+                                                            <f:selectItem itemLabel="Select Country" itemValue="Select"/>
+                                                            <f:selectItem itemLabel="Singapore" itemValue="Singapore"/>
+                                                            <f:selectItem itemLabel="Malaysia" itemValue="Malaysia"/>
+                                                        </p:selectOneMenu>
+                                                    </div>
+                                                </ui:fragment>
+                                                <ui:fragment rendered="#{uobCustodyBean.dsplIcNoInp}">
+                                                    <div class="Container30 Responsive100 ">
+                                                        <p:inputText id="nwPriHldrIcNo" placeholder="Malaysian IC Number"
+                                                               value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerIdentificationDetails.icno}"/>
+                                                        <label for="nwPriHldrIcNo">Malaysian IC Number</label>
+                                                    </div>
+                                                </ui:fragment>
+                                                <ui:fragment rendered="#{uobCustodyBean.dsplPspNoInp}">
+                                                    <div class="Container30 Responsive100 ">
+                                                        <p:inputText id="nwPriHldrPsprtNo" placeholder="Passport Number"
+                                                               value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerIdentificationDetails.passport}"/>
+                                                        <label for="nwPriHldrPsprtNo">Passport Number</label>
+                                                    </div>
+                                                </ui:fragment>
                                             </div>
-                                            <div class="Container100 Responsive100 margin-top">
-                                                <div class="Container30 Responsive100 ">
-                                                    <p:selectOneMenu id="conutryother" value="Select Country">
-                                                        <f:selectItem itemLabel="Select Country" itemValue=""/>
-                                                        <f:selectItem itemLabel="Singapore" itemValue="Singapore"/>
-                                                        <f:selectItem itemLabel="Malaysia" itemValue="Malaysia"/>
-
-                                                    </p:selectOneMenu>
-                                                </div>
-                                                <div class="Container30 Responsive100 ">
-                                                    <input id="icother" name="icother" type="text" placeholder="Malaysian IC Number"/>
-                                                    <label for="icother">Malaysian IC Number</label>
-                                                </div>
-                                                <div class="Container30 Responsive100 ">
-                                                    <input id="passother" name="passother" type="text" placeholder="Passport Number"/>
-                                                    <label for="passother">Passport Number</label>
-                                                </div>
-                                            </div>
-
                                         </div>
+                                        </p:panel>
                                         <div class="acc_holder_dtl_block contact_dtl_block">
                                             <div class="Container50 Responsive100">
                                                 <div class="Container20 Responsive100">
                                                     <span>Country Code</span>
-                                                    <input id="countrycode" name="countrycode" type="text" placeholder=""/>
-                                                    <!-- <label for="offTel">Office Tel No</label>	 -->
+                                                    <p:inputMask id="nwPriHldrHmNoCd" placeholder="" mask="+(9999)"
+                                                           value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.homeTelNumberCD}"/>
                                                 </div>
                                                 <div class="Container80 Responsive100">
                                                     <span>Area Code / Number</span>
                                                     <div class="Container100">
-                                                        <input id="homeTel" name="homeTel" type="text" placeholder="Home Tel No"/>
-                                                        <label for="homeTel">Home Tel No</label>
+                                                        <p:inputMask id="nwPriHldrHmNo" placeholder="Home Tel No" mask="999-999-999-999"
+                                                               value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.homeTelNumber}"/>
+                                                        <label for="nwPriHldrHmNo">Home Tel No</label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="Container50 Responsive100">
                                                 <div class="Container20 Responsive100">
                                                     <span>Country Code</span>
-                                                    <input id="countrycode" name="countrycode" type="text" placeholder=""/>
-                                                    <!-- <label for="offTel">Office Tel No</label>	 -->
+                                                    <p:inputMask id="nwPriHldrMobNoCd" placeholder="" mask="+(9999)"
+                                                           value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.mobNumberCD}"/>
                                                 </div>
                                                 <div class="Container80 Responsive100">
                                                     <span>Area Code / Number</span>
                                                     <div class="Container100">
-                                                        <input id="mobTel" name="mobTel" type="text" placeholder="Mobile No"/>
-                                                        <label for="mobTel">Mobile No</label>
+                                                        <p:inputMask id="nwPriHldrMobNo" placeholder="Mobile No" mask="999-999-999-999"
+                                                        value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.mobNumber}"/>
+                                                        <label for="nwPriHldrMobNo">Mobile No</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -155,38 +156,36 @@
                                         <div class="acc_holder_dtl_block">
                                             <div class="Container50 Responsive100">
                                                 <div class="Container20 Responsive100">
-
-                                                    <input id="countrycode" name="countrycode" type="text" placeholder=""/>
-                                                    <!-- <label for="offTel">Office Tel No</label>	 -->
+                                                    <p:inputMask id="nwPriHldrOffNoCd" placeholder="" mask="+(9999)"
+                                                           value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.officeTelNumberCD}"/>
                                                 </div>
                                                 <div class="Container80 Responsive100">
-
-                                                    <input id="offTel" name="offTel" type="text" placeholder="Office Tel No"/>
-                                                    <label for="offTel">Office Tel No</label>
+                                                    <p:inputMask id="nwPriHldrOffNo" placeholder="Office Tel No" mask="999-999-999-999"
+                                                           value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.officeTelNumber}"/>
+                                                    <label for="nwPriHldrOffNo">Office Tel No</label>
                                                 </div>
                                             </div>
                                             <div class="Container50 Responsive100">
                                                 <div class="Container20 Responsive100">
-
-                                                    <input id="countrycode" name="countrycode" type="text" placeholder=""/>
-                                                    <!-- <label for="offTel">Office Tel No</label>	 -->
+                                                    <p:inputMask id="nwPriHldrFaxNoCd" placeholder="" mask="+(9999)"
+                                                           value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.faxNumberCD}"/>
                                                 </div>
                                                 <div class="Container80 Responsive100">
 
-                                                    <input id="faxTel" name="faxTel" type="text" placeholder="Fax No"/>
-                                                    <label for="faxTel">Fax No</label>
+                                                    <p:inputMask id="nwPriHldrFaxNo" placeholder="Fax No" mask="999-999-999-999"
+                                                           value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.faxNumber}"/>
+                                                    <label for="nwPriHldrFaxNo">Fax No</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="acc_holder_dtl_block">
                                             <div class="Container100 width99">
-                                                <input id="emailadd" name="emailadd" type="text" placeholder="Email Address"/>
-                                                <label for="emailadd">Email Address</label>
+                                                <p:inputText id="nwPriHldrEmailId" placeholder="Email Address"
+                                                       value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.emailAddress}"/>
+                                                <label for="nwPriHldrEmailId">Email Address</label>
                                             </div>
                                         </div>
-
                                     </div>
-
                                 </p:tab>
                                 <!--  joint account holder -->
                                 <p:tab title="Joint Account Holder" rendered="#{uobCustodyBean.dspJntTab}">
@@ -366,7 +365,7 @@
                             <div class="Container50 Responsive100 next_btn">
                                 <p:commandLink id="newNxt1"
                                                actionListener="#{uobCustodyBean.nextPage}"
-                                               update="@form">
+                                               update=":cstdyFrm:newAccordian"  >
                                     <span class="ui-button-icon-center ui-icon ui-c fa fa-chevron-right"></span>
                                 </p:commandLink>
                             </div>

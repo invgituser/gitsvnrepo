@@ -15,7 +15,13 @@
             <h:form id="cstdyFrm">
                 <ui:fragment rendered="#{uobCustodyBean.dspIntroAcctPnl}">
                     <div class="Container100 ">
-                        <p:panel id="acc_type" header="Account Type">
+                        <p:panel id="accTypeMnPnl" header="Account Type">
+                            <p:panel id="intrPnlErr" rendered="#{uobCustodyBean.introError != null}"
+                                     style="border: 0px; background: transparent"
+                                     styleClass="Container100">
+                                <h:outputText id="intrPnlMsg" styleClass="errorText"
+                                              value="#{uobCustodyBean.introError}" escape="false"/>
+                            </p:panel>
                             <div class="go-bottom">
                                 <div class="Container100">
                                     <div class="Container70">
@@ -25,65 +31,53 @@
                                     <div class="Container20 label_opacity">
                                         <p:selectOneRadio id="acctCat" value="#{uobCustodyBean.acctCat}">
                                             <p:ajax listener="#{uobCustodyBean.onChangeValue}"
-                                                    update="@form"/>
+                                                    update="extCstmParm"/>
                                             <f:selectItem itemLabel="Yes" itemValue="Yes"></f:selectItem>
                                             <f:selectItem itemLabel="No" itemValue="No"></f:selectItem>
                                         </p:selectOneRadio>
                                     </div>
                                 </div>
-                                <div class="Container100 margin-top">
-                                    <ui:fragment rendered="#{uobCustodyBean.dsplExtIndAcctCat}">
-                                        <div class="Container70 ">
-                                            <div class="Container100 ">
-                                                <span class="title_line">Is it Individual Account? </span>
+                                <p:panel id="extCstmParm" style="border-color: transparent;" >
+                                    <div class="Container100 margin-top">
+                                        <ui:fragment rendered="#{uobCustodyBean.dsplExtIndAcctCat}">
+                                            <div class="Container70 ">
+                                                <div class="Container100 ">
+                                                    <span class="title_line">Is it Individual Account? </span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="Container20 label_opacity">
-                                            <p:selectOneRadio id="extAcctIndRad" value="#{uobCustodyBean.extAcctInd}">
-                                                <p:ajax listener="#{uobCustodyBean.onChangeValue}"
-                                                        update="@form"/>
-                                                <f:selectItem itemLabel="Yes" itemValue="Yes"></f:selectItem>
-                                                <f:selectItem itemLabel="No" itemValue="No"></f:selectItem>
-                                            </p:selectOneRadio>
-                                        </div>
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{uobCustodyBean.dsplExtIndAcctInp}">
-                                        <div class="Container50 margin-top">
-                                            <input id="extIndInp" type="text" value="#{uobCustodyBean.clientAcctId}"
-                                                   placeholder="Enter your existing  Securities Trading account number"/>
-                                            <label for="exAccName">Securities Trading account number</label>
-                                        </div>
-                                    </ui:fragment>
-                                </div>
-                                <div class="Container100 margin-top ">
-                                    <ui:fragment rendered="#{uobCustodyBean.dsplExtJntAcctCat}">
-                                        <div class="Container70">
-                                            <div class="Container100">
-                                                <span class="title_line">Is it Joint-Alternate Account? </span>
+                                            <div class="Container20 label_opacity">
+                                                <p:selectOneRadio id="extAcctIndRad" value="#{uobCustodyBean.extAcctInd}">
+                                                    <p:ajax listener="#{uobCustodyBean.onChangeValue}"
+                                                            update="extCstmParm"/>
+                                                    <f:selectItem itemLabel="Yes" itemValue="Yes"></f:selectItem>
+                                                    <f:selectItem itemLabel="No" itemValue="No"></f:selectItem>
+                                                </p:selectOneRadio>
                                             </div>
-                                        </div>
-                                        <div class="Container20 label_opacity">
-                                            <p:selectOneRadio id="extAcctJntRad" value="#{uobCustodyBean.extAcctJnt}">
-                                                <p:ajax listener="#{uobCustodyBean.onChangeValue}"
-                                                        update="@form"/>
-                                                <f:selectItem itemLabel="Yes" itemValue="Yes"></f:selectItem>
-                                                <f:selectItem itemLabel="No" itemValue="No"></f:selectItem>
-                                            </p:selectOneRadio>
-                                        </div>
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{uobCustodyBean.dsplExtJntAcctInp}">
-                                        <div class="Container50 margin-top">
-                                            <input id="extJntInp" type="text" value="#{uobCustodyBean.clientAcctId}"
-                                                   placeholder="Enter your existing Joint UOBKH account number"/>
-                                            <label for="exAccName">Joint UOBKH account number</label>
-                                        </div>
-                                    </ui:fragment>
-                                </div>
+                                        </ui:fragment>
+                                        <ui:fragment rendered="#{uobCustodyBean.dsplExtIndAcctInp}">
+                                            <div class="Container50 margin-top">
+                                                <p:inputText id="extIndInp" value="#{uobCustodyBean.uobDataMaster.accountDetails.clientAccountID}"
+                                                             placeholder="Enter your existing  Securities Trading account number"/>
+                                                <label for="extIndInp">Securities Trading account number</label>
+                                            </div>
+                                        </ui:fragment>
+                                    </div>
+                                    <div class="Container100 margin-top ">
+                                        <ui:fragment rendered="#{uobCustodyBean.dsplExtJntAcctCat}">
+                                            <div class="Container50 margin-top">
+                                                <p:inputText id="extJntInp" value="#{uobCustodyBean.uobDataMaster.accountDetails.clientAccountID}"
+                                                             placeholder="Enter your existing Joint UOBKH account number"/>
+                                                <label for="extJntInp">Joint UOBKH account number</label>
+                                            </div>
+                                        </ui:fragment>
+                                    </div>
+                                </p:panel>
 
                                 <ui:fragment rendered="true">
                                     <div class="Container50 margin-top ">
-                                        <input id="slsPrnNm" type="text" placeholder="Sales Person Name" value="#{uobCustodyBean.slsPrsnNm}"/>
-                                        <label for="Sperson_name">Sales Person Name</label>
+                                        <p:inputText id="slsPrnNm" placeholder="Sales Person Name"
+                                                     value="#{uobCustodyBean.uobDataMaster.accountDetails.repId}"/>
+                                        <label for="slsPrnNm">Sales Person Name</label>
                                     </div>
                                     <div class="Container100 margin-top">
                                         <span class="title_line">What type of account would you like to open?</span>
@@ -101,7 +95,7 @@
                                                 </p:selectOneRadio>
                                             </div>
                                         </p:panel>
-                                        <p:panel id="uobjointacctype" styleClass="Container50">
+                                        <p:panel id="uobjointacctype" styleClass="Container50" rendered="false">
                                             <div class="Container80 label_opacity">
                                                 <label>Joint - Alternate Account</label>
                                             </div>
@@ -118,8 +112,8 @@
                                     <div class="Container50 next_btn">
                                         <p:commandLink id="introNxt"
                                                        actionListener="#{uobCustodyBean.introNextPage}"
-                                                       update="@form">
-                                        <span class="ui-button-icon-center ui-icon ui-c fa fa-chevron-right"></span>
+                                                       update="cstdyFrm">
+                                            <span class="ui-button-icon-center ui-icon ui-c fa fa-chevron-right"></span>
                                         </p:commandLink>
                                     </div>
                                 </div>
