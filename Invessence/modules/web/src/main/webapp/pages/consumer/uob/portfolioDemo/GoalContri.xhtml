@@ -25,15 +25,17 @@
 			<div class="ring_widget">
 
 				<h:form id="form">
-					
-					<p:ring id="custom" value="#{ringView.cars}" var="cars" styleClass="image-ring" easing="easeInOutBack">
-        				<p:graphicImage name="images/portfolio/education.png" library="#{uiLayout.webProfile.cssdir}" width="100px"/>
-        				<p:outputPanel style="text-align: center;" layout="block">Education</p:outputPanel>
-    				</p:ring>
 
-					
-				</h:form> 
-				
+					<p:ring id="custom" value="#{uobProfileBean.goalsdata}" var="goal"
+							styleClass="image-ring" easing="easeInOutBack">
+						<p:graphicImage name="#{goal.imagepath}" library="#{uiLayout.webProfile.cssdir}" width="100px"/>
+						<p:outputPanel style="text-align: center;" layout="block">#{goal.name}</p:outputPanel>
+
+					</p:ring>
+
+
+				</h:form>
+
 			</div>
 			<div class="caraousle Container100">
 				
@@ -47,26 +49,26 @@
 						</div>
 						
 					</div>
-					<div class="Container100 tab_dtl">
-						<div class="selectList">							
-							I like to invest in 
-	                                          <p:selectOneMenu id="title" value="Years" name="title" >	                                             
-	                                             <f:selectItem itemLabel="SGD" itemValue="SGD" />
-	                                             <f:selectItem itemLabel="USD" itemValue="USD" />                                             
-	                                             
-	                                          </p:selectOneMenu>
-						</div>
-						<p>
-						My initial investment in this account will be <input type="text" placeholder="S$ 0"></input>
-						</p>
-						<p>
+				<div class="Container100 tab_dtl">
+					<div class="selectList">
+						I like to invest in
+						<p:selectOneMenu id="title" value="Years" name="title" >
+							<f:selectItem itemLabel="SGD" itemValue="SGD" />
+							<f:selectItem itemLabel="USD" itemValue="USD" />
+
+						</p:selectOneMenu>
+					</div>
+					<p>
+						My initial investment in this account will be <p:inputNumber class="input_no_type"  placeholder="S$ 0"></p:inputNumber>
+					</p>
+					<p>
 						I intend to contribute
-						</p>
-						<p>
-						<input type="text" placeholder="S$ 0"></input> per annum to this investment account over the next <input style="width:55px;" type="text" placeholder="Years"></input> years
-						</p>
-						
-						</div>
+					</p>
+					<p>
+						<p:inputNumber class="input_no_type"  placeholder="S$ 0"></p:inputNumber> per annum to this investment account over the next <input style="width:55px;" type="text" placeholder="Years"></input> years
+					</p>
+
+				</div>
 							
 
 

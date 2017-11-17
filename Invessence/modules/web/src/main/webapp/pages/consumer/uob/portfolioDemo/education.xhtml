@@ -25,15 +25,17 @@
 			<div class="ring_widget">
 
 				<h:form id="form">
-					
-					<p:ring id="custom" value="#{ringView.cars}" var="cars" styleClass="image-ring" easing="easeInOutBack">
-        				<p:graphicImage name="images/portfolio/education.png" library="#{uiLayout.webProfile.cssdir}" width="100px"/>
-        				<p:outputPanel style="text-align: center;" layout="block">Education</p:outputPanel>
-    				</p:ring>
 
-					
-				</h:form> 
-				
+					<p:ring id="custom" value="#{uobProfileBean.goalsdata}" var="goal"
+							styleClass="image-ring" easing="easeInOutBack">
+						<p:graphicImage name="#{goal.imagepath}" library="#{uiLayout.webProfile.cssdir}" width="100px"/>
+						<p:outputPanel style="text-align: center;" layout="block">#{goal.name}</p:outputPanel>
+
+					</p:ring>
+
+
+				</h:form>
+
 			</div>
 			<div class="caraousle Container100">
 				
@@ -49,7 +51,7 @@
 					</div>
 					<div class="Container100 tab_dtl">
 						<p>
-						I expect the child to enter university / college in <input style="width:55px" type="text" placeholder="Years"></input> years
+							I expect the child to enter university / college in <p:inputText style="width:55px;" placeholder="Years"></p:inputText> years
 						</p>
 						<div class="selectList">
 							

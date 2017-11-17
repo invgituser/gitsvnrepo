@@ -25,17 +25,17 @@
 			<div class="ring_widget">
 
 				<h:form id="form">
-					
-					<p:ring id="custom" value="#{ringView.cars}" var="cars" styleClass="image-ring" easing="easeInOutBack">
-        				<p:graphicImage name="images/portfolio/legacy.png" library="#{uiLayout.webProfile.cssdir}" width="100px"/>
-        				<p:outputPanel style="text-align: center;" layout="block">
-				            Legacy
-				           </p:outputPanel> 
-    				</p:ring>
 
-					
-				</h:form> 
-				
+					<p:ring id="custom" value="#{uobProfileBean.goalsdata}" var="goal"
+							styleClass="image-ring" easing="easeInOutBack">
+						<p:graphicImage name="#{goal.imagepath}" library="#{uiLayout.webProfile.cssdir}" width="100px"/>
+						<p:outputPanel style="text-align: center;" layout="block">#{goal.name}</p:outputPanel>
+
+					</p:ring>
+
+
+				</h:form>
+
 			</div>
 			<div class="caraousle Container100">
 				

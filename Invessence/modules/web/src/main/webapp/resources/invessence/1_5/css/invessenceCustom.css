@@ -4879,14 +4879,16 @@ td.bullet_td span {
 .caraousle input {
     border-width: 0 0 2px 0;
     border-color: #a4332f;
-    padding: 0 5px;
-    color: #a4332f;
-    font-size: 16px;
+    padding: 5px !important;
+    color: #a4332f !important;
+    font-size: 16px !important;
     width: 100px;
     text-align: center;
     font-weight: bold;
     position: relative;
     top: -4px;
+    box-shadow: none;
+    font-family: 'helvetica' !important;
 }
 
 span.input_value {
@@ -4987,7 +4989,7 @@ span.change_goal {
     border-radius: 3px;
     text-align: left;
     /* padding: 10px 0; */
-    height: 280px;
+    height: 300px;
 }
 .assets_liabilityTab .Conatiner100.tab_title {
     text-align: center;
@@ -5054,6 +5056,8 @@ span.change_goal {
 .risk_switch .ui-inputswitch:focus {
     border: solid 1px #a4332f;
 }
+
+
 .RTQ .ui-selectoneradio > tbody > tr > td {
     vertical-align: top;
     padding: 0 5px;
@@ -5068,6 +5072,18 @@ span.change_goal {
     text-align: left;
     padding: 0 12px;
 }
+.caraousle .ui-inputfield.ui-state-hover, .caraousle .ui-inputfield.ui-state-focus {
+    border-width: 0px 0px 2px 0px !important;
+    border-color: #a4332f !important;
+    color:#a4332f !important;
+}
+.input_no_type input {
+    width: 120px !important;
+}
+.title_p{text-align:left; padding:0 5px;}
+
+
+
 /** end portfolio creation**/
 
 
