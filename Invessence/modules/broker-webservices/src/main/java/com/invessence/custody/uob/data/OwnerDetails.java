@@ -1,5 +1,7 @@
 package com.invessence.custody.uob.data;
 
+import java.util.*;
+
 /**
  * Created by abhangp on 10/26/2017.
  */
@@ -40,6 +42,7 @@ public class OwnerDetails
    private OwnerRegularityDetails ownerRegularityDetails;
    private OwnerMiscDetails ownerMiscDetails;
    private OwnerCitizenshipDetails ownerCitizenshipDetails;
+   private List<OwnerTaxationDetails> ownerTaxationDetails;
 
    public OwnerDetails(){
       setOwnerCitizenshipDetails(new OwnerCitizenshipDetails());
@@ -48,6 +51,17 @@ public class OwnerDetails
       setOwnerIdentificationDetails(new OwnerIdentificationDetails());
       setOwnersFinancialDetails(new OwnerFinancialDetails());
       setOwnerMiscDetails(new OwnerMiscDetails());
+      setOwnerTaxationDetails(new LinkedList<OwnerTaxationDetails>());
+   }
+
+   public List<OwnerTaxationDetails> getOwnerTaxationDetails()
+   {
+      return ownerTaxationDetails;
+   }
+
+   public void setOwnerTaxationDetails(List<OwnerTaxationDetails> ownerTaxationDetails)
+   {
+      this.ownerTaxationDetails = ownerTaxationDetails;
    }
 
    public OwnerCitizenshipDetails getOwnerCitizenshipDetails()
@@ -430,6 +444,7 @@ public class OwnerDetails
          ", ownerRegularityDetails=" + ownerRegularityDetails +
          ", ownerMiscDetails=" + ownerMiscDetails +
          ", ownerCitizenshipDetails=" + ownerCitizenshipDetails +
+         ", ownerTaxationDetails=" + ownerTaxationDetails +
          '}';
    }
 }

@@ -149,6 +149,14 @@ public class UOBDaoImpl implements UOBDao
       {
          getObjectFormROW(rows,ownerDetails.getOwnerCitizenshipDetails(),"acctOwnerId",ownerDetails.getAcctOwnerId());
       }
+
+      rows =null;
+      rows = (ArrayList<LinkedHashMap<String, Object>>) map.get("#result-set-10");
+      if(rows.size()>0)
+      {
+         getObjectFormROW(rows,ownerDetails.getOwnerTaxationDetails(),"Taxation","acctOwnerId",ownerDetails.getAcctOwnerId());
+      }
+
    }
 
    public static Object getInstanceValue(final Object classInstance, final String fieldName) throws SecurityException, NoSuchFieldException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
@@ -173,6 +181,73 @@ public class UOBDaoImpl implements UOBDao
       // Return the Obect corresponding to the field
       field.set(classInstance,value);
 
+   }
+
+   private void getObjectFormROW(ArrayList<LinkedHashMap<String, Object>> dbRows, Object object, String category, String column, Object value)
+   {
+      Boolean isDetailsAvailable=false;
+      Iterator<LinkedHashMap<String, Object>> itr = dbRows.iterator();
+
+      int id=0;
+      Object obj=null;
+      while (itr.hasNext())
+      {
+         StringBuilder fileRow = new StringBuilder();
+         LinkedHashMap<String, Object> map = itr.next();
+         try
+         {
+            if(map.get("category").equals(category) && map.get(column).equals(value))
+            {
+               if(id==0){
+                  id= convert.getIntData(map.get("id"));
+
+//                  ownerTaxationDetails=new OwnerTaxationDetails();
+                  obj=initiateObject(category);
+                  setInstanceValue(obj, map.get("name").toString(), map.get("value"));
+               }else if(id!=0 && id==map.get("id")){
+                  setInstanceValue(obj, map.get("name").toString(), map.get("value"));
+               }else if(id!=0 && id!=map.get("id")){
+                  id= convert.getIntData(map.get("id"));
+//                  ((List<OwnerTaxationDetails>)object).add(ownerTaxationDetails);
+                  addToList(object, obj, category);
+//                  ownerTaxationDetails=new OwnerTaxationDetails();
+                  obj=initiateObject(category);
+                  setInstanceValue(obj, map.get("name").toString(), map.get("value"));
+               }
+            }
+         }
+         catch (NoSuchFieldException e)
+         {
+            logger.error(e.getMessage());
+         }
+         catch (ClassNotFoundException e)
+         {
+            logger.error(e.getMessage());
+         }
+         catch (IllegalAccessException e)
+         {
+            logger.error(e.getMessage());
+         }
+      }
+//      if(category.equals("Taxation") && ownerTaxationDetails!=null){
+//         ((List<OwnerTaxationDetails>)object).add(ownerTaxationDetails);
+         addToList(object, obj, category);
+//      }
+
+   }
+
+   private void addToList(Object listObject, Object object, String category){
+
+      if(category.equals("Taxation")){
+         ((List<OwnerTaxationDetails>)listObject).add((OwnerTaxationDetails) object);
+      }
+   }
+   private Object initiateObject(String category){
+
+      if(category.equals("Taxation")){
+         return new OwnerTaxationDetails();
+      }
+      return null;
    }
 
    private void getObjectFormROW(ArrayList<LinkedHashMap<String, Object>> dbRows, Object object, String column, Object value)
@@ -220,6 +295,7 @@ public class UOBDaoImpl implements UOBDao
 //
 //      }
    }
+
 
    private void getObjectFormROW(ArrayList<LinkedHashMap<String, Object>> dbRows, Object object){
 

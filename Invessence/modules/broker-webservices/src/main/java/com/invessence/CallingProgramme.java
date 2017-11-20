@@ -25,11 +25,11 @@ public class CallingProgramme
          UOBDaoImpl uobDao = (UOBDaoImpl) context.getBean("uobDaoImpl");
          UOBDataMaster uobDataMaster=(UOBDataMaster) uobDao.fetch(new Long(123));
          System.out.println("uobDataMaster = " + uobDataMaster);
-        List<String> fieldsLst= getFieldNames(uobDataMaster.getIndividualOwnersDetails(),false);
-
-         for(int i=0;i<fieldsLst.size();i++){
-            System.out.println(fieldsLst.get(i));
-         }
+//        List<String> fieldsLst= getFieldNames(uobDataMaster.getIndividualOwnersDetails(),false);
+//
+//         for(int i=0;i<fieldsLst.size();i++){
+//            System.out.println(fieldsLst.get(i));
+//         }
 
 //         ServiceLayerImpl serviceLayer = (ServiceLayerImpl) context.getBean("serviceLayerImpl");
 //         serviceLayer.toTestAPI();
