@@ -26,47 +26,22 @@
                                     </p:panel>
                                     <div class="go-bottom">
                                         <div class="acc_holder_dtl_block">
-                                            <div class="Container20 Responsive100 select_item">
-                                                <p:selectOneMenu id="nwPriHldrTtl"
-                                                                 value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.title}" name="title">
-                                                    <f:selectItem itemLabel="Select Title" itemValue="Select"/>
-                                                    <f:selectItem itemLabel="Dr" itemValue="Dr"/>
-                                                    <f:selectItem itemLabel="Professor" itemValue="Professor"/>
-                                                    <f:selectItem itemLabel="Mr" itemValue="Mr"/>
-                                                    <f:selectItem itemLabel="Mrs" itemValue="Mrs"/>
-                                                    <f:selectItem itemLabel="Miss" itemValue="Miss"/>
-                                                    <f:selectItem itemLabel="Mdm" itemValue="Mdm"/>
-                                                </p:selectOneMenu>
-                                            </div>
+
                                             <div class="Container80 Responsive100">
-                                                <p:inputText id="nwPriHldrNm" placeholder="Full Name"
+                                                <p:inputText id="nwPriHldrNm" placeholder="Name as in your existing securities trading account"
                                                              value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.fullName}"/>
-                                                <label for="nwPriHldrNm">Full Name</label>
+                                                <label for="nwPriHldrNm">Name as in your existing securities trading account</label>
                                             </div>
                                         </div>
                                         <div class="acc_holder_dtl_block ">
-                                            <div class="Container100 Responsive100 margin-top width99">
-                                                <p:inputText id="nwPriHldrNric" placeholder="NRIC Number"
+                                            <div class="Container50 Responsive100 margin-top width99">
+                                                <p:inputText id="nwPriHldrNric" placeholder="NRIC /Passport Number"
                                                              value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerIdentificationDetails.nric}"/>
-                                                <label for="nwPriHldrNric">NRIC Number</label>
+                                                <label for="nwPriHldrNric">NRIC /Passport Number</label>
                                             </div>
                                         </div>
                                         <div class="acc_holder_dtl_block contact_dtl_block">
-                                            <div class="Container50 Responsive100">
-                                                <div class="Container20 Responsive100">
-                                                    <span>Country Code</span>
-                                                    <p:inputMask id="nwPriHldrHmNoCd" placeholder="" mask="+(9999)"
-                                                                 value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.homeTelNumberCD}"/>
-                                                </div>
-                                                <div class="Container80 Responsive100">
-                                                    <span>Area Code / Number</span>
-                                                    <div class="Container100">
-                                                        <p:inputMask id="nwPriHldrHmNo" placeholder="Home Tel No" mask="999-999-999-999"
-                                                                     value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.homeTelNumber}"/>
-                                                        <label for="nwPriHldrHmNo">Home Tel No</label>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <div class="Container50 Responsive100">
                                                 <div class="Container20 Responsive100">
                                                     <span>Country Code</span>
@@ -83,31 +58,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="acc_holder_dtl_block">
-                                            <div class="Container50 Responsive100">
-                                                <div class="Container20 Responsive100">
-                                                    <p:inputMask id="nwPriHldrOffNoCd" placeholder="" mask="+(9999)"
-                                                                 value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.officeTelNumberCD}"/>
-                                                </div>
-                                                <div class="Container80 Responsive100">
-                                                    <p:inputMask id="nwPriHldrOffNo" placeholder="Office Tel No" mask="999-999-999-999"
-                                                                 value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.officeTelNumber}"/>
-                                                    <label for="nwPriHldrOffNo">Office Tel No</label>
-                                                </div>
-                                            </div>
-                                            <div class="Container50 Responsive100">
-                                                <div class="Container20 Responsive100">
-                                                    <p:inputMask id="nwPriHldrFaxNoCd" placeholder="" mask="+(9999)"
-                                                                 value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.faxNumberCD}"/>
-                                                </div>
-                                                <div class="Container80 Responsive100">
 
-                                                    <p:inputMask id="nwPriHldrFaxNo" placeholder="Fax No" mask="999-999-999-999"
-                                                                 value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.faxNumber}"/>
-                                                    <label for="nwPriHldrFaxNo">Fax No</label>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="acc_holder_dtl_block">
                                             <div class="Container100 width99">
                                                 <p:inputText id="nwPriHldrEmailId" placeholder="Email Address"
@@ -123,49 +74,25 @@
                                 <p:tab title="Joint Account Holder" rendered="#{uobCustodyBean.dspJntTab}">
                                     <div class="go-bottom">
                                         <div class="acc_holder_dtl_block">
-                                            <div class="Container20 Responsive100 select_item">
-                                                <p:selectOneMenu id="jointtitle" value="Select Title" name="title">
-                                                    <f:selectItem itemLabel="Select Title" itemValue=""/>
-                                                    <f:selectItem itemLabel="Dr" itemValue="Dr"/>
-                                                    <f:selectItem itemLabel="Professor" itemValue="Professor"/>
-                                                    <f:selectItem itemLabel="Mr" itemValue="Mr"/>
-                                                    <f:selectItem itemLabel="Mrs" itemValue="Mrs"/>
-                                                    <f:selectItem itemLabel="Miss" itemValue="Miss"/>
-                                                    <f:selectItem itemLabel="Mdm" itemValue="Mdm"/>
-                                                </p:selectOneMenu>
 
-                                            </div>
                                             <div class="Container80 Responsive100">
-                                                <input id="jointname" name="name" type="text" placeholder="Full Name"/>
-                                                <label for="name">Full Name</label>
+                                                <input id="jointname" name="name" type="text" placeholder="Name as in your existing securities trading account"/>
+                                                <label for="name">Name as in your existing securities trading account</label>
                                             </div>
                                         </div>
 
 
                                         <div class="acc_holder_dtl_block ">
 
-                                            <div class="Container100 Responsive100 margin-top width99">
-                                                <input id="jointnric" name="nric" type="text" placeholder="NRIC Number"/>
+                                            <div class="Container50 Responsive100 margin-top width99">
+                                                <input id="jointnric" name="nric" type="text" placeholder="NRIC /Passport Number"/>
                                                 <label for="nric">NRIC /Passport Number</label>
                                             </div>
 
 
                                         </div>
                                         <div class="acc_holder_dtl_block contact_dtl_block">
-                                            <div class="Container50 Responsive100">
-                                                <div class="Container20 Responsive100">
-                                                    <span>Country Code</span>
-                                                    <input id="jointcountrycode" name="countrycode" type="text" placeholder=""/>
-                                                    <!-- <label for="offTel">Office Tel No</label>	 -->
-                                                </div>
-                                                <div class="Container80 Responsive100">
-                                                    <span>Area Code / Number</span>
-                                                    <div class="Container100">
-                                                        <input id="jointhomeTel" name="homeTel" type="text" placeholder="Home Tel No"/>
-                                                        <label for="homeTel">Home Tel No</label>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <div class="Container50 Responsive100">
                                                 <div class="Container20 Responsive100">
                                                     <span>Country Code</span>
@@ -181,32 +108,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="acc_holder_dtl_block contact_dtl_block">
-                                            <div class="Container50 Responsive100">
-                                                <div class="Container20 Responsive100">
-                                                    <span class="for_res title_line">Country Code</span>
-                                                    <input id="jointcountrycode" name="countrycode" type="text" placeholder=""/>
-                                                    <!-- <label for="offTel">Office Tel No</label>	 -->
-                                                </div>
-                                                <div class="Container80 Responsive100">
-                                                    <span class="for_res title_line">Area Code / Number</span>
-                                                    <input id="jointoffTel" name="offTel" type="text" placeholder="Office Tel No"/>
-                                                    <label for="offTel">Office Tel No</label>
-                                                </div>
-                                            </div>
-                                            <div class="Container50 Responsive100">
-                                                <div class="Container20 Responsive100">
-                                                    <span class="for_res title_line">Country Code</span>
-                                                    <input id="jointcountrycode" name="countrycode" type="text" placeholder=""/>
-                                                    <!-- <label for="offTel">Office Tel No</label>	 -->
-                                                </div>
-                                                <div class="Container80 Responsive100">
-                                                    <span class="for_res title_line">Area Code / Number</span>
-                                                    <input id="jointfaxTel" name="faxTel" type="text" placeholder="Fax No"/>
-                                                    <label for="faxTel">Fax No</label>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                         <div class="acc_holder_dtl_block">
                                             <div class="Container100 width99">
                                                 <input id="jointemailadd" name="emailadd" type="text" placeholder="Email Address"/>
