@@ -4832,6 +4832,10 @@ td.bullet_td span {
 .margin-left {
     margin-left: 10px;
 }
+.acc_holder_form .ui-tabs-top,
+.acc_holder_form .ui-helper-reset {
+    background: #fff;
+}
 /** portfolio creation **/
 .portfolio_selection,.portfolio_progress_bar,.ring_widget,.caraousle
 {
