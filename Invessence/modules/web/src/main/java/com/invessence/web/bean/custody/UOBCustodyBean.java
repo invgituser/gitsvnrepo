@@ -36,8 +36,9 @@ public class UOBCustodyBean
    private boolean dspExtAcctPnl = false, dspNewAcctPnl = false, dspIntroAcctPnl = false, dsblSubmtBtn = true, dspJntTab = false;
    private String acctCat, extAcctInd, extAcctJnt, clientAcctId, slsPrsnNm, selIndAcctTyp, selJntAcctTyp;
    private Integer activeTab = 0;
-   private boolean dsplNricInp = false, dsplOtrCntry = false, dsplIcNoInp = false, dsplPspNoInp = false;
+   private boolean dsplNricInp = false, dsplOtrCntry = false, dsplIcNoInp = false, dsplPspNoInp = false,dsplSrcIncOtrs=false;
    private Date dtPriHldrDob;
+   private boolean dsplNwPriRelDtl = false, dsplNwPriInfDtl = false, dsplNwPriCtrlDtl = false;
    String introError;
 
    public void cleanUpAll()
@@ -69,6 +70,10 @@ public class UOBCustodyBean
       dspIntroAcctPnl = true;
       dsblSubmtBtn = true;
       dspJntTab = false;
+      dsplSrcIncOtrs=false;
+      dsplNwPriRelDtl = false;
+      dsplNwPriInfDtl = false;
+      dsplNwPriCtrlDtl = false;
    }
 
    public void initCustody()
@@ -90,6 +95,7 @@ public class UOBCustodyBean
             onChngNation();
             onChngOtrCntry();
             loadIntroPage();
+            onChngRelDtls();
 
             if (uobDataMaster.getIndividualOwnersDetails().getDob() == null ||
                uobDataMaster.getIndividualOwnersDetails().getDob().equalsIgnoreCase(""))
@@ -368,6 +374,53 @@ public class UOBCustodyBean
       }
    }
 
+   public void onChngSrcOfInc()
+   {
+      try
+      {
+         if (uobDataMaster.getIndividualOwnersDetails().getOwnersFinancialDetails().getSourceOfFundsWealth().equalsIgnoreCase("Others") )
+         {
+            dsplSrcIncOtrs = true;
+         }
+         else
+         {
+            dsplSrcIncOtrs = false;
+         }
+      }
+      catch (Exception e)
+      {
+      }
+   }
+   public void onChngRelDtls(){
+      try{
+         if(uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getRelatedToAnyEmplfUOB()== null ||
+            uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getRelatedToAnyEmplfUOB().trim().equalsIgnoreCase("") ||
+            uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getRelatedToAnyEmplfUOB().equalsIgnoreCase("No")){
+            dsplNwPriRelDtl=false;
+         }else{
+            dsplNwPriRelDtl=true;
+         }
+
+         if(uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getControlOverUOBAcct()== null ||
+            uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getControlOverUOBAcct().trim().equalsIgnoreCase("") ||
+            uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getControlOverUOBAcct().equalsIgnoreCase("No")){
+            dsplNwPriInfDtl=false;
+         }else{
+            dsplNwPriInfDtl=true;
+         }
+
+         if(uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcct()== null ||
+            uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcct().trim().equalsIgnoreCase("") ||
+            uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcct().equalsIgnoreCase("No")){
+            dsplNwPriCtrlDtl=false;
+         }else{
+            dsplNwPriCtrlDtl=true;
+         }
+      }catch(Exception e){
+      }
+   }
+
+
    public void onChngOtrCntry()
    {
       try
@@ -394,19 +447,19 @@ public class UOBCustodyBean
    {
       Boolean dataOK = true;
       pagemanager.clearErrorMessage(pagenum);
+      OwnerDetails OwnDtls=null;
+      if (!isJoint)
+      {
+         OwnDtls=uobDataMaster.getIndividualOwnersDetails();
+      }else{
+         OwnDtls=uobDataMaster.getJointOwnersDetails();
+      }
       if (isNewForm.equalsIgnoreCase("NO"))
       {
          switch (pagenum)
          {
             case 0:// New Account ACCOUNT HOLDER
-               if (!isJoint)
-               {
-                  dataOK = validateAcctHldr(uobDataMaster.getIndividualOwnersDetails(), dtPriHldrDob);
-               }
-               else
-               {
-                  dataOK = validateAcctHldr(uobDataMaster.getJointOwnersDetails(), dtPriHldrDob);
-               }
+               dataOK = validateAcctHldr(OwnDtls, dtPriHldrDob);
                break;
             case 1:// New Account ADDRESS
                break;
@@ -415,10 +468,13 @@ public class UOBCustodyBean
             case 3:// New Account EMPLOYMENT
                break;
             case 4:// New Account SECURITY QUESTION
+               dataOK=validateSecDtls(OwnDtls);
                break;
             case 5:// New Account FINANCIAL INFORMATION
+               dataOK=validateFinDtls(OwnDtls);
                break;
             case 6:// New Account ACCOUNT RELATIONSHIP DETAILS
+               dataOK=validateRelDtls(OwnDtls);
                break;
             case 7:// New Account TRADING HISTORY/OBJECTIVES
                break;
@@ -431,14 +487,7 @@ public class UOBCustodyBean
          switch (pagenum)
          {
             case 0:// Existing Account ACCOUNT HOLDER
-               if (!isJoint)
-               {
-                  dataOK = validateAcctHldr(uobDataMaster.getIndividualOwnersDetails(), dtPriHldrDob);
-               }
-               else
-               {
-                  dataOK = validateAcctHldr(uobDataMaster.getJointOwnersDetails(), dtPriHldrDob);
-               }
+               dataOK = validateAcctHldr(OwnDtls, dtPriHldrDob);
                break;
             case 1:// Existing Account TAX RESIDENCE INFORMATION
                break;
@@ -454,6 +503,13 @@ public class UOBCustodyBean
    {
       Boolean dataOK = true;
       pagemanager.clearErrorMessage(pagenum);
+      OwnerDetails ownDtls=null;
+      if (!isJoint)
+      {
+         ownDtls=uobDataMaster.getIndividualOwnersDetails();
+      }else{
+         ownDtls=uobDataMaster.getJointOwnersDetails();
+      }
       if (isNewForm.equalsIgnoreCase("NO"))
       {
          switch (pagenum)
@@ -461,16 +517,15 @@ public class UOBCustodyBean
             case 0:// New Account ACCOUNT HOLDER
                if (!isJoint)
                {
-//                  DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
                   SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                   uobDataMaster.getIndividualOwnersDetails().setDob(sdf.format(dtPriHldrDob));
-                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, "", uobDataMaster.getIndividualOwnersDetails());
+                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, "", ownDtls);
                }
                else
                {
                   SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                   uobDataMaster.getIndividualOwnersDetails().setDob(sdf.format(dtPriHldrDob));
-                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 2, "", uobDataMaster.getJointOwnersDetails());
+                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 2, "", ownDtls);
                }
                break;
             case 1:// New Account ADDRESS
@@ -480,10 +535,14 @@ public class UOBCustodyBean
             case 3:// New Account EMPLOYMENT
                break;
             case 4:// New Account SECURITY QUESTION
+//               saveSecDtls(ownDtls); Need changes for joint
+               saveSecDtls( uobDataMaster.getAccountDetails().getAcctnum(),  1, ownDtls);
                break;
             case 5:// New Account FINANCIAL INFORMATION
+               saveFinDtls( uobDataMaster.getAccountDetails().getAcctnum(),  1, ownDtls);
                break;
             case 6:// New Account ACCOUNT RELATIONSHIP DETAILS
+               saveRelDtls( uobDataMaster.getAccountDetails().getAcctnum(),  1, ownDtls);
                break;
             case 7:// New Account TRADING HISTORY/OBJECTIVES
                break;
@@ -500,13 +559,13 @@ public class UOBCustodyBean
                {
                   SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                   uobDataMaster.getIndividualOwnersDetails().setDob(sdf.format(dtPriHldrDob));
-                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, "", uobDataMaster.getIndividualOwnersDetails());
+                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, "", ownDtls);
                }
                else
                {
                   SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                   uobDataMaster.getIndividualOwnersDetails().setDob(sdf.format(dtPriHldrDob));
-                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 2, "", uobDataMaster.getJointOwnersDetails());
+                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 2, "", ownDtls);
                }
                break;
             case 1:// Existing Account TAX RESIDENCE INFORMATION
@@ -531,6 +590,23 @@ public class UOBCustodyBean
       return true;
    }
 
+   public boolean saveSecDtls(Long acctNum, int acctOwnerId,OwnerDetails ownerDetails)
+   {
+      saveAdditionalDtls(ownerDetails.getOwnerMiscDetails(), acctNum, acctOwnerId, "ao_owners_misc_details");
+      return true;
+   }
+
+   public boolean saveFinDtls(Long acctNum, int acctOwnerId,OwnerDetails ownerDetails)
+   {
+      saveAdditionalDtls(ownerDetails.getOwnersFinancialDetails(), acctNum, acctOwnerId, "ao_owners_finacial_details");
+      return true;
+   }
+
+   public boolean saveRelDtls(Long acctNum, int acctOwnerId,OwnerDetails ownerDetails)
+   {
+      saveAdditionalDtls(ownerDetails.getOwnerRegularityDetails(), acctNum, acctOwnerId, "ao_owners_regularity_details");
+      return true;
+   }
    public void saveAdditionalDtls(Object obj, Long acctNum, int acctOwnerId, String table)
    {
       try
@@ -721,6 +797,155 @@ public class UOBCustodyBean
       System.out.println("validtion output " + dataOK);
       return dataOK;
    }
+
+   public boolean validateSecDtls(OwnerDetails ownerDetails){
+      Boolean dataOK = true;
+      if (ownerDetails.getOwnerMiscDetails().getMotherMaidenName() == null || ownerDetails.getOwnerMiscDetails().getMotherMaidenName().trim().equalsIgnoreCase(""))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.momNm", "Mother's Maiden Name is required!", null));
+      }
+      if (ownerDetails.getOwnerMiscDetails().getFatherName() == null || ownerDetails.getOwnerMiscDetails().getFatherName().trim().equalsIgnoreCase(""))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.dadNm", "Father's Name is required!", null));
+      }
+      if (ownerDetails.getOwnerMiscDetails().getNameOfPrimarySchool() == null || ownerDetails.getOwnerMiscDetails().getNameOfPrimarySchool().trim().equalsIgnoreCase(""))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.sclNm", "Name of Primary School Attend is required!", null));
+      }
+      return  dataOK;
+   }
+
+   public boolean validateFinDtls(OwnerDetails ownerDetails){
+      Boolean dataOK = true;
+      if (ownerDetails.getOwnersFinancialDetails().getAnnualIncome() == null ||
+         ownerDetails.getOwnersFinancialDetails().getAnnualIncome().equalsIgnoreCase("select"))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.anlInc", "Mother's Maiden Name is required!", null));
+      }
+      if (ownerDetails.getOwnersFinancialDetails().getNetworth() == null ||
+         ownerDetails.getOwnersFinancialDetails().getNetworth().equalsIgnoreCase("select"))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.netWrth", "NetWorth is required!", null));
+      }
+      if (ownerDetails.getOwnersFinancialDetails().getSourceOfFundsWealth() == null ||
+         ownerDetails.getOwnersFinancialDetails().getSourceOfFundsWealth().equalsIgnoreCase("select"))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.src", "Source of Funds / Wealth is required!", null));
+      }
+      if (ownerDetails.getOwnersFinancialDetails().getSourceOfFundsWealth() != null &&
+         ownerDetails.getOwnersFinancialDetails().getSourceOfFundsWealth().equalsIgnoreCase("Others") &&
+         (ownerDetails.getOwnersFinancialDetails().getSourceOfFundsWealthSpecify()==null ||
+            ownerDetails.getOwnersFinancialDetails().getSourceOfFundsWealthSpecify().trim().equalsIgnoreCase("")))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.srcOtrs", "Please specify Source of Funds/Weath!", null));
+      }
+      return  dataOK;
+   }
+
+   public boolean validateRelDtls(OwnerDetails ownerDetails){
+      Boolean dataOK = true;
+      if (!hasRequiredData(ownerDetails.getOwnerRegularityDetails().getRelatedToAnyEmplfUOB()))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.relChc",
+                                                                                "Related to any employee / trading details are required!", null));
+      }
+      if (ownerDetails.getOwnerRegularityDetails().getRelatedToAnyEmplfUOB() != null &&
+         ownerDetails.getOwnerRegularityDetails().getRelatedToAnyEmplfUOB().trim().equalsIgnoreCase("Yes"))
+      {
+         if (!hasRequiredData(ownerDetails.getOwnerRegularityDetails().getRelatedToAnyEmplName1()))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.relNm1",
+                                                                                   "Name related to any employee / trading details is required!", null));
+         }
+         if (!hasRequiredData(ownerDetails.getOwnerRegularityDetails().getRelatedToAnyEmplRelation1()))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.relNum1",
+                                                                                   "Account Number related to any employee / trading details is required!", null));
+         }
+         if(hasRequiredData(ownerDetails.getOwnerRegularityDetails().getRelatedToAnyEmplName2()) &&
+            !hasRequiredData(ownerDetails.getOwnerRegularityDetails().getRelatedToAnyEmplRelation2())){
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.relNum1",
+                                                                                   "Account Number related to any employee / trading details is required!", null));
+         }
+      }
+
+      if (!hasRequiredData(ownerDetails.getOwnerRegularityDetails().getControlOverUOBAcct()))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.inflAct",
+                                                                                "Details of trading account(s) in UOB Kay Hian in which you have control or influence is required!", null));
+      }
+
+      if (ownerDetails.getOwnerRegularityDetails().getControlOverUOBAcct() != null &&
+         ownerDetails.getOwnerRegularityDetails().getControlOverUOBAcct().trim().equalsIgnoreCase("Yes"))
+      {
+         if (!hasRequiredData(ownerDetails.getOwnerRegularityDetails().getControlOverUOBAcctName1()))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.inflNm1",
+                                                                                   "Name related to trading account(s) in UOB Kay Hian in which you have control or influence is required!", null));
+         }
+         if (!hasRequiredData(ownerDetails.getOwnerRegularityDetails().getControlOverUOBAcctNumber1()))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.inflNum1",
+                                                                                   "Account Number related to trading account(s) in UOB Kay Hian in which you have control or influence is required!", null));
+         }
+         if(hasRequiredData(ownerDetails.getOwnerRegularityDetails().getControlOverUOBAcctName2()) &&
+            !hasRequiredData(ownerDetails.getOwnerRegularityDetails().getControlOverUOBAcctNumber2())){
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.inflNm1",
+                                                                                   "Account Number related to trading account(s) in UOB Kay Hian in which you have control or influence is required!", null));
+         }
+      }
+
+
+      if (!hasRequiredData(ownerDetails.getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcct()))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctrlAct",
+                                                                                "Details related account holder in UOB Kay Hian, who has control or influence over this trading account is required!", null));
+      }
+
+      if (ownerDetails.getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcct() != null &&
+         ownerDetails.getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcct().trim().equalsIgnoreCase("Yes"))
+      {
+         if (!hasRequiredData(ownerDetails.getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcctName1()))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctrlNm1",
+                                                                                   "Name related to trading account(s) in UOB Kay Hian in which you have control or influence is required!", null));
+         }
+         if (!hasRequiredData(ownerDetails.getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcctNumber1()))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctrlNum1",
+                                                                                   "Account Number related to account holder in UOB Kay Hian, who has control or influence over this trading account is required!", null));
+         }
+         if(hasRequiredData(ownerDetails.getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcctName2()) &&
+            !hasRequiredData(ownerDetails.getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcctNumber2())){
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctrlNm1",
+                                                                                   "Account Number related to account holder in UOB Kay Hian, who has control or influence over this trading account is required!", null));
+         }
+      }
+
+      return  dataOK;
+   }
+
+
+
 
    public Boolean hasRequiredData(String value)
    {
@@ -1104,5 +1329,45 @@ public class UOBCustodyBean
    public void setIntroError(String introError)
    {
       this.introError = introError;
+   }
+
+   public boolean isDsplSrcIncOtrs()
+   {
+      return dsplSrcIncOtrs;
+   }
+
+   public void setDsplSrcIncOtrs(boolean dsplSrcIncOtrs)
+   {
+      this.dsplSrcIncOtrs = dsplSrcIncOtrs;
+   }
+
+   public boolean isDsplNwPriRelDtl()
+   {
+      return dsplNwPriRelDtl;
+   }
+
+   public void setDsplNwPriRelDtl(boolean dsplNwPriRelDtl)
+   {
+      this.dsplNwPriRelDtl = dsplNwPriRelDtl;
+   }
+
+   public boolean isDsplNwPriInfDtl()
+   {
+      return dsplNwPriInfDtl;
+   }
+
+   public void setDsplNwPriInfDtl(boolean dsplNwPriInfDtl)
+   {
+      this.dsplNwPriInfDtl = dsplNwPriInfDtl;
+   }
+
+   public boolean isDsplNwPriCtrlDtl()
+   {
+      return dsplNwPriCtrlDtl;
+   }
+
+   public void setDsplNwPriCtrlDtl(boolean dsplNwPriCtrlDtl)
+   {
+      this.dsplNwPriCtrlDtl = dsplNwPriCtrlDtl;
    }
 }

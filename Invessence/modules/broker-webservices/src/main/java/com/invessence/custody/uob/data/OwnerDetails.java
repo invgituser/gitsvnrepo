@@ -16,12 +16,18 @@ public class OwnerDetails
    private String dob;
    private String countryOfBirth;
    private String emailAddress;
-   private String physicalAddressStreet;
+   private String physicalAddressStreet1;
+   private String physicalAddressStreet2;
+   private String physicalAddressStreet3;
+   private String physicalAddressStreet4;
    private String physicalAddressCity;
    private String physicalAddressState;
    private String physicalAddressZipCode;
    private String physicalAddressCountry;
-   private String mailingAddressStreet;
+   private String mailingAddressStreet1;
+   private String mailingAddressStreet2;
+   private String mailingAddressStreet3;
+   private String mailingAddressStreet4;
    private String mailingAddressCity;
    private String mailingAddressState;
    private String mailingAddressZipCode;
@@ -226,14 +232,44 @@ public class OwnerDetails
       this.emailAddress = emailAddress;
    }
 
-   public String getPhysicalAddressStreet()
+   public String getPhysicalAddressStreet1()
    {
-      return physicalAddressStreet;
+      return physicalAddressStreet1;
    }
 
-   public void setPhysicalAddressStreet(String physicalAddressStreet)
+   public void setPhysicalAddressStreet1(String physicalAddressStreet1)
    {
-      this.physicalAddressStreet = physicalAddressStreet;
+      this.physicalAddressStreet1 = physicalAddressStreet1;
+   }
+
+   public String getPhysicalAddressStreet2()
+   {
+      return physicalAddressStreet2;
+   }
+
+   public void setPhysicalAddressStreet2(String physicalAddressStreet2)
+   {
+      this.physicalAddressStreet2 = physicalAddressStreet2;
+   }
+
+   public String getPhysicalAddressStreet3()
+   {
+      return physicalAddressStreet3;
+   }
+
+   public void setPhysicalAddressStreet3(String physicalAddressStreet3)
+   {
+      this.physicalAddressStreet3 = physicalAddressStreet3;
+   }
+
+   public String getPhysicalAddressStreet4()
+   {
+      return physicalAddressStreet4;
+   }
+
+   public void setPhysicalAddressStreet4(String physicalAddressStreet4)
+   {
+      this.physicalAddressStreet4 = physicalAddressStreet4;
    }
 
    public String getPhysicalAddressCity()
@@ -276,14 +312,44 @@ public class OwnerDetails
       this.physicalAddressCountry = physicalAddressCountry;
    }
 
-   public String getMailingAddressStreet()
+   public String getMailingAddressStreet1()
    {
-      return mailingAddressStreet;
+      return mailingAddressStreet1;
    }
 
-   public void setMailingAddressStreet(String mailingAddressStreet)
+   public void setMailingAddressStreet1(String mailingAddressStreet1)
    {
-      this.mailingAddressStreet = mailingAddressStreet;
+      this.mailingAddressStreet1 = mailingAddressStreet1;
+   }
+
+   public String getMailingAddressStreet2()
+   {
+      return mailingAddressStreet2;
+   }
+
+   public void setMailingAddressStreet2(String mailingAddressStreet2)
+   {
+      this.mailingAddressStreet2 = mailingAddressStreet2;
+   }
+
+   public String getMailingAddressStreet3()
+   {
+      return mailingAddressStreet3;
+   }
+
+   public void setMailingAddressStreet3(String mailingAddressStreet3)
+   {
+      this.mailingAddressStreet3 = mailingAddressStreet3;
+   }
+
+   public String getMailingAddressStreet4()
+   {
+      return mailingAddressStreet4;
+   }
+
+   public void setMailingAddressStreet4(String mailingAddressStreet4)
+   {
+      this.mailingAddressStreet4 = mailingAddressStreet4;
    }
 
    public String getMailingAddressCity()
@@ -341,12 +407,18 @@ public class OwnerDetails
          ", dob='" + dob + '\'' +
          ", countryOfBirth='" + countryOfBirth + '\'' +
          ", emailAddress='" + emailAddress + '\'' +
-         ", physicalAddressStreet='" + physicalAddressStreet + '\'' +
+         ", physicalAddressStreet1='" + physicalAddressStreet1 + '\'' +
+         ", physicalAddressStreet2='" + physicalAddressStreet2 + '\'' +
+         ", physicalAddressStreet3='" + physicalAddressStreet3 + '\'' +
+         ", physicalAddressStreet4='" + physicalAddressStreet4 + '\'' +
          ", physicalAddressCity='" + physicalAddressCity + '\'' +
          ", physicalAddressState='" + physicalAddressState + '\'' +
          ", physicalAddressZipCode='" + physicalAddressZipCode + '\'' +
          ", physicalAddressCountry='" + physicalAddressCountry + '\'' +
-         ", mailingAddressStreet='" + mailingAddressStreet + '\'' +
+         ", mailingAddressStreet1='" + mailingAddressStreet1 + '\'' +
+         ", mailingAddressStreet2='" + mailingAddressStreet2 + '\'' +
+         ", mailingAddressStreet3='" + mailingAddressStreet3 + '\'' +
+         ", mailingAddressStreet4='" + mailingAddressStreet4 + '\'' +
          ", mailingAddressCity='" + mailingAddressCity + '\'' +
          ", mailingAddressState='" + mailingAddressState + '\'' +
          ", mailingAddressZipCode='" + mailingAddressZipCode + '\'' +

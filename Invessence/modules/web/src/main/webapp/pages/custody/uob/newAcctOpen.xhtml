@@ -984,15 +984,22 @@
                         <div class="Container100 Responsive100 holder_employment acc_holder_form ">
                             <p:tabView>
                                 <p:tab title="Main Account Holder">
+                                    <p:panel id="nwPriHldrErr1" rendered="#{uobCustodyBean.getErrorMessage(4) != null}"
+                                             style="border: 0px; background: transparent"
+                                             styleClass="Container100">
+                                        <h:outputText id="nwPriHldrMsg1" styleClass="errorText"
+                                                      value="#{uobCustodyBean.getErrorMessage(4)}" escape="false"/>
+                                    </p:panel>
                                     <div class="go-bottom">
                                         <div class="acc_holder_dtl_block">
                                             <!-- <div class="Container40">
                                                  <h3>What is Mother's Maiden Name ?</h3>
                                              </div> -->
                                             <div class="Container60 Responsive100">
-                                                <input id="motherName" name="motherName" type="text"
-                                                       placeholder="What is your Mother's Maiden Name ?"/>
-                                                <label for="motherName">Mother's Maiden Name</label>
+                                                <p:inputText id="nwPriHldMomNm"
+                                                       placeholder="What is your Mother's Maiden Name ?"
+                                                             value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerMiscDetails.motherMaidenName}"/>
+                                                <label for="nwPriHldMomNm">Mother's Maiden Name</label>
                                             </div>
                                         </div>
                                         <div class="acc_holder_dtl_block">
@@ -1000,8 +1007,9 @@
                                                 <h3>What is Father's Name ?</h3>
                                             </div>	 -->
                                             <div class="Container60 Responsive100">
-                                                <input id="fatherName" name="fatherName" type="text" placeholder="What is your Father's Name  ?"/>
-                                                <label for="fatherName">Father's Name</label>
+                                                <p:inputText id="nwPriHldDadNm" placeholder="What is your Father's Name  ?"
+                                                       value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerMiscDetails.fatherName}"/>
+                                                <label for="nwPriHldDadNm">Father's Name</label>
                                             </div>
                                         </div>
                                         <div class="acc_holder_dtl_block">
@@ -1009,12 +1017,11 @@
                                                 <h3>Name of Primary School Attend ?</h3>
                                             </div>	 -->
                                             <div class="Container60 Responsive100">
-                                                <input id="schoolName" name="schoolName" type="text"
-                                                       placeholder="What is the name of Primary School Attend ?"/>
-                                                <label for="schoolName">Name of Primary School Attend</label>
+                                                <p:inputText id="nwPriHldSclNm" placeholder="What is the name of Primary School Attend ?"
+                                                             value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerMiscDetails.nameOfPrimarySchool}"/>
+                                                <label for="nwPriHldSclNm">Name of Primary School Attend</label>
                                             </div>
                                         </div>
-
                                     </div>
                                 </p:tab>
                                 <!-- joint account holder tab -->
@@ -1068,7 +1075,7 @@
 
                                 <p:commandLink id="newNxt5"
                                                actionListener="#{uobCustodyBean.nextPage}"
-                                               update="@form">
+                                               update=":cstdyFrm:newAccordian" >
                                     <span class="ui-button-icon-center ui-icon ui-c fa fa-chevron-right"></span>
                                 </p:commandLink>
                             </div>
@@ -1079,12 +1086,19 @@
                         <div class="Container100 Responsive100 holder_employment acc_holder_form">
                             <p:tabView>
                                 <p:tab title="Main Account Holder">
+                                    <p:panel id="nwPriHldrErr1" rendered="#{uobCustodyBean.getErrorMessage(5) != null}"
+                                             style="border: 0px; background: transparent"
+                                             styleClass="Container100">
+                                        <h:outputText id="nwPriHldrMsg1" styleClass="errorText"
+                                                      value="#{uobCustodyBean.getErrorMessage(5)}" escape="false"/>
+                                    </p:panel>
                                     <div class="go-bottom">
                                         <div class="acc_holder_dtl_block">
                                             <div class="Container50 Responsive100 select_item">
                                                 <div class="Container100"><span class="title_line">Annual Income</span></div>
-                                                <p:selectOneMenu id="annual_income" value="Annual Income">
-                                                    <f:selectItem itemLabel="Annual Income" itemValue=""/>
+                                                <p:selectOneMenu id="nwPriHldrAnInc"
+                                                                 value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownersFinancialDetails.annualIncome}">
+                                                    <f:selectItem itemLabel="Annual Income" itemValue="Select"/>
                                                     <f:selectItem itemLabel="$ 30,000 and Below" itemValue="$ 30,000 and Below"/>
                                                     <f:selectItem itemLabel="$ 30,001 - $ 60,000" itemValue="$ 30,001 - $ 60,000"/>
                                                     <f:selectItem itemLabel="$ 60,001 - $ 100,000" itemValue="$ 60,001 - $ 100,000"/>
@@ -1095,8 +1109,9 @@
                                             </div>
                                             <div class="Container50 Responsive100 select_item">
                                                 <div class="Container100"><span class="title_line">NetWorth</span></div>
-                                                <p:selectOneMenu id="newtworth" value="Networth">
-                                                    <f:selectItem itemLabel="NetWorth" itemValue=""/>
+                                                <p:selectOneMenu id="nwPriHldrNtWrth"
+                                                                 value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownersFinancialDetails.networth}">
+                                                    <f:selectItem itemLabel="NetWorth" itemValue="Select"/>
                                                     <f:selectItem itemLabel="$ 50,000 and Below" itemValue="$ 50,000 and Below"/>
                                                     <f:selectItem itemLabel="$ 50,001 - $ 99,999" itemValue="$ 50,001 - $ 99,999"/>
                                                     <f:selectItem itemLabel="$ 100,000 - $ 249,999" itemValue="$ 100,000 - $ 249,999"/>
@@ -1105,18 +1120,29 @@
                                                     <f:selectItem itemLabel="More than $ 1,000,000" itemValue="More than $ 1,000,000"/>
                                                 </p:selectOneMenu>
                                             </div>
-                                            <div class="Container50 Responsive100 select_item">
-                                                <div class="Container100"><span class="title_line">Source of Funds / Wealth</span></div>
-                                                <p:selectOneMenu id="wealth_income" value="Source of Funds/Wealth">
-                                                    <f:selectItem itemLabel="Source of Funds/Weath" itemValue=""/>
-                                                    <f:selectItem itemLabel="Employment" itemValue="Employment"/>
-                                                    <f:selectItem itemLabel="Business Income" itemValue="Business Income"/>
-                                                    <f:selectItem itemLabel="Rental" itemValue="Rental"/>
-                                                    <f:selectItem itemLabel="Sales of Investment" itemValue="Sales of Investment"/>
-                                                    <f:selectItem itemLabel="Inheritance / Gifts" itemValue="Inheritance / Gifts"/>
-                                                    <f:selectItem itemLabel="Others" itemValue="Others"/>
-                                                </p:selectOneMenu>
-                                            </div>
+                                            <p:panel id="nwPriHldFinSrcPnl" style="border-color: transparent;">
+                                                <div class="Container50 Responsive100 select_item">
+                                                    <div class="Container100"><span class="title_line">Source of Funds / Wealth</span></div>
+                                                    <p:selectOneMenu id="nwPriHldrWlthInc"
+                                                                     value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownersFinancialDetails.sourceOfFundsWealth}">
+                                                        <p:ajax listener="#{uobCustodyBean.onChngSrcOfInc}" update="nwPriHldFinSrcPnl"/>
+                                                        <f:selectItem itemLabel="Source of Funds/Weath" itemValue="Select"/>
+                                                        <f:selectItem itemLabel="Employment" itemValue="Employment"/>
+                                                        <f:selectItem itemLabel="Business Income" itemValue="Business Income"/>
+                                                        <f:selectItem itemLabel="Rental" itemValue="Rental"/>
+                                                        <f:selectItem itemLabel="Sales of Investment" itemValue="Sales of Investment"/>
+                                                        <f:selectItem itemLabel="Inheritance / Gifts" itemValue="Inheritance / Gifts"/>
+                                                        <f:selectItem itemLabel="Others" itemValue="Others"/>
+                                                    </p:selectOneMenu>
+                                                </div>
+                                                <ui:fragment rendered="#{uobCustodyBean.dsplSrcIncOtrs}">
+                                                    <div class="Container50 Responsive100 select_item margin-top">
+                                                        <p:inputText id="nwPriHldrWlthIncInp" placeholder="Please specify Source of Funds/Weath"
+                                                                     value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownersFinancialDetails.sourceOfFundsWealthSpecify}"/>
+                                                        <label for="nwPriHldrWlthIncInp">Please specify Source of Funds/Weath</label>
+                                                    </div>
+                                                </ui:fragment>
+                                            </p:panel>
                                             <div class="Container50 Responsive100">
 
                                             </div>
@@ -1190,7 +1216,7 @@
 
                                 <p:commandLink id="newNxt6"
                                                actionListener="#{uobCustodyBean.nextPage}"
-                                               update="@form">
+                                               update=":cstdyFrm:newAccordian" >
                                     <span class="ui-button-icon-center ui-icon ui-c fa fa-chevron-right"></span>
                                 </p:commandLink>
                             </div>
@@ -1201,95 +1227,126 @@
                         <div class="Container100 Responsive100 holder_employment acc_holder_form">
                             <p:tabView>
                                 <p:tab title="Main Account Holder">
+                                    <p:panel id="nwPriHldrErr1" rendered="#{uobCustodyBean.getErrorMessage(6) != null}"
+                                                                             style="border: 0px; background: transparent"
+                                                                             styleClass="Container100">
+                                    <h:outputText id="nwPriHldrMsg1" styleClass="errorText"
+                                                  value="#{uobCustodyBean.getErrorMessage(6)}" escape="false"/>
+                                </p:panel>
                                     <div class="go-bottom">
-                                        <div class="acc_holder_dtl_block relation_dtl">
-                                            <div class="Container70">
-                                                <div class="Container100">
-                                                    <span>1.Are you related to any employee / trading representative of UOB Kay Hian? </span></div>
-                                                <div class="Container50">
-                                                    <input id="Name" name="Name" type="text" placeholder="Name"/>
-                                                    <label for="Name">Name</label>
+                                        <p:panel id="nwPriRelPnl" style="border-color: transparent;">
+                                            <div class="acc_holder_dtl_block relation_dtl">
+                                                <div class="Container70">
+                                                    <div class="Container100">
+                                                        <span>1.Are you related to any employee / trading representative of UOB Kay Hian? </span>
+                                                    </div>
+                                                    <ui:fragment rendered="#{uobCustodyBean.dsplNwPriRelDtl}">
+                                                        <div class="Container50">
+                                                            <p:inputText id="nwPriHldrRelEmpNm1" placeholder="Name"
+                                                                         value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.relatedToAnyEmplName1}"/>
+                                                            <label for="nwPriHldrRelEmpNm1">Name</label>
+                                                        </div>
+                                                        <div class="Container50">
+                                                            <p:inputText id="nwPriHldrRelEmpRel1" placeholder="Relationship"
+                                                                         value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.relatedToAnyEmplRelation1}"/>
+                                                            <label for="nwPriHldrRelEmpRel1">Relationship</label>
+                                                        </div>
+                                                        <div class="Container50 margin-top">
+                                                            <p:inputText id="nwPriHldrRelEmpNm2" placeholder="Name"
+                                                                         value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.relatedToAnyEmplName2}"/>
+                                                            <label for="nwPriHldrRelEmpNm2">Name</label>
+                                                        </div>
+                                                        <div class="Container50 margin-top">
+                                                            <p:inputText id="nwPriHldrRelEmpRel2" placeholder="Relationship"
+                                                                         value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.relatedToAnyEmplRelation2}"/>
+                                                            <label for="nwPriHldrRelEmpRel2">Relationship</label>
+                                                        </div>
+                                                    </ui:fragment>
                                                 </div>
-                                                <div class="Container50">
-                                                    <input id="relationship" name="relationship" type="text" placeholder="Relationship"/>
-                                                    <label for="relationship">Relationship</label>
-                                                </div>
-                                                <div class="Container50 margin-top">
-                                                    <input id="Name" name="Name" type="text" placeholder="Name"/>
-                                                    <label for="Name">Name</label>
-                                                </div>
-                                                <div class="Container50 margin-top">
-                                                    <input id="relationship" name="relationship" type="text" placeholder="Relationship"/>
-                                                    <label for="relationship">Relationship</label>
-                                                </div>
-                                            </div>
-                                            <div class="Container20 label_opacity">
-                                                <p:selectOneRadio id="radio" >
-                                                    <f:selectItem itemLabel="Yes" itemValue="value1"></f:selectItem>
-                                                    <f:selectItem itemLabel="No" itemValue="value2"></f:selectItem>
-                                                </p:selectOneRadio>
-                                            </div>
-                                        </div>
-                                        <div class="acc_holder_dtl_block relation_dtl">
-                                            <div class="Container70">
-                                                <div class="Container100">
-                                                    <span>2.Are there any trading account(s) in UOB Kay Hian in which you have control or influence?</span>
-                                                </div>
-                                                <div class="Container50">
-                                                    <input id="AccName" name="AccName" type="text" placeholder="Account Name"/>
-                                                    <label for="AccName">Account Name</label>
-                                                </div>
-                                                <div class="Container50">
-                                                    <input id="AccNo" name="AccNo" type="text" placeholder="Account Number"/>
-                                                    <label for="AccNo">Account Number</label>
-                                                </div>
-                                                <div class="Container50 margin-top">
-                                                    <input id="AccName" name="AccName" type="text" placeholder="Account Name"/>
-                                                    <label for="AccName">Account Name</label>
-                                                </div>
-                                                <div class="Container50 margin-top">
-                                                    <input id="AccNo" name="AccNo" type="text" placeholder="Account Number"/>
-                                                    <label for="AccNo">Account Number</label>
+                                                <div class="Container20 label_opacity">
+                                                    <p:selectOneRadio id="nwPriHldrAccRelRad1"
+                                                                      value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.relatedToAnyEmplfUOB}">
+                                                        <p:ajax listener="#{uobCustodyBean.onChngRelDtls}" update="nwPriRelPnl"/>
+                                                        <f:selectItem itemLabel="Yes" itemValue="Yes"></f:selectItem>
+                                                        <f:selectItem itemLabel="No" itemValue="No"></f:selectItem>
+                                                    </p:selectOneRadio>
                                                 </div>
                                             </div>
-                                            <div class="Container20 label_opacity">
-                                                <p:selectOneRadio id="radio1" >
-                                                    <f:selectItem itemLabel="Yes" itemValue="value1"></f:selectItem>
-                                                    <f:selectItem itemLabel="No" itemValue="value2"></f:selectItem>
-                                                </p:selectOneRadio>
+                                            <div class="acc_holder_dtl_block relation_dtl">
+                                                <div class="Container70">
+                                                    <div class="Container100">
+                                                        <span>2.Are there any trading account(s) in UOB Kay Hian in which you have control or influence?</span>
+                                                    </div>
+                                                    <ui:fragment rendered="#{uobCustodyBean.dsplNwPriInfDtl}">
+                                                        <div class="Container50">
+                                                            <p:inputText id="nwPriHldrInfNm1" placeholder="Account Name"
+                                                                         value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.controlOverUOBAcctName1}"/>
+                                                            <label for="nwPriHldrInfNm1">Account Name</label>
+                                                        </div>
+                                                        <div class="Container50">
+                                                            <p:inputText id="nwPriHldrInfNum1" placeholder="Account Number"
+                                                                         value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.controlOverUOBAcctNumber1}"/>
+                                                            <label for="nwPriHldrInfNum1">Account Number</label>
+                                                        </div>
+                                                        <div class="Container50 margin-top">
+                                                            <p:inputText id="nwPriHldrInfNm2" placeholder="Account Name"
+                                                                         value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.controlOverUOBAcctName2}"/>
+                                                            <label for="nwPriHldrInfNm2">Account Name</label>
+                                                        </div>
+                                                        <div class="Container50 margin-top">
+                                                            <p:inputText id="nwPriHldrInfNum2" placeholder="Account Number"
+                                                                         value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.controlOverUOBAcctNumber2}"/>
+                                                            <label for="nwPriHldrInfNum2">Account Number</label>
+                                                        </div>
+                                                    </ui:fragment>
+                                                </div>
+                                                <div class="Container20 label_opacity">
+                                                    <p:selectOneRadio id="nwPriHldrAccRelRad2"
+                                                                      value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.controlOverUOBAcct}">
+                                                        <p:ajax listener="#{uobCustodyBean.onChngRelDtls}" update="nwPriRelPnl"/>
+                                                        <f:selectItem itemLabel="Yes" itemValue="Yes"></f:selectItem>
+                                                        <f:selectItem itemLabel="No" itemValue="No"></f:selectItem>
+                                                    </p:selectOneRadio>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="acc_holder_dtl_block relation_dtl">
-                                            <div class="Container70">
-                                                <div class="Container100">
-                                                    <span>3.Does any account holder in UOB Kay Hian who has control or influence over this trading account?</span>
+                                            <div class="acc_holder_dtl_block relation_dtl">
+                                                <div class="Container70">
+                                                    <div class="Container100">
+                                                        <span>3.Does any account holder in UOB Kay Hian who has control or influence over this trading account?</span>
+                                                    </div>
+                                                    <ui:fragment rendered="#{uobCustodyBean.dsplNwPriCtrlDtl}">
+                                                        <div class="Container50">
+                                                            <p:inputText id="nwPriHldrCtrNm1" placeholder="Account Name"
+                                                                         value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.uobAcctHolderControlOverTradeAcctName1}"/>
+                                                            <label for="nwPriHldrCtrNm1">Account Name</label>
+                                                        </div>
+                                                        <div class="Container50">
+                                                            <p:inputText id="nwPriHldrCtrNum1" placeholder="Account Number"
+                                                                         value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.uobAcctHolderControlOverTradeAcctNumber1}"/>
+                                                            <label for="nwPriHldrCtrNum1">Account Number</label>
+                                                        </div>
+                                                        <div class="Container50 margin-top">
+                                                            <p:inputText id="nwPriHldrCtrNm2" placeholder="Account Name"
+                                                                         value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.uobAcctHolderControlOverTradeAcctName2}"/>
+                                                            <label for="nwPriHldrCtrNm2">Account Name</label>
+                                                        </div>
+                                                        <div class="Container50 margin-top">
+                                                            <p:inputText id="nwPriHldrCtrNum2" placeholder="Account Number"
+                                                                         value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.uobAcctHolderControlOverTradeAcctNumber2}"/>
+                                                            <label for="nwPriHldrCtrNum2">Account Number</label>
+                                                        </div>
+                                                    </ui:fragment>
                                                 </div>
-                                                <div class="Container50">
-                                                    <input id="AccName" name="AccName" type="text" placeholder="Account Name"/>
-                                                    <label for="AccName">Account Name</label>
-                                                </div>
-                                                <div class="Container50">
-                                                    <input id="AccNo" name="AccNo" type="text" placeholder="Account Number"/>
-                                                    <label for="AccNo">Account Number</label>
-                                                </div>
-                                                <div class="Container50 margin-top">
-                                                    <input id="AccName" name="AccName" type="text" placeholder="Account Name"/>
-                                                    <label for="AccName">Account Name</label>
-                                                </div>
-                                                <div class="Container50 margin-top">
-                                                    <input id="AccNo" name="AccNo" type="text" placeholder="Account Number"/>
-                                                    <label for="AccNo">Account Number</label>
+                                                <div class="Container20 label_opacity">
+                                                    <p:selectOneRadio id="nwPriHldrAccRelRad3"
+                                                        value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.uobAcctHolderControlOverTradeAcct}">
+                                                        <p:ajax listener="#{uobCustodyBean.onChngRelDtls}" update="nwPriRelPnl"/>
+                                                        <f:selectItem itemLabel="Yes" itemValue="Yes"></f:selectItem>
+                                                        <f:selectItem itemLabel="No" itemValue="No"></f:selectItem>
+                                                    </p:selectOneRadio>
                                                 </div>
                                             </div>
-                                            <div class="Container20 label_opacity">
-                                                <p:selectOneRadio id="radio2" >
-                                                    <f:selectItem itemLabel="Yes" itemValue="value1"></f:selectItem>
-                                                    <f:selectItem itemLabel="No" itemValue="value2"></f:selectItem>
-                                                </p:selectOneRadio>
-                                            </div>
-                                        </div>
-
-
+                                        </p:panel>
                                     </div>
                                 </p:tab>
                                 <!-- joint account holder tab -->
@@ -1397,10 +1454,9 @@
                                 </p:commandLink>
                             </div>
                             <div class="Container50 next_btn">
-
                                 <p:commandLink id="newNxt7"
                                                actionListener="#{uobCustodyBean.nextPage}"
-                                               update="@form">
+                                               update=":cstdyFrm:newAccordian" >
                                     <span class="ui-button-icon-center ui-icon ui-c fa fa-chevron-right"></span>
                                 </p:commandLink>
                             </div>
