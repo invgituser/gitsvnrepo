@@ -42,6 +42,7 @@ public class OwnerDetails
    private OwnerRegularityDetails ownerRegularityDetails;
    private OwnerMiscDetails ownerMiscDetails;
    private OwnerCitizenshipDetails ownerCitizenshipDetails;
+   private OwnerEmploymentDetails ownerEmploymentDetails;
    private List<OwnerTaxationDetails> ownerTaxationDetails;
 
    public OwnerDetails(){
@@ -51,7 +52,18 @@ public class OwnerDetails
       setOwnerIdentificationDetails(new OwnerIdentificationDetails());
       setOwnersFinancialDetails(new OwnerFinancialDetails());
       setOwnerMiscDetails(new OwnerMiscDetails());
+      setOwnerEmploymentDetails(new OwnerEmploymentDetails());
       setOwnerTaxationDetails(new LinkedList<OwnerTaxationDetails>());
+   }
+
+   public OwnerEmploymentDetails getOwnerEmploymentDetails()
+   {
+      return ownerEmploymentDetails;
+   }
+
+   public void setOwnerEmploymentDetails(OwnerEmploymentDetails ownerEmploymentDetails)
+   {
+      this.ownerEmploymentDetails = ownerEmploymentDetails;
    }
 
    public List<OwnerTaxationDetails> getOwnerTaxationDetails()
@@ -444,6 +456,7 @@ public class OwnerDetails
          ", ownerRegularityDetails=" + ownerRegularityDetails +
          ", ownerMiscDetails=" + ownerMiscDetails +
          ", ownerCitizenshipDetails=" + ownerCitizenshipDetails +
+         ", ownerEmploymentDetails=" + ownerEmploymentDetails +
          ", ownerTaxationDetails=" + ownerTaxationDetails +
          '}';
    }

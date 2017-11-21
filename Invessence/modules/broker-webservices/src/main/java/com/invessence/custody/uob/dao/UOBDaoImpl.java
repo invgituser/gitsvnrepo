@@ -154,6 +154,13 @@ public class UOBDaoImpl implements UOBDao
       rows = (ArrayList<LinkedHashMap<String, Object>>) map.get("#result-set-10");
       if(rows.size()>0)
       {
+         getObjectFormCOLUMN(rows,ownerDetails.getOwnerEmploymentDetails());
+      }
+
+      rows =null;
+      rows = (ArrayList<LinkedHashMap<String, Object>>) map.get("#result-set-11");
+      if(rows.size()>0)
+      {
          getObjectFormROW(rows,ownerDetails.getOwnerTaxationDetails(),"Taxation","acctOwnerId",ownerDetails.getAcctOwnerId());
       }
 
