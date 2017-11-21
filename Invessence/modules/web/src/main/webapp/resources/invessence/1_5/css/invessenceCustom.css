@@ -4435,8 +4435,8 @@ span.external_link_click:hover {
 }
 
 .go-bottom input, .go-bottom textarea {
-    padding: 12px 12px 12px 12px;
-    height: 45px;
+    padding: 12px 12px 12px 12px ;
+    height: 45px ;
 }
 .go-bottom label {
     top: 0;
@@ -4451,8 +4451,9 @@ span.external_link_click:hover {
 }
 .go-bottom textarea:focus {height:50px;}
 .go-bottom input:not(:placeholder-shown):valid {
-    padding: 19px 12px 0px 5px;
-    font-size: 17px;
+    padding: 19px 12px 0px 5px !important;
+    font-size: 17px !important;
+    color:#000 !important;
 }
 /* .go-bottom input:focus + label, .go-bottom textarea:focus + label {
   top: 100%;
