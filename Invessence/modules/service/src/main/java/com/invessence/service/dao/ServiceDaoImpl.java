@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.util.*;
 import com.invessence.converter.SQLData;
 import com.invessence.service.bean.*;
+import com.invessence.service.bean.Generic.Country;
 import com.invessence.service.bean.docuSign.*;
+import com.invessence.service.bean.documentServices.iText.*;
 import com.invessence.service.bean.fileProcessor.*;
 import com.invessence.service.util.Constant;
 import org.apache.log4j.Logger;
@@ -49,6 +51,8 @@ public class ServiceDaoImpl implements ServiceDao
 
    private final String getDocuSignModeBasedDetails ="select * from service.dc_template_details where mode=? and status = 'A'";
    private final String getDocuSignCommonDetails ="select * from service.dc_template_details where mode=? and status = 'A'";
+
+   private final String getCountryDetails ="select * from vw_country where status = 'A'";
 
 
 
@@ -372,6 +376,25 @@ public class ServiceDaoImpl implements ServiceDao
 
       return lst;
    }
+
+   public Map<String,Country> getCountryDetails() throws SQLException
+   {
+      logger.info("ServiceDaoImpl.getCountryDetails");
+      logger.debug("getDCTemplateDetails = "+ getCountryDetails);
+      Map<String,Country> map=null;
+      List<Country> lst = null;
+      lst = serviceJdbcTemplate.query(getCountryDetails, ParameterizedBeanPropertyRowMapper.newInstance(Country.class));
+      if(lst !=null && lst.size()>0){
+         map=new HashMap<>();
+         Iterator<Country> itr=lst.iterator();
+         while(itr.hasNext()){
+            Country dct=(Country)itr.next();
+            map.put(dct.getName(),dct);
+         }
+      }
+      return map;
+   }
+
    SQLData convert = new SQLData();
    public Object getCommonDetails(String product, String service, String type, String infoType) throws SQLException
    {
@@ -384,7 +407,21 @@ public class ServiceDaoImpl implements ServiceDao
             Map outMap = serviceSP.getCommonDetails(product,service, type, infoType);
             if (outMap != null)
             {
-               if(service.equalsIgnoreCase(Constant.SERVICES.FILE_PROCESS.toString()) && type.equalsIgnoreCase(Constant.SERVICES_DETAILS.ADDITIONAL_DETAILS.toString()) && infoType.equalsIgnoreCase(Constant.ADDITIONAL_DETAILS.FILE_DETAILS.toString()))
+               if(service.equalsIgnoreCase(Constant.SERVICES.DOCUMENT_SERVICES.toString()) && type.equalsIgnoreCase(Constant.SERVICES_DETAILS.ADDITIONAL_DETAILS.toString()) && infoType.equalsIgnoreCase(Constant.ADDITIONAL_DETAILS.PDF_FILE_DETAILS.toString()))
+               {
+                  ArrayList<LinkedHashMap<String, Object>> rows = (ArrayList<LinkedHashMap<String, Object>>) outMap.get("#result-set-1");
+                  if (rows != null)
+                  {
+                     return getPDFFileDetails(rows);
+                  }
+               }else if(service.equalsIgnoreCase(Constant.SERVICES.DOCUMENT_SERVICES.toString()) && type.equalsIgnoreCase(Constant.SERVICES_DETAILS.COMMON_DETAILS.toString()) && infoType.equalsIgnoreCase(Constant.COMMON_DETAILS.PDF_FILE_RULES.toString()))
+               {
+                  ArrayList<LinkedHashMap<String, Object>> rows = (ArrayList<LinkedHashMap<String, Object>>) outMap.get("#result-set-1");
+                  if (rows != null)
+                  {
+                     return getPDFFileRules1(rows);
+                  }
+               }else if(service.equalsIgnoreCase(Constant.SERVICES.FILE_PROCESS.toString()) && type.equalsIgnoreCase(Constant.SERVICES_DETAILS.ADDITIONAL_DETAILS.toString()) && infoType.equalsIgnoreCase(Constant.ADDITIONAL_DETAILS.FILE_DETAILS.toString()))
                {
                   ArrayList<LinkedHashMap<String, Object>> rows = (ArrayList<LinkedHashMap<String, Object>>) outMap.get("#result-set-1");
                   if (rows != null)
@@ -587,6 +624,202 @@ public class ServiceDaoImpl implements ServiceDao
       return rs;
 
    }
+
+   private LinkedHashMap<String, LinkedList<PDFFileDetails>> getPDFFileDetails(ArrayList<LinkedHashMap<String, Object>> rows){
+      LinkedHashMap<String, LinkedList<PDFFileDetails>> rs=null;
+      try{
+         Iterator<LinkedHashMap<String, Object>> itr = rows.iterator();
+         rs=new LinkedHashMap<>();
+         LinkedList<PDFFileDetails> tempLst = null;
+         String processId = null;
+         while (itr.hasNext())
+         {
+            LinkedHashMap<String, Object> map = itr.next();
+            if (processId == null)
+            {
+               processId = convert.getStrData(map.get("fileId"));
+               tempLst = new LinkedList<>();
+               tempLst.add(getPDFFileDetails(map));
+            }
+            else if (processId.equalsIgnoreCase(convert.getStrData(map.get("fileId"))))
+            {
+               tempLst.add(getPDFFileDetails(map));
+            }
+            else if (!processId.equalsIgnoreCase(convert.getStrData(map.get("fileId"))))
+            {
+               rs.put(processId, tempLst);
+               processId = convert.getStrData(map.get("fileId"));
+               tempLst = new LinkedList<>();
+
+               tempLst.add(getPDFFileDetails(map));
+            }
+         }
+         if (tempLst != null)
+         {
+            rs.put(processId, tempLst);
+         }
+      }catch(Exception e)
+      {
+         e.printStackTrace();
+      }
+      return rs;
+   }
+
+
+   private PDFFileDetails getPDFFileDetails(LinkedHashMap<String, Object> map) {
+      PDFFileDetails fileDetails=null;
+      try{
+         fileDetails= new PDFFileDetails(convert.getStrData(map.get("vendor")),
+                                         convert.getStrData(map.get("fileName")),
+                                         convert.getStrData(map.get("fileId")),
+                                         convert.getStrData(map.get("fileExtension")),
+                                         convert.getStrData(map.get("description")),
+                                         convert.getStrData(map.get("active")),
+                                         convert.getStrData(map.get("fileNameAppender")),
+                                         convert.getStrData(map.get("appenderType")),
+                                         convert.getStrData(map.get("appenderFormat")),
+                                         convert.getStrData(map.get("available")),
+                                         convert.getStrData(map.get("sourceDir")),
+                                         convert.getStrData(map.get("uploadDir")),
+                                         convert.getStrData(map.get("isPwdProtected")),
+                                         convert.getStrData(map.get("pwdRules"))
+                                         );
+      }catch(Exception e)
+      {
+         e.printStackTrace();
+      }
+      return fileDetails;
+   }
+
+
+   private LinkedHashMap<String, LinkedHashMap<String,PDFFileRules>> getPDFFileRules(ArrayList<LinkedHashMap<String, Object>> rows){
+      LinkedHashMap<String, LinkedHashMap<String,PDFFileRules>> rs=null;
+      try{
+         Iterator<LinkedHashMap<String, Object>> itr = rows.iterator();
+         rs=new LinkedHashMap<>();
+         LinkedHashMap<String,PDFFileRules> tempMap = null;
+         String fileId = null;
+         while (itr.hasNext())
+         {
+            LinkedHashMap<String, Object> map = itr.next();
+            if (fileId == null)
+            {
+               fileId = convert.getStrData(map.get("fileId"));
+               tempMap = new LinkedHashMap<>();
+               tempMap.put(convert.getStrData(map.get("dataField")), getPDFFileRules(map));
+            }
+            else if (fileId.equalsIgnoreCase(convert.getStrData(map.get("fileId"))))
+            {
+               tempMap.put(convert.getStrData(map.get("dataField")), getPDFFileRules(map));
+            }
+            else if (!fileId.equalsIgnoreCase(convert.getStrData(map.get("fileId"))))
+            {
+               rs.put(fileId, tempMap);
+               fileId = convert.getStrData(map.get("fileId"));
+               tempMap = new LinkedHashMap<>();
+
+               tempMap.put(convert.getStrData(map.get("dataField")), getPDFFileRules(map));
+            }
+         }
+         if (tempMap != null)
+         {
+            rs.put(fileId, tempMap);
+         }
+      }catch(Exception e)
+      {
+         e.printStackTrace();
+      }
+      return rs;
+   }
+
+   private LinkedHashMap<String, LinkedHashMap<String, List<PDFFileRules>>> getPDFFileRules1(ArrayList<LinkedHashMap<String, Object>> rows){
+      LinkedHashMap<String, LinkedHashMap<String, List<PDFFileRules>>> rs=null;
+      LinkedHashMap<String, List<PDFFileRules>> tempMap=null;
+      try{
+         Iterator<LinkedHashMap<String, Object>> itr = rows.iterator();
+         rs = new LinkedHashMap<>();
+         List<PDFFileRules> mapLst = null;
+         String tempCode = null;
+         String role = null;
+         while (itr.hasNext())
+         {
+            LinkedHashMap<String, Object> map = itr.next();
+            if (tempCode == null && role==null)
+            {
+               tempCode = convert.getStrData(map.get("fileId"));
+               role=convert.getStrData(map.get("role"));
+
+               tempMap=new LinkedHashMap<>();
+               mapLst = new ArrayList<>();
+               mapLst.add(getPDFFileRules(map));
+            }
+            else if (tempCode.equalsIgnoreCase(convert.getStrData(map.get("fileId"))))
+            {
+               if(role.equalsIgnoreCase(convert.getStrData(map.get("role")))){
+
+                  mapLst.add(getPDFFileRules(map));
+
+               }else{
+                  tempMap.put(role,mapLst);
+
+                  role=convert.getStrData(map.get("role"));
+                  mapLst = new ArrayList<>();
+                  mapLst.add(getPDFFileRules(map));
+               }
+            }
+            else if (!tempCode.equalsIgnoreCase(convert.getStrData(map.get("fileId"))))
+            {
+               tempMap.put(role,mapLst);
+               rs.put(tempCode, tempMap);
+
+               tempCode = convert.getStrData(map.get("fileId"));
+               role=convert.getStrData(map.get("role"));
+               tempMap=new LinkedHashMap<>();
+               mapLst = new ArrayList<>();
+
+               mapLst.add(getPDFFileRules(map));
+            }
+         }
+         if (mapLst != null)
+         {
+            tempMap.put(role,mapLst);
+            rs.put(tempCode, tempMap);
+         }
+      }catch(Exception e)
+      {
+         e.printStackTrace();
+      }
+      return rs;
+
+   }
+
+
+
+   private PDFFileRules getPDFFileRules(LinkedHashMap<String, Object> map) {
+      // isRequired, needToEncrypt
+      PDFFileRules fileRules=null;
+      try{
+         fileRules= new PDFFileRules(convert.getStrData(map.get("fileId")),
+                                     convert.getStrData(map.get("dataField")),
+                                     convert.getStrData(map.get("description")),
+                                     convert.getIntData(map.get("pageNo")),
+                                     convert.getIntData(map.get("xcord")),
+                                     convert.getIntData(map.get("ycord")),
+                                     convert.getIntData(map.get("length")),
+                                     convert.getStrData(map.get("dbColumn")),
+                                     convert.getStrData(map.get("role")),
+                                     convert.getStrData(map.get("isRequired")),
+                                     convert.getStrData(map.get("needToEncrypt"))
+         );
+      }catch(Exception e)
+      {
+         e.printStackTrace();
+      }
+      return fileRules;
+   }
+
+
+
    private LinkedHashMap<String, LinkedList<FileDetails>> getFileDetails(ArrayList<LinkedHashMap<String, Object>> rows){
       LinkedHashMap<String, LinkedList<FileDetails>> rs=null;
       try{

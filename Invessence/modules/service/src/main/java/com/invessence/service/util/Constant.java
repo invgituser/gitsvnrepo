@@ -12,7 +12,8 @@ public class Constant
       BROKER_WEBSERVICES("BROKER-WEBSERVICES"), DOCUSIGN_SERVICES("DOCUSIGN-SERVICES"),
       EMAIL_SERVICE("EMAIL-SERVICE"), AGGREGATION_SERVICES("AGGREGATION-SERVICES"),
       FILE_PROCESS("FILE-PROCESS"),
-      CRM_SERVICES("CRM-SERVICES");
+      CRM_SERVICES("CRM-SERVICES"),
+      DOCUMENT_SERVICES("DOCUMENT-SERVICES");
       private String value;
 
       private SERVICES(String value)
@@ -31,6 +32,29 @@ public class Constant
          return this.getValue();
       }
    }
+
+   public enum DOCUMENT_SERVICES
+   {
+      iText("iText"), DROPBOX("DROPBOX"), DOCUSIGN("DOCUSIGN");
+      private String value;
+
+      private DOCUMENT_SERVICES(String value)
+      {
+         this.value = value;
+      }
+
+      private String getValue()
+      {
+         return value;
+      }
+
+      @Override
+      public String toString()
+      {
+         return this.getValue();
+      }
+   }
+
 
    public enum CRM_SERVICES
    {
@@ -144,7 +168,7 @@ public class Constant
 
    public enum GENERIC_DETAILS
    {
-      COMMON_EXCEPTION_DETAILS("COMMON_EXCEPTION_DETAILS"), LOOKUP_DETAILS("LOOKUP_DETAILS");
+      COMMON_EXCEPTION_DETAILS("COMMON_EXCEPTION_DETAILS"), LOOKUP_DETAILS("LOOKUP_DETAILS"), COUNTRY("COUNTRY");
       private String value;
 
       private GENERIC_DETAILS(String value)
@@ -215,7 +239,7 @@ public class Constant
    public enum ADDITIONAL_DETAILS
    {
       TEMPLATE_DETAILS("TEMPLATE_DETAILS"), DOCUMENT_DETAILS("DOCUMENT_DETAILS"),
-      FILE_DETAILS("FILE_DETAILS");
+      FILE_DETAILS("FILE_DETAILS"), PDF_FILE_DETAILS("PDF_FILE_DETAILS");
       private String value;
 
       private ADDITIONAL_DETAILS(String value)
@@ -238,7 +262,7 @@ public class Constant
 
    public enum COMMON_DETAILS
    {
-      DOCUSIGN_MAPPING("DOCUSIGN_MAPPING"),FILE_RULES("FILE_RULES");
+      DOCUSIGN_MAPPING("DOCUSIGN_MAPPING"),FILE_RULES("FILE_RULES"),PDF_FILE_RULES("PDF_FILE_RULES");
       private String value;
 
       private COMMON_DETAILS(String value)

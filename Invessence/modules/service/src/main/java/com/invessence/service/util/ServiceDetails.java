@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.util.*;
 
 import com.invessence.service.bean.*;
+import com.invessence.service.bean.Generic.Country;
 import com.invessence.service.bean.docuSign.*;
+import com.invessence.service.bean.documentServices.iText.*;
 import com.invessence.service.bean.fileProcessor.*;
 import com.invessence.service.dao.ServiceDao;
 import org.apache.log4j.Logger;
@@ -46,7 +48,7 @@ public class ServiceDetails
       initConfigDetails(service);
    }
    private void initConfigDetails(List<String> service){
-      //setGenericDetails();
+      setGenericDetails();
       setServiceConfigDetails(service);
    }
 
@@ -294,7 +296,30 @@ public class ServiceDetails
                         {
                            if (entry4 != null && entry4.getValue() != null)
                            {
-                              if (entry2.getKey().equalsIgnoreCase(Constant.SERVICES.FILE_PROCESS.toString()) && (entry4 != null && entry4.getValue() != null && ((Map) entry4.getValue()).size() > 0))
+                              if (entry2.getKey().equalsIgnoreCase(Constant.SERVICES.DOCUMENT_SERVICES.toString()) && (entry4 != null && entry4.getValue() != null && ((Map) entry4.getValue()).size() > 0))
+                              {
+                                 Map<String, Object> mapObject= (Map<String, Object>)entry4.getValue();
+
+                                 LinkedHashMap<String, LinkedList<PDFFileDetails>> scd = (LinkedHashMap<String, LinkedList<PDFFileDetails>>) mapObject.get(Constant.ADDITIONAL_DETAILS.PDF_FILE_DETAILS.toString());
+                                 if(scd!=null && scd.size()>0)
+                                 {
+                                    Iterator<Map.Entry<String, LinkedList<PDFFileDetails>>> entries5 = scd.entrySet().iterator();
+                                    while (entries5.hasNext())
+                                    {
+                                       Map.Entry<String, LinkedList<PDFFileDetails>>entry5=entries5.next();
+                                       System.out.println("-----------------------------------------------------------------------------------------------------------------------");
+                                       System.out.println("Product = " + entry1.getKey() + "\t Service = " + entry2.getKey() + "\t API = " + entry3.getKey() + "\t" + entry4.getKey() + "\t" + Constant.ADDITIONAL_DETAILS.PDF_FILE_DETAILS.toString()+"\t ProcessId = " + entry5.getKey());
+                                       System.out.println("-----------------------------------------------------------------------------------------------------------------------");
+                                       Iterator<PDFFileDetails> entries6 = entry5.getValue().iterator();
+                                       while (entries6.hasNext())
+                                       {
+                                          PDFFileDetails entry6 = entries6.next();
+                                          System.out.println(entry6);
+                                       }
+                                    }
+                                 }
+                              }
+                              else if (entry2.getKey().equalsIgnoreCase(Constant.SERVICES.FILE_PROCESS.toString()) && (entry4 != null && entry4.getValue() != null && ((Map) entry4.getValue()).size() > 0))
                               {
                                  Map<String, Object> mapObject= (Map<String, Object>)entry4.getValue();
 
@@ -347,7 +372,60 @@ public class ServiceDetails
                         {
                            if (entry4 != null && entry4.getValue() != null)
                            {
-                              if (entry2.getKey().equalsIgnoreCase(Constant.SERVICES.FILE_PROCESS.toString()) && (entry4 != null && entry4.getValue() != null && ((Map) entry4.getValue()).size() > 0))
+//                              if (entry2.getKey().equalsIgnoreCase(Constant.SERVICES.DOCUMENT_SERVICES.toString()) && (entry4 != null && entry4.getValue() != null && ((Map) entry4.getValue()).size() > 0))
+//                              {
+//                                 Map<String, Object> mapObject= (Map<String, Object>)entry4.getValue();
+//                                 Map<String, Map<String,PDFFileRules>> scd = (Map<String, Map<String,PDFFileRules>>) mapObject.get(Constant.COMMON_DETAILS.PDF_FILE_RULES.toString());
+//                                 if(scd!=null && scd.size()>0)
+//                                 {
+//                                    Iterator<Map.Entry<String, Map<String,PDFFileRules>>> entries5 = scd.entrySet().iterator();
+//                                    while (entries5.hasNext())
+//                                    {
+//                                       Map.Entry<String, Map<String,PDFFileRules>> entry5 = entries5.next();
+//                                       System.out.println("-------------------------------------------------------------------------------------------------");
+//                                       System.out.println("Product = " + entry1.getKey() + "\t Service = " + entry2.getKey() + "\t API = " + entry3.getKey() + "\t " + entry4.getKey() +"\t"+ Constant.COMMON_DETAILS.PDF_FILE_RULES.toString() +"\t Mode = " + entry5.getKey());
+//                                       System.out.println("-------------------------------------------------------------------------------------------------");
+//
+//                                       Iterator<Map.Entry<String,PDFFileRules>> entries6 = entry5.getValue().entrySet().iterator();
+//
+//                                       while (entries6.hasNext())
+//                                       {
+//                                          Map.Entry<String,PDFFileRules> entry6 = entries6.next();
+//                                          System.out.println(entry6.getKey() + " = " + (PDFFileRules) entry6.getValue());
+//                                       }
+//                                    }
+//                                 }
+//                              }
+                               if (entry2.getKey().equalsIgnoreCase(Constant.SERVICES.DOCUMENT_SERVICES.toString()) && (entry4 != null && entry4.getValue() != null && ((Map) entry4.getValue()).size() > 0))
+                           {
+                              Map<String, Object> mapObject= (Map<String, Object>)entry4.getValue();
+                              Map<String,Map<String, List<PDFFileRules>>> scd = (Map<String,Map<String, List<PDFFileRules>>>) mapObject.get(Constant.COMMON_DETAILS.PDF_FILE_RULES.toString());
+                              if(scd!=null && scd.size()>0)
+                              {
+                                 Iterator<Map.Entry<String, Map<String,List<PDFFileRules>>>> entries5 = scd.entrySet().iterator();
+                                 while (entries5.hasNext())
+                                 {
+                                    Map.Entry<String, Map<String,List<PDFFileRules>>> entry5 = entries5.next();
+                                    Iterator<Map.Entry<String,List<PDFFileRules>>> entries6 = entry5.getValue().entrySet().iterator();
+                                    while (entries6.hasNext())
+                                    {
+
+                                       Map.Entry<String, List<PDFFileRules>>entry6=entries6.next();
+                                       System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+                                       System.out.println("Product = " + entry1.getKey() + "\t Service = " + entry2.getKey() + "\t API = " + entry3.getKey() + "\t" + entry4.getKey() + "\t" + Constant.COMMON_DETAILS.PDF_FILE_RULES.toString()+ "\t" + entry5.getKey()+ "\t" + entry6.getKey());
+                                       System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+
+                                       Iterator<PDFFileRules> entries7 = entry6.getValue().iterator();
+                                       while (entries7.hasNext())
+                                       {
+                                          PDFFileRules entry7 = entries7.next();
+                                          System.out.println(entry7);
+                                       }
+                                    }
+                                 }
+                              }
+                           }
+                              else if (entry2.getKey().equalsIgnoreCase(Constant.SERVICES.FILE_PROCESS.toString()) && (entry4 != null && entry4.getValue() != null && ((Map) entry4.getValue()).size() > 0))
                               {
                                  Map<String, Object> mapObject= (Map<String, Object>)entry4.getValue();
                                  Map<String, Map<String,FileRules>> scd = (Map<String, Map<String,FileRules>>) mapObject.get(Constant.COMMON_DETAILS.FILE_RULES.toString());
@@ -424,16 +502,21 @@ public class ServiceDetails
       try
       {
          if(genericDetails==null){genericDetails=new LinkedHashMap<>();}
-         List<LookupDetails> lookupDetails = wsCommonDao.getLookupDetails();
-         if(lookupDetails.size()>0)
+         Map<String,Country> countryDetails = wsCommonDao.getCountryDetails();
+         if(countryDetails.size()>0)
          {
-            genericDetails.put(Constant.GENERIC_DETAILS.LOOKUP_DETAILS.toString(),lookupDetails );
+            genericDetails.put(Constant.GENERIC_DETAILS.COUNTRY.toString(),countryDetails );
          }
-         List<ExceptionInternal> exceptionInternalDetails = wsCommonDao.getExceptionInternalDetails();
-         if(exceptionInternalDetails.size()>0)
-         {
-            genericDetails.put(Constant.GENERIC_DETAILS.COMMON_EXCEPTION_DETAILS.toString(),exceptionInternalDetails );
-         }
+//         List<LookupDetails> lookupDetails = wsCommonDao.getLookupDetails();
+//         if(lookupDetails.size()>0)
+//         {
+//            genericDetails.put(Constant.GENERIC_DETAILS.LOOKUP_DETAILS.toString(),lookupDetails );
+//         }
+//         List<ExceptionInternal> exceptionInternalDetails = wsCommonDao.getExceptionInternalDetails();
+//         if(exceptionInternalDetails.size()>0)
+//         {
+//            genericDetails.put(Constant.GENERIC_DETAILS.COMMON_EXCEPTION_DETAILS.toString(),exceptionInternalDetails );
+//         }
          System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
       }catch(Exception e){
          logger.error("Exception while loading GenericDetails");
@@ -466,7 +549,17 @@ public class ServiceDetails
       LinkedHashMap<String, Object> returnMap=null;
       try
       {
-         if(Constant.SERVICES.FILE_PROCESS.toString().equalsIgnoreCase(service)&& Constant.SERVICES_DETAILS.ADDITIONAL_DETAILS.toString().equalsIgnoreCase(type)){
+         if(Constant.SERVICES.DOCUMENT_SERVICES.toString().equalsIgnoreCase(service)&& Constant.SERVICES_DETAILS.ADDITIONAL_DETAILS.toString().equalsIgnoreCase(type)){
+            returnMap=new LinkedHashMap<>();
+            returnObject=wsCommonDao.getCommonDetails(product,service,type, Constant.ADDITIONAL_DETAILS.PDF_FILE_DETAILS.toString());
+            returnMap.put(Constant.ADDITIONAL_DETAILS.PDF_FILE_DETAILS.toString(),returnObject);
+            return returnMap;
+         }else if(Constant.SERVICES.DOCUMENT_SERVICES.toString().equalsIgnoreCase(service)&& Constant.SERVICES_DETAILS.COMMON_DETAILS.toString().equalsIgnoreCase(type)){
+            returnMap=new LinkedHashMap<>();
+            returnObject=wsCommonDao.getCommonDetails(product,service,type, Constant.COMMON_DETAILS.PDF_FILE_RULES.toString());
+            returnMap.put(Constant.COMMON_DETAILS.PDF_FILE_RULES.toString(),returnObject);
+            return returnMap;
+         }else if(Constant.SERVICES.FILE_PROCESS.toString().equalsIgnoreCase(service)&& Constant.SERVICES_DETAILS.ADDITIONAL_DETAILS.toString().equalsIgnoreCase(type)){
             returnMap=new LinkedHashMap<>();
             returnObject=wsCommonDao.getCommonDetails(product,service,type, Constant.ADDITIONAL_DETAILS.FILE_DETAILS.toString());
             returnMap.put(Constant.ADDITIONAL_DETAILS.FILE_DETAILS.toString(),returnObject);
@@ -1002,6 +1095,10 @@ public class ServiceDetails
                      }else if (property.equalsIgnoreCase(Constant.COMMON_DETAILS.FILE_RULES.toString()))
                      {
                         Map<String, Map<String,FileRules>> scd = (Map<String, Map<String,FileRules>>) tmp.get(Constant.COMMON_DETAILS.FILE_RULES.toString());
+                        return scd;
+                     }else if (property.equalsIgnoreCase(Constant.COMMON_DETAILS.PDF_FILE_RULES.toString()))
+                     {
+                        Map<String, List<PDFFileRules>> scd = (Map<String, List<PDFFileRules>>) tmp.get(Constant.COMMON_DETAILS.PDF_FILE_RULES.toString());
                         return scd;
                      }
                   }

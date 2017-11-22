@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 import com.invessence.service.bean.*;
+import com.invessence.service.bean.Generic.Country;
 import com.invessence.service.bean.docuSign.*;
 
 /**
@@ -30,6 +31,7 @@ public interface ServiceDao
 
    public List<ExceptionExternal> getExceptionExternalDetails(String service, String vendor) throws SQLException;
    public List<ExceptionInternal> getExceptionInternalDetails() throws SQLException;
+   public Map<String,Country> getCountryDetails() throws SQLException;
 
    public Object getCommonDetails(String product,String service, String type, String infoType) throws SQLException;;
 
