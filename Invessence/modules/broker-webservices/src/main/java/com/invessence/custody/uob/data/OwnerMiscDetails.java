@@ -11,6 +11,7 @@ public class OwnerMiscDetails
    private String nameOfPrimarySchool;
    private String qualifications;
    private String qualificationsSpecify;
+   private String mailAddressSameAsPhysical;
 
    @Override
    public String toString()
@@ -21,7 +22,18 @@ public class OwnerMiscDetails
          ", nameOfPrimarySchool='" + nameOfPrimarySchool + '\'' +
          ", qualifications='" + qualifications + '\'' +
          ", qualificationsSpecify='" + qualificationsSpecify + '\'' +
+         ", mailAddressSameAsPhysical='" + mailAddressSameAsPhysical + '\'' +
          '}';
+   }
+
+   public String getMailAddressSameAsPhysical()
+   {
+      return mailAddressSameAsPhysical;
+   }
+
+   public void setMailAddressSameAsPhysical(String mailAddressSameAsPhysical)
+   {
+      this.mailAddressSameAsPhysical = mailAddressSameAsPhysical;
    }
 
    public String getFatherName()

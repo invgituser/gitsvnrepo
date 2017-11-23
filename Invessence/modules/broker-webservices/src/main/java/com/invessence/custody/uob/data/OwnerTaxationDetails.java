@@ -27,6 +27,16 @@ public class OwnerTaxationDetails
          '}';
    }
 
+   public boolean getTinFlag()
+   {
+      if(getIsTINAvailable()==null || getIsTINAvailable().equalsIgnoreCase("Yes")){
+
+         return false;
+      }else{
+         return true;
+      }
+   }
+
    public String getIsTINAvailable()
    {
       return isTINAvailable;

@@ -9,11 +9,12 @@ public class AddressSplitter
 {
    public static void main(String[] args)
    {
-      String address="304, Prime, Apt., Plot No.215-217, 248-250, Sector 36, Seawoods,  Mala Bara Nahi Watat Ahe, Asach Kahitari Takalay, Nerul, Navi Mumbai-400706";
-      new AddressSplitter().addressSplitter(address, 6, 30);
+//      String address="304, Prime, Apt., Plot No.215-217, 248-250, Sector 36, Seawoods,  Mala Bara Nahi Watat Ahe, Asach Kahitari Takalay, Nerul, Navi Mumbai-400706";
+      String address="asd asd asd asd asd asd asd asad asd asdd asd assd asad asd asd sad sadsa dsa dsa";
+      new AddressSplitter().addressSplitter(address, 3, 40);
    }
 
-   private String[] addressSplitter(String address, int splitCnt, int splitLen){
+   public String[] addressSplitter(String address, int splitCnt, int splitLen){
       String addressArr[] = new String[splitCnt];
       String actualStr=address;
       String tempStr, tempStr2;

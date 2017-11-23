@@ -57,6 +57,34 @@ public class UOBCustodyServiceImpl  implements CustodyService
    }
 
    @Override
+   public void saveSetMiscDtls(Long acctNum, int acctOwnerId,int id,String category,String name,String value)
+   {
+      try {
+         jdbcTemplate = new JdbcTemplate(dataSource);
+         CustodySP sp = new CustodySP(jdbcTemplate, "save_custody_ao_owner_acct_set_misc_dtls", 6);
+         Map outMap = sp.saveSetMiscDtls(acctNum, acctOwnerId, id, category, name,value);
+      }
+      catch (Exception ex) {
+         System.out.println("UOBCustodyServiceImpl.saveAccountHolderDtls Exception "+ex);
+         ex.printStackTrace();
+      }
+   }
+
+   @Override
+   public void deleteSetMiscDtls(Long acctNum, int acctOwnerId ,String category)
+   {
+      try {
+         jdbcTemplate = new JdbcTemplate(dataSource);
+         CustodySP sp = new CustodySP(jdbcTemplate, "del_custody_ao_owner_acct_set_misc_dtls", 7);
+         Map outMap = sp.deleteSetMiscDtls(acctNum,acctOwnerId,category);
+      }
+      catch (Exception ex) {
+         System.out.println("UOBCustodyServiceImpl.saveAccountHolderDtls Exception "+ex);
+         ex.printStackTrace();
+      }
+   }
+
+   @Override
    public void saveAdditionalDtls(Long acctNum,int acctOwnerId,String name,String value,String table)
    {
       try {
@@ -72,10 +100,34 @@ public class UOBCustodyServiceImpl  implements CustodyService
 
 
    @Override
-   public void save3()
+   public void saveEmploymentDtls(Long acctNum, int acctOwnerId , String p_logonId, OwnerDetails ownerDetails)
    {
-
+      try {
+         jdbcTemplate = new JdbcTemplate(dataSource);
+         CustodySP sp = new CustodySP(jdbcTemplate, "save_custody_ao_owner_emp_dtls", 4);
+         Map outMap = sp.saveAcctEmpDetails(acctNum,acctOwnerId,p_logonId,ownerDetails);
+      }
+      catch (Exception ex) {
+         System.out.println("UOBCustodyServiceImpl.saveEmploymentDtls Exception "+ex);
+         ex.printStackTrace();
+      }
    }
+
+
+   @Override
+   public void saveAddressDtls(Long acctNum, int acctOwnerId , String p_logonId, OwnerDetails ownerDetails)
+   {
+      try {
+         jdbcTemplate = new JdbcTemplate(dataSource);
+         CustodySP sp = new CustodySP(jdbcTemplate, "save_custody_ao_owner_acct_addr_dtls", 5);
+         Map outMap = sp.saveAcctAddrDetails(acctNum,acctOwnerId,p_logonId,ownerDetails);
+      }
+      catch (Exception ex) {
+         System.out.println("UOBCustodyServiceImpl.saveAddressDtls Exception "+ex);
+         ex.printStackTrace();
+      }
+   }
+
 
    @Override
    public UOBDataMaster fetch(Long acctNum ,boolean isJoint)
