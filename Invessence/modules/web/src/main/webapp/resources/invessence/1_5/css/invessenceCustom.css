@@ -1001,7 +1001,7 @@ Panel-UI > div {
 
 body {
     background-image: none !important;
-    min-height:100vh;
+   /*  min-height:100vh; */
     height:100%;
     padding-bottom:60px;
 
@@ -4445,8 +4445,8 @@ span.external_link_click:hover {
     width: 100%;
 }
 .go-bottom input:focus, .go-bottom textarea:focus {
-    padding: 19px 12px 0px 5px;
-    font-size: 17px;
+    padding: 19px 12px 0px 5px !important;
+    font-size: 17px !important;
 
 }
 .go-bottom textarea:focus {height:50px;}
@@ -4559,7 +4559,7 @@ span.external_link_click:hover {
 }
 .go-bottom div.Container30 {
     margin-right: 10px;
-    width: 32.3%;
+    width: 31.3%;
 }
 /*** 12/10/2017 uob account opening page**/
 .Container50 .ui-selectonemenu {width:100%;}
@@ -4601,7 +4601,7 @@ span.external_link_click:hover {
 .date_birth span.ui-button-text {
     background: #a4332f;
     height: 24px;
-    width:45px;
+    width:38px;
 }
 .date_birth .ui-datepicker-trigger {
     z-index: 1;}
@@ -4852,9 +4852,10 @@ td.bullet_td span {
 .portfolio_selection{text-align:center;}
 .portfolio_selection .Container30{width:33%;position: relative;}
 .portfolio_progress_bar,.caraousle {
-    margin: 1% 12%;
+    margin: 1% 12% 0 ;
     width:75%;
 }
+.portfolio_progress_bar{margin:1% 12% 2px;}
 .portfolio_progress_bar .ui-progressbar {
     height: 0.6em;
 }
@@ -5093,9 +5094,49 @@ span.change_goal {
     width: 120px !important;
 }
 .title_p{text-align:left; padding:0 5px;}
+.portfolio_layout{padding:0; margin:8px auto 0;}
+.ring_widget .ui-ring {
+    margin: -18px auto 1em;
+}
+/*** 24/11/2017 **/
+.caraousle .review_btn .Container50.pre_btn {
+    width: 24%;
+}
+.caraousle .review_btn .Container50.next_btn {
+    width: 33%;
+}
+.caraousle .review_btn .Container50.pre_btn:before {
+    right: 130px;
+}
 
+.reviewHeader_title .fineTuneBtn {
+    width: 40px;
+    /* padding: 0px; */
+}
+.reviewHeader_title .fineTuneBtnImg > .ui-icon {
+    width: 22px !important;
+    height: 20px !important;
+}
+.reviewHeader_title .Container10 {
+    width: 14%;
+    margin: 0;
+    padding: 0;
+    height: 38px;
+}
+.reviewHeader_title .ftBtnLabel {
+    font-size: 11px;
+    position: relative;
+    left: -7px;
+    top: -5px;
+    text-align: left;
 
-
+}
+.go-bottom .Container50.date_birth {
+    width: 43%;
+}
+.Container10.Responsive100.nationality_title {
+    width: 14%;
+}
 /** end portfolio creation**/
 
 
@@ -5147,7 +5188,26 @@ span.change_goal {
     .Container10.add_tax_info {
         width: 16%;
     }
-
+    /***** 23/11/2017 **/
+        .Container50,.Wid30,.Wid40 
+        {
+        width: 100%;
+    }
+    .acc_block_left{width:96%;}
+    .dashboard_right_panel{width:94%;}
+    .RightPanel{width:97%;}
+	.caraousle .Container50.next_btn {
+    width: 16%;
+    float: right;
+    margin: 0 4px;
+}
+.assets_liabilityTab .Container50 {
+    width: 98%;
+}
+.portfolio_layout .Container100.tab_dtl {
+    padding: 12px 0;
+    font-size: 18px;
+}
 
 }
 
@@ -5203,16 +5263,16 @@ span.change_goal {
     }
     .acc_block_left {
         margin: 10px 3%;
-        width: 94%;
+        width: 94% !important;
     }
 
     .extraMenuBlock {
         display: none;
     }
     .dashboard_right_panel {
-        margin: 0 3% 10px;
-        width: 94%;
-        padding: 0;
+        margin: 0 3% ;
+        width: 94% !important;
+        padding: 0 !important;
     }
     .Container50,.Wid30,.Wid40 {
         width: 100%;
@@ -5345,7 +5405,7 @@ span.change_goal {
         left: 0;
     }
     .portfolio_progress_bar, .caraousle {
-        margin: 1% 4%;
+        margin: 1% 4% ;
         width: 92%;
     }
     .header_link.next_btn.Container70 {
@@ -5354,6 +5414,35 @@ span.change_goal {
         margin: 0;
     }
     .caraousle input{top:0;}
+    
+    /*** 23/11/2017 **/
+    .acc_overview_block{min-height:100%;}
+    .loadPgNm span{width:20%;}
+    .progressbarsag{width:95%;margin-left:0;}
+    .NBwidget > .ui-tabs-nav > li > a {
+    padding: 4px 10px !important;
+}
+.assets_liabilityTab .Container50{width:97%;height:100%;}
+.header_title.Container30{width:50%;}
+.header_link.prenext_btn.Container70{width:44%;margin: 0;}
+.caraousle .Container50.next_btn {
+    width: 29%;
+    float: right;
+    margin: 0 8px;
+}
+.risk_switch .Container80 {
+    width: 64%;
+    margin: 3% 5px;
+    font-size: 18px;
+}
+.portfolio_layout .tab_dtl {
+    padding: 12px 10px;
+    width: 95%;
+    font-size: 18px;
+}
+.caraousle input{font-size: 20px !important;}
+    
+    
 }
 
 

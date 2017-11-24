@@ -67,7 +67,7 @@
                                         </div>
                                         <div class="acc_holder_dtl_block">
                                         </div>
-                                        <p:panel id="nwPriHldNtnPnl" style="border-color: transparent;">
+                                        <p:panel id="nwPriHldNtnPnl" style="border-color: transparent;" class="Container100">
                                             <div class="acc_holder_dtl_block ">
                                                 <div class="Container100 Responsive100 label_opacity per_res">
                                                     <div class="Container10 Responsive100">
@@ -423,7 +423,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <p:panel id="nwPriHldAddrPnl" style="border-color: transparent;">
+                                        <p:panel id="nwPriHldAddrPnl" style="border-color: transparent; " class="Container100">
                                             <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrMlPnl}">
                                                 <div class="acc_holder_dtl_block">
                                                     <div class="Container100">
@@ -574,7 +574,7 @@
                                                       value="#{uobCustodyBean.getErrorMessage(2)}" escape="false"/>
                                     </p:panel>
                                     <div class="go-bottom tax_info">
-                                        <p:panel id="nwPriHldTaxTab" style="border-color: transparent;">
+                                        <p:panel id="nwPriHldTaxTab" style="border-color: transparent;" class="Container100">
                                             <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrTaxTab}">
                                                 <div class="Container10 add_tax_info ">
                                                     <p:commandButton id="uobAddBtn"
@@ -631,11 +631,11 @@
                                                     </div>
                                                     <div class="acc_holder_dtl_block ">
                                                         <div class="Container100 select_item">
-                                                            <div class="Container100 Responsive100 label_opacity radio_label">
+                                                            <div class="Container50 Responsive100 label_opacity radio_label">
                                                                 <div class="Container60 ">
                                                                     <span class="title_line">Have Tax Identification Number ?</span>
                                                                 </div>
-                                                                <div class="Container60">
+                                                                <div class="Container40">
                                                                     <p:selectOneRadio id="priHldrTaxPnlTinRad"
                                                                                       value="#{uobCustodyBean.owTaxDtls.isTINAvailable}">
                                                                         <p:ajax listener="#{uobCustodyBean.onChngTin}" update="nwPriHldTaxTin,nwPriHldTaxRsnPnl"/>
@@ -643,16 +643,18 @@
                                                                         <f:selectItem itemLabel="No" itemValue="No"></f:selectItem>
                                                                     </p:selectOneRadio>
                                                                 </div>
-                                                                <p:panel id="nwPriHldTaxTin" style="border-color: transparent;">
-                                                                    <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrTaxTin}">
-                                                                        <div class="Container60 ">
-                                                                            <p:inputText id="priHldrTaxPnlTin" placeholder="Tax Identification Number"
-                                                                                         value="#{uobCustodyBean.owTaxDtls.taxIdentificationNumber}"/>
-                                                                            <label for="priHldrTaxPnlTin">Tax Identification Number</label>
-                                                                        </div>
-                                                                    </ui:fragment>
-                                                                </p:panel>
+
                                                             </div>
+                                                            <p:panel id="nwPriHldTaxTin" style="border-color: transparent;" class="Container50">
+                                                                <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrTaxTin}">
+                                                                    <div class="Container60 ">
+                                                                        <p:inputText id="priHldrTaxPnlTin" placeholder="Tax Identification Number"
+                                                                                     value="#{uobCustodyBean.owTaxDtls.taxIdentificationNumber}"/>
+                                                                        <label for="priHldrTaxPnlTin">Tax Identification Number</label>
+                                                                    </div>
+                                                                </ui:fragment>
+                                                            </p:panel>
+
                                                         </div>
                                                         <p:panel id="nwPriHldTaxRsnPnl" style="border-color: transparent;">
                                                             <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrTaxRsnPnl}">
@@ -674,7 +676,7 @@
                                                                                 itemValue="C"></f:selectItem>
                                                                     </p:selectOneRadio>
                                                                 </div>
-                                                                <p:panel id="nwPriHldTaxRsn" style="border-color: transparent;">
+                                                                <p:panel id="nwPriHldTaxRsn" style="border-color: transparent;" class="Container100">
                                                                     <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrTaxRsn}">
                                                                         <div class="Container100 Responsive100 label_opacity radio_select">
                                                                             <p:inputText id="priHldrTaxPnlReasExpl" placeholder="Explain"
@@ -920,7 +922,7 @@
                                                         <label for="nwPriHldrEmpCty">City/State</label>
                                                     </div>
                                                     <div class="Container30 Responsive100">
-                                                        <div class="Container100"><span class="title_line">Country</span></div>
+                                                      <!--  <div class="Container100"><span class="title_line">Country</span></div>-->
                                                         <p:selectOneMenu id="nwPriHldrEmpCtry"
                                                                          value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerEmploymentDetails.employerZipCountry}">
                                                             <f:selectItem itemLabel="Select Country" itemValue="Select"/>
@@ -1164,7 +1166,7 @@
                                                     <f:selectItem itemLabel="More than $ 1,000,000" itemValue="More than $ 1,000,000"/>
                                                 </p:selectOneMenu>
                                             </div>
-                                            <p:panel id="nwPriHldFinSrcPnl" style="border-color: transparent;">
+                                            <p:panel id="nwPriHldFinSrcPnl" style="border-color: transparent;" class="Container100">
                                                 <div class="Container50 Responsive100 select_item">
                                                     <div class="Container100"><span class="title_line">Source of Funds / Wealth</span></div>
                                                     <p:selectOneMenu id="nwPriHldrWlthInc"
@@ -1180,8 +1182,8 @@
                                                     </p:selectOneMenu>
                                                 </div>
                                                 <ui:fragment rendered="#{uobCustodyBean.dsplSrcIncOtrs}">
-                                                    <div class="Container50 Responsive100 select_item margin-top">
-                                                        <p:inputText id="nwPriHldrWlthIncInp" placeholder="Please specify Source of Funds/Weath"
+                                                    <div class="Container100 Responsive100 select_item margin-top">
+                                                        <p:inputText id="nwPriHldrWlthIncInp" placeholder="Please specify Source of Funds/Wealth"
                                                                      value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownersFinancialDetails.sourceOfFundsWealthSpecify}"/>
                                                         <label for="nwPriHldrWlthIncInp">Please specify Source of Funds/Weath</label>
                                                     </div>
