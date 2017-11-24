@@ -61,9 +61,7 @@
                                                 <p:selectOneMenu id="nwPriHldrBrtCtry"
                                                                  value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.countryOfBirth}">
                                                     <f:selectItem itemLabel="Select Country Of Birth" itemValue="Select"/>
-                                                    <f:selectItem itemLabel="Singapore" itemValue="Singapore"/>
-                                                    <f:selectItem itemLabel="Malaysia" itemValue="Malaysia"/>
-                                                    <f:selectItem itemLabel="India" itemValue="India"/>
+                                                    <f:selectItems value="#{uobCustodyBean.countries}"/>
                                                 </p:selectOneMenu>
                                             </div>
                                         </div>
@@ -99,8 +97,7 @@
                                                                              value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerCitizenshipDetails.nationalitySpecify}">
                                                                 <p:ajax listener="#{uobCustodyBean.onChngOtrCntry}" update="nwPriHldNtnPnl"/>
                                                                 <f:selectItem itemLabel="Select Country" itemValue="Select"/>
-                                                                <f:selectItem itemLabel="Singapore" itemValue="Singapore"/>
-                                                                <f:selectItem itemLabel="Malaysia" itemValue="Malaysia"/>
+                                                                <f:selectItems value="#{uobCustodyBean.countries}"/>
                                                             </p:selectOneMenu>
                                                         </div>
                                                     </ui:fragment>
@@ -450,8 +447,7 @@
                                                         <p:selectOneMenu id="nwPriHldrMlAddrCtry"
                                                                          value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.mailingAddressCountry}">
                                                             <f:selectItem itemLabel="Select Country" itemValue="Select"/>
-                                                            <f:selectItem itemLabel="Singapore" itemValue="Singapore"/>
-                                                            <f:selectItem itemLabel="Malaysia" itemValue="Malaysia"/>
+                                                            <f:selectItems value="#{uobCustodyBean.countries}"/>
                                                         </p:selectOneMenu>
                                                     </div>
                                                 </div>
@@ -630,8 +626,7 @@
                                                         <p:selectOneMenu id="priHldrTaxPnlCtry"
                                                                          value="#{uobCustodyBean.owTaxDtls.jurisdictionOfTaxResidence}">
                                                             <f:selectItem itemLabel="Select Jurisdiction / Country Of Tax" itemValue="Select"/>
-                                                            <f:selectItem itemLabel="Singapore" itemValue="Singapore"/>
-                                                            <f:selectItem itemLabel="Malaysia" itemValue="Malaysia"/>
+                                                            <f:selectItems value="#{uobCustodyBean.countries}"/>
                                                         </p:selectOneMenu>
                                                     </div>
                                                     <div class="acc_holder_dtl_block ">
@@ -929,8 +924,7 @@
                                                         <p:selectOneMenu id="nwPriHldrEmpCtry"
                                                                          value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerEmploymentDetails.employerZipCountry}">
                                                             <f:selectItem itemLabel="Select Country" itemValue="Select"/>
-                                                            <f:selectItem itemLabel="Singapore" itemValue="Singapore"/>
-                                                            <f:selectItem itemLabel="Malaysia" itemValue="Malaysia"/>
+                                                            <f:selectItems value="#{uobCustodyBean.countries}"/>
                                                         </p:selectOneMenu>
                                                     </div>
                                                 </div>

@@ -199,8 +199,7 @@
                                                         <p:selectOneMenu id="priHldrTaxPnlCtry"
                                                                          value="#{uobCustodyBean.owTaxDtls.jurisdictionOfTaxResidence}">
                                                             <f:selectItem itemLabel="Select Jurisdiction / Country Of Tax" itemValue="Select"/>
-                                                            <f:selectItem itemLabel="Singapore" itemValue="Singapore"/>
-                                                            <f:selectItem itemLabel="Malaysia" itemValue="Malaysia"/>
+                                                            <f:selectItems value="#{uobCustodyBean.countries}"/>
                                                         </p:selectOneMenu>
                                                     </div>
                                                     <div class="acc_holder_dtl_block ">
@@ -311,8 +310,7 @@
                                                 </div>
                                                 <p:selectOneMenu id="jointconutry1" value="Select Jurisdiction / Country Of Tax ">
                                                     <f:selectItem itemLabel="Select Jurisdiction / Country Of Tax" itemValue=""/>
-                                                    <f:selectItem itemLabel="Singapore" itemValue="Singapore"/>
-                                                    <f:selectItem itemLabel="Malaysia" itemValue="Malaysia"/>
+                                                    <f:selectItems value="#{uobCustodyBean.countries}"/>
                                                 </p:selectOneMenu>
 
                                             </div>
