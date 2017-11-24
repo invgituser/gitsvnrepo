@@ -201,7 +201,7 @@ public class UOBDaoImpl implements UOBDao
       {
          StringBuilder fileRow = new StringBuilder();
          LinkedHashMap<String, Object> map = itr.next();
-         try
+try
          {
             if(map.get("category").equals(category) && map.get(column).equals(value))
             {
@@ -211,9 +211,9 @@ public class UOBDaoImpl implements UOBDao
 //                  ownerTaxationDetails=new OwnerTaxationDetails();
                   obj=initiateObject(category);
                   setInstanceValue(obj, map.get("name").toString(), map.get("value"));
-               }else if(id!=0 && id==map.get("id")){
+               }else if(id!=0 && id==convert.getIntData(map.get("id"))){
                   setInstanceValue(obj, map.get("name").toString(), map.get("value"));
-               }else if(id!=0 && id!=map.get("id")){
+               }else if(id!=0 && id!=convert.getIntData(map.get("id"))){
                   id= convert.getIntData(map.get("id"));
 //                  ((List<OwnerTaxationDetails>)object).add(ownerTaxationDetails);
                   addToList(object, obj, category);
