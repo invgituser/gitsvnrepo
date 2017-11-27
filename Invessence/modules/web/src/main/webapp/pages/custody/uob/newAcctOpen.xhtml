@@ -680,11 +680,12 @@
                                                                                 itemValue="C"></f:selectItem>
                                                                     </p:selectOneRadio>
                                                                 </div>
-                                                                <p:panel id="nwPriHldTaxRsn" style="border-color: transparent;" class="Container100">
+                                                                <p:panel id="nwPriHldTaxRsn" style="border-color: transparent;" class="Container100 width99">
                                                                     <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrTaxRsn}">
                                                                         <div class="Container100 Responsive100 label_opacity radio_select">
                                                                             <p:inputText id="priHldrTaxPnlReasExpl" placeholder="Explain"
                                                                                          value="#{uobCustodyBean.owTaxDtls.tinUnavailableValue}"/>
+                                                                            <label for="priHldrTaxPnlReasExpl">Explain</label>
                                                                         </div>
                                                                     </ui:fragment>
                                                                 </p:panel>
@@ -879,9 +880,10 @@
                                                     <f:selectItem itemLabel="Others" itemValue="Others"/>
                                                 </p:selectOneMenu>
                                             </div>
-                                            <p:panel id="nwPriHldEmpOtrDtlPnl" style="border-color: transparent;">
+                                            <p:panel id="nwPriHldEmpOtrDtlPnl" style="border-color: transparent;" class="Container50">
                                                 <ui:fragment rendered="#{uobCustodyBean.dsplNwPriEmpOtrDtlPnl}">
-                                                    <div class="Container50">
+                                                    <div class="Container100"><span class="title_line">Other Qualification</span></div>
+                                                    <div class="Container100">
                                                         <p:inputText id="nwPriHldrQualOtr" placeholder="Other"
                                                                      value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerMiscDetails.qualificationsSpecify}"/>
                                                         <label for="nwPriHldrQualOtr">Other</label>
@@ -1067,9 +1069,9 @@
                                                 <h3>Name of Primary School Attend ?</h3>
                                             </div>	 -->
                                             <div class="Container60 Responsive100">
-                                                <p:inputText id="nwPriHldSclNm" placeholder="What is the name of Primary School Attend ?"
+                                                <p:inputText id="nwPriHldSclNm" placeholder="What is the name of Primary School Attended ?"
                                                              value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerMiscDetails.nameOfPrimarySchool}"/>
-                                                <label for="nwPriHldSclNm">Name of Primary School Attend</label>
+                                                <label for="nwPriHldSclNm">Name of Primary School Attended</label>
                                             </div>
                                         </div>
                                     </div>
@@ -1103,8 +1105,8 @@
                                             </div>	 -->
                                             <div class="Container60 Responsive100">
                                                 <input id="jointschoolName" name="schoolName" type="text"
-                                                       placeholder="What is the name of Primary School Attend ?"/>
-                                                <label for="schoolName">Name of Primary School Attend</label>
+                                                       placeholder="What is the name of Primary School Attended ?"/>
+                                                <label for="schoolName">Name of Primary School Attended</label>
                                             </div>
                                         </div>
 
@@ -1188,9 +1190,11 @@
                                                 <ui:fragment rendered="#{uobCustodyBean.dsplSrcIncOtrs}">
                                                     <div class="Container50 Responsive50 select_item margin-top">
                                                         <div class="Container100"><span class="title_line">Other Source of Funds / Wealth</span></div>
-                                                        <p:inputText id="nwPriHldrWlthIncInp" placeholder="Please specify Source of Funds/Wealth"
-                                                                     value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownersFinancialDetails.sourceOfFundsWealthSpecify}"/>
-                                                        <label for="nwPriHldrWlthIncInp">Please specify Source of Funds/Weath</label>
+                                                        <div class="Container100">
+                                                            <p:inputText id="nwPriHldrWlthIncInp" placeholder="Please specify Source of Funds/Wealth"
+                                                                         value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownersFinancialDetails.sourceOfFundsWealthSpecify}"/>
+                                                            <label for="nwPriHldrWlthIncInp">Please specify Source of Funds/Weath</label>
+                                                        </div>
                                                     </div>
                                                 </ui:fragment>
                                             </p:panel>

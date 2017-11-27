@@ -4460,8 +4460,15 @@ th.del_edit_col span {
 .del_edit_col .edit_tax:before {
     display: none;
 }
-.edit_tax {
+.go-bottom .ui-icon.edit_tax {
     display: none;
+}
+.del_tax {
+    font-size: 19px;
+    color: #a4332f;
+}
+.ui-selectonemenu-panel .ui-selectonemenu-list-item {
+    color: #000;
 }
 .go-bottom input:focus, .go-bottom textarea:focus {
     padding: 19px 12px 0px 5px !important;
@@ -4584,7 +4591,10 @@ th.del_edit_col span {
 }
 .go-bottom div.Container30 {
     margin-right: 10px;
-    width: 31.3%;
+    width: 31.2%;
+}
+.go-bottom textarea {
+    width: 98%;
 }
 /*** 12/10/2017 uob account opening page**/
 .Container50 .ui-selectonemenu {width:100%;}
