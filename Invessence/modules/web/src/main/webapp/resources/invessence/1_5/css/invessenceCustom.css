@@ -4391,16 +4391,16 @@ span.external_link_click:hover {
     padding: 8px 12px;
     outline: 0;
 }
-.go-bottom input:valid, .go-bottom textarea:valid {
+/*.go-bottom input:valid, .go-bottom textarea:valid {
     background: white;
-}
+}*/
 .go-bottom input:focus, .go-bottom textarea:focus {
     border-color: #a4332f;
 }
 .acc_holder_form .go-bottom textarea:focus + label ,
 .acc_holder_form  .go-bottom textarea:not(:placeholder-shown):valid ~ label
 {
-    margin-top: -26px;z-index:1;
+    margin-top: -26px;
 
 }
 
@@ -4435,8 +4435,11 @@ span.external_link_click:hover {
 }
 
 .go-bottom input, .go-bottom textarea {
-    padding: 12px 12px 12px 12px ;
-    height: 45px ;
+    padding: 12px 12px 12px 12px !important;
+    height: 45px !important;
+    font-size: 17px !important;
+    font-weight: normal !important;
+    font-family: helvetica !important;
 }
 .go-bottom label {
     top: 0;
@@ -4444,16 +4447,38 @@ span.external_link_click:hover {
     left: 0;
     width: 100%;
 }
+.save_form_btn button {
+    top: -11px;
+    left: -22px;
+}
+.save_form_btn span {
+    background: #a4332f;
+}
+th.del_edit_col span {
+    color: transparent;
+}
+.del_edit_col .edit_tax:before {
+    display: none;
+}
+.edit_tax {
+    display: none;
+}
 .go-bottom input:focus, .go-bottom textarea:focus {
     padding: 19px 12px 0px 5px !important;
     font-size: 17px !important;
 
 }
 .go-bottom textarea:focus {height:50px;}
-.go-bottom input:not(:placeholder-shown):valid {
+.go-bottom input:not(:placeholder-shown):valid,
+.go-bottom textarea:not(:placeholder-shown):valid
+{
     padding: 19px 12px 0px 5px !important;
     font-size: 17px !important;
     color:#000 !important;
+    font-family: helvetica !important;
+}
+.go-bottom .date_birth input:not(:placeholder-shown):valid {
+    padding: 5px 8px 0!important;
 }
 /* .go-bottom input:focus + label, .go-bottom textarea:focus + label {
   top: 100%;
@@ -4534,7 +4559,7 @@ span.external_link_click:hover {
     float: left;
     background: transparent;
     line-height: 30px;
-    color: #778D9B !important;
+    color: #000 !important;
     font-family: 'helvetica' !important;
     font-size: 16px !important;
 }

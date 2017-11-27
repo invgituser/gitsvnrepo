@@ -588,6 +588,10 @@
                                                     <p:dataTable id="posDataTable" var="taxDtls"
                                                                  value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerTaxationDetails}"
                                                                  reflow="false">
+                                                        <p:column headerText="delete edit" class="del_edit_col" width="10%">
+                                                            <span class="ui-button-icon-center ui-icon ui-c fa fa-edit edit_tax"></span>
+                                                            <span class="ui-button-icon-center ui-icon ui-c fa fa-trash del_tax"></span>
+                                                        </p:column>
                                                         <p:column headerText="Jurisdiction Of Tax">
                                                             <h:outputText value="#{taxDtls.jurisdictionOfTaxResidence}"/>
                                                         </p:column>
@@ -857,7 +861,7 @@
                                                     <p:ajax listener="#{uobCustodyBean.onChngEmplt}" update="nwPriHldEmpMnPnl"/>
                                                     <f:selectItem itemLabel="Employed" itemValue="Employed"></f:selectItem>
                                                     <f:selectItem itemLabel="Self-Employed" itemValue="Self-Employed"></f:selectItem>
-                                                    <f:selectItem itemLabel="UnEmployed" itemValue="UnEmployed"></f:selectItem>
+                                                    <f:selectItem itemLabel="Unemployed" itemValue="Unemployed"></f:selectItem>
                                                 </p:selectOneRadio>
                                             </div>
                                         </div>
@@ -1182,8 +1186,8 @@
                                                     </p:selectOneMenu>
                                                 </div>
                                                 <ui:fragment rendered="#{uobCustodyBean.dsplSrcIncOtrs}">
-                                                    <div class="Container100 Responsive50 select_item margin-top">
-                                                        <div class="Container100"><span class="title_line">Source of Funds / Wealth</span></div>
+                                                    <div class="Container50 Responsive50 select_item margin-top">
+                                                        <div class="Container100"><span class="title_line">Other Source of Funds / Wealth</span></div>
                                                         <p:inputText id="nwPriHldrWlthIncInp" placeholder="Please specify Source of Funds/Wealth"
                                                                      value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownersFinancialDetails.sourceOfFundsWealthSpecify}"/>
                                                         <label for="nwPriHldrWlthIncInp">Please specify Source of Funds/Weath</label>
@@ -1525,7 +1529,7 @@
                                             <div class="Container70">
                                                 <div class="Container100">
                                                     <span>1.Do you have previous experience in investing in financial product(s)?  </span></div>
-                                                <p:panel id="nwPriHldObjPnl1" style="border-color: transparent;">
+                                                <p:panel id="nwPriHldObjPnl1" style="border-color: transparent;" class="Container70">
                                                     <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrObjPnl1}">
                                                         <div class="Container100">
                                                             <p:inputText id="nwPriHldrObjPreExpInp" placeholder="Please Specify"
@@ -1577,7 +1581,7 @@
                                                 <div class="Container100">
                                                     <span>3.Name of other financial institution(s) currently used for any financial product(s): </span>
                                                 </div>
-                                                <div class="Container50">
+                                                <div class="Container70">
                                                     <p:inputText id="nwPriHldrObjInvObjFinInst" placeholder="Other Financial Institution"
                                                     value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownersFinancialDetails.nameOfOtherFinancialInstitution}"/>
                                                     <label for="nwPriHldrObjInvObjFinInst">Other Financial Institution</label>
@@ -1587,7 +1591,7 @@
                                         <div class="acc_holder_dtl_block relation_dtl">
                                             <div class="Container70">
                                                 <div class="Container100">
-                                                    <span>4.Are you currently unable to pay your debts as they fall due, or have entered into or have proposed to enter into any scheme, arrangement or composition with your creditors, or has any bankruptcy proceeding or resolution been filed against you or passed to effect the same, or has an administrator, trustee or other analogous officer been appointed over all or a material part of your assets?  </span>
+                                                    <span>4.Are you currently unable to pay your debts as they fall due or under any bankruptcy proceedings?  </span>
                                                 </div>
                                                 <p:panel id="nwPriHldObjPnl3" style="border-color: transparent;">
                                                     <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrObjPnl3}">
@@ -1735,7 +1739,7 @@
                                     <span class="ui-button-icon-center ui-icon ui-c fa fa-edit fa-chevron-left"></span>
                                 </p:commandLink>
                             </div>
-                            <div class="Container50 next_btn">
+                            <div class="Container50 next_btn save_form_btn">
                                 <p:commandButton id="newSave" value="Save"
                                                  update=":cstdyFrm:newAccordian"
                                                  actionListener="#{uobCustodyBean.nextPage}">
