@@ -4400,7 +4400,7 @@ span.external_link_click:hover {
 .acc_holder_form .go-bottom textarea:focus + label ,
 .acc_holder_form  .go-bottom textarea:not(:placeholder-shown):valid ~ label
 {
-    margin-top: -26px;
+    margin-top: -41px;
 
 }
 
@@ -4475,7 +4475,8 @@ th.del_edit_col span {
     font-size: 17px !important;
 
 }
-.go-bottom textarea:focus {height:50px;}
+.go-bottom textarea:focus {height: 85px !important;
+    width: 97%;}
 .go-bottom input:not(:placeholder-shown):valid,
 .go-bottom textarea:not(:placeholder-shown):valid
 {
@@ -4594,7 +4595,9 @@ th.del_edit_col span {
     width: 31.2%;
 }
 .go-bottom textarea {
-    width: 98%;
+    width: 97%;
+    height: 85px !important;
+    padding: 19px 12px 0 5px !important;
 }
 /*** 12/10/2017 uob account opening page**/
 .Container50 .ui-selectonemenu {width:100%;}
@@ -4701,6 +4704,8 @@ th.del_edit_col span {
 }
 .Container100.add_tax_info {
     margin: 10px;
+    float: right;
+    width: 12%;
 }
 .add_tax_info span.ui-button-icon-center.ui-icon.ui-c.fa.fa-plus {
     padding: 10px;
@@ -5173,7 +5178,20 @@ span.change_goal {
     width: 14%;
 }
 /** end portfolio creation**/
-
+/*** 28/11/2017**/
+.acc_holder_form .ui-datatable .ui-datatable-odd {
+    background: #fff !important;
+}
+.acc_holder_form .ui-datatable table thead tr th {
+    background: #fff;
+    border: none;
+    color: #000;
+    text-align: left;
+}
+.go-bottom input:focus::-webkit-input-placeholder,
+.go-bottom input:focus:-moz-placeholder{
+    opacity: 0;
+}
 
 
 

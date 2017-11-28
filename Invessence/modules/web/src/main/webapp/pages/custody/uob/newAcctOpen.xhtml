@@ -576,15 +576,8 @@
                                     <div class="go-bottom tax_info">
                                         <p:panel id="nwPriHldTaxTab" style="border-color: transparent;" class="Container100">
                                             <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrTaxTab}">
-                                                <div class="Container10 add_tax_info ">
-                                                    <p:commandButton id="uobAddBtn"
-                                                                     value="Add"
-                                                                     styleClass="uob_button add_btn"
-                                                                     actionListener="#{uobCustodyBean.showTaxDtlPnl}" icon="ui-icon-plus"
-                                                                        update="nwPriHldTaxTab,nwPriHldTaxDtl">
-                                                    </p:commandButton>
-                                                </div>
-                                                <div class="Container90">
+
+                                                <div class="Container100">
                                                     <p:dataTable id="posDataTable" var="taxDtls"
                                                                  value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerTaxationDetails}"
                                                                  reflow="false">
@@ -604,6 +597,14 @@
                                                             <h:outputText value="-"  rendered='#{!taxDtls.tinFlag}'/>
                                                         </p:column>
                                                     </p:dataTable>
+                                                </div>
+                                                <div class="Container100 add_tax_info ">
+                                                    <p:commandButton id="uobAddBtn"
+                                                                     value="Add"
+                                                                     styleClass="uob_button add_btn"
+                                                                     actionListener="#{uobCustodyBean.showTaxDtlPnl}" icon="ui-icon-plus"
+                                                                     update="nwPriHldTaxTab,nwPriHldTaxDtl">
+                                                    </p:commandButton>
                                                 </div>
                                             </ui:fragment>
                                         </p:panel>
@@ -635,11 +636,11 @@
                                                     </div>
                                                     <div class="acc_holder_dtl_block ">
                                                         <div class="Container100 select_item">
-                                                            <div class="Container50 Responsive100 label_opacity radio_label">
+                                                            <div class="Container40 Responsive100 label_opacity radio_label">
                                                                 <div class="Container60 ">
                                                                     <span class="title_line">Have Tax Identification Number ?</span>
                                                                 </div>
-                                                                <div class="Container40">
+                                                                <div class="Container20">
                                                                     <p:selectOneRadio id="priHldrTaxPnlTinRad"
                                                                                       value="#{uobCustodyBean.owTaxDtls.isTINAvailable}">
                                                                         <p:ajax listener="#{uobCustodyBean.onChngTin}" update="nwPriHldTaxTin,nwPriHldTaxRsnPnl"/>
@@ -682,7 +683,7 @@
                                                                 </div>
                                                                 <p:panel id="nwPriHldTaxRsn" style="border-color: transparent;" class="Container100 width99">
                                                                     <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrTaxRsn}">
-                                                                        <div class="Container100 Responsive100 label_opacity radio_select">
+                                                                        <div class="Container100 Responsive100 label_opacity ">
                                                                             <p:inputText id="priHldrTaxPnlReasExpl" placeholder="Explain"
                                                                                          value="#{uobCustodyBean.owTaxDtls.tinUnavailableValue}"/>
                                                                             <label for="priHldrTaxPnlReasExpl">Explain</label>
@@ -1597,7 +1598,7 @@
                                                 <div class="Container100">
                                                     <span>4.Are you currently unable to pay your debts as they fall due or under any bankruptcy proceedings?  </span>
                                                 </div>
-                                                <p:panel id="nwPriHldObjPnl3" style="border-color: transparent;">
+                                                <p:panel id="nwPriHldObjPnl3" style="border-color: transparent;" class="Container70">
                                                     <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrObjPnl3}">
                                                         <div class="Container100">
                                                             <p:inputText id="nwPriHldrObjInvObjDebInp" placeholder="Please Specify"
@@ -1621,7 +1622,7 @@
                                                 <div class="Container100">
                                                     <span>5.Do you have any disputed account(s) or unresolved litigation matters with any stockbroking firm(s)/ financial institution(s)? </span>
                                                 </div>
-                                                <p:panel id="nwPriHldObjPnl4" style="border-color: transparent;">
+                                                <p:panel id="nwPriHldObjPnl4" style="border-color: transparent;" class="Container70 ">
                                                     <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrObjPnl4}">
                                                         <div class="Container100">
                                                             <p:inputText id="nwPriHldrObjInvObjDispInp" placeholder="Please Specify"

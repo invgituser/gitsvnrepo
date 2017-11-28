@@ -27,7 +27,7 @@
                                     <div class="go-bottom">
                                         <div class="acc_holder_dtl_block">
 
-                                            <div class="Container80 Responsive100">
+                                            <div class="Container100 Responsive100">
                                                 <p:inputText id="nwPriHldrNm" placeholder="Name as in your existing securities trading account"
                                                              value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.fullName}"/>
                                                 <label for="nwPriHldrNm">Name as in your existing securities trading account</label>
@@ -149,18 +149,15 @@
                                     <div class="go-bottom tax_info">
                                         <p:panel id="nwPriHldTaxTab" style="border-color: transparent;">
                                             <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrTaxTab}">
-                                                <div class="Container10 add_tax_info ">
-                                                    <p:commandButton id="uobAddBtn"
-                                                                     value="Add"
-                                                                     styleClass="uob_button add_btn"
-                                                                     actionListener="#{uobCustodyBean.showTaxDtlPnl}" icon="ui-icon-plus"
-                                                                     update="nwPriHldTaxTab,nwPriHldTaxDtl">
-                                                    </p:commandButton>
-                                                </div>
-                                                <div class="Container90">
+
+                                                <div class="Container100">
                                                     <p:dataTable id="posDataTable" var="taxDtls"
                                                                  value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerTaxationDetails}"
                                                                  reflow="false">
+                                                        <p:column headerText="delete edit" class="del_edit_col" width="10%">
+                                                            <span class="ui-button-icon-center ui-icon ui-c fa fa-edit edit_tax"></span>
+                                                            <span class="ui-button-icon-center ui-icon ui-c fa fa-trash del_tax"></span>
+                                                        </p:column>
                                                         <p:column headerText="Jurisdiction Of Tax">
                                                             <h:outputText value="#{taxDtls.jurisdictionOfTaxResidence}"/>
                                                         </p:column>
@@ -173,6 +170,14 @@
                                                             <h:outputText value="-"  rendered='#{!taxDtls.tinFlag}'/>
                                                         </p:column>
                                                     </p:dataTable>
+                                                </div>
+                                                <div class="Container100 add_tax_info ">
+                                                    <p:commandButton id="uobAddBtn"
+                                                                     value="Add"
+                                                                     styleClass="uob_button add_btn"
+                                                                     actionListener="#{uobCustodyBean.showTaxDtlPnl}" icon="ui-icon-plus"
+                                                                     update="nwPriHldTaxTab,nwPriHldTaxDtl">
+                                                    </p:commandButton>
                                                 </div>
                                             </ui:fragment>
                                         </p:panel>
@@ -204,11 +209,11 @@
                                                     </div>
                                                     <div class="acc_holder_dtl_block ">
                                                         <div class="Container100 select_item">
-                                                            <div class="Container100 Responsive100 label_opacity radio_label">
+                                                            <div class="Container40 Responsive100 label_opacity radio_label">
                                                                 <div class="Container60 ">
                                                                     <span class="title_line">Have Tax Identification Number ?</span>
                                                                 </div>
-                                                                <div class="Container60">
+                                                                <div class="Container30">
                                                                     <p:selectOneRadio id="priHldrTaxPnlTinRad"
                                                                                       value="#{uobCustodyBean.owTaxDtls.isTINAvailable}">
                                                                         <p:ajax listener="#{uobCustodyBean.onChngTin}" update="nwPriHldTaxTin,nwPriHldTaxRsnPnl"/>
@@ -216,16 +221,16 @@
                                                                         <f:selectItem itemLabel="No" itemValue="No"></f:selectItem>
                                                                     </p:selectOneRadio>
                                                                 </div>
-                                                                <p:panel id="nwPriHldTaxTin" style="border-color: transparent;">
-                                                                    <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrTaxTin}">
-                                                                        <div class="Container60 ">
-                                                                            <p:inputText id="priHldrTaxPnlTin" placeholder="Tax Identification Number"
-                                                                                         value="#{uobCustodyBean.owTaxDtls.taxIdentificationNumber}"/>
-                                                                            <label for="priHldrTaxPnlTin">Tax Identification Number</label>
-                                                                        </div>
-                                                                    </ui:fragment>
-                                                                </p:panel>
                                                             </div>
+                                                            <p:panel id="nwPriHldTaxTin" style="border-color: transparent;" class="Container50">
+                                                                <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrTaxTin}">
+                                                                    <div class="Container60 ">
+                                                                        <p:inputText id="priHldrTaxPnlTin" placeholder="Tax Identification Number"
+                                                                                     value="#{uobCustodyBean.owTaxDtls.taxIdentificationNumber}"/>
+                                                                        <label for="priHldrTaxPnlTin">Tax Identification Number</label>
+                                                                    </div>
+                                                                </ui:fragment>
+                                                            </p:panel>
                                                         </div>
                                                         <p:panel id="nwPriHldTaxRsnPnl" style="border-color: transparent;">
                                                             <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrTaxRsnPnl}">
@@ -396,7 +401,7 @@
                                     <span class="ui-button-icon-center ui-icon ui-c fa fa-edit fa-chevron-left"></span>
                                 </p:commandLink>
                             </div>
-                            <div class="Container50 next_btn">
+                            <div class="Container50 next_btn save_form_btn">
 
                                 <p:commandButton id="newSave" value="Save"
                                                  update=":cstdyFrm:extAccordian"
