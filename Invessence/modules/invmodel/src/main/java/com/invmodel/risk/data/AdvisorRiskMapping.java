@@ -7,11 +7,11 @@ import java.util.*;
  */
 public class AdvisorRiskMapping
 {
-   Integer riskQuestion;
-   Integer numOfWeights;
-   Integer knockoutQuestion;
-   Double defaultWeight;
-   Map<Integer, Double> weights;
+   private Integer riskQuestion;
+   private Integer numOfWeights;
+   private Integer knockoutQuestion;
+   private Double defaultWeight;
+   private Map<Integer, Double> weights;
 
    public AdvisorRiskMapping()
    {

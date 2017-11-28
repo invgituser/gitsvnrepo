@@ -41,12 +41,11 @@ public class AssetClass
       addAssetClass(asset, displayName, color, weight, avgReturn);
    }
 
-   public void initAssetClass(Integer age, Integer horizon, Double riskOffset, Integer stayInvested, String theme)
+   public void initAssetClass(Integer age, Integer horizon, Double riskOffset, String theme)
    {
       this.age = age;
       this.horizon = horizon;
       this.riskOffset = riskOffset;
-      this.stayInvested = stayInvested;
       this.theme = theme;
    }
 

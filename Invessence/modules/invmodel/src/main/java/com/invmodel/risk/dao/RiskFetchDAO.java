@@ -50,9 +50,10 @@ public class RiskFetchDAO extends JdbcDaoSupport implements Serializable
                                                                                dbkey,
                                                                                convert.getStrData(rs.get("defaultValue")),
                                                                                convert.getStrData(rs.get("dataType")),
-                                                                               convert.getStrData(rs.get("displayOnStart"))
+                                                                               convert.getStrData(rs.get("displayOnStart")),
+                                                                               convert.getBooleanData(rs.get("saveforUser"))
                                                                               );
-                  advisorMaster.addAdvisorMasterData(dbadvisor, dbkey, masterdata);
+                  advisorMaster.addAdvisorMasterData(dbkey, masterdata);
 
                   i++;
                }
@@ -109,7 +110,7 @@ public class RiskFetchDAO extends JdbcDaoSupport implements Serializable
                      advisorRiskMapping.setWeights(count, convert.getDoubleData(rs.get(wghStr)));
                   }
                   i++;
-                  advisordata.addAdvisorMapping(advisordata.getAdvisor(),riskQuestion,advisorRiskMapping );
+                  advisordata.addAdvisorMapping(riskQuestion,advisorRiskMapping );
                }
             }
 
@@ -170,7 +171,7 @@ public class RiskFetchDAO extends JdbcDaoSupport implements Serializable
       if (ds == null)
          return;
 
-      RiskFetchSP sp = new RiskFetchSP(ds, "sel_user_risk", 2);
+      RiskFetchSP sp = new RiskFetchSP(ds, "sel_user_risk_score", 2);
       Map outMap = sp.fetchRiskScores(riskdata.getAcctnum());
       try
       {
@@ -186,7 +187,8 @@ public class RiskFetchDAO extends JdbcDaoSupport implements Serializable
 
                   // Body of code ...
                   riskdata.setRiskScores(
-                     convert.getStrData(rs.get("year")),
+                     convert.getIntData(rs.get("year")),
+                     convert.getStrData(rs.get("calcFormula")),
                      convert.getBooleanData(rs.get("allCashFlag")),
                      convert.getDoubleData(rs.get("score")),
                      convert.getDoubleData(rs.get("standardScore")),

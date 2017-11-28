@@ -26,4 +26,5 @@ public class ProfileBean extends PortfolioCreationUI implements Logger
       {
       }
    }
+
 }

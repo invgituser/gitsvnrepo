@@ -7,14 +7,15 @@ import com.invessence.converter.SQLData;
  */
 public class AdvisorRiskMasterData
 {
-   Integer sortorder;
-   String key;
-   String defaultStrValue;
-   Double defaultDoubleValue;
-   Integer defaultIntValue;
-   Boolean defaultBooleanValue;
-   String dataType;
-   String displayOnStart;
+   private Integer sortorder;
+   private String key;
+   private String defaultStrValue;
+   private Double defaultDoubleValue;
+   private Integer defaultIntValue;
+   private Boolean defaultBooleanValue;
+   private String dataType;
+   private String displayOnStart;
+   private Boolean saveforUser;
 
    public AdvisorRiskMasterData()
    {
@@ -22,12 +23,13 @@ public class AdvisorRiskMasterData
 
    public AdvisorRiskMasterData(Integer sortorder, String key,
                                 String defaultValue, String dataType,
-                                 String displayOnStart)
+                                 String displayOnStart, Boolean saveForUser)
    {
       this.sortorder = sortorder;
       this.key = key;
       setDefaultValue(defaultValue, dataType);
       this.displayOnStart = displayOnStart;
+      this.saveforUser = saveForUser;
    }
 
    public Integer getSortorder()
@@ -95,6 +97,9 @@ public class AdvisorRiskMasterData
 
    public Double getDefaultDoubleValue()
    {
+      if (defaultDoubleValue == null && defaultIntValue != null) {
+         return defaultIntValue.doubleValue();
+      }
       return defaultDoubleValue;
    }
 
@@ -105,6 +110,9 @@ public class AdvisorRiskMasterData
 
    public Integer getDefaultIntValue()
    {
+      if (defaultIntValue == null && defaultDoubleValue != null) {
+         return defaultDoubleValue.intValue();
+      }
       return defaultIntValue;
    }
 
@@ -131,5 +139,15 @@ public class AdvisorRiskMasterData
    public void setDataType(String dataType)
    {
       this.dataType = dataType;
+   }
+
+   public Boolean getSaveforUser()
+   {
+      return saveforUser;
+   }
+
+   public void setSaveforUser(Boolean saveforUser)
+   {
+      this.saveforUser = saveforUser;
    }
 }

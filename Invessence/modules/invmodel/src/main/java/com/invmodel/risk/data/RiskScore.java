@@ -7,7 +7,8 @@ import java.util.*;
  */
 public class RiskScore
 {
-   String keydate;
+   Integer year;
+   String calcFormula;
    Boolean allCashFlag;
    Double score;
    Double standardScore;
@@ -19,10 +20,11 @@ public class RiskScore
    {
    }
 
-   public RiskScore(String keydate, Boolean allCashFlag,
+   public RiskScore(Integer year, String calcFormula, Boolean allCashFlag,
                     Double score, Double standardScore, Double assetScore, Double portfolioScore, Double adjustment)
    {
-      this.keydate = keydate;
+      this.year = year;
+      this.calcFormula = calcFormula;
       this.allCashFlag = allCashFlag;
       this.score = score;
       this.standardScore = standardScore;
@@ -31,14 +33,24 @@ public class RiskScore
       this.adjustment = adjustment;
    }
 
-   public String getYear()
+   public Integer getYear()
    {
-      return keydate;
+      return year;
    }
 
-   public void setYear(String year)
+   public void setYear(Integer year)
    {
-      this.keydate = year;
+      this.year = year;
+   }
+
+   public String getCalcFormula()
+   {
+      return calcFormula;
+   }
+
+   public void setCalcFormula(String calcFormula)
+   {
+      this.calcFormula = calcFormula;
    }
 
    public Boolean getAllCashFlag()

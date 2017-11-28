@@ -7,23 +7,35 @@ import com.invessence.converter.SQLData;
  */
 public class UserRiskData
 {
-   String key;
-   String answerStr;
-   Integer answerInt;
-   Double answerDouble;
-   Boolean answerBoolean;
-   String answerType;
-   Double riskScore;
+   private Integer sortorder;
+   private String key;
+   private String answerStr;
+   private Integer answerInt;
+   private Double answerDouble;
+   private Boolean answerBoolean;
+   private String answerType;
+   private Double riskScore;
 
    public UserRiskData()
    {
    }
 
-   public UserRiskData(String key, String answer, String answerType, Double riskScore)
+   public UserRiskData(Integer sortorder, String key, String answer, String answerType, Double riskScore)
    {
+      this.sortorder = sortorder;
       this.key = key;
       this.riskScore = riskScore;
       setAnswer(answer, answerType);
+   }
+
+   public Integer getSortorder()
+   {
+      return sortorder;
+   }
+
+   public void setSortorder(Integer sortorder)
+   {
+      this.sortorder = sortorder;
    }
 
    public String getKey()
@@ -73,6 +85,9 @@ public class UserRiskData
 
    public Integer getAnswerInt()
    {
+      if (answerInt == null && answerDouble != null) {
+         return answerDouble.intValue();
+      }
       return answerInt;
    }
 
@@ -83,6 +98,9 @@ public class UserRiskData
 
    public Double getAnswerDouble()
    {
+      if (answerDouble == null && answerInt != null) {
+         return answerInt.doubleValue();
+      }
       return answerDouble;
    }
 

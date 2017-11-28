@@ -15,6 +15,7 @@ import com.invmodel.performance.data.ProjectionData;
 import com.invmodel.portfolio.PortfolioModel;
 import com.invmodel.portfolio.data.Portfolio;
 import com.invmodel.rebalance.TLHSecurityCollection;
+import com.invmodel.risk.data.UserRisk;
 
 /**
  * Created with IntelliJ IDEA.
@@ -71,6 +72,12 @@ public class ModelUtil
       this.projectiondata = projectiondata;
    }
 
+   public AssetClass[] buildAllocation(UserRisk userrisk, ProfileData pdata)
+   {
+      return assetmodel.buildAllocation(userrisk, pdata);
+
+   }
+
    public AssetClass[] buildAllocation(ProfileData pdata)
    {
       return assetmodel.buildAllocation(pdata);
@@ -114,6 +121,11 @@ public class ModelUtil
          }
       }
       return null;
+   }
+
+   public Portfolio[] buildPortfolio(AssetClass[] assetData, UserRisk userrisk, ProfileData profileData)
+   {
+      return portfolioModel.buildPortfolio(assetData, userrisk, profileData);
    }
 
    public Portfolio[] buildPortfolio(AssetClass[] assetData, ProfileData profileData)
