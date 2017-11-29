@@ -24,18 +24,13 @@ public class NewRiskCalc
       testRisk(args);
    }
 
-   public static void initAdvisorMaster(String advisor) {
-      advisorRiskMaster = riskfetchDAO.fetchRiskMaster(advisor);
-   }
-
-
    public static void testRisk(String[] args) throws Exception
    {
 
       String advisor = "UOB";
       Long acctnum = null;
 
-      initAdvisorMaster(advisor);
+      advisorRiskMaster = new AdvisorRiskMaster(advisor);
 
       // Use existing account to collect data
       if (acctnum != null )

@@ -9,8 +9,6 @@ import com.invmodel.risk.dao.RiskFetchDAO;
  */
 public class RiskCalc
 {
-   private RiskFetchDAO riskfetchDAO = new RiskFetchDAO();
-
    public UserRisk userRisk;
 
    private Calendar cal = Calendar.getInstance();

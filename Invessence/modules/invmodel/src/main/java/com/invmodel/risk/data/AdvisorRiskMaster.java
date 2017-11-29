@@ -2,6 +2,8 @@ package com.invmodel.risk.data;
 
 import java.util.*;
 
+import com.invmodel.risk.dao.RiskFetchDAO;
+
 /**
  * Created by prashant on 11/9/2017.
  */
@@ -10,6 +12,8 @@ public class AdvisorRiskMaster
    private String advisor;
    private Map<String, AdvisorRiskMasterData> masterdata;
    private Map<Integer, AdvisorRiskMapping> mappingdata;
+
+   private RiskFetchDAO riskfetchDAO = new RiskFetchDAO();
 
    public AdvisorRiskMaster()
    {
@@ -22,13 +26,13 @@ public class AdvisorRiskMaster
       this.advisor = advisor;
       masterdata = new HashMap<String, AdvisorRiskMasterData>();
       mappingdata = new HashMap<Integer, AdvisorRiskMapping>();
+      initAdvisorMaster();
    }
 
-   public AdvisorRiskMaster(String advisor, Map<String, AdvisorRiskMasterData> data)
-   {
-      this.advisor = advisor;
-      this.masterdata = data;
+   public void initAdvisorMaster() {
+      riskfetchDAO.fetchAdvisorRiskMaster(this);
    }
+
 
    public String getAdvisor()
    {

@@ -20,18 +20,18 @@ public class RiskFetchDAO extends JdbcDaoSupport implements Serializable
    SQLData convert = new SQLData();
    DataSource ds = dbconnection.getMySQLDataSource();
 
-   public AdvisorRiskMaster fetchRiskMaster(String advisor)
+   public void fetchAdvisorRiskMaster(AdvisorRiskMaster advisorMaster)
    {
       // DataSource ds = getDataSource();
 
       if (ds == null)
-         return null;
+         return;
 
       RiskFetchSP sp = new RiskFetchSP(ds, "sel_advisor_risk_master", 1);
-      Map outMap = sp.fetchRiskMaster(advisor);
+      Map outMap = sp.fetchRiskMaster(advisorMaster.getAdvisor());
       try
       {
-         AdvisorRiskMaster advisorMaster = new AdvisorRiskMaster(advisor);
+         // AdvisorRiskMaster advisorMaster = new AdvisorRiskMaster(advisor);
          if (outMap != null)
          {
             ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
@@ -64,12 +64,10 @@ public class RiskFetchDAO extends JdbcDaoSupport implements Serializable
             }
 
          }
-         return advisorMaster;
       }
       catch (Exception ex) {
 
       }
-      return null;
    }
 
    private void fetchRiskMapping(AdvisorRiskMaster advisordata)
