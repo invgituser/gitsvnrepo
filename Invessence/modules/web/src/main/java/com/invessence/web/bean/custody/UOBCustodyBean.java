@@ -800,7 +800,7 @@ public class UOBCustodyBean
          switch (pagenum)
          {
             case 0:// Existing Account ACCOUNT HOLDER
-               dataOK = validateAcctHldr(OwnDtls, dtPriHldrDob);
+               dataOK = validateAcctHldr1(OwnDtls, dtPriHldrDob);
                break;
             case 1:// Existing Account TAX RESIDENCE INFORMATION
                validateTaxMnPnl(OwnDtls);
@@ -1001,6 +1001,166 @@ public class UOBCustodyBean
       {
 
       }
+   }
+
+   public Boolean validateAcctHldr1(OwnerDetails ownerDetails, Date dob)
+   {
+      Boolean dataOK = true;
+      if (ownerDetails.getFullName() == null || ownerDetails.getFullName().trim().equalsIgnoreCase(""))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.fullName", "Full Name is required!", null));
+      }
+      if (acctCat.equalsIgnoreCase("No"))
+      {
+         if (ownerDetails.getGender() == null || ownerDetails.getGender().equalsIgnoreCase("select"))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.gender", "Gender is required!", null));
+         }
+//      Pending for Date of birth
+         if (dob == null)
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.dob", "Date of birth is required!", null));
+         }
+         if (ownerDetails.getCountryOfBirth() == null || ownerDetails.getCountryOfBirth().equalsIgnoreCase("select"))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctryOfBrth", "Country of birth is required!", null));
+         }
+         if (ownerDetails.getOwnerCitizenshipDetails().getNationality() == null ||
+            ownerDetails.getOwnerCitizenshipDetails().getNationality().trim().equalsIgnoreCase(""))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.natioanlity", "Nationality is required!", null));
+         }
+         if (ownerDetails.getOwnerCitizenshipDetails().getNationality() != null &&
+            !ownerDetails.getOwnerCitizenshipDetails().getNationality().trim().equalsIgnoreCase(""))
+         {
+            if (!ownerDetails.getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Others")
+               && (ownerDetails.getOwnerIdentificationDetails().getNric() == null ||
+               ownerDetails.getOwnerIdentificationDetails().getNric().trim().equalsIgnoreCase("")))
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.nric", "NRIC number is required!", null));
+            }
+         }
+         if (ownerDetails.getOwnerCitizenshipDetails().getNationality() != null &&
+            !ownerDetails.getOwnerCitizenshipDetails().getNationality().trim().equalsIgnoreCase(""))
+         {
+            if (ownerDetails.getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Others")
+               && (ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify() == null ||
+               ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify().equalsIgnoreCase("Select")))
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.otrNatCtry", "Other nationality country is required!", null));
+            }
+         }
+         if (ownerDetails.getOwnerCitizenshipDetails().getNationality() != null &&
+            !ownerDetails.getOwnerCitizenshipDetails().getNationality().trim().equalsIgnoreCase(""))
+         {
+            if (ownerDetails.getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Others")
+               && ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify() != null &&
+               ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify().equalsIgnoreCase("Malaysia")
+               && (ownerDetails.getOwnerIdentificationDetails().getIcno() == null ||
+               ownerDetails.getOwnerIdentificationDetails().getIcno().trim().equalsIgnoreCase("")))
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.malayIcNum", "Malaysia IC number is required is required!", null));
+            }
+         }
+         if (ownerDetails.getOwnerCitizenshipDetails().getNationality() != null &&
+            !ownerDetails.getOwnerCitizenshipDetails().getNationality().trim().equalsIgnoreCase(""))
+         {
+            if (ownerDetails.getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Others")
+               && ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify() != null &&
+               !ownerDetails.getOwnerCitizenshipDetails().getNationalitySpecify().equalsIgnoreCase("Malaysia")
+               && (ownerDetails.getOwnerIdentificationDetails().getPassport() == null ||
+               ownerDetails.getOwnerIdentificationDetails().getPassport().trim().equalsIgnoreCase("")))
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.psprtNum", "Passport number is required is required!", null));
+            }
+         }
+      }
+      else
+      {
+         if (ownerDetails.getOwnerIdentificationDetails().getNric() == null ||
+            ownerDetails.getOwnerIdentificationDetails().getNric().trim().equalsIgnoreCase(""))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.nric", "NRIC number is required!", null));
+         }
+      }
+
+//      if (ownerDetails.getOwnerContactDetails().getHomeTelNumberCD() == null ||
+//         ownerDetails.getOwnerContactDetails().getHomeTelNumberCD().trim().equalsIgnoreCase(""))
+//      {
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctryCdHmNum", "Country code for home tel number is required!", null));
+//      }
+//      if (ownerDetails.getOwnerContactDetails().getHomeTelNumber() == null ||
+//         ownerDetails.getOwnerContactDetails().getHomeTelNumber().trim().equalsIgnoreCase(""))
+//      {
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.hmNum", "Home tel number is required!", null));
+//      }
+//
+      if (ownerDetails.getOwnerContactDetails().getMobNumberCD() == null ||
+         ownerDetails.getOwnerContactDetails().getMobNumberCD().trim().equalsIgnoreCase(""))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctryCdMblNum", "Country code for mobile number is required!", null));
+      }
+
+      if (ownerDetails.getOwnerContactDetails().getMobNumber() == null ||
+         ownerDetails.getOwnerContactDetails().getMobNumber().trim().equalsIgnoreCase(""))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.mblNum", "Mobile number is required!", null));
+      }
+
+//      if (ownerDetails.getOwnerContactDetails().getOfficeTelNumberCD() == null ||
+//         ownerDetails.getOwnerContactDetails().getOfficeTelNumberCD().trim().equalsIgnoreCase(""))
+//      {
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctryCdOffNum", "Country code for office tel number is required!", null));
+//      }
+//
+//      if (ownerDetails.getOwnerContactDetails().getOfficeTelNumber() == null ||
+//         ownerDetails.getOwnerContactDetails().getOfficeTelNumber().trim().equalsIgnoreCase(""))
+//      {
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.offNum", "Office tel number is required!", null));
+//      }
+
+//      if (ownerDetails.getOwnerContactDetails().getFaxNumberCD() == null ||
+//         ownerDetails.getOwnerContactDetails().getFaxNumberCD().trim().equalsIgnoreCase(""))
+//      {
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctryCdFaxNum", "Country code for fax number is required!", null));
+//      }
+//
+//      if (ownerDetails.getOwnerContactDetails().getFaxNumber() == null ||
+//         ownerDetails.getOwnerContactDetails().getFaxNumber().trim().equalsIgnoreCase(""))
+//      {
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.faxNum", "Fax number is required!", null));
+//      }
+
+      if (!hasRequiredData(ownerDetails.getEmailAddress()))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.email.requiredMsg", "Email address is required!", null));
+      }
+      if (validateEmailPattern(ownerDetails.getEmailAddress()))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.emlAddrs", "Valid email address is required!", null));
+      }
+      System.out.println("validtion output " + dataOK);
+      return dataOK;
    }
 
    public Boolean validateAcctHldr(OwnerDetails ownerDetails, Date dob)
