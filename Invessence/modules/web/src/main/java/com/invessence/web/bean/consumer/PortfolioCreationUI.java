@@ -23,11 +23,11 @@ public class PortfolioCreationUI extends Customer implements Logger
       goalsdata = new ArrayList<Goals>();
       goalsdata.add(new Goals(1,"images/portfolio/retirement.png","Retirement","Retirement"));
       goalsdata.add(new Goals(2,"images/portfolio/education.png","Education","Fund for College"));
-      goalsdata.add(new Goals(3,"images/portfolio/income.png","Income","Generate Income"));
+     // goalsdata.add(new Goals(3,"images/portfolio/income.png","Income","Generate Income"));
       goalsdata.add(new Goals(4,"images/portfolio/legacy.png","Legecy","Preserve Investment"));
       goalsdata.add(new Goals(5,"images/portfolio/property.png","Property","Buy a House"));
-     /* goalsdata.add(new Goals(6,"images/portfolio/wealth.png","Build Wealth","Build Wealth"));
-      goalsdata.add(new Goals(6,"images/portfolio/wealth.png","other","other"));*/
+    goalsdata.add(new Goals(6,"images/portfolio/wealth.png","Build Wealth","Build Wealth"));
+   // goalsdata.add(new Goals(6,"images/portfolio/wealth.png","other","other"));
    }
 
    public ArrayList<Goals> getGoalsdata()

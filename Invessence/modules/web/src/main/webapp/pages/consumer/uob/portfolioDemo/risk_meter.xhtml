@@ -1,0 +1,209 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{ringView.preRenderView}"/>
+	</f:metadata>
+    <ui:define name="content">
+    <h:outputScript name="js/invCharts.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+        <h:outputScript name="js/uobHighCharts.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+
+        <!-- HighChart .js plugin Start -->
+        <h:outputScript name="js/highcharts.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+        <h:outputScript name="js/highcharts-3d.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+        <h:outputScript name="js/highcharts-more.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+        <h:outputScript name="js/solid-gauge.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+        <h:outputScript name="js/exporting.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+        <h:outputScript name="js/drilldown.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+        <h:outputScript name="js/data.js"
+                        library="#{uiLayout.webProfile.cssdir}"/>
+        
+         
+    
+        <h:form id="ceForm">
+
+    <div class="layout-portlets-box open_client_layout portfolio_layout " >
+		<div class="Container100 Responsive100">
+			<div class="portfolio_selection">
+				<div class="Container30"><p:graphicImage name="images/portfolio/goal.png" library="#{uiLayout.webProfile.cssdir}" width="80px"/><span>Goal</span></div>
+				<div class="Container30"><p:graphicImage name="images/portfolio/riskMeter.png" library="#{uiLayout.webProfile.cssdir}" width="120px"/></div>
+				<div class="Container30">
+				<span class="sapn_review">Review</span>
+				<p:graphicImage name="images/portfolio/review.png" library="#{uiLayout.webProfile.cssdir}" width="80px"/>
+				
+				 
+				
+				</div>
+				
+			</div>
+			<div class="portfolio_progress_bar">
+				<p:progressBar value="50" labelTemplate="{value}%" displayOnly="true"/>
+			</div>
+			
+			<div class="caraousle Container100">
+				
+					<div class="header_tab reviewHeader_title">
+						<div class="header_title Container30">
+							<span>Review</span>
+							<div class="Container30 fine_tune_btn">
+                            <ui:fragment rendered="true">
+                                <p:commandButton id="uobfinetunebtnCnf" styleClass="fineTuneBtn fineTuneBtnImg"
+                                                 icon="ui-icon-image"
+                                                 >
+                                </p:commandButton>
+                                <span class="ftBtnLabel">Fine Tune</span>
+                            </ui:fragment>
+                        </div>
+						</div>
+						<div class="header_link prenext_btn Container70 review_btn" >
+							<div class="Container50 next_btn">
+								<p:commandLink rendered="true" class="next_pg_link"
+                                               actionListener="#{uiLayout.doMenuAction('consumer',  'portfolioDemo/risk-tolerance.xhtml')}"> Open Account </p:commandLink>
+							</div>
+							<div class="Container50 pre_btn">
+								<p:commandLink rendered="true" class="next_pg_link"
+                                               actionListener="#{uiLayout.doMenuAction('consumer',  'portfolioDemo/GoalContri.xhtml')}"> Start Over </p:commandLink>
+							</div>
+							
+						</div>
+						
+					</div>
+					<div class="Container100 tab_dtl review_dtl">
+						
+						<div class="Container70">
+							<div class="Container100 Responsive50 tp20 confirmation_donut_dtl">
+		                        <!-- ROHIT's CHANGE -->
+		                        <div class="ContainerIndent">
+
+		                            <p:panel id="cnfgraphArea" style="border: 0px; background: white;">
+		                            <script>
+                                $(document).ready(function ()
+                                  {
+                                	alert("1");
+                                	try{
+                                	                                      var gaugeOptions = {
+
+                                	                                          chart: {
+                                	                                              type: 'solidgauge'
+                                	                                          },
+
+                                	                                          title: null,
+
+                                	                                          pane: {
+                                	                                              center: ['50%', '85%'],
+                                	                                              size: '140%',
+                                	                                              startAngle: -90,
+                                	                                              endAngle: 90,
+                                	                                              background: {
+                                	                                                  backgroundColor: '#EEE',
+                                	                                                  innerRadius: '60%',
+                                	                                                  outerRadius: '100%',
+                                	                                                  shape: 'arc'
+                                	                                              }
+                                	                                          },
+
+                                	                                          tooltip: {
+                                	                                              enabled: false
+                                	                                          },
+
+                                	                                          // the value axis
+                                	                                          yAxis: {
+                                	                                              stops: [
+                                	                                                  [0.1, '#55BF3B'], // green
+                                	                                                  [0.5, '#DDDF0D'], // yellow
+                                	                                                  [0.9, '#DF5353'] // red
+                                	                                              ],
+                                	                                              lineWidth: 0,
+                                	                                              minorTickInterval: null,
+                                	                                              tickAmount: 2,
+                                	                                              title: {
+                                	                                                  y: -70
+                                	                                              },
+                                	                                              labels: {
+                                	                                                  y: 16
+                                	                                              }
+                                	                                          },
+
+                                	                                          plotOptions: {
+                                	                                              solidgauge: {
+                                	                                                  dataLabels: {
+                                	                                                      y: 5,
+                                	                                                      borderWidth: 0,
+                                	                                                      useHTML: true
+                                	                                                  }
+                                	                                              }
+                                	                                          }
+                                	                                      };
+                                	                                      
+                                	                                     // ##########
+
+                                	                                   // The speed gauge
+                                	                                   var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
+                                	                                       yAxis: {
+                                	                                           min: 0,
+                                	                                           max: 200,
+                                	                                           title: {
+                                	                                               text: 'Speed'
+                                	                                           }
+                                	                                       },
+
+                                	                                       credits: {
+                                	                                           enabled: false
+                                	                                       },
+
+                                	                                       series: [{
+                                	                                           name: 'Speed',
+                                	                                           data: [80],
+                                	                                           dataLabels: {
+                                	                                               format: '<div style="text-align:center"><span style="font-size:25px;color:black">{y}</span><br/>' +
+                                	                                                      '<span style="font-size:12px;color:silver">km/h</span></div>'
+                                	                                           },
+                                	                                           tooltip: {
+                                	                                               valueSuffix: ' km/h'
+                                	                                           }
+                                	                                       }]
+
+                                	                                   }));
+                                	}catch(e){
+                                		alert("Err"+e);
+                                	}
+                                	alert("2"); 
+                                  });
+                                
+
+                                
+
+                            </script>    
+                                <div class="Container100 donutChartGraph risk_meter">
+                                	<div id="container-speed" style="width: 300px; height: 200px; float: left"></div>
+								</div>
+                            </p:panel>
+
+                           
+                        </div>
+                    </div>
+						</div>
+					</div>
+			</div>
+				
+				
+				
+		</div>
+	</div>
+	</h:form>
+    </ui:define>
+
+</ui:composition>
