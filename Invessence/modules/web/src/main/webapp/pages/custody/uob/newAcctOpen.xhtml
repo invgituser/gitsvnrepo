@@ -92,7 +92,7 @@
                                                 </ui:fragment>
                                                 <div class="Container100 Responsive100 margin-top">
                                                     <ui:fragment rendered="#{uobCustodyBean.dsplOtrCntry}">
-                                                        <div class="Container30 Responsive100 ">
+                                                        <div class="Container40 Responsive100 ">
                                                             <p:selectOneMenu id="nwPriHldrSelCtry"
                                                                              value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerCitizenshipDetails.nationalitySpecify}">
                                                                 <p:ajax listener="#{uobCustodyBean.onChngOtrCntry}" update="nwPriHldNtnPnl"/>
@@ -683,7 +683,7 @@
                                                                 </div>
                                                                 <p:panel id="nwPriHldTaxRsn" style="border-color: transparent;" class="Container100 width99">
                                                                     <ui:fragment rendered="#{uobCustodyBean.dsplPriHldrTaxRsn}">
-                                                                        <div class="Container100 Responsive100 label_opacity ">
+                                                                        <div class="Container100 Responsive100">
                                                                             <p:inputText id="priHldrTaxPnlReasExpl" placeholder="Explain"
                                                                                          value="#{uobCustodyBean.owTaxDtls.tinUnavailableValue}"/>
                                                                             <label for="priHldrTaxPnlReasExpl">Explain</label>

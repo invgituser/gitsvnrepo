@@ -4475,6 +4475,12 @@ th.del_edit_col span {
     font-size: 17px !important;
 
 }
+.go-bottom input:focus::-webkit-input-placeholder {
+    opacity: 0;
+}
+.go-bottom textarea:focus::-webkit-input-placeholder {
+    opacity: 0;
+}
 .go-bottom textarea:focus {height: 85px !important;
     width: 97%;}
 .go-bottom input:not(:placeholder-shown):valid,
@@ -4504,7 +4510,14 @@ th.del_edit_col span {
 /** floating label **/
 
 .acc_holder_form table {
+    width: 99%;
+}
+.tax_info .ui-datatable {
+    background: #fff;
     width: 100%;
+}
+.tax_info table td {
+    border: none !important;
 }
 .go-bottom .Container80 {
     width: 78%;
@@ -4905,10 +4918,14 @@ td.bullet_td span {
 .ring_widget .ui-ring-item-focus .ui-outputpanel {
     color: #000;
     font-size: 18px;
-}.ui-ring-item{text-align:center;width: auto !important;}
+}.ui-ring-item{text-align:center;}
 .ring_widget .ui-outputpanel {
     color: grey;
     font-size: 14px;
+}
+.portfolio_selection .sapn_review {
+    position: relative;
+    left: -31px;
 }
 .ui-carousel-page-links {
     display: none!important;
@@ -4982,6 +4999,7 @@ span.input_value {
 }
 .Container100.tab_dtl {
     padding: 12px 0;
+    font-size:17px;
 }
 .caraousle {
     border: 1px solid #c1c1c1;
@@ -5037,7 +5055,7 @@ span.change_goal {
 }
 .assets_liabilityTab .Container50 {
     width: 48.7%;
-    border: 1px solid #ccc;
+   /* border: 1px solid #ccc;*/
     margin: 5px;
     border-radius: 3px;
     text-align: left;
@@ -5049,14 +5067,14 @@ span.change_goal {
     font-size: 17px;
     font-weight: bold;
     padding: 5px 0;
-    border: none;
+    border-bottom: 1px solid #ccc;
 }
-.assets_liabilityTab .Conatiner100.tab_title.networth {
-    border-top: 1px solid #ccc;
-}
+/*.assets_liabilityTab .Conatiner100.tab_title.networth {*/
+    /*border-top: 1px solid #ccc;*/
+/*}*/
 .assets_liabilityTab .Conatiner100 {
     padding: 5px 5px;
-    border-top: 1px solid #ccc;
+    /*border-top: 1px solid #ccc;*/
     line-height: 1.50;
 }
 .caraousle .Container50.next_btn {
@@ -5113,12 +5131,12 @@ span.change_goal {
 
 .RTQ .ui-selectoneradio > tbody > tr > td {
     vertical-align: top;
-    padding: 0 5px;
+    padding: 5px;
 }
 .RTQ .ui-selectoneradio label {
     text-align: left;
     line-height: 1.5;
-    font-size: 15px !important;
+    font-size: 17px !important;
 }
 .RTQ p {
     font-weight: bold;
@@ -5189,13 +5207,33 @@ span.change_goal {
     text-align: left;
 }
 .go-bottom input:focus::-webkit-input-placeholder,
-.go-bottom input:focus:-moz-placeholder{
+.go-bottom input:focus:-moz-placeholder,
+.go-bottom textarea:focus::-webkit-input-placeholder,.go-bottom textarea:focus:-moz-placeholder{
     opacity: 0;
 }
+.review-donut .highcharts-container {
+    width: 100% !important;
+    height:200px !important;}
+.ui-ring {
+    list-style: none;
+    width: 78%;}
 
+.image-ring .ui-ring-item img {
+     width: 100%;
+    /* height: 70px; */
+}
 
+.review-donut g.highcharts-drilldown-point {
+    stroke-width: 8px;
+}
 
-
+.review-donut{float: right;
+    width: 100px;
+    height: 87px;
+    top: -127px;
+    position: absolute;
+    right: 120px;
+    z-index: 0;}
 /*** responsive**/
 
 /** 16/10/2017***/
