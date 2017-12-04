@@ -5295,7 +5295,18 @@ span.output_review {
 .donutChartGraph.review_graph text {
     display: none;
 }
-
+/*** 4/12/2017 **/
+.retirement_opt .Container50 {
+    /* border-color: #ccc; */
+    padding: 6px 0 0;
+    line-height: 29px;
+    margin: 0px 6% 3%;
+    width: 36%;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-bottom: 3px solid #a4332f;
+}
 
 
 /*** responsive**/
