@@ -554,6 +554,7 @@ public class TdCto extends BaseTD
                System.out.println("Docusign event No " + eventnum);
                wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest(product, mode), getTdMasterData().getAcctnum(), eventnum);
                System.out.println("Docusign wsCallResult " + wsCallResult);
+
                if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
                {
                   msg = wsCallResult.getWSCallStatus().getErrorMessage();
@@ -561,8 +562,12 @@ public class TdCto extends BaseTD
                }
                else
                {
-                  sendAlertMessage("P");
-                  getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
+
+                  if (i==(eventNo.length-1))
+                  {
+                     sendAlertMessage("P");
+                     getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
+                  }
                }
             }
          }

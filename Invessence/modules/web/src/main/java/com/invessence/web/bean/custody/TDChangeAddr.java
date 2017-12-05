@@ -130,8 +130,11 @@ public class TDChangeAddr extends BaseTD
                   }
                   else
                   {
-                     sendAlertMessage("P");
-                     getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
+                     if (i==(eventNo.length-1))
+                     {
+                        sendAlertMessage("P");
+                        getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
+                     }
                   }
                }
             }

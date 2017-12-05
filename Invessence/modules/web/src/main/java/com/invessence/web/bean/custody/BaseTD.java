@@ -1301,7 +1301,7 @@ public class BaseTD
    }
 
    public void sendAlertMessage(String flag) {
-      custodySaveDAO.tdMangedUserProfile(getTdMasterData().getAcctnum(),flag);
+      custodySaveDAO.tdMangedUserProfile(getTdMasterData().getAcctnum(),flag,webutil.getUserInfoData().getLogonID());
    }
 
    public void saveTDNewRequest() {

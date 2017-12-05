@@ -226,6 +226,7 @@ public class CustodySaveSP extends StoredProcedure
          case 13:
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_managed", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             break;
          case 14: // TD Transfer
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
@@ -632,11 +633,12 @@ public class CustodySaveSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map tdUserProfile(Long acctnum,String flag)
+   public Map tdUserProfile(Long acctnum,String flag, Long logonid)
    {
       Map<String, Object> inputMap = new HashMap<String, Object>();
       inputMap.put("p_acctnum", acctnum);
       inputMap.put("p_managed", flag);
+      inputMap.put("p_logonid", logonid);
       return super.execute(inputMap);
    }
 

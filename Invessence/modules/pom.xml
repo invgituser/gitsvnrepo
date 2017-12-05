@@ -20,7 +20,7 @@
       <module>core</module>
       <module>invmodel</module>
       <module>service</module>
-      <module>broker-webservices</module>
+      <module>custody</module>
       <module>download-services</module>
       <module>aggregate-services</module>
       <module>trading-services</module>
@@ -31,6 +31,6 @@
       <module>aggregator</module>
       <module>file-processor</module>
       <module>crm</module>
-      <module>web</module>
+      <module>web</module><module>document-services</module>
    </modules>
 </project>

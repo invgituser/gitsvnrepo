@@ -25,7 +25,7 @@
 
         <dependency>
          <groupId>com.invessence</groupId>
-         <artifactId>broker-webservices</artifactId>
+         <artifactId>custody</artifactId>
          <version>${invessence.version}</version>
       </dependency>
 
@@ -344,7 +344,7 @@
          <groupId>com.invessence</groupId>
          <artifactId>file-processor</artifactId>
          <version>1.0-SNAPSHOT</version>
-      </dependency>
+      </dependency><dependency><groupId>com.invessence</groupId><artifactId>document-services</artifactId><version>1.0-SNAPSHOT</version></dependency>
 
       <!-- https://mvnrepository.com/artifact/net.sourceforge.fiftyone-java/51Degrees.mobi.detection.core -->
       <!--<dependency>-->

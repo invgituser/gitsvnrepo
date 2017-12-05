@@ -13,7 +13,8 @@ public class Constant
       EMAIL_SERVICE("EMAIL-SERVICE"), AGGREGATION_SERVICES("AGGREGATION-SERVICES"),
       FILE_PROCESS("FILE-PROCESS"),
       CRM_SERVICES("CRM-SERVICES"),
-      DOCUMENT_SERVICES("DOCUMENT-SERVICES");
+      DOCUMENT_SERVICES("DOCUMENT-SERVICES"),
+      CUSTODY_SERVICES("CUSTODY-SERVICES");
       private String value;
 
       private SERVICES(String value)
@@ -33,6 +34,27 @@ public class Constant
       }
    }
 
+   public enum CUSTODY_SERVICES
+   {
+      TD("TD"), IB("IB"), UOB("UOB");
+      private String value;
+
+      private CUSTODY_SERVICES(String value)
+      {
+         this.value = value;
+      }
+
+      private String getValue()
+      {
+         return value;
+      }
+
+      @Override
+      public String toString()
+      {
+         return this.getValue();
+      }
+   }
    public enum DOCUMENT_SERVICES
    {
       iText("iText"), DROPBOX("DROPBOX"), DOCUSIGN("DOCUSIGN");
