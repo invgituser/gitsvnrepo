@@ -39,7 +39,7 @@
                                                 <label for="nwPriHldrNm">Full Name</label>
                                             </div>
                                         </div>
-                                        <div class="acc_holder_dtl_block">
+                                        <div class="acc_holder_dtl_block Container100">
                                             <div class="Container20 Responsive100 select_item">
                                                 <span class="title_line">Gender</span>
                                                 <p:selectOneMenu id="nwPriHldrGndr"
@@ -57,9 +57,11 @@
                                                 <label for="nwPriHldrDob">Date Of Birth</label>
                                             </div>
                                             <div class="Container25 Responsive100 select_item">
-                                                <span class="title_line">Country Of Birth</span>
+                                                <div class="Container100"><span class="title_line">Country Of Birth</span></div>
+                                                <div class="Container100">
                                                 <p:autoComplete id="nwPriHldrBrtCtry" dropdown="true" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.countryOfBirth}"
                                                                 completeMethod="#{uobCustodyBean.completeText}" />
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="acc_holder_dtl_block">
@@ -88,19 +90,19 @@
                                                     </div>
                                                 </ui:fragment>
                                                 <ui:fragment rendered="#{uobCustodyBean.dsplSingNricInp}">
-                                                    <div class="Container40 Responsive100 margin-top">
+                                                    <div class="Container40 Responsive100 margin-top select_item">
                                                         <span class="title_line">Country Of Nationality</span>
                                                         <p:autoComplete id="nwPriHldrSelSinPrCtry" dropdown="true" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerCitizenshipDetails.nationalitySpecify}"
                                                                         completeMethod="#{uobCustodyBean.completeText}" >
                                                         </p:autoComplete>
                                                     </div>
-                                                    <div class="Container60 Responsive100 margin-top">
+                                                    <div class="Container100 Responsive100 margin-top">
                                                         <p:inputText id="nwPriHldrSinPrNric" placeholder="NRIC Number"
                                                                      value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerIdentificationDetails.nric}"/>
                                                         <label for="nwPriHldrNric">NRIC Number</label>
                                                     </div>
                                                 </ui:fragment>
-                                                <div class="Container100 Responsive100 margin-top">
+                                                <div class="Container100 Responsive100 margin-top select_item">
                                                     <ui:fragment rendered="#{uobCustodyBean.dsplOtrCntry}">
                                                         <div class="Container40 Responsive100 ">
                                                             <span class="title_line">Country Of Nationality</span>
@@ -218,7 +220,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="acc_holder_dtl_block">
+                                        <div class="Container100 acc_holder_dtl_block">
                                             <div class="Container20 Responsive100 select_item">
                                                 <span class="title_line">Gender</span>
                                                 <p:selectOneMenu id="jointgender" value="Select Gender">
@@ -238,15 +240,17 @@
                                                 <label for="dtbirth">Date Of Birth</label>
 
                                             </div>
-                                            <div class="Container25 Responsive100 select_item">
-                                                <span class="title_line">Country Of Birth</span>
+                                            <div class="Container25 Responsive100 select_item ">
+                                                <div class="Container100"><span class="title_line">Country Of Birth</span></div>
                                                 <!-- <input id="countbirth" name="countbirth" type="text" placeholder="Country of birth"/>
                                                 <label for="countbirth">Country of birth</label> -->
+                                                <div class="Container100">
                                                 <p:selectOneMenu id="jointconutry" value="Select Country Of Birth">
                                                     <f:selectItem itemLabel="Select Country Of Birth" itemValue=""/>
                                                     <f:selectItem itemLabel="Singapore" itemValue="Singapore"/>
                                                     <f:selectItem itemLabel="Malaysia" itemValue="Malaysia"/>
                                                 </p:selectOneMenu>
+                                                </div>
 
                                             </div>
                                         </div>
@@ -453,7 +457,7 @@
                                                                      value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.mailingAddressCity}"/>
                                                         <label for="nwPriHldrMlAddrCty">City / State</label>
                                                     </div>
-                                                    <div class="Container30 Responsive100">
+                                                    <div class="Container30 Responsive100 select_item">
                                                         <p:autoComplete id="nwPriHldrMlAddrCtry" dropdown="true" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.mailingAddressCountry}"
                                                                         completeMethod="#{uobCustodyBean.completeText}" >
                                                         </p:autoComplete>
@@ -956,7 +960,7 @@
                                                                      value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerEmploymentDetails.employerCity}"/>
                                                         <label for="nwPriHldrEmpCty">City/State</label>
                                                     </div>
-                                                    <div class="Container30 Responsive100">
+                                                    <div class="Container30 Responsive100 select_item">
                                                         <p:autoComplete id="nwPriHldrEmpCtry" dropdown="true" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerEmploymentDetails.employerZipCountry}"
                                                                         completeMethod="#{uobCustodyBean.completeText}" >
                                                         </p:autoComplete>
@@ -1315,7 +1319,7 @@
                                                       value="#{uobCustodyBean.getErrorMessage(6)}" escape="false"/>
                                     </p:panel>
                                     <div class="go-bottom">
-                                        <p:panel id="nwPriRelPnl1" style="border-color: transparent;">
+                                        <p:panel id="nwPriRelPnl1" style="border-color: transparent;" class="Container100">
                                             <div class="acc_holder_dtl_block relation_dtl">
                                                 <div class="Container70">
                                                     <div class="Container100">
@@ -1354,7 +1358,7 @@
                                                 </div>
                                             </div>
                                         </p:panel>
-                                        <p:panel id="nwPriRelPnl2" style="border-color: transparent;">
+                                        <p:panel id="nwPriRelPnl2" style="border-color: transparent;" class="Container100">
                                             <div class="acc_holder_dtl_block relation_dtl">
                                                 <div class="Container70">
                                                     <div class="Container100">
@@ -1393,7 +1397,7 @@
                                                 </div>
                                             </div>
                                         </p:panel>
-                                        <p:panel id="nwPriRelPnl3" style="border-color: transparent;">
+                                        <p:panel id="nwPriRelPnl3" style="border-color: transparent;" class="Container100">
                                             <div class="acc_holder_dtl_block relation_dtl">
                                                 <div class="Container70">
                                                     <div class="Container100">

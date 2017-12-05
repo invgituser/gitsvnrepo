@@ -4605,7 +4605,7 @@ th.del_edit_col span {
 }
 .go-bottom div.Container30 {
     margin-right: 10px;
-    width: 31.2%;
+    width: 32.2%;
 }
 .go-bottom textarea {
     width: 97%;
@@ -5306,6 +5306,30 @@ span.output_review {
     border-right: 1px solid #ccc;
     border-top: 1px solid #ccc;
     border-bottom: 3px solid #a4332f;
+}
+/** 5/12/2017 **/
+.review_dtl .Container20 {
+    font-size: 14px;
+}
+.review_dtl .Container20 {
+    font-size: 14px;
+}
+.selected_reviewGoal span {
+    font-size: 13px;
+}
+.review_dtl .Container30.donutChartGraph {
+    position: relative;
+    top: -48px;
+}
+.select_item .ui-autocomplete {
+    width: 100%;
+}
+.go-bottom .acc_holder_dtl_block .select_item input {
+    padding: 5px !important;
+}
+.select_item .ui-autocomplete .ui-button-icon-only .ui-button-text {
+    padding: 12px 10px !important;
+    background: #a4332f;
 }
 
 
