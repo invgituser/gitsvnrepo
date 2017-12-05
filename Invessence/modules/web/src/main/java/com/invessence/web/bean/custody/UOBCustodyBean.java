@@ -140,13 +140,14 @@ public class UOBCustodyBean
                uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails().size() > 0)
             {
                dsplPriHldrTaxTab = true;
-               disTaxBtn=true;
                disTaxBtn=false;
-            }
-            else
+            }else if (uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() == null ||
+               uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails().size() == 0)
             {
-               dsplPriHldrTaxTab = false;
+               dsplPriHldrTaxDtl = true;
+               dispTaxAddBtn=true;
             }
+
             priHldrEmpAddr=getCstmaddrEmp(uobDataMaster.getIndividualOwnersDetails().getOwnerEmploymentDetails());
             priHldrPhyAddr=getCstmaPhyAddr(uobDataMaster.getIndividualOwnersDetails());
             priHldrMlAddr=getCstmaMalAddr(uobDataMaster.getIndividualOwnersDetails());
@@ -154,7 +155,7 @@ public class UOBCustodyBean
             if (uobDataMaster.getIndividualOwnersDetails().getDob() == null ||
                uobDataMaster.getIndividualOwnersDetails().getDob().equalsIgnoreCase(""))
             {
-               dtPriHldrDob = new Date();
+               dtPriHldrDob = null;
             }
             else
             {
@@ -341,6 +342,9 @@ public class UOBCustodyBean
 
          if(!hasRequiredData(uobDataMaster.getIndividualOwnersDetails().getOwnersFinancialDetails().getInvestmentObjectives(),"Others")){
             dsplPriHldrObjPnl2=true;
+            if(uobDataMaster.getIndividualOwnersDetails().getOwnersFinancialDetails().getInvestmentObjectives().equalsIgnoreCase("Select")){
+               dsplPriHldrObjPnl2=false;
+            }
          }else{
             dsplPriHldrObjPnl2=false;
          }
@@ -433,6 +437,21 @@ public class UOBCustodyBean
          disTaxBtn=false;
          onChngTin();
          onChngRsn();
+         owTaxDtls = new OwnerTaxationDetails();
+         dsplPriHldrTaxTin=false;
+
+         if (uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() != null &&
+            uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails().size() > 0)
+         {
+            dsplPriHldrTaxTab = true;
+            dsplPriHldrTaxDtl = false;
+            disTaxBtn=false;
+         }else if (uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() == null ||
+            uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails().size() == 0)
+         {
+            dsplPriHldrTaxDtl = true;
+            dsplPriHldrTaxTab = false;
+         }
       }
       catch (Exception e)
       {
@@ -542,11 +561,55 @@ public class UOBCustodyBean
       return dataOK;
    }
 
+   public void updateTaxPnl(){
+      if(validateTaxPnl()){
+//         uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() Need to remove this code by object
+         custodyService.deleteSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(),1,"Taxation");
+         List<OwnerTaxationDetails>  lst=uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails();
+//         lst.add(owTaxDtls.getId()-1,owTaxDtls);
+//         lst.add(owTaxDtls);
+         for(int i=0;i<lst.size();i++){
+            OwnerTaxationDetails owTaxDtl=lst.get(i);
+            if(i==owTaxDtls.getId()-1){
+               owTaxDtl=owTaxDtls;
+            }
+            if(hasRequiredData(owTaxDtl.getIsTINAvailable())){
+               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1,i+1,"Taxation","isTINAvailable",owTaxDtl.getIsTINAvailable());
+            }
+            if(hasRequiredData(owTaxDtl.getJurisdictionOfTaxResidence())){
+               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1,i+1,"Taxation","jurisdictionOfTaxResidence",owTaxDtl.getJurisdictionOfTaxResidence());
+            }
+            if(hasRequiredData(owTaxDtl.getTaxIdentificationNumber())){
+               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1,i+1,"Taxation","taxIdentificationNumber",owTaxDtl.getTaxIdentificationNumber());
+            }
+            if(hasRequiredData(owTaxDtl.getTinUnavailableReason())){
+               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1,i+1,"Taxation","tinUnavailableReason",owTaxDtl.getTinUnavailableReason());
+            }
+            if(hasRequiredData(owTaxDtl.getTinUnavailableValue())){
+               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1,i+1,"Taxation","tinUnavailableValue",owTaxDtl.getTinUnavailableValue());
+            }
+         }
+
+         dsplPriHldrTaxTab = true;
+         dsplPriHldrTaxDtl = false;
+         owTaxDtls = new OwnerTaxationDetails();
+         dsplPriHldrTaxTin=false;
+         disTaxBtn=false;
+      }
+
+   }
+
    public void saveTaxPnl(){
       if(validateTaxPnl()){
 //         uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() Need to remove this code by object
          custodyService.deleteSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(),1,"Taxation");
          List<OwnerTaxationDetails>  lst=uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails();
+         if(lst!=null && lst.size()>0)
+         {
+            owTaxDtls.setId(lst.size()+1);
+         }else{
+            owTaxDtls.setId(1);
+         }
          lst.add(owTaxDtls);
          for(int i=0;i<lst.size();i++){
             OwnerTaxationDetails owTaxDtl=lst.get(i);
@@ -571,6 +634,7 @@ public class UOBCustodyBean
          dsplPriHldrTaxDtl = false;
          owTaxDtls = new OwnerTaxationDetails();
          dsplPriHldrTaxTin=false;
+         disTaxBtn=false;
       }
 
    }
@@ -605,12 +669,12 @@ public class UOBCustodyBean
       if (sb.length() > 0)
       {
          dataOK = false;
-         introError = sb.toString();
+         taxError = sb.toString();
       }
       else
       {
          dataOK = true;
-         introError = null;
+         taxError = null;
       }
       return dataOK;
    }
@@ -685,7 +749,7 @@ public class UOBCustodyBean
             priHldrEmpAddr=null;
             uobDataMaster.getIndividualOwnersDetails().getOwnerEmploymentDetails().setEmployerZipCode(null);
             uobDataMaster.getIndividualOwnersDetails().getOwnerEmploymentDetails().setEmployerCity(null);
-            uobDataMaster.getIndividualOwnersDetails().getOwnerEmploymentDetails().setEmployerZipCountry("Select");
+            uobDataMaster.getIndividualOwnersDetails().getOwnerEmploymentDetails().setEmployerZipCountry(null);
          }else{
             dsplNwPriEmpMnPnl=true;
          }
@@ -1857,7 +1921,7 @@ public class UOBCustodyBean
          List<OwnerTaxationDetails>  lst=uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails();
          if(lst!=null && lst.size()>0)
          {
-            uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails().remove(ownerTaxationDetails.getId()-1);
+//            uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails().remove(ownerTaxationDetails.getId()-1);
             lst.remove(ownerTaxationDetails.getId()-1);
             for (int i = 0; i < lst.size(); i++)
             {
@@ -1885,11 +1949,23 @@ public class UOBCustodyBean
             }
          }
 
-         dsplPriHldrTaxTab = true;
-         dsplPriHldrTaxDtl = false;
+//         dsplPriHldrTaxTab = true;
+//         dsplPriHldrTaxDtl = false;
          owTaxDtls = new OwnerTaxationDetails();
          dsplPriHldrTaxTin=false;
 
+         if (uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() != null &&
+            uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails().size() > 0)
+         {
+            dsplPriHldrTaxTab = true;
+            dsplPriHldrTaxDtl = false;
+            disTaxBtn=false;
+         }else if (uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() == null ||
+            uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails().size() == 0)
+         {
+            dsplPriHldrTaxDtl = true;
+            dsplPriHldrTaxTab = false;
+         }
       }catch (Exception e){
       }
    }

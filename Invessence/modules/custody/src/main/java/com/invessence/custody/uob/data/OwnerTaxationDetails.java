@@ -45,6 +45,16 @@ public class OwnerTaxationDetails
       }
    }
 
+   public String getReason()
+   {
+      if(getTinUnavailableReason().equalsIgnoreCase("B")){
+
+         return getTinUnavailableValue();
+      }else{
+         return getTinUnavailableReason();
+      }
+   }
+
    public String getIsTINAvailable()
    {
       return isTINAvailable;

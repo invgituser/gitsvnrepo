@@ -92,7 +92,8 @@
                                                 <ui:fragment rendered="#{uobCustodyBean.dsplSingNricInp}">
                                                     <div class="Container40 Responsive100 margin-top select_item">
                                                         <span class="title_line">Country Of Nationality</span>
-                                                        <p:autoComplete id="nwPriHldrSelSinPrCtry" dropdown="true" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerCitizenshipDetails.nationalitySpecify}"
+                                                        <p:autoComplete id="nwPriHldrSelSinPrCtry" dropdown="true"
+                                                                        value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerCitizenshipDetails.nationalitySpecify}"
                                                                         completeMethod="#{uobCustodyBean.completeText}" >
                                                         </p:autoComplete>
                                                     </div>
@@ -109,8 +110,6 @@
                                                             <p:autoComplete id="nwPriHldrSelCtry" dropdown="true" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerCitizenshipDetails.nationalitySpecify}"
                                                                             completeMethod="#{uobCustodyBean.completeText}" >
                                                                 <p:ajax event="itemSelect" update="nwPriHldNtnPnl"   process="@this"
-                                                                        listener="${uobCustodyBean.onChngOtrCntry}" />
-                                                                <p:ajax event="change" update="nwPriHldNtnPnl"   process="@this"
                                                                         listener="${uobCustodyBean.onChngOtrCntry}" />
                                                             </p:autoComplete>
                                                         </div>
@@ -136,13 +135,13 @@
                                             <div class="Container50 Responsive100">
                                                 <div class="Container20 Responsive100">
                                                     <span>Country Code</span>
-                                                    <p:inputMask id="nwPriHldrHmNoCd" placeholder="" mask="+(9999)"
+                                                    <p:inputText id="nwPriHldrHmNoCd" placeholder="" maxlength="5"
                                                                  value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.homeTelNumberCD}"/>
                                                 </div>
                                                 <div class="Container80 Responsive100">
                                                     <span>Area Code / Number</span>
                                                     <div class="Container100">
-                                                        <p:inputMask id="nwPriHldrHmNo" placeholder="Home Tel No" mask="999-999-999-999"
+                                                        <p:inputText id="nwPriHldrHmNo" placeholder="Home Tel No" maxlength="16"
                                                                      value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.homeTelNumber}"/>
                                                         <label for="nwPriHldrHmNo">Home Tel No</label>
                                                     </div>
@@ -151,13 +150,13 @@
                                             <div class="Container50 Responsive100">
                                                 <div class="Container20 Responsive100">
                                                     <span>Country Code</span>
-                                                    <p:inputMask id="nwPriHldrMobNoCd" placeholder="" mask="+(9999)"
+                                                    <p:inputText id="nwPriHldrMobNoCd" placeholder="" maxlength="5"
                                                                  value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.mobNumberCD}"/>
                                                 </div>
                                                 <div class="Container80 Responsive100">
                                                     <span>Area Code / Number</span>
                                                     <div class="Container100">
-                                                        <p:inputMask id="nwPriHldrMobNo" placeholder="Mobile No" mask="999-999-999-999"
+                                                        <p:inputText id="nwPriHldrMobNo" placeholder="Mobile No" maxlength="16"
                                                                      value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.mobNumber}"/>
                                                         <label for="nwPriHldrMobNo">Mobile No</label>
                                                     </div>
@@ -167,23 +166,22 @@
                                         <div class="acc_holder_dtl_block">
                                             <div class="Container50 Responsive100">
                                                 <div class="Container20 Responsive100">
-                                                    <p:inputMask id="nwPriHldrOffNoCd" placeholder="" mask="+(9999)"
+                                                    <p:inputText id="nwPriHldrOffNoCd" placeholder="" maxlength="5"
                                                                  value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.officeTelNumberCD}"/>
                                                 </div>
                                                 <div class="Container80 Responsive100">
-                                                    <p:inputMask id="nwPriHldrOffNo" placeholder="Office Tel No" mask="999-999-999-999"
+                                                    <p:inputText id="nwPriHldrOffNo" placeholder="Office Tel No" maxlength="16"
                                                                  value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.officeTelNumber}"/>
                                                     <label for="nwPriHldrOffNo">Office Tel No</label>
                                                 </div>
                                             </div>
                                             <div class="Container50 Responsive100">
                                                 <div class="Container20 Responsive100">
-                                                    <p:inputMask id="nwPriHldrFaxNoCd" placeholder="" mask="+(9999)"
+                                                    <p:inputText id="nwPriHldrFaxNoCd" placeholder="" maxlength="5"
                                                                  value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.faxNumberCD}"/>
                                                 </div>
                                                 <div class="Container80 Responsive100">
-
-                                                    <p:inputMask id="nwPriHldrFaxNo" placeholder="Fax No" mask="999-999-999-999"
+                                                    <p:inputText id="nwPriHldrFaxNo" placeholder="Fax No" maxlength="16"
                                                                  value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails.faxNumber}"/>
                                                     <label for="nwPriHldrFaxNo">Fax No</label>
                                                 </div>
@@ -599,7 +597,7 @@
                                                                 <span class="ui-button-icon-center ui-icon ui-c fa fa-edit del_tax"></span>
                                                             </p:commandLink>
                                                             <p:commandLink action="#{uobCustodyBean.delTaxDtls(taxDtls)}" process="@this"
-                                                                           update=":cstdyFrm:newAccordian:idTaxTabVw:nwPriHldTaxTab" ajax="true" disabled="#{uobCustodyBean.disTaxBtn}">
+                                                                           update=":cstdyFrm:newAccordian:idTaxTabVw:nwPriHldTaxDtl,:cstdyFrm:newAccordian:idTaxTabVw:nwPriHldTaxTab" ajax="true" disabled="#{uobCustodyBean.disTaxBtn}">
                                                                 <span class="ui-button-icon-center ui-icon ui-c fa fa-trash del_tax"></span>
                                                             </p:commandLink>
                                                         </p:column>
@@ -721,7 +719,7 @@
                                                                          styleClass="uob_button save_btn"
                                                                          update="nwPriHldTaxTab,nwPriHldTaxDtl"
                                                                          rendered="#{uobCustodyBean.dispTaxUpdBtn}"
-                                                                         actionListener="#{uobCustodyBean.saveTaxPnl}">
+                                                                         actionListener="#{uobCustodyBean.updateTaxPnl}">
                                                         </p:commandButton>
                                                         <p:commandButton id="taxAddBtn"
                                                                          value="Add"
