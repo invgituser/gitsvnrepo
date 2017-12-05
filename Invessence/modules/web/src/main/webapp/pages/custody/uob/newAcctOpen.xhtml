@@ -58,11 +58,8 @@
                                             </div>
                                             <div class="Container25 Responsive100 select_item">
                                                 <span class="title_line">Country Of Birth</span>
-                                                <p:selectOneMenu id="nwPriHldrBrtCtry"
-                                                                 value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.countryOfBirth}">
-                                                    <f:selectItem itemLabel="Select Country Of Birth" itemValue="Select"/>
-                                                    <f:selectItems value="#{uobCustodyBean.countries}"/>
-                                                </p:selectOneMenu>
+                                                <p:autoComplete id="nwPriHldrBrtCtry" dropdown="true" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.countryOfBirth}"
+                                                                completeMethod="#{uobCustodyBean.completeText}" />
                                             </div>
                                         </div>
                                         <div class="acc_holder_dtl_block">
@@ -90,15 +87,30 @@
                                                         <label for="nwPriHldrNric">NRIC Number</label>
                                                     </div>
                                                 </ui:fragment>
+                                                <ui:fragment rendered="#{uobCustodyBean.dsplSingNricInp}">
+                                                    <div class="Container40 Responsive100 margin-top">
+                                                        <span class="title_line">Country Of Nationality</span>
+                                                        <p:autoComplete id="nwPriHldrSelSinPrCtry" dropdown="true" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerCitizenshipDetails.nationalitySpecify}"
+                                                                        completeMethod="#{uobCustodyBean.completeText}" >
+                                                        </p:autoComplete>
+                                                    </div>
+                                                    <div class="Container60 Responsive100 margin-top">
+                                                        <p:inputText id="nwPriHldrSinPrNric" placeholder="NRIC Number"
+                                                                     value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerIdentificationDetails.nric}"/>
+                                                        <label for="nwPriHldrNric">NRIC Number</label>
+                                                    </div>
+                                                </ui:fragment>
                                                 <div class="Container100 Responsive100 margin-top">
                                                     <ui:fragment rendered="#{uobCustodyBean.dsplOtrCntry}">
                                                         <div class="Container40 Responsive100 ">
-                                                            <p:selectOneMenu id="nwPriHldrSelCtry"
-                                                                             value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerCitizenshipDetails.nationalitySpecify}">
-                                                                <p:ajax listener="#{uobCustodyBean.onChngOtrCntry}" update="nwPriHldNtnPnl"/>
-                                                                <f:selectItem itemLabel="Select Country" itemValue="Select"/>
-                                                                <f:selectItems value="#{uobCustodyBean.countries}"/>
-                                                            </p:selectOneMenu>
+                                                            <span class="title_line">Country Of Nationality</span>
+                                                            <p:autoComplete id="nwPriHldrSelCtry" dropdown="true" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerCitizenshipDetails.nationalitySpecify}"
+                                                                            completeMethod="#{uobCustodyBean.completeText}" >
+                                                                <p:ajax event="itemSelect" update="nwPriHldNtnPnl"   process="@this"
+                                                                        listener="${uobCustodyBean.onChngOtrCntry}" />
+                                                                <p:ajax event="change" update="nwPriHldNtnPnl"   process="@this"
+                                                                        listener="${uobCustodyBean.onChngOtrCntry}" />
+                                                            </p:autoComplete>
                                                         </div>
                                                     </ui:fragment>
                                                     <ui:fragment rendered="#{uobCustodyBean.dsplIcNoInp}">
@@ -401,11 +413,9 @@
                                                 <label for="nwPriHldrPhyAddrCtySt">City / State</label>
                                             </div>
                                             <div class="Container30 Responsive100">
-                                                <p:selectOneMenu id="nwPriHldrPhyAddrCtry"
-                                                                 value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.physicalAddressCountry}">
-                                                    <f:selectItem itemLabel="Select Country" itemValue="Select"/>
-                                                    <f:selectItems value="#{uobCustodyBean.countries}"/>
-                                                </p:selectOneMenu>
+                                                <p:autoComplete id="nwPriHldrPhyAddrCtry" dropdown="true" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.physicalAddressCountry}"
+                                                                completeMethod="#{uobCustodyBean.completeText}" >
+                                                </p:autoComplete>
                                             </div>
                                         </div>
                                         <div class="acc_holder_dtl_block label_opacity">
@@ -444,11 +454,9 @@
                                                         <label for="nwPriHldrMlAddrCty">City / State</label>
                                                     </div>
                                                     <div class="Container30 Responsive100">
-                                                        <p:selectOneMenu id="nwPriHldrMlAddrCtry"
-                                                                         value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.mailingAddressCountry}">
-                                                            <f:selectItem itemLabel="Select Country" itemValue="Select"/>
-                                                            <f:selectItems value="#{uobCustodyBean.countries}"/>
-                                                        </p:selectOneMenu>
+                                                        <p:autoComplete id="nwPriHldrMlAddrCtry" dropdown="true" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.mailingAddressCountry}"
+                                                                        completeMethod="#{uobCustodyBean.completeText}" >
+                                                        </p:autoComplete>
                                                     </div>
                                                 </div>
                                             </ui:fragment>
@@ -563,10 +571,10 @@
                         </div>
                     </p:tab>
 
-                    <p:tab title="Tax Residence Information" disabled="#{uobCustodyBean.isAccordianDisabled(2)}">
+                    <p:tab title="Tax Residence Information" disabled="#{uobCustodyBean.isAccordianDisabled(2)}" id="idTaxTab">
                         <div class="Container100 Responsive100 holder_address acc_holder_form ">
-                            <p:tabView>
-                                <p:tab title="Main Account Holder">
+                            <p:tabView id="idTaxTabVw">
+                                <p:tab title="Main Account Holder" id="idTaxTabMn">
                                     <p:panel id="nwPriHldrErr1" rendered="#{uobCustodyBean.getErrorMessage(2) != null}"
                                              style="border: 0px; background: transparent"
                                              styleClass="Container100">
@@ -582,8 +590,14 @@
                                                                  value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerTaxationDetails}"
                                                                  reflow="false">
                                                         <p:column headerText="delete edit" class="del_edit_col" width="10%">
-                                                            <span class="ui-button-icon-center ui-icon ui-c fa fa-edit edit_tax"></span>
-                                                            <span class="ui-button-icon-center ui-icon ui-c fa fa-trash del_tax"></span>
+                                                            <p:commandLink action="#{uobCustodyBean.updTaxDtls(taxDtls)}" process="@this"
+                                                                           update=":cstdyFrm:newAccordian:idTaxTabVw:nwPriHldTaxDtl,:cstdyFrm:newAccordian:idTaxTabVw:nwPriHldTaxTab" ajax="true"  disabled="#{uobCustodyBean.disTaxBtn}">
+                                                                <span class="ui-button-icon-center ui-icon ui-c fa fa-edit del_tax"></span>
+                                                            </p:commandLink>
+                                                            <p:commandLink action="#{uobCustodyBean.delTaxDtls(taxDtls)}" process="@this"
+                                                                           update=":cstdyFrm:newAccordian:idTaxTabVw:nwPriHldTaxTab" ajax="true" disabled="#{uobCustodyBean.disTaxBtn}">
+                                                                <span class="ui-button-icon-center ui-icon ui-c fa fa-trash del_tax"></span>
+                                                            </p:commandLink>
                                                         </p:column>
                                                         <p:column headerText="Jurisdiction Of Tax">
                                                             <h:outputText value="#{taxDtls.jurisdictionOfTaxResidence}"/>
@@ -593,8 +607,8 @@
                                                             <h:outputText value="-" rendered='#{!taxDtls.tinFlag}'/>
                                                         </p:column>
                                                         <p:column headerText="Reason">
-                                                            <h:outputText value="#{taxDtls.tinUnavailableReason}"  rendered='#{taxDtls.tinFlag}'/>
-                                                            <h:outputText value="-"  rendered='#{!taxDtls.tinFlag}'/>
+                                                            <h:outputText value="#{taxDtls.reason}"  rendered='#{!taxDtls.tinFlag}'/>
+                                                            <h:outputText value="-"  rendered='#{taxDtls.tinFlag}'/>
                                                         </p:column>
                                                     </p:dataTable>
                                                 </div>
@@ -602,7 +616,9 @@
                                                     <p:commandButton id="uobAddBtn"
                                                                      value="Add"
                                                                      styleClass="uob_button add_btn"
-                                                                     actionListener="#{uobCustodyBean.showTaxDtlPnl}" icon="ui-icon-plus"
+                                                                     actionListener="#{uobCustodyBean.showTaxDtlPnl}"
+                                                                     icon="ui-icon-plus"
+                                                                     disabled="#{uobCustodyBean.disTaxBtn}"
                                                                      update="nwPriHldTaxTab,nwPriHldTaxDtl">
                                                     </p:commandButton>
                                                 </div>
@@ -628,11 +644,9 @@
                                                         <div class="Container100"><span
                                                                 class="title_line">Country / Jurisdiction Of Tax Residence</span>
                                                         </div>
-                                                        <p:selectOneMenu id="priHldrTaxPnlCtry"
-                                                                         value="#{uobCustodyBean.owTaxDtls.jurisdictionOfTaxResidence}">
-                                                            <f:selectItem itemLabel="Select Jurisdiction / Country Of Tax" itemValue="Select"/>
-                                                            <f:selectItems value="#{uobCustodyBean.countries}"/>
-                                                        </p:selectOneMenu>
+                                                        <p:autoComplete id="priHldrTaxPnlCtry" dropdown="true" value="#{uobCustodyBean.owTaxDtls.jurisdictionOfTaxResidence}"
+                                                                        completeMethod="#{uobCustodyBean.completeText}" >
+                                                        </p:autoComplete>
                                                     </div>
                                                     <div class="acc_holder_dtl_block ">
                                                         <div class="Container100 select_item">
@@ -692,12 +706,26 @@
                                                                 </p:panel>
                                                             </ui:fragment>
                                                         </p:panel>
-                                                            <p:commandButton id="uobSaveBtn"
-                                                                             value="Save"
-                                                                             styleClass="uob_button save_btn"
-                                                                             update="nwPriHldTaxTab,nwPriHldTaxDtl"
-                                                                             actionListener="#{uobCustodyBean.saveTaxPnl}">
-                                                            </p:commandButton>
+                                                        <p:commandButton id="taxCnclBtn"
+                                                                         value="Cancel"
+                                                                         styleClass="uob_button save_btn"
+                                                                         update="nwPriHldTaxTab,nwPriHldTaxDtl"
+                                                                         actionListener="#{uobCustodyBean.hideTaxDtlPnl}">
+                                                        </p:commandButton>
+                                                        <p:commandButton id="taxUpdBtn"
+                                                                         value="Update"
+                                                                         styleClass="uob_button save_btn"
+                                                                         update="nwPriHldTaxTab,nwPriHldTaxDtl"
+                                                                         rendered="#{uobCustodyBean.dispTaxUpdBtn}"
+                                                                         actionListener="#{uobCustodyBean.saveTaxPnl}">
+                                                        </p:commandButton>
+                                                        <p:commandButton id="taxAddBtn"
+                                                                         value="Add"
+                                                                         styleClass="uob_button save_btn"
+                                                                         update="nwPriHldTaxTab,nwPriHldTaxDtl"
+                                                                         rendered="#{uobCustodyBean.dispTaxAddBtn}"
+                                                                         actionListener="#{uobCustodyBean.saveTaxPnl}">
+                                                        </p:commandButton>
                                                     </div>
                                                 </div>
                                             </ui:fragment>
@@ -929,12 +957,9 @@
                                                         <label for="nwPriHldrEmpCty">City/State</label>
                                                     </div>
                                                     <div class="Container30 Responsive100">
-                                                      <!--  <div class="Container100"><span class="title_line">Country</span></div>-->
-                                                        <p:selectOneMenu id="nwPriHldrEmpCtry"
-                                                                         value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerEmploymentDetails.employerZipCountry}">
-                                                            <f:selectItem itemLabel="Select Country" itemValue="Select"/>
-                                                            <f:selectItems value="#{uobCustodyBean.countries}"/>
-                                                        </p:selectOneMenu>
+                                                        <p:autoComplete id="nwPriHldrEmpCtry" dropdown="true" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerEmploymentDetails.employerZipCountry}"
+                                                                        completeMethod="#{uobCustodyBean.completeText}" >
+                                                        </p:autoComplete>
                                                     </div>
                                                 </div>
                                             </ui:fragment>
@@ -1250,7 +1275,7 @@
                                             <div class="Container50 Responsive100 margin-left">
                                                 <div class="Container100"><span class="title_line">Other</span></div>
                                                 <input id="otherFundsjoint" name="otherFunds" type="text" placeholder="Please Specify"/>
-                                                <label for="otherFunds">Please Specify</label>
+                                                <label for="otherFundsjoint">Please Specify</label>
                                             </div>
 
                                         </div>
@@ -1290,7 +1315,7 @@
                                                       value="#{uobCustodyBean.getErrorMessage(6)}" escape="false"/>
                                     </p:panel>
                                     <div class="go-bottom">
-                                        <p:panel id="nwPriRelPnl" style="border-color: transparent;">
+                                        <p:panel id="nwPriRelPnl1" style="border-color: transparent;">
                                             <div class="acc_holder_dtl_block relation_dtl">
                                                 <div class="Container70">
                                                     <div class="Container100">
@@ -1322,12 +1347,14 @@
                                                 <div class="Container20 label_opacity">
                                                     <p:selectOneRadio id="nwPriHldrAccRelRad1"
                                                                       value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.relatedToAnyEmplfUOB}">
-                                                        <p:ajax listener="#{uobCustodyBean.onChngRelDtls}" update="nwPriRelPnl"/>
+                                                        <p:ajax listener="#{uobCustodyBean.onChngRelDtls}" update="nwPriRelPnl1"/>
                                                         <f:selectItem itemLabel="Yes" itemValue="Yes"></f:selectItem>
                                                         <f:selectItem itemLabel="No" itemValue="No"></f:selectItem>
                                                     </p:selectOneRadio>
                                                 </div>
                                             </div>
+                                        </p:panel>
+                                        <p:panel id="nwPriRelPnl2" style="border-color: transparent;">
                                             <div class="acc_holder_dtl_block relation_dtl">
                                                 <div class="Container70">
                                                     <div class="Container100">
@@ -1359,12 +1386,14 @@
                                                 <div class="Container20 label_opacity">
                                                     <p:selectOneRadio id="nwPriHldrAccRelRad2"
                                                                       value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.controlOverUOBAcct}">
-                                                        <p:ajax listener="#{uobCustodyBean.onChngRelDtls}" update="nwPriRelPnl"/>
+                                                        <p:ajax listener="#{uobCustodyBean.onChngRelDtls}" update="nwPriRelPnl2"/>
                                                         <f:selectItem itemLabel="Yes" itemValue="Yes"></f:selectItem>
                                                         <f:selectItem itemLabel="No" itemValue="No"></f:selectItem>
                                                     </p:selectOneRadio>
                                                 </div>
                                             </div>
+                                        </p:panel>
+                                        <p:panel id="nwPriRelPnl3" style="border-color: transparent;">
                                             <div class="acc_holder_dtl_block relation_dtl">
                                                 <div class="Container70">
                                                     <div class="Container100">
@@ -1396,7 +1425,7 @@
                                                 <div class="Container20 label_opacity">
                                                     <p:selectOneRadio id="nwPriHldrAccRelRad3"
                                                                       value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerRegularityDetails.uobAcctHolderControlOverTradeAcct}">
-                                                        <p:ajax listener="#{uobCustodyBean.onChngRelDtls}" update="nwPriRelPnl"/>
+                                                        <p:ajax listener="#{uobCustodyBean.onChngRelDtls}" update="nwPriRelPnl3"/>
                                                         <f:selectItem itemLabel="Yes" itemValue="Yes"></f:selectItem>
                                                         <f:selectItem itemLabel="No" itemValue="No"></f:selectItem>
                                                     </p:selectOneRadio>

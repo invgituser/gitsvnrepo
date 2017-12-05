@@ -201,11 +201,9 @@
                                                         <div class="Container100"><span
                                                                 class="title_line">Country / Jurisdiction Of Tax Residence</span>
                                                         </div>
-                                                        <p:selectOneMenu id="priHldrTaxPnlCtry"
-                                                                         value="#{uobCustodyBean.owTaxDtls.jurisdictionOfTaxResidence}">
-                                                            <f:selectItem itemLabel="Select Jurisdiction / Country Of Tax" itemValue="Select"/>
-                                                            <f:selectItems value="#{uobCustodyBean.countries}"/>
-                                                        </p:selectOneMenu>
+                                                        <p:autoComplete id="priHldrTaxPnlCtry" dropdown="true" value="#{uobCustodyBean.owTaxDtls.jurisdictionOfTaxResidence}"
+                                                                        completeMethod="#{uobCustodyBean.completeText}" >
+                                                        </p:autoComplete>
                                                     </div>
                                                     <div class="acc_holder_dtl_block ">
                                                         <div class="Container100 select_item">
@@ -314,10 +312,10 @@
                                             <div class="Container60 Responsive100 select_item">
                                                 <div class="Container100"><span class="title_line">Country / Jurisdiction Of Tax Residence</span>
                                                 </div>
-                                                <p:selectOneMenu id="jointconutry1" value="Select Jurisdiction / Country Of Tax ">
-                                                    <f:selectItem itemLabel="Select Jurisdiction / Country Of Tax" itemValue=""/>
-                                                    <f:selectItems value="#{uobCustodyBean.countries}"/>
-                                                </p:selectOneMenu>
+                                                <!--<p:selectOneMenu id="jointconutry1" value="Select Jurisdiction / Country Of Tax ">-->
+                                                    <!--<f:selectItem itemLabel="Select Jurisdiction / Country Of Tax" itemValue=""/>-->
+                                                    <!--<f:selectItems value="#{uobCustodyBean.countries}"/>-->
+                                                <!--</p:selectOneMenu>-->
 
                                             </div>
 

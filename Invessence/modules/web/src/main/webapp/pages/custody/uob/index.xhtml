@@ -57,7 +57,7 @@
                                         <ui:fragment rendered="#{uobCustodyBean.dsplExtIndAcctInp}">
                                             <div class="Container50 margin-top">
                                                 <p:inputText id="extIndInp" value="#{uobCustodyBean.uobDataMaster.accountDetails.clientAccountID}"
-                                                             placeholder="Enter your existing  Securities Trading account number"/>
+                                                             placeholder="Enter your existing  Securities Trading account number" maxlength="7"/>
                                                 <label for="extIndInp">Securities Trading account number</label>
                                             </div>
                                         </ui:fragment>
@@ -66,7 +66,7 @@
                                         <ui:fragment rendered="#{uobCustodyBean.dsplExtJntAcctCat}">
                                             <div class="Container50 margin-top">
                                                 <p:inputText id="extJntInp" value="#{uobCustodyBean.uobDataMaster.accountDetails.clientAccountID}"
-                                                             placeholder="Enter your existing Joint UOBKH account number"/>
+                                                             placeholder="Enter your existing Joint UOBKH account number" maxlength="7"/>
                                                 <label for="extJntInp">Joint UOBKH account number</label>
                                             </div>
                                         </ui:fragment>
