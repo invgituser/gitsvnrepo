@@ -6,6 +6,7 @@ package com.invessence.custody.uob.data;
 public class AccountMiscDetails
 {
    private String existingTradeAcctNumber;
+   private String isExistingIndividualAcct;
    private String salesPersonName;
 
    @Override
@@ -13,8 +14,19 @@ public class AccountMiscDetails
    {
       return "AccountMiscDetails{" +
          "existingTradeAcctNumber='" + existingTradeAcctNumber + '\'' +
+         ", isExistingIndividualAcct='" + isExistingIndividualAcct + '\'' +
          ", salesPersonName='" + salesPersonName + '\'' +
          '}';
+   }
+
+   public String getIsExistingIndividualAcct()
+   {
+      return isExistingIndividualAcct;
+   }
+
+   public void setIsExistingIndividualAcct(String isExistingIndividualAcct)
+   {
+      this.isExistingIndividualAcct = isExistingIndividualAcct;
    }
 
    public String getSalesPersonName()
