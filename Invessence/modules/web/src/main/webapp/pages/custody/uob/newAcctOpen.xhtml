@@ -115,10 +115,12 @@
                                                         </div>
                                                     </ui:fragment>
                                                     <ui:fragment rendered="#{uobCustodyBean.dsplIcNoInp}">
-                                                        <div class="Container30 Responsive100 ">
+                                                    	
+                                                        <div class="Container30 Responsive100 margin-left ">
+                                                        <span class="title_line">Malaysian IC Number</span>
                                                             <p:inputText id="nwPriHldrIcNo" placeholder="Malaysian IC Number"
                                                                          value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerIdentificationDetails.icno}"/>
-                                                            <label for="nwPriHldrIcNo">Malaysian IC Number</label>
+                                                            <!-- <label for="nwPriHldrIcNo">Malaysian IC Number</label> -->
                                                         </div>
                                                     </ui:fragment>
                                                     <ui:fragment rendered="#{uobCustodyBean.dsplPspNoInp}">

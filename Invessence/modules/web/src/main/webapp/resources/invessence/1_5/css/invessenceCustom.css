@@ -5345,7 +5345,16 @@ span.output_review {
 .ui-autocomplete-panel {
     border-top: solid 3px #a4332f;
     border-bottom: solid 3px #a4332f;}
-
+    .go-bottom input:focus::-moz-placeholder {
+    opacity: 0;    
+}
+.go-bottom textarea:focus::-moz-placeholder {
+    opacity: 0;
+}
+.panel_block .errorText {
+    float: left;
+    margin: 0 0 15px;
+}
 /*** responsive**/
 
 /** 16/10/2017***/
