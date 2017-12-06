@@ -103,6 +103,15 @@ public class CustodySP extends StoredProcedure
             declareParameter(new SqlParameter("p_acctOwnerId", Types.NUMERIC));
             declareParameter(new SqlParameter("p_category", Types.VARCHAR));
             break;
+         case 8:
+            declareParameter(new SqlParameter("p_acctnum", Types.NUMERIC));
+            declareParameter(new SqlParameter("p_name", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_value", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_table", Types.VARCHAR));
+            break;
+         case 9:
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            break;
          default:  // All other (no arg)
             break;
       }
@@ -154,6 +163,15 @@ public class CustodySP extends StoredProcedure
       return execute(inputMap);
    }
 
+   public Map saveAcctMiscDetails(Long acctNum,String name,String value,String table)
+   {
+      Map inputMap = new LinkedHashMap();
+      inputMap.put("p_acctnum", acctNum);
+      inputMap.put("p_name", name);
+      inputMap.put("p_value", value);
+      inputMap.put("p_table", table);
+      return execute(inputMap);
+   }
 
 
    public Map saveAcctEmpDetails(Long acctNum, int acctOwnerId , String p_logonId, OwnerDetails ownerDetails)
@@ -228,7 +246,12 @@ public class CustodySP extends StoredProcedure
       return execute(inputMap);
    }
 
-
+   public Map fetchSalesRepList(String advisor)
+   {
+      Map inputMap = new LinkedHashMap();
+      inputMap.put("p_advisor", advisor);
+      return execute(inputMap);
+   }
 
    public Map nonParamProcCall() {
 

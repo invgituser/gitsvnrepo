@@ -46,7 +46,7 @@
                                                 </div>
                                             </div>
                                             <div class="Container20 label_opacity">
-                                                <p:selectOneRadio id="extAcctIndRad" value="#{uobCustodyBean.extAcctInd}">
+                                                <p:selectOneRadio id="extAcctIndRad" value="#{uobCustodyBean.uobDataMaster.accountDetails.accountMiscDetails.isExistingIndividualAcct}">
                                                     <p:ajax listener="#{uobCustodyBean.onChangeValue}"
                                                             update="extCstmParm"/>
                                                     <f:selectItem itemLabel="Yes" itemValue="Yes"></f:selectItem>
@@ -56,7 +56,7 @@
                                         </ui:fragment>
                                         <ui:fragment rendered="#{uobCustodyBean.dsplExtIndAcctInp}">
                                             <div class="Container50 margin-top">
-                                                <p:inputText id="extIndInp" value="#{uobCustodyBean.uobDataMaster.accountDetails.clientAccountID}"
+                                                <p:inputText id="extIndInp" value="#{uobCustodyBean.uobDataMaster.accountDetails.accountMiscDetails.existingTradeAcctNumber}"
                                                              placeholder="Enter your existing  Securities Trading account number" maxlength="7"/>
                                                 <label for="extIndInp">Securities Trading account number</label>
                                             </div>
@@ -65,7 +65,7 @@
                                     <div class="Container100 margin-top ">
                                         <ui:fragment rendered="#{uobCustodyBean.dsplExtJntAcctCat}">
                                             <div class="Container50 margin-top">
-                                                <p:inputText id="extJntInp" value="#{uobCustodyBean.uobDataMaster.accountDetails.clientAccountID}"
+                                                <p:inputText id="extJntInp" value="#{uobCustodyBean.uobDataMaster.accountDetails.accountMiscDetails.existingTradeAcctNumber}"
                                                              placeholder="Enter your existing Joint UOBKH account number" maxlength="7"/>
                                                 <label for="extJntInp">Joint UOBKH account number</label>
                                             </div>
@@ -75,9 +75,10 @@
 
                                 <ui:fragment rendered="true">
                                     <div class="Container50 margin-top ">
-                                        <p:inputText id="slsPrnNm" placeholder="Sales Person Name"
-                                                     value="#{uobCustodyBean.uobDataMaster.accountDetails.repId}"/>
-                                        <label for="slsPrnNm">Sales Person Name</label>
+                                        <div class="Container100"><span class="title_line">Sales Person Name</span></div>
+                                        <p:autoComplete id="slsPrnNm" dropdown="true" value="#{uobCustodyBean.uobDataMaster.accountDetails.accountMiscDetails.salesPersonName}"
+                                                        completeMethod="#{uobCustodyBean.completeRepText}" >
+                                        </p:autoComplete>
                                     </div>
                                     <div class="Container100 margin-top">
                                         <span class="title_line">What type of account would you like to open?</span>

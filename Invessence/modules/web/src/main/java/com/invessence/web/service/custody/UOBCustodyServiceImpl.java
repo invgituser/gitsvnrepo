@@ -1,8 +1,9 @@
 package com.invessence.web.service.custody;
 
-import java.util.Map;
+import java.util.*;
 import javax.sql.DataSource;
 
+import com.invessence.converter.SQLData;
 import com.invessence.custody.dao.CustodySP;
 import com.invessence.custody.uob.UOBDataMaster;
 import com.invessence.custody.uob.dao.UOBDao;
@@ -159,5 +160,49 @@ public class UOBCustodyServiceImpl  implements CustodyService
          e.printStackTrace();
       }
       return uobDataMaster;
+   }
+
+   @Override
+   public void saveAcctAdditionalDtls(Long acctNum,String name,String value,String table)
+   {
+      try {
+         jdbcTemplate = new JdbcTemplate(dataSource);
+         CustodySP sp = new CustodySP(jdbcTemplate, "save_ao_acct_additional_dtls",8);
+         Map outMap = sp.saveAcctMiscDetails( acctNum,name, value, table);
+      }
+      catch (Exception ex) {
+         System.out.println("UOBCustodyServiceImpl.saveAdditionalDtls Exception "+ex);
+         ex.printStackTrace();
+      }
+   }
+
+   @Override
+   public Map<String, String> fetchSalesRepList(String advisor)
+   {
+      Map<String, String> objMap = new HashMap<String, String>();
+      try
+      {
+         SQLData convert = new SQLData();
+         jdbcTemplate = new JdbcTemplate(dataSource);
+         CustodySP sp = new CustodySP(jdbcTemplate, "sp_advisor_base_rep_lst", 9);
+         Map outMap = sp.fetchSalesRepList(advisor);
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            int i = 0;
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               objMap.put(convert.getStrData(rs.get("displayName")), convert.getStrData(rs.get("rep")));
+               i++;
+            }
+         }
+      }
+      catch (Exception ex)
+      {
+         System.out.println("UOBCustodyServiceImpl.fetchSalesRepList Exception " + ex);
+         ex.printStackTrace();
+      }
+      return objMap;
    }
 }

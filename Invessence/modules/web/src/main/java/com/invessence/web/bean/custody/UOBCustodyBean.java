@@ -37,7 +37,7 @@ public class UOBCustodyBean
    private long beanAcctNum;
    private boolean dsplExtIndAcctCat = false, dsplExtIndAcctInp = false, dsplExtJntAcctCat = false, dsplExtJntAcctInp = false, dsplAcctTyp = false;
    private boolean dspExtAcctPnl = false, dspNewAcctPnl = false, dspIntroAcctPnl = false, dsblSubmtBtn = true, dspJntTab = false;
-   private String acctCat, extAcctInd, extAcctJnt, clientAcctId, slsPrsnNm, selIndAcctTyp, selJntAcctTyp;
+   private String acctCat,  extAcctJnt, clientAcctId, slsPrsnNm, selIndAcctTyp, selJntAcctTyp;
    private Integer activeTab = 0;
    private boolean  dsplOtrCntry = false, dsplIcNoInp = false, dsplPspNoInp = false,dsplSrcIncOtrs=false;
    private Date dtPriHldrDob;
@@ -51,7 +51,9 @@ public class UOBCustodyBean
    private OwnerTaxationDetails owTaxDtls=null;
    private boolean dsplPriHldrTaxTab=false,dsplPriHldrTaxDtl=false,dsplPriHldrTaxRsn=false,dsplPriHldrTaxTin=false,dsplPriHldrTaxRsnPnl=false,disTaxBtn=false,dispTaxAddBtn=false,dispTaxUpdBtn=true;;
    Map<String,Country> countryDetails=(Map<String,Country>) ServiceDetails.genericDetails.get(Constant.GENERIC_DETAILS.COUNTRY.toString());
-   private List <String> countries;
+   private List <String> countries,repList;
+   private Map<String, String> repMap= new HashMap<String, String>();
+
    public void cleanUpAll()
    {
       dsplPriHldrMlPnl=false;
@@ -73,7 +75,6 @@ public class UOBCustodyBean
       dsplIcNoInp = false;
       dsplPspNoInp = false;
       acctCat = null;
-      extAcctInd = null;
       extAcctJnt = null;
       clientAcctId = null;
       slsPrsnNm = null;
@@ -123,6 +124,11 @@ public class UOBCustodyBean
             cleanUpAll();
             uobDataMaster = custodyService.fetch(getBeanAcctNum(), false);
             uobDataMaster.getAccountDetails().setAcctnum(getBeanAcctNum());
+            repMap=custodyService.fetchSalesRepList("UOB");
+            if(repMap!=null &&repMap.size()>0)
+            {
+               repList= new ArrayList<String>(repMap.keySet());
+            }
             onChngNation();
             onChngOtrCntry();
             loadIntroPage();
@@ -243,10 +249,10 @@ public class UOBCustodyBean
 //            dsplExtIndAcctCat = false;
 //         }
 
-         if (getAcctCat().equalsIgnoreCase("yes") && getExtAcctInd() != null)
+         if (getAcctCat().equalsIgnoreCase("yes") && uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct() != null)
          {
             dsplExtIndAcctCat = true;
-            if (getExtAcctInd().equalsIgnoreCase("yes"))
+            if (uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct().equalsIgnoreCase("yes"))
             {
                dsplExtIndAcctInp = true;
                dsplExtJntAcctCat = false;
@@ -278,7 +284,7 @@ public class UOBCustodyBean
          {
             dsplExtIndAcctCat = false;
          }
-         extAcctInd=null;
+         uobDataMaster.getAccountDetails().getAccountMiscDetails().setIsExistingIndividualAcct(null);
          uobDataMaster.getAccountDetails().setClientAccountID(null);
 
 //         dsplExtIndAcctCat = false;
@@ -299,14 +305,16 @@ public class UOBCustodyBean
 
       if (uobDataMaster.getAccountDetails().getAcctTypeId() != null && uobDataMaster.getAccountDetails().getAcctTypeId() != "")
       {
-         if (uobDataMaster.getAccountDetails().getClientAccountID() == null || uobDataMaster.getAccountDetails().getClientAccountID() == "")
+         if (uobDataMaster.getAccountDetails().getAccountMiscDetails().getExistingTradeAcctNumber() == null ||
+            uobDataMaster.getAccountDetails().getAccountMiscDetails().getExistingTradeAcctNumber() == "")
          {
             setAcctCat("No");
+            uobDataMaster.getAccountDetails().getAccountMiscDetails().setIsExistingIndividualAcct(null);
          }
          else
          {
+//            isExistingIndividualAcct
             setAcctCat("Yes");
-            setExtAcctInd("Yes");
          }
          setSelIndAcctTyp("Individual");
 //         onChangeValue0();
@@ -469,7 +477,15 @@ public class UOBCustodyBean
    {
       if (validateIntroPage())
       {
+        String inpSalesPrnNm= uobDataMaster.getAccountDetails().getAccountMiscDetails().getSalesPersonName();
+         String repid=repMap.get(inpSalesPrnNm);
+         if(repid==null || repid.trim().equalsIgnoreCase("")){
+            repid="CATCHALL";
+         }
+         uobDataMaster.getAccountDetails().setRepId(repid);
+
          custodyService.saveAcctDetails(uobDataMaster.getAccountDetails(), "12");
+         saveActAdditionalDtls(uobDataMaster.getAccountDetails().getAccountMiscDetails(), uobDataMaster.getAccountDetails().getAcctnum(), "ao_acct_misc_details");
          dspIntroAcctPnl = false;
          getPagemanager().setPage(0);
          if (getAcctCat().equalsIgnoreCase("yes"))
@@ -500,6 +516,8 @@ public class UOBCustodyBean
          {
             System.out.println("Need to add in validation condition");
          }
+         inpSalesPrnNm=null;
+         repid=null;
       }
    }
 
@@ -515,22 +533,29 @@ public class UOBCustodyBean
       }
       if (acctCat != null && acctCat.equalsIgnoreCase("yes"))
       {
-         if (extAcctInd == null || extAcctInd == "")
+         if (uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct() == null ||
+            uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct() == "")
          {
             dataOK = false;
             sb.append("Please select Is it Individual Account Yes/No.<br/>");
          }
-         if ((extAcctInd != null || extAcctInd != "") && extAcctInd.equalsIgnoreCase("yes"))
+         if ((uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct() != null ||
+            uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct() != "") &&
+            uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct().equalsIgnoreCase("yes"))
          {
-            if (uobDataMaster.getAccountDetails().getClientAccountID() == null || uobDataMaster.getAccountDetails().getClientAccountID().trim().equalsIgnoreCase(""))
+            if (uobDataMaster.getAccountDetails().getAccountMiscDetails().getExistingTradeAcctNumber() == null ||
+               uobDataMaster.getAccountDetails().getAccountMiscDetails().getExistingTradeAcctNumber().trim().equalsIgnoreCase(""))
             {
                dataOK = false;
-               sb.append("Enter your existing  Securities Trading account number is required.<br/>");
+               sb.append("Enter your existing Securities Trading account number is required.<br/>");
             }
          }
-         else if ((extAcctInd != null || extAcctInd != "") && extAcctInd.equalsIgnoreCase("No"))
+         else if ((uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct() != null ||
+            uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct() != "") &&
+            uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct().equalsIgnoreCase("No"))
          {
-            if (uobDataMaster.getAccountDetails().getClientAccountID() == null || uobDataMaster.getAccountDetails().getClientAccountID().trim().equalsIgnoreCase(""))
+            if (uobDataMaster.getAccountDetails().getAccountMiscDetails().getExistingTradeAcctNumber() == null ||
+               uobDataMaster.getAccountDetails().getAccountMiscDetails().getExistingTradeAcctNumber().trim().equalsIgnoreCase(""))
             {
                dataOK = false;
                sb.append("Enter your existing Joint UOBKH account number is required.<br/>");
@@ -717,7 +742,7 @@ public class UOBCustodyBean
             dsplIcNoInp = false;
             dsplPspNoInp = false;
             dsplSingNricInp=false;
-         }else if(uobDataMaster.getIndividualOwnersDetails().getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Singapore Pr")){
+         }else if(uobDataMaster.getIndividualOwnersDetails().getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Singapore PR")){
             dsplNricInp = false;
             dsplOtrCntry = false;
             dsplIcNoInp = false;
@@ -832,17 +857,20 @@ public class UOBCustodyBean
    {
       try
       {
-         dsplNricInp = false;
-         dsplSingNricInp=false;
-         if (uobDataMaster.getIndividualOwnersDetails().getOwnerCitizenshipDetails().getNationalitySpecify().equalsIgnoreCase("malaysia"))
+         if(uobDataMaster.getIndividualOwnersDetails().getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Others"))
          {
-            dsplIcNoInp = true;
-            dsplPspNoInp = false;
-         }
-         else
-         {
-            dsplIcNoInp = false;
-            dsplPspNoInp = true;
+            dsplNricInp = false;
+            dsplSingNricInp = false;
+            if (uobDataMaster.getIndividualOwnersDetails().getOwnerCitizenshipDetails().getNationalitySpecify().equalsIgnoreCase("malaysia"))
+            {
+               dsplIcNoInp = true;
+               dsplPspNoInp = false;
+            }
+            else
+            {
+               dsplIcNoInp = false;
+               dsplPspNoInp = true;
+            }
          }
       }
       catch (Exception e)
@@ -931,12 +959,14 @@ public class UOBCustodyBean
                {
                   SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                   uobDataMaster.getIndividualOwnersDetails().setDob(sdf.format(dtPriHldrDob));
+                  uobDataMaster.getIndividualOwnersDetails().setOwnership("Individual");
                   saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, "", ownDtls);
                }
                else
                {
                   SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-                  uobDataMaster.getIndividualOwnersDetails().setDob(sdf.format(dtPriHldrDob));
+                  uobDataMaster.getJointOwnersDetails().setDob(sdf.format(dtPriHldrDob));
+                  uobDataMaster.getJointOwnersDetails().setOwnership("Joint");
                   saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 2, "", ownDtls);
                }
                break;
@@ -974,12 +1004,14 @@ public class UOBCustodyBean
                {
                   SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                   uobDataMaster.getIndividualOwnersDetails().setDob(sdf.format(dtPriHldrDob));
+                  uobDataMaster.getIndividualOwnersDetails().setOwnership("Individual");
                   saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, "", ownDtls);
                }
                else
                {
                   SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-                  uobDataMaster.getIndividualOwnersDetails().setDob(sdf.format(dtPriHldrDob));
+                  uobDataMaster.getJointOwnersDetails().setDob(sdf.format(dtPriHldrDob));
+                  uobDataMaster.getJointOwnersDetails().setOwnership("Joint");
                   saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 2, "", ownDtls);
                }
                break;
@@ -1091,6 +1123,32 @@ public class UOBCustodyBean
             else
             {
                custodyService.saveAdditionalDtls(acctNum, acctOwnerId, name, value.toString(), table);
+            }
+         }
+
+      }
+      catch (Exception e)
+      {
+
+      }
+   }
+
+   public void saveActAdditionalDtls(Object obj, Long acctNum, String table)
+   {
+      try
+      {
+         Map<String, Object> obMap = getFieldNames(obj, false);
+         for (Map.Entry<String, Object> entry : obMap.entrySet())
+         {
+            String name = entry.getKey();
+            Object value = entry.getValue();
+            if (value == null)
+            {
+               custodyService.saveAcctAdditionalDtls(acctNum,  name, null, table);
+            }
+            else
+            {
+               custodyService.saveAcctAdditionalDtls(acctNum,  name, value.toString(), table);
             }
          }
 
@@ -1894,6 +1952,21 @@ public class UOBCustodyBean
       }
       return MySortStrings;
    }
+   public List<String> completeRepText(String query) {
+      List<String> MySortStrings =new ArrayList<String>();
+      if(query.length()>2)
+      {
+         for (int i = 0; i < repList.size(); i++)
+         {
+            if (repList.get(i).toLowerCase().contains(query.toLowerCase()))
+            {
+               MySortStrings.add(repList.get(i));
+            }
+         }
+      }
+      return MySortStrings;
+   }
+
 
    public void updTaxDtls(OwnerTaxationDetails ownerTaxationDetails){
       try
@@ -2042,16 +2115,6 @@ public class UOBCustodyBean
    public void setDsplAcctTyp(boolean dsplAcctTyp)
    {
       this.dsplAcctTyp = dsplAcctTyp;
-   }
-
-   public String getExtAcctInd()
-   {
-      return extAcctInd;
-   }
-
-   public void setExtAcctInd(String extAcctInd)
-   {
-      this.extAcctInd = extAcctInd;
    }
 
    public String getExtAcctJnt()
@@ -2532,5 +2595,25 @@ public class UOBCustodyBean
    public void setDispTaxUpdBtn(boolean dispTaxUpdBtn)
    {
       this.dispTaxUpdBtn = dispTaxUpdBtn;
+   }
+
+   public List<String> getRepList()
+   {
+      return repList;
+   }
+
+   public void setRepList(List<String> repList)
+   {
+      this.repList = repList;
+   }
+
+   public Map<String, String> getRepMap()
+   {
+      return repMap;
+   }
+
+   public void setRepMap(Map<String, String> repMap)
+   {
+      this.repMap = repMap;
    }
 }
