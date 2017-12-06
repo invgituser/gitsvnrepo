@@ -271,12 +271,15 @@
                                                                 </p:panel>
                                                             </ui:fragment>
                                                         </p:panel>
+                                                        <div class="Container50 float-right">
                                                         <p:commandButton id="taxCnclBtn"
                                                                          value="Cancel"
                                                                          styleClass="uob_button save_btn"
                                                                          update="nwPriHldTaxTab,nwPriHldTaxDtl"
                                                                          actionListener="#{uobCustodyBean.hideTaxDtlPnl}">
                                                         </p:commandButton>
+                                                        </div>
+                                                        <div class="Container50">
                                                         <p:commandButton id="taxUpdBtn"
                                                                          value="Update"
                                                                          styleClass="uob_button save_btn"
@@ -284,6 +287,8 @@
                                                                          rendered="#{uobCustodyBean.dispTaxUpdBtn}"
                                                                          actionListener="#{uobCustodyBean.updateTaxPnl}">
                                                         </p:commandButton>
+                                                        </div>
+                                                        <div class="Container50">
                                                         <p:commandButton id="taxAddBtn"
                                                                          value="Add"
                                                                          styleClass="uob_button save_btn"
@@ -291,6 +296,7 @@
                                                                          rendered="#{uobCustodyBean.dispTaxAddBtn}"
                                                                          actionListener="#{uobCustodyBean.saveTaxPnl}">
                                                         </p:commandButton>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </ui:fragment>

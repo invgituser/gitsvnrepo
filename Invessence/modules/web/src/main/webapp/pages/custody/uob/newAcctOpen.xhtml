@@ -56,7 +56,7 @@
                                                             value="#{uobCustodyBean.dtPriHldrDob}"/>
                                                 <label for="nwPriHldrDob">Date Of Birth</label>
                                             </div>
-                                            <div class="Container25 Responsive100 select_item">
+                                            <div class="Container25 Responsive100 select_item width35" >
                                                 <div class="Container100"><span class="title_line">Country Of Birth</span></div>
                                                 <div class="Container100">
                                                 <p:autoComplete id="nwPriHldrBrtCtry" dropdown="true" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.countryOfBirth}"
@@ -122,10 +122,12 @@
                                                         </div>
                                                     </ui:fragment>
                                                     <ui:fragment rendered="#{uobCustodyBean.dsplPspNoInp}">
-                                                        <div class="Container30 Responsive100 ">
+                                                    	
+                                                        <div class="Container30 Responsive100 margin-left">
+                                                        <span class="title_line">Passport Number</span>
                                                             <p:inputText id="nwPriHldrPsprtNo" placeholder="Passport Number"
                                                                          value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerIdentificationDetails.passport}"/>
-                                                            <label for="nwPriHldrPsprtNo">Passport Number</label>
+                                                            <!-- <label for="nwPriHldrPsprtNo">Passport Number</label> -->
                                                         </div>
                                                     </ui:fragment>
                                                 </div>
@@ -404,17 +406,20 @@
                                             </div>
                                         </div>
                                         <div class="acc_holder_dtl_block">
-                                            <div class="Container30 Responsive100">
+                                            <div class="Container30 Responsive100 select_item">
+                                            <div class="Container100"><span class="title_line">Postal Code</span></div>
                                                 <p:inputText id="nwPriHldrPhyAddrPoCd" placeholder="Postal Code"
                                                              value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.physicalAddressZipCode}"/>
-                                                <label for="nwPriHldrPhyAddrPoCd">Postal Code</label>
+                                                <!-- <label for="nwPriHldrPhyAddrPoCd">Postal Code</label> -->
                                             </div>
-                                            <div class="Container30 Responsive100">
+                                            <div class="Container30 Responsive100 select_item">
+                                            <div class="Container100"><span class="title_line">City / State</span></div>
                                                 <p:inputText id="nwPriHldrPhyAddrCtySt" placeholder="City / State"
                                                              value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.physicalAddressCity}"/>
-                                                <label for="nwPriHldrPhyAddrCtySt">City / State</label>
+                                                <!-- <label for="nwPriHldrPhyAddrCtySt">City / State</label> -->
                                             </div>
-                                            <div class="Container30 Responsive100">
+                                            <div class="Container30 Responsive100 select_item">
+                                            <div class="Container100"><span class="title_line">Country</span></div>
                                                 <p:autoComplete id="nwPriHldrPhyAddrCtry" dropdown="true" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.physicalAddressCountry}"
                                                                 completeMethod="#{uobCustodyBean.completeText}" >
                                                 </p:autoComplete>
@@ -445,17 +450,20 @@
                                                     </div>
                                                 </div>
                                                 <div class="acc_holder_dtl_block">
-                                                    <div class="Container30 Responsive100">
+                                                    <div class="Container30 Responsive100 select_item">
+                                                    	<div class="Container100"><span class="title_line">Postal Code</span></div>
                                                         <p:inputText id="nwPriHldrMlAddrPoCd" placeholder="Postal Code"
                                                                      value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.mailingAddressZipCode}"/>
-                                                        <label for="nwPriHldrMlAddrPoCd">Postal Code</label>
-                                                    </div>
-                                                    <div class="Container30 Responsive100">
-                                                        <p:inputText id="nwPriHldrMlAddrCty" placeholder="City / State"
-                                                                     value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.mailingAddressCity}"/>
-                                                        <label for="nwPriHldrMlAddrCty">City / State</label>
+                                                        <!-- <label for="nwPriHldrMlAddrPoCd">Postal Code</label> -->
                                                     </div>
                                                     <div class="Container30 Responsive100 select_item">
+                                                    	<div class="Container100"><span class="title_line">City / State</span></div>
+                                                        <p:inputText id="nwPriHldrMlAddrCty" placeholder="City / State"
+                                                                     value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.mailingAddressCity}"/>
+                                                        <!-- <label for="nwPriHldrMlAddrCty">City / State</label> -->
+                                                    </div>
+                                                    <div class="Container30 Responsive100 select_item">
+                                                    <div class="Container100"><span class="title_line">Country</span></div>
                                                         <p:autoComplete id="nwPriHldrMlAddrCtry" dropdown="true" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.mailingAddressCountry}"
                                                                         completeMethod="#{uobCustodyBean.completeText}" >
                                                         </p:autoComplete>
@@ -478,6 +486,7 @@
                                         </div>
                                         <div class="acc_holder_dtl_block">
                                             <div class="Container30 Responsive100">
+                                            	
                                                 <input id="postcodejoint" name="postcode" type="text" placeholder="Postal Code"/>
                                                 <label for="postcode">Postal Code</label>
                                             </div>
@@ -654,7 +663,7 @@
                                                         <div class="Container100 select_item">
                                                             <div class="Container40 Responsive100 label_opacity radio_label">
                                                                 <div class="Container60 ">
-                                                                    <span class="title_line">Have Tax Identification Number ?</span>
+                                                                    <span class="title_line">Have Tax Identification Number?</span>
                                                                 </div>
                                                                 <div class="Container20">
                                                                     <p:selectOneRadio id="priHldrTaxPnlTinRad"
@@ -708,12 +717,15 @@
                                                                 </p:panel>
                                                             </ui:fragment>
                                                         </p:panel>
+                                                        <div class="Container50 float-right">
                                                         <p:commandButton id="taxCnclBtn"
                                                                          value="Cancel"
                                                                          styleClass="uob_button save_btn"
                                                                          update="nwPriHldTaxTab,nwPriHldTaxDtl"
                                                                          actionListener="#{uobCustodyBean.hideTaxDtlPnl}">
                                                         </p:commandButton>
+                                                        </div>
+                                                        <div class="Container50">
                                                         <p:commandButton id="taxUpdBtn"
                                                                          value="Update"
                                                                          styleClass="uob_button save_btn"
@@ -721,6 +733,8 @@
                                                                          rendered="#{uobCustodyBean.dispTaxUpdBtn}"
                                                                          actionListener="#{uobCustodyBean.updateTaxPnl}">
                                                         </p:commandButton>
+                                                        </div>
+                                                        <div class="Container50">
                                                         <p:commandButton id="taxAddBtn"
                                                                          value="Add"
                                                                          styleClass="uob_button save_btn"
@@ -728,6 +742,7 @@
                                                                          rendered="#{uobCustodyBean.dispTaxAddBtn}"
                                                                          actionListener="#{uobCustodyBean.saveTaxPnl}">
                                                         </p:commandButton>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </ui:fragment>
@@ -946,19 +961,20 @@
                                                     </div>
                                                 </div>
                                                 <div class="acc_holder_dtl_block">
-                                                    <div class="Container30 Responsive100">
-                                                        <div class="Container100"><span class="title_line"></span></div>
+                                                    <div class="Container30 Responsive100 select_item">
+                                                        <div class="Container100"><span class="title_line">Postal Code</span></div>
                                                         <p:inputText id="nwPriHldrEmpZpCd" placeholder="Postal Code"
                                                                      value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerEmploymentDetails.employerZipCode}"/>
-                                                        <label for="nwPriHldrEmpZpCd">Postal Code</label>
-                                                    </div>
-                                                    <div class="Container30 Responsive100">
-                                                        <div class="Container100"><span class="title_line"></span></div>
-                                                        <p:inputText id="nwPriHldrEmpCty" placeholder="City/State"
-                                                                     value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerEmploymentDetails.employerCity}"/>
-                                                        <label for="nwPriHldrEmpCty">City/State</label>
+                                                        <!-- <label for="nwPriHldrEmpZpCd">Postal Code</label> -->
                                                     </div>
                                                     <div class="Container30 Responsive100 select_item">
+                                                        <div class="Container100"><span class="title_line">City / State</span></div>
+                                                        <p:inputText id="nwPriHldrEmpCty" placeholder="City/State"
+                                                                     value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerEmploymentDetails.employerCity}"/>
+                                                        <!-- <label for="nwPriHldrEmpCty">City/State</label> -->
+                                                    </div>
+                                                    <div class="Container30 Responsive100 select_item">
+                                                    <div class="Container100"><span class="title_line">Country</span></div>
                                                         <p:autoComplete id="nwPriHldrEmpCtry" dropdown="true" value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerEmploymentDetails.employerZipCountry}"
                                                                         completeMethod="#{uobCustodyBean.completeText}" >
                                                         </p:autoComplete>
@@ -1221,7 +1237,7 @@
                                                         <div class="Container100">
                                                             <p:inputText id="nwPriHldrWlthIncInp" placeholder="Please specify Source of Funds/Wealth"
                                                                          value="#{uobCustodyBean.uobDataMaster.individualOwnersDetails.ownersFinancialDetails.sourceOfFundsWealthSpecify}"/>
-                                                            <label for="nwPriHldrWlthIncInp">Please specify Source of Funds/Weath</label>
+                                                            <!-- <label for="nwPriHldrWlthIncInp">Please specify Source of Funds/Weath</label> -->
                                                         </div>
                                                     </div>
                                                 </ui:fragment>

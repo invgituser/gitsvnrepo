@@ -4611,6 +4611,7 @@ th.del_edit_col span {
     width: 97%;
     height: 85px !important;
     padding: 19px 12px 0 5px !important;
+        overflow: hidden !important;
 }
 /*** 12/10/2017 uob account opening page**/
 .Container50 .ui-selectonemenu {width:100%;}
@@ -4766,8 +4767,11 @@ th.del_edit_col span {
     margin: 8px 0;
 }
 .acc_holder_dtl_block .save_btn {
-    margin: 2% 45% 0;
+    margin: 2% ;
 
+}
+.float-right button {
+    float: right;
 }
 .acc_holder_dtl_block .save_btn span {
     color: #fff;
@@ -5331,7 +5335,16 @@ span.output_review {
     padding: 12px 10px !important;
     background: #a4332f;
 }
-
+.width35
+{
+	width:35%;
+}
+.select_item button {
+    display: none;
+}
+.ui-autocomplete-panel {
+    border-top: solid 3px #a4332f;
+    border-bottom: solid 3px #a4332f;}
 
 /*** responsive**/
 
