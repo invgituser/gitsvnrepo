@@ -4452,7 +4452,7 @@ span.external_link_click:hover {
     left: -22px;
 }
 .save_form_btn span {
-    background: #a4332f;
+    background-color: #a4332f !important;
 }
 th.del_edit_col span {
     color: transparent;
@@ -5355,6 +5355,27 @@ span.output_review {
     float: left;
     margin: 0 0 15px;
 }
+
+/** 07/12/217 **/
+.confirmation_donut_dtl .uob_graphTable thead tr th {
+    background-color: #fff !important;
+}
+.uob_graphTable span.ui-column-title {
+    color: #000;
+}
+.confirmation_donut_dtl .uob_graphTable td.ui-state-default {
+    background-color: #fff !important;
+    border: none !important;
+    color: #000 !important;
+}
+.chart_graph .highcharts-container {
+    width: 95% !important;
+}
+.confirmation_donut_dtl .ui-datatable table tbody tr td {
+    border: none !important;
+}
+
+
 /*** responsive**/
 
 /** 16/10/2017***/
