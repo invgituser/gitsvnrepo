@@ -37,28 +37,29 @@ public class UOBCustodyBean
    private long beanAcctNum;
    private boolean dsplExtIndAcctCat = false, dsplExtIndAcctInp = false, dsplExtJntAcctCat = false, dsplExtJntAcctInp = false, dsplAcctTyp = false;
    private boolean dspExtAcctPnl = false, dspNewAcctPnl = false, dspIntroAcctPnl = false, dsblSubmtBtn = true, dspJntTab = false;
-   private String acctCat,  extAcctJnt, clientAcctId, slsPrsnNm, selIndAcctTyp, selJntAcctTyp;
+   private String acctCat, extAcctJnt, clientAcctId, slsPrsnNm, selIndAcctTyp, selJntAcctTyp;
    private Integer activeTab = 0;
-   private boolean  dsplOtrCntry = false, dsplIcNoInp = false, dsplPspNoInp = false,dsplSrcIncOtrs=false;
+   private boolean dsplOtrCntry = false, dsplIcNoInp = false, dsplPspNoInp = false, dsplSrcIncOtrs = false;
    private Date dtPriHldrDob;
    private boolean dsplNwPriRelDtl = false, dsplNwPriInfDtl = false, dsplNwPriCtrlDtl = false;
-   String introError,taxError;
+   String introError, taxError;
    private String priHldrEmpAddr;
-   private  boolean dsplNwPriEmpOtrDtlPnl=false,dsplNwPriEmpMnPnl=false;
-   private String priHldrPhyAddr,priHldrMlAddr;
-   private boolean dsplPriHldrMlPnl=false,dsplSingNricInp=false,dsplNricInp=false;
-   private boolean dsplPriHldrObjPnl1=false,dsplPriHldrObjPnl2=false,dsplPriHldrObjPnl3=false,dsplPriHldrObjPnl4=false;
-   private OwnerTaxationDetails owTaxDtls=null;
-   private boolean dsplPriHldrTaxTab=false,dsplPriHldrTaxDtl=false,dsplPriHldrTaxRsn=false,dsplPriHldrTaxTin=false,dsplPriHldrTaxRsnPnl=false,disTaxBtn=false,dispTaxAddBtn=false,dispTaxUpdBtn=true;;
-   Map<String,Country> countryDetails=(Map<String,Country>) ServiceDetails.genericDetails.get(Constant.GENERIC_DETAILS.COUNTRY.toString());
-   private List <String> countries,repList;
-   private Map<String, String> repMap= new HashMap<String, String>();
+   private boolean dsplNwPriEmpOtrDtlPnl = false, dsplNwPriEmpMnPnl = false;
+   private String priHldrPhyAddr, priHldrMlAddr;
+   private boolean dsplPriHldrMlPnl = false, dsplSingNricInp = false, dsplNricInp = false;
+   private boolean dsplPriHldrObjPnl1 = false, dsplPriHldrObjPnl2 = false, dsplPriHldrObjPnl3 = false, dsplPriHldrObjPnl4 = false;
+   private OwnerTaxationDetails owTaxDtls = null;
+   private boolean dsplPriHldrTaxTab = false, dsplPriHldrTaxDtl = false, dsplPriHldrTaxRsn = false, dsplPriHldrTaxTin = false, dsplPriHldrTaxRsnPnl = false, disTaxBtn = false, dispTaxAddBtn = false, dispTaxUpdBtn = true;
+   ;
+   Map<String, Country> countryDetails = (Map<String, Country>) ServiceDetails.genericDetails.get(Constant.GENERIC_DETAILS.COUNTRY.toString());
+   private List<String> countries, repList;
+   private Map<String, String> repMap = new HashMap<String, String>();
 
    public void cleanUpAll()
    {
-      dsplPriHldrMlPnl=false;
-      priHldrPhyAddr=null;
-      priHldrMlAddr=null;
+      dsplPriHldrMlPnl = false;
+      priHldrPhyAddr = null;
+      priHldrMlAddr = null;
       dsplExtIndAcctCat = false;
       dsplExtIndAcctInp = false;
       dsplExtJntAcctCat = false;
@@ -70,7 +71,7 @@ public class UOBCustodyBean
       dsblSubmtBtn = true;
       dspJntTab = false;
       dsplNricInp = false;
-      dsplSingNricInp=false;
+      dsplSingNricInp = false;
       dsplOtrCntry = false;
       dsplIcNoInp = false;
       dsplPspNoInp = false;
@@ -86,26 +87,26 @@ public class UOBCustodyBean
       dspIntroAcctPnl = true;
       dsblSubmtBtn = true;
       dspJntTab = false;
-      dsplSrcIncOtrs=false;
+      dsplSrcIncOtrs = false;
       dsplNwPriRelDtl = false;
       dsplNwPriInfDtl = false;
       dsplNwPriCtrlDtl = false;
-      dsplNwPriEmpOtrDtlPnl=false;
-      dsplNwPriEmpMnPnl=false;
-      priHldrEmpAddr=null;
+      dsplNwPriEmpOtrDtlPnl = false;
+      dsplNwPriEmpMnPnl = false;
+      priHldrEmpAddr = null;
       dsplPriHldrObjPnl1 = false;
       dsplPriHldrObjPnl2 = false;
       dsplPriHldrObjPnl3 = false;
       dsplPriHldrObjPnl4 = false;
-      owTaxDtls=new OwnerTaxationDetails();
-      dsplPriHldrTaxTab=false;
-      dsplPriHldrTaxDtl=false;
-      dsplPriHldrTaxRsn=false;
-      dsplPriHldrTaxTin=false;
-      dsplPriHldrTaxRsnPnl=false;
-      disTaxBtn=false;
-      dispTaxAddBtn=false;
-      dispTaxUpdBtn=false;
+      owTaxDtls = new OwnerTaxationDetails();
+      dsplPriHldrTaxTab = false;
+      dsplPriHldrTaxDtl = false;
+      dsplPriHldrTaxRsn = false;
+      dsplPriHldrTaxTin = false;
+      dsplPriHldrTaxRsnPnl = false;
+      disTaxBtn = false;
+      dispTaxAddBtn = false;
+      dispTaxUpdBtn = false;
    }
 
    public void initCustody()
@@ -124,10 +125,10 @@ public class UOBCustodyBean
             cleanUpAll();
             uobDataMaster = custodyService.fetch(getBeanAcctNum(), false);
             uobDataMaster.getAccountDetails().setAcctnum(getBeanAcctNum());
-            repMap=custodyService.fetchSalesRepList("UOB");
-            if(repMap!=null &&repMap.size()>0)
+            repMap = custodyService.fetchSalesRepList(getWebutil().getWebprofile().getWebInfo().get("DEFAULT.ADVISOR").toString());
+            if (repMap != null && repMap.size() > 0)
             {
-               repList= new ArrayList<String>(repMap.keySet());
+               repList = new ArrayList<String>(repMap.keySet());
             }
             onChngNation();
             onChngOtrCntry();
@@ -137,26 +138,26 @@ public class UOBCustodyBean
             onChngAddr();
             onChngObj();
             onChngSrcOfInc();
-            owTaxDtls=new OwnerTaxationDetails();
-            countries=new ArrayList<String>();
-//            countries=(List)countryDetails.keySet();
-            countries= new ArrayList<String>(countryDetails.keySet());
+            owTaxDtls = new OwnerTaxationDetails();
+            countries = new ArrayList<String>();
+            countries = new ArrayList<String>(countryDetails.keySet());
 
             if (uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() != null &&
                uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails().size() > 0)
             {
                dsplPriHldrTaxTab = true;
-               disTaxBtn=false;
-            }else if (uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() == null ||
+               disTaxBtn = false;
+            }
+            else if (uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() == null ||
                uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails().size() == 0)
             {
                dsplPriHldrTaxDtl = true;
-               dispTaxAddBtn=true;
+               dispTaxAddBtn = true;
             }
 
-            priHldrEmpAddr=getCstmaddrEmp(uobDataMaster.getIndividualOwnersDetails().getOwnerEmploymentDetails());
-            priHldrPhyAddr=getCstmaPhyAddr(uobDataMaster.getIndividualOwnersDetails());
-            priHldrMlAddr=getCstmaMalAddr(uobDataMaster.getIndividualOwnersDetails());
+            priHldrEmpAddr = getCstmaddrEmp(uobDataMaster.getIndividualOwnersDetails().getOwnerEmploymentDetails());
+            priHldrPhyAddr = getCstmaPhyAddr(uobDataMaster.getIndividualOwnersDetails());
+            priHldrMlAddr = getCstmaMalAddr(uobDataMaster.getIndividualOwnersDetails());
 
             if (uobDataMaster.getIndividualOwnersDetails().getDob() == null ||
                uobDataMaster.getIndividualOwnersDetails().getDob().equalsIgnoreCase(""))
@@ -176,7 +177,8 @@ public class UOBCustodyBean
       }
    }
 
-   public String getCstmaddrEmp(OwnerEmploymentDetails ownerEmploymentDetails){
+   public String getCstmaddrEmp(OwnerEmploymentDetails ownerEmploymentDetails)
+   {
       StringBuilder sb = new StringBuilder();
       if (ownerEmploymentDetails.getEmployerStreetAddress1() != null)
       {
@@ -190,13 +192,15 @@ public class UOBCustodyBean
       {
          sb.append(ownerEmploymentDetails.getEmployerStreetAddress3() + "");
       }
-      if(sb.length()>0){
+      if (sb.length() > 0)
+      {
          return sb.toString();
       }
       return null;
    }
 
-   public String getCstmaPhyAddr(OwnerDetails ownerDetails){
+   public String getCstmaPhyAddr(OwnerDetails ownerDetails)
+   {
       StringBuilder sb = new StringBuilder();
       if (ownerDetails.getPhysicalAddressStreet1() != null)
       {
@@ -210,13 +214,15 @@ public class UOBCustodyBean
       {
          sb.append(ownerDetails.getPhysicalAddressStreet3() + "");
       }
-      if(sb.length()>0){
+      if (sb.length() > 0)
+      {
          return sb.toString();
       }
       return null;
    }
 
-   public String getCstmaMalAddr(OwnerDetails ownerDetails){
+   public String getCstmaMalAddr(OwnerDetails ownerDetails)
+   {
       StringBuilder sb = new StringBuilder();
       if (ownerDetails.getMailingAddressStreet1() != null)
       {
@@ -230,25 +236,17 @@ public class UOBCustodyBean
       {
          sb.append(ownerDetails.getMailingAddressStreet3() + "");
       }
-      if(sb.length()>0){
+      if (sb.length() > 0)
+      {
          return sb.toString();
       }
       return null;
    }
+
    public void onChangeValue()
    {
       try
       {
-//         if (getAcctCat().equalsIgnoreCase("yes"))
-//         {
-//            dsplExtIndAcctCat = true;
-//
-//         }
-//         else
-//         {
-//            dsplExtIndAcctCat = false;
-//         }
-
          if (getAcctCat().equalsIgnoreCase("yes") && uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct() != null)
          {
             dsplExtIndAcctCat = true;
@@ -278,7 +276,6 @@ public class UOBCustodyBean
          if (getAcctCat().equalsIgnoreCase("yes"))
          {
             dsplExtIndAcctCat = true;
-
          }
          else
          {
@@ -286,12 +283,8 @@ public class UOBCustodyBean
          }
          uobDataMaster.getAccountDetails().getAccountMiscDetails().setIsExistingIndividualAcct(null);
          uobDataMaster.getAccountDetails().setClientAccountID(null);
-
-//         dsplExtIndAcctCat = false;
          dsplExtIndAcctInp = false;
          dsplExtJntAcctCat = false;
-
-
       }
       catch (Exception e)
       {
@@ -302,7 +295,6 @@ public class UOBCustodyBean
 
    public void loadIntroPage()
    {
-
       if (uobDataMaster.getAccountDetails().getAcctTypeId() != null && uobDataMaster.getAccountDetails().getAcctTypeId() != "")
       {
          if (uobDataMaster.getAccountDetails().getAccountMiscDetails().getExistingTradeAcctNumber() == null ||
@@ -313,15 +305,12 @@ public class UOBCustodyBean
          }
          else
          {
-//            isExistingIndividualAcct
             setAcctCat("Yes");
          }
          setSelIndAcctTyp("Individual");
-//         onChangeValue0();
          if (getAcctCat().equalsIgnoreCase("yes"))
          {
             dsplExtIndAcctCat = true;
-
          }
          else
          {
@@ -340,37 +329,47 @@ public class UOBCustodyBean
       System.out.println("selJntAcctTyp " + selJntAcctTyp);
    }
 
-   public void onChngObj(){
-      try{
-         if(!hasRequiredData(uobDataMaster.getIndividualOwnersDetails().getOwnersFinancialDetails().getPreviousInvestingExperience(),"No")){
-            dsplPriHldrObjPnl1=false;
-         }else{
-            dsplPriHldrObjPnl1=true;
+   public void onChngObj()
+   {
+      try
+      {
+         if (!hasRequiredData(uobDataMaster.getIndividualOwnersDetails().getOwnersFinancialDetails().getPreviousInvestingExperience(), "No"))
+         {
+            dsplPriHldrObjPnl1 = false;
          }
-
-         if(!hasRequiredData(uobDataMaster.getIndividualOwnersDetails().getOwnersFinancialDetails().getInvestmentObjectives(),"Others")){
-            dsplPriHldrObjPnl2=true;
-            if(uobDataMaster.getIndividualOwnersDetails().getOwnersFinancialDetails().getInvestmentObjectives().equalsIgnoreCase("Select")){
-               dsplPriHldrObjPnl2=false;
+         else
+         {
+            dsplPriHldrObjPnl1 = true;
+         }
+         dsplPriHldrObjPnl2 = false;
+         if (hasRequiredData(uobDataMaster.getIndividualOwnersDetails().getOwnersFinancialDetails().getInvestmentObjectives()))
+         {
+            if (uobDataMaster.getIndividualOwnersDetails().getOwnersFinancialDetails().getInvestmentObjectives().equalsIgnoreCase("Others"))
+            {
+               dsplPriHldrObjPnl2 = true;
             }
-         }else{
-            dsplPriHldrObjPnl2=false;
          }
 
-         if(!hasRequiredData(uobDataMaster.getIndividualOwnersDetails().getOwnersFinancialDetails().getAreYouUnableToPayYouDebts(),"No")){
-            dsplPriHldrObjPnl3=false;
-         }else{
-            dsplPriHldrObjPnl3=true;
+         if (!hasRequiredData(uobDataMaster.getIndividualOwnersDetails().getOwnersFinancialDetails().getAreYouUnableToPayYouDebts(), "No"))
+         {
+            dsplPriHldrObjPnl3 = false;
+         }
+         else
+         {
+            dsplPriHldrObjPnl3 = true;
          }
 
-         if(!hasRequiredData(uobDataMaster.getIndividualOwnersDetails().getOwnersFinancialDetails().getDoYouHaveAnyDisputedAccount(),"No")){
-            dsplPriHldrObjPnl4=false;
-         }else{
-            dsplPriHldrObjPnl4=true;
+         if (!hasRequiredData(uobDataMaster.getIndividualOwnersDetails().getOwnersFinancialDetails().getDoYouHaveAnyDisputedAccount(), "No"))
+         {
+            dsplPriHldrObjPnl4 = false;
          }
-
-      }catch (Exception e){
-
+         else
+         {
+            dsplPriHldrObjPnl4 = true;
+         }
+      }
+      catch (Exception e)
+      {
       }
    }
 
@@ -378,20 +377,25 @@ public class UOBCustodyBean
    {
       try
       {
-         if (owTaxDtls.getIsTINAvailable() == null || owTaxDtls.getIsTINAvailable().equalsIgnoreCase("Yes"))
+         if(owTaxDtls.getIsTINAvailable() != null)
          {
-            dsplPriHldrTaxTin = true;
+            if (owTaxDtls.getIsTINAvailable().equalsIgnoreCase("Yes"))
+            {
+               dsplPriHldrTaxTin = true;
+               dsplPriHldrTaxRsnPnl = false;
+            }
+            else
+            {
+               dsplPriHldrTaxTin = false;
+               dsplPriHldrTaxRsnPnl = true;
+            }
+         }else{
+            dsplPriHldrTaxTin=false;
             dsplPriHldrTaxRsnPnl=false;
-         }
-         else
-         {
-            dsplPriHldrTaxTin = false;
-            dsplPriHldrTaxRsnPnl=true;
          }
       }
       catch (Exception e)
       {
-
       }
    }
 
@@ -410,7 +414,6 @@ public class UOBCustodyBean
       }
       catch (Exception e)
       {
-
       }
    }
 
@@ -424,10 +427,10 @@ public class UOBCustodyBean
          if (uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() != null &&
             uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails().size() > 0)
          {
-            disTaxBtn=true;
+            disTaxBtn = true;
          }
-         dispTaxAddBtn=true;
-         dispTaxUpdBtn=false;
+         dispTaxAddBtn = true;
+         dispTaxUpdBtn = false;
       }
       catch (Exception e)
       {
@@ -441,20 +444,20 @@ public class UOBCustodyBean
          dsplPriHldrTaxTab = true;
          dsplPriHldrTaxDtl = false;
          owTaxDtls = new OwnerTaxationDetails();
-         dsplPriHldrTaxTin=false;
-         disTaxBtn=false;
+         dsplPriHldrTaxTin = false;
+         disTaxBtn = false;
          onChngTin();
          onChngRsn();
          owTaxDtls = new OwnerTaxationDetails();
-         dsplPriHldrTaxTin=false;
-
+         dsplPriHldrTaxTin = false;
          if (uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() != null &&
             uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails().size() > 0)
          {
             dsplPriHldrTaxTab = true;
             dsplPriHldrTaxDtl = false;
-            disTaxBtn=false;
-         }else if (uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() == null ||
+            disTaxBtn = false;
+         }
+         else if (uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() == null ||
             uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails().size() == 0)
          {
             dsplPriHldrTaxDtl = true;
@@ -477,36 +480,39 @@ public class UOBCustodyBean
    {
       if (validateIntroPage())
       {
-        String inpSalesPrnNm= uobDataMaster.getAccountDetails().getAccountMiscDetails().getSalesPersonName();
-         String repid=repMap.get(inpSalesPrnNm);
-         if(repid==null || repid.trim().equalsIgnoreCase("")){
-            repid="CATCHALL";
+         String inpSalesPrnNm = uobDataMaster.getAccountDetails().getAccountMiscDetails().getSalesPersonName();
+         String repid = repMap.get(inpSalesPrnNm);
+         if (repid == null || repid.trim().equalsIgnoreCase(""))
+         {
+            repid = "CATCHALL";
          }
          uobDataMaster.getAccountDetails().setRepId(repid);
-
-         custodyService.saveAcctDetails(uobDataMaster.getAccountDetails(), "12");
+         custodyService.saveAcctDetails(uobDataMaster.getAccountDetails(), getWebutil().getUserInfoData().getLogonID().toString());
          saveActAdditionalDtls(uobDataMaster.getAccountDetails().getAccountMiscDetails(), uobDataMaster.getAccountDetails().getAcctnum(), "ao_acct_misc_details");
          dspIntroAcctPnl = false;
          getPagemanager().setPage(0);
-         if (getAcctCat().equalsIgnoreCase("yes"))
+         boolean bflag=true;
+         if(getAcctCat().equalsIgnoreCase("yes") &&
+            uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct()!=null &&
+            uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct().equalsIgnoreCase("No")){
+            bflag=false;
+         }
+
+         if (getAcctCat().equalsIgnoreCase("yes") && bflag)
          {
             dspExtAcctPnl = true;
             dspNewAcctPnl = false;
             setPagemanager(new PagesImpl(2));
             Integer currentPage = getPagemanager().getPage();
             getPagemanager().initPage();
-//         resetActiveTab(0);
             getPagemanager().setLastPageVisited(currentPage);
             getPagemanager().clearAllErrorMessage();
-
          }
-         else if (getAcctCat().equalsIgnoreCase("no"))
+         else if (getAcctCat().equalsIgnoreCase("no") || !bflag)
          {
-
             setPagemanager(new PagesImpl(8));
             Integer currentPage = getPagemanager().getPage();
             getPagemanager().initPage();
-//         resetActiveTab(0);
             getPagemanager().setLastPageVisited(currentPage);
             getPagemanager().clearAllErrorMessage();
             dspExtAcctPnl = false;
@@ -516,8 +522,8 @@ public class UOBCustodyBean
          {
             System.out.println("Need to add in validation condition");
          }
-         inpSalesPrnNm=null;
-         repid=null;
+         inpSalesPrnNm = null;
+         repid = null;
       }
    }
 
@@ -527,49 +533,33 @@ public class UOBCustodyBean
       StringBuilder sb = new StringBuilder();
       if (acctCat == null || acctCat == "")
       {
-         dataOK = false;
-//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.acctType.exist", "Please select Existing securities trading account on UOBKH Yes/No!", null));
          sb.append("Please select Existing securities trading account on UOBKH Yes/No.<br/>");
       }
       if (acctCat != null && acctCat.equalsIgnoreCase("yes"))
       {
-         if (uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct() == null ||
-            uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct() == "")
+         if (!hasRequiredData(uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct()))
          {
-            dataOK = false;
             sb.append("Please select Is it Individual Account Yes/No.<br/>");
          }
-         if ((uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct() != null ||
-            uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct() != "") &&
-            uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct().equalsIgnoreCase("yes"))
+         if (hasData(uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct()) &&
+            !hasRequiredData(uobDataMaster.getAccountDetails().getAccountMiscDetails().getExistingTradeAcctNumber()))
          {
-            if (uobDataMaster.getAccountDetails().getAccountMiscDetails().getExistingTradeAcctNumber() == null ||
-               uobDataMaster.getAccountDetails().getAccountMiscDetails().getExistingTradeAcctNumber().trim().equalsIgnoreCase(""))
+            if (uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct().equalsIgnoreCase("yes"))
             {
-               dataOK = false;
                sb.append("Enter your existing Securities Trading account number is required.<br/>");
             }
-         }
-         else if ((uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct() != null ||
-            uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct() != "") &&
-            uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct().equalsIgnoreCase("No"))
-         {
-            if (uobDataMaster.getAccountDetails().getAccountMiscDetails().getExistingTradeAcctNumber() == null ||
-               uobDataMaster.getAccountDetails().getAccountMiscDetails().getExistingTradeAcctNumber().trim().equalsIgnoreCase(""))
+            else if (uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct().equalsIgnoreCase("No"))
             {
-               dataOK = false;
                sb.append("Enter your existing Joint UOBKH account number is required.<br/>");
             }
          }
       }
-      if (uobDataMaster.getAccountDetails().getRepId() == null || uobDataMaster.getAccountDetails().getRepId().trim().equalsIgnoreCase(""))
+      if (!hasRequiredData(uobDataMaster.getAccountDetails().getAccountMiscDetails().getSalesPersonName()))
       {
-         dataOK = false;
          sb.append("Sales Person Name is required.<br/>");
       }
-      if (uobDataMaster.getAccountDetails().getAcctTypeId() == null || uobDataMaster.getAccountDetails().getAcctTypeId() == "")
+      if (!hasRequiredData(uobDataMaster.getAccountDetails().getAcctTypeId()))
       {
-         dataOK = false;
          sb.append("Type of account like to open is required.<br/>");
       }
       if (sb.length() > 0)
@@ -582,115 +572,127 @@ public class UOBCustodyBean
          dataOK = true;
          introError = null;
       }
-
       return dataOK;
    }
 
-   public void updateTaxPnl(){
-      if(validateTaxPnl()){
-//         uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() Need to remove this code by object
-         custodyService.deleteSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(),1,"Taxation");
-         List<OwnerTaxationDetails>  lst=uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails();
-//         lst.add(owTaxDtls.getId()-1,owTaxDtls);
-//         lst.add(owTaxDtls);
-         for(int i=0;i<lst.size();i++){
-            OwnerTaxationDetails owTaxDtl=lst.get(i);
-            if(i==owTaxDtls.getId()-1){
-               owTaxDtl=owTaxDtls;
+   public void updateTaxPnl()
+   {
+      if (validateTaxPnl())
+      {
+         custodyService.deleteSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, "Taxation");
+         List<OwnerTaxationDetails> lst = uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails();
+         for (int i = 0; i < lst.size(); i++)
+         {
+            OwnerTaxationDetails owTaxDtl = lst.get(i);
+            if (i == owTaxDtls.getId() - 1)
+            {
+               owTaxDtl = owTaxDtls;
             }
-            if(hasRequiredData(owTaxDtl.getIsTINAvailable())){
-               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1,i+1,"Taxation","isTINAvailable",owTaxDtl.getIsTINAvailable());
+            if (hasRequiredData(owTaxDtl.getIsTINAvailable()))
+            {
+               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, i + 1, "Taxation", "isTINAvailable", owTaxDtl.getIsTINAvailable());
             }
-            if(hasRequiredData(owTaxDtl.getJurisdictionOfTaxResidence())){
-               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1,i+1,"Taxation","jurisdictionOfTaxResidence",owTaxDtl.getJurisdictionOfTaxResidence());
+            if (hasRequiredData(owTaxDtl.getJurisdictionOfTaxResidence()))
+            {
+               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, i + 1, "Taxation", "jurisdictionOfTaxResidence", owTaxDtl.getJurisdictionOfTaxResidence());
             }
-            if(hasRequiredData(owTaxDtl.getTaxIdentificationNumber())){
-               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1,i+1,"Taxation","taxIdentificationNumber",owTaxDtl.getTaxIdentificationNumber());
+            if (hasRequiredData(owTaxDtl.getTaxIdentificationNumber()))
+            {
+               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, i + 1, "Taxation", "taxIdentificationNumber", owTaxDtl.getTaxIdentificationNumber());
             }
-            if(hasRequiredData(owTaxDtl.getTinUnavailableReason())){
-               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1,i+1,"Taxation","tinUnavailableReason",owTaxDtl.getTinUnavailableReason());
+            if (hasRequiredData(owTaxDtl.getTinUnavailableReason()))
+            {
+               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, i + 1, "Taxation", "tinUnavailableReason", owTaxDtl.getTinUnavailableReason());
             }
-            if(hasRequiredData(owTaxDtl.getTinUnavailableValue())){
-               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1,i+1,"Taxation","tinUnavailableValue",owTaxDtl.getTinUnavailableValue());
+            if (hasRequiredData(owTaxDtl.getTinUnavailableValue()))
+            {
+               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, i + 1, "Taxation", "tinUnavailableValue", owTaxDtl.getTinUnavailableValue());
             }
          }
-
          dsplPriHldrTaxTab = true;
          dsplPriHldrTaxDtl = false;
          owTaxDtls = new OwnerTaxationDetails();
-         dsplPriHldrTaxTin=false;
-         disTaxBtn=false;
+         dsplPriHldrTaxTin = false;
+         disTaxBtn = false;
+         lst = null;
       }
-
    }
 
-   public void saveTaxPnl(){
-      if(validateTaxPnl()){
-//         uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() Need to remove this code by object
-         custodyService.deleteSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(),1,"Taxation");
-         List<OwnerTaxationDetails>  lst=uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails();
-         if(lst!=null && lst.size()>0)
+   public void saveTaxPnl()
+   {
+      if (validateTaxPnl())
+      {
+         custodyService.deleteSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, "Taxation");
+         List<OwnerTaxationDetails> lst = uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails();
+         if (lst != null && lst.size() > 0)
          {
-            owTaxDtls.setId(lst.size()+1);
-         }else{
+            owTaxDtls.setId(lst.size() + 1);
+         }
+         else
+         {
             owTaxDtls.setId(1);
          }
          lst.add(owTaxDtls);
-         for(int i=0;i<lst.size();i++){
-            OwnerTaxationDetails owTaxDtl=lst.get(i);
-            if(hasRequiredData(owTaxDtl.getIsTINAvailable())){
-               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1,i+1,"Taxation","isTINAvailable",owTaxDtl.getIsTINAvailable());
+         for (int i = 0; i < lst.size(); i++)
+         {
+            OwnerTaxationDetails owTaxDtl = lst.get(i);
+            if (hasRequiredData(owTaxDtl.getIsTINAvailable()))
+            {
+               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, i + 1, "Taxation", "isTINAvailable", owTaxDtl.getIsTINAvailable());
             }
-            if(hasRequiredData(owTaxDtl.getJurisdictionOfTaxResidence())){
-               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1,i+1,"Taxation","jurisdictionOfTaxResidence",owTaxDtl.getJurisdictionOfTaxResidence());
+            if (hasRequiredData(owTaxDtl.getJurisdictionOfTaxResidence()))
+            {
+               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, i + 1, "Taxation", "jurisdictionOfTaxResidence", owTaxDtl.getJurisdictionOfTaxResidence());
             }
-            if(hasRequiredData(owTaxDtl.getTaxIdentificationNumber())){
-               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1,i+1,"Taxation","taxIdentificationNumber",owTaxDtl.getTaxIdentificationNumber());
+            if (hasRequiredData(owTaxDtl.getTaxIdentificationNumber()))
+            {
+               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, i + 1, "Taxation", "taxIdentificationNumber", owTaxDtl.getTaxIdentificationNumber());
             }
-            if(hasRequiredData(owTaxDtl.getTinUnavailableReason())){
-               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1,i+1,"Taxation","tinUnavailableReason",owTaxDtl.getTinUnavailableReason());
+            if (hasRequiredData(owTaxDtl.getTinUnavailableReason()))
+            {
+               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, i + 1, "Taxation", "tinUnavailableReason", owTaxDtl.getTinUnavailableReason());
             }
-            if(hasRequiredData(owTaxDtl.getTinUnavailableValue())){
-               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1,i+1,"Taxation","tinUnavailableValue",owTaxDtl.getTinUnavailableValue());
+            if (hasRequiredData(owTaxDtl.getTinUnavailableValue()))
+            {
+               custodyService.saveSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, i + 1, "Taxation", "tinUnavailableValue", owTaxDtl.getTinUnavailableValue());
             }
          }
-
          dsplPriHldrTaxTab = true;
          dsplPriHldrTaxDtl = false;
          owTaxDtls = new OwnerTaxationDetails();
-         dsplPriHldrTaxTin=false;
-         disTaxBtn=false;
+         dsplPriHldrTaxTin = false;
+         disTaxBtn = false;
+         lst = null;
       }
-
    }
 
    public boolean validateTaxPnl()
    {
       Boolean dataOK = true;
       StringBuilder sb = new StringBuilder();
+      taxError=null;
       if (!hasRequiredData(owTaxDtls.getJurisdictionOfTaxResidence()) || owTaxDtls.getJurisdictionOfTaxResidence().trim().equalsIgnoreCase(""))
       {
-         dataOK = false;
          sb.append("Country / Jurisdiction of tax residence is required.<br/>");
       }
-      if(!hasRequiredData(owTaxDtls.getIsTINAvailable()) ){
-         dataOK = false;
+      if (!hasRequiredData(owTaxDtls.getIsTINAvailable()))
+      {
          sb.append("Tax Identification Number (Yes / No ) is required.<br/>");
       }
-      if(owTaxDtls.getIsTINAvailable()!=null && owTaxDtls.getIsTINAvailable().equalsIgnoreCase("Yes") && !hasRequiredData(owTaxDtls.getTaxIdentificationNumber())){
-         dataOK = false;
+      if (owTaxDtls.getIsTINAvailable() != null && owTaxDtls.getIsTINAvailable().equalsIgnoreCase("Yes") && !hasRequiredData(owTaxDtls.getTaxIdentificationNumber()))
+      {
          sb.append("Tax Identification Number is required.<br/>");
       }
-      if(owTaxDtls.getIsTINAvailable()!=null && owTaxDtls.getIsTINAvailable().equalsIgnoreCase("No") && !hasRequiredData(owTaxDtls.getTinUnavailableReason())){
-         dataOK = false;
+      if (owTaxDtls.getIsTINAvailable() != null && owTaxDtls.getIsTINAvailable().equalsIgnoreCase("No") && !hasRequiredData(owTaxDtls.getTinUnavailableReason()))
+      {
          sb.append("Reason for no Tax identification number is required.<br/>");
       }
-
-      if(owTaxDtls.getIsTINAvailable()!=null && owTaxDtls.getIsTINAvailable().equalsIgnoreCase("No") && !hasRequiredData(owTaxDtls.getTinUnavailableReason())){
-         dataOK = false;
-         sb.append("Reason for no Tax identification number is required.<br/>");
+      if (owTaxDtls.getIsTINAvailable() != null && owTaxDtls.getIsTINAvailable().equalsIgnoreCase("No") &&
+         (owTaxDtls.getTinUnavailableReason()!=null && owTaxDtls.getTinUnavailableReason().equalsIgnoreCase("B")) &&
+         !hasRequiredData(owTaxDtls.getTinUnavailableValue()))
+      {
+         sb.append("Explaination for Reason B is required.<br/>");
       }
-
       if (sb.length() > 0)
       {
          dataOK = false;
@@ -701,6 +703,7 @@ public class UOBCustodyBean
          dataOK = true;
          taxError = null;
       }
+      sb=null;
       return dataOK;
    }
 
@@ -710,13 +713,15 @@ public class UOBCustodyBean
       if (validate(getPagemanager().getPage(), getAcctCat(), false))
       {
          saveDetails(getPagemanager().getPage(), getAcctCat(), false);
-
          getPagemanager().clearAllErrorMessage();
-         if(getPagemanager().isLastPage()){
-            dsblSubmtBtn=false;
-         }else{
+         if (getPagemanager().isLastPage())
+         {
+            dsblSubmtBtn = false;
+         }
+         else
+         {
             getPagemanager().nextPage();
-            dsblSubmtBtn=true;
+            dsblSubmtBtn = true;
          }
          System.out.println("page next" + getPagemanager().getPage());
          activeTab = getPagemanager().getPage();
@@ -741,18 +746,20 @@ public class UOBCustodyBean
             dsplOtrCntry = false;
             dsplIcNoInp = false;
             dsplPspNoInp = false;
-            dsplSingNricInp=false;
-         }else if(uobDataMaster.getIndividualOwnersDetails().getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Singapore PR")){
+            dsplSingNricInp = false;
+         }
+         else if (uobDataMaster.getIndividualOwnersDetails().getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Singapore PR"))
+         {
             dsplNricInp = false;
             dsplOtrCntry = false;
             dsplIcNoInp = false;
             dsplPspNoInp = false;
-            dsplSingNricInp=true;
+            dsplSingNricInp = true;
          }
          else
          {
             dsplNricInp = false;
-            dsplSingNricInp=false;
+            dsplSingNricInp = false;
             dsplOtrCntry = true;
             dsplIcNoInp = false;
             dsplPspNoInp = false;
@@ -763,43 +770,59 @@ public class UOBCustodyBean
       }
    }
 
-   public void onChngEmplt(){
-      try{
-         if(uobDataMaster.getIndividualOwnersDetails().getOwnerEmploymentDetails().getEmplTypeId()==null ||
-            uobDataMaster.getIndividualOwnersDetails().getOwnerEmploymentDetails().getEmplTypeId().equalsIgnoreCase("UnEmployed")){
-            dsplNwPriEmpMnPnl=false;
+   public void onChngEmplt()
+   {
+      try
+      {
+         if (uobDataMaster.getIndividualOwnersDetails().getOwnerEmploymentDetails().getEmplTypeId() == null ||
+            uobDataMaster.getIndividualOwnersDetails().getOwnerEmploymentDetails().getEmplTypeId().equalsIgnoreCase("UnEmployed"))
+         {
+            dsplNwPriEmpMnPnl = false;
 
             uobDataMaster.getIndividualOwnersDetails().getOwnerEmploymentDetails().setOccupation(null);
             uobDataMaster.getIndividualOwnersDetails().getOwnerEmploymentDetails().setEmployerName(null);
-            priHldrEmpAddr=null;
+            priHldrEmpAddr = null;
             uobDataMaster.getIndividualOwnersDetails().getOwnerEmploymentDetails().setEmployerZipCode(null);
             uobDataMaster.getIndividualOwnersDetails().getOwnerEmploymentDetails().setEmployerCity(null);
             uobDataMaster.getIndividualOwnersDetails().getOwnerEmploymentDetails().setEmployerZipCountry(null);
-         }else{
-            dsplNwPriEmpMnPnl=true;
+         }
+         else
+         {
+            dsplNwPriEmpMnPnl = true;
          }
 
-         if(uobDataMaster.getIndividualOwnersDetails().getOwnerMiscDetails().getQualifications()!=null &&
-            uobDataMaster.getIndividualOwnersDetails().getOwnerMiscDetails().getQualifications().equalsIgnoreCase("Others")){
-            dsplNwPriEmpOtrDtlPnl=true;
-         }else{
-            dsplNwPriEmpOtrDtlPnl=false;
+         if (uobDataMaster.getIndividualOwnersDetails().getOwnerMiscDetails().getQualifications() != null &&
+            uobDataMaster.getIndividualOwnersDetails().getOwnerMiscDetails().getQualifications().equalsIgnoreCase("Others"))
+         {
+            dsplNwPriEmpOtrDtlPnl = true;
          }
-      }catch (Exception e){}
+         else
+         {
+            dsplNwPriEmpOtrDtlPnl = false;
+         }
+      }
+      catch (Exception e)
+      {
+      }
    }
 
-   public void onChngAddr(){
+   public void onChngAddr()
+   {
       try
       {
-         if(uobDataMaster.getIndividualOwnersDetails().getOwnerMiscDetails().getMailAddressSameAsPhysical()==null ||
+         if (uobDataMaster.getIndividualOwnersDetails().getOwnerMiscDetails().getMailAddressSameAsPhysical() == null ||
             uobDataMaster.getIndividualOwnersDetails().getOwnerMiscDetails().getMailAddressSameAsPhysical().equalsIgnoreCase("Yes"))
          {
-            dsplPriHldrMlPnl=false;
-         }else{
-            dsplPriHldrMlPnl=true;
+            dsplPriHldrMlPnl = false;
+         }
+         else
+         {
+            dsplPriHldrMlPnl = true;
          }
 
-      }catch (Exception e){
+      }
+      catch (Exception e)
+      {
 
       }
    }
@@ -809,7 +832,7 @@ public class UOBCustodyBean
    {
       try
       {
-         if (uobDataMaster.getIndividualOwnersDetails().getOwnersFinancialDetails().getSourceOfFundsWealth().equalsIgnoreCase("Others") )
+         if (uobDataMaster.getIndividualOwnersDetails().getOwnersFinancialDetails().getSourceOfFundsWealth().equalsIgnoreCase("Others"))
          {
             dsplSrcIncOtrs = true;
          }
@@ -823,32 +846,45 @@ public class UOBCustodyBean
       }
    }
 
-   public void onChngRelDtls(){
-      try{
-         if(uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getRelatedToAnyEmplfUOB()== null ||
+   public void onChngRelDtls()
+   {
+      try
+      {
+         if (uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getRelatedToAnyEmplfUOB() == null ||
             uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getRelatedToAnyEmplfUOB().trim().equalsIgnoreCase("") ||
-            uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getRelatedToAnyEmplfUOB().equalsIgnoreCase("No")){
-            dsplNwPriRelDtl=false;
-         }else{
-            dsplNwPriRelDtl=true;
+            uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getRelatedToAnyEmplfUOB().equalsIgnoreCase("No"))
+         {
+            dsplNwPriRelDtl = false;
+         }
+         else
+         {
+            dsplNwPriRelDtl = true;
          }
 
-         if(uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getControlOverUOBAcct()== null ||
+         if (uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getControlOverUOBAcct() == null ||
             uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getControlOverUOBAcct().trim().equalsIgnoreCase("") ||
-            uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getControlOverUOBAcct().equalsIgnoreCase("No")){
-            dsplNwPriInfDtl=false;
-         }else{
-            dsplNwPriInfDtl=true;
+            uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getControlOverUOBAcct().equalsIgnoreCase("No"))
+         {
+            dsplNwPriInfDtl = false;
+         }
+         else
+         {
+            dsplNwPriInfDtl = true;
          }
 
-         if(uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcct()== null ||
+         if (uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcct() == null ||
             uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcct().trim().equalsIgnoreCase("") ||
-            uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcct().equalsIgnoreCase("No")){
-            dsplNwPriCtrlDtl=false;
-         }else{
-            dsplNwPriCtrlDtl=true;
+            uobDataMaster.getIndividualOwnersDetails().getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcct().equalsIgnoreCase("No"))
+         {
+            dsplNwPriCtrlDtl = false;
          }
-      }catch(Exception e){
+         else
+         {
+            dsplNwPriCtrlDtl = true;
+         }
+      }
+      catch (Exception e)
+      {
       }
    }
 
@@ -857,7 +893,7 @@ public class UOBCustodyBean
    {
       try
       {
-         if(uobDataMaster.getIndividualOwnersDetails().getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Others"))
+         if (uobDataMaster.getIndividualOwnersDetails().getOwnerCitizenshipDetails().getNationality().equalsIgnoreCase("Others"))
          {
             dsplNricInp = false;
             dsplSingNricInp = false;
@@ -882,12 +918,14 @@ public class UOBCustodyBean
    {
       Boolean dataOK = true;
       pagemanager.clearErrorMessage(pagenum);
-      OwnerDetails OwnDtls=null;
+      OwnerDetails OwnDtls = null;
       if (!isJoint)
       {
-         OwnDtls=uobDataMaster.getIndividualOwnersDetails();
-      }else{
-         OwnDtls=uobDataMaster.getJointOwnersDetails();
+         OwnDtls = uobDataMaster.getIndividualOwnersDetails();
+      }
+      else
+      {
+         OwnDtls = uobDataMaster.getJointOwnersDetails();
       }
       if (isNewForm.equalsIgnoreCase("NO"))
       {
@@ -897,25 +935,25 @@ public class UOBCustodyBean
                dataOK = validateAcctHldr(OwnDtls, dtPriHldrDob);
                break;
             case 1:// New Account ADDRESS
-               dataOK=validateAddrDtls(OwnDtls);
+               dataOK = validateAddrDtls(OwnDtls);
                break;
             case 2:// New Account TAX RESIDENCE INFORMATION
-               dataOK=validateTaxMnPnl(OwnDtls);
+               dataOK = validateTaxMnPnl(OwnDtls);
                break;
             case 3:// New Account EMPLOYMENT
-               dataOK=validateEmpDtls(OwnDtls);
+               dataOK = validateEmpDtls(OwnDtls);
                break;
             case 4:// New Account SECURITY QUESTION
-               dataOK=validateSecDtls(OwnDtls);
+               dataOK = validateSecDtls(OwnDtls);
                break;
             case 5:// New Account FINANCIAL INFORMATION
-               dataOK=validateFinDtls(OwnDtls);
+               dataOK = validateFinDtls(OwnDtls);
                break;
             case 6:// New Account ACCOUNT RELATIONSHIP DETAILS
-               dataOK=validateRelDtls(OwnDtls);
+               dataOK = validateRelDtls(OwnDtls);
                break;
             case 7:// New Account TRADING HISTORY/OBJECTIVES
-               dataOK=validateObjDtls(OwnDtls);
+               dataOK = validateObjDtls(OwnDtls);
                break;
             default:
                break;
@@ -943,12 +981,14 @@ public class UOBCustodyBean
    {
       Boolean dataOK = true;
       pagemanager.clearErrorMessage(pagenum);
-      OwnerDetails ownDtls=null;
+      OwnerDetails ownDtls = null;
       if (!isJoint)
       {
-         ownDtls=uobDataMaster.getIndividualOwnersDetails();
-      }else{
-         ownDtls=uobDataMaster.getJointOwnersDetails();
+         ownDtls = uobDataMaster.getIndividualOwnersDetails();
+      }
+      else
+      {
+         ownDtls = uobDataMaster.getJointOwnersDetails();
       }
       if (isNewForm.equalsIgnoreCase("NO"))
       {
@@ -960,36 +1000,36 @@ public class UOBCustodyBean
                   SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                   uobDataMaster.getIndividualOwnersDetails().setDob(sdf.format(dtPriHldrDob));
                   uobDataMaster.getIndividualOwnersDetails().setOwnership("Individual");
-                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, "", ownDtls);
+                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, getWebutil().getUserInfoData().getLogonID().toString(), ownDtls);
                }
                else
                {
                   SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                   uobDataMaster.getJointOwnersDetails().setDob(sdf.format(dtPriHldrDob));
                   uobDataMaster.getJointOwnersDetails().setOwnership("Joint");
-                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 2, "", ownDtls);
+                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 2, getWebutil().getUserInfoData().getLogonID().toString(), ownDtls);
                }
                break;
             case 1:// New Account ADDRESS
-               saveAddrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, "", ownDtls);
+               saveAddrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, getWebutil().getUserInfoData().getLogonID().toString(), ownDtls);
                break;
             case 2:// New Account TAX RESIDENCE INFORMATION
                break;
             case 3:// New Account EMPLOYMENT
-               saveEmpDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, "", ownDtls);
+               saveEmpDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, getWebutil().getUserInfoData().getLogonID().toString(), ownDtls);
                break;
             case 4:// New Account SECURITY QUESTION
 //               saveSecDtls(ownDtls); Need changes for joint
-               saveSecDtls( uobDataMaster.getAccountDetails().getAcctnum(),  1, ownDtls);
+               saveSecDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, ownDtls);
                break;
             case 5:// New Account FINANCIAL INFORMATION
-               saveFinDtls( uobDataMaster.getAccountDetails().getAcctnum(),  1, ownDtls);
+               saveFinDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, ownDtls);
                break;
             case 6:// New Account ACCOUNT RELATIONSHIP DETAILS
-               saveRelDtls( uobDataMaster.getAccountDetails().getAcctnum(),  1, ownDtls);
+               saveRelDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, ownDtls);
                break;
             case 7:// New Account TRADING HISTORY/OBJECTIVES
-               saveObjDtls( uobDataMaster.getAccountDetails().getAcctnum(),  1, ownDtls);
+               saveObjDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, ownDtls);
                break;
             default:
                break;
@@ -1003,16 +1043,16 @@ public class UOBCustodyBean
                if (!isJoint)
                {
                   SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-                  uobDataMaster.getIndividualOwnersDetails().setDob(sdf.format(dtPriHldrDob));
+                  // uobDataMaster.getIndividualOwnersDetails().setDob(sdf.format(dtPriHldrDob));
                   uobDataMaster.getIndividualOwnersDetails().setOwnership("Individual");
-                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, "", ownDtls);
+                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, getWebutil().getUserInfoData().getLogonID().toString(), ownDtls);
                }
                else
                {
                   SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-                  uobDataMaster.getJointOwnersDetails().setDob(sdf.format(dtPriHldrDob));
+//                  uobDataMaster.getJointOwnersDetails().setDob(sdf.format(dtPriHldrDob));
                   uobDataMaster.getJointOwnersDetails().setOwnership("Joint");
-                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 2, "", ownDtls);
+                  saveAcctHldrDtls(uobDataMaster.getAccountDetails().getAcctnum(), 2, getWebutil().getUserInfoData().getLogonID().toString(), ownDtls);
                }
                break;
             case 1:// Existing Account TAX RESIDENCE INFORMATION
@@ -1028,7 +1068,6 @@ public class UOBCustodyBean
    public boolean saveAcctHldrDtls(Long acctNum, int acctOwnerId, String p_logonId, OwnerDetails ownerDetails)
    {
       custodyService.saveAccountHolderDtls(acctNum, acctOwnerId, p_logonId, ownerDetails);
-//      uobCustodyBean.uobDataMaster.individualOwnersDetails.ownerContactDetails
       saveAdditionalDtls(ownerDetails.getOwnerContactDetails(), acctNum, acctOwnerId, "ao_owners_contact_details");
       saveAdditionalDtls(ownerDetails.getOwnerCitizenshipDetails(), acctNum, acctOwnerId, "ao_owners_citizenship_details");
       saveAdditionalDtls(ownerDetails.getOwnerIdentificationDetails(), acctNum, acctOwnerId, "ao_owners_indentification_details");
@@ -1036,6 +1075,7 @@ public class UOBCustodyBean
 
       return true;
    }
+
    public boolean saveEmpDtls(Long acctNum, int acctOwnerId, String p_logonId, OwnerDetails ownerDetails)
    {
       if (hasRequiredData(priHldrEmpAddr))
@@ -1056,8 +1096,6 @@ public class UOBCustodyBean
 
    public boolean saveAddrDtls(Long acctNum, int acctOwnerId, String p_logonId, OwnerDetails ownerDetails)
    {
-//      priHldrPhyAddr=getCstmaPhyAddr(uobDataMaster.getIndividualOwnersDetails());
-//      priHldrMlAddr=getCstmaMalAddr(uobDataMaster.getIndividualOwnersDetails());
       if (hasRequiredData(priHldrPhyAddr))
       {
          AddressSplitter addressSplitter = new AddressSplitter();
@@ -1083,25 +1121,25 @@ public class UOBCustodyBean
       return true;
    }
 
-   public boolean saveSecDtls(Long acctNum, int acctOwnerId,OwnerDetails ownerDetails)
+   public boolean saveSecDtls(Long acctNum, int acctOwnerId, OwnerDetails ownerDetails)
    {
       saveAdditionalDtls(ownerDetails.getOwnerMiscDetails(), acctNum, acctOwnerId, "ao_owners_misc_details");
       return true;
    }
 
-   public boolean saveFinDtls(Long acctNum, int acctOwnerId,OwnerDetails ownerDetails)
+   public boolean saveFinDtls(Long acctNum, int acctOwnerId, OwnerDetails ownerDetails)
    {
       saveAdditionalDtls(ownerDetails.getOwnersFinancialDetails(), acctNum, acctOwnerId, "ao_owners_finacial_details");
       return true;
    }
 
-   public boolean saveRelDtls(Long acctNum, int acctOwnerId,OwnerDetails ownerDetails)
+   public boolean saveRelDtls(Long acctNum, int acctOwnerId, OwnerDetails ownerDetails)
    {
       saveAdditionalDtls(ownerDetails.getOwnerRegularityDetails(), acctNum, acctOwnerId, "ao_owners_regularity_details");
       return true;
    }
 
-   public boolean saveObjDtls(Long acctNum, int acctOwnerId,OwnerDetails ownerDetails)
+   public boolean saveObjDtls(Long acctNum, int acctOwnerId, OwnerDetails ownerDetails)
    {
       saveAdditionalDtls(ownerDetails.getOwnersFinancialDetails(), acctNum, acctOwnerId, "ao_owners_finacial_details");
       return true;
@@ -1112,6 +1150,7 @@ public class UOBCustodyBean
       try
       {
          Map<String, Object> obMap = getFieldNames(obj, false);
+         System.out.print("Query gen"+getAddtnlFldsInsrtQry(obj,false,table,acctNum,acctOwnerId));
          for (Map.Entry<String, Object> entry : obMap.entrySet())
          {
             String name = entry.getKey();
@@ -1144,11 +1183,11 @@ public class UOBCustodyBean
             Object value = entry.getValue();
             if (value == null)
             {
-               custodyService.saveAcctAdditionalDtls(acctNum,  name, null, table);
+               custodyService.saveAcctAdditionalDtls(acctNum, name, null, table);
             }
             else
             {
-               custodyService.saveAcctAdditionalDtls(acctNum,  name, value.toString(), table);
+               custodyService.saveAcctAdditionalDtls(acctNum, name, value.toString(), table);
             }
          }
 
@@ -1494,7 +1533,8 @@ public class UOBCustodyBean
       return dataOK;
    }
 
-   public boolean validateSecDtls(OwnerDetails ownerDetails){
+   public boolean validateSecDtls(OwnerDetails ownerDetails)
+   {
       Boolean dataOK = true;
       if (ownerDetails.getOwnerMiscDetails().getMotherMaidenName() == null || ownerDetails.getOwnerMiscDetails().getMotherMaidenName().trim().equalsIgnoreCase(""))
       {
@@ -1511,21 +1551,23 @@ public class UOBCustodyBean
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.sclNm", "Name of Primary School Attend is required!", null));
       }
-      return  dataOK;
+      return dataOK;
    }
 
-   public boolean validateTaxMnPnl(OwnerDetails ownerDetails){
+   public boolean validateTaxMnPnl(OwnerDetails ownerDetails)
+   {
       Boolean dataOK = true;
-      if (ownerDetails.getOwnerTaxationDetails()==null || ownerDetails.getOwnerTaxationDetails().size()==0)
+      if (ownerDetails.getOwnerTaxationDetails() == null || ownerDetails.getOwnerTaxationDetails().size() == 0)
       {
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.txtMnPnl", "Taxation detail is required!", null));
       }
 
-      return  dataOK;
+      return dataOK;
    }
 
-   public boolean validateEmpDtls(OwnerDetails ownerDetails){
+   public boolean validateEmpDtls(OwnerDetails ownerDetails)
+   {
       Boolean dataOK = true;
       if (!hasRequiredData(ownerDetails.getOwnerEmploymentDetails().getEmplTypeId()))
       {
@@ -1538,14 +1580,14 @@ public class UOBCustodyBean
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.eduQual", "Education qualification is required!", null));
       }
-      if (ownerDetails.getOwnerMiscDetails().getQualifications()!=null && ownerDetails.getOwnerMiscDetails().getQualifications().equalsIgnoreCase("Others")
+      if (ownerDetails.getOwnerMiscDetails().getQualifications() != null && ownerDetails.getOwnerMiscDetails().getQualifications().equalsIgnoreCase("Others")
          && !hasRequiredData(ownerDetails.getOwnerMiscDetails().getQualificationsSpecify()))
       {
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.eduQualOtr", "Other qualification detail is required!", null));
       }
 
-      if(hasRequiredData(ownerDetails.getOwnerEmploymentDetails().getEmplTypeId()) && !ownerDetails.getOwnerEmploymentDetails().getEmplTypeId().equalsIgnoreCase("UnEmployed"))
+      if (hasRequiredData(ownerDetails.getOwnerEmploymentDetails().getEmplTypeId()) && !ownerDetails.getOwnerEmploymentDetails().getEmplTypeId().equalsIgnoreCase("UnEmployed"))
       {
          if (!hasRequiredData(ownerDetails.getOwnerEmploymentDetails().getOccupation()))
          {
@@ -1557,7 +1599,8 @@ public class UOBCustodyBean
             dataOK = false;
             pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.empNm", "Name of Employer is required!", null));
          }
-         if(!hasRequiredData(priHldrEmpAddr)){
+         if (!hasRequiredData(priHldrEmpAddr))
+         {
             dataOK = false;
             pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.empAddr", "Employer Address is required!", null));
          }
@@ -1571,14 +1614,14 @@ public class UOBCustodyBean
             dataOK = false;
             pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.empCty", "City/State is required!", null));
          }
-         if (!hasRequiredData(ownerDetails.getOwnerEmploymentDetails().getEmployerZipCountry()) ||ownerDetails.getOwnerEmploymentDetails().getEmployerZipCountry().trim().equalsIgnoreCase(""))
+         if (!hasRequiredData(ownerDetails.getOwnerEmploymentDetails().getEmployerZipCountry()) || ownerDetails.getOwnerEmploymentDetails().getEmployerZipCountry().trim().equalsIgnoreCase(""))
          {
             dataOK = false;
             pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.empCtry", "Country is required!", null));
          }
       }
 
-      return  dataOK;
+      return dataOK;
    }
 
    public boolean validateAddrDtls(OwnerDetails ownerDetails)
@@ -1638,7 +1681,8 @@ public class UOBCustodyBean
       return dataOK;
    }
 
-   public boolean validateFinDtls(OwnerDetails ownerDetails){
+   public boolean validateFinDtls(OwnerDetails ownerDetails)
+   {
       Boolean dataOK = true;
       if (ownerDetails.getOwnersFinancialDetails().getAnnualIncome() == null ||
          ownerDetails.getOwnersFinancialDetails().getAnnualIncome().equalsIgnoreCase("select"))
@@ -1660,16 +1704,17 @@ public class UOBCustodyBean
       }
       if (ownerDetails.getOwnersFinancialDetails().getSourceOfFundsWealth() != null &&
          ownerDetails.getOwnersFinancialDetails().getSourceOfFundsWealth().equalsIgnoreCase("Others") &&
-         (ownerDetails.getOwnersFinancialDetails().getSourceOfFundsWealthSpecify()==null ||
+         (ownerDetails.getOwnersFinancialDetails().getSourceOfFundsWealthSpecify() == null ||
             ownerDetails.getOwnersFinancialDetails().getSourceOfFundsWealthSpecify().trim().equalsIgnoreCase("")))
       {
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.srcOtrs", "Please specify Source of Funds/Weath!", null));
       }
-      return  dataOK;
+      return dataOK;
    }
 
-   public boolean validateRelDtls(OwnerDetails ownerDetails){
+   public boolean validateRelDtls(OwnerDetails ownerDetails)
+   {
       Boolean dataOK = true;
       if (!hasRequiredData(ownerDetails.getOwnerRegularityDetails().getRelatedToAnyEmplfUOB()))
       {
@@ -1692,8 +1737,9 @@ public class UOBCustodyBean
             pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.relNum1",
                                                                                    "Account Number related to any employee / trading details is required!", null));
          }
-         if(hasRequiredData(ownerDetails.getOwnerRegularityDetails().getRelatedToAnyEmplName2()) &&
-            !hasRequiredData(ownerDetails.getOwnerRegularityDetails().getRelatedToAnyEmplRelation2())){
+         if (hasRequiredData(ownerDetails.getOwnerRegularityDetails().getRelatedToAnyEmplName2()) &&
+            !hasRequiredData(ownerDetails.getOwnerRegularityDetails().getRelatedToAnyEmplRelation2()))
+         {
             dataOK = false;
             pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.relNum1",
                                                                                    "Account Number related to any employee / trading details is required!", null));
@@ -1722,8 +1768,9 @@ public class UOBCustodyBean
             pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.inflNum1",
                                                                                    "Account Number related to trading account(s) in UOB Kay Hian in which you have control or influence is required!", null));
          }
-         if(hasRequiredData(ownerDetails.getOwnerRegularityDetails().getControlOverUOBAcctName2()) &&
-            !hasRequiredData(ownerDetails.getOwnerRegularityDetails().getControlOverUOBAcctNumber2())){
+         if (hasRequiredData(ownerDetails.getOwnerRegularityDetails().getControlOverUOBAcctName2()) &&
+            !hasRequiredData(ownerDetails.getOwnerRegularityDetails().getControlOverUOBAcctNumber2()))
+         {
             dataOK = false;
             pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.inflNum2",
                                                                                    "Account Number related to trading account(s) in UOB Kay Hian in which you have control or influence is required!", null));
@@ -1753,19 +1800,21 @@ public class UOBCustodyBean
             pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctrlNum1",
                                                                                    "Account Number related to account holder in UOB Kay Hian, who has control or influence over this trading account is required!", null));
          }
-         if(hasRequiredData(ownerDetails.getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcctName2()) &&
-            !hasRequiredData(ownerDetails.getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcctNumber2())){
+         if (hasRequiredData(ownerDetails.getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcctName2()) &&
+            !hasRequiredData(ownerDetails.getOwnerRegularityDetails().getUobAcctHolderControlOverTradeAcctNumber2()))
+         {
             dataOK = false;
             pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.ctrlNum2",
                                                                                    "Account Number related to account holder in UOB Kay Hian, who has control or influence over this trading account is required!", null));
          }
       }
 
-      return  dataOK;
+      return dataOK;
    }
 
 
-   public boolean validateObjDtls(OwnerDetails ownerDetails){
+   public boolean validateObjDtls(OwnerDetails ownerDetails)
+   {
       Boolean dataOK = true;
       if (!hasRequiredData(ownerDetails.getOwnersFinancialDetails().getPreviousInvestingExperience()))
       {
@@ -1773,7 +1822,7 @@ public class UOBCustodyBean
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.preExp",
                                                                                 "Previous experience in investing in financial product(s) is required!", null));
       }
-      if (ownerDetails.getOwnersFinancialDetails().getPreviousInvestingExperience()!=null  &&
+      if (ownerDetails.getOwnersFinancialDetails().getPreviousInvestingExperience() != null &&
          ownerDetails.getOwnersFinancialDetails().getPreviousInvestingExperience().equalsIgnoreCase("Yes") &&
          !hasRequiredData(ownerDetails.getOwnersFinancialDetails().getPreviousInvestingExperienceSpecify()))
       {
@@ -1781,13 +1830,13 @@ public class UOBCustodyBean
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.preExpSpf",
                                                                                 "Please specify previous experience in investing in financial product(s) is required!", null));
       }
-      if (!hasRequiredData(ownerDetails.getOwnersFinancialDetails().getInvestmentObjectives(),"Select"))
+      if (!hasRequiredData(ownerDetails.getOwnersFinancialDetails().getInvestmentObjectives(), "Select"))
       {
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.instObj",
                                                                                 "Investment objective is required!", null));
       }
-      if (ownerDetails.getOwnersFinancialDetails().getInvestmentObjectives()!=null &&
+      if (ownerDetails.getOwnersFinancialDetails().getInvestmentObjectives() != null &&
          ownerDetails.getOwnersFinancialDetails().getInvestmentObjectives().equalsIgnoreCase("Others") &&
          !hasRequiredData(ownerDetails.getOwnersFinancialDetails().getInvestmentObjectiveSpecify()))
       {
@@ -1807,7 +1856,7 @@ public class UOBCustodyBean
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.debt",
                                                                                 "Debt detail is required!", null));
       }
-      if ( ownerDetails.getOwnersFinancialDetails().getAreYouUnableToPayYouDebts()!=null &&
+      if (ownerDetails.getOwnersFinancialDetails().getAreYouUnableToPayYouDebts() != null &&
          ownerDetails.getOwnersFinancialDetails().getAreYouUnableToPayYouDebts().equalsIgnoreCase("Yes") &&
          !hasRequiredData(ownerDetails.getOwnersFinancialDetails().getAreYouUnableToPayYouDebtsDescribe()))
       {
@@ -1821,7 +1870,7 @@ public class UOBCustodyBean
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.disp",
                                                                                 "Disputed account detail is required!", null));
       }
-      if (ownerDetails.getOwnersFinancialDetails().getDoYouHaveAnyDisputedAccount()!=null  &&
+      if (ownerDetails.getOwnersFinancialDetails().getDoYouHaveAnyDisputedAccount() != null &&
          ownerDetails.getOwnersFinancialDetails().getDoYouHaveAnyDisputedAccount().equalsIgnoreCase("Yes") &&
          !hasRequiredData(ownerDetails.getOwnersFinancialDetails().getDoYouHaveAnyDisputedAccountDescribe()))
       {
@@ -1829,9 +1878,8 @@ public class UOBCustodyBean
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.uob.new.pri.acctHldr.dispDsc",
                                                                                 "Disputed account specification is required!", null));
       }
-      return  dataOK;
+      return dataOK;
    }
-
 
 
    public Boolean hasRequiredData(String value)
@@ -1845,7 +1893,18 @@ public class UOBCustodyBean
       return true;
    }
 
-   public Boolean hasRequiredData(String element,String defValue)
+   public Boolean hasData(String value)
+   {
+
+      if (value != null && !value.isEmpty())
+      {
+         return true;
+      }
+
+      return false;
+   }
+
+   public Boolean hasRequiredData(String element, String defValue)
    {
 
       if (element == null || element.isEmpty() || element.equalsIgnoreCase(defValue))
@@ -1898,18 +1957,52 @@ public class UOBCustodyBean
             {
                Object value = fields[i].get(obj);
                lst.put(name, value);
-//               lst.add(name);
             }
          }
          else
          {
             fields[i].setAccessible(true);
             Object value = fields[i].get(obj);
-//            lst.add(name);
             lst.put(name, value);
          }
       }
       return lst;
+   }
+
+   public static String getAddtnlFldsInsrtQry(final Object obj, boolean publicOnly,String table,long acctnum,int acctOwnerId)
+      throws IllegalArgumentException, IllegalAccessException
+   {
+      Class<? extends Object> c1 = obj.getClass();
+      Field[] fields = c1.getDeclaredFields();
+      StringBuilder sb=new StringBuilder();
+      sb.append("insert into ").append(table).append("(acctnum,acctOwnerId,name,value) values ");
+      for (int i = 0; i < fields.length; i++)
+      {
+         String name = fields[i].getName();
+         if (publicOnly)
+         {
+            if (Modifier.isPublic(fields[i].getModifiers()))
+            {
+               Object value = fields[i].get(obj);
+               if(value!=null){
+                  sb.append("("+acctnum).append(",").append(acctOwnerId).append(",'").append(name).append("','").append(value).append("'),");
+               }
+            }
+         }
+         else
+         {
+            fields[i].setAccessible(true);
+            Object value = fields[i].get(obj);
+            if(value!=null){
+               sb.append("("+acctnum).append(",").append(acctOwnerId).append(",'").append(name).append("','").append(value).append("'),");
+            }
+         }
+      }
+      String retString=sb.toString();
+      int ind1=retString.lastIndexOf(",");
+      retString=retString.substring(0,ind1);
+      retString=retString+";";
+      return retString;
    }
 
    public Boolean validateEmailPattern(String emailID)
@@ -1938,9 +2031,11 @@ public class UOBCustodyBean
       }
       return msg;
    }
-   public List<String> completeText(String query) {
-      List<String> MySortStrings =new ArrayList<String>();
-      if(query.length()>2)
+
+   public List<String> completeText(String query)
+   {
+      List<String> MySortStrings = new ArrayList<String>();
+      if (query.length() > 2)
       {
          for (int i = 0; i < countries.size(); i++)
          {
@@ -1952,9 +2047,11 @@ public class UOBCustodyBean
       }
       return MySortStrings;
    }
-   public List<String> completeRepText(String query) {
-      List<String> MySortStrings =new ArrayList<String>();
-      if(query.length()>2)
+
+   public List<String> completeRepText(String query)
+   {
+      List<String> MySortStrings = new ArrayList<String>();
+      if (query.length() > 2)
       {
          for (int i = 0; i < repList.size(); i++)
          {
@@ -1968,34 +2065,37 @@ public class UOBCustodyBean
    }
 
 
-   public void updTaxDtls(OwnerTaxationDetails ownerTaxationDetails){
+   public void updTaxDtls(OwnerTaxationDetails ownerTaxationDetails)
+   {
       try
       {
-         System.out.println("updTaxDtls "+ownerTaxationDetails);
-         owTaxDtls=ownerTaxationDetails;
+         System.out.println("updTaxDtls " + ownerTaxationDetails);
+         owTaxDtls = ownerTaxationDetails;
          dsplPriHldrTaxTab = true;
          dsplPriHldrTaxDtl = true;
          onChngTin();
          onChngRsn();
-         dispTaxAddBtn=false;
-         dispTaxUpdBtn=true;
-         disTaxBtn=true;
-      }catch (Exception e){
+         dispTaxAddBtn = false;
+         dispTaxUpdBtn = true;
+         disTaxBtn = true;
+      }
+      catch (Exception e)
+      {
 
       }
    }
 
-   public void delTaxDtls(OwnerTaxationDetails ownerTaxationDetails){
+   public void delTaxDtls(OwnerTaxationDetails ownerTaxationDetails)
+   {
       try
       {
-         System.out.println("delTaxDtls "+ownerTaxationDetails);
+         System.out.println("delTaxDtls " + ownerTaxationDetails);
 
-         custodyService.deleteSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(),1,"Taxation");
-         List<OwnerTaxationDetails>  lst=uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails();
-         if(lst!=null && lst.size()>0)
+         custodyService.deleteSetMiscDtls(uobDataMaster.getAccountDetails().getAcctnum(), 1, "Taxation");
+         List<OwnerTaxationDetails> lst = uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails();
+         if (lst != null && lst.size() > 0)
          {
-//            uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails().remove(ownerTaxationDetails.getId()-1);
-            lst.remove(ownerTaxationDetails.getId()-1);
+            lst.remove(ownerTaxationDetails.getId() - 1);
             for (int i = 0; i < lst.size(); i++)
             {
                OwnerTaxationDetails owTaxDtl = lst.get(i);
@@ -2025,26 +2125,25 @@ public class UOBCustodyBean
 //         dsplPriHldrTaxTab = true;
 //         dsplPriHldrTaxDtl = false;
          owTaxDtls = new OwnerTaxationDetails();
-         dsplPriHldrTaxTin=false;
+         dsplPriHldrTaxTin = false;
 
          if (uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() != null &&
             uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails().size() > 0)
          {
             dsplPriHldrTaxTab = true;
             dsplPriHldrTaxDtl = false;
-            disTaxBtn=false;
-         }else if (uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() == null ||
+            disTaxBtn = false;
+         }
+         else if (uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails() == null ||
             uobDataMaster.getIndividualOwnersDetails().getOwnerTaxationDetails().size() == 0)
          {
             dsplPriHldrTaxDtl = true;
             dsplPriHldrTaxTab = false;
          }
-      }catch (Exception e){
       }
-   }
-
-   public void selectedTaxDtls(OwnerTaxationDetails ownerTaxationDetails){
-      owTaxDtls=ownerTaxationDetails;
+      catch (Exception e)
+      {
+      }
    }
 
    public WebUtil getWebutil()

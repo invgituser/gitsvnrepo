@@ -140,10 +140,10 @@
                         <div class="Container100 Responsive100 holder_address acc_holder_form ">
                             <p:tabView id="idTaxTabVw">
                                 <p:tab title="Main Account Holder" id="idTaxTabMn">
-                                    <p:panel id="extPriHldrErr1" rendered="#{uobCustodyBean.getErrorMessage(1) != null}"
+                                    <p:panel id="nwPriHldrErr1" rendered="#{uobCustodyBean.getErrorMessage(1) != null}"
                                              style="border: 0px; background: transparent"
                                              styleClass="Container100">
-                                        <h:outputText id="extPriHldrMsg1" styleClass="errorText"
+                                        <h:outputText id="nwPriHldrMsg1" styleClass="errorText"
                                                       value="#{uobCustodyBean.getErrorMessage(1)}" escape="false"/>
                                     </p:panel>
                                     <div class="go-bottom tax_info">
@@ -156,11 +156,11 @@
                                                                  reflow="false">
                                                         <p:column headerText="delete edit" class="del_edit_col" width="10%">
                                                             <p:commandLink action="#{uobCustodyBean.updTaxDtls(taxDtls)}" process="@this"
-                                                                           update=":cstdyFrm:newAccordian:idTaxTabVw:nwPriHldTaxDtl,:cstdyFrm:newAccordian:idTaxTabVw:nwPriHldTaxTab" ajax="true"  disabled="#{uobCustodyBean.disTaxBtn}">
+                                                                           update=":cstdyFrm:extAccordian:idTaxTabVw:nwPriHldTaxDtl,:cstdyFrm:extAccordian:idTaxTabVw:nwPriHldTaxTab" ajax="true"  disabled="#{uobCustodyBean.disTaxBtn}">
                                                                 <span class="ui-button-icon-center ui-icon ui-c fa fa-edit del_tax"></span>
                                                             </p:commandLink>
                                                             <p:commandLink action="#{uobCustodyBean.delTaxDtls(taxDtls)}" process="@this"
-                                                                           update=":cstdyFrm:newAccordian:idTaxTabVw:nwPriHldTaxDtl,:cstdyFrm:newAccordian:idTaxTabVw:nwPriHldTaxTab" ajax="true" disabled="#{uobCustodyBean.disTaxBtn}">
+                                                                           update=":cstdyFrm:extAccordian:idTaxTabVw:nwPriHldTaxDtl,:cstdyFrm:extAccordian:idTaxTabVw:nwPriHldTaxTab" ajax="true" disabled="#{uobCustodyBean.disTaxBtn}">
                                                                 <span class="ui-button-icon-center ui-icon ui-c fa fa-trash del_tax"></span>
                                                             </p:commandLink>
                                                         </p:column>
@@ -217,7 +217,7 @@
                                                         <div class="Container100 select_item">
                                                             <div class="Container40 Responsive100 label_opacity radio_label">
                                                                 <div class="Container60 ">
-                                                                    <span class="title_line">Have Tax Identification Number ?</span>
+                                                                    <span class="title_line">Have Tax Identification Number?</span>
                                                                 </div>
                                                                 <div class="Container20">
                                                                     <p:selectOneRadio id="priHldrTaxPnlTinRad"
@@ -272,30 +272,30 @@
                                                             </ui:fragment>
                                                         </p:panel>
                                                         <div class="Container50 float-right">
-                                                        <p:commandButton id="taxCnclBtn"
-                                                                         value="Cancel"
-                                                                         styleClass="uob_button save_btn"
-                                                                         update="nwPriHldTaxTab,nwPriHldTaxDtl"
-                                                                         actionListener="#{uobCustodyBean.hideTaxDtlPnl}">
-                                                        </p:commandButton>
+                                                            <p:commandButton id="taxCnclBtn"
+                                                                             value="Cancel"
+                                                                             styleClass="uob_button save_btn"
+                                                                             update="nwPriHldTaxTab,nwPriHldTaxDtl"
+                                                                             actionListener="#{uobCustodyBean.hideTaxDtlPnl}">
+                                                            </p:commandButton>
                                                         </div>
                                                         <div class="Container50">
-                                                        <p:commandButton id="taxUpdBtn"
-                                                                         value="Update"
-                                                                         styleClass="uob_button save_btn"
-                                                                         update="nwPriHldTaxTab,nwPriHldTaxDtl"
-                                                                         rendered="#{uobCustodyBean.dispTaxUpdBtn}"
-                                                                         actionListener="#{uobCustodyBean.updateTaxPnl}">
-                                                        </p:commandButton>
+                                                            <p:commandButton id="taxUpdBtn"
+                                                                             value="Update"
+                                                                             styleClass="uob_button save_btn"
+                                                                             update="nwPriHldTaxTab,nwPriHldTaxDtl"
+                                                                             rendered="#{uobCustodyBean.dispTaxUpdBtn}"
+                                                                             actionListener="#{uobCustodyBean.updateTaxPnl}">
+                                                            </p:commandButton>
                                                         </div>
                                                         <div class="Container50">
-                                                        <p:commandButton id="taxAddBtn"
-                                                                         value="Add"
-                                                                         styleClass="uob_button save_btn"
-                                                                         update="nwPriHldTaxTab,nwPriHldTaxDtl"
-                                                                         rendered="#{uobCustodyBean.dispTaxAddBtn}"
-                                                                         actionListener="#{uobCustodyBean.saveTaxPnl}">
-                                                        </p:commandButton>
+                                                            <p:commandButton id="taxAddBtn"
+                                                                             value="Add"
+                                                                             styleClass="uob_button save_btn"
+                                                                             update="nwPriHldTaxTab,nwPriHldTaxDtl"
+                                                                             rendered="#{uobCustodyBean.dispTaxAddBtn}"
+                                                                             actionListener="#{uobCustodyBean.saveTaxPnl}">
+                                                            </p:commandButton>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -433,11 +433,10 @@
                             </div>
                             <div class="Container50 next_btn">
 
-                                <p:commandLink id="newNxt3"
-                                               actionListener="#{uobCustodyBean.nextPage}"
-                                               update=":cstdyFrm:newAccordian">
-                                    <span class="ui-button-icon-center ui-icon ui-c fa fa-chevron-right"></span>
-                                </p:commandLink>
+                                <p:commandButton id="extSave" value="Save"
+                                                 update=":cstdyFrm:extAccordian"
+                                                 actionListener="#{uobCustodyBean.nextPage}">
+                                </p:commandButton>
                             </div>
 
                         </div>
