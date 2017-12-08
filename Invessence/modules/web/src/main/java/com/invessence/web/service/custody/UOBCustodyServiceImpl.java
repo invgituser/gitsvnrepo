@@ -205,4 +205,40 @@ public class UOBCustodyServiceImpl  implements CustodyService
       }
       return objMap;
    }
+
+   @Override
+   public List<CustodyFileDetails> fetchFileUpdList(String Product, Long acctNum)
+   {
+      List<CustodyFileDetails> objCstdFileLst=null;
+      try
+      {
+         objCstdFileLst=new ArrayList<CustodyFileDetails>();
+         SQLData convert = new SQLData();
+         jdbcTemplate = new JdbcTemplate(dataSource);
+         CustodySP sp = new CustodySP(jdbcTemplate, "sel_custody_file_master_list", 10);
+         Map outMap = sp.fetchFileUpdList( Product,  acctNum);
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            int i = 0;
+            for (Map<String, Object> map : rows)
+            {
+               CustodyFileDetails objCustodyFileDetails=new CustodyFileDetails();
+               Map rs = (Map) rows.get(i);
+               objCustodyFileDetails.setSeqno(convert.getIntData(rs.get("seqno")));
+               objCustodyFileDetails.setFileName(convert.getStrData(rs.get("fileName")));
+               objCustodyFileDetails.setFileType(convert.getStrData(rs.get("fileType")));
+               objCustodyFileDetails.setFileExtensions(convert.getStrData(rs.get("fileExtensions")));
+               objCstdFileLst.add(objCustodyFileDetails);
+               i++;
+            }
+         }
+      }
+      catch (Exception ex)
+      {
+         System.out.println("UOBCustodyServiceImpl.fetchSalesRepList Exception " + ex);
+         ex.printStackTrace();
+      }
+      return objCstdFileLst;
+   }
 }

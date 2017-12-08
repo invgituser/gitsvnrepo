@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+   <div class="layout-portlets-box">
+      <div class="Container100 Responsive100 acc_holder_form">
+         <div class="ContainerIndent">
+
+            <p:repeat value="#{uobCustodyBean.updFileMstrLst}" var="updLst">
+               <h:outputText value="#{updLst.seqno}" />
+               <h:outputText value="#{updLst.fileName}" />
+               <h:outputText value="#{updLst.fileType}" />
+               <h:outputText value="#{updLst.fileExtensions}" />
+            </p:repeat>
+
+
+            <div class="Container20 Responsive100 submit_acc_dtl">
+
+               <p:commandButton id="uobUpdBkBtn"
+                                value="Back"
+                                styleClass="uob_button" disabled="#{uobCustodyBean.dsblSubmtBtn}"
+                                actionListener="#{uobCustodyBean.introNextPage}">
+               </p:commandButton>
+                  <p:commandButton id="uobIpdSubBtn"
+                                   value="Submit"
+                                   styleClass="uob_button" disabled="#{uobCustodyBean.dsblSubmtBtn}"
+                                   actionListener="#{uobCustodyBean.introNextPage}">
+                  </p:commandButton>
+            </div>
+         </div>
+      </div>
+   </div>
+</ui:composition>

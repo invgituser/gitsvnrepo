@@ -112,6 +112,10 @@ public class CustodySP extends StoredProcedure
          case 9:
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
             break;
+         case 10:
+            declareParameter(new SqlParameter("p_product", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_acctnum", Types.NUMERIC));
+            break;
          default:  // All other (no arg)
             break;
       }
@@ -252,6 +256,14 @@ public class CustodySP extends StoredProcedure
       inputMap.put("p_advisor", advisor);
       return execute(inputMap);
    }
+   public Map fetchFileUpdList(String Product, Long acctNum)
+   {
+      Map inputMap = new LinkedHashMap();
+      inputMap.put("p_product", Product);
+      inputMap.put("p_acctnum", acctNum);
+      return execute(inputMap);
+   }
+
 
    public Map nonParamProcCall() {
 

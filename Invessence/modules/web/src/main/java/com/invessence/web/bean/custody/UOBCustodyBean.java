@@ -54,6 +54,8 @@ public class UOBCustodyBean
    Map<String, Country> countryDetails = (Map<String, Country>) ServiceDetails.genericDetails.get(Constant.GENERIC_DETAILS.COUNTRY.toString());
    private List<String> countries, repList;
    private Map<String, String> repMap = new HashMap<String, String>();
+   private boolean dspDocUpdPnl=false;
+   private List<CustodyFileDetails> updFileMstrLst=new ArrayList<CustodyFileDetails>();
 
    public void cleanUpAll()
    {
@@ -107,6 +109,7 @@ public class UOBCustodyBean
       disTaxBtn = false;
       dispTaxAddBtn = false;
       dispTaxUpdBtn = false;
+      dspDocUpdPnl=false;
    }
 
    public void initCustody()
@@ -491,14 +494,13 @@ public class UOBCustodyBean
          saveActAdditionalDtls(uobDataMaster.getAccountDetails().getAccountMiscDetails(), uobDataMaster.getAccountDetails().getAcctnum(), "ao_acct_misc_details");
          dspIntroAcctPnl = false;
          getPagemanager().setPage(0);
-         boolean bflag=true;
          if(getAcctCat().equalsIgnoreCase("yes") &&
             uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct()!=null &&
             uobDataMaster.getAccountDetails().getAccountMiscDetails().getIsExistingIndividualAcct().equalsIgnoreCase("No")){
-            bflag=false;
+            setAcctCat("No");
          }
 
-         if (getAcctCat().equalsIgnoreCase("yes") && bflag)
+         if (getAcctCat().equalsIgnoreCase("yes"))
          {
             dspExtAcctPnl = true;
             dspNewAcctPnl = false;
@@ -508,7 +510,7 @@ public class UOBCustodyBean
             getPagemanager().setLastPageVisited(currentPage);
             getPagemanager().clearAllErrorMessage();
          }
-         else if (getAcctCat().equalsIgnoreCase("no") || !bflag)
+         else if (getAcctCat().equalsIgnoreCase("no"))
          {
             setPagemanager(new PagesImpl(8));
             Integer currentPage = getPagemanager().getPage();
@@ -714,17 +716,19 @@ public class UOBCustodyBean
       {
          saveDetails(getPagemanager().getPage(), getAcctCat(), false);
          getPagemanager().clearAllErrorMessage();
-         if (getPagemanager().isLastPage())
+         if (getPagemanager().getPage()+1==getPagemanager().getMaxNoofPages())
          {
             dsblSubmtBtn = false;
+            activeTab = getPagemanager().getPage()+1;
          }
          else
          {
             getPagemanager().nextPage();
             dsblSubmtBtn = true;
+            activeTab = getPagemanager().getPage();
+//            resetActiveTab(getPagemanager().getPage());
          }
          System.out.println("page next" + getPagemanager().getPage());
-         activeTab = getPagemanager().getPage();
       }
    }
 
@@ -2146,6 +2150,15 @@ public class UOBCustodyBean
       }
    }
 
+   public void submitDataForm(){
+      dspDocUpdPnl=true;
+      dspNewAcctPnl=false;
+      dspExtAcctPnl=false;
+      dspIntroAcctPnl=false;
+      updFileMstrLst=custodyService.fetchFileUpdList(getWebutil().getWebprofile().getWebInfo().get("SERVICE.PRODUCT").toString(),beanAcctNum);
+
+
+   }
    public WebUtil getWebutil()
    {
       return webutil;
@@ -2714,5 +2727,25 @@ public class UOBCustodyBean
    public void setRepMap(Map<String, String> repMap)
    {
       this.repMap = repMap;
+   }
+
+   public boolean isDspDocUpdPnl()
+   {
+      return dspDocUpdPnl;
+   }
+
+   public void setDspDocUpdPnl(boolean dspDocUpdPnl)
+   {
+      this.dspDocUpdPnl = dspDocUpdPnl;
+   }
+
+   public List<CustodyFileDetails> getUpdFileMstrLst()
+   {
+      return updFileMstrLst;
+   }
+
+   public void setUpdFileMstrLst(List<CustodyFileDetails> updFileMstrLst)
+   {
+      this.updFileMstrLst = updFileMstrLst;
    }
 }

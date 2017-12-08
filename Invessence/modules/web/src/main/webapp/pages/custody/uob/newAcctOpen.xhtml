@@ -1795,7 +1795,7 @@
                             </div>
                             <div class="Container50 next_btn save_form_btn">
                                 <p:commandButton id="newSave" value="Save"
-                                                 update=":cstdyFrm:newAccordian"
+                                                 update=":cstdyFrm:newAccordian,cstdyFrm:uobSubmitBtn"
                                                  actionListener="#{uobCustodyBean.nextPage}">
                                 </p:commandButton>
                             </div>
@@ -1804,14 +1804,12 @@
                 </p:accordionPanel>
 
                 <div class="Container20 Responsive100 submit_acc_dtl">
-                    <h:form>
                         <p:commandButton id="uobSubmitBtn" disabled="#{uobCustodyBean.dsblSubmtBtn}"
                                          value="Next"
                                          styleClass="uob_button"
-                                         actionListener="#{uobpb.investnow}">
+                                         update="@form"
+                                         actionListener="#{uobCustodyBean.submitDataForm}">
                         </p:commandButton>
-
-                    </h:form>
                 </div>
             </div>
         </div>

@@ -132,6 +132,11 @@
                         <ui:include src="/pages/custody/uob/newAcctOpen.xhtml"/>
                     </div>
                 </ui:fragment>
+                <ui:fragment rendered="#{uobCustodyBean.dspDocUpdPnl}">
+                    <div class="Container100 ">
+                        <ui:include src="/pages/custody/uob/custodyUpload.xhtml"/>
+                    </div>
+                </ui:fragment>
             </h:form>
         </div>
 
