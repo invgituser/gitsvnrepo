@@ -9,12 +9,25 @@
    <div class="layout-portlets-box">
       <div class="Container100 Responsive100 acc_holder_form">
          <div class="ContainerIndent">
-
+            <div class="Container100 uplaod_note">Upload 5mb file</div>
             <p:repeat value="#{uobCustodyBean.updFileMstrLst}" var="updLst">
-               <h:outputText value="#{updLst.seqno}" />
-               <h:outputText value="#{updLst.fileName}" />
-               <h:outputText value="#{updLst.fileType}" />
-               <h:outputText value="#{updLst.fileExtensions}" />
+               <div class="Container100 file_dtls">
+                  <div class="Container50 file_nm">
+                     <h:outputText value="#{updLst.seqno}" />
+                     <h:outputText value="#{updLst.fileName}" />
+                     <h:outputText value="#{updLst.fileType}" />
+                     <h:outputText value="#{updLst.fileExtensions}" />
+                  </div>
+                  <div class="Container10 upload_file">
+                     <p:fileUpload  mode="simple" skinSimple="true"/>
+                  </div>
+                  <div class="Container20 check_file">
+                     <span class="ui-button-icon-center ui-icon ui-c fa fa-check" ></span>
+                  </div>
+
+               </div>
+
+
             </p:repeat>
 
 

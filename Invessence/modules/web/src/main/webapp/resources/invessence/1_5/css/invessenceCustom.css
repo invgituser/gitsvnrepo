@@ -5374,8 +5374,28 @@ span.output_review {
 .confirmation_donut_dtl .ui-datatable table tbody tr td {
     border: none !important;
 }
-
-
+/*** 8/12/2017 **/
+.Container100.uplaod_note {
+    width: 100%;
+    float: left;
+    background: #fcf8e3;
+    padding: 10px;
+    margin: 0px 0 2%;
+    text-align: center;
+    color: #8a6d3b;
+}
+.upload_file .ui-button-text {
+    background-color: #a4332f;
+}
+.file_dtls {
+    margin: 5px 0;
+}
+.check_file .fa-check:before {
+    content: "\f00c";
+    font-size: 25px;
+    color: green;
+    text-align: left;
+}
 /*** responsive**/
 
 /** 16/10/2017***/
