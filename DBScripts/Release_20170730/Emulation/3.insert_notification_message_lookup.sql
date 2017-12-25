@@ -1,9 +1,0 @@
-# insert for UOB in notification_message_lookup
-delete from invdb.notification_message_lookup where advisor='UOB';
-
-INSERT INTO invdb.notification_message_lookup (advisor, messageType, includeAdvisor, advisorsubject, includeAdvisorEmail, emailAdvisorSubject, emailAdvisorRecepient, includeUser, created) VALUES ('UOB', 'ACTIVE', 'Y', 'Account Activated and Funded', 'Y', 'Account Activated and Funded', 'operations@uobkh.com', 'N', now());
-INSERT INTO invdb.notification_message_lookup (advisor, messageType, includeAdvisor, advisorsubject, includeAdvisorEmail, emailAdvisorSubject, emailAdvisorRecepient, includeUser, created) VALUES ('UOB', 'CHNGADDRS', 'Y', 'Change Address', 'Y', 'Change Address', 'operations@uobkh.com', 'N', now());
-INSERT INTO invdb.notification_message_lookup (advisor, messageType, includeAdvisor, advisorsubject, includeAdvisorEmail, emailAdvisorSubject, emailAdvisorRecepient, includeUser, created) VALUES ('UOB', 'FUNDED', 'Y', 'Funded Account', 'Y', 'Funded Account', 'operations@uobkh.com', 'N', now());
-INSERT INTO invdb.notification_message_lookup (advisor, messageType, includeAdvisor, advisorsubject, includeAdvisorEmail, emailAdvisorSubject, emailAdvisorRecepient, includeUser, created) VALUES ('UOB', 'OPENED', 'Y', 'Application is Opened', 'Y', 'Application is Opened', 'operations@uobkh.com', 'N', now());
-INSERT INTO invdb.notification_message_lookup (advisor, messageType, includeAdvisor, advisorsubject, includeAdvisorEmail, emailAdvisorSubject, emailAdvisorRecepient, includeUser, created) VALUES ('UOB', 'PROCESSED', 'Y', 'Application Submitted', 'Y', 'Application Submitted', 'operations@uobkh.com', 'N', now());
-INSERT INTO invdb.notification_message_lookup (advisor, messageType, includeAdvisor, advisorsubject, includeAdvisorEmail, emailAdvisorSubject, emailAdvisorRecepient, includeUser, created) VALUES ('UOB', 'REBALANCE', 'Y', 'Changed Strategy', 'Y', 'Changed Strategy', 'operations@uobkh.com', 'N', now());

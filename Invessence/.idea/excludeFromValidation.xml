@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ExcludeFromValidation">
-    <file url="file://$PROJECT_DIR$/modules/broker-webservices/src/main/java/com/invessence/ws/provider/td/docusign/test/TestCompositeTemplate2.java" />
-  </component>
-</project>
-

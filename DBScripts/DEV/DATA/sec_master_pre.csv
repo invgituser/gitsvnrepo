@@ -1,2 +1,0 @@
-instrumentid,status,ticker,cusip,isin,name,assetclass,subclass,type,style,expenseRatio,lowerBoundReturn,upperBoundReturn,taxableReturn,nontaxableReturn,inception,issuer,adv3months,aum,beta,securityRiskSTD,lowerbound,upperbound,yield,rbsaFlag
-83,A,IDA12,NULL,NULL,"FDIC INSURED DEPOSIT ACCOUNT IDA12 NOT COVERED BY SIPC",Money,Money,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,N
